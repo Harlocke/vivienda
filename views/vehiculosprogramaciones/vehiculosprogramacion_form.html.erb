@@ -1,0 +1,83 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/transportemin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">PROGRAMACION DE VEHICULOS</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+                { :border=>0, :title => "Buscar"}),{:controller=>"vehiculos", :action=>"index", :id=>1, :fecha1=>@vehiculosprogramacion.id.to_s} %>
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<% form_for(@vehiculosprogramacion) do |f| %>
+<div align="center">
+    <table width="80%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="30%" height="20" class="campos">Fecha de Solicitud</td>
+        <td width="70%" class="camposDesc"><%=@vehiculosprogramacion.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Vehiculo</td>
+        <td class="camposDesc"><% if permiso("vehiculosprogramacion","C").to_s == "S"%>
+                                    <%=@vehiculosprogramacion.vehiculo.placa rescue nil %>
+                               <% else %>
+                                 En asignación.....
+                               <% end %></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Hora Inicial</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.vehiculoshorario.descripcion rescue nil %></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Hora Final</td>
+        <td class="camposDesc"><%=select("vehiculosprogramacion", "horafinal", Vehiculoshorario.find(:all,:conditions=>["id > #{@vehiculosprogramacion.vehiculoshorario_id}"],:order=>'id').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <strong><%= error_message_on :vehiculosprogramacion, :horafinal, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Usuario responsable servicio</td>
+        <td class="camposDesc"><%=select("vehiculosprogramacion", "user_id", User.find(:all,:conditions=>["activo='S'"],:order=>'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <strong><%= error_message_on :vehiculosprogramacion, :user_id, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr >
+        <td height="20" class="campos">Numero de personas</td>
+        <td class="camposDesc"><%= f.text_field :nro_pasajeros ,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <strong><%= error_message_on :vehiculosprogramacion, :nro_pasajeros, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Destino</td>
+        <td><%= f.text_area(:destino, :cols => 100, :rows => 6, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <strong><%= error_message_on :vehiculosprogramacion, :destino, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <% unless @vehiculosprogramacion.new_record? %>
+      <tr class="odd1">
+        <td height="20" class="campos">Actualización de la solicitud</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.updated_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(@vehiculosprogramacion.user_actualiza).username rescue nil%></td>
+      </tr>
+      <% end %>
+    </table>
+    <table width="80%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div></td>
+      </tr>
+    </table>
+</div>
+<% end %>
+<%= render '/vehiculossolicitudes/solicitud' %>

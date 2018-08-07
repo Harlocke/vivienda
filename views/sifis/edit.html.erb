@@ -1,0 +1,20 @@
+<h1>Editing sifi</h1>
+
+<% form_for(@sifi) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @sifi %> |
+<%= link_to 'Back', sifis_path %>

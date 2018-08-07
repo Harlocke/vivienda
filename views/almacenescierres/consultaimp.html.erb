@@ -1,0 +1,97 @@
+<%=  javascript_include_tag :defaults %>
+<%=image_tag("frame.png")%>
+<br/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" class="campos"><div align="center">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED -- NIT: 900.080.526-9 -- INVENTARIO <%=@descmes%>/<%=@anno%></div></td>
+        </tr>
+        <% if @estado == "P" %>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME PRELIMINAR PAPELERIA</div></td>
+        </tr>
+        <% else %>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME CONSOLIDADO PAPELERIA</div></td>
+        </tr>
+        <% end %>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" height="18" class="oce-first"><div align="center">Codigo</div></td>
+        <td width="45%" class="oce-first"><div align="center">Descripcion</div></td>
+        <td width="10%" class="oce-first"><div align="center">Inicial</div></td>
+        <td width="10%" class="oce-first"><div align="center">Entradas</div></td>
+        <td width="10%" class="oce-first"><div align="center">Salidas</div></td>
+        <td width="10%" class="oce-first"><div align="center">Total</div></td>
+      </tr>
+<% @almacenescierres.each do |almacenescierre|
+   if almacenescierre.producto.tipo.to_s == "1"%>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" height="20" ><%=almacenescierre.producto.codigo rescue nil%></td>
+        <td class="camposDesc"><%=almacenescierre.producto.descripcion rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.inicial%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.entradas%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.salidas%></div></td>
+        <td class="camposDesc"><div align="center"><%=(almacenescierre.entradas.to_i-almacenescierre.salidas.to_i) rescue nil%></div></td>
+      </tr>
+  <% end %>
+<% end %>
+    </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <% if @estado == "P" %>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME PRELIMINAR ASEO</div></td>
+        </tr>
+        <% else %>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME CONSOLIDADO ASEO</div></td>
+        </tr>
+        <% end %>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="15%" height="18" class="oce-first"><div align="center">Codigo</div></td>
+        <td width="45%" class="oce-first"><div align="center">Descripcion</div></td>
+        <td width="10%" class="oce-first"><div align="center">Inicial</div></td>
+        <td width="10%" class="oce-first"><div align="center">Entradas</div></td>
+        <td width="10%" class="oce-first"><div align="center">Salidas</div></td>
+        <td width="10%" class="oce-first"><div align="center">Total</div></td>
+      </tr>
+<% @almacenescierres.each do |almacenescierre|
+   if almacenescierre.producto.tipo.to_s == "2"%>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" height="20" ><%=almacenescierre.producto.codigo rescue nil%></td>
+        <td class="camposDesc"><%=almacenescierre.producto.descripcion rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.inicial%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.entradas%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenescierre.salidas%></div></td>
+        <td class="camposDesc"><div align="center"><%=(almacenescierre.entradas.to_i-almacenescierre.salidas.to_i) rescue nil%></div></td>
+      </tr>
+  <% end %>
+<% end %>
+    </table>
+    </td>
+  </tr>
+</table>
+<BR/>
+<table width="90%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>

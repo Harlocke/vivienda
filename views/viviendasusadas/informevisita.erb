@@ -1,0 +1,28 @@
+<h3>INFORMACION VISITAS TECNICAS PENDIENTES</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Vendedor</strong></td>
+    <td><strong>Telefono</strong></td>    
+    <td><strong>-------</strong></td>    
+    <td><strong>Beneficiario</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Barrio</strong></td>
+    <td><strong>Telefono</strong></td>    
+  </tr>
+<% @viviendasusadas.each do |v| 
+    v.viviendasusadaspersonas.each do |a|
+    %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=v.nombre_vendedor rescue nil%></div></td>
+     <td><div align="left"><%=v.telefono_vendedor rescue nil%></div></td>
+     <td><div align="left">-------</div></td>
+     <td><div align="left"><%=a.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=a.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=v.direccion_vivreposicion rescue nil%></div></td>
+     <td><div align="left"><%=Comuna.find(v.comunadestino_id).descripcion2 rescue nil%></div></td>
+     <td><div align="left"><%=a.persona.telefonos rescue nil%></div></td>
+ </tr>
+ <% end %>
+<% end %>
+</table>

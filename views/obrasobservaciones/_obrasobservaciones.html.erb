@@ -1,0 +1,78 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@obraspublica, @obrasobservacion] do |form| %>
+  <% if permiso("obrasobservacion","C").to_s == "S" %>
+        <% if !@obrasobservacion.id %>
+	<%= render :partial => "/obrasobservaciones/obrasobservaciones_form" %>
+    <% end %>
+ <% end %>
+<% if @obraspublica.obrasobservaciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="5%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for obrasobservacion in @obraspublica.obrasobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if obrasobservacion.id != @obrasobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="obrasobservacion_<%=obrasobservacion.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=obrasobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=obrasobservacion.user.nombre rescue nil%>"><%=obrasobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="15%" class="camposDesc" align="left"><%=obrasobservacion.dtipoatencion%></td>
+          <td width="65%" class="camposDesc" align="left"><%=obrasobservacion.observacion%></td>
+          <td width="5%" class="camposDesc" align="left"><%= link_to "Acta", {:controller => "obrasobservaciones", :action => "atencion", :id=>obrasobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+        </tr>
+      </table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR OBSERVACIONES</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="obrasobservacion_<%=@obrasobservacion.id%>">
+     <%= render :partial => "obrasobservaciones_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :obraspublica, :id %>
+<% end %>
+<br/>
+<% if flash[:obrasobservacion] %>
+<div id="obrasobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:obrasobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('obrasobservacion');", 5000)
+</script>
+<% end %>
+</div>

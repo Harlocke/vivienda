@@ -1,0 +1,69 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@empleado, @contratosvinculado] do |form| %>
+  <% if permiso("contratosvinculado","C").to_s == "S" %>
+   <% if !@contratosvinculado.id %>
+	<%= render :partial => "/contratosvinculados/contratosvinculados_form" %>
+   <% end %>
+  <% end %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Nro Acto</td>
+    <td width="10%" class="oce-first">Fecha Inicio</td>
+    <td width="10%" class="oce-first">Fecha Final</td>
+    <td width="15%" class="oce-first">Salario Mensual</td>
+    <td width="30%" class="oce-first">Tipo de Vinculacion</td>
+    <td width="15%" class="oce-first">Nivel</td>
+    <td width="5%" height="30" class="oce-first"></td>
+  </tr>
+<% @empleado.contratosvinculados.each do |contratosvinculado| %>
+   <% if contratosvinculado.id != @contratosvinculado.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="contratosvinculado_<%= contratosvinculado.id%>">
+     <td height="30" class="camposDesc"><%=contratosvinculado.nro_acto%></td>
+     <td class="camposDesc"><%=contratosvinculado.fecha_inicio%></td>
+     <td class="camposDesc"><%=contratosvinculado.fecha_final%></td>
+     <td class="camposDesc">$ <%=number_to_currency(contratosvinculado.salario,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+     <td class="camposDesc"><%=contratosvinculado.tipo_vinculacion%></td>
+     <td class="camposDesc"><%=contratosvinculado.nivel%></td>
+     <td class="camposDesc">
+        <% if permiso("contratosvinculado","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_empleado_contratosvinculado_path(@empleado, contratosvinculado),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("contratosvinculado","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => empleado_contratosvinculado_path(@empleado, contratosvinculado),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+      </td>
+      </tr>
+    <% else %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><br/><h3>Editar</h3></td></tr></table>
+         <%= render :partial => "contratosvinculados_form" %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+<% end %>
+</table>
+    <%= hidden_field :empleado, :id %>
+<% end %>
+<br/>
+<% if flash[:contratosvinculado] %>
+<div id="contratosvinculado">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:contratosvinculado] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('contratosvinculado');", 5000)
+</script>
+<% end %>
+</div>

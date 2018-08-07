@@ -1,0 +1,147 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CONTRATISTA ( <%=@contrato.empleado.identificacion%> - <%=@contrato.empleado.nombres%>)</div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  edit_empleado_path(@contrato.empleado_id) %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Nro Contrato</td>
+    <td width="10%" height="30" class="oce-first">Fecha Inicio</td>
+    <td width="10%" height="30" class="oce-first">Fecha Final</td>
+    <td width="70%" height="30" class="oce-first">Objeto</td>
+  </tr>
+   <tr>
+     <td height="30" class="camposDesc"><%=@contrato.nro_contrato%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_inicio%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_final%></td>
+     <td height="30" class="camposDesc"><%=@contrato.objeto%></td>
+ </tr>
+</table>
+   <br>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="90%"><div class="col_enc">&nbsp;&nbsp;PAGOS</div></td>
+              <td width="10%"><div align="right">
+                 <% if permiso("contratospago","C").to_s == "S" %>
+                    <div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Nuevo', {:controller => "contratospagos", :action => "new", :tipo=> "P"}%></span></div>
+                 <% else
+                      if @contrato.interventorempleado_id
+                        usercontrato = Empleado.find(@contrato.interventorempleado_id).user_id rescue nil
+                        if usercontrato == is_admin
+                 %>
+                          <div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Nuevo', {:controller => "contratospagos", :action => "new", :tipo=> "P"}%></span></div>
+
+                 <%     end
+                      end
+                    end %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellspacing="1" cellpadding="1">
+  <tr>
+    <td class="oce-first" width="5%">Nro Cuenta</td>
+    <td class="oce-first" width="10%">Fecha Cuenta</td>
+    <td class="oce-first" width="10%">Fecha Aprobacion</td>
+    <td class="oce-first" width="10%">Valor Total</td>
+    <td class="oce-first" width="10%">Valor Amort.</td>
+    <td class="oce-first" width="10%">Valor Pagar</td>
+    <td class="oce-first" width="30%">Rubro</td>
+    <td class="oce-first" width="15%">&nbsp;</td>
+  </tr>
+</table>
+<% @contratospagos.each do |contratospago|
+  if contratospago.tipo_pago == 'P'
+%>
+<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" >
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td width="5%" class="camposDesc"><%=h contratospago.nro_cuenta %></td>
+    <td width="10%" class="camposDesc"><%=h contratospago.fecha_cuenta %></td>
+    <td width="10%" class="camposDesc"><%=h contratospago.fecha_aprobacion %></td>
+    <td width="10%" class="camposDesc">$ <%=number_to_currency(contratospago.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="10%" class="camposDesc">$ <%=number_to_currency(contratospago.valor_amortizar,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="10%" class="camposDesc">$ <%=number_to_currency(contratospago.valor_pagar,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="30%" class="camposDesc"><%=h contratospago.rubro.descripcion rescue nil %></td>
+    <td width="15%" class="camposDesc">
+      <% if permiso("contratospago","A").to_s == "S" %>
+        <%= link_to 'Editar', edit_pag_contratospago_path(@contrato, contratospago), :class=>"editarlink"%>
+      <% else
+            if @contrato.interventorempleado_id
+              usercontrato = Empleado.find(@contrato.interventorempleado_id).user_id rescue nil
+              if usercontrato == is_admin
+       %>
+                <%= link_to 'Editar', edit_pag_contratospago_path(@contrato, contratospago), :class=>"editarlink"%>
+       <%     end
+            end
+          end %>
+      <% if permiso("contratospago","E").to_s == "S" %>&nbsp;|
+       <%= link_to 'Borrar', pag_contratospago_path(@contrato, contratospago),
+                :confirm => 'Esta Seguro de Eliminar?', :method => :delete, :class=>"borrarlink"%>
+     <%end%></td>
+  </tr>
+</table>
+<% end %>
+<% end %>
+   <br/>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="90%"><div class="col_enc">&nbsp;&nbsp;ANTICIPO</div></td>
+              <td width="10%"><div align="right">
+                  <% if permiso("contratospago","C").to_s == "S" %>
+                  <div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Nuevo', {:controller => "contratospagos", :action => "new", :tipo=> "A"}%></span></div>
+                 <%end%>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellspacing="1" cellpadding="1">
+  <tr>
+    <td class="oce-first" width="20%">Valor</td>
+    <td class="oce-first" width="20%">Porcentaje Amortizacion</td>
+    <td class="oce-first" width="15%">&nbsp;</td>
+  </tr>
+</table>
+<% @contratospagos.each do |contratospago|
+  if contratospago.tipo_pago == 'A'
+%>
+<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" >
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td width="20%" class="camposDesc"><%=contratospago.porcentaje_amorti%></td>
+    <td width="20%" class="camposDesc">$ <%=number_to_currency(contratospago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" class="camposDesc">
+      <% if permiso("contratospago","A").to_s == "S" %>
+        <%= link_to 'Editar', edit_pag_contratospago_path(@contrato, contratospago), :class=>"editarlink"%>
+      <% else
+            if @contrato.interventorempleado_id
+              usercontrato = Empleado.find(@contrato.interventorempleado_id).user_id rescue nil
+              if usercontrato == is_admin
+       %>
+                <%= link_to 'Editar', edit_pag_contratospago_path(@contrato, contratospago), :class=>"editarlink"%>
+       <%     end
+            end
+          end %>
+      <% if permiso("contratospago","E").to_s == "S" %>&nbsp;|
+       <%= link_to 'Borrar', pag_contratospago_path(@contrato, contratospago),
+                :confirm => 'Esta Seguro de Eliminar?', :method => :delete, :class=>"borrarlink"%>
+     <%end%></td>
+  </tr>
+</table>
+<% end %>
+<% end %>
+   
+<br />

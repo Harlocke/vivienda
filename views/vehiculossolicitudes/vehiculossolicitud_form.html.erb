@@ -1,0 +1,135 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/transportemin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">SOLICITUDES DE TRANSPORTE</div></td>
+          <td width="3%"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<% form_for(@vehiculossolicitud) do |f| %>
+<div align="center">
+    <table width="80%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="30%" height="20" class="campos">Fecha requerida del servicio</td>
+        <td width="70%" class="camposDesc"><%= calendar_date_select "vehiculossolicitud", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+            <strong><%= error_message_on :vehiculossolicitud, :fecha, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Hora Inicial</td>
+        <td class="camposDesc"><%=select("vehiculossolicitud", "vehiculoshorarioinicio", Vehiculoshorario.find(:all,:order=>'id').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <strong><%= error_message_on :vehiculossolicitud, :vehiculoshorarioinicio, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Hora Final</td>
+        <td class="camposDesc"><%=select("vehiculossolicitud", "vehiculoshorariofin", Vehiculoshorario.find(:all,:order=>'id').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <strong><%= error_message_on :vehiculossolicitud, :vehiculoshorariofin, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr >
+        <td height="20" class="campos">Telefono de contacto</td>
+        <td class="camposDesc"><%= f.text_field :telefono ,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <strong><%= error_message_on :vehiculossolicitud, :telefono, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Numero de personas</td>
+        <td class="camposDesc"><%= f.text_field :nro_pasajeros ,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <strong><%= error_message_on :vehiculossolicitud, :nro_pasajeros, :css_class =>"cerror"%></strong></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Destino</td>
+        <td><%= f.text_area(:destino, :cols => 90, :rows => 6, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <strong><%= error_message_on :vehiculossolicitud, :destino, :css_class =>"cerror"%></strong></td>
+      </tr>      
+      <tr class="odd1">
+        <td height="20" rowspan="3" class="campos">Notificar respuesta con copia a. <br/>
+        <small>(Esta notificación es opcional)</small></td>
+        <td><%=select("vehiculossolicitud", "user1_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            </td>
+      </tr>
+      <tr class="odd1">
+        <td><%=select("vehiculossolicitud", "user2_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            </td>
+      </tr>
+      <tr class="odd1">
+        <td><%=select("vehiculossolicitud", "user3_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            </td>
+      </tr>
+      <% unless @vehiculossolicitud.new_record? %>
+      <tr class="odd1">
+        <td height="20" class="campos">Usuario solicitante del servicio</td>
+        <td class="camposDesc"><%=User.find(@vehiculossolicitud.user_id).username rescue nil%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Fecha de solicitud</td>
+        <td class="camposDesc"><%=@vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Estado</td>
+        <td class="camposDesc"><%= select(:vehiculossolicitud, :estado, select_estadosolicitud,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%></td>
+      </tr>
+      <% end %>
+    </table>
+    <table width="80%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+         </div></td>
+      </tr>
+    </table>
+</div>
+<% end %>
+<% if @vehs %>
+<div align="center">
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+    <tr><td></td></tr>
+    <tr>
+      <td height="30"><div class="col_enc">SOLICITUDES REALIZADAS</div></td>
+    </tr>
+  </table><br/>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="15%" height="30" class="oce-first">Creacion</td>
+      <td width="20%" align="left" class="oce-first">Solicitante</td>
+      <td width="30%" align="left" class="oce-first">Destino</td>
+      <td width="10%" align="left" class="oce-first">Fecha</td>
+      <td width="10%" align="left" class="oce-first">Hora Inicio</td>
+      <td width="10%" align="left" class="oce-first">Hora Final</td>
+      <td width="5%" height="30" align="left" class="oce-first"></td>
+    </tr>
+  <% @vehs.each do |vehiculossolicitud| %>
+    <tr  class="<%=cycle('even1', 'odd1')%> post1SP_<%=vehiculossolicitud.id%>">
+      <td height="20" class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+      <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %></td>
+      <td class="camposDesc"><%=h vehiculossolicitud.destino rescue nil%></td>
+      <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+      <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%></td>
+      <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+      <td class="camposDesc"><div align="center"><%=vehiculossolicitud.estsol rescue nil %></div>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+<br/>
+<% end %>

@@ -1,0 +1,62 @@
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30" align="left"><div class="col_enc">DOCUMENTOS DIGITALES HOJA DE VIDA SIFI</div></td>
+      </tr>
+    </table>
+    <% @empleadostipos = Empleadostipo.find(:all, :order=>"descripcion")
+       @empleadostipos.each do |empleadostipo|%>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+      <tr class="odd1">
+        <td width="25%" height="30" class="campos"><%=empleadostipo.descripcion rescue nil%></td>
+        <td width="3%"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                <%= link_to 'Adjuntar...',{:controller=>"empleadosimagenes", :action=>"new", :empleado_id=>@empleado.id, :empleadostipo_id=>empleadostipo.id}%>
+              </span></div>
+          </div></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+      <%  if @empleado.empleadosimagenes.exists?(["empleadostipo_id = #{empleadostipo.id}"]) == true%>
+      <div align="center">
+          <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr valign="middle">
+              <td width="30%" height="20" class="oce-first">Fecha</td>
+              <td width="55%" class="oce-first">Descripcion</td>
+              <td width="15%" class="oce-first"></td>
+            </tr>
+            <% for empleadosimagen in @empleado.empleadosimagenes.find(:all,:conditions=>["empleadostipo_id = #{empleadostipo.id}"], :order => 'created_at DESC') %>
+               <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> empleadosimagen_<%=empleadosimagen.id%>">
+                 <td class="camposDesc" height="20" ><%=empleadosimagen.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=empleadosimagen.user.username rescue nil%></td>
+                 <td class="camposDesc"><%=empleadosimagen.empleado_file_name rescue nil%>
+                    <% if empleadosimagen.estado.to_s == "APROBADO" or empleadosimagen.estado.to_s == "RECHAZADO" %>
+                       <br/><strong>Documento <%=empleadosimagen.estado.to_s%> por <%=User.find(empleadosimagen.user_verifica).username rescue nil%></strong>
+                    <% end %>           
+                 </td>
+                 <td class="camposDesc"><div align="center">
+                      <%= link_to "Ver", empleadosimagen.empleado.url(:original, false), {:popup => ['new_window','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+                      <%= link_to "Download", download_empleadosimagenes_path(:id=>empleadosimagen.id), {:popup => ['new_window','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>          
+                      
+                      <% if empleadosimagen.estado.to_s != "APROBADO" %>    
+                           
+                          <% if permiso("documentoscontrato","E").to_s == "S"%>  
+                            <%= link_to_remote('Borrar',{:url => empleado_empleadosimagen_path(@empleado, empleadosimagen),:method => :delete, 
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.empleadosimagen_#{empleadosimagen.id}').remove()"}, :class=>"borrarlink")%> 
+                          <% end %>  
+                      <% end %>           
+                      <% if empleadosimagen.estado.to_s != "APROBADO" and permiso("validadocumento","C").to_s == "S"%>           
+                      <%=link_to 'Aprobar', {:controller=>"empleadosimagenes", :action=>"aprobar", :id=>empleadosimagen.id}, :confirm=>"Esta seguro??? ", :class=>"borrarlink"%>
+                      <%=link_to 'Rechazar', {:controller=>"empleadosimagenes", :action=>"rechazar", :id=>empleadosimagen.id}, :confirm=>"Esta seguro??? ", :class=>"borrarlink"%>
+                      <% end %>           
+                 </div></td>
+               </tr>
+            <% end %>
+        </table>          
+        </div>
+      <% else %>
+                  <div align="left" style="color:red;" class="camposDescN">NO hay documentos cargados .........</div>
+      <% end %>
+        </td> 
+      </tr>   
+      </table>
+   <%  end %>

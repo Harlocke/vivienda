@@ -1,0 +1,243 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/inventariotecnologiamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;INFORMACION INVENTARIO</div></td>
+              <td width="3%"><div align="right"><% if permiso("elemento","C").to_s == "S" %>
+                        <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),{:controller => "elementos", :action => "new", :tipo=> "C"}%><% end %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<% form_tag buscar_elementos_path, :method => 'get' do %>
+    <table width="70%" border="0" cellspacing="0" cellpadding="0">
+      <tr class="odd1">
+        <td width="30%"  height="25" class="campos">Tipo de Elemento</td>
+        <td width="70%"><%=select("ubicacion", "tiposelemento_id", Tiposelemento.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr>
+        <td class="campos" height="25" >Marca</td>
+        <td >
+          <%= text_field_tag :marca, params[:marca] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos" height="25" >Referencia</td>
+        <td >
+          <%= text_field_tag :referencia, params[:referencia] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos" height="25" >Placa</td>
+        <td >
+          <%= text_field_tag :placa, params[:placa] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos" height="25" >Serial</td>
+        <td >
+          <%= text_field_tag :serial, params[:serial] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos" height="25" >Usuario Asignado</td>
+        <td ><%=select("ubicacion", "user_id", User.find(:all, :order=>"nombre").collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos" height="25" >Funcionario Responsable</td>
+        <td ><%=select("ubicacion", "userfuncionario_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr>
+        <td class="campos" height="25" >Ubicacion</td>
+        <td >
+          <%= text_field_tag :ubicacionele, params[:ubicacionele] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos" height="25" >Observacion</td>
+        <td >
+          <%= text_field_tag :observacion, params[:observacion] ,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        </td>
+      </tr>
+    </table>
+    <table width="70%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <table width="70%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+        </span></div>
+    </div></td>
+      </tr>
+    </table>
+<% end %>
+</div>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORMACION INVENTARIO</div></td>
+  </tr>
+</table>
+<% form_tag inventario_elementos_path, :method => 'get' do %>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="100%"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Informe inventario" %>
+      </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INTERCAMBIO INVENTARIO INTERVENTOR</div></td>
+  </tr>
+</table>
+<% form_tag intercambiointerventor_elementos_path, :method => 'get' do %>
+<div align="center">
+<table width="55%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="40%" class="campos odd1">Interventor Actual</td>
+        <td width="60%"><%=select("ubicacion", "useractual_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr>
+        <td class="campos odd1">Interventor Nuevo</td>
+        <td ><%=select("ubicacion", "usernuevo_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+</table>
+<table width="65%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="65%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Realizar Cambio", :name => 'nil', :value => 'Realizar Cambio', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INTERCAMBIO INVENTARIO USUARIOS</div></td>
+  </tr>
+</table>
+<% form_tag intercambiousuario_elementos_path, :method => 'get' do %>
+<div align="center">
+<table width="55%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="40%" class="campos odd1">Usuario Actual</td>
+        <td width="60%"><%=select("ubicacion", "useractual_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr>
+        <td class="campos odd1">Usuario Nuevo</td>
+        <td ><%=select("ubicacion", "usernuevo_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+</table>
+<table width="65%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="65%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Realizar Cambio", :name => 'nil', :value => 'Realizar Cambio', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CAMBIO DE INTERVENTOR DE UN USUARIO</div></td>
+  </tr>
+</table>
+<% form_tag intercambiouserinter_elementos_path, :method => 'get' do %>
+<div align="center">
+<table width="55%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <td width="40%" class="campos odd1">Usuario Actual</td>
+    <td width="60%"><%=select("ubicacion", "useractual_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+        { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+  <tr>
+    <td class="campos odd1">Interventor Nuevo</td>
+    <td ><%=select("ubicacion", "userinterve_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+        { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+</table>
+<table width="65%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="65%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Realizar Cambio", :name => 'nil', :value => 'Realizar Cambio', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>
+<% if permiso("tiposelemento","C").to_s == "S" %>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">TIPOS ELEMENTOS</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+         <%= link_to 'Ver Tipos Elementos', {:controller=>"tiposelementos", :action=>"index"}%>
+         </span></div></div></td>
+  </tr>
+</table>
+<br/>
+<% end %>

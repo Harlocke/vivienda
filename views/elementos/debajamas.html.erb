@@ -1,0 +1,173 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 3}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<%=  javascript_include_tag :defaults %>
+<% @elementos.each do |elemento| %>
+<div align="center">
+<table width="720" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=image_tag("feriaisvimed.png")%></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center">ACTA BAJA DE BIENES MUEBLES</div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> F-GI-09</td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> 01</td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> 18/11/2015</td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> 1 de 1</td>
+        </tr>
+      </table><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr  valign="top">
+          <td width="49%">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+                <tr>
+                  <td width="30%" height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Tipo de Elemento</strong></td>
+                  <td width="70%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.tiposelemento.descripcion rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Marca</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.marca rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Referencia</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.referencia rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Placa</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.placa rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Serial</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.serial rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Valor</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=camponumerico(elemento.valor) rescue nil%></td>
+                </tr>
+                <tr>
+                  <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Interventor</strong></td>
+                  <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.user.nombre rescue nil%></td>
+                </tr>
+              </table>
+          </td>
+          <td width="2%">&nbsp;</td>
+          <td width="49%">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+                  <tr>
+                    <td width="30%" height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Codigo Contabilidad</strong></td>
+                    <td width="70%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.codigo_contabilidad rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Ubicación</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.ubicacion rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Clase</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.clase rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Cantidad</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.cantidad rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Documento</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.documento rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Año ingreso</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.anno_ingreso rescue nil%></td>
+                  </tr>
+                  <tr>
+                    <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>Obligación</strong></td>
+                    <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.obligacion  rescue nil%></td>
+                  </tr>
+            </table>
+          </td>
+        </tr>
+      </table><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td width="30%" height="30" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong>CONCEPTO DE PERSONA EXPERTA Y/O PERITO PARA DAR DE BAJA UN BIEN INSERVIBLE U OBSOLETO</strong></td>
+          </tr>
+          <tr valign="top">
+            <td height="120" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><%=elemento.observacion_baja  rescue nil%></td>
+          </tr>
+      </table>
+      <br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%"><%=image_tag("71217690.jpg")%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong>FIRMA DEL EXPERTO Y/O PERITO</strong></td>
+        </tr>
+      </table><br/>
+      <div style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong>MOTIVO DE LA BAJA:</strong></div>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">PÉRDIDA</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">HURTO</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">CASO FORTUITO</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">FUERZA MAYOR</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">INSERVIBLES</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">OBSOLETOS</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">DETERIORO</div></strong></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">OTROS</div></strong></td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.perdida rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.hurto rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.caso rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.fuerza rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.inservible rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.obsoleto rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.deterioro rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.otro rescue nil%>&nbsp;</div></td>
+          </tr>
+      </table><br/>
+      <div style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong>DESTINO DE LOS BIENES DEVOLUTIVOS DADOS DE BAJA:</strong></div>
+      <div align="center">
+      <table width="60%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td width="33%" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">VENTA</div></strong></td>
+            <td width="33%" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">DONACIÓN</div></strong></td>
+            <td width="33%" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><div align="center">DESTRUCCION</div></strong></td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.venta rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.donacion rescue nil%>&nbsp;</div></td>
+            <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><%=elemento.destruccion rescue nil%>&nbsp;</div></td>
+          </tr>
+      </table>
+      </div>
+      <br/>
+
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td width="30%" height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>&nbsp;</strong></td>
+            <td width="30%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>&nbsp;</strong></td>
+            <td width="40%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><strong>&nbsp;</strong></td>
+          </tr>
+          <tr>
+            <td height="30" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><strong>Vo. Bo. Almacén</strong></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><strong>Vo. Bo. Contabilidad</strong></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%;"><div align="center"><strong>Vo. Bo. Subdirector Apoyo Administrativo y Financiero</strong></div></td>
+          </tr>
+      </table>
+      <div style="font-size: 9px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+      </td>
+  </tr>
+</table>
+</div>
+<H1 class=SaltoDePagina></H1>
+<%end%>

@@ -1,0 +1,38 @@
+<p>
+  <b>Codigo:</b>
+  <%=h @usersinventario.codigo %>
+</p>
+
+<p>
+  <b>Inventarioselemento:</b>
+  <%=h @usersinventario.inventarioselemento_id %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%=h @usersinventario.cantidad %>
+</p>
+
+<p>
+  <b>Dependencia:</b>
+  <%=h @usersinventario.dependencia_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @usersinventario.user_id %>
+</p>
+
+<p>
+  <b>Serial:</b>
+  <%=h @usersinventario.serial %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%=h @usersinventario.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_usersinventario_path(@usersinventario) %> |
+<%= link_to 'Back', usersinventarios_path %>

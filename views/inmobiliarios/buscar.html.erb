@@ -1,0 +1,55 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/inmobiliariomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">RESULTADOS CONSULTA</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),busqueda_inmobiliarios_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Id Inmueble</div></td>
+    <td width="20%" height="30" class="oce-first">Sector</td>
+    <td width="35%" class="oce-first"><div align="center">Direccion</div></td>
+    <td width="10%" class="oce-first"><div align="center">Nivel</div></td>
+    <td width="10%" class="oce-first"><div align="center">Disponible</div></td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+     <% i = 0 %>
+<% @inmobiliarios.each do |inmobiliario| %>
+  <% i = i + 1 %>
+<tr valign="middle">
+    <td width="10%" height="30" class="camposDesc"><div align="center"><%=h inmobiliario.id %></div></td>
+    <td width="20%" height="30" class="camposDesc"><%=h inmobiliario.comuna.descripcion rescue nil %></td>
+    <td width="35%" height="30" class="camposDesc"><%=h inmobiliario.direccion %></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=h inmobiliario.nivel %></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=h inmobiliario.disponible %></div></td>
+    <td width="15%" class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_inmobiliario_path(inmobiliario), :class=>"editarlink"%>
+  <% if permiso("inmobiliario","E").to_s == "S" %>
+&nbsp;|<%= link_to 'Borrar', inmobiliario_path(inmobiliario),
+                          :confirm => 'Esta Seguro de Eliminar?',:method => :delete, :class=>"borrarlink"%>
+  <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=i%></div></td>
+  </tr>
+</table>

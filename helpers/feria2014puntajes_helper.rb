@@ -1,0 +1,2 @@
+module Feria2014puntajesHelper
+end

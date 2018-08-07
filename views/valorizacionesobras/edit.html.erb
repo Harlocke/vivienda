@@ -1,0 +1,24 @@
+<h1>Editing valorizacionesobra</h1>
+
+<% form_for(@valorizacionesobra) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @valorizacionesobra %> |
+<%= link_to 'Back', valorizacionesobras_path %>

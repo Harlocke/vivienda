@@ -1,0 +1,16 @@
+<h1>Editing empleadostipo</h1>
+
+<% form_for(@empleadostipo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @empleadostipo %> |
+<%= link_to 'Back', empleadostipos_path %>

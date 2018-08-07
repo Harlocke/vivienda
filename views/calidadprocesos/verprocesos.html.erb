@@ -1,0 +1,95 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/calidadmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CALIDAD</div></td>
+              <% if permiso("calidadproceso","C").to_s == "S" %>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_calidadproceso_path %>
+                </div></td>
+              <% end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td height="30" style="background-color:#98DB34;" class="camposDesc">
+    <div align="justify"><strong>&nbsp;&nbsp;Si quiere conocer el Normograma pulse 
+        <%  calidaddocumento = Calidaddocumento.find(:first, :conditions=>["nombre = 'NORMOGRAMA' and activo = 'ACTIVO' and calidadtiposdocumento_id = 2"])
+            if calidaddocumento
+              if calidaddocumento.calidaddocumentosimagenes.exists?
+                  calidaddocumento.calidaddocumentosimagenes.each do |calidaddocumentosimagen|%>
+                    <%= link_to 'AQUI', calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                       { :title=>"#{calidaddocumentosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                    <em><%=calidaddocumentosimagen.calidaddocumento_file_name%></em>
+<%                end
+                end
+              end
+%>
+         <br/>
+   </strong></div></td>
+  </tr>
+</table>
+<br/>
+<table width="90%" border="0" cellpadding="0" cellspacing="2">
+<% @objetos = Objeto.find_by_sql("select distinct tipoproceso from calidadprocesos where tipoproceso != 'BIENESTAR'")
+   @objetos.each do |objeto| %>
+    <tr valign="middle">
+      <td width="15%" height="30" class="oce-first"><%=h objeto.tipoproceso %></td>
+    </tr>
+    <tr valign="middle">
+      <td width="15%" height="30"><div align="center">
+        <table width="90%" border="0" cellpadding="0" cellspacing="2">
+        <% @calidadprocesos = Calidadproceso.find(:all, :conditions=>["tipoproceso = '#{objeto.tipoproceso}'"])
+           @calidadprocesos.each do |calidadproceso| %>
+          <tr valign="middle">
+            <td width="100%" class="camposDesc">
+            <div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=calidadproceso.id%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=calidadproceso.id%>')"><%=h calidadproceso.descripcion %> </a> </strong>
+            <% if permiso("calidadproceso","C").to_s == "S" %>
+              &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to 'Editar', {:controller=>"calidadprocesos", :action=>"edit", :id=>calidadproceso.id}, :class=>"editarlink"%>
+            <% end %>
+              &nbsp;<%= link_to 'F-GM-18', {:controller=>"calidadprocesos", :action=>"maestroreporte", :id=>calidadproceso.id}, :class=>"mostrarlink"%>
+              &nbsp;<%= link_to 'F-GM-22', {:controller=>"calidadprocesos", :action=>"maestroregistro", :id=>calidadproceso.id}, :class=>"mostrarlink"%>            
+            </div>
+            <div id="demo1<%=calidadproceso.id%>" style="display:none;">
+              <fieldset>
+                <% @calidadtiposdocumentos = Calidadtiposdocumento.find(:all, :order=>"orden")
+                   @calidadtiposdocumentos.each do |calidadtiposdocumento|%>
+                   <% if Calidaddocumento.exists?(["calidadtiposdocumento_id = #{calidadtiposdocumento.id} and activo = 'ACTIVO' and calidadproceso_id = #{calidadproceso.id}"]) %>
+                        <div style="font-size:13px; font-family: Tahoma;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="SINO('demo1c<%=calidadproceso.id%>d<%=calidadtiposdocumento.id%>')"><%=calidadtiposdocumento.descripcion rescue nil%></a> </strong></div>
+                        <div id="demo1c<%=calidadproceso.id%>d<%=calidadtiposdocumento.id%>" style="display:none;">
+                           <% for calidaddocumento in calidadproceso.calidaddocumentos.find(:all, :conditions=>["calidadtiposdocumento_id = #{calidadtiposdocumento.id} and activo = 'ACTIVO'"], :order => 'codigo ASC') %>
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>* <%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%></strong>
+                             <% if calidaddocumento.calidaddocumentosimagenes.exists?
+                                   calidaddocumento.calidaddocumentosimagenes.each do |calidaddocumentosimagen|%>
+                             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <%= link_to image_tag('download2.png', :border=>0,
+                                            :title => "Descargar: #{calidaddocumentosimagen.calidaddocumento_file_name}"),
+                                            calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                                           { :title=>"#{calidaddocumentosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                             <em><%=calidaddocumentosimagen.calidaddocumento_file_name%></em>
+                                    
+                             <%   end
+                                end%>
+                             <br/>
+                           <% end %>
+                        </div>
+                   <% end #End existe documento %>
+                <% end #End @calidadtiposdocumentos%>
+               </fieldset>
+            </div></td>
+          </tr>
+        <% end %>
+        </table></div>
+      </td>
+    </tr>
+<% end %>
+</table>
+</div>
+<br/><br/>

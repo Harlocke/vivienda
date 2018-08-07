@@ -1,0 +1,98 @@
+<br/>
+<div align="center">
+<%=image_tag("frame.png")%>
+  <table width="700" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+    <tr class="odd1">
+      <td width="30%" class="camposDesc"><strong>&nbsp;&nbsp;Contratista</strong> </td>
+      <td width="70%" class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.empleado.autobuscar rescue nil%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Objeto</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.objeto%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Valor Mes</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Valor Dia</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_dia,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro Dias</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.dias%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro Meses</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.meses%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Valor Contrato</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Valor Compromiso</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_compromiso,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Fecha Inicio</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.fecha_inicio%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Fecha Fin </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.fecha_fin%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Interventor </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.userinterventor rescue nil%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Modalidad </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.modalidad.descripcion rescue nil%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Tipo de Contrato</strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.tiposcontrato.descripcion rescue nil%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro CDP 1 </strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp%>&nbsp;&nbsp;Fecha CDP&nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro CDP 2 </strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp2%>&nbsp;&nbsp;Fecha CDP&nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp2%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp2,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro CDP 3 </strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp3%>&nbsp;&nbsp;Fecha CDP&nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp3%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp3,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Nro CDP 4 </strong> </td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp4%>&nbsp;&nbsp;Fecha CDP&nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp4%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp4,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Poliza </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.poliza%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Secop </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.secop%></td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;RUBRO PRESUPUESTAL</strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;
+        <% if @estudiosprevio.estudiospreviosrubros.exists? %>
+            <% @estudiosprevio.estudiospreviosrubros.each do |estudiospreviosrubro| %>
+              *  <%=estudiospreviosrubro.rubro.descripcion rescue nil %> - $ <%=number_to_currency(estudiospreviosrubro.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%><br/>
+            <% end %>
+        <% else %>
+           No hay rubros registradas
+        <% end %>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><strong>&nbsp;&nbsp;Observaciones </strong></td>
+      <td class="camposDesc">&nbsp;&nbsp;<%=@estudiosprevio.observaciones%></td>
+    </tr>
+  </table>
+</div>

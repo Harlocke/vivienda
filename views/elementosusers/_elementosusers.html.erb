@@ -1,0 +1,80 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">USUARIOS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@elemento, @elementosuser] do |form| %>
+  <% if permiso("elementosuser","C").to_s == "S" %>
+     <% if !@elementosuser.id %>
+      	<%= render :partial => "/elementosusers/elementosusers_form" %>
+     <% end %>
+  <% end %>
+<% if @elemento.elementosusers.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="65%" height="30" class="oce-first">Usuario</td>
+    <td width="10%" class="oce-first">Fecha Inicio</td>
+    <td width="10%" class="oce-first">Fecha Final</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% for elementosuser in @elemento.elementosusers.find(:all, :order => 'fecha_inicio DESC') %>
+<% if elementosuser.id != @elementosuser.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="elementosuser_<%=elementosuser.id%>">
+    <td width="65%" class="camposDesc"><%=elementosuser.user.nombre rescue nil%></td>
+    <td width="10%" class="camposDesc"><%=elementosuser.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> </td>
+    <td width="10%" class="camposDesc"><%=elementosuser.fecha_fin.strftime("%Y-%m-%d") rescue nil%></td>
+    <td width="15%" class="camposDesc">
+      <div align="center">
+            <% if permiso("elementosuser","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_elemento_elementosuser_path(@elemento, elementosuser),
+                        :method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("elementosuser","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => elemento_elementosuser_path(@elemento, elementosuser),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      </div></td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR USUARIOS</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="elementosuser_<%=@elementosuser.id%>">
+      <%= render :partial => "elementosusers_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :elemento, :id %>
+<% end %>
+<br/>
+<% if flash[:elementosuser] %>
+<div id="elementosuser">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:elementosuser] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('elementosuser');", 5000)
+</script>
+<% end %>
+
+
+

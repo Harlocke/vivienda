@@ -1,0 +1,35 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INFORME DETALLADO PROYECTOS (TOTAL : <%=@proyectos.count rescue 0%>)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="14"><strong>Informacion Proyecto</strong></td>
+    <td colspan="8"><strong>Proceso de escrituracion</strong></td>
+    <td colspan="4"><strong>Adjudicatarios</strong></td>
+    <td rowspan="2"><strong>Observaciones</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Sub Etapa</strong></td>
+    <td><strong>Estado Proyecto</strong></td>
+  </tr>
+<% @proyectos.each do |proyecto|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=proyecto.id rescue nil%></div></td>
+     <td><div align="left"><%=proyecto.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=proyecto.sub_etapa rescue nil%></div></td>
+     <td><div align="left"><%=proyecto.etapa_proyecto rescue nil%></div></td>
+     <td>
+       <% if proyecto.proyectoscopropiedad.proyectoscopnotas.exists? %>
+           <table border="1">
+          <% for proyectoscopnota in proyecto.proyectoscopropiedad.proyectoscopnotas.find(:all, :order => 'created_at DESC')  %>
+             <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+               <td><div align="left"><%=proyectoscopnota.created_at.strftime("%Y-%m-%d %X") rescue nil%> - (<%=proyectoscopnota.user.username rescue nil%>) : <%=proyectoscopnota.dtipoatencion.to_s rescue nil%>: <%=proyectoscopnota.observacion.to_s rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

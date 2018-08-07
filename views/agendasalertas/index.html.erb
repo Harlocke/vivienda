@@ -1,0 +1,24 @@
+<h1>Listing agendasalertas</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Agenda</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @agendasalertas.each do |agendasalerta| %>
+  <tr>
+    <td><%=h agendasalerta.user %></td>
+    <td><%=h agendasalerta.agenda %></td>
+    <td><%=h agendasalerta.descripcion %></td>
+    <td><%= link_to 'Show', agendasalerta %></td>
+    <td><%= link_to 'Edit', edit_agendasalerta_path(agendasalerta) %></td>
+    <td><%= link_to 'Destroy', agendasalerta, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New agendasalerta', new_agendasalerta_path %>

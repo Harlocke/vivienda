@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Seguimiento por Operador Convenio / Resolucion y Persona</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio - Resolucion</div></strong></td>
+    <td colspan="2"><strong><div align="center">Informacion Personal</div></strong></td>
+    <td colspan="2"><strong><div align="center">Universidad</div></strong></td>
+    <td colspan="4"><strong><div align="center">Cantidad de Items - Imagenes</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Estado</strong></td>
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="20%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Tecnologo</strong></td>
+    <td width="20%"><strong>Coordinador</strong></td>
+    <td width="20%"><strong>Actividades</strong></td>
+    <td width="20%"><strong>Inicio</strong></td>
+    <td width="20%"><strong>Procesos</strong></td>
+    <td width="20%"><strong>Final</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.nro_convenio rescue nil%></td>
+    <td><%=mejoramiento.nro_resolucion rescue nil%></td>
+    <td><%=mejoramiento.estado rescue nil%></td>
+    <td><%=mejoramiento.identificacion rescue nil%></td>
+    <td><%=mejoramiento.nombres rescue nil%></td>
+    <td><%=mejoramiento.tecnologo rescue nil%></td>
+    <td><%=mejoramiento.coordinador rescue nil%></td>
+    <td><div align="center"><%=mejoramiento.cantidad_actividad rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.cantidad_antes rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.cantidad_durante rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.cantidad_despues rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

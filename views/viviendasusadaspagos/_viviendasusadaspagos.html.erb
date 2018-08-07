@@ -1,0 +1,62 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr><td height="30"><div class="col_enc">PAGOS ASOCIADOS</div></td></tr>
+</table>
+<div align="center">
+<% remote_form_for [@viviendasusada, @viviendasusadaspago] do |form| %>
+<% if permiso("viviendasusadaspago","C").to_s == "S" %>
+   <% if !@viviendasusadaspago.id %>
+	<%= render :partial => "/viviendasusadaspagos/viviendasusadaspagos_form" %>
+   <% end %>
+<% end %>
+<% if @viviendasusada.viviendasusadaspagos.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="10%" height="20" align="left" class="oce-first">Fecha Pago</td>
+    <td width="20%" height="20" align="left" class="oce-first">Tipo Pago</td>
+    <td width="40%" height="20" align="left" class="oce-first">Descripcion</td>
+    <td width="20%" height="20" align="left" class="oce-first">Valor</td>
+    <td width="10%" height="20" align="left" class="oce-first"></td>
+  </tr>
+<% @viviendasusada.viviendasusadaspagos.each do |viviendasusadaspago| %>
+   <% if viviendasusadaspago.id != @viviendasusadaspago.id %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="viviendasusadaspago_<%= viviendasusadaspago.id%>">
+      <td height="25" class="camposDesc"><%=viviendasusadaspago.fecha_pago%></td>
+      <td class="camposDesc"><%=viviendasusadaspago.tipo_pago%></td>
+      <td class="camposDesc"><%=viviendasusadaspago.descripcion%></td>
+      <td class="camposDesc">$ <%=number_to_currency(viviendasusadaspago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+      <td align="right" class="camposDesc">
+        <% if permiso("viviendasusadaspago","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => viviendasusada_viviendasusadaspago_path(@viviendasusada, viviendasusadaspago), :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %>
+      </td>
+    </tr>
+  <% else %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "viviendasusadaspagos_form" %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :viviendasusada, :id %>
+<% end %>
+<br/>
+<% if flash[:viviendasusadaspago] %>
+  <br/>
+  <div id="viviendasusadaspago">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:viviendasusadaspago] %></td>
+      </tr>
+    </table>
+  </div>
+  <script type="text/javascript">setTimeout("new Effect.Fade('viviendasusadaspago');", 5000)</script>
+<% end %>

@@ -1,0 +1,78 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">VENDEDORES</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@obraspublica, @obrasvendedor] do |form| %>
+  <% if permiso("obrasvendedor","C").to_s == "S" %>
+        <% if !@obrasvendedor.id %>
+	<%= render :partial => "/obrasvendedores/obrasvendedores_form" %>
+    <% end %>
+ <% end %>
+<% if @obraspublica.obrasvendedores.exists? %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Identificacion</td>
+    <td width="35%" height="30" align="left" class="oce-first">Nombre</td>
+    <td width="30%" height="30" align="left" class="oce-first">Usuario</td>
+    <td width="20%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% @obraspublica.obrasvendedores.each do |obrasvendedor| %>
+   <% if obrasvendedor.id != @obrasvendedor.id %>
+  <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="obrasvendedor_<%=obrasvendedor.id%>">
+     <td width="15%" height="30" align="left" class="camposDesc"><%=obrasvendedor.identificacion%></td>
+     <td width="35%" height="30" align="left" class="camposDesc"><%=obrasvendedor.nombre%></td>
+     <td width="30%" height="30" align="left" class="camposDesc"><%=obrasvendedor.user.nombre rescue nil%></td>
+    <td width="20%" class="camposDesc">
+    <% if permiso("obrasvendedor","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_obraspublica_obrasvendedor_path(@obraspublica, obrasvendedor),
+		:method => :get}, :class=>"editarlink")%>
+    <%  end %>
+    <% if permiso("obrasvendedor","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => obraspublica_obrasvendedor_path(@obraspublica, obrasvendedor),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%  end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR VENDEDORES</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="obrasvendedor_<%=@obrasvendedor.id%>">
+     <%= render :partial => "obrasvendedores_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :obraspublica, :id %>
+<% end %>
+<br/>
+<% if flash[:obrasvendedor] %>
+<div id="obrasvendedor">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:obrasvendedor] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('obrasvendedor');", 5000)
+</script>
+<% end %>
+</div>

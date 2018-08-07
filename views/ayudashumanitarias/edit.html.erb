@@ -1,0 +1,68 @@
+<h1>Editing ayudashumanitaria</h1>
+
+<% form_for(@ayudashumanitaria) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.label :estado_atencion %><br />
+    <%= f.text_field :estado_atencion %>
+  </p>
+  <p>
+    <%= f.label :nro_carpeta %><br />
+    <%= f.text_field :nro_carpeta %>
+  </p>
+  <p>
+    <%= f.label :tipo_evacuacion %><br />
+    <%= f.text_field :tipo_evacuacion %>
+  </p>
+  <p>
+    <%= f.label :fecha_remision %><br />
+    <%= f.date_select :fecha_remision %>
+  </p>
+  <p>
+    <%= f.label :nro_ficha_simpad %><br />
+    <%= f.text_field :nro_ficha_simpad %>
+  </p>
+  <p>
+    <%= f.label :evento %><br />
+    <%= f.text_field :evento %>
+  </p>
+  <p>
+    <%= f.label :direccion_evento %><br />
+    <%= f.text_field :direccion_evento %>
+  </p>
+  <p>
+    <%= f.label :telefono_evento %><br />
+    <%= f.text_field :telefono_evento %>
+  </p>
+  <p>
+    <%= f.label :barrio_evento %><br />
+    <%= f.text_field :barrio_evento %>
+  </p>
+  <p>
+    <%= f.label :direccion_nueva_viv %><br />
+    <%= f.text_field :direccion_nueva_viv %>
+  </p>
+  <p>
+    <%= f.label :telefono_nueva_viv %><br />
+    <%= f.text_field :telefono_nueva_viv %>
+  </p>
+  <p>
+    <%= f.label :barrio_nueva_viv %><br />
+    <%= f.text_field :barrio_nueva_viv %>
+  </p>
+  <p>
+    <%= f.label :fecha_contrato %><br />
+    <%= f.date_select :fecha_contrato %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ayudashumanitaria %> |
+<%= link_to 'Back', ayudashumanitarias_path %>

@@ -1,0 +1,175 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+       <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow;"><div align="center"><img src="http://190.0.34.154:3013/images/logocartas.jpg"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow;"><strong><div align="center"><%#=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+     <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;">
+           <strong>CERTIFICACIÓN DILIGENCIA DE REPARTO<br/>ISVIMED NIT: 900.014.480.8</strong>
+     </div>
+      <br/>
+        <div align="justify" style="font-size: 16px; font-family: Arial Narrow;">
+        <strong>ACTA NRO:</strong> 0<%=@reparto.nro_acta rescue nil%>
+        </div>        
+        <br/>
+          <br/> 
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr class="odd1">
+              <td width="30%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong><div align="center">REPARTO NÚMERO</div></strong></td>
+              <td width="40%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong><div align="center">FECHA DE REPARTO</div></strong></td>
+              <td width="30%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong><div align="center">TIPO DE REPARTO</div></strong></td>
+            </tr>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><div align="center">0<%=@reparto.nro_acta rescue nil%></div></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=namedate(@reparto.fecha_reparto).upcase rescue nil%></div></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=@reparto.tipo_reparto rescue nil%></div></td>
+            </tr>
+          </table><br/><br/>
+          <div align="justify" style="font-size: 18px; font-family: Arial Narrow; line-height: 200%;">
+            En la Ciudad de Medellín, el día <%=namedate(@reparto.fecha_reparto) rescue nil%> a las <%=@reparto.fecha_reparto.strftime("%X") rescue nil%> a.m., en las instalaciones del Instituto  Social de Vivienda y Hábitat de Medellín -ISVIMED, el(la) delegado(a) para realizar el reparto notarial, el(a) Subdirector(a) de Apoyo Jurídico, con el fin de realizar la diligencia mediante el sorteo en orden ascendente correspondiente a las minutas que serán sometidas a reparto en la fecha, conforme con la resolución No 7769 del 21 de Julio de 2016 SNR y la N°781 del 09 de septiembre de 2016 - ISVIMED, luego del cual se obtuvo como resultado el presente reparto<br/><br/>
+            No siendo otro el objeto de la presente diligencia se termina y firma por quien(es) en ella intervienen.<br/><br/>
+            El (la) funcionario delegada para el reparto notarial,<br/><br/><br/>
+            </div>   
+          <div align="justify" style="font-size: 18px; font-family: Arial Narrow;">
+          ____________________________________________________<br/>
+          <strong>Subdirector(a) Jurídico(a)</strong>
+          </div>  
+        <div style="font-size: 12px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Información ISVIMED</strong></div>
+        <br/>
+    </td>
+  </tr>
+</table>
+<H1 class=SaltoDePagina> </H1>
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+       <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow;"><div align="center"><img src="http://190.0.34.154:3013/images/logocartas.jpg"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow;"><strong><div align="center"><%#=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+     <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;">
+           <strong>CONSTANCIA DE LA DILIGENCIA DE REPARTO<br/>RADICADOR DE MINUTAS <%=@reparto.zona rescue nil%><br/>ISVIMED</strong>
+     </div>
+      <br/>
+          <br/> 
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr class="odd1">
+              <td width="30%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong><div align="center">REPARTO NÚMERO</div></strong></td>
+              <td width="40%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>FECHA DE REPARTO</strong></td>
+              <td width="30%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TIPO DE REPARTO</strong></td>
+            </tr>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><div align="center">0<%=@reparto.nro_acta rescue nil%></div></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=namedate(@reparto.fecha_reparto).upcase rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.tipo_reparto rescue nil%></td>
+            </tr>
+            <tr class="odd1">
+              <td width="30%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>RADICADO</strong></td>
+              <td width="40%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>CATEGORIA</strong></td>
+              <td width="30%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOTARÍA ASIGNADA</strong></td>
+            </tr>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;">ISVIMED<%=@reparto.anno rescue nil%>-0<%=@reparto.nro_acta rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.actoscategoria rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.notaria.descripcion.upcase rescue nil%></td>
+            </tr>
+          </table><br/><br/>
+
+
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+             <tr class="odd1">
+              <td colspan="3" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>OTORGANTES</strong></td>
+            </tr>
+            <tr class="odd1">
+              <td width="70%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE</strong></td>
+              <td width="30%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NIT</strong></td>
+            </tr>        
+            <tr >
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad1_nombre rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad1_nit rescue nil%></td>
+            </tr>
+            <% if @reparto.entidad2_nombre %>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad2_nombre rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad2_nit rescue nil%></td>
+            </tr>
+            <% end %>
+          </table>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr class="odd1">
+              <td width="40%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE</strong></td>
+              <td width="10%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><div align="center"><strong>C.C</strong></div></td>
+              <td width="50%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>DIRECCIÓN</strong></td>
+            </tr>        
+            <% for repartosinmueble in @reparto.repartosinmuebles.find(:all, :order => 'created_at DESC') %>
+              <tr >
+                <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.persona.nombres rescue nil%></td>
+                <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.persona.identificacion rescue nil%></div></td>
+                <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="left"><%=repartosinmueble.vivienda.direccionproyecto rescue nil%> - MATRÍCULA: <%=repartosinmueble.vivienda.nro_matricula rescue nil%></div></td>
+              </tr>                  
+            <% end %>
+          </table>
+          <br/>           
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+             <tr class="odd1">
+              <td colspan="4" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ACTO (S) O NEGOCIO (S) JURÍDICO (S)</strong></td>
+            </tr>
+            <tr class="odd1">
+              <td width="25%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TIPO</strong></td>
+              <td width="45%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ACTO</strong></td>
+              <td width="15%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>VALOR</strong></td>
+              <td width="15%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>EXENTO</strong></td>
+            </tr>
+            <% for repartosacto in @reparto.repartosactos.find(:all, :order => 'created_at DESC') %>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;">
+                  <% if repartosacto.valor.to_i == 0%>ACTO SIN CUANTIA<% else %>ACTO JURIDICO<% end %></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosacto.tiposacto.descripcion.upcase rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;">$ <%=camponumerico(repartosacto.valor) rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"></td>
+            </tr>
+            <% end %>
+          </table><br/><br/><br/><br/>
+          <div align="justify" style="font-size: 18px; font-family: Arial Narrow;">
+          ____________________________________________________<br/>
+          <strong>Subdirector(a) Jurídico(a)</strong>
+          </div>  
+        <div style="font-size: 12px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Información ISVIMED </strong></div>
+        <br/>
+    </td>
+  </tr>
+</table>
+</div>
+
+

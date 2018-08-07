@@ -1,0 +1,69 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">RESPONSABLES COMISION - <%= link_to "Enviar invitacion", {:controller => "comites", :action => "envioinvitacion", :id=>@comite.id}, :confirm => "Esta seguro que desea enviar la invitación?", :class=>"emaillink"%></div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@comite, @comitesresponsable] do |form| %>
+    <% if permiso("comitesresponsable","C").to_s == "S" %>
+       <% if !@comitesresponsable.id %>
+              <%= render :partial => "/comitesresponsables/comitesresponsables_form" %>
+       <% end %>
+    <% end %>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha Registro</td>
+    <td width="70%" height="30" align="left" class="oce-first">Usuario</td>
+    <td width="15%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for comitesresponsable in @comite.comitesresponsables.find(:all, :order => 'created_at DESC') %>
+   <% if comitesresponsable.id != @comitesresponsable.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="comitesresponsable_<%=comitesresponsable.id%>">
+     <td width="15%" align="left" class="camposDesc"><%=comitesresponsable.created_at.strftime("%Y-%m-%d %X")%></td>
+     <td width="70%" align="left" class="camposDesc"><%=comitesresponsable.user.nombre rescue nil%></td>
+     <td width="15%" align="right" class="camposDesc">
+            <% if permiso("comitesresponsable","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesresponsable_path(@comite, comitesresponsable),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="comitesresponsable_<%=@comitesresponsable.id%>">
+     <%= render :partial => "comitesresponsables_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+            <%= hidden_field :comite, :id %>
+<% end %>
+</div>
+<br/>
+<% if flash[:comitesresponsable] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:comitesresponsable] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('comitesresponsable');", 5000)
+</script>
+<% end %>

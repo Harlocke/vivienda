@@ -1,0 +1,19 @@
+  <h2>SubAnalisis Insumo : <%=@precioselemento.autobuscar rescue nil%></h2>
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <tr valign="middle">
+    <th width="60%">precioselemento</th>
+    <th width="10%">Cantidad</th>
+    <th width="10%">Desperdicio</th>
+    <th width="10%">Vlr Unitario</th>
+    <th width="10%">Vlr Total</th>
+  </tr>
+  <% @precioselementoshijos.each do |precioselementoshijo|%>
+   <tr valign="middle">
+    <td width="10%"><%=Precioselemento.find(precioselementoshijo.elementoenlace_id).descripcion rescue nil %></td>
+    <td width="10%"><%=h precioselementoshijo.cantidad rescue nil %></td>
+    <td width="10%"><%=h precioselementoshijo.desp rescue nil %></td>
+    <td width="0%"><%=camponumerico(Precioselemento.find(precioselementoshijo.elementoenlace_id).valor) rescue nil %></td>
+    <td width="0%"><%=camponumerico(precioselementoshijo.valortotal) rescue nil%></td>
+   </tr>
+  <% end %>
+</table>

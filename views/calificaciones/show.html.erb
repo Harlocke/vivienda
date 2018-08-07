@@ -1,0 +1,23 @@
+<p>
+  <b>Nro formulario:</b>
+  <%=h @calificacion.nro_formulario %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%=h @calificacion.descripcion %>
+</p>
+
+<p>
+  <b>Puntaje:</b>
+  <%=h @calificacion.puntaje %>
+</p>
+
+<p>
+  <b>Persona:</b>
+  <%=h @calificacion.persona_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_calificacion_path(@calificacion) %> |
+<%= link_to 'Back', calificaciones_path %>

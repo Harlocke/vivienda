@@ -1,0 +1,43 @@
+<% if @existecorrespondenciapendiente or @existecorrespondenciauser%>
+<img class="img" src="/images/correspondenciasasignada2.png"/>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F2F2F2">
+  <tr>
+    <td valign="top">
+      <table width=100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+            <td width="5%" class="oce-first">&nbsp;</td>
+            <td width="30%" height="30" class="oce-first">Clase Oficio</td>
+            <td width="10%" height="30" class="oce-first"><div align="center">Nro Radicado</div></td>
+            <td width="20%" height="30" class="oce-first"><div align="center">Fecha Radicado</div></td>
+            <td width="20%" height="30" class="oce-first"><div align="center">Fecha limite</div></td>
+            <td width="10%" height="30" class="oce-first"><div align="center">Dias</div></td>
+          </tr>
+        <% @correspondenciasasignadas.each do |correspondenciasasignada|
+           if correspondenciasasignada.correspondenciasrecibida.c_diferenciadias.to_i > 0 %>
+          <tr valign="middle" class="solid-green">
+            <td width="5%" class="camposDesc">&nbsp;</td>
+            <td class="camposDesc"><%=correspondenciasasignada.correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.nro_radicado rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.fecha_elaboracion rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.fecha_limite rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.c_diferenciadias rescue nil%></div></td>
+          </tr>
+        <% end
+         end %>
+        <% @correspondenciasrecibidasusers.each do |correspondenciasrecibidasuser|
+            if correspondenciasrecibidasuser.correspondenciasrecibida.c_diferenciadias.to_i > 0 %>
+          <tr valign="middle" class="solid-green">
+            <td width="5%" class="camposDesc">&nbsp;<img class="img" src="/images/redirect1.png"/></td>
+            <td class="camposDesc"><%=correspondenciasrecibidasuser.correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.nro_radicado rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.fecha_elaboracion rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.fecha_limite rescue nil%></div></td>
+            <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.c_diferenciadias rescue nil%></div></td>
+          </tr>
+        <% end
+         end %>
+      </table>
+    </td>
+  </tr>
+</table>
+<% end %>

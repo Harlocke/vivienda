@@ -1,0 +1,1 @@
+page.replace_html :ayudasadicionales_form, :partial => "/ayudasadicionales/ayudasadicionales"

@@ -1,0 +1,104 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ACTOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@reparto, @repartosacto] do |form| %>
+   <% if !@repartosacto.id %>
+     <% if @reparto.estado.to_s == 'PENDIENTE' or @reparto.estado.to_s == 'RECHAZADO'%>
+        <%= render :partial => "/repartosactos/repartosactos_form" %>
+     <% end %>
+<% end %>
+<% if @reparto.repartosactos.exists? %>
+
+<% for repartosacto in @reparto.repartosactos.find(:all, :order => 'created_at DESC') %>
+   <% if repartosacto.id != @repartosacto.id %>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="15%" height="25" class="oce-first">Fecha</td>
+        <td width="78%"  align="left" class="oce-first">Tipo</td>
+        <td width="7%"  align="left" class="oce-first"></td>
+      </tr>   
+        <tr valign="top" id="repartosacto_<%=repartosacto.id%>">
+          <td align="left" class="camposDesc"><%=repartosacto.created_at.strftime("%Y-%m-%d %X")%><br/>
+            <a title="<%=repartosacto.user.nombre rescue nil%>"><%=repartosacto.user.username rescue nil%></a></td>
+          <td class="camposDesc12" align="left"  class="oce-first">
+          <%=repartosacto.tiposacto.descripcion rescue nil%> <strong> - Valor: </strong> $ <%=camponumerico(repartosacto.valor) rescue nil%>
+          <br/><br/>
+    <% @tiposactosdocumentos = Tiposactosdocumento.find(:all, :conditions=>["tiposacto_id = #{repartosacto.tiposacto_id}"], :order=>"id")
+       @tiposactosdocumentos.each do |tiposactosdocumento|%>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr class="odd1" valign="middle">
+            <th width="85%" class="camposDesc" colspan="2" height="20"><div align="left"><%=tiposactosdocumento.descripcion rescue nil%></div></th>
+            <td width="15%" height="20" >
+               <div align="center">
+               <% if @reparto.estado.to_s == 'PENDIENTE' or @reparto.estado.to_s == 'RECHAZADO'%>
+               <%= link_to 'Adjuntar...',{:controller=>"repartosactosdocumentos", :action=>"new", :repartosacto_id=>repartosacto.id, :tiposactosdocumento_id=>tiposactosdocumento.id},:class=>"imagenlink" %>
+               <% end %>
+            </div></td>
+          </tr>
+      <% for repartosactosdocumento in repartosacto.repartosactosdocumentos.find(:all,:conditions=>["tiposactosdocumento_id = #{tiposactosdocumento.id}"], :order => 'created_at DESC') %>
+          <tr>
+            <td height="30" colspan="2" align="left" class="camposDesc"><%=repartosactosdocumento.created_at.strftime("%Y-%m-%d %X")%> - 
+                <a title="<%=repartosactosdocumento.user.nombre rescue nil%>"><%=repartosactosdocumento.user.username rescue nil%></a> - 
+                <%= link_to image_tag('download2.png', :border=>0,
+                              :title => "Descargar: #{repartosactosdocumento.reparto_file_name}") + repartosactosdocumento.reparto_file_name,
+                              repartosactosdocumento.reparto.url(:original, false),
+                             { :title=>"#{repartosactosdocumento.reparto_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%></td>
+          </tr>
+      <% end %>
+    </table>
+    <% end %><br/>
+          </td> 
+          <td class="camposDesc"><div align="center">
+          <% if @reparto.estado.to_s == 'PENDIENTE'%>
+          <%= link_to_remote('Editar',{:url => edit_reparto_repartosacto_path(@reparto, repartosacto),
+                  :method => :get}, :class=>"editarlink")%>
+          <br/><%= link_to_remote('Borrar',{:url => reparto_repartosacto_path(@reparto, repartosacto),
+                  :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+          </div></td>
+      </tr>
+      </table>      
+<% else %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table><br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"><tr><td height="30"><div class="col_enc">EDITAR</div></td></tr></table>
+       <%= render :partial => "repartosactos_form" %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :reparto, :id %>
+<% end %>
+<br/>
+<% if flash[:repartosacto] %>
+<div id="repartosacto">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:repartosacto] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('repartosacto');", 5000)
+</script>
+<% end %>
+</div>

@@ -1,0 +1,74 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">MATRICULAS INMOBILIARIAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<% remote_form_for [@legalizacion, @legalizacionesmatricula] do |form| %>
+<% if permiso("legalizacionesmatricula","C").to_s == "S" %>
+       <% if !@legalizacionesmatricula.id %>
+            <%= render :partial => "/legalizacionesmatriculas/legalizacionesmatriculas_form" %>
+       <% end %>
+<% end %>
+<br/>
+<div align="center">
+<% if @legalizacion.legalizacionesmatriculas.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="22%" align="left" class="oce-first">Proyecto - Bloque</td>
+    <td width="10%" align="left" class="oce-first">Matricula</td>
+    <td width="8%" align="left" class="oce-first">RPH</td>
+    <td width="10%" align="left" class="oce-first">Fecha</td>
+    <td width="20%" align="left" class="oce-first">Notaria</td>
+    <td width="10%" align="left" class="oce-first"></td>
+  </tr>
+<% @legalizacion.legalizacionesmatriculas.each do |legalizacionesmatricula| %>
+   <% if legalizacionesmatricula.id != @legalizacionesmatricula.id %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizacionesmatricula_<%= legalizacionesmatricula.id%>">
+         <td height="30" class="camposDesc" ><%=legalizacionesmatricula.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizacionesmatricula.user.nombre rescue nil%>"><%=legalizacionesmatricula.user.username rescue nil%></a></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesproyecto.completo rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.matricula rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.rph rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.fecharph rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.notariarph rescue nil %></td>
+         <td width="10%" class="camposDesc">
+          <% if permiso("legalizacionesmatricula","A").to_s == "S" %>
+            <%= link_to_remote('Editar',{:url => edit_legalizacion_legalizacionesmatricula_path(@legalizacion, legalizacionesmatricula),
+            :method => :get}, :class=>"editarlink")%>
+          <% end %>
+          <% if permiso("legalizacionesmatricula","E").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => legalizacion_legalizacionesmatricula_path(@legalizacion, legalizacionesmatricula),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+           </td>
+        </tr>
+    <% else %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><br/><h3>Editar</h3></td></tr></table>
+         <%= render :partial => "legalizacionesmatriculas_form" %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+<% end %>
+</table>
+<% else %>
+    <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+       <tr><td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+       <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td></tr>
+    </table>
+<% end %>
+    <%= hidden_field :legalizacion, :id %>
+<% end %>
+<% if flash[:legalizacionesmatricula] %>
+  <div id="legalizacionesmatricula">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+       <tr><td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+       <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:legalizacionesmatricula] %></td></tr>
+    </table>
+  </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('legalizacionesmatricula');", 5000)
+  </script>
+<% end %>
+</div>

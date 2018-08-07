@@ -1,0 +1,85 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PARAMETRIZACIÓN DE PAGOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@convenio, @conveniosforma] do |form| %>
+<% if permiso("conveniosforma","C").to_s == "S" %>
+       <% if !@conveniosforma.id %>
+            <%= render :partial => "/conveniosformas/conveniosformas_form" %>
+       <% end %>
+<% end %>
+  <% if @convenio.conveniosformas.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="15%" height="30" class="oce-first">Porcentaje de Pago</td>
+    <td width="10%" height="30" class="oce-first">Clase</td>
+    <td width="10%" height="30" class="oce-first">Resolucion</td>
+    <td width="15%" height="30" class="oce-first">Fecha Resolucion</td>
+    <td width="15%" height="30" class="oce-first">Porc. Avance para pago</td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% a = 0
+   @convenio.conveniosformas.each do |conveniosforma| %>
+<%  if conveniosforma.id != @conveniosforma.id %>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosforma_<%= conveniosforma.id%>">
+     <td width="20%" height="30" class="camposDesc"><%=conveniosforma.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=conveniosforma.user.username rescue nil%></td>
+     <td width="15%" height="30" class="camposDesc"><%=conveniosforma.porcentaje rescue nil%> % </td>
+     <td width="10%" height="30" class="camposDesc"><%=conveniosforma.clase rescue nil%></td>
+     <td width="10%" height="30" class="camposDesc"><%=conveniosforma.resolucion.nro_resolucion rescue nil%></td>
+     <td width="15%" height="30" class="camposDesc"><%=conveniosforma.resolucion.fecha rescue nil%></td>
+     <td width="15%" height="30" class="camposDesc"><%=conveniosforma.porc_avance rescue nil%> % </td>
+     <td width="15%" class="camposDesc"><div align="center">
+        <% if permiso("conveniosforma","A").to_s == "S" %>
+          <%= link_to_remote('Editar',{:url => edit_convenio_conveniosforma_path(@convenio, conveniosforma),:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("conveniosforma","E").to_s == "S" %>
+          <%= link_to_remote('Borrar',{:url => convenio_conveniosforma_path(@convenio, conveniosforma),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %></div>
+        </td>
+ </tr>
+</table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="conveniosforma_<%=@conveniosforma.id%>">
+            <%= render :partial => "conveniosformas_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :convenio, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosforma] %>
+<div id="conveniosforma">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:conveniosforma] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosforma');", 5000)
+</script>
+<% end %>
+</div>
+

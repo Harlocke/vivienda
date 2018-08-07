@@ -1,0 +1,395 @@
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+</link><style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% for viviendasreporte in @viviendasreportes
+     if Viviendaspersona.exists?(["persona_id = ?", viviendasreporte.persona_id]) == true
+       @viviendaspersona = Viviendaspersona.find_by_persona_id(viviendasreporte.persona_id)
+       codigoproyecto = @viviendaspersona.vivienda.proyecto_id
+       codigobloque   = @viviendaspersona.vivienda.bloque_id
+       codigoapto     = @viviendaspersona.vivienda.apto_id
+%>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="50%" height="30"><div align="left"><img src="../../images/minvivienda.png"/></div></td>
+            <td width="50%" height="30"><div align="right"><img src="../../images/logoisvimed_midle.png"/></div></td>
+          </tr>
+        </table><br/>
+        <div align="center" style="font-size: 18px; font-family: Arial Narrow;"><strong>
+        ACTA DE ENTREGA DE LA VIVIENDA<br/>PROGRAMA DE VIVIENDA GRATUITA</strong>
+        </div>
+        <div align="justify" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%; ">
+        <br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%" height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>FECHA:</strong></td>
+            <td width="80%" height="30" style="font-size: 18px; font-family: Arial Narrow;">Medellín, ________ de ___________________ de ______</td>
+          </tr>
+          <tr>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>PROYECTO:</strong></td>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><%=@viviendaspersona.vivienda.proyecto.descripcion rescue nil %></td>
+          </tr>
+          <tr>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>LUGAR:</strong></td>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><%=@viviendaspersona.vivienda.proyecto.descripcion rescue nil %></td>
+          </tr>
+        </table><br/>
+        <strong>ASISTENTES:</strong><br/><br/>
+        <strong>Comparecieron: </strong><br/>
+        <strong>A)&nbsp;&nbsp;&nbsp;<%=@viviendaspersona.persona.nombres rescue nil%></strong>, identificado con la cédula de ciudadanía No. <strong><%=@viviendaspersona.persona.identificacion rescue nil%></strong>, obrando en su propio nombre y en su condición de jefe del hogar conformado de la siguiente manera:<br/><br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td width="5%" height="40" style="font-size: 18px; font-family: Arial Narrow;"><strong>Nro. </strong></td>
+            <td width="50%" style="font-size: 18px; font-family: Arial Narrow;"><strong>NOMBRE</strong></td>
+            <td width="25%" style="font-size: 18px; font-family: Arial Narrow;"><strong><div align="center">DOCUMENTO DE IDENTIFICACIÓN</div></strong></td>
+            <td width="20%" style="font-size: 18px; font-family: Arial Narrow;"><strong><div align="center">PARENTESCO CON EL JEFE DE HOGAR</div></strong></td>
+          </tr>
+         <% i = 0
+            @beneviviendas = Benevivienda.find_all_by_persona_id(@viviendaspersona.persona_id);
+            ident = ""
+            for benevivienda in @beneviviendas
+              i = i + 1
+              if benevivienda.identificacion.to_s != ""
+                ident = benevivienda.identificacion
+              else
+                ident = "ME"
+              end
+          %>
+          <tr>
+            <td height="25" style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=i%></div></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><%=benevivienda.primer_nombre%> <%=benevivienda.segundo_nombre%> <%=benevivienda.primer_apellido%> <%=benevivienda.segundo_apellido%></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=ident%></div></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=benevivienda.parentesco.descripcion rescue nil%></div></td>
+          </tr>
+          <% end %>
+        </table>
+        <br/>
+        <strong>B)&nbsp;&nbsp;&nbsp;</strong><strong><%=Sifi.find(30).valor rescue nil%></strong>, identificado con la cédula de ciudadanía <%=Sifi.find(92).valor rescue nil%> , en su condición de <%=Sifi.find(31).valor rescue nil%> del Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED, Instituto que prometió vender al FIDEICOMISO – PROGRAMA DE VIVIENDA GRATUITA la vivienda objeto de entrega.<br/><br/>
+        <div align="center" style="font-size: 18px; font-family: Arial Narrow;"><strong>CONSIDERACIONES</strong></div>
+        <br/>
+        <strong>1.&nbsp;&nbsp;&nbsp;</strong>El hogar cuyo jefe comparece a la presente diligencia de entrega material, fue beneficiario de un subsidio familiar de vivienda en especie, de acuerdo con la resolución No. <strong><%=@viviendaspersona.persona.fchsubnacionalres %></strong> del <strong><%=namedate(@viviendaspersona.persona.fchsubnacionalfch.to_date) rescue nil %></strong>, expedida por el Fondo Nacional de Vivienda. <br/><br/>
+        <strong>2.&nbsp;&nbsp;&nbsp;</strong>De acuerdo con el acta del sorteo realizado el día <strong><%=namedate(@viviendaspersona.vivienda.fecha_sorteo) rescue nil %></strong>, para la asignación de las viviendas del mencionado proyecto de vivienda, al hogar beneficiario le correspondió la vivienda ubicada en el bloque <strong><%=@viviendaspersona.vivienda.bloque.descripcion rescue nil%></strong>, apartamento <strong><%=@viviendaspersona.vivienda.apto.descripcion rescue nil%></strong>, identificada de la siguiente manera: No. <strong><%=@viviendaspersona.vivienda.nro_matricula rescue nil %></strong><br/><br/>
+        <strong>3.&nbsp;&nbsp;&nbsp;</strong>El jefe del hogar antes identificado, en nombre de suyo y de todos los miembros del hogar, en compañía de un designado de CAVIS – UT, realizó una diligencia de reconocimiento de la vivienda mencionada en el numeral anterior y, como consta en acta el <strong><%=namedate(@viviendaspersona.vivienda.fecha_cavis) rescue nil %></strong>, aceptó que la misma fuera adquirida en su favor. <br/><br/>
+        <strong>4.&nbsp;&nbsp;&nbsp;</strong>El jefe del hogar que suscribe la presente acta, el día <strong><%=namedate(@viviendaspersona.vivienda.fecha_poder) rescue 'XXXXXXXXXXXXXXXXXXX' %></strong> ante la Notaría <strong><%=@viviendaspersona.vivienda.notaria_poder rescue 'XXXXXXXXXXXXXXXXXXX' %></strong> otorgó poder a la Fiduciaria Bogotá S.A, para que esta: a) adquiera en su favor la vivienda de interés prioritario, b) constituya patrimonio de familia sobre la vivienda adquirida, c) incluya en la escritura pública de adquisición, su obligación expresa, clara y exigible de restituir la vivienda, en los casos que incumpla las obligaciones contenidas en las normas vigentes. <br/><br/>
+        Teniendo en cuenta lo expuesto, y en consecuencia se suscribe la presente ACTA DE ENTREGA Y RECIBO MATERIAL, en la cual las partes deciden:
+        <br/><br/>
+        <strong>PRIMERO:&nbsp;&nbsp;&nbsp;</strong>El señor <strong><%=Sifi.find(30).valor rescue nil%></strong>, en su condición de <%=Sifi.find(31).valor rescue nil%> del ISVIMED, entidad vendedora del apartamento en mención, procede  a entregar materialmente, al jefe del hogar beneficiario antes descrito en la presente acta, el inmueble identificado con el folio de matrícula inmobiliaria número de la Oficina de Registro de Instrumentos Públicos de la Zona Norte, el cual se encuentra descrito con su cabida y linderos en la escritura publica nro. <strong><%=@viviendaspersona.vivienda.esc_nro_escritura rescue nil %></strong>.
+        <br/><br/>
+      <%
+          if (codigoproyecto == 51) #cuando el proyecto es Tirol II
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas que se pueden adaptar a tres alcobas, cocina, baño social y con un área privada de 45.95 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista y ladrillo. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio de 3mm fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco metálico y ala tripleada y con chapa.</li>
+          <li>Pasamanos: Tubería metálica, varillas verticales </li>
+          <li>Mesón en acero inoxidable</li>
+          <li>Lavadero prefabricado en grano</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla, juego de incrustaciones, sanitario con grifería; lavamanos; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 66) # cuando es PELICANOS 3
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE,
+                el inmueble que se entrega, cuenta con: Salón comedor; tres alcobas, cocina, baño social y con un área privada de 43.35 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco en madera y ala tripleada y con chapa.</li>
+          <li>Mesón en granito con pozuelo.</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones (toallero dos (2), jaboneras dos (2) papelera uno (1)), combo sanitario y lavamos línea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 46 or codigoproyecto == 65) # cuando es Pelicanos 1 y 2
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; tres alcobas, cocina, baño social y con un área privada de 43.35 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco en madera y ala tripleada y con chapa.</li>
+          <li>Mesón en granito con pozuelo.</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones (toallero dos (2), jaboneras dos (2) papelera uno (1)), combo sanitario y lavamos línea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>  
+      <%
+          elsif (codigoproyecto == 68) # cuando es Atardeceres
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo,
+            emitido por FONADE, el inmueble que se entrega, cuenta con:
+        <% if @viviendaspersona.vivienda.apto.nro_hab.to_s == '2' %> Salón comedor; dos alcobas que se pueden adaptar a tres alcobas,
+        <% elsif @viviendaspersona.vivienda.apto.nro_hab.to_s == '3' %> Salón comedor; una (1) alcoba principal y dos (2) alcobas auxiliares,
+        <%end%> cocina, baño social y con un área privada de 45.95 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista y ladrillo. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio de 3mm fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <% if @viviendaspersona.vivienda.apto.nro_hab.to_s == '2' %><li>Puerta baño: Marco en madera y ala tripleada y con chapa.</li>
+          <% elsif @viviendaspersona.vivienda.apto.nro_hab.to_s == '3' %><li>Puerta baño: Marco en madera y a la tripleada y con chapa sencilla</li>
+          <% end%>
+          <li>Pasamanos: Tubería metálica, varillas verticales </li>
+          <li>Mesón en acero inoxidable</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla, juego de incrustaciones, sanitario con grifería; lavamanos; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 48 or codigoproyecto == 49 ) # cuando es Limonar 4-4 y Limonar 4-5
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte
+        integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor;
+        <% if @viviendaspersona.vivienda.apto.nro_hab.to_s == '2' %>Dos (2) alcobas con posibilidad de una tercera habitación,
+        <% elsif @viviendaspersona.vivienda.apto.nro_hab.to_s == '3' %>tres (3) alcobas,<%end%> cocina, baño social y con un área privada de
+        <%=@viviendaspersona.vivienda.apto.medida.to_s rescue nil %> y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista y ladrillo. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio de 3mm fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco metálico y a la tripleada y con chapa sencilla.</li>
+          <li>Pasamanos: Tubería metalica, varillas verticales </li>
+          <li>Mesón en acero inoxidable</li>
+          <li>Lavadero prefabricado: en grano  de 50 cms. x 60 cms.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla, juego de incrustaciones, sanitario con grifería; lavamanos; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 64 or codigoproyecto == 59) # cuando es Villa Santafe II y Villa Santafe I
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; tres alcobas, cocina, baño social y con un área privada de 44 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco en madera y ala tripleada.</li>
+          <li>Mesón en granito con pozuelo.</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en </li>lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones (toallero dos (2), jaboneras dos (2) papelera uno (1)), combo sanitario y lavamos línea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 38) # cuando es Ciudad del Este
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas que se pueden adaptar a tres alcobas, cocina, baño social y con un área privada de 49.70 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista; piso en concreto; antepecho en mampostería de ladrillo o en pasamanos metálico según planos y tipo de ventana, machones prefabricados para lavadero y mesón de cocina</li>
+          <li>Ventaneria en aluminio con su respectiva alfajía y vidrio claro de 4mm, en salón puerta corrediza  o  ventaneria fija de acuerdo a la tipología de cada apartamento.</li>
+          <li>Según el tipo de apartamento, la ventanería instalada corresponde a: de 0.80m x 1.20m en segunda alcoba. En dos cuerpos (uno fijo y otro corredizo) y con persiana, de 0.90m x 1.20m, en zona de ropas. En dos cuerpos (uno fijo y otro corredizo), de 0.85 m x 1.20m, en alcoba principal. Puerta Vidriera, de 2.20m x 2.32m, en salón. Aplica para todos los apartamentos desde el segundo nivel construido en adelante. En dos cuerpos (uno fijo y otro corredizo), de 2.20 m x 1.20m Ventana en salón. Aplica en los apartamentos del primer nivel. En dos cuerpos (uno fijo y otro corredizo) y con persiana, de 0.85m x 1.20m, en alcobas principal. Aplica en los apartamentos del primer nivel que lindan con el corte natural del terreno.</li>
+          <li>Puertas de acceso: marco metálico y ala metálica con chapa doble macho</li>
+          <li>Puerta Baño, marco metálico y ala tipleada, con chapa.</li>
+          <li>Mesón de cocina en acero inoxidable con pozuelo y con cuatro quemadores a gas</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta en losa de concreto con la pendiente correspondiente, debidamente impermeabilizada, con muros áticos perimetrales en mampostería protegidos con lagrimales de concreto.</li>
+          <li>Instalaciones hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha con pomo en material acrílico y regadera, juego de incrustaciones, combo sanitario y lavamanos línea económica con su correspondiente abasto y grifería, desagües de piso en baño, ducha y zona de ropas con su correspondiente rejilla plástica, desagües en lavaplatos con canastilla, desagüe de lavadero con tapón y desagüe para lavadora; redes comunes de desagües de aguas residuales y aguas lluvias colgadas en cocina y baño, en tubería PVC en cubiertas de edificios para evacuación de agua en terrazas.</li>
+          <li>Instalaciones eléctricas completas, así: medidor de energía individual; tablero de protecciones de breakers, tomas dobles, tomas GFCI en cocina y baño, toma trifilar para estufa,  interruptores; salidas de alumbrado con sus respectivos plafones</li>
+          <li>Instalaciones de Gas: consta de una (1) salida para cocción y horno con su respectiva válvula de cierre y tubería de conducción expuesta en acero sch-40, con conexión al centro de medición, acrílico de señalización, incluye medidor y regulador, el interesado deberá, a su cargo, solicitar el suministro del servicio ante la entidad proveedora del mismo (Gas ante EPM)</li>
+          <li>El apartamento cuenta con una (1) salida telefónica y una (1) salida para TV, debidamente alambradas en el salón, el interesado deberá solicitar a su cargo el suministro del servicio a la entidad proveedora. Igualmente el aparato deberá ser adquirido a costo del interesado.</li>
+        </ul>
+      <%
+          elsif (codigoproyecto == 37) # cuando es La Cruz
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por el Instituto Social de Vivienda y Hábitat de Medellín- ISVIMED, el inmueble que se entrega, cuenta con: Salón comedor; tres (3) alcobas, cocina, baño social y con un área privada de 47.8 m2 y que posee los siguientes elementos: 
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista, ladrillo cocido de 40x20x10 cara lisa revitado y calados en arcilla para ventilación en zona de cocina y ropas. Piso en concreto.</li>
+          <li>Ventanas en aluminio con su respectiva alfajía y vidrio claro o grabado de 4mm: Tres (3) unidades de tres cuerpos (dos fijos y otro corredizo) de 0.80m*1.5m ubicadas cada en una de las habitaciones. Una (1) unidad de dos cuerpos fijos de 0.60m*1.50m con vidrio grabado, ubicada en el cocina.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa doble macho.</li>
+          <li>Puerta baño: ala en madera pintada con laca y marco metálico en lámina doblada en frio pintado al horno y con chapa sencilla.</li>
+          <li>Pasamanos: en tubería metálica calibre 18 de diferentes diámetros pintado con anticorrosivo acabado en esmalte alquidico ubicado en los balcones.</li>
+          <li>Mesón en acero inoxidable: de 1.40m*0.50m con pozuelo y salpicadero.</li>
+          <li>Lavadero prefabricado: en grano pulido de 0.55m*0.60m.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales protegidos con lagrimales en concreto, prefabricados y escotilla metálica para ingreso.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla regadera y maneral acrílico, juego de cuatro incrustaciones (ganchos, toallero, jabonera para ducha y lavamanos ), sanitario línea Trevi blanco con grifería y abasto plástico; lavamanos línea Trevi grifería sencilla pomo acrílico y abasto plástico; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora con tapón, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: un (1) medidor de energía individual; un (1) tablero de protecciones de seis (6) breakers con cuatro (4) unidades de 20 amperios, dos (2) unidades de 30 amperios; un (1) toma trifilar para la estufa, quince (15) tomas dobles, dos (2) tomas GFCI en cocina y baño, siete (7) interruptores sencillos; un (1)interruptor doble, ocho (8) salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: el apartamento cuenta con una (1) salida telefónica debidamente alambrada en salón comedor y una (1) canalización en tubería PVC para salida de televisión sin cableado y con aparato eléctrico, el interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: consta de una (1) salida doble para cocción y horno con su respectiva válvula de cierre y tubería de conducción expuesta en acero sch40, con conexión al centro de medición, acrílicos de señalización, NO INCLUYE MEDIDOR NI REGULADOR, pues estos deberán ser solicitados por el interesado a su cargo, cuando se tramite el servicio ante EPM.</li>
+        </ul>        
+      <%
+          elsif (codigoproyecto == 45 and codigobloque != 253) # cuando es Altos de san Juan menos e bloque 7
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas (con posibilidad de adecuación para tres alcobas), cocina, baño y con un área privada de 42,0 m2 y que posee los siguientes elementos: 
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural con bloque en concreto a la vista, y muros en concreto estructural a la vista.</li>
+          <li>Piso de apartamentos en concreto y puntos fijos revestido en cerámica. </li>
+          <li>Ventanas en aluminio crudo y vidrio claro con Alfajía; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: Marco y ala metálica en lámina doblada en frio y pintada con chapa.</li>
+          <li>Puerta baño: Marco en madera y ala tripleadacon tiradera y pasador.</li>
+          <li>Mesón en acero inoxidable con pozuelo.</li>
+          <li>Lavadero en porcelana fría. </li>
+          <li>Cubierta: En losa de concreto pendientada, debidamente impermeabilizada.</li>
+          <li>Pisos: En cerámica blanca 20 x 20 cm para piso de baño y ducha. </li>
+          <li>Enchapes:En cerámica 20 x 20 cm para muros de ducha y salpicadero de cocina y lavadero. </li>
+          <li>Instalaciones Hidrosanitarias: Medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones, combo sanitario y lavamoslínea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, tubería PVC presión para abasto de agua potable.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones.</li>
+          <li>Red telefónica y televisión: Red sin aparato, el interesado a su cargo deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas:En acero al carbón, El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+        </ul>    
+      <%
+          elsif (codigoproyecto == 45 and codigobloque == 253) # cuando es Altos de san Juan solo Etapa 7
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas (con posibilidad de adecuación para tres alcobas), cocina, baño y con un área privada de 39,95 m2 y que posee los siguientes elementos: 
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural con bloque en concreto a la vista, y muros en concreto estructural a la vista. </li>
+          <li>Piso de apartamentos en concreto y puntos fijos revestido en cerámica. </li>
+          <li>Ventanas en aluminio crudo y vidrio claro con Alfajía; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: Marco y ala metálica en lámina doblada en frio y pintada con chapa.</li>
+          <li>Puerta baño: Marco en madera y ala tripleada con tiradera y pasador.</li>
+          <li>Mesón en acero inoxidable con pozuelo.</li>
+          <li>Lavadero en porcelana fría. </li>
+          <li>Cubierta: En losa de concreto pendientada, debidamente impermeabilizada.</li>
+          <li>Pisos: En cerámica blanca 20 x 20 cm para piso de baño y ducha. </li>
+          <li>Enchapes: En cerámica 20 x 20 cm para muros de ducha y salpicadero de cocina y lavadero. </li>
+          <li>Instalaciones Hidrosanitarias: Medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones, combo sanitario y lavamoslínea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, tubería PVC presión para abasto de agua potable.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones.</li>
+          <li>Red telefónica y televisión: Red sin aparato, el interesado a su cargo deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas:En acero al carbón, El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+        </ul>   
+      <%
+          elsif (codigoproyecto == 55 or codigoproyecto == 67) # cuando es Altos de Calazans I
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas (con posibilidad de adecuacion para tres alcobas), cocina, baño social y con un área privada de 45.7 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista, ladrillo cocido cara lisa revitado y celosías para ventilación en zona de cocina y ropas</li>
+          <li>Ventanas en aluminio con su respectiva alfajía y vidrio claro o grabado</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa doble macho</li>
+          <li>Puerta baño: ala en madera pintada con laca y marco en madera con chapa sencilla</li>
+          <li>Mesón en acero inoxidable con pozuelo y salpicadero</li>
+          <li>Lavadero prefabricado: en grano pulido</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla regadera, juego de incrustaciones, sanitario línea Trevi blanco con grifería y abasto plástico; lavamanos línea Trevi grifería sencilla pomo acrílico y abasto plástico; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora con tapón, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero</li>
+          <li>Instalaciones eléctricas completas, así: un (1) medidor de energía individual; un (1) tablero de protecciones breakers ; tomas dobles,  tomas GFCI en cocina y baño,  interruptores sencillos; interruptor doble, salidas de alumbrado con sus respectivos plafones en porcelana</li>
+          <li>Red telefónica y televisión: el apartamento cuenta con una (1) salida telefónica debidamente alambrada en salón comedor y una (1) canalización en tubería PVC para salida de televisión sin cableado, el interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+          <li>Instalaciones de Gas: tubería de conducción expuesta, el servicio de gas deberá ser solicitado por el interesado a su cargo ante la entidad prestadora.​</li>         
+        </ul>      
+      <%
+          elsif (codigoproyecto == 69 #and codigoapto.include? "") #Altos de Calazans II -Apartamentos tipo A4: terminados en 2 y 3 
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por el Fondo Financiero de Proyectos de Desarrollo- FONADE, el inmueble que se entrega cuenta con: Salón comedor; dos (2) alcobas, cocina, baño social y con un área privada de 42.63 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista, ladrillo cocido de 40x20x10 cara lisa revitado y calados en arcilla para ventilación en zona de cocina y ropas. Piso en concreto.</li>
+          <li>Ventanas en aluminio con su respectiva alfajía y vidrio claro o grabado de 4mm: Tres (3) unidades de dos cuerpos (uno fijo y otro corredizo) ubicadas en cada una de las habitaciones y en el salón comedor. Una (1) unidad de dos cuerpos fijos con vidrio, ubicada en la cocina.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa doble macho.</li>
+          <li>Puerta baño: ala en madera pintada con laca y marco metálico en lámina doblada en frio pintado al horno y con chapa sencilla.</li>
+          <li>Mesón en grano pulido con pozuelo y salpicadero.</li>
+          <li>Lavadero prefabricado: en grano pulido con salpicadero.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales protegidos con lagrimales en concreto, prefabricados y escotilla metálica para ingreso.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla regadera y maneral acrílico, juego de incrustaciones, sanitario línea Trevi blanco con grifería y abasto plástico; lavamanos línea Trevi grifería sencilla pomo acrílico y abasto plástico; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora con tapón, redes comunes de desagües de aguas lluvias y de aguas negras; tubería PVC 1/2" presión para abasto de agua potable.</li>
+          <li>Instalaciones eléctricas completas, así: un (1) medidor de energía individual; un (1) tablero de protecciones de seis (6) breakers con cuatro (4) unidades de 20 amperios, dos (2) unidades de 30 amperios; un (1) toma trifilar para la estufa, nueve (9) tomas dobles, dos (2) tomas GFCI en cocina y baño, tres (3) interruptores sencillos; un (1)interruptor doble, siete (7) salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: el apartamento cuenta con una (1) salida telefónica en salón comedor y una (1) canalización en tubería PVC para salida de televisión, el interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: consta de una (1) salida doble para cocción y horno con su respectiva válvula de cierre y tubería de conducción expuesta en acero sch-40, con conexión al centro de medición, acrílicos de señalización, incluye medidor y regulador,  la instalación del servicio debe ser solicitada por el interesado ante EPM</li>  
+        </ul>      
+      <%
+
+
+          elsif (codigoproyecto == 47) # cuando es EL SOCORRO
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; dos alcobas, cocina, baño social y con un área privada de 45 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en mampostería estructural. Piso en concreto.</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio fijo y corredizo.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa.</li>
+          <li>Puerta baño: Marco metálico, ala en madera y  chapa.</li>
+          <li>Mesón en acero inoxidable con pozuelo.</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora, una (1) llave en lavaplatos, una (1) llave en lavadero, ducha sencilla, juego de incrustaciones (toallero dos (2), jaboneras dos (2) papelera uno (1)), combo sanitario y lavamos línea económica con su correspondiente grifería y abastos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina y baño, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos</li>
+        </ul>  
+      <%
+          else
+      %>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por la Financiera de Desarrollo Territorial - FINDETER, el inmueble que se entrega, cuenta con: Salón comedor; tres (3) alcobas, cocina, baño social y  con un área privada de 47.8 m2 y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros en concreto a la vista, ladrillo cocido de 40x20x10 cara lisa revitado y calados en arcilla para ventilación en zona de cocina y ropas. Piso en concreto.</li>
+          <li>Ventanas en aluminio con su respectiva alfajía y vidrio claro o grabado de 4mm: Tres (3) unidades de tres cuerpos (dos fijos y otro corredizo) de 0.80m*1.5m ubicadas cada en una de las habitaciones. Una (1) unidad de dos cuerpos fijos de 0.60m*1.50m con vidrio grabado, ubicada en el cocina.</li>
+          <li>Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa doble macho.</li>
+          <li>Puerta baño: ala en madera pintada con laca y marco metálico en lámina doblada en frio pintado al horno y con chapa sencilla.</li>
+          <li>Pasamanos: en tubería metálica calibre 18 de diferentes diámetros pintado con anticorrosivo acabado en esmalte alquidico ubicado en los balcones.</li>
+          <li>Mesón en acero inoxidable: de 1.40m*0.50m con pozuelo y salpicadero.</li>
+          <li>Lavadero prefabricado: en grano pulido de 0.55m*0.60m.</li>
+          <li>Cubierta: en losa de concreto pendientada, debidamente impermeabilizada, con muros áticos perimetrales protegidos con lagrimales en concreto, prefabricados y escotilla metálica para ingreso.</li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla regadera y maneral acrílico, juego de cuatro incrustaciones (ganchos, toallero, jabonera para ducha y lavamanos ), sanitario línea Trevi blanco con grifería y abasto plástico; lavamanos línea Trevi grifería sencilla pomo acrílico y abasto plástico; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora con tapón, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: un (1) medidor de energía individual; un (1) tablero de protecciones de seis (6) breakers con cuatro (4) unidades de 20 amperios, dos (2) unidades de 30 amperios; un (1) toma trifilar para la estufa, quince (15) tomas dobles, dos (2) tomas GFCI en cocina y baño, siete (7) interruptores sencillos; un (1)interruptor doble, ocho (8) salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: el apartamento cuenta con una (1) salida telefónica debidamente alambrada en salón comedor y una (1) canalización en tubería PVC para salida de televisión sin cableado y con aparato eléctrico, el interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+          <li>Instalaciones de Gas: consta de una (1) salida doble para cocción y horno con su respectiva válvula de cierre y tubería de conducción expuesta en acero sch-40, con conexión al centro de medición, acrílicos de señalización, NO INCLUYE MEDIDOR NI REGULADOR, pues estos deberán ser solicitados por el interesado a su cargo, cuando se tramite el servicio ante EPM. </li>
+        </ul>
+      <%
+          end
+      %>  
+        Conforme a la <strong>Ley 675 de 2001, artículos 3 y 24</strong>, conozco y acepto que además del apartamento he recibido las zonas comunes del edificio, entendiendo por tales los bienes, los elementos y zonas que permiten o facilitan la existencia, estabilidad, funcionamiento, conservación, seguridad, accesibilidad uso o goce de los bienes de dominio particular. Entiendo  que pertenecen en común y proindiviso a los propietarios de los apartamentos y que específicamente corresponden al terreno, los cimientos, la estructura de muros portantes o muros de cargas, columnas, losas o placas, muros estructurales, vigas, fachadas, las paredes que separan una unidad privada de otra, corredores de acceso, ductos, los techos o azoteas, zonas verdes (en caso de aplicar), salón social (en caso de aplicar), redes, instalaciones hidráulicas y eléctricas, los cuartos técnicos donde están alojadas las motobombas y tanques de almacenamiento de agua potable, los cuartos eléctricos, transformadores, conforme a lo que establece <strong>la Ley 675 de 2001</strong> y el <strong>Régimen de Propiedad Horizontal- RPH</strong> correspondiente a la copropiedad  a la cual pertenece el bien privado objeto de esta entrega.
+        <br/><br/>
+        Con base en el <strong>Reglamento de Propiedad Horizontal- RPH, y la Ley 675 de 2001</strong>, es de obligatorio cumplimiento el pago de las cuotas de administración, los servicios públicos de las zonas comunes y demás erogaciones que se determinen por parte de la junta de copropietarios, con el fin de cancelar los gastos que se originen en zonas comunes y en el bienestar de la urbanización y residentes.
+        <br/><br/>  
+        <strong>TERCERO:&nbsp;&nbsp;&nbsp;</strong>El <strong>Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED</strong> en su condición de vendedor de la vivienda identificada al inicio de la presente acta, procede a entregar al jefe del hogar beneficiario antes descrito en la presente acta, las llaves de la vivienda y del Manual de Usuario de la misma.
+        <br/><br/>
+        <strong>CUARTO:&nbsp;&nbsp;&nbsp;</strong>De acuerdo con lo establecido en el parágrafo 2º del artículo 6º de la Ley 1537 de 2012, <em>“Las obligaciones que establezcan las normas vigentes sobre las garantías relativas a la obra, se entenderán como obligaciones a cargo de los constructores y no de los patrimonios autónomos que se constituyan ara el desarrollo de proyectos de vivienda de interés prioritario”</em>.
+        <br/><br/>
+        En constancia de lo anterior, firman la presente acta el jefe de hogar y el <%=Sifi.find(31).valor rescue nil%> del ISVIMED, en representación de la entidad vendedora de la vivienda en tres originales, uno con destino a cada una de las partes comparecientes y otro con destino a la Fiduciaria Bogotá en su condición de vocera del FIDEICOMISO – PROGRAMA DE VIVIENDA GRATUITA.
+        <br/><br/><br/>
+        <strong>FIRMAS&nbsp;&nbsp;</strong><br/><br/><br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="45%"><hr></hr></td>
+            <td width="10%">&nbsp;</td>
+            <td width="45%"><hr></hr></td>
+          </tr>
+          <tr>
+            <td style="font-size: 18px; font-family: Arial Narrow;">Jefe de hogar (Firma y Huella)</td>
+            <td>&nbsp;</td>
+            <td style="font-size: 18px; font-family: Arial Narrow;">Entidad vendedora</td>
+          </tr>
+        </table><br/>
+          <% if Archivo.exists?(["archivosserie_id = 10004 and id in (select archivo_id from archivospersonas where persona_id = #{@viviendaspersona.persona_id})"])
+              dato = Archivo.find(:first, :conditions=>["archivosserie_id = 10004 and id in (select archivo_id from archivospersonas where persona_id = #{@viviendaspersona.persona_id})"]) %>
+              <div align="left" style="font-size: 12px; font-family: Arial Narrow;">CAJA: <strong><%=dato.caja.to_s%></strong> - CARPETA: <strong><%=dato.carpeta.to_s%></strong></div>
+          <% end%><br/>        
+        </div>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina>. </H1>
+<%
+      end
+    end
+%>

@@ -1,0 +1,314 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="16%" height="25" class="campos">Nro Contrato *</td>
+    <td width="14%" class="campos">Fecha Firma *</td>
+    <td width="70%" class="campos">Objeto *</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"  height="25" valign="top">
+      <% if @contrato.nro_contrato %>
+         <%=@contrato.nro_contrato%>
+      <% end %>
+  <div class="cerror"><strong>* Ultimo Contrato <%=help_lastcont.to_s%></strong></div>
+    <%= error_message_on :contrato, :nro_contrato, :css_class =>"cerror"%></td>
+    <td class="camposDesc" valign="top"><%= calendar_date_select "contrato", "fecha_firma", :year_range => [2009, 2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_firma, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= text_area :contrato, :objeto, { :class => "campoMultiLinea", :cols=>"90", :rows=>"5",
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :contrato, :objeto, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="18%"  height="25" class="campos">Valor Total *</td>
+    <td width="15%"  height="25" class="campos">Valor Mensual *</td>
+    <td width="10%" class="campos">Plazo Mes *</td>
+    <td width="10%" class="campos">Plazo Dias *</td>
+    <td width="15%" class="campos">Fecha Inicio</td>
+    <td width="15%" class="campos">Fecha Final</td>
+    <td width="18%" class="campos">Fecha Liquidacion</td>
+  </tr>
+  <tr>
+    <td  height="25" class="camposDesc"><%= text_field :contrato, :valor_contrato,{ :class => "campo", :size => 20,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :valor_contrato, :css_class =>"cerror"%></td>
+    <td  height="25" class="camposDesc"><%= text_field :contrato, :valor_mes,{ :class => "campo", :size => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :valor_mes, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= text_field :contrato, :plazo_mes,{ :class => "campo", :size => 5, :maxlength => 2,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :plazo_mes, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= text_field :contrato, :plazo_dias,{ :class => "campo", :size => 5, :maxlength => 2,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :plazo_dias, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_inicio", :year_range => [1990, 2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_inicio, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_final", :year_range => [1990, 2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_final, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_liquidacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="12%" class="campos">Estado del Contrato</td>          
+    <td width="50%"  height="25" class="campos">Supervisor Asignado </td>
+    <td width="10%" class="campos">Gaceta *</td>
+    <td width="10%" class="campos">Secop *</td>
+    <td width="10%" class="campos">C.Comercio *</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%= select(:contrato,
+          :estado, { "PERFECCIONADO" => "P",
+                     "EN EJECUCION" => "E",
+                     "EN LIQUIDACION" => "L",
+                     "LIQUIDADO" => "I",
+                     "ANULADO" => "C",
+                     "TERMINADO" => "T" },
+                   { :include_blank => true },
+                { :style=>"width:130px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    <td  height="25" class="camposDesc"><%=select("contrato", "interventorempleado_id", select_empleado.collect {|p| [ p.nombres, p.id ] }, { :include_blank => true },
+      { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+    <%= error_message_on :contrato, :interventorempleado_id, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= select(:contrato,:publicacion_gazeta, {"SI" => "S","NO" => "N","NO APLICA" => "NA"},
+                { :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :publicacion_gazeta, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= select(:contrato,
+          :publicacion_secop, { "SI" => "S",
+                         "NO" => "N",
+                         "NO APLICA" => "NA"},
+                  { :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :publicacion_secop, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= select(:contrato,
+          :publicacion_cc, { "SI" => "S",
+                         "NO" => "N",
+                         "NO APLICA" => "NA"},
+                  { :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :publicacion_cc, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="50%" height="25"  class="campos">Tipo de Contrato *</td>
+    <td width="15%" class="campos">Garantia *</td>
+    <td width="20%" class="campos">Descripcion Garantia</td>
+    <td width="15%" class="campos">Fecha Aprobacion</td>
+  </tr>
+  <tr>
+    <td  height="25" class="camposDesc"><%=select("contrato", "tiposcontrato_id", select_tiposcontrato.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+{ :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+    <%= error_message_on :contrato, :tiposcontrato_id, :css_class =>"cerror"%></td>
+              <td class="camposDesc"><%= select(:contrato,
+          :poliza, { "SI" => "S",
+                         "NO" => "N",
+                         "NO APLICA" => "NA"},
+                  { :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :poliza, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= text_field :contrato, :descgarantia,{ :class => "campo", :size => 30,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_garantia", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_garantia, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%"  height="25" class="campos">Nro Compromiso</td>
+    <td width="20%" class="campos">Fecha Compromiso</td>
+    <td width="20%" class="campos">Nro Disponibilidad</td>
+    <td width="20%" class="campos">Fecha Disponibilidad</td>
+    <td width="10%" class="campos">Anticipo</td>
+    <td width="10%" class="campos">Pago Anticipado</td>
+  </tr>
+  <tr>
+    <td height="25" class="camposDesc"><%= text_field :contrato, :nro_compromiso,{ :class => "campo", :size => 15, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_compromiso, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_compromiso", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_compromiso, :css_class =>"cerror"%></td>
+              <td class="camposDesc"><%= text_field :contrato, :nro_disponibilidad,{ :class => "campo", :size => 15, :maxlength => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_disponibilidad, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_disponibilidad", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_disponibilidad, :css_class =>"cerror"%></td>
+    <td class="campos">
+      <%= select(:contrato,
+          :anticipo, { "SI" => "SI",
+                         "NO" => "NO"},
+                  { :include_blank => true },
+                { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :anticipo, :css_class =>"cerror"%>
+    </td>
+    <td class="campos">
+      <%= select(:contrato,
+          :pago_anticipado, { "SI" => "SI",
+                         "NO" => "NO"},
+                  { :include_blank => true },
+                { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contrato, :pago_anticipado, :css_class =>"cerror"%>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%"  height="25" class="campos">Fecha inicio vigencia ARL</td>
+    <td width="20%" class="campos">Nro Compromiso 2</td>
+    <td width="20%" class="campos">Fecha Compromiso 2</td>
+    <td width="20%" class="campos">Nro Disponibilidad 2</td>
+    <td width="20%" class="campos">Fecha Disponibilidad 2</td>
+  </tr>
+  <tr>
+   <td  height="25" class="camposDesc"><%= calendar_date_select "contrato", "fecha_arl", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_arl, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= text_field :contrato, :nro_compromiso_2,{ :class => "campo", :size => 20, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_compromiso_2, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_compromiso_2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+     <%= error_message_on :contrato, :fecha_compromiso_2, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= text_field :contrato, :nro_disponibilidad_2,{ :class => "campo", :size => 20, :maxlength => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_disponibilidad_2, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_disponibilidad_2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_disponibilidad, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%"  height="25" class="campos">Nro Compromiso 3</td>
+    <td width="20%" class="campos">Fecha Compromiso 3</td>
+    <td width="20%" class="campos">Nro Disponibilidad 3</td>
+    <td width="20%" class="campos">Fecha Disponibilidad 3</td>
+  </tr>
+  <tr>
+   <td  height="25" class="camposDesc"><%= text_field :contrato, :nro_compromiso_3,{ :class => "campo", :size => 20, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_compromiso_3, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_compromiso_3", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+     <%= error_message_on :contrato, :fecha_compromiso_3, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= text_field :contrato, :nro_disponibilidad_3,{ :class => "campo", :size => 20, :maxlength => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_disponibilidad_3, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_disponibilidad_3", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_disponibilidad, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%"  height="25" class="campos">Nro Compromiso 4</td>
+    <td width="20%" class="campos">Fecha Compromiso 4</td>
+    <td width="20%" class="campos">Nro Disponibilidad 4</td>
+    <td width="20%" class="campos">Fecha Disponibilidad 4</td>
+  </tr>
+  <tr>
+   <td height="25"  class="camposDesc"><%= text_field :contrato, :nro_compromiso_4,{ :class => "campo", :size => 20, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_compromiso_4, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_compromiso_4", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+     <%= error_message_on :contrato, :fecha_compromiso_4, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= text_field :contrato, :nro_disponibilidad_4,{ :class => "campo", :size => 20, :maxlength => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_disponibilidad_4, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_disponibilidad_4", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_disponibilidad, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="10"></td>
+  </tr>
+  <tr>
+    <td height="30"><div class="col_enc">PROCESO DE SELECCION</div></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="50%"  height="25" class="campos">Abogado Asignado</td>
+    <td width="50%" class="campos">Modalidad *</td>
+  </tr>
+  <tr>
+<td  height="25" class="camposDesc">
+      <%=select("contrato", "abogadoempleado_id", select_empleado.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    <td class="camposDesc"><%=select("contrato", "modalidad_id", select_modalidad.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+{ :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+    <%= error_message_on :contrato, :modalidad_id, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%" height="25"  class="campos">Nro Proceso</td>
+    <td width="20%" class="campos">Fecha Apertura</td>
+    <td width="20%" class="campos">Nro Resol. Apertura</td>
+    <td width="20%" class="campos">Nro Resol. Adjudicacion</td>
+    <td width="20%" class="campos">Fecha Adjudicacion</td>
+  </tr>
+  <tr>
+    <td  height="25" class="camposDesc"><%= text_field :contrato, :nro_proceso,{ :class => "campo", :size => 20, :maxlength => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_proceso, :css_class =>"cerror"%></td>
+   <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_apertura", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_apertura, :css_class =>"cerror"%></td>
+              <td class="camposDesc"><%= text_field :contrato, :nro_resolapertura,{ :class => "campo", :size => 20, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_resolapertura, :css_class =>"cerror"%></td>
+              <td class="camposDesc"><%= text_field :contrato, :nro_resoladjudicacion,{ :class => "campo", :size => 20, :maxlength => 10,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contrato, :nro_resoladjudicacion, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= calendar_date_select "contrato", "fecha_adjudicacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contrato, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+    <td width="20%" class="campos"></td>
+  </tr>
+</table>
+
+
+
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+<tr>
+  <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+</tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+<tr>
+<td  height="30"><div align="right">
+  <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :contrato, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+</tr>
+</table>

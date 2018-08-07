@@ -1,0 +1,62 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>RESUMEN EJECUTIVO SANEAMIENTO CORVIDE</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Estado</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% cant = 0
+   @corvides.each do |corvide|
+    cant = cant + corvide.cant.to_i%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left">
+         <% if corvide.estado.to_s == "" %>SIN ESTADO<% else %><%=corvide.estado rescue nil%><%end%></div></td>
+     <td><div align="left"><%=corvide.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">TOTAL</div></td>
+     <td><div align="left"><%=cant rescue nil%></div></td>
+  </tr>
+</table>
+
+
+<h3>REPORTE POR ZONA O COMUNA TITULAR DE DOMINIO - ISVIMED</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Comuna - Barrio</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% cant = 0
+   @corvidesa.each do |corvide|
+    cant = cant + corvide.cant.to_i%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=corvide.comuna.descripcion rescue 'SIN INFORMACION'%></div></td>
+     <td><div align="left"><%=corvide.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">TOTAL</div></td>
+     <td><div align="left"><%=cant rescue nil%></div></td>
+  </tr>
+</table>
+
+<h3>REPORTE POR ZONA O COMUNA TITULAR DE DOMINIO - MUNICIPIO DE MEDELLIN</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Comuna - Barrio</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% cant = 0
+   @corvidesb.each do |corvide|
+    cant = cant + corvide.cant.to_i%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=corvide.comuna.descripcion rescue 'SIN INFORMACION'%></div></td>
+     <td><div align="left"><%=corvide.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">TOTAL</div></td>
+     <td><div align="left"><%=cant rescue nil%></div></td>
+  </tr>
+</table>

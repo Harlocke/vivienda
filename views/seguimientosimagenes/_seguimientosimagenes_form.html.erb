@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped">
+   <tr>
+     <td class="subtitulo">&nbsp;&nbsp;Información Digitalizada</td>
+   </tr>
+</table>
+<table width="100%" align="center">
+  <tr>
+    <td class="acci_titcontenido2">Descripcion </td>
+    <td><%= text_field :seguimientosimagen, :descripcion,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="acci_titcontenido2">seguimiento a cargar</td>
+    <td><%= file_field :seguimientosimagen, :seguimiento,
+            { :class => "campo",
+              :size => 46,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+</table>
+<table width="100%" height="20" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td><div align="right"><div class="uiButton"><span class="uiButtonText"><%= hidden_field :seguimientosimagen, :id %><%= submit_tag "Guardar"%></div></div></td>
+  </tr>
+</table>
+<br/>
+

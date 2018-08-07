@@ -1,0 +1,20 @@
+<h1>Listing feria2014beneficiarios</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+  </tr>
+
+<% @feria2014beneficiarios.each do |feria2014beneficiario| %>
+  <tr>
+    <td><%=h feria2014beneficiario.persona_id %></td>
+    <td><%= link_to 'Show', feria2014beneficiario %></td>
+    <td><%= link_to 'Edit', edit_feria2014beneficiario_path(feria2014beneficiario) %></td>
+    <td><%= link_to 'Destroy', feria2014beneficiario, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2014beneficiario', new_feria2014beneficiario_path %>

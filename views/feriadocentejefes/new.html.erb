@@ -1,0 +1,119 @@
+<h1>New feriadocentejefe</h1>
+
+<% form_for(@feriadocentejefe) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.label :identificacion %><br />
+    <%= f.text_field :identificacion %>
+  </p>
+  <p>
+    <%= f.label :primernombre %><br />
+    <%= f.text_field :primernombre %>
+  </p>
+  <p>
+    <%= f.label :segundonombre %><br />
+    <%= f.text_field :segundonombre %>
+  </p>
+  <p>
+    <%= f.label :primerapellido %><br />
+    <%= f.text_field :primerapellido %>
+  </p>
+  <p>
+    <%= f.label :segundoapellido %><br />
+    <%= f.text_field :segundoapellido %>
+  </p>
+  <p>
+    <%= f.label :fecha_nacimiento %><br />
+    <%= f.text_field :fecha_nacimiento %>
+  </p>
+  <p>
+    <%= f.label :institucion_educativa %><br />
+    <%= f.text_field :institucion_educativa %>
+  </p>
+  <p>
+    <%= f.label :parentesco %><br />
+    <%= f.text_field :parentesco %>
+  </p>
+  <p>
+    <%= f.label :estadocivil %><br />
+    <%= f.text_field :estadocivil %>
+  </p>
+  <p>
+    <%= f.label :ocupacion %><br />
+    <%= f.text_field :ocupacion %>
+  </p>
+  <p>
+    <%= f.label :condicionespecial %><br />
+    <%= f.text_field :condicionespecial %>
+  </p>
+  <p>
+    <%= f.label :ingresos_mensuales %><br />
+    <%= f.text_field :ingresos_mensuales %>
+  </p>
+  <p>
+    <%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :barrio %><br />
+    <%= f.text_field :barrio %>
+  </p>
+  <p>
+    <%= f.label :ciudad %><br />
+    <%= f.text_field :ciudad %>
+  </p>
+  <p>
+    <%= f.label :telefonos1 %><br />
+    <%= f.text_field :telefonos1 %>
+  </p>
+  <p>
+    <%= f.label :telefonos2 %><br />
+    <%= f.text_field :telefonos2 %>
+  </p>
+  <p>
+    <%= f.label :celular %><br />
+    <%= f.text_field :celular %>
+  </p>
+  <p>
+    <%= f.label :antiguedad_annos %><br />
+    <%= f.text_field :antiguedad_annos %>
+  </p>
+  <p>
+    <%= f.label :antiguedad_meses %><br />
+    <%= f.text_field :antiguedad_meses %>
+  </p>
+  <p>
+    <%= f.label :jal %><br />
+    <%= f.text_field :jal %>
+  </p>
+  <p>
+    <%= f.label :valor_ahorro %><br />
+    <%= f.text_field :valor_ahorro %>
+  </p>
+  <p>
+    <%= f.label :sisben %><br />
+    <%= f.text_field :sisben %>
+  </p>
+  <p>
+    <%= f.label :opv %><br />
+    <%= f.text_field :opv %>
+  </p>
+  <p>
+    <%= f.label :opv_cual %><br />
+    <%= f.text_field :opv_cual %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', feriadocentejefes_path %>

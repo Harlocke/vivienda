@@ -1,0 +1,25 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+          <td width="40%" class="campos">Bloque</td>
+        </tr>
+          <tr>
+            <td width="359"><%=select("proyectoscopbloque", "bloque_id", Bloque.find(:all, :conditions => ["proyecto_id = #{@proyectoscopropiedad.proyecto_id} and id not in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id in (select id from proyectoscopropiedades where proyecto_id = #{@proyectoscopropiedad.proyecto_id}))"], :order=>"descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+               { :style=>"width:230px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <%= error_message_on :proyectoscopbloque, :bloque_id, :css_class =>"cerror"%></td>
+          </tr>
+        </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <% if permiso("proyectocopbloque","A").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :proyectoscopbloque, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% end %>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

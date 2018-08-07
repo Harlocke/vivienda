@@ -1,0 +1,341 @@
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN VIVIENDA</div></td>
+  </tr>
+</table>
+<% form_for(@vivienda) do |f| %>
+<table width="100%" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" height="0">Proyecto</td>
+    <td class="camposDesc"><%= f.text_field :proyecto ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Direccion</td>
+    <td class="camposDesc"><%= f.text_field :direccion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Bloque</td>
+    <td class="camposDesc"><%= f.text_field :bloque ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Apartamento</td>
+    <td class="camposDesc"><%= f.text_field :apto ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Local</td>
+    <td class="camposDesc"><%= f.text_field :local ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Bun</td>
+    <td class="camposDesc"><%= f.text_field :bun ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Tenencia</td>
+    <td class="camposDesc"><%= f.text_field :tenencia ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Poblacion Objeto</td>
+    <td class="camposDesc"><%= f.text_field :poblacion_objeto ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Valor Vivienda</td>
+    <td class="camposDesc"><%= f.text_field :valor_vivienda ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Valor Escrituras</td>
+    <td class="camposDesc"><%= f.text_field :consig_escrituras ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Pago Escrituras</td>
+    <td class="camposDesc"><%= f.text_field :pago_escrituras ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Valor Ahorro Programado</td>
+    <td class="camposDesc"><%= f.text_field :valor_ahorro_prog ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Valor Ahorro Trasladado</td>
+    <td class="camposDesc"><%= f.text_field :valor_ahorro_tras ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Valor Donacion</td>
+    <td class="camposDesc"><%= f.text_field :valor_donacion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Entregado</td>
+    <td class="camposDesc"><%= f.text_field :entregado ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Fecha Entrega</td>
+    <td class="camposDesc"><%= f.text_field :fecha_entrega ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Fonade</td>
+    <td class="camposDesc"><%= f.text_field :fonade ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Vinculado</td>
+    <td class="camposDesc"><%= f.text_field :vinculado ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Estado Inmueble</td>
+    <td class="camposDesc"><%= f.text_field :estado_inmueble ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Estado</td>
+    <td class="camposDesc"><%= f.text_field :estado ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><span class="acci_tittabla3d">INFORMACION JURIDICA</span></td>
+  </tr>
+</table>
+<table width="100%" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" width="294" height="0">Nro Escritura Publica</td>
+    <td width="664" class="camposDesc"><%= f.text_field :nro_escritura ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Fecha Exp.</td>
+    <td class="camposDesc"><%= f.text_field :esc_expedicion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Notaria Origen</td>
+    <td class="camposDesc"><%= f.text_field :esc_notaria_origen ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Registrada</td>
+    <td class="camposDesc"><%= f.text_field :esc_registrada ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Oficina Registro</td>
+    <td class="camposDesc"><%= f.text_field :esc_registrada_of ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Gravamenes</td>
+    <td class="camposDesc"><%= f.text_field :esc_gravamenes ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Limitaciones</td>
+    <td class="camposDesc"><%= f.text_field :esc_limitaciones ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Fecha Registro</td>
+    <td class="camposDesc"><%= f.text_field :esc_registro ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">En Tramite</td>
+    <td class="camposDesc"><%= f.text_field :esc_en_tramite ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><span class="acci_tittabla3d">ESTADO JURIDICO</span></td>
+  </tr>
+</table>
+<table width="100%" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" width="294" height="0">1. Elaboracion Minuta</td>
+    <td width="664" class="camposDesc"><%= f.text_field :esc_estado1 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">2. Firma Beneficiario</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado2 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">3. Firma Constructor</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado3 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">4. Firma Ent. Credito</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado4 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">5. Firma Fiducia</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado5 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">6. Firma Notaria</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado6 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">7. Rentas</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado7 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">8. Registro</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado8 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">9. Pasa a Financiera</td>
+    <td class="camposDesc"><%= f.text_field :esc_estado9 ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><span class="acci_tittabla3d">GASTOS ESCRITURA</span></td>
+  </tr>
+</table>
+<table width="100%" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" width="294" height="0">Fecha Solicitud pago Fiduciaria</td>
+    <td width="664" class="camposDesc"><%= f.text_field :fiducia_sol_fecha ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Fecha Desembolso Fiduciaria</td>
+    <td class="camposDesc"><%= f.text_field :fiducia_dese_fecha ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Rentas Valor</td>
+    <td class="camposDesc"><%= f.text_field :valor_rentas ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Rentas Fecha</td>
+    <td class="camposDesc"><%= f.text_field :rentas_fecha ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Rentas Nro Liquidación</td>
+    <td class="camposDesc"><%= f.text_field :rentas_nro ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Registro Valor</td>
+    <td class="camposDesc"><%= f.text_field :valor_registro ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Registro Fecha</td>
+    <td class="camposDesc"><%= f.text_field :registro_fecha ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Registro Nro Liquidación</td>
+    <td class="camposDesc"><%= f.text_field :registro_nro ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Notaria Valor</td>
+    <td class="camposDesc"><%= f.text_field :valor_notaria ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Notaria Fecha</td>
+    <td class="camposDesc"><%= f.text_field :notaria_fecha ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Notaria Nro Liquidación</td>
+    <td class="camposDesc"><%= f.text_field :notaria_nro ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+</table>
+<% end %>

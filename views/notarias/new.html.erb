@@ -1,0 +1,31 @@
+<h1>New notaria</h1>
+
+<% form_for(@notaria) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :codigo %><br />
+    <%= f.text_field :codigo %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :zona %><br />
+    <%= f.text_field :zona %>
+  </p>
+  <p>
+    <%= f.label :utilizada %><br />
+    <%= f.text_field :utilizada %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', notarias_path %>

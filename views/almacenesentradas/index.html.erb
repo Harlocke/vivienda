@@ -1,0 +1,28 @@
+<h1>Listing almacenesentradas</h1>
+
+<table>
+  <tr>
+    <th>Empleado</th>
+    <th>Nro factura</th>
+    <th>Nro remision</th>
+    <th>Producto</th>
+    <th>Cantidad</th>
+  </tr>
+
+<% @almacenesentradas.each do |almacenesentrada| %>
+  <tr>
+    <td><%=h almacenesentrada.empleado_id %></td>
+    <td><%=h almacenesentrada.nro_factura %></td>
+    <td><%=h almacenesentrada.nro_remision %></td>
+    <td><%=h almacenesentrada.producto_id %></td>
+    <td><%=h almacenesentrada.cantidad %></td>
+    <td><%= link_to 'Show', almacenesentrada %></td>
+    <td><%= link_to 'Edit', edit_almacenesentrada_path(almacenesentrada) %></td>
+    <td><%= link_to 'Destroy', almacenesentrada, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New almacenesentrada', new_almacenesentrada_path %>

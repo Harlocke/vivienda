@@ -1,0 +1,114 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr><td  height="30"><div class="col_enc">PERSONAS VINCULADAS</div></td></tr>
+</table>
+<div align="center">
+<% remote_form_for [@viviendasusada, @viviendasusadaspersona] do |form| %>
+<% if permiso("viviendasusadaspersona","C").to_s == "S" %>
+   <% if !@viviendasusadaspersona.id %><br/>
+	<%= render :partial => "/viviendasusadaspersonas/viviendasusadaspersonas_form" %>
+   <% end %>
+<% end %>
+<% if @viviendasusada.viviendasusadaspersonas.exists? %>
+<% @viviendasusada.viviendasusadaspersonas.each do |viviendasusadaspersona| %>
+   <% if viviendasusadaspersona.id != @viviendasusadaspersona.id %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="20" align="left" class="oce-first">Persona Vinculada</td>
+    <td width="10%" height="20" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr valign="top" class="<%=cycle('even1', 'odd1')%>" id="viviendasusadaspersona_<%= viviendasusadaspersona.id%>">
+     <td width="90%" align="left" height="20" class="camposDesc"><%=  viviendasusadaspersona.persona.autobuscar%>
+<%
+    if Crucesimagen.exists?(["persona_id = #{viviendasusadaspersona.persona.id}"]) == false
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">No hay informacion de ZR cargados</div></td>
+          </tr>
+        </table>
+      </div>
+<%  else %>
+      <div align="center">
+      <table width="90%" id="one-column-emphasis">
+        <tr>
+          <td colspan="3" height="20" class="oce-first"><div align="center">INFORMACION DE ZR CARGADOS</div></td>
+        </tr>
+        <tr>
+          <td width="20%" height="20" class="oce-first"><div align="center">Fecha Cruce</div></td>
+          <td width="55%" height="20" class="oce-first"><div align="center">Nombre</div></td>
+          <td width="25%" class="oce-first"><div align="center">Archivo</div></td>
+        </tr>
+<%        
+      @crucesdatos = Crucesimagen.find_all_by_persona_id(viviendasusadaspersona.persona.id)
+      @crucesdatos.each do |crucesdato|
+%>
+        <tr>
+          <td class="camposDesc"><%=crucesdato.created_at.strftime("%Y-%m-%d %X")%></td>
+          <td class="camposDesc"><%=crucesdato.persona.autobuscar rescue nil%></td>
+           <td class="camposDesc"><div align="center">
+              <%= link_to crucesdato.cruce_file_name, crucesdato.cruce.url(:original, false),
+                     { :popup => ['new_window','height=450,width=850,scrollbars=yes'], :class=>"verlink"}%>
+              <%= link_to "Solicitar Visita Tecnica", solicitarvisita_viviendasusadas_path(:id=>@viviendasusada.id, :nombre=>viviendasusadaspersona.persona.autobuscar.to_s), :confirm=>"Seguro?", :class=>"emaillink"%>
+            </div></td>
+        </tr>
+<%    end%>
+      </table>
+      </div>
+
+<%  end %>
+     </td>
+      <td width="10%" align="right" class="camposDesc">
+        <% if permiso("viviendasusadaspersona","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => viviendasusada_viviendasusadaspersona_path(@viviendasusada, viviendasusadaspersona),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+      </td>
+ </tr>
+</table>
+<table width="80%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+      <br/>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR PERSONA</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="viviendasusadaspersona_<%=@viviendasusadaspersona.id%>">
+     <%= render :partial => "@viviendasusadaspersonas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :viviendasusada, :id %>
+<% end %>
+<br/>
+<% if flash[:viviendasusadaspersona] %>
+<div id="viviendasusadaspersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:viviendasusadaspersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('viviendasusadaspersona');", 5000)
+</script>
+<% end %>
+</div>

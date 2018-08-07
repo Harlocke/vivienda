@@ -1,0 +1,22 @@
+<h1>Listing mejoramientosestados</h1>
+
+<table>
+  <tr>
+    <th>Consecutivo</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @mejoramientosestados.each do |mejoramientosestado| %>
+  <tr>
+    <td><%=h mejoramientosestado.consecutivo %></td>
+    <td><%=h mejoramientosestado.descripcion %></td>
+    <td><%= link_to 'Show', mejoramientosestado %></td>
+    <td><%= link_to 'Edit', edit_mejoramientosestado_path(mejoramientosestado) %></td>
+    <td><%= link_to 'Destroy', mejoramientosestado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mejoramientosestado', new_mejoramientosestado_path %>

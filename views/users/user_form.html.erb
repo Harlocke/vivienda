@@ -1,0 +1,195 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/seguridadmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION USUARIO - <%=@user.nombre%></div></td>
+              <td width="3%">
+                <div class="uiButton"><img class="img" src="/images/1atras.png"/><span class="uiButtonText"><%= link_to 'Listar', users_path, :class=>"link" %></span></div>
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/users.png" border="0" title="Usuarios"/></a></li>
+        <li><a href="#tab2"><img src="/images/modulos.png" border="0" title="Modulos"/></a></li>
+        <li><a href="#tab3"><img src="/images/permisos.png" border="0" title="Permisos"/></a></li>
+        <li><a href="#tab4"><img src="/images/permisos.png" border="0" title="Proyectos"/></a></li>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset>
+<% form_for @user do |f| %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">DATOS BASICOS USUARIO</div></td>
+  </tr>
+</table><br/>
+  <div align="center">
+  <table width="720" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+            <td width="70%" class="campos">Nombre</td>
+            <td width="15%" class="campos">Activo</td>
+            <td width="15%" class="campos">Directivo</td>
+          </tr>
+          <tr>
+            <td class="camposDesc"><%= f.text_field :nombre,{ :class => "campo", :size => "80",
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td class="camposDesc">
+            <%= select(:user,
+                  :activo, { "SI" => "S",
+                             "NO" => "N"},
+                          { :include_blank => true },
+                        { :style=>"width:85px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+            <td class="camposDesc">
+            <%= select(:user,
+                  :directivo, { "SI" => "S",
+                             "NO" => "N"},
+                          { :include_blank => true },
+                        { :style=>"width:85px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          </tr>
+        </table>
+          <table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tr class="odd1">
+              <td width="20%" class="campos">Usuario</td>
+              <td width="13%" class="campos">Clave</td>
+              <td width="18%" class="campos">Confirma Clave </td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><%= f.text_field :username,{ :class => "campo", :size => "40",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+              <% if @user.id.to_i == 10110 or @user.id.to_i == 10002 %>
+                <td valign="top" class="camposDesc"><%= f.password_field :password,{ :class => "campo", :size => "30", :disabled => true,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+                <td valign="top" class="camposDesc"><%= f.password_field :password_confirmation,{ :class => "campo", :size => "30", :disabled => true,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>   
+              <% else %>
+                <td valign="top" class="camposDesc"><%= f.password_field :password,{ :class => "campo", :size => "30",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+                <td valign="top" class="camposDesc"><%= f.password_field :password_confirmation,{ :class => "campo", :size => "30",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+              <% end -%>
+            </tr>
+          </table>        <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="60%" class="campos">Correo Electronico </td>
+              <td width="40%" class="campos">Dependencia</td>
+            </tr>
+            <tr valign="top">
+              <td class="camposDesc"><%= f.text_field :email,{ :class => "campo", :size => "55",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+              <td class="camposDesc"><%=select("user", "dependencia_id", Dependencia.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+        { :style=>"width:340px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%" class="campos">Acceso Remoto</td>
+            <td width="60%" class="campos">Cargo</td>
+            <td width="20%" class="campos">Identificacion</td>
+          </tr>
+          <tr>
+            <td class="camposDesc">
+               <%= select(:user,:acceso_remoto, { "SI" => "S","NO" => "N"},
+                          { :include_blank => true },
+                        { :style=>"width:85px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+            <td class="camposDesc"><%= select(:user,:cargo, select_usercargo,{ :include_blank => true },
+                        { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+            <td class="camposDesc"><%= f.text_field :identificacion,{ :class => "campo", :size => "20",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+          <table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tr class="odd1">
+              
+              <td width="60%" class="campos">Tipo Gestion</td>
+              <td width="20%" class="campos">Telefonos</td>
+              <td width="20%" class="campos">Codigo Impresora</td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><%=select("user", "gestion_id", Gestion.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+        { :style=>"width:340px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+              <td class="camposDesc"><%= f.text_field :telefonos,{ :class => "campo", :size => "20",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+              <td class="camposDesc"><%= f.text_field :codigo_impresora,{ :class => "campo", :size => "20",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tr class="odd1">
+              <td class="campos">Observaciones</td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><%= f.text_area(:observaciones, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 255,
+                 :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                 :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'") %></td>
+            </tr>
+          </table>
+  <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+  </div></td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+</fieldset>
+        </div>
+  <div class="panel" id="tab2">
+    <fieldset>
+<% unless @user.new_record? %>
+   <div id="usersmodulos_form">
+      <%= render :partial => "/usersmodulos/usersmodulos" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+  <div class="panel" id="tab3">
+    <fieldset>
+<% unless @user.new_record? %>
+   <div id="userspermisos_form">
+      <%= render :partial => "/userspermisos/userspermisos" %>
+   </div>
+<% end %>
+    </fieldset>
+    </div>
+  <div class="panel" id="tab4">
+    <fieldset>
+<% unless @user.new_record? %>
+   <div id="usersproyectos_form">
+      <%= render :partial => "/usersproyectos/usersproyectos" %>
+   </div>
+<% end %>
+    </fieldset>
+    </div>
+</div>

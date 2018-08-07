@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/productosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION PRODUCTOS</div></td>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Listado"}),productos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% form_for(@producto) do |f| %>
+<br/>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <td width="33%" height="20" class="campos" align="left">Codigo</td>
+    <td class="camposDesc" align="left"><%= f.text_field :codigo,{ :class => "campo", :size => 38,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos" align="left">Descripcion</td>
+    <td class="camposDesc" align="left"><%= f.text_field :descripcion,{ :class => "campo", :size => 90,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos" align="left">Tipo</td>
+    <td class="camposDesc" align="left"><%=select("producto", "tipo", { "PAPELERIA" => "1","ASEO Y CAFETERIA" => "2","FERRETERIA" => "3"},
+                  { :include_blank => true },
+                { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+  </tr>
+  <% unless @producto.new_record? %>
+  <tr>
+    <td width="33%" height="20" class="campos" align="left">Disponible</td>
+    <td class="camposDesc" align="left"><%=@producto.disponible rescue 0%></td>
+  </tr>
+  <% end %>
+</table>
+<br/>
+<table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="70%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+  </div>
+<% end %>

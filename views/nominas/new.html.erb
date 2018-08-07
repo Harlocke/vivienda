@@ -1,0 +1,63 @@
+<h1>New nomina</h1>
+
+<% form_for(@nomina) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :empleado_id %><br />
+    <%= f.text_field :empleado_id %>
+  </p>
+  <p>
+    <%= f.label :periodosliquidacion_id %><br />
+    <%= f.text_field :periodosliquidacion_id %>
+  </p>
+  <p>
+    <%= f.label :salario %><br />
+    <%= f.text_field :salario %>
+  </p>
+  <p>
+    <%= f.label :dias %><br />
+    <%= f.text_field :dias %>
+  </p>
+  <p>
+    <%= f.label :subtotal %><br />
+    <%= f.text_field :subtotal %>
+  </p>
+  <p>
+    <%= f.label :salud %><br />
+    <%= f.text_field :salud %>
+  </p>
+  <p>
+    <%= f.label :pension %><br />
+    <%= f.text_field :pension %>
+  </p>
+  <p>
+    <%= f.label :solidaridad %><br />
+    <%= f.text_field :solidaridad %>
+  </p>
+  <p>
+    <%= f.label :retefuente %><br />
+    <%= f.text_field :retefuente %>
+  </p>
+  <p>
+    <%= f.label :novedades %><br />
+    <%= f.text_field :novedades %>
+  </p>
+  <p>
+    <%= f.label :total_deducciones %><br />
+    <%= f.text_field :total_deducciones %>
+  </p>
+  <p>
+    <%= f.label :total %><br />
+    <%= f.text_field :total %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', nominas_path %>

@@ -1,0 +1,474 @@
+<table width="750" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr><td><img src="../../images/frame.png"/></td></tr>
+</table>
+<br/>
+<div align="center" class="camposDescN16">INFORME COPROPIEDAD - <%=@proyectoscopropiedad.nombre rescue nil%></div>
+<br/>
+<div align="center">
+  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="center">INFORMACIÓN PROYECTO</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="34%" class="campos">Proyecto</td>
+      <td width="33%" align="left" class="campos">Sub Etapa</td>
+      <td width="33%" align="left" class="campos">Estado Proyecto</td>
+    </tr>
+     <tr >
+       <td width="34%" class="camposDesc" ><%=@proyectoscopropiedad.proyecto.descripcion rescue nil%>&nbsp;</td>
+       <td width="33%" class="camposDesc"><%=@proyectoscopropiedad.proyecto.sub_etapa rescue nil%>&nbsp;</td>
+       <td width="33%" class="camposDesc"><%=@proyectoscopropiedad.proyecto.etapa_proyecto rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<br/>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="center">INFORMACIÓN GENERAL COPROPIEDAD</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="50%" align="left" class="campos">Nombre Copropiedad</td>
+      <td width="25%" align="left" class="campos">Total Bloques</td>
+      <td width="25%" align="left" class="campos">Total aptos. copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.nombre rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.proyectoscopbloques.count%></td>
+       <td class="camposDesc"><%=Apto.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}))"])%>r</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="20%" align="left" class="campos">N° escritura-RPH y fecha</td>
+      <td width="35%" align="left" class="campos">N° certificado de personería jurídica y fecha</td>
+      <td width="25%" align="left" class="campos">N° apartamentos entregados</td>
+      <td width="20%" align="left" class="campos">N° aptos. sin entregar</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.escritura_rph rescue nil%> - <%=@proyectoscopropiedad.escritura_rphfecha rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.certif_personeria rescue nil%> - <%=@proyectoscopropiedad.certif_personfecha rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and entregado = 'S')"]) rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and entregado != 'S')"]) rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">N° escrituras registradas</td>
+      <td width="25%" align="left" class="campos">N° escrituras entregadas</td>
+      <td width="25%" align="left" class="campos">N° escrituras por entregar</td>
+      <td width="25%" align="left" class="campos">N° locales de la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and esc_registrada = 'S')"]) rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and inv_esc_entrega = 'SI')"]) rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and (inv_esc_entrega = 'NO' or inv_esc_entrega is null))"]) rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.local_copropiedad rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">N° locales el ISVIMED es titular de dominio</td>
+      <td width="25%" align="left" class="campos">N° de locales municipio titular de dominio</td>
+      <td width="25%" align="left" class="campos">N° de locales donde el dominio es de un encargo</td>
+      <td width="25%" align="left" class="campos">N° de locales a nombre de la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.local_isvimed rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.local_municipio rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.local_dominio rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.local_nombre rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="20%" align="left" class="campos">N° de locales no entregados</td>
+      <td width="25%" align="left" class="campos">N° de locales por entregar a la copropiedad</td>
+      <td width="25%" align="left" class="campos">N° unidades productivas en la copropiedad</td>
+      <td width="30%" align="left" class="campos">N° de aptos. dedicados exclusivamente para unidad productivas</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.local_noentrega rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.local_porentrega rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.unidad_productiva rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.aptos_dedicados rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="30%" align="left" class="campos">N° de aptos.ocupados de manera irregular</td>
+      <td width="40%" align="left" class="campos">Cuáles</td>
+      <td width="30%" align="left" class="campos">Profesional social que acompaña</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.aptos_ocupados rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.aptos_cuales rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=User.find(@proyectoscopropiedad.user_profesional).nombre rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<br/>
+<% if @proyectoscopropiedad.proyectoscopcomites.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="center">INFORMACIÓN ORGANO DE ADMINISTRACIÓN</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="50%" align="left" class="campos">Nombres</td>
+        <td width="10%" align="left" class="campos">Fecha Inicio</td>
+        <td width="10%" align="left" class="campos">Fecha Fin</td>
+        <td width="30%" align="left" class="campos">Tipo</td>
+      </tr>
+    <% @proyectoscopropiedad.proyectoscopcomites.each do |proyectoscopcomite| %>
+       <tr  valign="middle"  id="proyectoscopcomite_<%= proyectoscopcomite.id%>">
+         <td class="camposDesc"><%=proyectoscopcomite.viviendaspersona.persona.autobuscar rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopcomite.fecha_inicio rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopcomite.fecha_fin rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopcomite.tipo rescue nil %>&nbsp;</td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">INFORMACIÓN ORGANO DE ADMINISTRACIÓN</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay información</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">OBSERVACION FUNCIONAMIENTO DE ORGANO DE ADMINISTRACION Y DIRECCIÓN<br/>(Activo, reuniones periódicas, comunicación, toma de decisiones, reconocimiento copropietarias/os, nivel de autonomía)</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.obs_organo rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<br/>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="center">INFORMACIÓN ADMINISTRATIVA</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="50%" align="left" class="campos">Valor cuota de administración</td>
+      <td width="50%" align="left" class="campos">Porcentaje mensual de pago de cuota de administración</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.cuota_admon rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.porcentaje_admon rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="20%" align="left" class="campos">Maneja libros contables</td>
+      <td width="80%" align="left" class="campos">Observación</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.libro_contable rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.libro_contableobs rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="20%" align="left" class="campos">Manejo de libro de actas</td>
+      <td width="80%" align="left" class="campos">Observación</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.libro_actas rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.libro_actasobs rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<br/>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="center">ACOMPAÑAMIENTO REALIZADO</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="45%" align="left" class="campos">N° de reuniones con órganos de admón. y dirección</td>
+      <td width="25%" align="left" class="campos">Tiene manual de convivencia</td>
+      <td width="30%" align="left" class="campos">N° reuniones con consejo de admón</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.reunion_organo rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.manual_convivencia rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.reunion_consejo rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">N° talleres de convivencia</td>
+      <td width="25%" align="left" class="campos">N° reuniones con administrador/a</td>
+      <td width="50%" align="left" class="campos">Fecha realización 1ª asamblea ordinaria do conformación</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.taller_convivencia rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.reunion_admon rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.fecha_asamblea rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="30%" align="left" class="campos">N° reuniones comité de convivencia</td>
+      <td width="37%" align="left" class="campos">Acompañamiento en asambleas ordinarias 201_</td>
+      <td width="33%" align="left" class="campos">N° visitas domiciliarias realizadas</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.reunion_comite rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.acompanamiento rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.nro_visitas rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="33%" align="left" class="campos">N° de asambleas extraordinarias realizadas</td>
+      <td width="33%" align="left" class="campos">N° asesorías jurídicas realizadas</td>
+      <td width="33%" align="left" class="campos">N° asesorías contables realizadas</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.nro_asambleas rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.asesoria_juridica rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectoscopropiedad.asesoria_contable rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Cuentan con planeación y/o plan de trabajo en la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.plan_trabajo rescue nil%> - <%=@proyectoscopropiedad.plan_trabajoobs rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">N° de acciones de gestión interinstitucional realizadas en la copropiedad (nombre con que entidades)</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.nro_acciones rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Otras actividades realizadas a resaltar</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.otras_actividades rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">La copropiedad participa de reuniones de red de urbanización</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.reunion_red rescue nil%> - <%=@proyectoscopropiedad.reunion_redobs rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">La copropiedad participa de encuentros de la red de ciudad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.encuentro_red rescue nil%> - <%=@proyectoscopropiedad.encuentro_redobs rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">N° de habitantes de la copropiedad integrantes de la JAC. o JAL</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.nro_habitantes rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Grupos comunitarios existentes en la copropiedad o urbanización</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.grupo_comunitario rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Estrategias de gestión de la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.estrategias rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Tres principales problemáticas de la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.problematicas rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Asuntos pendientes del ISVIMED en la copropiedad: (social, jurídico, administrativo, contable, técnico)</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.pendiente_isvimed rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Perspectivas del acompañamiento en la copropiedad</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.perspectiva rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="100%" align="left" class="campos">Comentarios generales</td>
+    </tr>
+     <tr >
+       <td class="camposDesc" ><%=@proyectoscopropiedad.comentarios rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+</div>
+<br/>
+<% if @proyectoscopropiedad.proyectoscopbloques.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="center">BLOQUES DEL PROYECTO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="33%" align="left" class="campos">Proyecto</td>
+        <td width="33%" align="left" class="campos">Bloque</td>
+        <td width="34%" align="left" class="campos">Dirección</td>
+      </tr>
+    <% @proyectoscopropiedad.proyectoscopbloques.each do |proyectoscopbloque| %>
+       <tr  valign="middle"  id="proyectoscopbloque_<%= proyectoscopbloque.id%>">
+         <td class="camposDesc"><%=proyectoscopbloque.proyectoscopropiedad.proyecto.descripcion rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopbloque.bloque.descripcion rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopbloque.bloque.direccion rescue nil %>&nbsp;</td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="center">BLOQUES DEL PROYECTO</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="center">No hay información</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<% if @proyectoscopropiedad.proyectoscopnotas.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="center">OBSERVACIONES</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="20%" align="left" class="campos">Registro</td>
+        <td width="15%" align="left" class="campos">Tipo</td>
+        <td width="65%" align="left" class="campos">Observación</td>
+      </tr>
+    <% @proyectoscopropiedad.proyectoscopnotas.each do |proyectoscopnota| %>
+       <tr  valign="middle"  id="proyectoscopnota_<%= proyectoscopnota.id%>">
+         <td class="camposDesc"><%=proyectoscopnota.user.nombre rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopnota.dtipoatencion rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=proyectoscopnota.observacion rescue nil %>&nbsp;</td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="center">OBSERVACIONES</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="center">No hay información</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<div align="center">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td align="left" class="campos" colspan="2"><div align="center">DOCUMENTOS PROPIEDADES HORIZONTALES</div></td>
+    </tr> 
+    <tr>
+      <td height="10" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  <% @proyectostipos = Proyectostipo.find(:all, :conditions=>["clase = 'HORIZONTALES'"])
+     @proyectostipos.each do |proyectostipo|%>  
+    <tr>
+      <td width="30%" valign="middle" align="left" class="camposDesc odd1"><strong><%=proyectostipo.documento rescue nil%></strong></td>
+      <td>
+    <% if @proyectoscopropiedad.proyectoscopdocumentos.exists?(["proyectostipo_id = #{proyectostipo.id}"])  %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1" >    
+          <td width="20%" class="oce-first">Fecha Documento</td>
+          <td width="80%" class="oce-first">Documento</td>
+        </tr>
+        <% for proyectoscopdocumento in @proyectoscopropiedad.proyectoscopdocumentos.find(:all,:conditions=>["proyectostipo_id = #{proyectostipo.id}"], :order => 'created_at DESC') %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> proyectoscopdocumento_<%=proyectoscopdocumento.id%>">
+          <td align="left" class="camposDesc"><%=proyectoscopdocumento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=proyectoscopdocumento.user.username rescue nil%></td>
+          <td align="left" class="camposDesc"><div align="left"><%= link_to proyectoscopdocumento.copropiedad_file_name.capitalize,
+                                    proyectoscopdocumento.copropiedad.url(:original, false),
+                                   { :title=>"#{proyectoscopdocumento.copropiedad_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                            </div>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+      <% else %>
+        <div align="center" class="camposDesc">NO hay documentos cargados .........</div>
+      <% end %>
+    </td>
+    </tr>
+    <tr>
+      <td height="10" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  <% end %>    
+  </table>
+<br/>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td align="left" class="campos" colspan="2"><div align="center">DOCUMENTOS ACTIVIDADES DE ACOMPAÑAMIENTO SOCIAL</div></td>
+    </tr> 
+    <tr>
+      <td height="10" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  <% @proyectostipos = Proyectostipo.find(:all, :conditions=>["clase = 'ACTIVIDADES'"])
+     @proyectostipos.each do |proyectostipo|%>  
+    <tr>
+      <td width="30%" valign="middle" align="left" class="camposDesc odd1"><strong><%=proyectostipo.documento rescue nil%></strong></td>
+      <td>
+    <% if @proyectoscopropiedad.proyectoscopdocumentos.exists?(["proyectostipo_id = #{proyectostipo.id}"])  %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1" >    
+          <td width="20%" class="oce-first">Fecha Documento</td>
+          <td width="80%" class="oce-first">Documento</td>
+        </tr>
+        <% for proyectoscopdocumento in @proyectoscopropiedad.proyectoscopdocumentos.find(:all,:conditions=>["proyectostipo_id = #{proyectostipo.id}"], :order => 'created_at DESC') %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> proyectoscopdocumento_<%=proyectoscopdocumento.id%>">
+          <td align="left" class="camposDesc"><%=proyectoscopdocumento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=proyectoscopdocumento.user.username rescue nil%></td>
+          <td align="left" class="camposDesc"><div align="left"><%= link_to proyectoscopdocumento.copropiedad_file_name.capitalize,
+                                    proyectoscopdocumento.copropiedad.url(:original, false),
+                                   { :title=>"#{proyectoscopdocumento.copropiedad_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                            </div>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+      <% else %>
+        <div align="center" class="camposDesc">NO hay documentos cargados .........</div>
+      <% end %>
+    </td>
+    </tr>
+    <tr>
+      <td height="10" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  <% end %>    
+  </table>  
+</div>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Información ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+
+
+

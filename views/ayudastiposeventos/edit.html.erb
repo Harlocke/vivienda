@@ -1,0 +1,16 @@
+<h1>Editing ayudastiposevento</h1>
+
+<% form_for(@ayudastiposevento) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ayudastiposevento %> |
+<%= link_to 'Back', ayudastiposeventos_path %>

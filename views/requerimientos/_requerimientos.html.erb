@@ -1,0 +1,54 @@
+<% remote_form_for [@persona, @requerimiento] do |form| %>
+        <% if !@requerimiento.id %>
+	<%= render :partial => "/requerimientos/requerimientos_form" %>
+    <% end %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+  <thead>
+  <tr>
+    <td width="9%" height="30" class="oce-first">Solicitud</td>
+    <td width="8%" class="oce-first">Fecha</td>
+    <td width="55%" class="oce-first">Descripcion</td>
+    <td width="16%" class="oce-first">Dependencia</td>
+    <td width="12%" class="oce-first">&nbsp;</td>
+  </tr>
+  </thead>
+      <tbody>
+	<% @persona.requerimientos.each do |requerimiento| %>
+	<% if requerimiento.id != @requerimiento.id %>
+  <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="requerimiento_<%=requerimiento.id%>">
+    <td height="30" class="camposDesc"><%= requerimiento.id%></td>
+    <td class="camposDesc"><%= requerimiento.fecha%></td>
+    <td class="camposDesc"><%= requerimiento.descripcion%></td>
+    <td class="camposDesc"><%= requerimiento.dependencia.descripcion rescue nil%>
+    </td>
+    <td class="camposDesc">
+      <%= link_to_remote( image_tag('application_edit.png', { :border=>0, :title => "Actualizar"}),
+	        :url => edit_persona_requerimiento_path(@persona, requerimiento),
+		:method => :get)%>
+      <%= link_to_remote( image_tag("delete.png", { :border=>0, :title => "Borrar"}),
+	        :url => persona_requerimiento_path(@persona, requerimiento),
+		:method => :delete,
+		:confirm => "¿Seguro?")%>
+
+
+
+      <%= link_to image_tag('application_cascade.png', { :border => 0,:title => "Actividades" }),
+            requerimiento_actividades_path(requerimiento), { :Onclick => "return GB_showCenter('Actividades Requerimiento', this.href, 500, 900)"} %></td>
+    </tr>
+	<% else %>
+	<tr class="<%=cycle('even1', 'odd1')%>" id="requerimiento_<%=@requerimiento.id%>">
+	  <%= render :partial => "requerimientos_form" %>
+	</tr>
+	<% end %>
+        <% end %>
+      </tbody>
+ <tr>
+    <td class="camposDesc"></td>
+    <td class="camposDesc"></td>
+    <td class="camposDesc"></td>
+    <td class="camposDesc"></td>
+    <td class="camposDesc"></td>
+    </tr>      
+     </table>
+     <%= hidden_field :persona, :id %>
+<% end %>

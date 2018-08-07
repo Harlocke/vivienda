@@ -1,0 +1,88 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">BITACORA DE SEGUIMIENTO</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@queja, @quejasbitacora] do |form| %>
+    <% if !@quejasbitacora.id %>
+    <% end %>
+<% if @queja.quejasbitacoras.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Consecutivo</td>
+    <td width="45%" height="30" align="left" class="oce-first">Actividad</td>
+    <td width="15%" class="oce-first">Inicio</td>
+    <td width="15%" class="oce-first">Fin</td>
+    <td width="10%" class="oce-first">Usuario</td>
+  </tr>
+  <% for quejasbitacora in @queja.quejasbitacoras.find(:all, :order => 'consecutivo asc')%>
+     <% if quejasbitacora.id != @quejasbitacora.id %>
+          <tr valign="middle" id="quejasbitacora_<%=quejasbitacora.id%>" class="<%=cycle('even1', 'odd1')%>">
+            <td class="camposDesc"><div align="center"><%=quejasbitacora.consecutivo%></div></td>
+            <td class="camposDesc" align="left"><%=quejasbitacora.actividad%></td>
+            <td class="camposDesc" align="left"><%=quejasbitacora.inicio.strftime("%Y-%m-%d %X") rescue nil%></td>
+            <td class="camposDesc" align="left"><%=quejasbitacora.fin.strftime("%Y-%m-%d %X") rescue nil%></td>
+            <td class="camposDesc" align="left"><%=quejasbitacora.user.username rescue nil%></td>
+          </tr>
+            <% if quejasbitacora.quejasobservacion_id
+                 if Quejassoporte.exists?(["quejasobservacion_id = #{quejasbitacora.quejasobservacion_id}"]) %>
+               <tr>
+                 <td colspan="5">
+                      <div align="center">
+                        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="30%" height="20" class="oce-first">Creación</td>
+                            <td width="60%" height="20" class="oce-first">Descripcion y Nombre del documento</td>
+                            <td width="10%" height="20" class="oce-first"></td>
+                          </tr>
+                          <% quejassoportes = Quejassoporte.find(:all,:conditions=>["quejasobservacion_id = #{quejasbitacora.quejasobservacion_id}"],:order=>"created_at desc")
+                             quejassoportes.each do |quejassoporte| %>
+                          <tr  class="<%=cycle('even1', 'odd1')%>">
+                            <td width="30%" class="camposDesc"><%=quejassoporte.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=quejassoporte.user.nombre rescue nil%>"><%=quejassoporte.user.username rescue nil%></a></td>
+                            <td width="60%" class="camposDesc"><%=quejassoporte.descripcion rescue nil%><br/><%=quejassoporte.queja_file_name rescue nil%></td>
+                            <td width="10%" class="camposDesc"><%= link_to "Ver",quejassoporte.queja.url(:original, false),
+                                                 { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                            </td>
+                          </tr>
+                          <% end %>
+                        </table>
+                      </div>
+                 </td>
+               </tr>
+            <% end %>
+           <% end %>
+
+
+
+    <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+  <tr>
+    <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+    <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+  </tr>
+</table>
+<% end %>
+            <%= hidden_field :queja, :id %>
+<% end %>
+<br/>
+<% if flash[:quejasbitacora] %>
+<div id="quejasbitacora">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:quejasbitacora] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('quejasbitacora');", 5000)
+</script>
+<% end %>
+</div>

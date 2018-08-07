@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+   <title>..:: SIFI ::.. Sistema de Información ISVIMED</title>
+   <%= stylesheet_link_tag 'scaffold' %>
+   <%= javascript_include_tag :defaults %>
+   <%= javascript_include_tag "sorttable" %>
+</head>
+<body onload="Javascript:history.go(1);" onunload="Javascript:history.go(1);" oncontextmenu = "return false;">
+  <br/>
+  <table width="60%" border="0" align="center" cellpadding="2" cellspacing="2">
+  <tr>
+    <td><div align="center"><img border="0" src="/images/front.png"/></div></td>
+    <td><div align="center"><img border="0" src="/images/logosistemas.jpg"/></div></td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><% if flash[:notice] %>
+      <div id="notice">
+        <table width="100%" height="49" border="0" cellpadding="0" cellspacing="0">
+           <tr>
+            <td width="10%"><div align="center"><img border="0" width="30" height="32" src="/images/download_bot.gif"></div></td>
+            <td width="90%"><%= flash[:notice] %></td>
+           </tr>
+        </table>
+      </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('notice');", 8000)
+  </script>
+<% end %>
+<% if flash[:warning]%>
+      <div id="notice">
+        <table width="100%" height="49" border="0" cellpadding="0" cellspacing="0">
+           <tr>
+            <td width="10%"><div align="center"><img border="0" width="30" height="32" src="/images/error.png"></div></td>
+            <td width="90%"><%= flash[:warning] %></td>
+           </tr>
+        </table>
+      </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('notice');", 8000)
+  </script>
+<% end %></td>
+  </tr>
+  <tr>
+    <td>
+      <div id="yield">
+	  <%= yield  %>
+      </div><br /></td>
+  </tr>
+</table>
+<br />
+<div align="center"><hr width="75%" size="1" noshade class="hrlinea"/>
+<table width="75%" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="5" class="camposDescN"><div align="right">© 2009-2018, Todos los Derechos Reservados - Instituto Social de Vivienda y Hábitat de Medellin.</div></td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

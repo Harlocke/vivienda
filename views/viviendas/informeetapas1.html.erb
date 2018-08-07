@@ -1,0 +1,125 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  colspan="7"><strong>INFORMACION PROYECTO</strong></td>
+    <td  colspan="3"><strong>USUARIO</strong></td>
+    <td  colspan="7"><strong>ETAPA ACTIVA ACTUAL</strong></td>
+    <td  colspan="16"><strong>INFORMACION JURIDICA</strong></td>
+    <td  colspan="21"><strong>GASTOS ESCRITURACION</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  ><strong>Proyecto</strong></td>
+    <td  ><strong>Direccion</strong></td>
+    <td  ><strong>Bloque</strong></td>
+    <td  ><strong>Piso</strong></td>
+    <td  ><strong>Apto</strong></td>
+    <td  ><strong>Entregado</strong></td>
+    <td ><strong>Fecha Entrega</strong></td>
+    <td  ><strong>Identificacion</strong></td>
+    <td  ><strong>Nombre</strong></td>
+    <td  ><strong>Credito?</strong></td>
+    <td  ><strong>Etapa</strong></td>
+    <td  ><strong>Devolucion ?</strong></td>
+    <td  ><strong>Fecha Inicio</strong></td>
+    <td  ><strong>Estado Verde</strong></td>
+    <td  ><strong>Estado Amarillo</strong></td>
+    <td  ><strong>Estado Rojo</strong></td>
+    <td  ><strong>Observaciones</strong></td>
+    <td  ><strong>Nro Escritura Publica </strong></td>
+    <td  ><strong>Fecha Expedicion </strong></td>
+    <td  ><strong>Fecha Vencimiento </strong></td>
+    <td  ><strong>VENCIMIENTO</strong></td>
+    <td  ><strong>Notaria Origen</strong></td>
+    <td  ><strong>Registrada</strong></td>
+    <td  ><strong>Oficina Registro </strong></td>
+    <td  ><strong>Fecha Registro </strong></td>
+    <td  ><strong>Nro Matricula</strong></td>
+    <td  ><strong>Valor Avaluo</strong></td>
+    <td  ><strong>Valor Venta</strong></td>
+    <td  ><strong>Gravamenes</strong></td>
+    <td  ><strong>Limitaciones</strong></td>
+    <td  ><strong>Nro Escritura Aclaracion</strong></td>
+    <td  ><strong>Fecha Aclaracion</strong></td>
+    <td  ><strong>Notaria Aclaracion</strong></td>
+    <td  ><strong>Valor Rentas Preliq.</strong></td>
+    <td  ><strong>Valor Rentas </strong></td>
+    <td  ><strong>Fecha Pago Rentas </strong></td>
+    <td  ><strong>Vencimiento Rentas </strong></td>
+    <td  ><strong>Nro Liquidacion Rentas</strong></td>
+    <td  ><strong>Valor Registro Preliq</strong></td>
+    <td  ><strong>Valor Total Registro</strong></td>
+    <td  ><strong>Valor Registro </strong></td>
+    <td  ><strong>Valor Certificado</strong></td>
+    <td  ><strong>Fecha Pago Registro </strong></td>
+    <td  ><strong>Nro Radicado Registro </strong></td>
+    <td  ><strong>Valor Notaria </strong></td>
+    <td  ><strong>Factura Venta Notaria </strong></td>
+    <td  ><strong>Fecha Cuenta Notaria</strong></td>
+    <td  ><strong>Fecha Recibo Cuenta Notaria</strong></td>
+    <td  ><strong>Concepto Notaria</strong></td>
+    <td  ><strong>Fecha Entrega Financiera</strong></td>
+    <td  ><strong>Fecha Preliquidacion Rentas y Registro</strong></td>
+    <td  ><strong>Fecha Presentacion Registro Financiera</strong></td>
+    <td  ><strong>Fecha Solicitud pago Fiducia</strong></td>
+    <td  ><strong>Fecha Desembolso Fiduciaria</strong></td>
+  </tr>
+<% @objetos.each do |vivienda| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=vivienda.proyecto%></div></td>
+    <td ><div align="left"><%=vivienda.direccion%></div></td>
+    <td ><div align="left"><%=vivienda.bloque%></div></td>
+    <td ><div align="left"><%=vivienda.piso%></div></td>
+    <td ><div align="left"><%=vivienda.apto%></div></td>
+    <td ><div align="left"><%=vivienda.entregado%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_entrega rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.identificacion%></div></td>
+    <td ><div align="left"><%=vivienda.nombre%></div></td>
+    <td ><div align="left"><%=vivienda.credito%></div></td>
+    <td ><div align="left"><%=vivienda.vt_tramite%></div></td>
+    <td ><div align="left"><%=vivienda.vt_devolucion%></div></td>
+    <td ><div align="left"><%=vivienda.vt_fecha_inicio%></div></td>
+    <td ><div align="left"><%=vivienda.verde%></div></td>
+    <td ><div align="left"><%=vivienda.amarillo%></div></td>
+    <td ><div align="left"><%=vivienda.rojo%></div></td>
+    <td ><div align="left"><%=vivienda.observaciones%></div></td>
+    <td ><div align="left"><%=vivienda.esc_nro_escritura%></div></td>
+    <td ><div align="left"><%=vivienda.esc_expedicion%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_vencimiento%></div></td>
+    <td ><div align="left"><%=vivienda.vencimiento%></div></td>
+    <td ><div align="left"><%=vivienda.esc_notaria_origen%></div></td>
+    <td ><div align="left"><%=vivienda.esc_registrada%></div></td>
+    <td ><div align="left"><%=vivienda.esc_registrada_of%></div></td>
+    <td ><div align="left"><%=vivienda.esc_registro%></div></td>
+    <td ><div align="left"><%=vivienda.nro_matricula%></div></td>
+    <td ><div align="left"><%=vivienda.valor_avaluo%></div></td>
+    <td ><div align="left"><%=vivienda.valor_venta%></div></td>
+    <td ><div align="left"><%=vivienda.esc_gravamenes%></div></td>
+    <td ><div align="left"><%=vivienda.esc_limitaciones%></div></td>
+    <td ><div align="left"><%=vivienda.escritura_aclaratoria%></div></td>
+    <td ><div align="left"><%=vivienda.aclaratoria_fecha%></div></td>
+    <td ><div align="left"><%=vivienda.aclaratoria_notaria%></div></td>
+    <td ><div align="left"><%=vivienda.valor_prerentas%></div></td>
+    <td ><div align="left"><%=vivienda.liq_valor_rentas%></div></td>
+    <td ><div align="left"><%=vivienda.liq_rentas_fecha%></div></td>
+    <td ><div align="left"><%=vivienda.vencimiento_rentas%></div></td>
+    <td ><div align="left"><%=vivienda.liq_rentas_nro%></div></td>
+    <td ><div align="left"><%=vivienda.valor_prerregistro%></div></td>
+    <td ><div align="left"><%=vivienda.liq_valor_registro%></div></td>
+    <td ><div align="left"><%=vivienda.lic_registro%></div></td>
+    <td ><div align="left"><%=vivienda.lic_certificado%></div></td>
+    <td ><div align="left"><%=vivienda.liq_registro_fecha%></div></td>
+    <td ><div align="left"><%=vivienda.liq_registro_nro%></div></td>
+    <td ><div align="left"><%=vivienda.liq_valor_notaria%></div></td>
+    <td ><div align="left"><%=vivienda.liq_notaria_nro%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_cobnotaria%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_recnotaria%></div></td>
+    <td ><div align="left"><%=vivienda.concepto_notaria%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_entregafin%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_prefinanciera%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_preregistrofinan%></div></td>
+    <td ><div align="left"><%=vivienda.liq_fiducia_sol_fecha%></div></td>
+    <td ><div align="left"><%=vivienda.liq_fiducia_dese_fecha%></div></td>
+  </tr>
+<%   end %>
+</table>

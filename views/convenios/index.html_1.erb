@@ -1,0 +1,65 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/conveniomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION CONVENIOS</div></td>
+              <td width="3%"><div align="right">
+          <% if permiso("convenio","C").to_s == "S" %>
+               <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_convenio_path %>
+          <% end %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="10%" class="oce-first"><div align="center">Nro Convenio</div></td>
+    <td width="5%" class="oce-first">Vigencia</td>
+    <td width="10%" height="20" class="oce-first">Nro Viviendas</td>
+    <td width="35%" class="oce-first">Ejecutor</td>
+    <td width="10%" class="oce-first">Vlr convenio</td>
+    <td width="15%" class="oce-first">Tipo</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @convenios.each do |convenio| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDescN"><div align="center"><%=h convenio.nro_convenio %></div></td>
+    <td class="camposDescN"><%=h convenio.vigencia %></td>
+    <td class="camposDescN"><%=h convenio.nro_viviendas %></td>
+    <td class="camposDescN"><%=h convenio.ejecutor %></td>
+    <td class="camposDescN"><%=camponumerico(convenio.vlr_convenio) %></td>
+    <td class="camposDescN"><%=h convenio.tipo_solucion %></td>
+    <td class="camposDesc"><div align="center"><%= link_to 'Editar', edit_convenio_path(convenio), :class=>"editarlink" %>
+      <% if permiso("convenio","E").to_s == "S" %>
+           &nbsp;&nbsp;<%= link_to 'Eliminar', convenio, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+      <% end %>
+      </div></td>
+  </tr>
+      <% if convenio.conveniosresoluciones.exists? %>
+      <tr>
+        <td colspan="7"><div align="center">
+          <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr valign="middle">
+              <td width="8%" class="oce-first"><div align="center">Nro Resol.</div></td>
+              <td width="12%" class="oce-first"><div align="center">Fecha</div></td>
+              <td width="80%" class="oce-first">Resuelve</td>
+            </tr>
+      <% convenio.conveniosresoluciones.each do |conveniosresolucion|%>
+            <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosresolucion_<%=conveniosresolucion.id%>">
+              <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.nro_resolucion rescue nil%></div></td>
+              <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.fecha.strftime("%Y-%m-%d") rescue nil%></div></td>
+              <td class="camposDesc"><%=conveniosresolucion.resolucion.resuelve rescue nil%></td>
+           </tr>
+       <% end %>
+          </table></div>
+        </td>
+      </tr>
+      <% end %>
+<% end %>
+</table>
+<br />

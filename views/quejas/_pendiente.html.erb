@@ -1,0 +1,42 @@
+<% if @quejas.count > 0 %>
+    <div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1')">
+          <img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1')">PQRS Pendientes (<%=@quejas.count%>)</a>  </strong></div>
+    <div id="demo1" style="display:none;">
+      <fieldset>
+          <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="10%" class="oce-first">Fecha PQRS</td>
+              <td width="10%" class="oce-first">Tipo</td>
+              <td width="10%" class="oce-first">Identificacion</td>
+              <td width="35%" class="oce-first">Nombre</td>
+              <td width="15%" class="oce-first">Estado</td>
+              <td width="20%" class="oce-first">Dependencia</td>
+              <td width="5%" class="oce-first">&nbsp;</td>
+            </tr>
+          <% @quejas.each do |queja| %>
+          <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+              <td class="camposDesc"><%=h queja.created_at%></td>
+              <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+              <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+              <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>              
+              <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+              <td class="camposDesc" align="left"><%=queja.temadesc%></td>
+              <td class="camposDesc"><div align="center">
+              <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+              </div></td>
+            </tr>
+          <% end %>
+          </table>
+          <table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+            </tr>
+          </table>
+          <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr valign="middle">
+              <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@quejas.count%></div></td>
+            </tr>
+          </table>
+      </fieldset>
+    </div>
+<%end%>

@@ -1,0 +1,42 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;MEJORAMIENTOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),mejoramientos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<fieldset>
+<% form_for(@mejorainforme) do |f|%>
+  <table width="100%" cellpadding="0" cellspacing="0">
+    <tr class="odd1">
+      <td width="25%" align="center" class="campos">Resolucion</td>
+      <td width="20%" class="campos">Nro Convenio</td>
+      <td width="15%" class="campos">Vigencia</td>
+      <td width="40%" align="center" class="campos">User</td>
+    </tr>
+    <tr valign="middle">
+      <td class="camposDesc"><div align="center"><%=@mejorainforme.resolucion.nro_resolucion rescue nil%> - <%=@mejorainforme.resolucion.fecha.strftime("%Y-%m-%d") rescue nil%></div></td>
+    <td class="camposDesc"><%=@mejorainforme.convenio.nro_convenio rescue nil%></td>
+    <td class="camposDesc"><%=@mejorainforme.convenio.vigencia rescue nil%></td>
+      <td class="camposDesc"><div align="center"><%=@mejorainforme.user.nombre rescue nil%></div></td>
+    </tr>
+  </table>
+<% end %>
+  <br/>
+<% unless @mejorainforme.new_record? %>
+     <div id="mejorainformeslistas_form">
+        <%= render :partial => "/mejorainformeslistas/mejorainformeslistas" %>
+     </div>
+<% end %>
+</fieldset>
+<br/><br/><br/><br/><br/>

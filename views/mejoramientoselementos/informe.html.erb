@@ -1,0 +1,496 @@
+   <%= javascript_include_tag "/lightbox/js/scriptaculous.js?load=effects,builder" %>
+   <%= javascript_include_tag "/lightbox/js/lightbox" %>
+   <%= stylesheet_link_tag '/lightbox/css/lightbox'%>
+<style type="text/css">
+<!--
+H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">MEJORAMIENTO</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td class="campos" colspan="4">Objeto Resolucion</td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" colspan="4"><%=@mejoramiento.resolucion.resuelve rescue nil%>&nbsp; <strong>- VALOR SUBSIDIO: $ <%=number_to_currency(@mejoramiento.valor_resolucion,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+        </tr>
+        <tr class="odd1">
+          <td width="50%" class="campos">Beneficiario</td>
+          <td width="10%" class="campos">CBML</td>
+          <td width="20%" class="campos">Tipo Mejoramiento</td>
+          <td width="20%" class="campos">Estado</td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc"><%=@mejoramiento.persona.autobuscar rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.cobama rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.tipomejoramiento rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.mejoramientosestado.descripcion rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td width="25%" align="left" class="campos">Coordinador</td>
+          <td width="25%" align="left" class="campos">Profesional</td>
+          <td width="25%" align="left" class="campos">Tecnologo</td>
+          <td width="25%" align="left" class="campos">Tecnico ISVIMED</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=User.find(@mejoramiento.user_coordinador).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@mejoramiento.user_profesional).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@mejoramiento.user_tecnologo).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@mejoramiento.user_interventor).nombre rescue nil rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td width="33%" align="left" class="campos">Coordinador Operador</td>
+          <td width="33%" align="left" class="campos">Ingeniero Operador</td>
+          <td width="33%" align="left" class="campos">Profesional Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@mejoramiento.responsable1 rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.responsable2 rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.responsable3 rescue nil rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr class="odd1">
+        <td width="10%" class="campos">Nro Convenio</td>
+        <td width="10%" class="campos">Vigencia</td>
+        <td width="10%" class="campos">Nro Soluciones</td>
+        <td width="10%" class="campos">Nro Resolucion</td>
+        <td width="15%" class="campos">Nro de Personas Resolucion</td>
+        <td width="20%" class="campos">Tipo Solucion</td>
+        <td width="25%" class="campos">Ubicacion</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@mejoramiento.convenio.nro_convenio rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.vigencia rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.nro_viviendas rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.resolucion.nro_resolucion rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.resolucion.resolucionespersonas.count rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.tipo_solucion rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.comuna.comuna rescue nil%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr class="odd1">
+        <td width="42%" class="campos">Responsable Diagnostico</td>
+        <td width="18%" class="campos">Valor Diagnostico</td>
+        <td width="40%" class="campos">Operador</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@mejoramiento.convenio.responsable_diagnostico rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.valor_diagnostico rescue nil%></td>
+        <td class="camposDesc"><%=@mejoramiento.convenio.ejecutor rescue nil%></td>
+      </tr>
+    </table>
+    <br/>
+    <% if @mejoramiento.mejoramientoselementos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td colspan="7" class="campos"><div align="center">PRESUPUESTO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td colspan="5" class="campos"><div align="center">DE DIAGNOSTICO</div></td>
+        <td colspan="2" class="campos"><div align="center">DE EJECUCION</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="50%"  class="campos">ITEM</td>
+        <td width="5%"  class="campos"><div align="center">UNIDAD</div></td>
+        <td width="5%"  class="campos"><div align="center">CANT</div></td>
+        <td width="8%"  class="campos"><div align="center">VALOR<br/>UNITARIO</div></td>
+        <td width="11%"  class="campos"><div align="center">VALOR<br/>TOTAL</div></td>
+        <td width="5%"  class="campos"><div align="center">CANT</div></td>
+        <td width="11%"  class="campos"><div align="center">SUBTOTAL</div></td>
+      </tr>
+    <% @valoracum = 0
+       @valornormal = 0
+       @valoradmin = 0
+       for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all, :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento|
+         if mejoramientoselemento.mejoramientositem_id.to_i !=  10043
+          @valoracum = @valoracum.to_i + Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i
+          #@valoracum = @valoracum.to_i + (Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i * mejoramientoselemento.valor_unitario.to_i)
+           @valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+         end
+         if Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_f != 0.0
+      %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+         <td width="48%" height="30" class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%>
+           <% @mejorainformeselementos = Mejorainformeselemento.find(:all,:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])
+              @mejorainformeselementos.each do |mejorainformeselemento| %>
+            <% if mejorainformeselemento.observacion.to_s != "" %>
+           <br/>
+           <strong>***** OBSERVACIONES:</strong> <%=mejorainformeselemento.observacion.to_s%>
+            <% end
+              if mejorainformeselemento.mejorainformescriterios.exists?
+                mejorainformeselemento.mejorainformescriterios.each do |mejorainformescriterio| %>
+           <br/>
+           <strong>***** CRITERIOS:</strong> <%=mejorainformescriterio.capituloscriterio.descripcion rescue nil%>
+          <%   end
+             end
+            end %></div></td>
+         <td width="5%" class="camposDesc"><div align="center"><%=mejoramientoselemento.mejoramientositem.unidad rescue nil%></div></td>
+         <td width="5%" class="camposDesc"><div align="center"><%=mejoramientoselemento.cantidad rescue nil%></div></td>
+         <td width="10%" class="camposDesc"><div align="right">$ <%=number_to_currency(mejoramientoselemento.valor_unitario,{:precision => 2, :unit=>"", :delimiter =>"."})%></div></td>
+         <td width="11%" class="camposDesc"><div align="right">
+             <%  if mejoramientoselemento.mejoramientositem_id.to_i ==  10043 %>
+             $ 0
+             <%  else %>
+             $ <%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%>
+             <%  end %></div></td>
+         <td width="5%" height="30" align="left" class="camposDesc"><div align="center"><%=Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])%></div></td>
+         <td width="11%" height="30" align="left" class="camposDesc"><div align="right">$ <%=number_to_currency(Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]),{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     </tr>
+     <% end %>
+       <% end %>
+    <% end %>
+      <tr valign="middle">
+        <td width="50%" class="campos" height="20" align="left">&nbsp;</td>
+        <td width="5%" class="campos"><div align="center">&nbsp;</div></td>
+        <td width="5%" class="campos"><div align="center">&nbsp;</div></td>
+        <td width="8%" class="campos"><div align="center">Subtotal&nbsp;&nbsp;</div></td>
+        <td width="11%"  class="odd1 campos"><div align="right"><%=number_to_currency(@valornormal,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+        <td width="5%" class="campos"><div align="center">&nbsp;</div></td>
+        <td width="11%" class="odd1 campos"><div align="right"><%=number_to_currency(@mejoramiento.vlracum,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Administración 13%&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmin) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td><div align="center">&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmineje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% if @mejoramiento.especial.to_s == 'SI' %>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Mano de obra no calificada 10%&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">0&nbsp;&nbsp;</div></td>
+        <td><div align="center">&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor10ejecucion) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Diagnostico&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td><div align="center">&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Total&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotal) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td><div align="center">&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotaleje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Porcentaje Ejecución&nbsp;&nbsp;</div></td>
+        <td colspan="3" class="campos"><div align="center"><%=@mejoramiento.porcentajeeje rescue 0%> %</div></td>
+      </tr>
+    </table>
+    <br/><div align="left" class="col_enc">FOTOGRAFÍA, CRITERIOS DE NO ACEPTACIÓN Y CORRECCIONES</div>
+    <% if @mejoramiento.mejoramientoselementos.exists? %>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+            <tr class="odd1">
+              <td width="30%" height="25" class="campos"><div align="center">ITEM</div></td>
+              <td width="13%" class="campos"><div align="center">INICIO</div></td>
+              <td width="13%" class="campos"><div align="center">PROCESOS</div></td>
+              <td width="13%" class="campos"><div align="center">FINAL</div></td>
+              <td width="31%" class="campos"><div align="center">CRITERIO</div></td>
+            </tr>
+    <% for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all, :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento| %>
+       <% if mejoramientoselemento.mejoraelementosimagenes.exists?  %>
+            <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+              <td align="left" class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%>
+             </div></td>
+              <td height="100" class="camposDesc"><div align="center">
+              <% for mejoraante in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'ANTES'"]) %>
+              <div class="mejora_<%=mejoraante.id%>">
+                  <%# if mejoraante.mejoraelemento_content_type.include?("image")%>
+                      <%= link_to image_tag(mejoraante.mejoraelemento.url(:thumb),:border=>0,
+                                        :title => "Ver Documento"),
+                                        mejoraante.mejoraelemento.url(:original, false),
+                             { :rel=>"lightbox[roadtrip]", :title=>"#{mejoraante.mejoraelemento_file_name}"} %>
+                </div>
+            <% end %>
+                </div></td>
+              <td height="100" class="camposDesc"><div align="center">
+          <% for mejoradura in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'DURANTE'"]) %>
+              <div class="mejora_<%=mejoradura.id%>">
+                  <%= link_to image_tag(mejoradura.mejoraelemento.url(:thumb), :border=>0,
+                                        :title => "Ver Documento"),
+                                        mejoradura.mejoraelemento.url(:original, false),
+                                      { :rel=>"lightbox[roadtrip]", :title=>"#{mejoradura.mejoraelemento_file_name}"} %>
+                </div>
+            <% end %>
+                </div></td>
+              <td height="100" class="camposDesc"><div align="center">
+          <% for mejoradesp in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'DESPUES'"]) %>
+              <div class="mejora_<%=mejoradesp.id%>">
+                  <%= link_to image_tag(mejoradesp.mejoraelemento.url(:thumb), :border=>0,
+                                        :title => "Ver Documento"),
+                                        mejoradesp.mejoraelemento.url(:original, false),
+                                       { :rel=>"lightbox[roadtrip]", :title=>"#{mejoradesp.mejoraelemento_file_name}"} %>
+                </div>
+            <% end %>
+                </div></td>
+              <td align="left" class="camposDesc">
+                <%  @objetos = Objeto.find_by_sql("select distinct ic.capituloscriterio_id, ic.created_at, ic.realizado
+                                        from   mejorainformescriterios ic, mejorainformeselementos ie, mejoramientosinformes i, mejoramientosinterventorias it
+                                        where  ic.mejorainformeselemento_id = ie.id
+                                        and    ie.mejoramientosinforme_id = i.id
+                                        and    ie.mejoramientoselemento_id = #{mejoramientoselemento.id}
+                                        and    i.mejoramientosinterventoria_id = it.id
+                                        and    it.mejoramiento_id = #{mejoramientoselemento.mejoramiento_id}
+                                        group by ic.capituloscriterio_id, ic.created_at, ic.realizado")
+                    if @objetos.count >0
+                      @objetos.each do |objeto|
+                        if objeto.realizado.to_s == 'SI'%>
+                          <div align="left" style="font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%> <img class="img" src="/images/connect2.png"/></strong></div>
+                         <% else %>
+                          <div align="left" style="color:red; font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%></strong></div>
+                         <% end %>
+              <%      end
+                    else%>
+                        No hay criterios pendientes
+              <%     end%>
+                        <div align="justify">
+              <%  @mejorainformeselementos = Mejorainformeselemento.find(:all,:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])
+                  @mejorainformeselementos.each do |mejorainformeselemento| %>
+                <%  if mejorainformeselemento.observacion.to_s != "" %>
+               <br/>
+               <strong>***** OBSERVACIONES:</strong> <%=mejorainformeselemento.observacion.to_s%>
+                <%   end
+                  end %></div>
+              </td>
+            </tr>
+             <% else  %>
+             <%  @objetos = Objeto.find_by_sql("select distinct ic.capituloscriterio_id, ic.created_at, ic.realizado
+                                        from   mejorainformescriterios ic, mejorainformeselementos ie, mejoramientosinformes i, mejoramientosinterventorias it
+                                        where  ic.mejorainformeselemento_id = ie.id
+                                        and    ie.mejoramientosinforme_id = i.id
+                                        and    ie.mejoramientoselemento_id = #{mejoramientoselemento.id}
+                                        and    i.mejoramientosinterventoria_id = it.id
+                                        and    it.mejoramiento_id = #{mejoramientoselemento.mejoramiento_id}
+                                        group by ic.capituloscriterio_id, ic.created_at, ic.realizado")
+                    if @objetos.count >0 %>
+                      <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                      <td align="left" class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div></td>
+                      <td height="100" class="camposDesc"><div align="center"></div></td>
+                      <td height="100" class="camposDesc"><div align="center"></div></td>
+                      <td height="100" class="camposDesc"><div align="center"></div></td>
+                      <td height="100" class="camposDesc">
+                      <%  @objetos.each do |objeto|
+                            if objeto.realizado.to_s == 'SI'%>
+                          <div align="left" style="font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%> <img class="img" src="/images/connect2.png"/></strong></div>
+                         <% else %>
+                          <div align="left" style="color:red; font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%></strong></div>
+                         <% end %>
+              <%      end %></td>
+                      </tr>
+              <%    end  %>
+            <% end %>
+       <% end %>
+          </table>
+    <% end %>
+    <br/>
+    <% if @mejoramiento.mejoramientosconceptos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample" >
+      <tr>
+        <td width="15%" class="odd1 campos">Aspectos Sociales</td>
+        <td width="85%" class="camposDesc">
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+              <tr class="odd1">
+                <td width="20%" class="campos">Fecha</td>
+                <td width="55%" class="campos">Concepto</td>
+                <td width="10%" class="campos">Realizado</td>
+              </tr>
+            <% for mejoramientosconcepto in @mejoramiento.mejoramientosconceptos.find(:all, :order => 'created_at DESC') %>
+               <tr valign="middle" id="mejoramientosconcepto_<%=mejoramientosconcepto.id%>">
+                <td class="camposDesc"><%=mejoramientosconcepto.created_at.strftime("%Y-%m-%d %X")%></td>
+                <td class="camposDesc" align="left"><%=mejoramientosconcepto.descripcion rescue nil%></td>
+                <td class="camposDesc" align="left"><div align="center"><%=mejoramientosconcepto.tipo rescue nil%></div></td>
+              </tr>
+            <% end %>
+            </table>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <% end %>
+    <H1 class=SaltoDePagina>.</H1>
+    <br/><br/>
+    <div align="center">
+    <table width="60%" border="1" cellspacing="0" cellpadding="0" class="sample" >
+      <tr class="odd1">
+        <td colspan="3" class="campos"><div align="CENTER">RESUMEN FINANCIERO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="50%" class="campos"><div align="center"></div></td>
+        <td width="25%" class="campos"><div align="center">DE DIAGNOSTICO</div></td>
+        <td width="25%" class="campos"><div align="center">DE EJECUCION</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Subtotal&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(@valornormal,{:precision => 0, :unit=>"", :delimiter =>"."}) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(@mejoramiento.vlracum,{:precision => 0, :unit=>"", :delimiter =>"."}) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Administración 13%&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmin) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmineje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% if @mejoramiento.especial.to_s == 'SI' %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Mano de obra no calificada 10%&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">0&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor10ejecucion) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Diagnostico&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <% if @mejoramiento.calculo.to_s == 'EJECUCION 2015' %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Incremento Transporte a cabecera - Corregimientos&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporte) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporte_eje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Incremento Transporte a veredas sobre el valor de la cabecera&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporteadd) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporteadd_eje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Gastos bancario 4 x mil&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor4pormil) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor4pormileje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <% end %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Total&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotal) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotaleje) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Porcentaje Ejecución&nbsp;&nbsp;</div></td>
+        <td colspan="2" class="campos"><div align="center"><%=@mejoramiento.porcentajeeje rescue 0%> %</div></td>
+      </tr>
+    <% if @mejoramiento.mejoramientospagos.exists? %>
+      <tr class="odd1">
+        <td colspan="3" class="campos"><div align="CENTER">RELACION DE PAGOS</div></td>
+      </tr>
+    <% @valorpagos = 0
+       @mejoramiento.mejoramientospagos.each do |mejoramientospago|
+         @valorpagos = @valorpagos + mejoramientospago.valor.to_i
+    %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Pago <%=mejoramientospago.conveniosforma.porcentaje rescue nil%> % - <%=mejoramientospago.fecha_pago.strftime("%Y-%m-%d") rescue nil%></div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(mejoramientospago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+      <tr class="odd1">
+        <td class="campos"><div align="right">TOTAL PAGOS&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(@valorpagos,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos"><div align="right">DIFERENCIA&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency((@mejoramiento.vlrtotaleje - @valorpagos),{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+    </table>
+    </div>
+    <br/>
+    <% if @mejoramiento.mejoramientosnotas.exists? %>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample" >
+         <tr class="odd1">
+          <td colspan="3" class="campos"><div align="CENTER">OBSERVACIONES</div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="15%" height="20" class="campos">FECHA</td>
+          <td width="15%" class="campos">ATENCION</td>
+          <td width="70%" class="campos">OBSERVACIONES</td>
+        </tr>
+      <% for mejoramientosnota in @mejoramiento.mejoramientosnotas.find(:all, :order => 'created_at DESC') %>
+        <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td  class="camposDesc" align="left"><%=mejoramientosnota.created_at.strftime("%Y-%m-%d %X")%><br/>
+             <a title="<%=mejoramientosnota.user.nombre rescue nil%>"><%=mejoramientosnota.user.username rescue nil%></a>
+          </td>
+          <td class="camposDesc" align="left"><%=mejoramientosnota.dtipoatencion%></td>
+          <td class="camposDesc" align="left"><div align="justify"><%=mejoramientosnota.observacion%></div></td>
+        </tr>
+      <% end %>
+      </table>
+    <br/>
+    <% end %>
+    <% if @mejoramiento.mejoramientosobras.exists? %>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample" >
+        <tr class="odd1">
+          <td colspan="4" class="campos"><div align="CENTER">RELACION DE PERSONAS LABORANDO</div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="50%" height="20" class="campos">IDENTIFICACION - NOMBRE</td>
+          <td width="10%"  class="campos">SALARIO</td>
+          <td width="20%"  class="campos">CARGO</td>
+          <td width="20%"  class="campos">CONTRATO ACTIVO</td>
+        </tr>
+      <% for mejoramientosobra in @mejoramiento.mejoramientosobras.find(:all, :order => 'created_at DESC') %>
+        <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=mejoramientosobra.identificacion rescue nil%> - <%=mejoramientosobra.nombre rescue nil%></td>
+          <td class="camposDesc"><%=camponumerico(mejoramientosobra.salario)%></td>
+          <td class="camposDesc"><%=mejoramientosobra.cargo rescue nil%></td>
+          <td class="camposDesc"><%=mejoramientosobra.contrato_activo rescue nil%></td>
+        </tr>
+      <% end %>
+      </table>
+    <br/>
+    <% end %>
+    <% if @mejoramiento.mejoramientosestado_id.to_i != 7 %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample" >
+      <tr>
+        <td height="0" class="campos">Coordinador</td>
+        <td height="0" class="campos">Profesional</td>
+        <td height="0" class="campos">Tecnologo</td>
+      </tr>
+      <tr>
+        <td width="34%"  height="40" class="campos">.</td>
+        <td width="33%"  height="40" class="campos">.</td>
+        <td width="33%"  height="40" class="campos">.</td>
+      </tr>
+    </table>
+    <% end %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="50%" height="40" class="campos">.</td>
+        <td width="50%" height="40" class="campos">.</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos">Tecnico ISVIMED</td>
+        <td height="0" class="campos">Interventor(a)</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos"><%=User.find(@mejoramiento.user_interventor).nombre rescue nil%></td>
+        <td height="0" class="campos"><%=Sifi.find(25).valor rescue nil%></td>
+      </tr>
+    </table>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+</td>
+</tr>
+</table>
+</div>

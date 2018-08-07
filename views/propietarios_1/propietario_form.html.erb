@@ -1,0 +1,150 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/agendascitasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION PROPIETARIO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),propietarios_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<fieldset>
+ <% form_for(@propietario) do |f| %>
+    <div align="center">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td height="30"><div class="col_enc">PROPIETARIO</div></td>
+        </tr>
+      </table>
+       <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Identificación</td>
+          <td width="20%" class="campos">Primer Nombre</td>
+          <td width="20%" class="campos">Segundo Nombre</td>
+          <td width="20%" class="campos">Primer Apellido</td>
+          <td width="20%" class="campos">Segundo Apellido</td>
+        </tr>
+        <tr valign="top">
+          <td><%= f.text_field :identificacion,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :identificacion, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :primer_nombre,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :primer_nombre, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :segundo_nombre,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :segundo_nombre, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :primer_apellido,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :primer_apellido, :css_class =>"cerror"%></td>
+           <td><%= f.text_field :segundo_apellido,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :segundo_apellido, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Dirección</td>
+          <td width="40%" class="campos">Comuna</td>
+          <td width="20%" class="campos">Telefono </td>
+        </tr>
+        <tr valign="top">
+          <td><%= f.text_field :direccion,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :direccion, :css_class =>"cerror"%></td>
+          <td><%=select("propietario", "comuna_id", select_comuna.collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true }, { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :propietario, :comuna_id, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :telefono1,{ :class => "campo", :size => 24,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :telefono1, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Telefono Otro</td>
+          <td width="15%" class="campos">Genero</td>
+          <td width="15%" class="campos">Fecha Nacimiento</td>
+          <td colspan="2" ></td>
+        </tr>
+        <tr valign="top">
+         <td><%= f.text_field :telefono2,{ :class => "campo", :size => 24,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :propietario, :telefono2, :css_class =>"cerror"%></td>
+          <td><%= f.select(:genero, select_genero,
+                  { :include_blank => true },
+                { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :propietario, :direccion, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "propietario", "fecha_nac", :year_range => 70.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td></td>
+          
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+         <td  height="10"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </td>
+      </tr>
+    </table>
+</div>
+<% end %>
+<% unless @propietario.new_record? %>
+<div align="center">
+            <table width="100%" border="0" cellspacing="2" cellpadding="0">
+              <tr>
+                <td height="30"><div class="col_enc">VIVIENDAS ASOCIADAS</div></td>
+              </tr>
+            </table>
+             <table width="100%" border="0" cellspacing="2" cellpadding="0">
+              <tr valign="middle">
+                <td width="20%" class="oce-first"><div align="left">Vivienda</div></td>
+                <td width="25%" class="oce-first"><div align="left">Dirección</div></td>
+                <td width="20%" class="oce-first"><div align="left">Barrio</div></td>
+                <td width="10%" class="oce-first"><div align="center">Telefono</div></td>
+                <td width="25%" class="oce-first"><div align="left">Nombre del Propietario</div></td>
+              </tr>
+              <% @viviendas.each do |prop| %>
+              <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                <td class="camposDesc"><div align="left"><%=prop.nombre_de_vivienda rescue nil%></div></td>
+                <td class="camposDesc"><div align="left"><%=prop.direccion_nueva_vivienda%></div></td>
+                <td class="camposDesc"><div align="left"><%=prop.barrio_nueva_vivienda_s%></div></td>
+                <td class="camposDesc"><div align="center"><%=prop.telefono_nueva_vivienda%></div></td>
+                <td class="camposDesc"><div align="left"><%=prop.nombre_del_propietario%></div></td>
+              </tr>
+              <% end -%>
+            </table>
+    <br/>
+    </table>
+  </div>
+ <% end %>
+ </div>
+
+ </fieldset>
+<br/>

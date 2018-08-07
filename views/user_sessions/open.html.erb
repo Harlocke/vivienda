@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+   <title>Vivienda RAILS</title>
+   <script type="text/javascript">
+function pantallaCompleta() {
+  var h = screen.height-10
+  var h1 = h.toString();
+  var w = screen.width-7
+  var w1 = w.toString();
+  open("/user_sessions/new", "iniciosifi", "toolbar=no,location=no,menubar=no,resizable=no,scrollbars=yes,width="+w1+",height="+h1);
+	var ventana = window.self;
+	ventana.opener = window.self;
+	ventana.close();
+}
+   function CloseClicked(){
+	event.returnValue = false;
+}
+
+   </script>
+<body onload="pantallaCompleta()">
+  <br />
+</body>
+</head>
+</html>

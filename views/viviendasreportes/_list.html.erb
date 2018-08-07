@@ -1,0 +1,47 @@
+  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><%= link_to "Ver Solicitudes", {:controller => "viviendasreportes", :action => "entregasmasivo"},  :popup => ['new_window2','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+    </tr>
+    <tr>
+      <td><%= link_to "Ver Actas", {:controller => "viviendasreportes", :action => "actasmasivas"},  :popup => ['new_window3','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+    </tr>
+    <tr>
+      <td><%= link_to "Ver Actas cobro subsidios", {:controller => "viviendasreportes", :action => "actasmasivas_subsidios"},  :popup => ['new_window3','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+    </tr>
+    <tr>
+      <td><%= link_to "Actas Viviendas Gratuitas", {:controller => "viviendasreportes", :action => "actasvg"},  :popup => ['new_window3','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+    </tr>
+
+  </table>
+<br/>
+<div align="center">
+         <table width="80%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td width="55%" align="left" height="20" class="oce-first">Persona</td>
+         <td width="40%" align="left" height="20" class="oce-first">Usuario</td>
+         <td width="5%" align="left" height="20" class="oce-first"></td>
+       </tr>
+<%
+   #@viviendasreportes = Viviendasreporte.find(:all, :conditions=>['user_id = ? ', is_admin])
+   for viviendasreporte in @viviendasreportes
+%>
+  <tr class="<%=cycle('even1', 'odd1')%> postS_<%=viviendasreporte.id%>">
+    <td align="left" class="camposDesc"><%=h viviendasreporte.persona.autobuscar rescue nil%></td>
+    <td align="left" class="camposDesc"><%=h viviendasreporte.user.nombre rescue nil%></td>
+    <td align="left" class="camposDesc">
+                <%= link_to_remote(image_tag("delete.png", { :border=>0, :title => "Borrar"}),
+                :url => viviendasreporte_path(viviendasreporte),
+                :method => :delete,
+                :confirm => "¿Seguro?",
+                :before => "$(this).up('.postS_#{viviendasreporte.id}').remove()")%>
+   </td>
+  </tr>
+<% end %>
+</table>
+<br/>
+  <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center" class="campos"> Cantidad de Registros : <%=@viviendasreportes.count%></td>
+    </tr>
+  </table>  
+</div>

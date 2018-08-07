@@ -1,0 +1,16 @@
+<h1>Editing titulacionesdoctipo</h1>
+
+<% form_for(@titulacionesdoctipo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @titulacionesdoctipo %> |
+<%= link_to 'Back', titulacionesdoctipos_path %>

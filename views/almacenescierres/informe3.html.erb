@@ -1,0 +1,57 @@
+<%=  javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'scaffold'%>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/almacenmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION ALMACEN</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),reporte_almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" class="campos"><div align="center">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED -- NIT: 900.080.526-9</div></td>
+        </tr>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME ELEMENTOS ENTREGADOS DEPENDENCIA (<%=@dependencia%>) - MES (<%=@mes%>) - AÑO (<%=@anno%>)</div></td>
+        </tr>
+        <tr>
+          <td height="0" class="campos"><div align="right"><%=link_to 'Imprimir Informe', {:controller=>"almacenescierres", :action=>"informe3imp", :var1=>@var1, :var2=>@var2, :var3=>@var3}, :popup => ['new_window','height=520,width=850,scrollbars=yes'], :class=>"verlink"%></div></td>
+        </tr>
+
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="45%" height="18" class="oce-first"><div align="center">Descripcion</div></td>
+        <td width="10%" class="oce-first"><div align="center">Fecha Entrega</div></td>
+        <td width="10%" class="oce-first"><div align="center">Cantidad</div></td>
+        <td width="35%" class="oce-first"><div align="center">Usuario</div></td>
+      </tr>
+<% @almacenessalidas.each do |almacenessalida| %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" height="20" ><%=almacenessalida.producto.descripcion rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=almacenessalida.created_at%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenessalida.cantidad%></div></td>
+        <td class="camposDesc"><div align="left"><%=almacenessalida.user.nombre rescue nil%></div></td>
+      </tr>
+<% end %>
+    </table>
+    </td>
+  </tr>
+</table>
+<br/>
+

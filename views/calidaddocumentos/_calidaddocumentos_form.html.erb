@@ -1,0 +1,136 @@
+<script type="text/javascript">
+  document.observe('dom:loaded', function() {
+    //Event.observe(window, 'load', function() {
+        var stu_id = document.getElementById("calidaddocumento_calidadtiposdocumento_id").value;
+        if (stu_id == 2) {
+            document.getElementById("calidaddocumento_subcategoria").disabled = false;
+            document.getElementById("calidaddocumento_subcategoria2").disabled = false;
+        } else {
+          document.getElementById("calidaddocumento_subcategoria").value = "";
+          document.getElementById("calidaddocumento_subcategoria2").value = "";
+          document.getElementById("calidaddocumento_subcategoria").disabled = true;
+          document.getElementById("calidaddocumento_subcategoria2").disabled = true;
+        }
+    });
+</script>
+<div align="center">
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+         <td width="15%"><span class="campos">Codigo</span></td>
+         <td width="40%"><span class="campos">Tipo de Documento</span></td>
+         <td width="45%"><span class="campos">Nombre</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= text_field :calidaddocumento, :codigo,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :codigo, :css_class =>"cerror"%></td>
+          <td><%=select("calidaddocumento", "calidadtiposdocumento_id", Calidadtiposdocumento.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:300px", :onchange => "calidaddocumento(this.form);", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+    <%= error_message_on :calidaddocumento, :calidadtiposdocumento_id, :css_class =>"cerror"%></td>
+          <td><%= text_field :calidaddocumento, :nombre,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :calidaddocumento, :nombre, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%"><span class="campos">Version</span></td>
+          <td width="20%"><span class="campos">Estado</span></td>
+          <td width="20%"><span class="campos">Fecha Creacion</span></td>
+          <td width="20%"><span class="campos">Medio Recopila</span></td>
+          <td width="20%"><span class="campos">Ubicacion</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= text_field :calidaddocumento, :version,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :version, :css_class =>"cerror"%></td>
+          <td><%= select(:calidaddocumento, :activo, { "ACTIVO" => "ACTIVO",
+                           "INACTIVO" => "INACTIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :calidaddocumento, :activo, :css_class =>"cerror"%></td>
+                    <td><%= calendar_date_select "calidaddocumento", "fecha_creacion", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :calidaddocumento, :fecha_creacion, :css_class =>"cerror"%></td>
+          <td><%= text_field :calidaddocumento, :medio_recopila,{ :class => "campo", :size =>30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+           <td><%= text_field :calidaddocumento, :ubicacion,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :ubicacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="33%"><span class="campos">Medio Almacenamiento</span></td>
+          <td width="33%"><span class="campos">Tiempo Archivo</span></td>
+          <td width="34%"><span class="campos">Destino Posterior</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= text_field :calidaddocumento, :medio_almacenamiento,{ :class => "campo", :size =>30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :medio_almacenamiento, :css_class =>"cerror"%></td>
+           <td><%= text_field :calidaddocumento, :tiempo_archivo,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :tiempo_archivo, :css_class =>"cerror"%></td>
+           <td><%= text_field :calidaddocumento, :destino_posterior,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :calidaddocumento, :destino_posterior, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="33%"><span class="campos">SubCategoria </span></td>
+          <td width="33%"><span class="campos">SubCategoria 2</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= select(:calidaddocumento,
+                :subcategoria, [["RESOLUCIONES","RESOLUCIONES"],
+                                ["COMITES - ACTAS","COMITES - ACTAS"],
+                                ["ACCIONES CORRECTIVAS ","ACCIONES CORRECTIVAS "],
+                                ["ACCIONES PREVENTIVAS Y DE MEJORA","ACCIONES PREVENTIVAS Y DE MEJORA"],
+                                ["AUDITORIAS DE CONTROL INTERNO","AUDITORIAS DE CONTROL INTERNO"],
+                                ["AUDITORIAS INTERNAS DE CALIDAD","AUDITORIAS INTERNAS DE CALIDAD"],
+                                ["MAPA DE RIESGOS","MAPA DE RIESGOS"],
+                                ["INDICADORES","INDICADORES"]],
+                        { :include_blank => true },
+                      { :style=>"width:250px", :onchange => "calidadsubcategoria(this.form);", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :calidaddocumento, :subcategoria, :css_class =>"cerror"%></td>
+          <td><%= select(:calidaddocumento,
+                :subcategoria2, [["PROGRAMA","PROGRAMA"],
+                                ["PLANES","PLANES"],
+                                ["LISTAS DE CHEQUEO","LISTAS DE CHEQUEO"],
+                                ["INFORMES","INFORMES"],
+                                ["EVALUACION DE AUDITORES","EVALUACION DE AUDITORES"]],
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :calidaddocumento, :subcategoria2, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :calidaddocumento, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+</div>

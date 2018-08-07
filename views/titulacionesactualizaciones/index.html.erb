@@ -1,0 +1,26 @@
+<h1>Listing titulacionesactualizaciones</h1>
+
+<table>
+  <tr>
+    <th>Titulacion</th>
+    <th>Bloque</th>
+    <th>Tipo transaccion</th>
+    <th>User</th>
+  </tr>
+
+<% @titulacionesactualizaciones.each do |titulacionesactualizacion| %>
+  <tr>
+    <td><%=h titulacionesactualizacion.titulacion_id %></td>
+    <td><%=h titulacionesactualizacion.bloque %></td>
+    <td><%=h titulacionesactualizacion.tipo_transaccion %></td>
+    <td><%=h titulacionesactualizacion.user_id %></td>
+    <td><%= link_to 'Show', titulacionesactualizacion %></td>
+    <td><%= link_to 'Edit', edit_titulacionesactualizacion_path(titulacionesactualizacion) %></td>
+    <td><%= link_to 'Destroy', titulacionesactualizacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New titulacionesactualizacion', new_titulacionesactualizacion_path %>

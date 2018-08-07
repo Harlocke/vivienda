@@ -1,0 +1,376 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/indicadoresmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;SMO - SISTEMA DE MEDICIÓN ORGANIZACIONAL - DATOS DEL SIFI</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Busca Personas"}),indicadores_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<% @indicadoresdatos.each do |indicadoresdato|
+  @indicadoresresultado = Indicadoresresultado.find_by_indicador_id(indicadoresdato.indicador_id) %>
+  <% if @indicadoresresultado %>
+<table width="80%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr valign="middle">
+    <td colspan="3" height="30" class="oce-first"><%=indicadoresdato.nombre_indicador rescue nil%></td>
+  </tr>
+  <tr valign="top">
+    <td>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="50%" height="20" class="oce-first">Variable Medida</td>
+          <td width="20%" class="oce-first">Resultado</td>
+          <td width="30%" class="oce-first">Monto Subsidio</td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"> <%= link_to '14-28 años', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                 :variable=>'edad1', :indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.edad1},
+                                :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.edad1%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.edad1_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+           <td class="camposDesc" height="20"><%= link_to '29-54 años', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                  :variable=>'edad2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.edad2},
+                                  :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+           <td class="camposDesc"><div align="center"><%=h @indicadoresresultado.edad2%></div></td>
+           <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.edad2_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Más de 55 años', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'edad3',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.edad3},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc"><div align="center"><%=h @indicadoresresultado.edad3%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.edad3_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+           <td class="camposDesc" height="20"><%= link_to 'Sin Información', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                  :variable=>'edad0',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.edad0},
+                                  :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+           <td class="camposDesc"><div align="center"><%=h @indicadoresresultado.edad0%></div></td>
+           <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.edad0_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'edadtotal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.edadtotal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc"><div align="center"><%=h @indicadoresresultado.edadtotal%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.edadtotal_valor) rescue 0%></div></td>
+        </tr>        
+        <tr>
+          <td class="camposDesc" height="20"><%= link_to 'Hombre', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'genero1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.genero1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.genero1%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.genero1_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Mujer', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'genero2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.genero2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.genero2%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.genero2_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><%= link_to 'Sin Información', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'genero0',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.genero0},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.genero0%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.genero0_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'generototal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.generototal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.generototal%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.generototal_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><%= link_to 'Afrocolombianos Hombre', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'afro1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.afro1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.afro1%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.afro1_valor) rescue 0%></div></td>
+          </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Afrocolombianos Mujer', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'afro2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.afro2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.afro2%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.afro2_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><%= link_to 'Afrocolombianos Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'afrototal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.afrototal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.afrototal%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.afrototal_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%= link_to 'Indigenas Hombre', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'indi1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.indi1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+          <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.indi1%></div></td>
+          <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.indi1_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Indigenas Mujer', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'indi2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.indi2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.indi2%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.indi2_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1"><td class="camposDesc" height="20"><%= link_to 'Indigenas Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'inditotal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.inditotal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.inditotal%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.inditotal_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'ROM Hombre', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'rom1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.rom1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.rom1%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.rom1_valor) rescue 0%></div></td>        
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'ROM Mujer', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'rom2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.rom2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.rom2%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.rom2_valor) rescue 0%></div></td>        
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'ROM Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'romtotal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.romtotal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.romtotal%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.romtotal_valor) rescue 0%></div></td>        
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Discapacitados Hombre', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'disc1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.disc1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.disc1%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.disc1_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1"><td class="camposDesc" height="20"><%= link_to 'Discapacitados Mujer', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'disc2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.disc2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.disc2%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.disc2_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Discapacitados Sin Información', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'disc0',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.disc0},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.disc0%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.disc0_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1"><td class="camposDesc" height="20"><%= link_to 'Discapacitados Total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'disctotal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.disctotal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.disctotal%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.disctotal_valor) rescue 0%></div></td>
+        </tr>
+      </table>    
+    </td>
+    <td width="10%">&nbsp;</td>
+    <td width="38%">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="50%" height="20" class="oce-first">Variable Medida</td>
+          <td width="20%" class="oce-first">Resultado</td>
+          <td width="30%" class="oce-first">Monto Subsidio</td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 01', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna1',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna1},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna1%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna1_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 02', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna2',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna2},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna2%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna2_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 03', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna3',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna3},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna3%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna3_valor) rescue 0%></div></td>        
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 04', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna4',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna4},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna4%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna4_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 05', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna5',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna5},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna5%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna5_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 06', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna6',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna6},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna6%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna6_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 07', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna7',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna7},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna7%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna7_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 08', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna8',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna8},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna8%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna8_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 09', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna9',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna9},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna9%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna9_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1"><td class="camposDesc" height="20"><%= link_to 'Comuna 10', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna10',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna10},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna10%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna10_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 11', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna11',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna11},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna11%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna11_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 12', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna12',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna12},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna12%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna12_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 13', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna13',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna13},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna13%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna13_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 14', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna14',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna14},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna14%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna14_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 15', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna15',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna15},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna15%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna15_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 16', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna16',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna16},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna16%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna16_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 50', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna50',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna50},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna50%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna50_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 60', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna60',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna60},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna60%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna60_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 70', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna70',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna70},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna70%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna70_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 80', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna80',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna80},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna80%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna80_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna 90', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comuna90',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comuna90},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comuna90%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comuna90_valor) rescue 0%></div></td>
+        </tr>
+        <tr class="odd1">
+        <td class="camposDesc" height="20"><%= link_to 'Sin Comuna', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'sincomuna',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.sincomuna},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.sincomuna%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.sincomuna_valor) rescue 0%></div></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" height="20"><%= link_to 'Comuna total', {:controller=>"indicadoresdatos", :action=>"mostrar", 
+                                    :variable=>'comunatotal',:indicador_id=>@indicadoresresultado.indicador_id, :total=>@indicadoresresultado.comunatotal},
+                                    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></td>
+        <td class="camposDesc" ><div align="center"><%=h @indicadoresresultado.comunatotal%></div></td>
+        <td class="camposDesc" ><div align="right"><%=camponumerico(@indicadoresresultado.comunatotal_valor) rescue 0%></div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table><br/>  
+  <% else %>
+      <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="60%" height="20" class="oce-first">Indicador</td>
+          <td width="20%" class="oce-first"><div align="center">Numerador</div></td>
+          <td width="20%" class="oce-first"><div align="center">Denominador</div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" height="20"><%=indicadoresdato.nombre_indicador rescue nil%></td>
+          <td class="camposDesc" ><div align="center">
+<%= link_to Indicadoresdato.sum('numerador',:conditions=>["indicador_id = #{indicadoresdato.indicador_id}"]), {:controller=>"indicadoresdatos", :action=>"mostrar", 
+    :variable=>'numerador',:indicador_id=>indicadoresdato.indicador_id},
+    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></div></td>
+          <td class="camposDesc" ><div align="center">
+<%= link_to Indicadoresdato.sum('denominador',:conditions=>["indicador_id = #{indicadoresdato.indicador_id}"]), {:controller=>"indicadoresdatos", :action=>"mostrar", 
+    :variable=>'denominador',:indicador_id=>indicadoresdato.indicador_id},
+    :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 550, 1000)"%></div></td>
+        </tr>
+      </table> 
+  <% end %>
+<%end%>
+<br/>

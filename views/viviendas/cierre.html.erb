@@ -1,0 +1,507 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td colspan="2" align="center" class="campos13">FICHA CIERRE FINANCIERO</td>
+        </tr>
+         <tr>
+          <td align="left" class="campos13">SOLUCION HABITACIONAL </td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc"><table width="100%" height="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="20%" class="campos">Proyecto</td>
+              <td width="20%" class="campos">Bloque</td>
+              <td width="20%" class="campos">Direccion</td>
+              <td width="5%" class="campos">Piso</td>
+              <td width="10%" class="campos">Apto</td>
+              <td width="10%" class="campos">Entregado</td>
+              <td width="15%" class="campos">Fecha Entrega</td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><%=@vivienda.proyecto.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.bloque.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.bloque.direccion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.piso.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.apto.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.descentregado rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.fecha_entrega rescue nil%></td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="left" class="campos13">JEFE DE HOGAR Y BENEFICIARIOS</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc"><table width="100%" height="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="181" class="campos">Identificacion</td>
+              <td width="615" class="campos">Nombre</td>
+              <td width="615" class="campos">Parentesco</td>
+            </tr>
+<%
+  viviendaspersona = Viviendaspersona.find_by_vivienda_id(@vivienda.id)
+%>
+            <tr>
+              <td class="camposDesc"><%=viviendaspersona.persona.identificacion rescue nil%></td>
+              <td class="camposDesc"><%=viviendaspersona.persona.primer_nombre rescue nil%> <%=viviendaspersona.persona.segundo_nombre rescue nil%> <%=viviendaspersona.persona.primer_apellido rescue nil%> <%=viviendaspersona.persona.segundo_apellido rescue nil%></td>
+              <td class="camposDesc">JEFE DE HOGARr</td>
+            </tr>
+            <% @beneviviendas = Benevivienda.find_all_by_persona_id(viviendaspersona.persona_id);
+              for benevivienda in @beneviviendas %>
+            <tr>
+              <td class="camposDesc"><%=benevivienda.identificacion%></td>
+              <td class="camposDesc"><%=benevivienda.primer_nombre%> <%=benevivienda.segundo_nombre%> <%=benevivienda.primer_apellido%> <%=benevivienda.segundo_apellido%></td>
+              <td class="camposDesc"><%=benevivienda.parentesco.descripcion rescue nil%></td>
+            </tr>
+<% end %>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="left" class="campos13">CIERRE FINANCIERO</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="35%" class="campos">Elemento</td>
+              <td width="15%" class="campos"align="right">Valor</td>
+              <td width="35%" class="campos">&nbsp;&nbsp;Resolucion</td>
+              <td width="15%" class="campos">&nbsp;&nbsp;Fecha</td>
+            </tr>
+<% @subsidios = Subsidio.find_all_by_persona_id(viviendaspersona.persona_id);
+              for subsidio in @subsidios %>
+            <tr>
+              <td class="camposDesc"><%=subsidio.tipos_subsidio.descripcion rescue nil%></td>
+              <td class="camposDesc" align="right"><%=number_to_currency(subsidio.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc">&nbsp;&nbsp;<%=subsidio.resolucion%></td>
+              <td class="camposDesc">&nbsp;&nbsp;<%=subsidio.fecha_asig%></td>
+            </tr>
+<% end %>
+<% @creditos = Credito.find_all_by_persona_id(viviendaspersona.persona_id);
+              for credito in @creditos %>
+            <tr>
+              <td class="camposDesc">CREDITO - <%=credito.entidad.descripcion rescue nil%></td>
+              <td class="camposDesc"align="right">
+              <%=number_to_currency(credito.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc" >&nbsp;&nbsp;<%=credito.resolucion%></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+<% end %>
+            <tr>
+              <td class="camposDesc">VALOR AHORRO TRASLADADO</td>
+              <td class="camposDesc" align="right">
+              <%=number_to_currency(@vivienda.valor_ahorro_tras.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">VALOR DONACIÓN</td>
+              <td class="camposDesc" align="right">
+              <%=number_to_currency(@vivienda.valor_donacion.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+            </tr>
+<%
+   saldo = Vivienda.valorcredito(@vivienda.id).to_i + Vivienda.valorsubsidio(@vivienda.id, @vivienda.consig_escrituras.to_i).to_i + @vivienda.valor_donacion.to_i + @vivienda.valor_ahorro_tras.to_i
+%>
+            <tr>
+              <td class="campos" align="right">TOTAL SUBSIDIOS, CREDITOS Y APORTES</td>
+              <td class="campos" align="right">$ <%=number_to_currency(saldo,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">GASTOS ESCRITURACION CANCELADOS</td>
+              <td class="campos" align="right">$ <%=number_to_currency(@vivienda.consig_escrituras.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">VALOR VIVIENDA</td>
+              <td class="campos" align="right">$ <%=number_to_currency(@vivienda.valor_vivienda.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">&nbsp;</td>
+              <td class="camposDesc" align="right">-------------------</td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">SALDO CIERRE FINANCIERO</td>
+              <td class="campos" align="right">$ <%=number_to_currency((@vivienda.valor_vivienda.to_i - saldo.to_i),{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+          </table></td>
+        </tr>
+<tr>
+          <td align="left" class="campos13">LISTA DE CHEQUEO</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+<tr>
+          <td colspan="2" align="center">
+<table width="800" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td class="camposDesc">Impresi&oacute;n de la constancia de inscripcion del grupo familiar al sistema.</td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Cuadron con el cierre financiero impreso y digital.</td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Informacion del Proyecto Habitacional . </td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Conformaci&oacute;n del grupo familiar y sus correspondientes documentos de identidad, c&eacute;dula de ciudadania para los adultos, en caso de existir menores; se debe presentar la tarjeta de identidad o el registro civil. </td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Acta de entrega en caso de ya haberse entregado el apartamento</td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+  <td class="camposDesc">
+  El grupo familiar debe coincidir con el fijado en la Resoluci&oacute;n de adjudicaci&oacute;n del subsidio Nacional o en el respectivo censo en caso de reasentamiento o calamidad.
+  <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+  </table></td>
+  <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+  </table></td>
+  <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+  </table></td>
+  <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+  </table></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Resoluci&oacute;n de asignaci&oacute;n del Subsidio Nacional </td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+<tr>
+    <td class="camposDesc">Resolucion del subsidio Municipal si este ya fue otorgado o solicitud de la expedicion de la misma indicando el valor y verificacion de requisitos para su otorgamiento. </td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+<tr>
+    <td class="camposDesc">Si son poseedores o propietarios objeto de reconocimiento de mejoras, se debe aportar el aval&uacute;o de la mejora. Oferta de compra, notificaci&ntilde;on de la oferta y aceptaci&oacute;n de la misma</td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">SI</div></td>
+        </tr>
+    </table></td>
+    <td><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div align="center"class="camposDesc">NO</div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Si se requiere pago de escrituras, determinar el valor de estas, la forma de pago y el soporte de pago de las mismas </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Verificaci&oacute;n de la vinculaci&oacute;n a la Fiduciaria en caso de requerirse </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Cartas de credito o constancias de ahorro programado si se requiere </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Copia de promesa de compraventa en caso de esta haber sido suscrita </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Ficha Social </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td width="80%"class="camposDesc">Formato de desembolso de FONVIVIENDA firmado por el jefe de hogar den caso de poseer subsidio Nacional </td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">SI</div></td>
+      </tr>
+    </table></td>
+    <td width="5%"><table width="100%" class="campolistas" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"class="camposDesc">NO</div></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+        </td>
+        </tr>
+      </table></td>
+  </tr>
+
+</table>
+
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr><td height="0" class="campos">&nbsp;&nbsp;&nbsp;S I F I - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <%=User.find(is_admin).nombre%></td></tr>
+  </table>

@@ -1,0 +1,105 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/manalisismin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;ANALISIS DE PRECIOS </div></td>
+              <td width="3%">
+                <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),analisisprecios_path %>
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/analisis.png" border="0" title="Analisis"/></a></li>
+  <% unless @analisisprecio.new_record? %>
+        <li><a href="#tab2"><img src="/images/elemento.png" border="0" title="Elementos"/></a></li>
+  <% end %>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset>
+<% form_for(@analisisprecio) do |f| %>
+  <div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">ANALISIS</div></td>
+  </tr>
+</table>
+  <table width="760" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+ <table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+    <td width="20%" class="campos"><div align="left">Id :</div></td>
+    <td width="80%" class="camposDesc"><div align="left"><%=@analisisprecio.id%></div></td>
+  </tr>
+  <tr>
+    <td class="campos"><div align="left">Descripcion : *</div></td>
+    <td class="camposDesc"><div align="left">
+        <%= text_field_with_auto_complete :analisisprecio, :gruposactividad_descripcion,
+	    { :class => "campo",
+                :size => 100,
+                :maxlength => 450},
+	    { :url => listar_gruposactividades_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+     <%= error_message_on :gruposactividad_descripcion, :css_class =>"cerror"%>
+        <% unless @analisisprecio.new_record?
+        @grupo = Grupo.find(@analisisprecio.gruposactividad.grupo_id) %><br/>
+     <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+     <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%>
+      <% end %></div></td>
+  </tr>
+<% unless @analisisprecio.new_record? %>
+    <tr>
+      <td class="campos">Ult. Actualización :</td>
+      <td align="left" class="camposDesc"><%= @analisisprecio.updated_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@analisisprecio.user_actualiza).nombre rescue nil%></td>
+    </tr>
+    <tr>
+      <td class="campos">Creación :</td>
+      <td align="left" class="camposDesc"><%= @analisisprecio.created_at.strftime("%Y-%m-%d %X")%> - <%=  @analisisprecio.user.nombre rescue nil%></td>
+    </tr>
+<% end %>
+</table>
+  <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+          <% unless @analisisprecio.new_record? %>
+          <%=link_to 'Informe',{:controller=>"analisisprecios", :action=>"mostrar", :id=>@analisisprecio.id},
+          :popup => ['new_windowbitacora','height=500,width=1000,scrollbars=yes'], :class=>"imprimirlink"%>
+        <% end %>
+  </div></td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+          </fieldset>
+</div>
+  <div class="panel" id="tab2">
+    <fieldset>
+  <% unless @analisisprecio.new_record? %>
+     <div id="analisisprecioselementos_form">
+        <%= render :partial => "/analisisprecioselementos/analisisprecioselementos"%>
+     </div>
+  <% end %>
+    </fieldset>
+  </div>
+
+</div>
+<br/>

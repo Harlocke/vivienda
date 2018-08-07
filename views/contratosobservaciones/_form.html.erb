@@ -1,0 +1,50 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CONTRATISTA ( <%=@contrato.empleado.identificacion%> - <%=@contrato.empleado.nombres%>)</div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  edit_empleado_path(@contrato.empleado_id) %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Nro Contrato</td>
+    <td width="10%" height="30" class="oce-first">Fecha Inicio</td>
+    <td width="10%" height="30" class="oce-first">Fecha Final</td>
+    <td width="70%" height="30" class="oce-first">Objeto</td>
+  </tr>
+   <tr>
+     <td height="30" class="camposDesc"><%=@contrato.nro_contrato%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_inicio%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_final%></td>
+     <td height="30" class="camposDesc"><%=@contrato.objeto%></td>
+ </tr>
+</table>
+   <br>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;OBSERVACIONES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+   <div align="center">
+<table width="80%">
+  <tr>
+    <td class="campos" align="left">Observacion: *</td>
+    <td align="left">
+<%= f.text_area(:observacion, :cols => 120, :rows => 4, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :iguanasobservacion, :observacion, :css_class =>"cerror"%>
+      <%= f.error_message_on :observacion, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+</div>
+   </br>

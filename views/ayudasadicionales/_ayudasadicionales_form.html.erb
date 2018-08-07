@@ -1,0 +1,56 @@
+<table width="95%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Visita de verificación</td>
+          <td width="20%" class="campos">Fecha visita de verificación</td>
+          <td width="20%" class="campos">Vivienda habitada?</td>
+          <td width="20%" class="campos">Vivienda demolida?</td>
+          <td width="20%" class="campos">Activos enero 2016</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayudasadicional, :visita_verif, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasadicional, :visita_verif, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayudasadicional", "fecha_visita", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :ayudasadicional, :fecha_visita, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudasadicional, :vivienda_habita, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasadicional, :vivienda_habita, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudasadicional, :vivienda_demolida, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasadicional, :vivienda_demolida, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudasadicional, :activos, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasadicional, :activos, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Descripción</td>
+          
+        </tr>
+        <tr>
+          <td><%=text_area(:ayudasadicional, :descripcion, :cols => 130, :rows => 3, :class => 'campo', :maxlength => 3900,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayudasadicional, :descripcion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+         <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30">
+            <div align="right">
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :ayudasadicional, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

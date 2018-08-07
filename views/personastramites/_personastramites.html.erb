@@ -1,0 +1,152 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ETAPAS</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@persona, @personastramite] do |form| %>
+<% if permiso("personastramite","C").to_s == "S" %>
+   <% if !@personastramite.id %>
+        <% if Personastramite.exists?(['persona_id = ? and fecha_esperada is null', @persona.id])%>
+            <table width="80%" height="30" border="0" cellpadding="0" cellspacing="0" bordercolor="#FF0000">
+             <tr>
+                  <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+                  <td width="90%" align="left" class="campos">&nbsp;&nbsp;Lo siento pero no se puede incluir nuevas actividades hasta que no se finalicen las actuales...</td>
+             </tr>
+            </table>
+      <br/>
+        <% else %>
+          <% if Viviendaspersona.exists?(['persona_id = ?', @persona.id])%>
+            <table width="80%" border="0" cellpadding="0" cellspacing="0" bordercolor="#FF0000">
+             <tr valign="center">
+                  <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+                  <td width="90%" height="50" align="left" class="campos">&nbsp;&nbsp;Este usuario ya tiene vivienda Asociada.</td>
+             </tr>
+            </table>
+          <% else %>
+  	     <%= render :partial => "/personastramites/personastramites_form" %>
+          <% end %>
+        <% end %>
+   <% end %>
+<% end %>
+<% if @persona.personastramites.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="4%" height="20" align="left" class="oce-first"></td>
+    <td width="24%" height="20" align="left" class="oce-first">Etapa</td>
+    <td width="39%" height="20" align="left" class="oce-first">Actividad</td>
+    <td width="8%" height="20" align="left" class="oce-first"><div align="center">Fecha <br>Inicio</div></td>
+    <td width="8%" height="20" align="left" class="oce-first"><div align="center">Fecha <br>Fin</div></td>
+    <td width="5%" height="20" align="left" class="oce-first"><div align="center">Tiempo<br>Max.</div></td>
+    <td width="12%" height="20" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for personastramite in @persona.personastramites.find(:all, :conditions => ['viviendastipostramite_id != 10085'],:order => 'fecha_inicio DESC') %>
+   <% if personastramite.id != @personastramite.id %>
+   <% if (personastramite.fecha_esperada.to_s != "")
+        if personastramite.fecha_inicio.to_s != ""
+          cantidad = Festivo.count(:conditions =>['fecha between ? and ?', personastramite.fecha_inicio, personastramite.fecha_esperada])
+          segundos = (personastramite.fecha_esperada - personastramite.fecha_inicio).to_i
+          minutos  = (segundos/60).to_i #es el nÃºmero total de minutos
+          horas    = (minutos/60).to_i #nÃºmero total de horas
+          dias     = (horas/24).to_i # nÃºmero total de dÃ­as
+          dias = (dias + 1) - cantidad
+          if (dias <= personastramite.viviendastipostramite.tiempo )
+            band = "verde.png"
+          elsif (dias > personastramite.viviendastipostramite.tiempo and dias <= (personastramite.viviendastipostramite.tiempo+2) )
+            band = "amarillo.png"
+          else
+            band = "rojo.png"
+          end
+        end
+      else
+        if personastramite.fecha_inicio.to_s != ""
+          cantidad = Festivo.count(:conditions =>['fecha between ? and ?', personastramite.fecha_inicio, Time.now])
+          segundos = (Time.now - personastramite.fecha_inicio).to_i
+          minutos  = (segundos/60).to_i #es el nÃºmero total de minutos
+          horas    = (minutos/60).to_i #nÃºmero total de horas
+          dias     = (horas/24).to_i # nÃºmero total de dÃ­as
+          dias = (dias + 1) - cantidad
+          #t = personastramite.fecha_inicio
+          #t = t + segundos + 86400
+          #t.strftime("%F")
+          if (dias <= personastramite.viviendastipostramite.tiempo )
+            band = "verde.png"
+          elsif (dias > personastramite.viviendastipostramite.tiempo and dias <= (personastramite.viviendastipostramite.tiempo+2) )
+            band = "amarillo.png"
+          else
+            band = "rojo.png"
+          end
+        end
+      end
+    %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="personastramite_<%= personastramite.id%>">
+     <td width="4%" height="0" align="left" class="camposDesc"><img class="img" src="/images/<%=band%>"/></td>
+     <td width="24%" height="0" align="left" class="camposDesc"><%=personastramite.viviendastipostramite.etapa rescue nil%></td>
+     <td width="39%" height="0" align="left" class="camposDesc"><%=personastramite.viviendastipostramite.descripcion rescue nil%></td>
+     <td width="8%" height="0" align="left" class="camposDesc"><div align="center"><%=personastramite.fecha_inicio%></div></td>
+     <td width="8%" height="0" align="left" class="camposDesc"><div align="center"><%=personastramite.fecha_esperada%></div></td>
+     <td width="5%" height="0" align="left" class="camposDesc"><div align="center"><%=personastramite.viviendastipostramite.tiempo%></div></td>
+      <td width="12%" align="right" class="camposDesc">
+        <% if Viviendaspersona.exists?(['persona_id = ?', personastramite.persona_id]) == false%>
+          <% if permiso("personastramite","A").to_s == "S" %>
+                <%= link_to_remote('Editar',{:url => edit_persona_personastramite_path(@persona, personastramite),
+                  :method => :get}, :class=>"editarlink")%>
+          <% end %>
+          <% if permiso("personastramite","E").to_s == "S" %>
+          |&nbsp;<%= link_to_remote('Borrar',{:url => persona_personastramite_path(@persona, personastramite),
+                  :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+        <% end %></td>
+   </tr>
+   <% if personastramite.observaciones.to_s != "" %>
+   <tr  valign="middle">
+     <td height="0" align="left" class="camposDesc">&nbsp;</td>
+     <td height="0" colspan="6" align="left" class="camposDesc"><table width="800" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td width="15%" class="oce-first">Observacion:</td>
+         <td width="85%" class="campos"><%=personastramite.observaciones%></td>
+       </tr>
+     </table></td>
+    </tr>
+    <% end %>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR ETAPA</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="personastramite_<%=@personastramite.id%>">
+     <%= render :partial => "personastramites_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<% if flash[:personastramite] %>
+<br/>
+<div id="personastramite">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:personastramite] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personastramite');", 5000)
+</script>
+<% end %>
+</div>

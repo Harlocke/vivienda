@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @soporte.user_id %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%=h @soporte.descripcion %>
+</p>
+
+
+<%= link_to 'Edit', edit_soporte_path(@soporte) %> |
+<%= link_to 'Back', soportes_path %>

@@ -1,0 +1,45 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+       <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+       <div align="justify" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; ">
+         <br/><br/><br/>
+         Medellin, <%=descmesmin(@contrato.fecha_inicio.strftime("%m")) rescue nil%> <%=@contrato.fecha_inicio.strftime("%d") rescue nil%> de <%=@contrato.fecha_inicio.strftime("%Y") rescue nil%><br/><br/><br/>
+        <br/><br/>
+        El suscrito subdirector administrativo y financiero del Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED certifica que, una vez verificada la planta de cargos, se constató que no existe actualmente un cargo para <strong>“<%=@contrato.objeto%>”</strong>, y dentro de la planta de cargos no se cuenta con el personal suficiente para desarrollar tal actividad. 
+        <br/><br/><br/><br/>
+        Atentamente,
+        <br/><br/>
+        <br/><br/>
+        <br/>
+        <strong><%=Sifi.find(20).valor rescue nil%></strong><br/>
+        <%=Sifi.find(21).valor rescue nil%><br/>
+        <strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong>
+         </div>
+        <div style="font-size: 10px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+        <br/>
+    </td>
+  </tr>
+</table>
+</div>

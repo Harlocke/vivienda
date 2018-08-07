@@ -1,0 +1,38 @@
+<%=  javascript_include_tag :defaults %>
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/crucesminambientemin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CRUCES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% if flash[:temporalerror] %>
+  <table width="70%" border="0" cellpadding="0" cellspacing="0" align="center" >
+    <tr>
+      <td><div align="center"><%= image_tag("delete.png", :size => "16x16") %></div></td>
+      <td><strong>&nbsp;&nbsp;<%=flash[:temporalerror]%></strong></td>
+    </tr>
+  </table>
+<% else %>
+<div align="center">
+<table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2" height="30" class="oce-first"><div align="center"><strong>FASE 2 TERMINADA CON EXITO <%= image_tag("tick.png", :size => "16x16")%></strong></div></td>
+  </tr>
+  <tr>
+    <td colspan="2" height="30" class="camposDesc"><div align="center">En total hay <strong><%=@cruces.count%></strong> identificaciones cargadas, y listas para ser pasadas al consolidado del SIFI</div></td>
+  </tr>
+  <tr>
+    <td colspan="2" height="30" class="camposDesc"><div align="center">Pulse <%=link_to 'Aqui',{:controller=>"cruces", :action=>"consolidar", :id=>1}%> si desea consolidar la información</div></td>
+  </tr>
+</table>
+</div>
+  <br/>
+<% end %>
+<br/>

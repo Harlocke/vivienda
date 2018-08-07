@@ -1,0 +1,50 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="25%" class="campos" align="left">Tipo *</td>
+        <td width="15%" class="campos" align="left">Fecha Pago *</td>
+        <td width="15%" class="campos" align="left">Valor *</td>
+        <td width="15%" class="campos" align="left">Nro Factura</td>
+        <td width="30%" class="campos" align="left">Descripción</td>
+      </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left">
+       <% if @mejoramientospago.id %>
+          <%=select("mejoramientospago", "conveniosforma_id", Conveniosforma.find(:all, :conditions => ["convenio_id = #{@mejoramiento.convenio_id} and resolucion_id = #{@mejoramiento.resolucion_id}"], :order => "porcentaje desc").collect {|p| [ p.porcentaje.to_s + " - " + p.clase.to_s, p.id ] }, { :include_blank => true },
+           { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+       <% else %>
+          <%=select("mejoramientospago", "conveniosforma_id", Conveniosforma.find(:all, :conditions => ["convenio_id = #{@mejoramiento.convenio_id} and resolucion_id = #{@mejoramiento.resolucion_id} and id not in (select conveniosforma_id from mejoramientospagos where mejoramiento_id = #{@mejoramiento.id})"], :order => "porcentaje desc").collect {|p| [ p.porcentaje.to_s + " - " + p.clase.to_s, p.id ] }, { :include_blank => true },
+           { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+       <% end %>
+         <%= error_message_on :mejoramientospago, :tipopago, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "mejoramientospago", "fecha_pago", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :mejoramientospago, :fecha, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= text_field :mejoramientospago, :valor,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :mejoramientospago, :valor, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= text_field :mejoramientospago, :nro_factura,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :mejoramientospago, :valor, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= text_field :mejoramientospago, :descripcion,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :mejoramientospago, :valor, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :mejoramientospago, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+    </table>
+    </td>
+  </tr>
+</table>

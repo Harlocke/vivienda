@@ -1,0 +1,81 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Actualizaciones</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Usuario</div></strong></td>
+    <td colspan="2"><strong><div align="center">Informacion General</div></strong></td>
+    <td colspan="2"><strong><div align="center">Presupuesto</div></strong></td>
+    <td colspan="2"><strong><div align="center">Imagenes</div></strong></td>
+    <td colspan="2"><strong><div align="center">Personal</div></strong></td>
+    <td colspan="2"><strong><div align="center">Pagos</div></strong></td>
+    <td colspan="2"><strong><div align="center">Observaciones</div></strong></td>
+    <td colspan="2"><strong><div align="center">Informes de Avances</div></strong></td>
+    <td colspan="2"><strong><div align="center">Elementos Informes</div></strong></td>
+    <td colspan="2"><strong><div align="center">Criterios Informes</div></strong></td>
+    <td colspan="2"><strong><div align="center">Imagenes Informes</div></strong></td>
+    <td colspan="2"><strong><div align="center">Conceptos</div></strong></td>
+    <td colspan="2"><strong><div align="center">Expedientes</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="5%"><strong>Fecha Inicio</strong></td>
+    <td width="15%"><strong>Fecha Final</strong></td>
+    <td width="40%"><strong>Usuario</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+  </tr>
+<% @mejoramientosactualizaciones.each do |mejoramientosactualizacion| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramientosactualizacion.fecha_inicio rescue nil%></td>
+    <td><%=mejoramientosactualizacion.fecha_fin rescue nil%></td>
+    <td><%=User.find(mejoramientosactualizacion.user_id).nombre rescue nil%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramiento rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramiento rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientoselementos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientoselementos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientosimagenes rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientosimagenes rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientosobras rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientosobras rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientospagos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientospagos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientosnotas rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientosnotas rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientosinterventorias rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientosinterventorias rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejorainformeselementos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejorainformeselementos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejorainformescriterios rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejorainformescriterios rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoraelementosimagenes rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoraelementosimagenes rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientosconceptos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientosconceptos rescue 0%></td>
+    <td><%=mejoramientosactualizacion.i_mejoramientoslistas rescue 0%></td>
+    <td><%=mejoramientosactualizacion.a_mejoramientoslistas rescue 0%></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,67 @@
+<table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%"><span class="campos">Tipo *</span></td>
+          <td width="15%"><span class="campos">Fecha *</span></td>
+          <td width="65%"><span class="campos">Descripcion *</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= select(:elementosmantenimiento,
+                :tipo, { "PREVENTIVO" => "PREVENTIVO",
+                           "CORRECTIVO" => "CORRECTIVO","REVISION" => "REVISION"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :elementosmantenimiento, :tipo, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "elementosmantenimiento", "fecha_mantenimiento", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :elementosmantenimiento, :fecha_mantenimiento, :css_class =>"cerror"%></td>
+          <td>
+            <%= text_area(:elementosmantenimiento, :descripcion, :cols => 90, :rows => 4, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();",
+:onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'") %>
+          <%= error_message_on :elementosmantenimiento, :descripcion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td><span class="campos">Verificación</span></td>
+        </tr>
+        <tr class="odd1">
+          <td><span class="campos">Revisión puertos USB</span></td>
+          <td><span class="campos">Funcionamiento Cooler</span></td>
+          <td><span class="campos">Tarjetas de Red</span></td>
+          <td><span class="campos">Almacenamiento Disco Duro</span></td>
+          <td><span class="campos">Memoria RAM</span></td>
+          <td><span class="campos">Unidad DVD</span></td>
+          <td><span class="campos">Puertos VGA</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%= select(:elementosmantenimiento,:usb, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:cooler, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:red, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:disco, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:ram, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:dvd, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+          <td><%= select(:elementosmantenimiento,:vga, [["BUENO","BUENO"],["REGULAR","REGULAR"],["MALO","MALO"]],
+               { :include_blank => true },{ :style=>"width:100px", :class => "campo" })%></td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :subsidio, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>
+  

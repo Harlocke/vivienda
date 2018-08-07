@@ -1,0 +1,24 @@
+<h1>Listing interbitacoras</h1>
+
+<table>
+  <tr>
+    <th>Interventoria</th>
+    <th>User</th>
+    <th>Observacion</th>
+  </tr>
+
+<% @interbitacoras.each do |interbitacora| %>
+  <tr>
+    <td><%=h interbitacora.interventoria_id %></td>
+    <td><%=h interbitacora.user_id %></td>
+    <td><%=h interbitacora.observacion %></td>
+    <td><%= link_to 'Show', interbitacora %></td>
+    <td><%= link_to 'Edit', edit_interbitacora_path(interbitacora) %></td>
+    <td><%= link_to 'Destroy', interbitacora, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New interbitacora', new_interbitacora_path %>

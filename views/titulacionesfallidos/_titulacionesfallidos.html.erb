@@ -1,0 +1,66 @@
+</form>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION VISITAS</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesfallido] do |form| %>
+   <% if !@titulacionesfallido.id %>
+	<%= render :partial => "/titulacionesfallidos/titulacionesfallidos_form" %>
+   <% end %>
+  <% if @titulacion.titulacionesfallidos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="15%" align="left" class="oce-first">Fecha Creacion</td>
+    <td width="10%" align="left" class="oce-first">Estado Visita</td>
+    <td width="30%" align="left" class="oce-first">Nombre usuario</td>
+    <td width="35%" align="left" class="oce-first">Observacion</td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+    <% @titulacion.titulacionesfallidos.each do |titulacionesfallido| %>
+     <% if titulacionesfallido.id != @titulacionesfallido.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesfallido_<%= titulacionesfallido.id%>">
+     <td class="camposDesc"><%=titulacionesfallido.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+     <%=titulacionesfallido.user.username rescue nil%></td>
+     <td class="camposDesc"><%=titulacionesfallido.estado_visita rescue nil%></td>
+     <td class="camposDesc"><%=titulacionesfallido.nombre_fallido rescue nil%></td>
+     <td class="camposDesc"><%=replaceenter(titulacionesfallido.observacion_fallido) rescue nil%></td>
+     <td class="camposDesc">
+        <%= link_to_remote('Editar',{:url => edit_titulacion_titulacionesfallido_path(@titulacion, titulacionesfallido),
+		:method => :get}, :class=>"editarlink")%>
+      </td>
+   </tr>
+<% else %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "titulacionesfallidos_form" %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+</table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesfallido] %>
+<div id="titulacionesfallido">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesfallido] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesfallido');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,34 @@
+<strong>Identificacion de Fechas de Vencimiento de Numeracion de Escrituras</strong><br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td  colspan="2"><strong>USUARIO</strong></td>
+    <td ><strong></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  ><strong>Proyecto</strong></td>
+    <td  ><strong>Direccion</strong></td>
+    <td  ><strong>Bloque</strong></td>
+    <td  ><strong>Piso</strong></td>
+    <td  ><strong>Apto</strong></td>
+    <td  ><strong>Entregado</strong></td>
+    <td  ><strong>Identificacion</strong></td>
+    <td  ><strong>Nombre</strong></td>
+    <td  ><strong>Fecha registro</strong></td>
+  </tr>
+<% @objetos.each do |vivienda| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=vivienda.proyecto%></div></td>
+    <td ><div align="left"><%=vivienda.direccion%></div></td>
+    <td ><div align="left"><%=vivienda.bloque%></div></td>
+    <td ><div align="left"><%=vivienda.piso%></div></td>
+    <td ><div align="left"><%=vivienda.apto%></div></td>
+    <td ><div align="left"><%=vivienda.entregado%></div></td>
+    <td ><div align="left"><%=vivienda.identificacion%></div></td>
+    <td ><div align="left"><%=vivienda.nombre%></div></td>
+    <td ><div align="left"><%=vivienda.fecha_registro%></div></td>
+  </tr>
+<%   end %>
+</table>  
+
+

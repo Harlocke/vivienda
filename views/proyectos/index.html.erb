@@ -1,0 +1,50 @@
+<% if permiso("proyectocopropiedad","A").to_s == "S" %>
+    <table width="100%" height="40">
+          <tr>
+            <td>
+              <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+                  <td width="94%"><div class="col_enc">INFORMACIÓN PROYECTOS</div></td>
+                  <td width="3%"><div align="right">
+                  </div></td>
+                </tr>
+              </table></td>
+          </tr>
+    </table>
+    <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="30%" height="30" class="oce-first">Descripción</td>
+        <td width="20%" class="oce-first"><div align="center">SubEtapa</div></td>
+        <td width="20%" class="oce-first"><div align="center">Etapa proyecto</div></td>
+        <td width="30%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @proyectos.each do |proyecto| %>
+      <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>">
+        <td height="20" class="camposDesc"><%=h proyecto.descripcion %></td>
+        <td class="camposDesc"><div align="center"><%=h proyecto.sub_etapa %></div></td>
+        <td class="camposDesc"><div align="center"><%=h proyecto.etapa_proyecto %></div></td>
+        <td class="camposDesc"><div align="center">
+          |&nbsp;<%= link_to 'Editar', edit_proyecto_path(proyecto), :class=>"editarlink"%>
+          |&nbsp;<%= link_to "Ficha Copropiedades", {:controller => "proyectos", :action => "ver", :id=>proyecto.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+          </div></td>
+      </tr>
+    <% end %>
+    </table>
+    <br/>
+<% end
+   if permiso("proyecto","A").to_s == "S" %>
+    <%=  render :partial => 'especial'  %>
+<% end
+   if permiso("lote","A").to_s == "S" %>
+    <%=  render :partial => 'lote'  %>
+<% end
+   if permiso("proyectopajarito","A").to_s == "S" %>
+    <%=  render :partial => '/proyectopajaritos/index'  %>
+<% end
+   if permiso("localescomercial","A").to_s == "S" %>
+    <%=  render :partial => '/localescomerciales/index'  %>
+<% end
+   if permiso("proyectosfactibilidad","A").to_s == "S" %>
+    <%=  render :partial => 'prefactibilidad'  %>
+<% end %>

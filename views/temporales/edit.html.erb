@@ -1,0 +1,44 @@
+<h1>Editing temporal</h1>
+
+<% form_for(@temporal) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.label :resolucion_id %><br />
+    <%= f.text_field :resolucion_id %>
+  </p>
+  <p>
+    <%= f.label :nro_resolucion %><br />
+    <%= f.text_field :nro_resolucion %>
+  </p>
+  <p>
+    <%= f.label :identificacion %><br />
+    <%= f.text_field :identificacion %>
+  </p>
+  <p>
+    <%= f.label :primer_nombre %><br />
+    <%= f.text_field :primer_nombre %>
+  </p>
+  <p>
+    <%= f.label :segundo_nombre %><br />
+    <%= f.text_field :segundo_nombre %>
+  </p>
+  <p>
+    <%= f.label :primer_apellido %><br />
+    <%= f.text_field :primer_apellido %>
+  </p>
+  <p>
+    <%= f.label :segundo_apellido %><br />
+    <%= f.text_field :segundo_apellido %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @temporal %> |
+<%= link_to 'Back', temporales_path %>

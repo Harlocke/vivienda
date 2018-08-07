@@ -1,0 +1,48 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe PQRS - <%=@fch1 rescue nil%> y <%=@fch2 rescue nil%></h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="10%"><strong>Tipo de Requerimiento</strong></td>
+    <td width="10%"><strong>Respuestas Entre 0 y 15 dias</strong></td>
+    <td width="10%"><strong>Respuestas Entre 16 y 30 dias</strong></td>
+    <td width="10%"><strong>Total Atendidos</strong></td>
+    <td width="10%"><strong>Pendientes</strong></td>
+    <td width="10%"><strong>Total PQRS</strong></td>
+    
+  </tr>
+<% consolrango1 = 0
+    consolrango2 = 0
+    consolrango3 = 0
+    consolrango4 = 0
+    consolrango5 = 0
+    consolrango6 = 0
+    consolrango7 = 0
+    @quejas.each do |queja|
+     consolrango1 = consolrango1 + queja.rango1.to_i
+     consolrango2 = consolrango2 + queja.rango2.to_i
+     consolrango3 = consolrango3 + queja.rango3.to_i
+     consolrango4 = consolrango4 + queja.rango4.to_i
+     consolrango5 = consolrango5 + queja.rango5.to_i
+     consolrango6 = consolrango6 + queja.rango6.to_i
+     consolrango7 = consolrango7 + queja.rango7.to_i
+ %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+     <td><%=h queja.tiporeq rescue nil%></td>
+     <td align="center"><%=queja.rango1 rescue nil%></td>
+     <td align="center"><%=queja.rango2 rescue nil%></td>
+     <td align="center"><%=(queja.rango1.to_i + queja.rango2.to_i) rescue nil%></td>
+     <td align="center"><%=queja.rango3 rescue nil%></td>
+     <td align="center"><%=(queja.rango1.to_i + queja.rango2.to_i + queja.rango3.to_i) rescue nil%></td>
+  </tr>
+<% end %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+     <td>TOTALES</td>
+     <td align="center"><%=consolrango1 rescue nil%></td>
+     <td align="center"><%=consolrango2 rescue nil%></td>
+     <td align="center"><%=(consolrango1.to_i + consolrango2.to_i) rescue nil%></td>
+     <td align="center"><%=consolrango3 rescue nil%></td>
+     <td align="center"><%=(consolrango1.to_i + consolrango2.to_i + consolrango3.to_i) rescue nil%></td>     
+  </tr>
+</table>

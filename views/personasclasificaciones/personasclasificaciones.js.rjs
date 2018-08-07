@@ -1,0 +1,1 @@
+page.replace_html :personasclasificaciones_form, :partial => "personasclasificaciones", :object => @personasclasificacion

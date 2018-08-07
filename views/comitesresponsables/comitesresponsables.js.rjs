@@ -1,0 +1,1 @@
+page.replace_html :comitesresponsables_form, :partial => "comitesresponsables", :object => @comitesresponsable

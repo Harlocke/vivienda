@@ -1,0 +1,67 @@
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="../../images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center">ACTA DE ENTREGA DE BIENES</div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table><br/><br/>
+      <div align="justify" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;" >
+          Medellin, <%=Time.now().strftime("%Y-%m-%d")%><br/><br/>
+          Asunto: Entrega de Bienes<br/><br/>
+          El Instituto Social de Vivienda y Hábitat de Medellín ISVIMED-Subdirección Administrativa y Financiera, le  hace entrega de los bienes que se detallan a continuación, en desarrollo de las actividades específicas que cumple con el Instituto. Una vez recibidos los implementos en mención, se deberá velar por la conservación, custodia e integridad de los bienes, siendo responsable por la pérdida o deterioro que por el mal uso se ocasione, en cuyo evento responderá administrativamente, sin perjuicio de la responsabilidad penal o fiscal que pudiera derivarse.
+      </div><br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="10%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Cuenta Contable</strong></div></td>
+          <td width="40%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>Tipo de Elemento</strong></td>
+          <td width="5%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Cant.</strong></div></td>
+          <td width="10%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Placa</strong></div></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Serial</strong></div></td>
+          <td width="15%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Costo</strong></div></td>
+        </tr>
+        <% @elementos.each do |elemento| %>
+        <tr valign="middle">
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=h elemento.codigo_contabilidad%></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="left"><%=h elemento.tiposelemento.descripcion rescue nil%></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center">1</div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=h elemento.placa%></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=h elemento.serial%></div></td>
+            <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="right"><%=camponumerico(elemento.valor) rescue 0%></div></td>
+          </tr>
+        <% end %>
+      </table><br/><br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">________________________________________</td>
+          <td width="10%">&nbsp;</td>
+          <td width="45%">________________________________________</td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow;"><strong>NOMBRE FUNCIONARIO QUE ENTREGA</strong></td>
+          <td style="font-size: 16px; font-family: Arial Narrow;">&nbsp;</td>
+          <td style="font-size: 16px; font-family: Arial Narrow;"><strong><%=User.find(@iduser).nombre rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow;">SUBDIRECCION ADMINISTRATIVA Y FINANCIERA</td>
+          <td>&nbsp;</td>
+          <td style="font-size: 16px; font-family: Arial Narrow;"><%=Dependencia.find(User.find(@iduser).dependencia_id).descripcion rescue nil%></td>
+        </tr>
+      </table><br/>
+      <div align="justify" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%; " >S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <%=User.find(is_admin).nombre%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+    </td>
+  </tr>
+</table>
+</div>

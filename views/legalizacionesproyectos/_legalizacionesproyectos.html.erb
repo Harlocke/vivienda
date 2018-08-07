@@ -1,0 +1,64 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr><td height="30"><div class="col_enc">PROYECTOS SIFI</div></td></tr>
+  <tr><td height="10"></td></tr>
+</table>
+<% remote_form_for [@legalizacion, @legalizacionesproyecto] do |form| %>
+<% if permiso("legalizacionesproyecto","C").to_s == "S" %>
+       <% if !@legalizacionesproyecto.id %>
+            <%= render :partial => "/legalizacionesproyectos/legalizacionesproyectos_form" %>
+       <% end %>
+<% end %>
+<br/>
+<div align="center">
+<% if @legalizacion.legalizacionesproyectos.exists? %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="30" class="oce-first">Fecha</td>
+    <td width="40%" align="left" class="oce-first">Proyecto</td>
+    <td width="20%" align="left" class="oce-first">Bloque</td>
+    <td width="10%" align="left" class="oce-first"></td>
+  </tr>
+<% @legalizacion.legalizacionesproyectos.each do |legalizacionesproyecto| %>
+   <% if legalizacionesproyecto.id != @legalizacionesproyecto.id %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizacionesproyecto_<%= legalizacionesproyecto.id%>">
+         <td width="30%" height="30" class="camposDesc" ><%=legalizacionesproyecto.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizacionesproyecto.user.nombre rescue nil%>"><%=legalizacionesproyecto.user.username rescue nil%></a></td>
+         <td width="40%" class="camposDesc"><%=legalizacionesproyecto.proyectodesc rescue nil %></td>
+         <td width="20%" class="camposDesc"><%=legalizacionesproyecto.bloquedesc rescue nil%></td>
+         <td width="10%" class="camposDesc">
+          <% if permiso("legalizacionesproyecto","A").to_s == "S" %>
+            <%= link_to_remote('Editar',{:url => edit_legalizacion_legalizacionesproyecto_path(@legalizacion, legalizacionesproyecto),
+            :method => :get}, :class=>"editarlink")%>
+          <% end %>
+          <% if permiso("legalizacionesproyecto","E").to_s == "S" and legalizacionesproyecto.eliminar.to_s == 'S' %>
+            <%= link_to_remote('Borrar',{:url => legalizacion_legalizacionesproyecto_path(@legalizacion, legalizacionesproyecto),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+           </td>
+        </tr>
+    <% else %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><br/>Editar</td></tr></table>
+         <%= render :partial => "legalizacionesproyectos_form" %>
+         <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+<% end %>
+</table>
+<% else %>
+    <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+       <tr><td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+       <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td></tr>
+    </table>
+<% end %>
+    <%= hidden_field :legalizacion, :id %>
+<% end %>
+<% if flash[:legalizacionesproyecto] %>
+  <div id="legalizacionesproyecto">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+       <tr><td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+       <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:legalizacionesproyecto] %></td></tr>
+    </table>
+  </div>
+  <script type="text/javascript">
+    setTimeout("new Effect.Fade('legalizacionesproyecto');", 5000)
+  </script>
+<% end %>
+</div>

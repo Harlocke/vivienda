@@ -1,0 +1,28 @@
+<h1>Listing fiduciasrendimientos</h1>
+
+<table>
+  <tr>
+    <th>Fecha</th>
+    <th>Valor</th>
+    <th>Valor comisiones</th>
+    <th>Fiducia</th>
+    <th>User</th>
+  </tr>
+
+<% @fiduciasrendimientos.each do |fiduciasrendimiento| %>
+  <tr>
+    <td><%=h fiduciasrendimiento.fecha %></td>
+    <td><%=h fiduciasrendimiento.valor %></td>
+    <td><%=h fiduciasrendimiento.valor_comisiones %></td>
+    <td><%=h fiduciasrendimiento.fiducia %></td>
+    <td><%=h fiduciasrendimiento.user %></td>
+    <td><%= link_to 'Show', fiduciasrendimiento %></td>
+    <td><%= link_to 'Edit', edit_fiduciasrendimiento_path(fiduciasrendimiento) %></td>
+    <td><%= link_to 'Destroy', fiduciasrendimiento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fiduciasrendimiento', new_fiduciasrendimiento_path %>

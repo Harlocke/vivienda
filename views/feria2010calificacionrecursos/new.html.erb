@@ -1,0 +1,27 @@
+<h1>New feria2010calificacionrecurso</h1>
+
+<% form_for(@feria2010calificacionrecurso) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :feria2010jefe_id %><br />
+    <%= f.text_field :feria2010jefe_id %>
+  </p>
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label :calificacion %><br />
+    <%= f.text_field :calificacion %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', feria2010calificacionrecursos_path %>

@@ -1,0 +1,77 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">CLASIFICACION GENERAL</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @personasclasificacion] do |form| %>
+  <% if permiso("personasclasificacion","C").to_s == "S" %>
+        <% if !@personasclasificacion.id %>
+	<%= render :partial => "/personasclasificaciones/personasclasificaciones_form" %>
+    <% end %>
+<% end %>
+<% if @persona.personasclasificaciones.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="30" class="oce-first">Clasificacion</td>
+    <td width="55%" class="oce-first">Descripcion</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @persona.personasclasificaciones.each do |personasclasificacion| %>
+<% if personasclasificacion.id != @personasclasificacion.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="personasclasificacion_<%=personasclasificacion.id%>">
+    <td width="30%" height="30" class="camposDesc"><%=personasclasificacion.clasificacion.descripcion rescue nil%></td>
+    <td width="55%" class="camposDesc"><%=personasclasificacion.descripcion%></td>
+    <td width="15%" class="camposDesc">
+    <% if permiso("personasclasificacion","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_persona_personasclasificacion_path(@persona, personasclasificacion),
+		:method => :get}, :class=>"editarlink")%>
+    <%  end %>
+    <% if permiso("personasclasificacion","E").to_s == "S" %>
+       |&nbsp;<%= link_to_remote('Borrar',{:url => persona_personasclasificacion_path(@persona, personasclasificacion),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%  end %></td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR CLASIFICACION</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="personasclasificacion_<%=@personasclasificacion.id%>">
+      <%= render :partial => "personasclasificaciones_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:personasclasificacion] %>
+<div id="personasclasificacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:personasclasificacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personasclasificacion');", 5000)
+</script>
+<% end %>
+</fieldset>
+
+

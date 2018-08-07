@@ -1,0 +1,152 @@
+<%  if permisoespecial(@persona.id).to_s == "S" %>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+     <tr class="odd1">
+        <td width="157"><span class="campos">Documento</span></td>
+        <td width="203"><span class="campos">Identificaci&oacute;n *</span></td>
+        <td width="250"><span class="campos">Primer Nombre *</span></td>
+        <td width="220"><span class="campos">Segundo Nombre</span></td>
+        <td width="228"><span class="campos">Primer Apellido *</span></td>
+        <td width="173"><span class="campos">Segundo Apellido</span></td>
+      </tr>
+      <tr>
+        <td><%=select("benevivienda", "documento_id", Documento.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        <td><%=  text_field :benevivienda, :identificacion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :benevivienda, :identificacion, :css_class =>"cerror"%>
+          <div id="error_block_dom_id"></div>
+          </td>
+        <td><%=  text_field :benevivienda,:primer_nombre,{ :class => "campo",:size => 20,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :benevivienda, :primer_nombre, :css_class =>"cerror"%>
+        </td>
+        <td><%=  text_field :benevivienda, :segundo_nombre,{ :class => "campo", :size => 20,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>  </td>
+        <td><%=  text_field :benevivienda, :primer_apellido,{ :class => "campo", :size => 20,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+         <%= error_message_on :benevivienda, :primer_apellido, :css_class =>"cerror"%></td>
+        <td><%=  text_field :benevivienda, :segundo_apellido,{ :class => "campo", :size => 20,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+</table>
+<% else %>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="157"><span class="campos">Documento</span></td>
+        <td width="203"><span class="campos">Identificaci&oacute;n *</span></td>
+        <td width="250"><span class="campos">Primer Nombre *</span></td>
+        <td width="220"><span class="campos">Segundo Nombre</span></td>
+        <td width="228"><span class="campos">Primer Apellido *</span></td>
+        <td width="173"><span class="campos">Segundo Apellido</span></td>
+      </tr>
+      <tr>
+        <td><%=@benevivienda.documento.descripcion rescue nil%></td>
+        <td><%=@benevivienda.identificacion%></td>
+        <td><%=@benevivienda.primer_nombre%></td>
+        <td><%=@benevivienda.segundo_nombre%></td>
+        <td><%=@benevivienda.primer_apellido%></td>
+        <td><%=@benevivienda.segundo_apellido%></td>
+      </tr>
+</table>
+<% end %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td><span class="campos">Genero</span></td>
+          <td><span class="campos">Grupo Etnico *</span></td>
+          <td><span class="campos">Poblacion LGBTI</span></td>                    
+          <td><span class="campos">Fecha Nacimiento</span></td>
+          <td ><span class="campos">Estado Civil</span></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">
+            Masculino <%= radio_button("benevivienda", :genero, true)%>&nbsp;
+            Femenino <%= radio_button("benevivienda", :genero, false)%></td>
+          <td>
+            <%= select('benevivienda', 'grupo_etnico',select_grupoetnico, { :include_blank => true },{ :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           <%= error_message_on :benevivienda, :grupo_etnico, :css_class =>"cerror"%></td>
+          <td>
+            <%= select('benevivienda', 'lgbti',select_sino, { :include_blank => true },{ :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           <%= error_message_on :benevivienda, :lgbti, :css_class =>"cerror"%></td>    
+          <td><%= calendar_date_select_tag "benevivienda[fecha_nacimiento]", @benevivienda.fecha_nacimiento,
+          :year_range => [110.years.ago, 0.years.from_now], :class=> "campo", :size => 10, :onfocus=>"this.blur()" %></td>
+
+                    <td><%=select("benevivienda", "estado_civil_id", EstadosCivil.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:170px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td ><span class="campos">Parentesco</span></td>
+          <td ><span class="campos">Condici&oacute;n Especial</span></td>
+          <td class="campos">Tipo de Discapacidad</td>
+          <td class="campos">Ocupacion</td>          
+        </tr>
+        <tr>
+          <td><%=select("benevivienda", "parentesco_id", Parentesco.find(:all,:conditions => ['id != 1']).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }, { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+          <td><%=select("benevivienda", "especial_id", Especial.find(:all,:conditions => ['id not in (1,5)']).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },{ :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+          <td><%= select(:benevivienda,:tipo_discapacidad, select_tipo_discapacidad, { :include_blank => true },
+                { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%=select("benevivienda", "ocupacion_id", Ocupacion.find(:all).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:190px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>          
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos">Contrato</td>
+          <td class="campos">Ingresos Mensuales</td>
+          <td class="campos">Atencion en Salud</td>
+          <td class="campos">Caja de Compensacion</td>      
+        </tr>
+        <tr>
+        <td><%= select(:benevivienda, :tipo_contrato,select_contrato,{ :include_blank => true },
+            { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= text_field :benevivienda, :ingresos,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :benevivienda, :ingresos, :css_class =>"cerror"%></td>         
+          <td class="camposDesc">Eps <%= select(:benevivienda,:eps, select_sino,
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>&nbsp; - 
+            Sisben  <%=select("benevivienda", "sisben_id", Sisben.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:110px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          </td>
+          <td><%=select("benevivienda", "caja_id", Caja.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:240px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos">Escolaridad</td>   
+          <td width="70%" class="campos">Participación Ciudadana</td>       
+        </tr>
+        <tr>
+          <td><%= select(:benevivienda,:escolaridad,select_escolaridad,{ :include_blank => true },
+              { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= select(:benevivienda,:participacion,select_participacion,{ :include_blank => true },
+              { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></
+                      <td>              
+        </tr>
+      </table>      
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :benevivienda, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>
+

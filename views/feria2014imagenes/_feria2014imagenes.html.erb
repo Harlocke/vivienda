@@ -1,0 +1,56 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+</table>
+<%# if permiso("feria2014imagen","C").to_s == "S" %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_persona_feria2014imagen_path(@persona.id) %></span></div>
+    </div></td>
+      </tr>
+    </table>
+<%# end %>
+
+<div align="center">
+<% remote_form_for [@persona, @feria2014imagen] do |form| %>
+<% if !@feria2014imagen.id %>
+<% end %>
+<% if @persona.feria2014imagenes.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="20" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" height="20" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="20%" height="20" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+</table>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <% for feria2014imagen in @persona.feria2014imagenes.find(:all,:order => 'created_at DESC') %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="feria2014imagen_<%=feria2014imagen.id%>">
+     <td width="30%" height="20" class="camposDesc" align="left"><%=feria2014imagen.descripcion%></td>
+     <td width="50%" height="20" class="camposDesc" align="left"><%=feria2014imagen.feriaimagen_file_name%></td>
+     <td width="20%" height="20" class="camposDesc" align="right">
+        <%= link_to 'Ver', feria2014imagen.feriaimagen.url(:original, false),
+             { :popup => ['windowimg','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+        <% if permiso("feria2014imagen","E").to_s == "S" %>
+              <%= link_to_remote('Borrar',{:url => persona_feria2014imagen_path(@persona, feria2014imagen),
+                              :method => :delete, :confirm => "¿Seguro?",
+                              :before => "$(this).up('.feria2014imagen_#{feria2014imagen.id}').remove()"},
+                              :class=>"borrarlink")%>
+       <% end %>
+     </td>
+   </tr>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :persona, :id %>
+<% end %>
+</div>

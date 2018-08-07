@@ -1,0 +1,50 @@
+<h1>Listing empleadobitacoras</h1>
+
+<table>
+  <tr>
+    <th>Empleado</th>
+    <th>User</th>
+    <th>Dependencia</th>
+    <th>Profesion</th>
+    <th>Userinterventor</th>
+    <th>Tipo</th>
+    <th>Eps</th>
+    <th>Pension</th>
+    <th>Arl</th>
+    <th>Caja compensacion</th>
+    <th>Cargo</th>
+    <th>Nro cuenta</th>
+    <th>Entidad</th>
+    <th>Tipo cuenta</th>
+    <th>Nivel educativo</th>
+    <th>Profesion</th>
+  </tr>
+
+<% @empleadobitacoras.each do |empleadobitacora| %>
+  <tr>
+    <td><%=h empleadobitacora.empleado %></td>
+    <td><%=h empleadobitacora.user %></td>
+    <td><%=h empleadobitacora.dependencia %></td>
+    <td><%=h empleadobitacora.profesion %></td>
+    <td><%=h empleadobitacora.userinterventor_id %></td>
+    <td><%=h empleadobitacora.tipo %></td>
+    <td><%=h empleadobitacora.eps %></td>
+    <td><%=h empleadobitacora.pension %></td>
+    <td><%=h empleadobitacora.arl %></td>
+    <td><%=h empleadobitacora.caja_compensacion %></td>
+    <td><%=h empleadobitacora.cargo %></td>
+    <td><%=h empleadobitacora.nro_cuenta %></td>
+    <td><%=h empleadobitacora.entidad %></td>
+    <td><%=h empleadobitacora.tipo_cuenta %></td>
+    <td><%=h empleadobitacora.nivel_educativo %></td>
+    <td><%=h empleadobitacora.profesion %></td>
+    <td><%= link_to 'Show', empleadobitacora %></td>
+    <td><%= link_to 'Edit', edit_empleadobitacora_path(empleadobitacora) %></td>
+    <td><%= link_to 'Destroy', empleadobitacora, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New empleadobitacora', new_empleadobitacora_path %>

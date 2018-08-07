@@ -1,0 +1,46 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION REPARTOS</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Solicitante</strong></td>
+    <td><strong>Fecha Reparto</strong></td>
+    <td><strong>Radicado </strong></td>
+    <td><strong>Nro Acta </strong></td>
+    <td><strong>Nro Reparto </strong></td>
+    <td><strong>Acto </strong></td>
+    <td><strong>Valor Acto </strong></td>
+    <td><strong>Exento</strong></td>
+    <td><strong>Matricula</strong></td>
+    <td><strong>Circulo Regitral</strong></td>
+    <td><strong>Dirección Inmueble</strong></td>
+    <td><strong>Categoria</strong></td>
+    <td><strong>Otorgantes diferentes a ISVIMED</strong></td>
+    <td><strong>Fecha Habilitación</strong></td>
+    <td><strong>Notaria</strong></td>
+  </tr>
+<% @repartos.each do |r|
+   rp = r.repartosinmuebles.find(:first)
+  %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=r.id rescue nil%></div></td>
+     <td><div align="left"><%=User.find(r.user_solicita).nombre rescue nil rescue nil%></div></td>
+     <td><div align="left"><%=r.fecha_reparto.strftime("%Y-%m-%d").to_s rescue nil%> 09:00</div></td>
+     <td><div align="left">ISVIMED<%=r.anno rescue nil%>-0<%=r.nro_acta rescue nil%></div></td>
+     <td><div align="left"><%=r.nro_acta rescue nil%></div></td>
+     <td><div align="left"><%=r.nro_acta rescue nil%></div></td>
+     <td><div align="left"><%=r.actos rescue nil%></div></td>
+     <td><div align="left"><%=r.repartosactos.sum("valor") rescue nil%></div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left"><%=r.matriculas rescue nil%></div></td>
+     <td><div align="left"><%=r.zona rescue nil%></div></td>
+     <td><div align="left"><%=rp.vivienda.direccionproyecto rescue nil%><%=rp.corvide.direccion rescue nil%><%=rp.direccion rescue nil%></div></td>
+     <td><div align="left"><%=r.actoscategoria rescue nil%></div></td>
+     <td><div align="left"><%=rp.persona.autobuscar rescue nil%></div></td>
+     <td><div align="left"><%=r.fecha_reparto.strftime("%Y-%m-%d") rescue nil%></div></td>
+     <td><div align="left"><%=r.notaria.descripcion.upcase rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+  <img src="http://190.0.34.154:3013/images/frame.png">
+  <table background="http://190.0.34.154:3013/images/frame.png" border="0" cellpadding="0" cellspacing="0" height="65" width="100%">
+            <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+ </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td width="20%" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;">Doctor(a)</td>
+          <td width="80%">&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="color:red; font-size:1em; font-family: Verdana, Geneva, sans-serif;"><strong><%= @dependencia.descripcion %></strong></td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"> A continuación le envio información sobre los compromisos del dia </td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2">
+            <div style="font-size: 12px;">
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+           <tr valign="middle">
+              <td width="20%" height="30"><strong>Responsable</strong></td>
+              <td width="60%"><strong>Actividad</strong></td>
+              <td width="10%"><strong>Fecha<br/>Limite</strong></td>
+              <td width="10%"><strong>Estado</strong></td>
+            </tr>
+     <% @correspondenciasrecibidas.each do |correspondenciasrecibida| %>
+        <tr valign="middle">
+          <td style="color:red;"><%=correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.nro_radicado rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.asunto rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.created_at rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.fecha_limite rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%></td>
+          <td style="color:red;"><%=correspondenciasrecibida.persona.autobuscar rescue nil%></td>
+        </tr>
+        <% end %>
+
+           </table>
+            </div>
+            </td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><strong>S I F I - Sistema de Informacion ISVIMED</strong></td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" ><strong style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><%=Time.now.strftime("%Y-%m-%d %X")%></strong></td>
+        </tr>
+      </table>
+<br/><div style="font-size: 11px;">
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+
+</body>
+</html>

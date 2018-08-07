@@ -1,0 +1,158 @@
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/resolucionmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION PROYECTO IGUANA</div></td>
+              <td width="3%"><div align="right">              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<h1>New iguana</h1>
+<table width="60%" align="center" id="one-column-emphasis">
+  <tr>
+    <td width="23%" height="30" class="campos">Nro Identificacion Plano</td>
+    <td width="77%"><%= f.text_field :nro_registro,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <p>
+    <%= f.label :nro_registro %><br />
+    <%= f.text_field :nro_registro %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :grupo_asignado %><br />
+    <%= f.text_field :grupo_asignado %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :sector %><br />
+    <%= f.text_field :sector %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :encuesta %><br />
+    <%= f.text_field :encuesta %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :cobama %><br />
+    <%= f.text_field :cobama %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :comuna %><br />
+    <%= f.text_field :comuna %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :barrio %><br />
+    <%= f.text_field :barrio %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :manzana %><br />
+    <%= f.text_field :manzana %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :lote %><br />
+    <%= f.text_field :lote %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :interior %><br />
+    <%= f.text_field :interior %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :disponibilidad %><br />
+    <%= f.text_field :disponibilidad %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :matricula %><br />
+    <%= f.text_field :matricula %>
+  </p>
+  <tr>
+    <td width="23%" height="30" class="campos"><%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :fecha_sol_avaluo %><br />
+    <%= f.date_select :fecha_sol_avaluo %>
+  </p>
+  <p>
+    <%= f.label :tiene_avaluo %><br />
+    <%= f.text_field :tiene_avaluo %>
+  </p>
+  <p>
+    <%= f.label :entidad_avaluadora %><br />
+    <%= f.text_field :entidad_avaluadora %>
+  </p>
+  <p>
+    <%= f.label :fecha_avaluo %><br />
+    <%= f.date_select :fecha_avaluo %>
+  </p>
+  <p>
+    <%= f.label :valor_avaluo %><br />
+    <%= f.text_field :valor_avaluo %>
+  </p>
+  <p>
+    <%= f.label :solicitud_revision_avaluo %><br />
+    <%= f.text_field :solicitud_revision_avaluo %>
+  </p>
+  <p>
+    <%= f.label :resultado_revision %><br />
+    <%= f.text_field :resultado_revision %>
+  </p>
+  <p>
+    <%= f.label :valor_compensacion %><br />
+    <%= f.text_field :valor_compensacion %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.label :caso %><br />
+    <%= f.text_field :caso %>
+  </p>
+  <p>
+    <%= f.label :demolido %><br />
+    <%= f.text_field :demolido %>
+  </p>
+  <p>
+    <%= f.label :aplica_subsidio %><br />
+    <%= f.text_field :aplica_subsidio %>
+  </p>
+  <p>
+    <%= f.label :reasentado %><br />
+    <%= f.text_field :reasentado %>
+  </p>
+  <p>
+    <%= f.label :fecha_reasentamiento %><br />
+    <%= f.date_select :fecha_reasentamiento %>
+  </p>
+  <p>
+    <%= f.label :demanda_libre %><br />
+    <%= f.text_field :demanda_libre %>
+  </p>
+  <p>
+    <%= f.label :opcion_vivienda %><br />
+    <%= f.text_field :opcion_vivienda %>
+  </p>
+  <p>
+    <%= f.label :inicio_tramite %><br />
+    <%= f.text_field :inicio_tramite %>
+  </p>
+  <p>
+    <%= f.label :resolucion_elaborada %><br />
+    <%= f.text_field :resolucion_elaborada %>
+  </p>
+  <p>
+    <%= f.label :resolucion_notificada %><br />
+    <%= f.text_field :resolucion_notificada %>
+  </p>
+  <p>
+    <%= f.label :fecha_notificacion %><br />
+    <%= f.date_select :fecha_notificacion %>
+  </p>
+  <p>
+    <%= f.label :resolucion_aceptada %><br />
+    <%= f.date_select :resolucion_aceptada %>
+  </p>

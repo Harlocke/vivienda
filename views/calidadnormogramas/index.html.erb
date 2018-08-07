@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h2>Normograma -
+    <% if permiso("calidadnormograma","C").to_s == "S" %>
+<%= link_to 'Nuevo', new_calidadnormograma_path, :class=>"btn btn-primary" %>
+  <% end %></h2>
+</div>
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Tema</th>
+    <th>Tipo documento</th>
+    <th>Numero</th>
+    <th>Anno</th>
+    <th>Fecha expedicion</th>
+    <th></th>
+  </tr>
+<% @calidadnormogramas.each do |calidadnormograma| %>
+  <tr>
+    <td><%=h calidadnormograma.tema %></td>
+    <td><%=h calidadnormograma.tipo_documento %></td>
+    <td><%=h calidadnormograma.numero %></td>
+    <td><%=h calidadnormograma.anno %></td>
+    <td><%=h calidadnormograma.fecha_expedicion %></td>
+    <td><%= link_to 'Editar', edit_calidadnormograma_path(calidadnormograma), :class=>"btn btn-mini btn-primary" %></td>
+  </tr>
+<% end %>
+</table>
+<br />

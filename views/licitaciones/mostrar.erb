@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>PRESUPUESTO NRO. <%=@licitacion.id%></h3>
+</div>
+<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
+  <thead>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+    <td width="35%" height="0" ><div align="center">FECHA GENERACION</div></td>
+    <td width="65%" ><div align="center">USUARIO GENERACION </div></td>
+  </tr>
+  </thead>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+    <td ><div align="center"><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div></td>
+    <td ><div align="center"><%=User.find(is_admin).nombre%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+<% @licitacion.licitacionesenlaces.each do |licitacionesenlace| %>
+  <tr valign="middle">
+    <td class="camposDescN10"><div align="left"><strong><%=licitacionesenlace.analisisprecio.gruposactividad.descripcion rescue nil%></strong></div></td>
+    <td height="10"><div align="center"><strong><%=licitacionesenlace.analisisprecio.gruposactividad.unidad rescue nil%></strong></div></td>
+    <td height="10"><div align="center"><strong><%=licitacionesenlace.cantidad rescue nil%></strong></div></td>
+    <td colspan="2"><div align="center"><strong><%=licitacionesenlace.valortotal rescue nil%></strong></div></td>
+  </tr>
+  <tr valign="middle">
+    <th width="70%">Elemento</th>
+    <th width="5%">Unidad</th>
+    <th width="5%"><div align="center">Cant</div></th>
+    <th width="10%"><div align="right">Vlr. Unitario</div></th>
+    <th width="10%"><div align="right">Vlr. Total</div></th>
+  </tr>
+  <% licitacionesenlace.analisisprecio.analisisprecioselementos.each do |analisisprecioselemento| %>
+     <tr  valign="middle" id="analisisprecioselemento_<%=analisisprecioselemento.id%>">
+      <td><%=h analisisprecioselemento.precioselemento.grupo rescue nil %> - <%=h analisisprecioselemento.precioselemento.descripcion rescue nil %></td>
+      <td><div align="center"><%=h analisisprecioselemento.precioselemento.unidadmedida rescue nil %></div></td>
+      <td><div align="center"><%=h analisisprecioselemento.cantidad rescue nil%></div></td>
+      <td><div align="right"><%=h camponumerico(analisisprecioselemento.valorunitario) rescue nil %></div></td>
+      <td><div align="right"><%=h camponumerico(analisisprecioselemento.valortotal) rescue nil %></div></td>
+     </tr>
+  <% end %>
+<% end %>
+</table>

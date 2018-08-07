@@ -1,0 +1,2 @@
+page.replace_html :corvidesobservaciones_form, :partial => "/corvidesobservaciones/corvidesobservaciones"
+

@@ -1,0 +1,22 @@
+<h1>Listing aptos</h1>
+
+<table>
+  <tr>
+    <th>Piso</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @aptos.each do |apto| %>
+  <tr>
+    <td><%=h apto.piso_id %></td>
+    <td><%=h apto.descripcion %></td>
+    <td><%= link_to 'Show', apto %></td>
+    <td><%= link_to 'Edit', edit_apto_path(apto) %></td>
+    <td><%= link_to 'Destroy', apto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New apto', new_apto_path %>

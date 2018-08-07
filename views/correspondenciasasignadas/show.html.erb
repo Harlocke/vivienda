@@ -1,0 +1,23 @@
+<p>
+  <b>Correspondenciasrecibida:</b>
+  <%=h @correspondenciasasignada.correspondenciasrecibida_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @correspondenciasasignada.user_id %>
+</p>
+
+<p>
+  <b>Tipo asignacion:</b>
+  <%=h @correspondenciasasignada.tipo_asignacion %>
+</p>
+
+<p>
+  <b>Fecha limite:</b>
+  <%=h @correspondenciasasignada.fecha_limite %>
+</p>
+
+
+<%= link_to 'Edit', edit_correspondenciasasignada_path(@correspondenciasasignada) %> |
+<%= link_to 'Back', correspondenciasasignadas_path %>

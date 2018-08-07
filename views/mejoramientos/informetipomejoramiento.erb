@@ -1,0 +1,60 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Tipos de Mejoramientos</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Tipo de Mejoramiento</strong></td>
+    <td width="15%"><strong>Cantidad</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.tipomejoramiento rescue nil%></td>
+    <td><%=camponumerico(mejoramiento.cant) rescue nil%></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="page-header">
+  <h3>Tipos de Mejoramientos / Convenios</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Tipo de Mejoramiento</strong></td>
+    <td width="15%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="15%"><strong>Cantidad</strong></td>
+  </tr>
+<% @mejoramientosa.each do |mejoramiento| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.tipomejoramiento rescue nil%></td>
+    <td><%=mejoramiento.nro_convenio rescue nil%></td>
+    <td><%=mejoramiento.vigencia rescue nil%></td>
+    <td><%=camponumerico(mejoramiento.cant) rescue nil%></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="page-header">
+  <h3>Tipos de Mejoramientos / Convenio / Estado / Valor Invertido</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Tipo de Mejoramiento</strong></td>
+    <td width="15%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="15%"><strong>Estado</strong></td>
+    <td width="15%"><strong>Cantidad</strong></td>
+    <td width="15%"><strong>Valor Resoluciones</strong></td>
+  </tr>
+<% @mejoramientosb.each do |mejoramiento| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.tipomejoramiento rescue nil%></td>
+    <td><%=mejoramiento.nro_convenio rescue nil%></td>
+    <td><%=mejoramiento.vigencia rescue nil%></td>
+    <td><%=mejoramiento.descripcion rescue nil%></td>
+    <td><%=camponumerico(mejoramiento.cant) rescue nil%></td>
+    <td><%=camponumerico(mejoramiento.total) rescue nil%></td>
+  </tr>
+<% end %>
+</table>

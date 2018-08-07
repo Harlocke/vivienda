@@ -1,0 +1,115 @@
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+</link><style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% for viviendasreporte in @viviendasreportes
+  persona = Persona.find(viviendasreporte.persona_id)
+%>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="50%" height="30"><div align="left"><img src="../../images/minvivienda.png"/></div></td>
+            <td width="50%" height="30"></div></td>
+          </tr>
+        </table><br/>
+        <div align="center" style="font-size: 18px; font-family: Arial Narrow;"><strong>
+        ACTA DE ENTREGA DE LA VIVIENDA<br/>PROGRAMA DE VIVIENDA GRATUITA</strong>
+        </div>
+        <div align="justify" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%; ">
+        <br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%" height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>FECHA:</strong></td>
+            <td width="80%" height="30" style="font-size: 18px; font-family: Arial Narrow;">Quibdo, ________ de ___________________ de ______</td>
+          </tr>
+          <tr>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>PROYECTO:</strong></td>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;">CIUDADELA MIA</td>
+          </tr>
+          <tr>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;"><strong>LUGAR:</strong></td>
+            <td height="30" style="font-size: 18px; font-family: Arial Narrow;">QUIBDO</td>
+          </tr>
+        </table><br/>
+        <strong>ASISTENTES:</strong><br/><br/>
+        <strong>Comparecieron: </strong><br/>
+        <strong>A)&nbsp;&nbsp;&nbsp;<%=persona.nombres rescue nil%></strong>, identificado con la cédula de ciudadanía No. <strong><%=persona.identificacion rescue nil%></strong>, obrando en su propio nombre y en su condición de jefe del hogar conformado de la siguiente manera:<br/><br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+          <tr>
+            <td width="5%" height="40" style="font-size: 18px; font-family: Arial Narrow;"><strong>Nro. </strong></td>
+            <td width="50%" style="font-size: 18px; font-family: Arial Narrow;"><strong>NOMBRE</strong></td>
+            <td width="25%" style="font-size: 18px; font-family: Arial Narrow;"><strong><div align="center">DOCUMENTO DE IDENTIFICACIÓN</div></strong></td>
+            <td width="20%" style="font-size: 18px; font-family: Arial Narrow;"><strong><div align="center">PARENTESCO CON EL JEFE DE HOGAR</div></strong></td>
+          </tr>
+         <% i = 0
+            @beneviviendas = Benevivienda.find_all_by_persona_id(persona.id);
+            ident = ""
+            for benevivienda in @beneviviendas
+              i = i + 1
+              if benevivienda.identificacion.to_s != ""
+                ident = benevivienda.identificacion
+              else
+                ident = "ME"
+              end
+          %>
+          <tr>
+            <td height="25" style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=i%></div></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><%=benevivienda.primer_nombre%> <%=benevivienda.segundo_nombre%> <%=benevivienda.primer_apellido%> <%=benevivienda.segundo_apellido%></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=ident%></div></td>
+            <td style="font-size: 18px; font-family: Arial Narrow;"><div align="center"><%=benevivienda.parentesco.descripcion rescue nil%></div></td>
+          </tr>
+          <% end %>
+        </table>
+        <br/>
+        <strong>B)&nbsp;&nbsp;&nbsp;</strong><strong><%=Sifi.find(30).valor rescue nil%></strong>, identificada con la cédula de ciudadanía <%=Sifi.find(92).valor rescue nil%> , en su condición de <%=Sifi.find(31).valor rescue nil%> del Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED, Instituto que prometió vender al FIDEICOMISO – PROGRAMA DE VIVIENDA GRATUITA la vivienda objeto de entrega.<br/><br/>
+        <div align="center" style="font-size: 18px; font-family: Arial Narrow;"><strong>CONSIDERACIONES</strong></div>
+        <br/>
+        <strong>1.&nbsp;&nbsp;&nbsp;</strong>El hogar cuyo jefe comparece a la presente diligencia de entrega material, fue beneficiario de un subsidio familiar de vivienda en especie, de acuerdo con la resolución No. <strong><%=viviendasreporte.resol %></strong>, expedida por el Fondo Nacional de Vivienda. <br/><br/>
+        <strong>2.&nbsp;&nbsp;&nbsp;</strong>De acuerdo con el acta del sorteo realizado el día <strong><%=namedate(viviendasreporte.fecha) rescue nil %></strong>, para la asignación de las viviendas del mencionado proyecto de vivienda, al hogar beneficiario le correspondió la vivienda ubicada en el <strong><%=viviendasreporte.sector rescue nil%></strong>, bloque <strong><%=viviendasreporte.bloque rescue nil%></strong>, apartamento <strong><%=viviendasreporte.apto rescue nil%></strong>, identificada de la siguiente manera: No. <strong><%=viviendasreporte.matricula rescue nil %></strong><br/><br/>
+        <strong>3.&nbsp;&nbsp;&nbsp;</strong>El jefe del hogar antes identificado, en nombre de suyo y de todos los miembros del hogar, en compañía de un designado de CAVIS – UT, realizó una diligencia de reconocimiento de la vivienda mencionada en el numeral anterior y, como consta en acta el <strong><%=namedate(viviendasreporte.fecha) rescue nil %></strong>, aceptó que la misma fuera adquirida en su favor. <br/><br/>
+        <strong>4.&nbsp;&nbsp;&nbsp;</strong>El jefe del hogar que suscribe la presente acta, el día <strong><%=namedate(viviendasreporte.fecha) rescue 'XXXXXXXXXXXXXXXXXXX' %></strong> otorgó poder a la Fiduciaria Bogotá S.A, para que esta: a) adquiera en su favor la vivienda de interés prioritario, b) constituya patrimonio de familia sobre la vivienda adquirida, c) incluya en la escritura pública de adquisición, su obligación expresa, clara y exigible de restituir la vivienda, en los casos que incumpla las obligaciones contenidas en las normas vigentes. <br/><br/>
+        Teniendo en cuenta lo expuesto, y en consecuencia se suscribe la presente ACTA DE ENTREGA Y RECIBO MATERIAL, en la cual las partes deciden:
+        <br/><br/>
+        <strong>PRIMERO:&nbsp;&nbsp;&nbsp;</strong>La señora <strong><%=Sifi.find(30).valor rescue nil%></strong>, en su condición de <%=Sifi.find(31).valor rescue nil%> del ISVIMED, entidad vendedora del apartamento en mención, procede  a entregar materialmente, al jefe del hogar beneficiario antes descrito en la presente acta, el inmueble identificado con el folio de matrícula inmobiliaria número de la Oficina de Registro de Instrumentos Públicos de la Zona Norte, el cual se encuentra descrito con su cabida y linderos en la escritura publica nro. <strong><%=viviendasreporte.escritura rescue nil %></strong>.
+        <br/><br/>
+        <strong>SEGUNDO:&nbsp;&nbsp;&nbsp;</strong>De conformidad con el certificado de existencia de la vivienda y los documentos anexos que hacen parte integral del mismo, emitido por FONADE, el inmueble que se entrega, cuenta con: Salón comedor; una (1) alcoba principal y dos (2) alcobas auxiliares, cocina, baño social y con un área privada de 45.05 m2 incluye balcón y que posee los siguientes elementos:
+        <br/>
+        <ul style="font-size: 18px; font-family: Arial Narrow; line-height: 150%;">
+          <li>Muros de concreto reforzado de 10 centímetros de espesor, losas de entrepiso de concreto reforzado de 10 centímetros de espesor y escaleras en concreto reforzado. De acuerdo con la Norma Sismo Resistente de 2010, NSR – 10</li>
+          <li>Ventanas en aluminio y vidrio claro con Alfajía en aluminio; vidrio de 3 mm fijo y corredizo. Puerta de acceso: marco y ala metálica en lámina doblada en frio y pintada al horno con chapa. Puerta baño: Marco en lámina ala metálica en lámina doblada en frio y pintada  con chapa sencilla.</li>
+          <li>Pasamanos: Tubería metálica, varillas verticales</li>
+          <li>Mesón en acero inoxidable longitud: 1 metro con pozuelo y salpicadero de 10 centimetros</li>
+          <li>Lavadero prefabricado en grano.</li>
+          <li>Cubierta en lámina metálica y teja Ajover-MAX-Trapezoidal A360 blanca y canoas en lámina galvanizada calibre 24. </li>
+          <li>Instalaciones Hidrosanitarias: medidor de acueducto independiente por apartamento, salida acueducto para lavadora con tapón, una (1) llave tipo ganso en lavaplatos, una (1) llave tipo boca manguera en lavadero, ducha tipo Grival sencilla, juego de incrustaciones, sanitario con grifería; lavamanos; desagües sanitario y lavamanos, desagües en zona de ducha y baño con su respectiva rejilla plástica, desagüe lavaplatos, desagüe lavadero, desagüe lavadora, redes comunes de desagües de aguas lluvias y de aguas negras colgadas en cocina y baño; tubería PVC 1/2" presión para abasto de agua potable expuestas por piso y pared para cocina y lavadero.</li>
+          <li>Instalaciones eléctricas completas, así: Medidor de energía individual; tablero de protecciones de breakers; tomas dobles, tomas GFCI en cocina, interruptores, salidas de alumbrado con sus respectivos plafones en porcelana.</li>
+          <li>Red telefónica y televisión: El interesado a su cargo, deberá solicitar el servicio ante la Entidad proveedora de los mismos.</li>
+        </ul>         
+        <strong>TERCERO:&nbsp;&nbsp;&nbsp;</strong>El <strong>Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED</strong> en su condición de vendedor de la vivienda identificada al inicio de la presente acta, procede a entregar al jefe del hogar beneficiario antes descrito en la presente acta, las llaves de la vivienda y del Manual de Usuario de la misma.
+        <br/><br/>
+        <strong>CUARTO:&nbsp;&nbsp;&nbsp;</strong>De acuerdo con lo establecido en el parágrafo 2º del artículo 6º de la Ley 1537 de 2012, <em>“Las obligaciones que establezcan las normas vigentes sobre las garantías relativas a la obra, se entenderán como obligaciones a cargo de los constructores y no de los patrimonios autónomos que se constituyan ara el desarrollo de proyectos de vivienda de interés prioritario”</em>.
+        <br/><br/>
+        En constancia de lo anterior, firman la presente acta el jefe de hogar y la <%=Sifi.find(31).valor rescue nil%> del ISVIMED, en representación de la entidad vendedora de la vivienda en tres originales, uno con destino a cada una de las partes comparecientes y otro con destino a la Fiduciaria Bogotá en su condición de vocera del FIDEICOMISO – PROGRAMA DE VIVIENDA GRATUITA.
+        <br/><br/><br/>
+        <strong>FIRMAS&nbsp;&nbsp;</strong><br/><br/><br/>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="45%"><hr></hr></td>
+            <td width="10%">&nbsp;</td>
+            <td width="45%"><hr></hr></td>
+          </tr>
+          <tr>
+            <td style="font-size: 18px; font-family: Arial Narrow;">Jefe de hogar (Firma y Huella)</td>
+            <td>&nbsp;</td>
+            <td style="font-size: 18px; font-family: Arial Narrow;">Entidad vendedora</td>
+          </tr>
+        </table><br/><br/>
+        </div>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina> </H1>
+        <H1 class=SaltoDePagina>. </H1>
+<%
+    end
+%>

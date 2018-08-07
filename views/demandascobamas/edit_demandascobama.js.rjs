@@ -1,0 +1,2 @@
+page.replace_html :demandascobamas_form, :partial => "/demandascobamas/demandascobamas"
+

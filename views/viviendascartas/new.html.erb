@@ -1,0 +1,47 @@
+<h1>New viviendascarta</h1>
+
+<% form_for(@viviendascarta) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :titulo %><br />
+    <%= f.text_field :titulo %>
+  </p>
+  <p>
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </p>
+  <p>
+    <%= f.label :cargo %><br />
+    <%= f.text_field :cargo %>
+  </p>
+  <p>
+    <%= f.label :atn_nombre %><br />
+    <%= f.text_field :atn_nombre %>
+  </p>
+  <p>
+    <%= f.label :atn_cargo %><br />
+    <%= f.text_field :atn_cargo %>
+  </p>
+  <p>
+    <%= f.label :empresa %><br />
+    <%= f.text_field :empresa %>
+  </p>
+  <p>
+    <%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :telefono %><br />
+    <%= f.text_field :telefono %>
+  </p>
+  <p>
+    <%= f.label :ciudad %><br />
+    <%= f.text_field :ciudad %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', viviendascartas_path %>

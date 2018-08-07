@@ -1,0 +1,43 @@
+<h1>New plan</h1>
+
+<% form_for(@plan) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :cuota %><br />
+    <%= f.text_field :cuota %>
+  </p>
+  <p>
+    <%= f.label :fecha_vence %><br />
+    <%= f.date_select :fecha_vence %>
+  </p>
+  <p>
+    <%= f.label :inicial %><br />
+    <%= f.text_field :inicial %>
+  </p>
+  <p>
+    <%= f.label :cuota %><br />
+    <%= f.text_field :cuota %>
+  </p>
+  <p>
+    <%= f.label :amortiza %><br />
+    <%= f.text_field :amortiza %>
+  </p>
+  <p>
+    <%= f.label :corriente %><br />
+    <%= f.text_field :corriente %>
+  </p>
+  <p>
+    <%= f.label :final %><br />
+    <%= f.text_field :final %>
+  </p>
+  <p>
+    <%= f.label :mora %><br />
+    <%= f.text_field :mora %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', planes_path %>

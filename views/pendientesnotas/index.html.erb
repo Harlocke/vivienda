@@ -1,0 +1,24 @@
+<h1>Listing pendientesnotas</h1>
+
+<table>
+  <tr>
+    <th>Pendiente</th>
+    <th>Observacion</th>
+    <th>User</th>
+  </tr>
+
+<% @pendientesnotas.each do |pendientesnota| %>
+  <tr>
+    <td><%=h pendientesnota.pendiente_id %></td>
+    <td><%=h pendientesnota.observacion %></td>
+    <td><%=h pendientesnota.user_id %></td>
+    <td><%= link_to 'Show', pendientesnota %></td>
+    <td><%= link_to 'Edit', edit_pendientesnota_path(pendientesnota) %></td>
+    <td><%= link_to 'Destroy', pendientesnota, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New pendientesnota', new_pendientesnota_path %>

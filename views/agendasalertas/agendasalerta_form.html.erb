@@ -1,0 +1,38 @@
+<%=  stylesheet_link_tag 'chain_selects' %>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%"><img src="/images/agendascitasmin.png"/></td>
+    <td width="94%"><div class="col_enc">ALERTA</div></td>
+  </tr>
+</table>
+<br/>
+<% form_for @agendasalerta do |f| %>
+    <%=f.hidden_field :persona_id%>
+    <%=f.hidden_field :ayuda_id%>
+    <div align="center">
+      <table width="70%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="33%" height="30" class="campos">Usuario</td>
+          <td class="camposDesc12"><div align="left"><%=@agendasalerta.persona.autobuscar rescue nil%></div></td>
+        </tr>
+      <tr>
+        <td class="campos" height="30">Descripción de la alerta</td>
+        <td class="campos"><%=f.text_area(:descripcion, :rows=>"4", :maxlength => 254, :onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+      </tr>
+      </table>
+      <br/>
+      <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="70%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div align="right"><%= chain_select_indicator_stand_alone('agendasalerta')%>
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+          </div></td>
+        </tr>
+      </table>
+    </div>
+    <br/>
+<% end %>

@@ -1,0 +1,45 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="88%" align="left" class="campos">Etapa - Actividad *</td>
+          <td width="12%" align="left" class="campos">Fecha Inicio *</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc"><%=select("viviendastramite", "viviendastipostramite_id", Viviendastipostramite.find(:all, :conditions =>["estado ='A'"], :order =>['orden ASC']).collect {|p| [ p.etapa+' - '+p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:720px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :viviendastramite, :viviendastipostramite_id, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= calendar_date_select "viviendastramite", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%>
+          <%= error_message_on :viviendastramite, :fecha_inicio, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" align="left" class="campos">Fecha Fin</td>
+          <td width="80%" align="left" class="campos">Observaciones</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= calendar_date_select "viviendastramite", "fecha_esperada", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%>
+          <%= error_message_on :viviendastramite, :fecha_esperada, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= text_area(:viviendastramite, :observaciones, :cols => 120, :rows => 2, :class => 'campo', :maxlength => 1000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :viviendastramite, :observaciones, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :viviendastramite, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+
+

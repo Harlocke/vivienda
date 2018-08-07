@@ -1,0 +1,72 @@
+ <% form_for(@fiducia) do |f| %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+    <tr><td></td></tr>
+    <tr>
+      <td height="30"><div class="col_enc">INFORMACIÓN DE LA FIDUCIA</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="45%" class="campos">Entidad Fiduciaria</td>
+      <td width="20%" class="campos">Nit </td>
+      <td width="20%" class="campos">Telefono </td>
+      <td width="15%" class="campos">Estado </td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%= f.text_field :nombre,{ :class => "campo", :size => 60,
+                                              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                              :onFocus => "this.style.border='1px solid #f00'",
+                                              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                                 <%= f.error_message_on :nombre, :css_class =>"cerror"%></td>
+      <td class="camposDesc"><%= f.text_field :nit,{ :class => "campo", :size => 20,
+                                              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                              :onFocus => "this.style.border='1px solid #f00'",
+                                              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                                 <%= f.error_message_on :nit, :css_class =>"cerror"%></td>
+      <td class="camposDesc"><%= f.text_field :telefono,{ :class => "campo", :size => 20,
+                                              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                              :onFocus => "this.style.border='1px solid #f00'",
+                                              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                                 <%= f.error_message_on :telefono, :css_class =>"cerror"%></td>
+      <td class="camposDesc"><%= select(:fiducia,:estado,select_agendaestado, { :include_blank => true },
+                                      { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+                                 <%= f.error_message_on :estado, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="40%" class="campos">Dirección</td>
+      <td width="40%" class="campos">Contacto</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%= f.text_field :direccion,{ :class => "campo", :size => 60,
+                                              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                              :onFocus => "this.style.border='1px solid #f00'",
+                                              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                                 <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+      
+      <td class="camposDesc"><%= f.text_field :contacto,{ :class => "campo", :size => 60,
+                                              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                              :onFocus => "this.style.border='1px solid #f00'",
+                                              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                                 <%= f.error_message_on :contacto, :css_class =>"cerror"%></td>
+    </tr>
+  </table>      
+  <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30">
+        <div align="right">
+          <%# if permiso("fiducia","A").to_s == "S" %>
+           <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></div>
+          <%# end %>
+          <%# if permiso("fiducia","E").to_s == "S" %>
+            &nbsp;&nbsp;<%= link_to 'Eliminar', @fiducia, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+          <%# end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+<% end %>

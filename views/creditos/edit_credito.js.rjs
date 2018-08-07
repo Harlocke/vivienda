@@ -1,0 +1,1 @@
+page.replace_html :creditos_form, :partial => "/creditos/creditos"

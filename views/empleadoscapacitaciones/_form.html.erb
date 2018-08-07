@@ -1,0 +1,142 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CONTRATO ( <%=@empleado.identificacion%> - <%=@empleado.nombre%>)</div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  edit_empleado_path(@contrato.empleado_id) %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Nro Acto</td>
+    <td width="20%" height="30" class="oce-first">Fecha Inicio</td>
+    <td width="20%" height="30" class="oce-first">Fecha Final</td>
+    <td width="20%" height="30" class="oce-first">Salario Mensual</td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+     <td width="20%" height="30" class="camposDesc"><%=@empleado.contratosvinculado.nro_acto%></td>
+     <td width="20%" height="30" class="camposDesc"><%=@empleado.contratosvinculado.fecha_inicio%></td>
+     <td width="20%" height="30" class="camposDesc"><%=@empleado.contratosvinculado.fecha_final%></td>
+     <td width="20%" height="30" class="camposDesc">$ <%=number_to_currency(@empleado.contratosvinculado.salario,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+ </tr>
+</table>
+   <br>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION PLAN DE CAPACITACION</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+   <div align="center">
+<p>
+    <%= f.label :contratosvinculado_id %><br />
+    <%= f.text_field :contratosvinculado_id %>
+  </p>
+  <p>
+    <%= f.label :fuente_dnc %><br />
+    <%= f.text_field :fuente_dnc %>
+  </p>
+  <p>
+    <%= f.label :priorizacion %><br />
+    <%= f.text_field :priorizacion %>
+  </p>
+  <p>
+    <%= f.label :necesidad %><br />
+    <%= f.text_field :necesidad %>
+  </p>
+  <p>
+    <%= f.label :dependencia %><br />
+    <%= f.text_field :dependencia %>
+  </p>
+  <p>
+    <%= f.label :aspecto_conocimiento %><br />
+    <%= f.text_field :aspecto_conocimiento %>
+  </p>
+  <p>
+    <%= f.label :aspecto_habilidades %><br />
+    <%= f.text_field :aspecto_habilidades %>
+  </p>
+  <p>
+    <%= f.label :aspecto_actitudes %><br />
+    <%= f.text_field :aspecto_actitudes %>
+  </p>
+  <p>
+    <%= f.label :poblacion_objeto %><br />
+    <%= f.text_field :poblacion_objeto %>
+  </p>
+  <p>
+    <%= f.label :presupuesto %><br />
+    <%= f.text_field :presupuesto %>
+  </p>
+  <p>
+    <%= f.label :se_dicto %><br />
+    <%= f.text_field :se_dicto %>
+  </p>
+  <p>
+    <%= f.label :evento_aprobado %><br />
+    <%= f.text_field :evento_aprobado %>
+  </p>
+  <p>
+    <%= f.label :nombre_capacitacion %><br />
+    <%= f.text_field :nombre_capacitacion %>
+  </p>
+  <p>
+    <%= f.label :valor_pagado %><br />
+    <%= f.text_field :valor_pagado %>
+  </p>
+  <p>
+    <%= f.label :metodos %><br />
+    <%= f.text_field :metodos %>
+  </p>
+  <p>
+    <%= f.label :recursos %><br />
+    <%= f.text_field :recursos %>
+  </p>
+  <p>
+    <%= f.label :objetivo %><br />
+    <%= f.text_field :objetivo %>
+  </p>
+  <p>
+    <%= f.label :contenido %><br />
+    <%= f.text_field :contenido %>
+  </p>
+  <p>
+    <%= f.label :metodologia %><br />
+    <%= f.text_field :metodologia %>
+  </p>
+  <p>
+    <%= f.label :institucion_evaluada %><br />
+    <%= f.text_field :institucion_evaluada %>
+  </p>
+  <p>
+    <%= f.label :duracion %><br />
+    <%= f.text_field :duracion %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicio %><br />
+    <%= f.date_select :fecha_inicio %>
+  </p>
+  <p>
+    <%= f.label :fecha_finalizacion %><br />
+    <%= f.date_select :fecha_finalizacion %>
+  </p>
+  <p>
+    <%= f.label :calificacion_proveedor %><br />
+    <%= f.text_field :calificacion_proveedor %>
+  </p>
+  <p>
+    <%= f.label :evaluacion_eficacia %><br />
+    <%= f.text_field :evaluacion_eficacia %>
+  </p>
+</div>
+   </br>

@@ -1,0 +1,3 @@
+page.replace_html :corresinternasdirigidos_form, :partial => "corresinternasdirigidos", :object => @corresinternasdirigido
+#page.replace_html :benevivienda, flash[:benevivienda]
+#flash.discard

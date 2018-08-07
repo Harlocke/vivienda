@@ -1,0 +1,20 @@
+<h1>Listing diaslaborales</h1>
+
+<table>
+  <tr>
+    <th>Fecha</th>
+  </tr>
+
+<% @diaslaborales.each do |diaslaboral| %>
+  <tr>
+    <td><%=h diaslaboral.fecha %></td>
+    <td><%= link_to 'Show', diaslaboral %></td>
+    <td><%= link_to 'Edit', edit_diaslaboral_path(diaslaboral) %></td>
+    <td><%= link_to 'Destroy', diaslaboral, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New diaslaboral', new_diaslaboral_path %>

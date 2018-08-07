@@ -1,0 +1,33 @@
+<p>
+  <b>Identificacion:</b>
+  <%=h @empleado.identificacion %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%=h @empleado.nombre %>
+</p>
+
+<p>
+  <b>Direccion:</b>
+  <%=h @empleado.direccion %>
+</p>
+
+<p>
+  <b>Telefono:</b>
+  <%=h @empleado.telefono %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @empleado.email %>
+</p>
+
+<p>
+  <b>Modalidad:</b>
+  <%=h @empleado.tipo %>
+</p>
+
+
+<%= link_to 'Edit', edit_empleado_path(@empleado) %> |
+<%= link_to 'Back', empleados_path %>

@@ -1,0 +1,132 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="580" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="center"><strong><h3>DESIGNACION DE SUPERVISION</h3></strong></div>
+<table width="100%">
+  <tr>
+    <td height="40" class="camposDesc">
+      <div align="left">Medellin, <%=descmesmin(@contrato.fecha_inicio.strftime("%m")) rescue nil%> <%=@contrato.fecha_inicio.strftime("%d") rescue nil%> de <%=@contrato.fecha_inicio.strftime("%Y") rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="camposDesc">Doctor(a)</td>
+    </tr>
+    <tr>
+      <td class="campos"><strong><%=Empleado.find(@contrato.interventorempleado_id).cargo rescue nil%>&nbsp;</strong></td>
+    </tr>
+    <tr>
+      <td class="camposDesc">Instituto Social de Vivienda y Hábitat de Medellín</td>
+    </tr>
+    <tr>
+      <td class="camposDesc">Ciudad</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><br/><br/>ASUNTO: Designación de Supervisión.<br/><br/></td>
+    </tr>
+    <tr>
+      <td class="camposDesc">
+        <div align="justify">Con el fin de realizar la supervisión, me permito entregarle el Contrato de 
+          <strong><%=@contrato.tiposcontrato.descripcion rescue nil%> N° <%=@contrato.nro_contrato%></strong>, celebrado entre El Instituto Social de Vivienda
+          y Hábitat de Medellín – ISVIMED- y <strong><%=@contrato.empleado.nombres%></strong> identificada con la cédula de ciudadanía número
+          <strong><%=number_to_currency(@contrato.empleado.identificacion,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong>. El valor total del presente contrato asciende a la suma de
+          <strong>$ <%=number_to_currency(@contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                <% if @contrato.valor_contrato.to_i >= 1000000000%>
+                   <%=numero_a_palabras(@contrato.valor_contrato.to_i)%>
+                <% else %>
+                   <%=@contrato.valor_contrato.to_i.to_words.upcase%>
+                <% end %>
+                PESOS M/L)</strong>,
+          El plazo de ejecución de este contrato será de <strong>
+          <% if @contrato.plazo_mes.to_i > 0 %>
+             <%=@contrato.plazo_mes%> meses 
+          <% end %>
+          <% if @contrato.plazo_dias.to_i > 0 %>
+             <%=@contrato.plazo_dias%> dias      
+          <% end %></strong>
+             contados desde la firma del acta de inicio y sin superar el 31 de diciembre de <%=@contrato.fecha_inicio.strftime("%Y") rescue nil%> y que tiene por objeto:
+          <strong>“<%=@contrato.objeto%>”</strong>.
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><div align="justify">
+<br/>
+          En su calidad de Supervisor (a), deberá ejercer funciones de orientación, supervisión, vigilancia y control técnico, administrativo y financiero del contrato, en razón de lo cual  tendrá  la facultad y el deber de realizar,  entre otras, las siguientes actividades:
+<br/><br/>
+          1. Verificar la ejecución del contrato y exigir el  cumplimiento de todos y cada una de los compromisos y cláusulas del mismo.
+<br/>
+          2. Revisar y aprobar los productos estipulados en el contrato y exigir su corrección cuando sea necesario.
+<br/>
+          3. Verificar en los términos legales el cumplimiento de los aportes al régimen de seguridad social y parafiscal.
+<br/>
+          4. Efectuar las observaciones, recomendaciones y llamados de atención  necesarias para la buena ejecución del contrato, todos los cuales deberán ser siempre por escrito.
+<br/>
+          5. Informar al ISVIMED las acciones del CONTRATISTA que puedan afectar la ejecución del contrato así como  aquellas que den lugar a la imposición de sanciones, con la respectiva conclusión o recomendación.
+<H1 class=SaltoDePagina></H1>
+<table width="580" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../../images/frame.png" width="95%"/></td>
+    </tr>
+</table>
+<table width="580" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+    <tr>
+      <td width="25%" style="border:1px solid #000000" class="camposDesc"><div align="center">Código: F-OJ-06</div></td>
+      <td width="25%" style="border:1px solid #000000" class="camposDesc"><div align="center">Versión: 1</div></td>
+      <td width="25%" style="border:1px solid #000000" class="camposDesc"><div align="center">Fecha: 03-09-2009</div></td>
+      <td width="25%" style="border:1px solid #000000" class="camposDesc"><div align="center">Página 2 de 2</div></td>
+    </tr>
+</table>
+<br/><br/>
+          6. Gestionar oportunamente ante el ISVIMED las solicitudes para la modificación, prorroga o adición del contrato cuando sea necesario.
+<br/><br/>
+          7. Verificar la expedición, extensión o corrección  de las garantías por parte del contratista cuando a ello haya lugar.
+<br/><br/>
+          8. Evitar que se inicie el contrato o sus adiciones sin que se hayan cumplido los requisitos de ejecución propios del contrato como la constitución o ampliación de las garantías, pago de la publicación o  pago del impuesto de timbre cuando a ellos haya lugar.
+<br/><br/>
+          9. Evitar la ejecución o pago de actividades anteriores a la legalización del contrato (requisitos de perfeccionamiento y ejecución).
+<br/><br/>
+          10. Verificar el cumplimiento de requisitos necesarios para la legalización de las prorrogas, adiciones o modificaciones que se efectúen al contrato.
+<br/><br/>
+          11. Resolver las consultas que formule el CONTRATISTA.
+<br/><br/>
+          12. Elaborar las actas a que haya lugar.
+<br/><br/>
+          13. Seguir el procedimiento establecido por el ISVIMED para realizar la liquidación del contrato.
+<br/><br/>
+          14. Las demás derivadas de su función principal de orientación, supervisión, vigilancia y control.
+<br/><br/>
+          15. Mantener la carpeta original del contrato actualizada con  todos los documentos y actas que se realicen con el contratista y al mismo tiempo mantener una carpeta escaneada con toda la información del contrato. El interventor podrá obtener y manejar copias del contrato.
+<br/><br/>
+          16. No retirar la carpeta original de las instalaciones de ISVIMED.
+<br/><br/>
+          17. Conocer y aplicar el manual de interventoría de ISVIMED
+<br/><br/>
+</div>
+          Cordialmente,
+<br/><br/>
+<br/><br/>
+    <strong><%=Sifi.find(17).valor.to_s rescue nil%><br/>
+    <%=Sifi.find(19).valor.to_s rescue nil%></strong><br/>
+    Instituto Social de Vivienda y Hábitat de Medellín
+      </td>
+    </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0" class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%></td></tr>
+</table>
+      </td>
+  </tr>
+</table>
+<br/>
+<br/>
+</div>

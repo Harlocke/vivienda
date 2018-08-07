@@ -1,0 +1,82 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">NOVEDADES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@empleado, @nominasnovedad] do |form| %>
+  <% if permiso("nominasnovedad","C").to_s == "S" %>
+   <% if !@nominasnovedad.id %>
+	<%= render :partial => "/nominasnovedades/nominasnovedades_form" %>
+   <% end %>
+      <% end %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Tipo de Novedad </td>
+    <td width="10%" height="30" class="oce-first">Fecha </td>
+    <td width="10%" height="30" class="oce-first">Valor </td>
+    <td width="5%" height="30" class="oce-first">Dias </td>
+    <td width="10%" height="30" class="oce-first">Porcentaje </td>
+    <td width="45%" height="30" class="oce-first">Observacion </td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% for nominasnovedad in @empleado.nominasnovedades.find(:all, :order => 'fecha_novedad desc') %>
+    <% if nominasnovedad.id != @nominasnovedad.id %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="nominasnovedad_<%=nominasnovedad.id%>">
+     <td width="15%" height="30" class="camposDesc"><%=nominasnovedad.dtiponovedad%></td>
+     <td width="10%" height="30" class="camposDesc"><%=nominasnovedad.fecha_novedad%></td>
+     <td width="10%" height="30" class="camposDesc">$ <%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+     <td width="5%" height="30" class="camposDesc"><%=nominasnovedad.dias%></td>
+     <td width="10%" height="30" class="camposDesc"><%=nominasnovedad.porcentaje%> %</td>
+     <td width="35%" height="30" class="camposDesc"><%=nominasnovedad.observaciones%>
+     <% if nominasnovedad.tipo_novedad == '4' or nominasnovedad.tipo_novedad == '5' or nominasnovedad.tipo_novedad == '6'%>
+       <br/>Fecha Inicio: <%=nominasnovedad.fecha_inicial rescue nil%> - Fecha Final: <%=nominasnovedad.fecha_final rescue nil%>
+     <% end %></td>
+      <td width="15%" class="camposDesc">
+        <% if permiso("nominasnovedad","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_empleado_nominasnovedad_path(@empleado, nominasnovedad),
+		:method => :get}, :class=>"editarlink")%>
+         <% end %>
+        <% if permiso("nominasnovedad","E").to_s == "S" %>&nbsp;|
+        <%= link_to_remote('Borrar',{:url => empleado_nominasnovedad_path(@empleado, nominasnovedad),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+      </td>
+ </tr>
+</table>
+ <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div class="col_enc">EDITAR nominasnovedad</div></td>
+        </tr>
+      </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="nominasnovedad_<%=@nominasnovedad.id%>">
+     <%= render :partial => "/nominasnovedades/nominasnovedades_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+<% end %>
+    <%= hidden_field :empleado, :id %>
+
+<% end %>
+<br/>
+<% if flash[:novedad] %>
+<div id="novedad">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:novedad] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('novedad');", 5000)
+</script>
+<% end %>
+</div>

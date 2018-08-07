@@ -1,0 +1,20 @@
+<h1>Editing apto</h1>
+
+<% form_for(@apto) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :piso_id %><br />
+    <%= f.text_field :piso_id %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @apto %> |
+<%= link_to 'Back', aptos_path %>

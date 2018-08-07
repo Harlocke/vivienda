@@ -1,0 +1,2 @@
+page.replace_html :estudiosmodificaciones_form, :partial => "/estudiosmodificaciones/estudiosmodificaciones"
+

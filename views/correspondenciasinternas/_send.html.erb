@@ -1,0 +1,75 @@
+<br/><br/><div align="center">
+<table width="750" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center">MEMORANDO</div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+      </td>
+  </tr>
+</table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>      
+      <div align="justify" style="font-size: 14px; font-family: Arial Narrow;">
+        <br/><br/>
+        Medellin, <%=Time.now().strftime("%Y-%m-%d")%><br/><br/>
+      </div><br/>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top">
+          <td width="20%" height="20" style="font-size: 14px; font-family: Arial Narrow;"><strong>PARA:</strong></td>
+          <td width="80%" style="font-size: 14px; font-family: Arial Narrow;"><% @correspondenciasinterna.corresinternasdirigidos.each do |corresinternasdirigido| %>
+                           <strong><%=corresinternasdirigido.user.nombre rescue nil%></strong><br/><%=corresinternasdirigido.user.dependencia.descripcion rescue nil%><br/>
+                          <% end %><br/></td>
+        </tr>
+        <tr valign="top">
+          <td height="20" style="font-size: 14px; font-family: Arial Narrow;"><strong>DE:</strong></td>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><%=@correspondenciasinterna.nombreenvia rescue nil %><br/><br/></td>
+        </tr>
+        <tr>
+          <td height="20" style="font-size: 14px; font-family: Arial Narrow;"><strong>ASUNTO:</strong></td>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><%=@correspondenciasinterna.asunto rescue nil%></td>
+        </tr>
+      </table>
+      <div align="justify" style="font-size: 14px; font-family: Arial Narrow;">
+        <br/>Cordial Saludo:<br/><br/>
+        <%=@correspondenciasinterna.desarrolloinforme rescue nil%><br/><br/>
+        <% if @correspondenciasinterna.corresinternasimagenes.exists? %>
+            <strong>Nota: </strong>Este documento tiene los siguientes archivos adjuntos:
+            <% @correspondenciasinterna.corresinternasimagenes.each do |corresinternasimagen| %>
+                <br/><%=corresinternasimagen.corresinterna_file_name rescue nil%>
+            <% end %><br/><br/>
+        <% end %>
+        Gracias por su atención<br/><br/><br/><br/>
+        <%=@correspondenciasinterna.nombreenvia rescue nil %>
+      </div>
+      <br/><br/>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+      <tr>
+        <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;"><div align="center">Elaboró</div></td>
+        <td width="25%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;"> <%=@correspondenciasinterna.nombreelabora rescue nil %></td>
+        <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;"><div align="center">Aprobó</div></td>
+        <td width="25%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;"> <%=@correspondenciasinterna.nombreaprueba rescue nil %></td>
+      </tr>
+      <tr>
+        <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">&nbsp;<%=@correspondenciasinterna.cargoelabora rescue nil %></td>
+        <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;"> <%=@correspondenciasinterna.cargoaprueba rescue nil %></td>
+      </tr>
+    </table>
+      <br/>
+    </td>
+  </tr>
+</table>
+</div>

@@ -1,0 +1,84 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div align="center">
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td height="30"><div class="col_enc">TRASLADO DEPENDENCIAS </div></td>
+    </tr>
+  </table>
+  <% remote_form_for [@correspondenciasrecibida, @correspondenciasdependencia] do |form| %>
+    <% if permiso("correspondenciasdependencia","C").to_s == "S" %>
+       <% if !@correspondenciasdependencia.id %>
+          <%= render :partial => "/correspondenciasdependencias/correspondenciasdependencias_form" %>
+       <% end %>
+    <% end %>
+  <% if @correspondenciasrecibida.correspondenciasdependencias.exists? %>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="15%" height="30" class="oce-first">Fecha Creacion</td>
+      <td width="40%" class="oce-first">Dependencia</td>
+      <td width="10%" class="oce-first">Nro Oficio</td>
+      <td width="10%" class="oce-first">Fecha Inicio</td>
+      <td width="10%" class="oce-first">Fecha Fin</td>
+      <td width="15%" class="oce-first">&nbsp;</td>
+    </tr>
+  <% for correspondenciasdependencia in @correspondenciasrecibida.correspondenciasdependencias.find(:all, :order => 'created_at DESC') %>
+     <% if correspondenciasdependencia.id != @correspondenciasdependencia.id %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="correspondenciasdependencia_<%=correspondenciasdependencia.id%>">
+        <td height="30" class="camposDesc"><%=correspondenciasdependencia.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+        <%=correspondenciasdependencia.user.username rescue nil%><br/></td>
+        <td class="camposDesc"><%=correspondenciasdependencia.dependencia.descripcion rescue nil%>
+        <% if correspondenciasdependencia.user_envio.to_s != "" %>
+          <br/> Email enviado por <strong><%=User.find(correspondenciasdependencia.user_envio).username rescue nil%></strong> - Fecha: <strong><%=correspondenciasdependencia.fechaenvio.strftime("%Y-%m-%d %X") rescue nil%></strong>
+        <% end %>
+        </td>
+        <td class="camposDesc"><%=correspondenciasdependencia.nro_oficio rescue nil%></td>
+        <td class="camposDesc"><%=correspondenciasdependencia.fecha rescue nil%></td>
+        <td class="camposDesc"><%=correspondenciasdependencia.fecha_fin rescue nil%></td>
+        <td class="camposDesc"><div align="center">
+         <% if correspondenciasdependencia.fecha_fin.to_s == "" %>
+               <% if permiso("correspondenciasdependencia","A").to_s == "S" %>
+                      <%= link_to_remote('Editar',{:url => edit_correspondenciasrecibida_correspondenciasdependencia_path(@correspondenciasrecibida, correspondenciasdependencia),
+                          :method => :get}, :class=>"editarlink")%>
+               <% end %>
+               <% if permiso("correspondenciasdependencia","E").to_s == "S" %>
+                     |&nbsp;<%= link_to_remote('Borrar',{:url => correspondenciasrecibida_correspondenciasdependencia_path(@correspondenciasrecibida, correspondenciasdependencia),
+                          :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+               <% end %>
+               <% if correspondenciasdependencia.user_envio.to_s == "" and permiso("correspondenciasenvio","E").to_s == "S" %>
+               <%= link_to_remote('Email',{:url => asignacion_correspondenciasrecibida_correspondenciasdependencia_path(@correspondenciasrecibida, correspondenciasdependencia),
+                            :method => :get}, :class=>"emaillink", :title =>"Envia Notificación Electronica")%>
+               <% end %>
+          <% end %> </div></td>
+      </tr>
+    <% else %>
+         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+           <tr valign="top"><td><br/><h3>Editar</h3></td></tr>
+         </table>
+         <%= render :partial => "correspondenciasdependencias_form" %>
+         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+  <% end %>
+  </table>
+  <% else %>
+    <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+      </tr>
+    </table>
+  <% end %>
+    <%= hidden_field :correspondenciasrecibida, :id %>
+  <% end %>
+  </table>
+  <br/>
+  <% if flash[:correspondenciasrecibida] %>
+    <div id="indicadoresficha">
+      <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+        <tr>
+          <td><div align="right"><%= flash[:correspondenciasrecibida] %></div></td>
+        </tr>
+      </table>
+    </div>
+    <script type="text/javascript"> setTimeout("new Effect.Fade('correspondenciasrecibida');", 5000) </script>
+  <% end %>
+</div>

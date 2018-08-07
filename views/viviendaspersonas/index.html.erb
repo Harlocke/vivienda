@@ -1,0 +1,22 @@
+<h1>Listing viviendaspersonas</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Vivienda</th>
+  </tr>
+
+<% @viviendaspersonas.each do |viviendaspersona| %>
+  <tr>
+    <td><%=h viviendaspersona.persona_id %></td>
+    <td><%=h viviendaspersona.vivienda_id %></td>
+    <td><%= link_to 'Show', viviendaspersona %></td>
+    <td><%= link_to 'Edit', edit_viviendaspersona_path(viviendaspersona) %></td>
+    <td><%= link_to 'Destroy', viviendaspersona, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New viviendaspersona', new_viviendaspersona_path %>

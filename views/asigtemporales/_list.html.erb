@@ -1,0 +1,60 @@
+<div align="center">
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="20%" class="oce-first"><div align="center">Cobama</div></td>
+    <td width="55%" class="oce-first">Fase</td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<% i = 0
+   @asigtemporales = Asigtemporal.find(:all,:conditions=>["userprog_id = #{is_admin}"],:order => 'created_at DESC')
+   for asigtemporal in @asigtemporales %>
+  <tr class="<%=cycle('even1', 'odd1')%> postS_<%=asigtemporal.id%>">
+    <td class="camposDesc"><div align="center"><%=h asigtemporal.created_at.strftime("%Y-%m-%d %X") %></div></td>
+    <td class="camposDesc"><div align="center"><%=h asigtemporal.cobama rescue nil %></div></td>
+    <td class="camposDesc"><%=h asigtemporal.tipo rescue nil %></td>
+    <td class="camposDesc">
+      <%=link_to_remote('Borrar', {
+                :url => asigtemporal_path(asigtemporal),
+                :method => :delete,
+                :confirm => "Seguro?",
+                :before => "$(this).up('.postS_#{asigtemporal.id}').remove()" },
+                :class=>"borrarlink")%>
+  </td>
+  </tr>
+<% end %>
+</table>
+  <br/>
+    <table width="70%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<% if @asigtemporales.count > 0 %>
+    <% form_tag asignar_asigtemporales_path, :method => 'get' do %>
+    <div align="center">
+    <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr class="odd1">
+          <td width="30%" class="campos" align="left">Profesional asignado</td>
+          <td width="70%" class="camposDesc" align="left"><%=select("ubicacion", "user_id", select_useractivo.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+                { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+    </table>
+    <table width="70%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="70%" border="0" cellpadding="2" align="center" cellspacing="0">
+      <tr>
+        <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "buscar", :name => 'nil', :value => 'Asignar', :disable_with => "Asignando..." %>
+              </span></div>
+        </div></td>
+      </tr>
+    </table>
+    </div>
+    <%end%>
+<% end %>
+</div>

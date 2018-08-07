@@ -1,0 +1,63 @@
+<div align="left"><table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATISTAS - EMPLEADOS VINCULADOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@resolucion, @resolucionescontratista] do |form| %>
+   <% if !@resolucionescontratista.id %>
+      <% if permiso("resolucionescontratista","C").to_s == "S" %>
+	<%= render :partial => "/resolucionescontratistas/resolucionescontratistas_form" %>
+      <% end %>
+   <% end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="45%" height="30" class="oce-first">Contratista - Empleado Vinculado</td>
+    <td width="40%" height="30" class="oce-first">Observacion</td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+<% @resolucion.resolucionescontratistas.each do |resolucionescontratista| %>
+   <% if resolucionescontratista.id != @resolucionescontratista.id %>
+   <tr  valign="middle" id="resolucionescontratista_<%=resolucionescontratista.id%>">
+     <td width="45%" height="30" class="camposDesc"><%=resolucionescontratista.empleado.identificacion rescue nil%> - <%=resolucionescontratista.empleado.nombre rescue nil%></td>
+     <td width="40%" height="30" class="camposDesc"><%=resolucionescontratista.observacion%></td>
+      <td width="15%" class="camposDesc" align="right">
+        <% if permiso("resolucionescontratista","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url =>resolucion_resolucionescontratista_path(@resolucion, resolucionescontratista),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %></td>
+       </tr>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR CONTRATISTAS - EMPLEADOS</div></td>
+  </tr>
+  </table>
+    <tr id="resolucionescontratista_<%=@resolucionescontratista.id%>">
+      <%= render :partial => "resolucionescontratistas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+</table>
+            <%= hidden_field :resolucion, :id %>
+<% end %>
+<br/>
+<% if flash[:resolucionescontratista] %>
+<div id="resolucionescontratista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:resolucionescontratista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('resolucionescontratista');", 5000)
+</script>
+<% end %>
+

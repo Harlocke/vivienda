@@ -1,0 +1,131 @@
+<table width="900"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="60%" class="camposDescNTitulo"><div align="center">GERENCIA DE CONCESIONES<br>
+ANALISIS DE PRECIOS UNITARIOS</div></td>
+    <td width="40%">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <thead>
+  <tr>
+    <td width="35%" height="0" class="camposDescN10"<div align="center">FECHA GENERACION</div></td>
+    <td width="65%" class="camposDescN10"><div align="center">USUARIO GENERACION </div></td>
+  </tr>
+  </thead>
+  <tr>
+    <td class="camposDesc10"><div align="center"><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div></td>
+    <td class="camposDesc10"><div align="center"><%=User.find(is_admin).nombre%></div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+<br/>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <thead>
+  <tr>
+    <td width="20%" height="0" class="camposDescN10"<div align="center">OBRA</div></td>
+  </tr>
+  </thead>
+  <tr>
+    <td class="camposDesc10"><div align="center"><%=@obra%></div></td>
+  </tr>
+</table>
+<% if @analisisprecio.analisisprecioselementos.exists? %>
+<%  @objetos = Objeto.find_by_sql("select distinct e.clasificacion
+                                   from   analisisprecioselementos a, elementos e
+                                   where  a.analisisprecio_id in (select id from analisisprecios where proponente = '#{@obra}')
+                                   and    a.elemento_id = e.id
+                                   order by e.clasificacion")
+    @objetos.each do |objeto| %>
+<BR/>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+        <thead>
+  <tr valign="middle">
+    <td colspan="7" class="camposDescN10"><div align="left">&nbsp;<%=objeto.clasificacion%></div></td>
+  </tr>
+  <tr valign="middle">
+    <td width="45%" class="camposDescN10">&nbsp;Elemento</td>
+    <td width="5%" class="camposDescN10"><div align="center">UM</div></td>
+    <td width="5%" class="camposDescN10"><div align="center">Cant</div></td>
+    <td width="10%" class="camposDescN10"><div align="right">Vlr. Unitario&nbsp;</div></td>
+    <td width="10%" class="camposDescN10"><div align="center">Fch Act.</div></td>
+    <td width="5%" height="30" class="camposDescN10"><div align="center">
+        <% if objeto.clasificacion.to_s == "MATERIALES EN OBRA" %>
+          Porc. Desperdicio
+        <% else %>
+          Porc. Rendimiento
+        <% end %>
+      </div></td>
+    <td width="10%" class="camposDescN10"><div align="right">Vlr. Total&nbsp;</div></td>
+  </tr>
+  </thead>
+<% vlranalisis = 0
+   for analisisprecioselemento in @analisisprecio.analisisprecioselementos.find(:all,:conditions=>["id in (select a.id
+                                                                                                           from   analisisprecioselementos a, elementos e
+                                                                                                           where  a.analisisprecio_id in (select id from analisisprecios where proponente = '#{@obra}')
+                                                                                                           and    a.elemento_id = e.id
+                                                                                                           and    e.clasificacion = '#{objeto.clasificacion}')"], :order => 'created_at DESC')
+    vlranalisis = vlranalisis + analisisprecioselemento.valortotal.to_i
+%>
+   <tr  valign="middle" id="analisisprecioselemento_<%=analisisprecioselemento.id%>">
+    <td class="camposDesc10">&nbsp;<%=h analisisprecioselemento.elemento.tipo rescue nil %> - <%=h analisisprecioselemento.elemento.descripcion rescue nil %></td>
+    <td class="camposDesc10"><div align="center"><%=h analisisprecioselemento.elemento.unidadmedida rescue nil %></div></td>
+    <td class="camposDesc10"><div align="center"><%=h analisisprecioselemento.cantidad %></div></td>
+    <td class="camposDesc10"><div align="right"><%=h camponumerico(analisisprecioselemento.valorunitario) %>&nbsp;</div></td>
+    <td class="camposDesc10"><div align="center"><%=h analisisprecioselemento.elemento.fecha_verificacion rescue nil %></div></td>
+    <td class="camposDesc10"><div align="center">
+         <% if objeto.clasificacion.to_s == "MATERIALES EN OBRA" %>
+          <%=h analisisprecioselemento.porc_desperdicio rescue nil %>
+        <% else %>
+          <%=h analisisprecioselemento.porc_rendimiento rescue nil %>
+        <% end %>
+      </div></td>
+    <td class="camposDesc10"><div align="right"><%=h camponumerico(analisisprecioselemento.valortotal) %>&nbsp;</div></td>
+   </tr>
+<% end %>
+   <thead>
+  <tr valign="middle">
+    <td colspan="6" class="camposDescN10"><div align="right">SUBTOTAL&nbsp;</div></td>
+    <td class="camposDescN10"><div align="right"><%=camponumerico(vlranalisis) %>&nbsp;</div></td>
+  </tr>
+  </thead>
+</table>
+<% end %>
+<% vlranalisistotal = 0
+   for analisisprecioselemento in @analisisprecio.analisisprecioselementos.find(:all,:conditions=>["id in (select a.id
+                                                                                                           from   analisisprecioselementos a, elementos e
+                                                                                                           where  a.analisisprecio_id in (select id from analisisprecios where proponente = '#{@obra}')
+                                                                                                           and    a.elemento_id = e.id)"], :order => 'created_at DESC')
+    vlranalisistotal = vlranalisistotal + analisisprecioselemento.valortotal.to_i
+   end
+   administracion = ((vlranalisistotal.to_f*@analisisprecio.porc_admin.to_f)/100)
+   utilidad = (((vlranalisistotal + administracion)*@analisisprecio.porc_utilidad.to_f)/100)
+   total = vlranalisistotal + administracion + utilidad
+%>
+<br/>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <thead>
+  <tr valign="middle">
+    <td width="85%" class="camposDescN10"><div align="right">SUBTOTAL&nbsp;&nbsp;</div></td>
+    <td width="15%" class="camposDescN10"><div align="right"><%=camponumerico(vlranalisistotal) %>&nbsp;</div></td>
+  </tr>
+  <tr valign="middle">
+    <td class="camposDescN10"><div align="right">ADMINISTRACIÓN&nbsp;&nbsp;</div></td>
+    <td class="camposDescN10"><div align="right"><%=camponumerico(administracion) %>&nbsp;</div></td>
+  </tr>
+  <tr valign="middle">
+    <td class="camposDescN10"><div align="right">UTILIDAD&nbsp;&nbsp;</div></td>
+    <td class="camposDescN10"><div align="right"><%=camponumerico(utilidad) %>&nbsp;</div></td>
+  </tr>
+  <tr valign="middle">
+    <td class="camposDescN10"><div align="right">TOTAL&nbsp;&nbsp;</div></td>
+    <td class="camposDescN10"><div align="right"><%=camponumerico(total) %>&nbsp;</div></td>
+  </tr>
+  </thead>
+</table>
+<% end %>
+<br/>
+<table width="900" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>

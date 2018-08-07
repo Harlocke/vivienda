@@ -1,0 +1,56 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/impresora.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">LISTADO DE IMPRESORAS</div></td>
+          <%# if permiso("pendiente","C").to_s == "S" %>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('nuevo.png',
+                              { :border=>0, :title => "Nuevo"}),new_impresora_path(:etapa => '1') %>
+                </div></td>
+          <%# end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="27%" class="oce-first">Nombre</td>
+    <td width="15%" class="oce-first"><div align="center">Sede</div></td>
+    <td width="14%" class="oce-first"><div align="center">Contador Inicial</div></td>
+    <td width="27%" class="oce-first"><div align="center">Empresa Contratante</div></td>
+    <td width="12%" class="oce-first"><div align="center">Instalación</div></td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<% @impresoras.each do |impresora| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%= link_to impresora.nombre_dispositivo,  edit_impresora_path(impresora) rescue nil%></td>
+    <td class="camposDesc"><div align="center"><%= impresora.sede rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%= camponumerico(impresora.contador_inicial) rescue 0%></div></td>
+    <td class="camposDesc"><div align="center"><%= impresora.empresa rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%= impresora.fecha_instalacion rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_impresora_path(impresora, :etapa => '1'),:class=>"editarlink"%>
+      </div></td>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@impresoras.count%></div></td>
+  </tr>
+</table>
+
+<br />
+
+
+<%= render :partial => "/impresorasconsumos/index" %>

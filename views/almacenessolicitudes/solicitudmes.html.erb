@@ -1,0 +1,74 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/solicitudalmacenmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BANDEJA DE SOLICITUDES AL ALMACEN</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                                           { :border=>0, :title => "Menu Almacen"}),almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">SOLICITUDES RESUELTAS</div></td>
+      </tr>
+    </table>
+     <div align="center">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+      <tr>
+        <td width="15%" height="30" class="oce-first"><div align="center">Fecha Solicitud</div></td>
+        <td width="55%" class="oce-first">Usuario</td>
+        <td width="15%" class="oce-first"><div align="center">Consecutivo</div></td>
+        <td width="15%" class="oce-first"><div align="center">Salida</div></td>
+      </tr>
+    <% for almacenessolicitud in @almacenesssolicitudes %>
+      <tr class="odd1">
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.fecha_envio.strftime("%Y-%m-%d %X") %></div></td>
+        <td class="camposDesc"><%=h almacenessolicitud.user.nombre rescue nil %></td>
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.consecutivo %></div></td>
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.nro_salida %></div></td>
+      </tr>
+      <%
+        revisado = Almacenessolicitud.exists?(['consecutivo = ? and revisado is not null', almacenessolicitud.consecutivo])
+        if  revisado %>
+      <tr>
+        <td class="camposDesc" colspan="4"><div align="center">
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr class="odd1">
+            <td width="50%" class="oce-first">Producto</td>
+            <td width="5%" class="oce-first"><div align="center">Cant</div></td>
+            <td width="10%" class="oce-first"><div align="center">Cant Real</div></td>
+            <td width="10%" class="oce-first"><div align="center">Cant Reint.</div></td>
+            <td width="15%" class="oce-first"><div align="center">Valor Unitario</div></td>
+            <td width="10%" class="oce-first"><div align="center">Valor Total</div></td>
+          </tr>
+      <%   almacenessolicitudes = Almacenessolicitud.find(:all, :conditions=>['consecutivo = ? and revisado is not null', almacenessolicitud.consecutivo])
+           for alm in almacenessolicitudes
+       %>
+        <tr>
+          <td class="camposDesc"><%=h alm.producto.descripcion rescue nil%></td>
+          <td class="camposDesc"><div align="center"><%=h alm.cantidad %></div></td>
+          <td class="camposDesc"><div align="center"><%=h alm.cantidad_real %></div></td>
+          <td class="camposDesc"><div align="center"><%=h alm.cantidad_reintegra %></div></td>
+          <td class="camposDesc"><div align="center"><%=camponumerico(alm.producto.valor_promedio) rescue nil %></div></td>
+          <td class="camposDesc"><div align="center"><% if alm.cantidad_real.to_i > 0 %>
+                          <%=camponumerico(alm.producto.valor_promedio.to_f * alm.cantidad_real.to_f) %>
+                          <% else %>
+            <%=camponumerico(alm.producto.valor_promedio.to_f * alm.cantidad.to_f) %>
+                          <% end %></div></td>
+        </tr>
+          <% end %>
+        </table>
+          </div></td>
+      </tr>
+     <% end %>
+<% end %>
+    </table>

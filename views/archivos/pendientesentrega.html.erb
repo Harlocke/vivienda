@@ -1,0 +1,60 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/archivomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PENDIENTE DE ENTREGA</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="left">
+<% @users.each do |user|
+     @archivosprestamos = Archivosprestamo.find(:all, :conditions =>[" userprestamo = #{user.id} and fecha_devolucion is null and trunc(fecha_vence) <= trunc(sysdate)"], :order => ["userprestamo, fecha_vence ASC"])
+%>
+<div style="font-size:15px; font-family: Tahoma;"><strong>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" onclick="SINO('demo1<%=user.id%>')"><img src="/images/vermas.png"/></a> - <%=user.nombre%> (<%=@archivosprestamos.count%>)</strong></div>
+<div id="demo1<%=user.id%>" style="display:none;">
+<br/>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="60%" height="30" class="oce-first">Identificacion Usuario</td>
+        <td width="5%" height="30" class="oce-first">Caja</td>
+        <td width="10%" class="oce-first">Carpeta</td>
+        <td width="15%" class="oce-first">Fecha Vence</td>
+        <td width="10%" class="oce-first"></td>
+      </tr>
+    <%
+       @archivosprestamos.each do |archivosprestamo|
+    %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc"><%=archivosprestamo.archivo.prestadoa rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.caja rescue nil%></div></td>
+        <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.carpeta rescue nil%></div></td>
+        <td class="camposDesc"><%=archivosprestamo.fecha_vence%></td>
+        <td class="camposDesc"><div align="center"><%= link_to '', {:controller => "archivosprestamos", :action =>"aplazamasivo",:id=> archivosprestamo.id}, :class=>"aplazalink", :title =>"Marcar Aplazamiento Individual"%>
+                               &nbsp;<%= link_to '',{:controller => "archivosprestamos", :action =>"entregamasivo",:id=> archivosprestamo.id}, :class=>"recibidolink", :title =>"Marcar Devolucion"%>
+                               &nbsp;<%= link_to '',{:controller => "archivosprestamos", :action =>"aplazamasivom",:id=> archivosprestamo.userprestamo},:confirm=>"Esta seguro que desea aplazar masivamente la información de #{User.find(archivosprestamo.userprestamo).nombre rescue nil}?", :class=>"aplazalink", :title =>"Marcar Aplazamiento Masivo"%></div></td>
+      </tr>
+    <%    end %>
+    </table>
+<br/>
+</div>
+<% end %>
+<table width="95%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/email1.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Enviar Notificaciones de Vencimiento', notificapendiente_archivos_path, :popup => ['new_window','height=600,width=830,scrollbars=yes'] %>
+          </span></div></div></td>
+  </tr>
+</table>
+</div>

@@ -1,0 +1,81 @@
+<style type="text/css">
+<!--
+H3.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc" ALIGN="center">VERIFICACIÓN DE AVANCES</div></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contratista: </strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.empleado.autobuscar rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contrato número:</strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.nro_contrato%> de <%=@interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Tipo de Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Objeto del Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify"><%=@interventoria.contrato.objeto%></div></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Valor total del Contrato:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                 <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i)%>
+              <% else %>
+                 <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase%>
+              <% end %> PESOS M/L)</td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Valor mensual:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Duración del Contrato:</strong></td>
+            <td class="camposDesc"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_dias%> dias
+                <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+            </td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Nro Compromiso:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_compromiso rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Nro Disponibilidad:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_disponibilidad rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Periodo</strong></td>
+            <td class="camposDesc">Mes: <%=descmes(@interventoria.mes) rescue nil%> - Año <%=@interventoria.anno rescue nil%> </td>
+          </tr>
+        </table>
+        <br/>
+        <% if @interventoria.version.to_s == '1'%>
+          <%= render 'version1' %>        
+        <% else %>
+          <%= render 'version2' %>        
+        <% end %>
+        <br/>
+    </td>
+  </tr>
+</table>
+<%= render 'actconsulta' %>
+</div>

@@ -1,0 +1,17 @@
+<h3>Mejoramientos Actividades - Criterios</h3>
+<table border="1">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="10%"><strong>Id</strong></td>
+    <td width="10%"><strong>Capitulo</strong></td>
+    <td width="10%"><strong>SubCapitulo</strong></td>
+    <td width="10%"><strong>Actividad</strong></td>
+  </tr>
+<% @capitulos.each do |capitulo| %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+    <td><%=capitulo.id rescue nil%></td>
+    <td><%=capitulo.desccapitulo rescue nil%></td>
+    <td><%=capitulo.descsubcapitulo rescue nil%></td>
+    <td><%=capitulo.descactividad rescue nil%></td>
+  </tr>
+<% end %>
+</table>

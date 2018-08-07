@@ -1,0 +1,191 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="20"><div class="col_enc">INFORMACION ARRENDAMIENTO TEMPORAL</div></td>
+  </tr>
+</table>
+<% @persona.ayudas.each do |ayuda| %>
+  <div align="center">
+  <table width="837"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+        <div align="center">
+        <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+          <tr>
+            <td height="20" align="left"><div class="col_enc">INFORMACION FICHA</div></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Tipo Evacuacion</td>
+          <td width="20%" class="campos">Fecha primer contrato</td>
+          <td width="22%" class="campos">Fase C. Humanitaria</td>
+          <td width="18%" class="campos">Fecha Remision </td>
+          <td width="20%" class="campos">Categoria ISVIMED </td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left"><%=ayuda.tipo_de_evacuacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_de_primer_contrato rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fase_c_humanitaria rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_de_remision rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.categorias_isvimed rescue nil%></td>
+        </tr>
+      </table>
+      <% ayuda.ayudasfichas.each do |ayudasficha| %>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="15%" height="20" align="left" class="oce-first">Fecha</td>
+            <td width="20%" align="left" class="oce-first">Nro Ficha</td>
+            <td width="28%" align="left" class="oce-first">Evento</td>
+            <td width="10%" align="left" class="oce-first">Fecha Evento</td>
+            <td width="15%" align="left" class="oce-first">Riesgo Asociado</td>
+          </tr>
+           <tr  valign="middle">
+             <td width="15%" height="20" align="left" class="camposDesc">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr><td class="camposDesc" align="left"><%=ayudasficha.created_at.strftime("%Y-%m-%d %X") rescue nil%></td></tr>
+                <tr><td class="camposDesc" align="left"><a title="<%=ayudasficha.user.nombre rescue nil%>"><%=ayudasficha.user.username rescue nil%></a></td></tr>
+              </table>
+             </td>
+             <td width="20%" align="left" class="camposDesc"><%=ayudasficha.nro_ficha%></td>
+             <td width="28%" align="left" class="camposDesc"><%=ayudasficha.ayudastiposevento.descripcion rescue nil%></td>
+             <td width="10%" align="left" class="camposDesc"><%=ayudasficha.fecha_evento%></td>
+             <td width="15%" align="left" class="camposDesc"><%=ayudasficha.riesgo_asociado%></td>
+         </tr>
+        </table>
+       <% end %>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="20" align="left"><div class="col_enc">TENENCIA Y ACREDITACION </div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="10%" class="campos">Acreditado?</td>
+          <td width="20%" class="campos">Fecha de acreditaci&oacute;n </td>
+          <td width="22%" class="campos">Fecha de no acreditaci&oacute;n</td>
+          <td width="20%" class="campos">Presenta cruces? </td>
+          <td width="28%" class="campos">Con quien presenta cruce</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left"><%=ayuda.acreditado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_de_acreditacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_no_acreditacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.presenta_cruces rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.con_quien_presenta_cruce rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="20" align="left"><div class="col_enc">TIPO DE ACREDITACIONES </div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+       <tr class="odd1">
+          <td width="13%" class="campos">Predial</td>
+          <td width="14%" class="campos">Escritura</td>
+          <td width="15%" class="campos">Extrajuicio</td>
+          <td width="20%" class="campos">Certificado de liberta </td>
+          <td width="17%" class="campos">Servicios publicos </td>
+          <td width="21%" class="campos">Certificado de inspeccion </td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left"><%=ayuda.predial rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.escritura rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.extrajuicio rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.certificado_de_libertad rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.servicios_publicos rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.certificado_de_inspeccion rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="13%" class="campos">Compraventa</td>
+          <td width="14%" class="campos">Sisben</td>
+          <td width="15%" class="campos">Carta de JAC </td>
+          <td width="20%" class="campos">Certificado Escolar </td>
+          <td width="17%" class="campos">Certificado EPM </td>
+          <td width="21%" class="campos">Resolucion catastro</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left"><%=ayuda.compraventa rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.sisben rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.carta_de_jac rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.certificado_escolar rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.certificacion_epm rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.resolucion_de_catastro rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="20" align="left"><div class="col_enc">POSTULACION DE VIVIENDAS</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="13%" class="campos">Esta postulado?</td>
+          <td width="25%" class="campos">Entidad de postulacion </td>
+          <td width="18%" class="campos">Enviado a postulacion</td>
+          <td width="15%" class="campos">Fecha de Envio </td>
+          <td width="15%" class="campos">Devuelto ISVIMED </td>
+          <td width="15%" class="campos">Fecha devolucion </td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left"><%=ayuda.esta_postulado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.entidad_de_postulacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.enviado_a_postulacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_de_envio rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.devuelto_por_isvimed rescue nil%></td>
+          <td class="camposDesc" align="left"><%=ayuda.fecha_devolucion rescue nil%></td>
+        </tr>
+      </table>
+      </div>
+     </td>
+    </tr>
+  </table>
+  <% @agendas = Agenda.find(:all, :conditions=>["ayuda_id = #{ayuda.id} and persona_id is not null"], :order=>"id desc") 
+    if @agendas.count.to_i > 0
+  %>
+    <div align="center">
+      <table width="95%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr><td height="20" align="left"><div class="col_enc">AGENDAMIENTO DE CITAS</div></td></tr>
+      </table>    
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="15%" height="20" class="oce-first">Proceso</td>
+          <td width="10%" class="oce-first">Fecha</td>
+          <td width="10%" class="oce-first">Hora</td>
+          <td width="20%" class="oce-first">Usuario Atencion</td>
+          <td width="15%" class="oce-first">Fecha Inicio</td>
+          <td width="15%" class="oce-first">Fecha Fin</td>
+          <td width="15%" class="oce-first">Estado</td>
+        </tr>
+      <% @agendas.each do |a| %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc" align="left"><%=a.lugaragenda rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.fechaagenda rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.horaagenda rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.datouseratencion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.fch_inicio_atencion.strftime("%Y-%m-%d %X") rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.fch_fin_atencion.strftime("%Y-%m-%d %X") rescue nil%></td>
+          <td class="camposDesc" align="left"><%=a.estado rescue nil%></td>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+  <% end %>  
+
+  <% if permiso("ayuda","C").to_s == "S" %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="20"><div align="right">
+              <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_ayuda_path(ayuda.id) %></span></div></div></td>
+        </tr>
+      </table>
+  <% end %>
+  </div>
+<% end %>
+<br/>

@@ -1,0 +1,304 @@
+<h1>Editing feria2009jefe</h1>
+
+<% form_for(@feria2009jefe) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label : %><br />
+    <%= f.text_field : %>
+  </p>
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.label :identificacion %><br />
+    <%= f.text_field :identificacion %>
+  </p>
+  <p>
+    <%= f.label :primernombre %><br />
+    <%= f.text_field :primernombre %>
+  </p>
+  <p>
+    <%= f.label :segundonombre %><br />
+    <%= f.text_field :segundonombre %>
+  </p>
+  <p>
+    <%= f.label :primerapellido %><br />
+    <%= f.text_field :primerapellido %>
+  </p>
+  <p>
+    <%= f.label :segundoapellido %><br />
+    <%= f.text_field :segundoapellido %>
+  </p>
+  <p>
+    <%= f.label :fecha_nacimiento %><br />
+    <%= f.text_field :fecha_nacimiento %>
+  </p>
+  <p>
+    <%= f.label :parentesco %><br />
+    <%= f.text_field :parentesco %>
+  </p>
+  <p>
+    <%= f.label :estadocivil %><br />
+    <%= f.text_field :estadocivil %>
+  </p>
+  <p>
+    <%= f.label :ocupacion %><br />
+    <%= f.text_field :ocupacion %>
+  </p>
+  <p>
+    <%= f.label :condicionespecial %><br />
+    <%= f.text_field :condicionespecial %>
+  </p>
+  <p>
+    <%= f.label :condicionfamiliar %><br />
+    <%= f.text_field :condicionfamiliar %>
+  </p>
+  <p>
+    <%= f.label :ingresos_mensuales %><br />
+    <%= f.text_field :ingresos_mensuales %>
+  </p>
+  <p>
+    <%= f.label :sisben %><br />
+    <%= f.text_field :sisben %>
+  </p>
+  <p>
+    <%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :barrio %><br />
+    <%= f.text_field :barrio %>
+  </p>
+  <p>
+    <%= f.label :ciudad %><br />
+    <%= f.text_field :ciudad %>
+  </p>
+  <p>
+    <%= f.label :estrato %><br />
+    <%= f.text_field :estrato %>
+  </p>
+  <p>
+    <%= f.label :telefonos1 %><br />
+    <%= f.text_field :telefonos1 %>
+  </p>
+  <p>
+    <%= f.label :telefonos2 %><br />
+    <%= f.text_field :telefonos2 %>
+  </p>
+  <p>
+    <%= f.label :celular %><br />
+    <%= f.text_field :celular %>
+  </p>
+  <p>
+    <%= f.label :antiguedad_resactual %><br />
+    <%= f.text_field :antiguedad_resactual %>
+  </p>
+  <p>
+    <%= f.label :antiguedad_mpo %><br />
+    <%= f.text_field :antiguedad_mpo %>
+  </p>
+  <p>
+    <%= f.label :poseedor %><br />
+    <%= f.text_field :poseedor %>
+  </p>
+  <p>
+    <%= f.label :poseedor_direccion %><br />
+    <%= f.text_field :poseedor_direccion %>
+  </p>
+  <p>
+    <%= f.label :poseedor_barrio %><br />
+    <%= f.text_field :poseedor_barrio %>
+  </p>
+  <p>
+    <%= f.label :poseedor_ciudad %><br />
+    <%= f.text_field :poseedor_ciudad %>
+  </p>
+  <p>
+    <%= f.label :adquiere_vivienda %><br />
+    <%= f.text_field :adquiere_vivienda %>
+  </p>
+  <p>
+    <%= f.label :adquiere_quien %><br />
+    <%= f.text_field :adquiere_quien %>
+  </p>
+  <p>
+    <%= f.label :adquiere_fecha %><br />
+    <%= f.text_field :adquiere_fecha %>
+  </p>
+  <p>
+    <%= f.label :subsidio_familiar %><br />
+    <%= f.text_field :subsidio_familiar %>
+  </p>
+  <p>
+    <%= f.label :subsidio_invertido %><br />
+    <%= f.text_field :subsidio_invertido %>
+  </p>
+  <p>
+    <%= f.label :subsidio_invertido_en %><br />
+    <%= f.text_field :subsidio_invertido_en %>
+  </p>
+  <p>
+    <%= f.label :subsidio_restituido %><br />
+    <%= f.text_field :subsidio_restituido %>
+  </p>
+  <p>
+    <%= f.label :subsidio_restituido_fecha %><br />
+    <%= f.text_field :subsidio_restituido_fecha %>
+  </p>
+  <p>
+    <%= f.label :beneficiario_arrtemp %><br />
+    <%= f.text_field :beneficiario_arrtemp %>
+  </p>
+  <p>
+    <%= f.label :organizacion_vivienda %><br />
+    <%= f.text_field :organizacion_vivienda %>
+  </p>
+  <p>
+    <%= f.label :organizacion_cual %><br />
+    <%= f.text_field :organizacion_cual %>
+  </p>
+  <p>
+    <%= f.label :recursos_complementarios %><br />
+    <%= f.text_field :recursos_complementarios %>
+  </p>
+  <p>
+    <%= f.label :recursos_programado %><br />
+    <%= f.text_field :recursos_programado %>
+  </p>
+  <p>
+    <%= f.label :recursos_programado_entidad %><br />
+    <%= f.text_field :recursos_programado_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_ahorro %><br />
+    <%= f.text_field :recursos_ahorro %>
+  </p>
+  <p>
+    <%= f.label :recursos_ahorro_entidad %><br />
+    <%= f.text_field :recursos_ahorro_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_credito %><br />
+    <%= f.text_field :recursos_credito %>
+  </p>
+  <p>
+    <%= f.label :recursos_credito_entidad %><br />
+    <%= f.text_field :recursos_credito_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_cesantias %><br />
+    <%= f.text_field :recursos_cesantias %>
+  </p>
+  <p>
+    <%= f.label :recursos_cesantias_entidad %><br />
+    <%= f.text_field :recursos_cesantias_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_donaciones %><br />
+    <%= f.text_field :recursos_donaciones %>
+  </p>
+  <p>
+    <%= f.label :recursos_donaciones_entidad %><br />
+    <%= f.text_field :recursos_donaciones_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_nacional %><br />
+    <%= f.text_field :recursos_nacional %>
+  </p>
+  <p>
+    <%= f.label :recursos_nacional_fecha %><br />
+    <%= f.text_field :recursos_nacional_fecha %>
+  </p>
+  <p>
+    <%= f.label :recursos_nacional_resol %><br />
+    <%= f.text_field :recursos_nacional_resol %>
+  </p>
+  <p>
+    <%= f.label :recursos_municipal %><br />
+    <%= f.text_field :recursos_municipal %>
+  </p>
+  <p>
+    <%= f.label :recursos_municipal_fecha %><br />
+    <%= f.text_field :recursos_municipal_fecha %>
+  </p>
+  <p>
+    <%= f.label :recursos_municipal_resol %><br />
+    <%= f.text_field :recursos_municipal_resol %>
+  </p>
+  <p>
+    <%= f.label :recursos_otros %><br />
+    <%= f.text_field :recursos_otros %>
+  </p>
+  <p>
+    <%= f.label :recursos_otros_entidad %><br />
+    <%= f.text_field :recursos_otros_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_especie_desc %><br />
+    <%= f.text_field :recursos_especie_desc %>
+  </p>
+  <p>
+    <%= f.label :recursos_especie_cuan %><br />
+    <%= f.text_field :recursos_especie_cuan %>
+  </p>
+  <p>
+    <%= f.label :recursos_especie_entidad %><br />
+    <%= f.text_field :recursos_especie_entidad %>
+  </p>
+  <p>
+    <%= f.label :recursos_materiales %><br />
+    <%= f.text_field :recursos_materiales %>
+  </p>
+  <p>
+    <%= f.label :recursos_materiales_entidad %><br />
+    <%= f.text_field :recursos_materiales_entidad %>
+  </p>
+  <p>
+    <%= f.label :proyecto1 %><br />
+    <%= f.text_field :proyecto1 %>
+  </p>
+  <p>
+    <%= f.label :proyecto2 %><br />
+    <%= f.text_field :proyecto2 %>
+  </p>
+  <p>
+    <%= f.label :proyecto3 %><br />
+    <%= f.text_field :proyecto3 %>
+  </p>
+  <p>
+    <%= f.label :fecha_registro %><br />
+    <%= f.text_field :fecha_registro %>
+  </p>
+  <p>
+    <%= f.label :usuario %><br />
+    <%= f.text_field :usuario %>
+  </p>
+  <p>
+    <%= f.label :caja_compensacion %><br />
+    <%= f.text_field :caja_compensacion %>
+  </p>
+  <p>
+    <%= f.label :entidad_beneficio %><br />
+    <%= f.text_field :entidad_beneficio %>
+  </p>
+  <p>
+    <%= f.label :catastro %><br />
+    <%= f.text_field :catastro %>
+  </p>
+  <p>
+    <%= f.label :igac %><br />
+    <%= f.text_field :igac %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feria2009jefe %> |
+<%= link_to 'Back', feria2009jefes_path %>

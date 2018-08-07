@@ -1,0 +1,20 @@
+<h1>Listing tiposcontratos</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @tiposcontratos.each do |tiposcontrato| %>
+  <tr>
+    <td><%=h tiposcontrato.descripcion %></td>
+    <td><%= link_to 'Show', tiposcontrato %></td>
+    <td><%= link_to 'Edit', edit_tiposcontrato_path(tiposcontrato) %></td>
+    <td><%= link_to 'Destroy', tiposcontrato, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tiposcontrato', new_tiposcontrato_path %>

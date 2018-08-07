@@ -1,0 +1,97 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION OBRA PUBLICA</div></td>
+  </tr>
+</table>
+<% @persona.obraspublicas.each do |obraspublica| %>
+  <div align="center">
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="20%" class="campos">Proyecto</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" align="left"><%=obraspublica.obrasproyecto.descripcion rescue nil%>
+</td>
+  </tr>
+</table>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="33%" class="campos">Direccion Vivienda Adquirir</td>
+    <td width="30%" class="campos">Ejecutor</td>
+    <td width="20%" class="campos">Cuenta Ahorro Programado</td>
+  </tr>
+  <tr>
+<td class="camposDesc" align="left"><%=obraspublica.dirvivienda_adquirir%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.ejecutor%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.cap%>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="20%" class="campos">PUI Comuna XIII</td>
+    <td width="20%" class="campos">PUI Centro Oriental</td>
+    <td width="20%" class="campos">Unipersonal</td>
+     <td width="20%" class="campos">Caso Especial </td>
+     <td width="20%" class="campos">Opcion de Vivienda </td>
+  </tr>
+  <tr>
+
+    <td class="camposDesc" align="left"><%=obraspublica.pui_comuna%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.pui_oriental%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.unipersonal%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.caso_especial%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.opcion_vivienda%></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="35%" class="campos">Direccion Vivienda de Reposicion</td>
+    <td width="30%" class="campos">Barrio de la Vivienda</td>
+    <td width="15" class="campos">Valor Avaluo</td>
+    <td width="20%" class="campos">Valor Vivienda Reposicion </td>
+  </tr>
+  <tr>
+        <td class="camposDesc" align="left"><%=obraspublica.dirvivienda_reposicion%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.barrio_reposicion%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.avaluo%></td>
+    <td class="camposDesc" align="left"><%=obraspublica.valor_reposicion%></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="15%" class="campos">Donacion</td>
+    <td width="30%" class="campos">Estado General </td>
+    <td width="25%" class="campos">Estado EDU </td>
+    <td width="20%" class="campos">Fecha Estado EDU</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" align="left"><%=obraspublica.donacion%></td>
+<td class="camposDesc" align="left"><%=obraspublica.estado%>
+</td>
+<td class="camposDesc" align="left"><%=obraspublica.estado_edu%></td>
+    <td class="camposDesc" align="left">
+<%=obraspublica.fecha_edu%>
+  </td>
+  </tr>
+</table>
+<% if permiso("obraspublica","C").to_s == "S" %>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_obraspublica_path(obraspublica.id) %></span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+  </div>
+<% end %>
+<br/>
+</fieldset>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+<div align="center">
+<table width="700" height="65" border="0" align="center" cellpadding="0" cellspacing="0" background="http://190.0.34.154:3013/images/frame.png">
+    <tr>
+      <td><div align="right"><strong>SOLICITUD DE VISTA TECNICA - <%=@nombre.to_s%></strong></div></td>
+    </tr>
+</table>
+<br/>
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr valign="middle">
+    <td width="30%" height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;ID Vivienda Usada</strong> </td>
+    <td width="70%"  style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.id rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Barrio Reposicion </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.descomuna rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Matricula Vivienda Reposicion </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.matricula_vivreposicion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Direccion Vivienda Reposici&oacute;n </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.direccion_vivreposicion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Resultado Concepto </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.resultado_concepto rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Vendedor </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.nombre_vendedor rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Telefonos Vendedor </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@viviendasusada.telefono_vendedor rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Solicitud enviada por</strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@solicitante.to_s%></td>
+  </tr>
+</table>
+</div>
+<br/><div style="font-size: 11px;">
+<strong>S I F I - Sistema de Informacion ISVIMED</strong><br/>
+<strong><%=Time.now.strftime("%Y-%m-%d %X")%></strong><br/><br/>
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

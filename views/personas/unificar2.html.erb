@@ -1,0 +1,29 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/personasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">UNIFICACION DE FAMILIAS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" height="100" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td>
+      <div align="center" style="font-size:25px; font-family: Tahoma;">
+        <br/><br/>
+        <img src="../../images/unificarok.png"/><br/><br/><br/>
+        <strong>ATENCIÓN:</strong>
+<%  @error = ""
+    @objetos.each do |objeto|
+      @error = @error + objeto.descripcion.to_s rescue nil
+    end %>
+<%=@error%><br/><br/>
+        <%=link_to 'Unificar Otro...',{:controller=>"personas", :action=>"unificar", :id=>1}%><br/><br/><br/><br/><br/></div>
+    </td>
+  </tr>
+</table>

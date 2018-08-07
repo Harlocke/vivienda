@@ -1,0 +1,156 @@
+<%
+ var = ""
+ var2 = ""
+ if @contrato.tiposcontrato_id.to_i == 2
+   var = "CONVENIO"
+   var2 = "ASOCIADO"
+ else
+   var = "CONTRATO"
+   var2 = "CONTRATISTA"
+ end
+%>
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+      <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 300%;"><strong>GRADO DE RESPONSABILIDAD</strong></div>
+      <table width="100%" style="border-collapse:collapse">
+        <tr>
+          <td height="40" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><div align="justify">Mediante la suscripción de la presente acta, el interventor en calidad de representante de la entidad contratante, y el contratista asumen plena responsabilidad por la veracidad de la información en ella contenida.</div></td>
+        </tr>
+      </table>
+      <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 300%; "><strong>INFORMACIÓN GENERAL DEL <%=var.upcase%></strong></div>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+          <tr>
+            <td width="20%" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" height="30"><strong><%=var2.capitalize%> :</strong></td>
+            <td width="80%" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong><%=@contrato.empleado.nombres%></strong></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong><%=var.capitalize%> número:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc"><%=@contrato.nro_contrato%> de <%=@contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong>Tipo de <%=var.capitalize%>:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc"><div align="justify"><%=var.upcase%> DE <%=@contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong>Objeto del <%=var.capitalize%>:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc"><div align="justify"><%=@contrato.objeto%></div></td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong>Valor del <%=var.capitalize%>:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc">$ <%=number_to_currency(@contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+      <% if @contrato.valor_contrato.to_i >= 1000000000%>
+         <%=numero_a_palabras(@contrato.valor_contrato.to_i)%>
+      <% else %>
+         <%=@contrato.valor_contrato.to_i.to_words.upcase%>
+      <% end %> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong>Duración del <%=var.capitalize%>:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc"><% if @contrato.plazo_mes.to_i > 0 %>
+                   <%=@contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @contrato.plazo_dias.to_i > 0 %>
+                   <%=@contrato.plazo_dias%> dias
+                <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"height="30"><strong>Garantias:</strong></td>
+            <td style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;" class="camposDesc"><div align="justify">
+                <% if @contrato.dpoliza.to_s == 'SI' %>
+                    <%=@contrato.dpoliza%> // 1. Cumplimiento, en cuantía del 10% del valor del <%=var.downcase%> y con una vigencia igual a la del plazo de ejecución del <%=var.downcase%> y  6 meses más..
+                <% else %>
+                    <%=@contrato.dpoliza%> // De conformidad con el articulo 7 de la ley 1150 de 2007 y el Decreto
+                    1510 de 2013, en razón de la naturaleza del objeto del CONTRATO y la forma de pago, no se exigen polizas
+                <% end %></div>
+            </td>
+          </tr>
+      </table>
+      <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 300%;"><strong>CONSIDERANDO QUE:</strong></div>
+      <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+        <strong>a. </strong>Entre el INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN – ISVIMED – con NIT 900.014.480-8
+        representado legalmente por el Doctor <strong><%=Sifi.find(17).valor.to_s rescue nil%></strong>, 
+        identificado con cédula de ciudadanía número <%=Sifi.find(18).valor.to_s rescue nil%> expedida en Medellín (Ant),
+        <strong><%=@contrato.empleado.nombres%></strong> identificad(o)a con la <%=@contrato.empleado.documento.descripcion rescue nil%>
+        número <%=@contrato.empleado.identificacion%>, se suscribió el <%=var.downcase%> detallado en el acápite anterior.<br/><br/>
+        <strong>b. </strong>Para la ejecución del <%=var.downcase%> se cuenta con la disponibilidad Nº <%=@contrato.nro_disponibilidad%> de <%=@contrato.fecha_disponibilidad.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_disponibilidad.strftime("%m")) rescue nil%> de <%=@contrato.fecha_disponibilidad.strftime("%Y") rescue nil%> y con el compromiso presupuestal Nº
+        <%=@contrato.nro_compromiso%> de <%=@contrato.fecha_compromiso.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_compromiso.strftime("%m")) rescue nil%> de <%=@contrato.fecha_compromiso.strftime("%Y") rescue nil%><br/><br/>
+        <strong>c. </strong>Que el <%=var.downcase%> fue suscrito por las partes el <%=@contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@contrato.fecha_firma.strftime("%Y") rescue nil%>, el Compromiso Presupuestal fue expedido el de <%=@contrato.fecha_compromiso.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_compromiso.strftime("%m")) rescue nil%> de <%=@contrato.fecha_compromiso.strftime("%Y") rescue nil%>,
+        <% if @contrato.dpoliza.to_s == 'NO' %>
+            <%=@contrato.dpoliza%> requere Pólizas.
+        <% end %>
+        <% if @contrato.dpoliza.to_s == 'SI' %>
+            se aprobaron pólizas el <%=@contrato.fecha_garantia.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_garantia.strftime("%m")) rescue nil%> de <%=@contrato.fecha_garantia.strftime("%Y") rescue nil%>
+        <% end %><br/><br/>
+        <strong>d. </strong>Se designó al señor(a) <strong><%=@contrato.nombresinterventor rescue nil%></strong> - <%=@contrato.cargointerventor rescue nil%> - para desarrollar las actividades de seguimiento, verificación, vigilancia y control en calidad de Supervisor<br/><br/>
+        <strong>e. </strong>De acuerdo con lo estipulado en el <%=var.downcase%> indicado, el plazo del mismo se cuenta a partir de la fecha establecida en el acta de inicio suscrita por parte del asociado y el supervisor.
+      </div><br/>
+      <H1 class=SaltoDePagina></H1>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> 2 DE 2</td>
+        </tr>
+      </table>
+      <div align="center" style="font-size: 16px; font-family: Arial Narrow; line-height: 300%;"><strong>ACUERDAN:</strong></div>
+      <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;">
+      <strong>1. </strong>Fijar como fecha de inicio del <%=var.downcase%> de <strong><%=@contrato.tiposcontrato.descripcion rescue nil%></strong> Nro.<%=@contrato.nro_contrato%>, el dia <%=@contrato.fecha_inicio.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_inicio.strftime("%m")) rescue nil%> de <%=@contrato.fecha_inicio.strftime("%Y") rescue nil%>.<br/><br/>
+      <strong>2. </strong>De acuerdo con lo anterior la fecha de terminación será el día <%=@contrato.fecha_final.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_final.strftime("%m")) rescue nil%> de <%=@contrato.fecha_final.strftime("%Y") rescue nil%><br/><br/><br/>
+      Para constancia, se firma la presente acta por quienes en ella intervinieron.
+      </div>
+      <br/><br/><br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="49%">________________________________________</td>
+          <td width="2%">&nbsp;</td>
+          <td width="49%">________________________________________</td>
+        </tr>
+        <tr valign="top">
+          <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><%=@contrato.empleado.nombres%></strong></td>
+          <td>&nbsp;</td>
+          <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><%=@contrato.nombresinterventor rescue nil%></strong></td>
+        </tr>
+        <tr valign="top">
+          <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong><%=var2.upcase%></strong></td>
+          <td>&nbsp;</td>
+          <td style="font-size: 14px; font-family: Arial Narrow; line-height: 150%;"><strong>SUPERVISOR</strong></td>
+        </tr>
+      </table>
+      <div style="font-size: 10px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%> <%=User.find(is_admin).nombre rescue nil%></strong></div>
+    </td>
+  </tr>
+</table>
+</div>

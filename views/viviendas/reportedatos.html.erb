@@ -1,0 +1,170 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="100%"><div class="col_enc">DATOS DEPORTE</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="20" class="camposDescN">Proyecto :</td>
+    <td width="70%" height="20" class="camposDesc"><%=@buscaproyecto%></td>
+  </tr>
+</table>
+<br/>
+
+<table width="60%" align="center"  border="1" cellpadding="0" cellspacing="0" id="tablareportes">
+  <% if (@cant1 != 0) %>
+  <tr>
+    <td width="514" class="oce-first">Asignados sin entregar</td>
+    <td width="79" class="camposDescN"><div align="center"><%=@cant1%></div></td>
+  </tr>
+<% end %>
+  <% if (@cant2 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / CONFIAR </td>
+    <td class="camposDescN"><div align="center"><%=@cant2%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant3 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en cierre</td>
+    <td class="camposDescN"><div align="center"><%=@cant3%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant4 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / FOVIMED </td>
+    <td class="camposDescN"><div align="center"><%=@cant4%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant5 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / ISVIMED</td>
+    <td class="camposDescN"><div align="center"><%=@cant5%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant6 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / MICROEMPRESAS</td>
+    <td class="camposDescN"><div align="center"><%=@cant6%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant7 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / otras entidades</td>
+    <td class="camposDescN"><div align="center"><%=@cant7%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant8 != 0) %>
+  <tr>
+    <td class="oce-first">Asignados sin entregar / en proceso de escrituraci&oacute;n / pago mejoras</td>
+    <td class="camposDescN"><div align="center"><%=@cant8%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant9 != 0) %>
+  <tr>
+    <td class="oce-first">Disponibles</td>
+    <td class="camposDescN"><div align="center"><%=@cant9%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant10 != 0) %>
+  <tr>
+    <td class="oce-first">En cierre</td>
+    <td class="camposDescN"><div align="center"><%=@cant10%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant11 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n</td>
+    <td class="camposDescN"><div align="center"><%=@cant11%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant12 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / CONFIAR</td>
+    <td class="camposDescN"><div align="center"><%=@cant12%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant13 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / FOVIMED</td>
+    <td class="camposDescN"><div align="center"><%=@cant13%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant14 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / ISVIMED</td>
+    <td class="camposDescN"><div align="center"><%=@cant14%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant15 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / MICROEMPRESAS</td>
+    <td class="camposDescN"><div align="center"><%=@cant15%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant16 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / otras entidades</td>
+    <td class="camposDescN"><div align="center"><%=@cant16%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant17 != 0) %>
+  <tr>
+    <td class="oce-first">En proceso de escrituraci&oacute;n / pago mejoras</td>
+    <td class="camposDescN"><div align="center"><%=@cant17%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant18 != 0) %>
+  <tr>
+    <td class="oce-first">Escriturados</td>
+    <td class="camposDescN"><div align="center"><%=@cant18%></div></td>
+  </tr>
+  <% end %>
+  <% if (@cant19 != 0) %>
+  <tr>
+    <td class="oce-first">Reconstrucci&oacute;n expediente cr&eacute;dito ISVIMED</td>
+    <td class="camposDescN"><div align="center"><%=@cant19%></div></td>
+  </tr>
+  <% end %>
+</table>
+
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="6%" height="30" class="oce-first"><div align="center">Bloque</div></td>
+    <td width="6%" height="30" class="oce-first"><div align="center">Apto</div></td>
+    <td width="38%" height="30" class="oce-first">Estado</td>
+    <td width="60%" height="30" class="oce-first">Jefe de Hogar</td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% @viviendas.each do |vivienda| %>
+  <tr valign="middle">
+    <td width="6%" height="30" class="camposDesc"><div align="center"><%=h vivienda.bloque.descripcion rescue nil%></div></td>
+    <td width="6%" height="30" class="camposDesc"><div align="center"><%=h vivienda.apto.descripcion rescue nil%></div></td>
+    <td width="38%" height="30" class="camposDesc"><%=h vivienda.proceso.descripcion rescue nil %></td>
+    <td width="60%" height="30" class="camposDesc">
+      <% vivienda.viviendaspersonas.each do |viviendaspersona| %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" id="">
+        <tr>
+          <td width="20%" class="camposDesc"><%=h viviendaspersona.persona.identificacion %></td>
+          <td width="68%" class="camposDesc"><%=h viviendaspersona.persona.primer_nombre %> <%=h viviendaspersona.persona.segundo_nombre %> <%=h viviendaspersona.persona.primer_apellido %> <%=h viviendaspersona.persona.segundo_apellido %></td>
+          <td width="12%" class="camposDesc"><div align="center"><%= link_to image_tag('group.png',{ :border=>0, :title => "Ver Informacion Persona"}), edit_persona_path(viviendaspersona.persona.id) %>
+          <%= link_to image_tag('home.png',{ :border=>0, :title => "Ver Informacion Vivienda"}), edit_vivienda_path(viviendaspersona.vivienda_id)%></div></td>
+        </tr>
+      </table>
+      <% end %>
+   </td>
+   <td width="10%" height="30" class="camposDesc"></td>
+  </tr>
+<% end %>
+</table>
+<BR/>
+

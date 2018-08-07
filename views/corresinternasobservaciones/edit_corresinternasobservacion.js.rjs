@@ -1,0 +1,1 @@
+page.replace_html :corresinternasobservaciones_form, :partial => "/corresinternasobservaciones/corresinternasobservaciones"

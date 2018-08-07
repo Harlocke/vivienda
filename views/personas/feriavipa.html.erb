@@ -1,0 +1,297 @@
+<div align="center">
+<table width="730" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <%  form_for(@persona) do |f| %>
+      <table width="100%" height="80" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle"><td width="10%"><img src="../../images/feriaisvimed.png"/></td>
+            <td width="80%">
+              <div align="center" style="font-size:14px; font-family: Tahoma; font-weight: bold;">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLÍN - ISVIMED</div>
+              <div align="center" style="font-size:11px; font-family: Tahoma; font-weight: bold;">FORMULARIO DE PREINSCRIPCIÓN DEL PROGRAMA DE VIVIENDAS PARA AHORRADORES - VIPA -</div>
+              <div align="center" style="font-size:14px; font-family: Tahoma; font-weight: bold;">NRO FORMULARIO: <%=is_consecutivocero(@persona.consecutivo_vipa) rescue nil%></div>
+              </td>
+            <td width="10%"><img src="../../images/feriacorazon.png"/></td></tr>
+      </table>
+      <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>DATOS BÁSICOS JEFE DE HOGAR</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">----------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5"/>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="15%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Identicaci&oacute;n</td>
+            <td width="35%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Nombre Completo</td>
+            <td width="27%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Nacimiento</td>
+            <td width="23%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Estado Civil</td>
+          </tr>
+          <tr valign="middle">
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.nombres rescue nil%></td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;"><%=@persona.fecha_nacimiento rescue nil%> -<%=@persona.lugar_nacimiento rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=EstadosCivil.find(@persona.estado_civil_id).descripcion rescue nil%></td>
+          </tr>
+        </table>
+        <img src="../../images/spacer.gif" width=10 height="5" style="float: left"/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="20%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Ocupación</td>
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Condición Especial</td>
+            <td width="20%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Ingresos Mensuales</td>
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Proyecto VIPA</td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.ocupacion.descripcion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.especial.descripcion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;">$ <%=camponumerico(@persona.ingresos) rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.proyecto_vipa rescue nil%></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>BENEFICIARIOS</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">----------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5">
+        <table width="100%" height="130" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td>
+              <table width="100%" height="0%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Identificación</td>
+                  <td width="30%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Nombre Completo</td>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Fecha Nac.</td>
+                  <td width="12%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Parentesco</td>
+                  <td width="12%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Ocupación</td>
+                  <td width="16%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Condición Especial</td>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Ing.Mensuales</td>
+                </tr>
+                <tr>
+                  <td colspan="7" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+                    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                  </td>
+                </tr>
+                <% @persona.beneviviendas.each do |benevivienda| %>
+                <tr>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.identificacion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.nombres rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.fecha_nacimiento rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.parentesco.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.ocupacion.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.especial.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12">$ <%=camponumerico(benevivienda.ingresos) rescue nil%></td>
+                </tr>
+                <% end%>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>UBICACIÓN GRUPO FAMILIAR</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">----------------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5"/>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Dirección</td>
+            <td width="35%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Barrio</td>
+            <td width="25%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Teléfonos</td>
+            <td width="10%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Ant. Medellín</td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.direccion rescue nil%></td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.comuna.descripcion rescue nil%> </td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.telefonos rescue nil%> </td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.info_permamedellin2 rescue nil%> Años </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="18%">
+              <div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Vinculado a una Organización Popular de Vivienda ?</div></td>
+            <td width="25%" style="font-size:9px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;"><%=@persona.vinculacion_opv rescue nil%> <%=@persona.nombre_opv rescue nil%></td>
+            <td width="20%">
+              <div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Miembro de una Junta Adminis. Local de Medellín (JAL)?</div>
+              </td>
+            <td width="3%" style="font-size:9px; font-family: Tahoma; font-weight: bold; "><%=@persona.miembro_jal rescue nil%></td>
+            <td width="17%"><div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Carta Ahorro Programado o Cesantias Inmovilizadas?</div></td>
+            <td width="3%" style="font-size:9px; font-family: Tahoma; font-weight: bold; "><%=@persona.carta_ahorro rescue nil%></td>
+            <td width="5%" style="font-size:9px; font-family: Tahoma; ">Valor</td>
+            <td width="9%" style="font-size:8px; font-family: Tahoma; font-weight: bold; "><%=camponumerico(@persona.valor_ahorro) rescue nil%></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </div>
+        <table width="100%" border="0" height="70" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="15%"><div align="center" style="font-size:8px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;">
+                <%=is_username%><br/><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%><br/>DIGITADOR
+              </div></td>
+            <td width="45%"><div align="justify" style="font-size:8px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                CON MI FIRMA MANIFIESTO QUE TODA LA INFORMACIÓN AQUÍ CONSIGNADA ES CIERTA Y AUTORIZO PARA QUE POR
+                CUALQUIER MEDIO SE VERIFIQUEN LOS DATOS AQUÍ CONTENIDOS, ASÍ MISMO GARANTIZO QUE NINGUNO DE LOS MIEMBROS
+                DEL GRUPO FAMILIAR HA PRESENTADO OTRO FORMULARIO NI SE HA POSTULADO PARA ESTE SUBSIDIO
+              </div></td>
+            <td width="40%"><div align="center" style="font-size:9px; font-family: Tahoma;padding: 0; margin: 0; line-height: 10px;">
+             <br/><br/>_______________________________________________<br/>
+             <%=@persona.nombres rescue nil%><br/>
+             <%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%>
+              </div></td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:10px; height: 10px; font-family: Tahoma;"><strong>
+
+          <%= link_to "- I S V I M E D -", {:controller => "personas", :action => "index"}%>
+
+           </strong></div>
+      <div align="center" style="font-size:8px; height: 20px; font-family: Tahoma;">
+        --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      </div>
+    <% end %>
+  </td>
+  </tr>
+</table>
+<table width="730" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <%  form_for(@persona) do |f| %>
+      <table width="100%" height="80" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle"><td width="10%"><img src="../../images/feriaisvimed.png"/></td>
+            <td width="80%">
+              <div align="center" style="font-size:14px; font-family: Tahoma; font-weight: bold;">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLÍN - ISVIMED</div>
+              <div align="center" style="font-size:11px; font-family: Tahoma; font-weight: bold;">FORMULARIO DE PREINSCRIPCIÓN DEL PROGRAMA DE VIVIENDAS PARA AHORRADORES - VIPA -</div>
+              <div align="center" style="font-size:14px; font-family: Tahoma; font-weight: bold;">NRO FORMULARIO: <%=is_consecutivocero(@persona.consecutivo_vipa) rescue nil%></div>
+              </td>
+            <td width="10%"><img src="../../images/feriacorazon.png"/></td></tr>
+      </table>
+      <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>DATOS BÁSICOS JEFE DE HOGAR</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">-------------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5"/>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="15%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Identicaci&oacute;n</td>
+            <td width="35%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Nombre Completo</td>
+            <td width="27%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Nacimiento</td>
+            <td width="23%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="2">Estado Civil</td>
+          </tr>
+          <tr valign="middle">
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.nombres rescue nil%></td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;"><%=@persona.fecha_nacimiento rescue nil%> -<%=@persona.lugar_nacimiento rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=EstadosCivil.find(@persona.estado_civil_id).descripcion rescue nil%></td>
+          </tr>
+        </table>
+        <img src="../../images/spacer.gif" width=10 height="5" style="float: left"/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="20%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Ocupación</td>
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Condición Especial</td>
+            <td width="20%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Ingresos Mensuales</td>
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:1px" height="3">Proyecto VIPA</td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.ocupacion.descripcion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.especial.descripcion rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;">$ <%=camponumerico(@persona.ingresos) rescue nil%></td>
+            <td style="font-size:9px; font-family: Tahoma; font-weight: bold;"><%=@persona.proyecto_vipa rescue nil%></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>BENEFICIARIOS</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">----------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5"/>
+        <table width="100%" height="130" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td>
+              <table width="100%" height="0%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Identificación</td>
+                  <td width="30%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Nombre Completo</td>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Fecha Nac.</td>
+                  <td width="12%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Parentesco</td>
+                  <td width="12%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Ocupación</td>
+                  <td width="16%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Condición Especial</td>
+                  <td width="10%" style="font-size:9px; font-family: Tahoma; line-height:3px" height="3">Ing.Mensuales</td>
+                </tr>
+                <tr>
+                  <td colspan="7" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+                    --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                  </td>
+                </tr>
+                <% @persona.beneviviendas.each do |benevivienda| %>
+                <tr>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.identificacion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.nombres rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.fecha_nacimiento rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.parentesco.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.ocupacion.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12"><%=benevivienda.especial.descripcion rescue nil%></td>
+                  <td style="font-size:8px; font-family: Tahoma; line-height:2px;font-weight: bold;" height="12">$ <%=camponumerico(benevivienda.ingresos) rescue nil%></td>
+                </tr>
+                <% end%>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:12px; font-family: Tahoma;float: left;"><strong>UBICACIÓN GRUPO FAMILIAR</strong></div>
+        <div style="font-size:10px; font-family: Tahoma;">----------------------------------------------------------------------------------------------------------------------------------</div>
+        <img src="../../images/spacer.gif" width=10 height="5"/>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Dirección</td>
+            <td width="35%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Barrio</td>
+            <td width="25%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Teléfonos</td>
+            <td width="10%" style="font-size:10px; font-family: Tahoma; line-height:0px" height="3">Ant. Medellín</td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.direccion rescue nil%></td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.comuna.descripcion rescue nil%> </td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.telefonos rescue nil%> </td>
+            <td style="font-size:8px; font-family: Tahoma; font-weight: bold;"><%=@persona.info_permamedellin2 rescue nil%> Años </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+           <td width="18%">
+              <div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Vinculado a una Organización Popular de Vivienda ?</div></td>
+            <td width="25%" style="font-size:9px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;"><%=@persona.vinculacion_opv rescue nil%> <%=@persona.nombre_opv rescue nil%></td>
+             <td width="20%">
+              <div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Miembro de una Junta Adminis. Local de Medellín (JAL)?</div>
+              </td>
+            <td width="3%" style="font-size:9px; font-family: Tahoma; font-weight: bold; "><%=@persona.miembro_jal rescue nil%></td>
+            <td width="17%"><div align="left" style="font-size:9px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                Carta Ahorro Programado o Cesantias Inmovilizadas?</div></td>
+            <td width="3%" style="font-size:9px; font-family: Tahoma; font-weight: bold; "><%=@persona.carta_ahorro rescue nil%></td>
+            <td width="5%" style="font-size:9px; font-family: Tahoma; ">Valor</td>
+            <td width="9%" style="font-size:8px; font-family: Tahoma; font-weight: bold; "><%=camponumerico(@persona.valor_ahorro) rescue nil%></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:9px; font-family: Tahoma; line-height:5px" height="3">
+        ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </div>
+        <table width="100%" border="0" height="70" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="15%"><div align="center" style="font-size:8px; font-family: Tahoma; font-weight: bold; padding: 0; margin: 0; line-height: 10px;">
+                <%=is_username%><br/><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%><br/>DIGITADOR
+              </div></td>
+            <td width="45%"><div align="justify" style="font-size:8px; font-family: Tahoma; padding: 0; margin: 0; line-height: 10px;">
+                CON MI FIRMA MANIFIESTO QUE TODA LA INFORMACIÓN AQUÍ CONSIGNADA ES CIERTA Y AUTORIZO PARA QUE POR
+                CUALQUIER MEDIO SE VERIFIQUEN LOS DATOS AQUÍ CONTENIDOS, ASÍ MISMO GARANTIZO QUE NINGUNO DE LOS MIEMBROS
+                DEL GRUPO FAMILIAR HA PRESENTADO OTRO FORMULARIO NI SE HA POSTULADO PARA ESTE SUBSIDIO
+              </div></td>
+            <td width="40%"><div align="center" style="font-size:9px; font-family: Tahoma;padding: 0; margin: 0; line-height: 10px;">
+             <br/><br/>_______________________________________________<br/>
+             <%=@persona.nombres rescue nil%><br/>
+             <%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%>
+              </div></td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:10px; height: 10px; font-family: Tahoma;"><strong> - U S U A R I O -</strong></div>
+    <% end %>
+  </td>
+  </tr>
+</table>
+</div>

@@ -1,0 +1,24 @@
+<h1>Editing tiposactosdocumento</h1>
+
+<% form_for(@tiposactosdocumento) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :tiposacto %><br />
+    <%= f.text_field :tiposacto %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tiposactosdocumento %> |
+<%= link_to 'Back', tiposactosdocumentos_path %>

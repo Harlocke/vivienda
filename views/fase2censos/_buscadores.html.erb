@@ -1,0 +1,38 @@
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">BUSCADORES FASE 2 CENSO</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="100%"><div align="center">
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Viviendas con unidades económicas e inquilinatos', {:controller=>"fase2censos", :action=>"unidades", :host => is_host} %>
+      </span></div>
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Interior de la vivienda', {:controller=>"fase2censos", :action=>"interiores", :host => is_host} %>
+      </span></div>
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Estructura de la vivienda', {:controller=>"fase2censos", :action=>"estructuras", :host => is_host} %>
+      </span></div>
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Materiales de cerramiento', {:controller=>"fase2censos", :action=>"materiales", :host => is_host} %>
+      </span></div>
+   </div></td>
+  </tr>
+  <tr>
+    <td  height="100%"><div align="center">
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Servicios públicos', {:controller=>"fase2censos", :action=>"servicios", :host => is_host} %>
+      </span></div>
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Riesgo', {:controller=>"fase2censos", :action=>"riesgos", :host => is_host} %>
+      </span></div>
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Otros servicios de la alcaldía', {:controller=>"fase2censos", :action=>"otros", :host => is_host} %>
+      </span></div>
+      </div></td>
+  </tr>
+</table>

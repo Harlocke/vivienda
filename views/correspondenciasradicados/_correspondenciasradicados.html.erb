@@ -1,0 +1,74 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">RESPUESTAS A RADICADOS </div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@correspondenciasenviada, @correspondenciasradicado] do |form| %>
+  <% if permiso("correspondenciasradicado","C").to_s == "S"%>
+        <% if !@correspondenciasradicado.id %>
+      <tr>
+	<%= render :partial => "/correspondenciasradicados/correspondenciasradicados_form" %>
+      </tr>
+    <% end %>
+  <% end %>
+<% if @correspondenciasenviada.correspondenciasradicados.exists? %>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="15%" height="30" class="oce-first">Fecha Creacion</td>
+      <td width="10%" class="oce-first">Nro Radicado</td>
+      <td width="15%" class="oce-first">Fecha Recibido</td>
+      <td width="45%" class="oce-first">Asunto</td>
+      <td width="15%" class="oce-first">&nbsp;</td>
+    </tr>
+  <% for correspondenciasradicado in @correspondenciasenviada.correspondenciasradicados.find(:all, :order => 'created_at DESC') %>
+     <% if correspondenciasradicado.id != @correspondenciasradicado.id %>
+     <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="correspondenciasradicado_<%=correspondenciasradicado.id%>">
+      <td height="30" class="camposDesc"><%=correspondenciasradicado.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+      <td class="camposDesc"><%=correspondenciasradicado.correspondenciasrecibida.nro_radicado rescue nil%></td>
+      <td class="camposDesc"><%=correspondenciasradicado.correspondenciasrecibida.fecha_recibido rescue nil%></td>
+      <td class="camposDesc"><%=correspondenciasradicado.correspondenciasrecibida.asunto rescue nil%></td>
+      <td class="camposDesc">
+       <% if permiso("correspondenciasradicado","A").to_s == "S" %>
+       <%= link_to_remote('Editar',{:url => edit_correspondenciasenviada_correspondenciasradicado_path(@correspondenciasenviada, correspondenciasradicado),
+  		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+       <% if permiso("correspondenciasradicado","E").to_s == "S" %>
+       |&nbsp;<%= link_to_remote('Borrar',{:url => correspondenciasenviada_correspondenciasradicado_path(@correspondenciasenviada, correspondenciasradicado),
+  		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %></td>
+   </tr>
+      </tr>
+    <% else %>
+         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+           <tr valign="top"><td><br/><h3>Editar</h3></td></tr>
+         </table>
+         <%= render :partial => "correspondenciasradicados_form" %>
+         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+  <% end %>
+  </table>
+  <% else %>
+    <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+      </tr>
+    </table>
+  <% end %>
+    <%= hidden_field :correspondenciasradicado, :id %>
+  <% end %>
+  </table>
+  <br/>
+  <% if flash[:correspondenciasradicado] %>
+    <div id="indicadoresficha">
+      <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+        <tr>
+          <td><div align="right"><%= flash[:correspondenciasradicado] %></div></td>
+        </tr>
+      </table>
+    </div>
+    <script type="text/javascript"> setTimeout("new Effect.Fade('correspondenciasradicado');", 5000) </script>
+  <% end %>
+</div>

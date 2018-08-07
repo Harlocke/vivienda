@@ -1,0 +1,62 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="704" height="25" class="campos" align="left">Identificacion Jefe de Hogar *</td>
+    <td width="170" class="campos" align="left">Vlr. Sub. Dinero</td>
+    <td width="150" class="campos" align="left">Vlr. Sub. Especie</td>
+    <td width="195" class="campos" align="left">Vlr. Recon. Mejoras </td>
+  </tr>
+  <tr>
+    <td height="25" align="left"><%= text_field_with_auto_complete :resolucionespersona, :persona_autobuscar,
+	    { :class => "campo",
+                :size => 70,
+                :maxlength => 150,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+    &nbsp;<%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%></td>
+    <td align="left"><%= text_field :resolucionespersona, :subsidio_dinero,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td align="left"><%= text_field :resolucionespersona, :subsidio_especie,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td align="left"><%= text_field :resolucionespersona, :subsidio_mejoras,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="15%" height="25" class="campos" align="left">Vlr. Credito</td>
+    <td width="15%" class="campos" align="left">Vlr. Escrituración</td>
+    <td width="15%" class="campos" align="left">Vlr. Arrendamiento</td>
+    <td width="55%" class="campos" align="left">Observaciones</td>
+  </tr>
+  <tr valign="top">
+    <td height="25" align="left"><%= text_field :resolucionespersona, :credito,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td align="left"><%= text_field :resolucionespersona, :titulacion,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td align="left"><%= text_field :resolucionespersona, :arrendamiento,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td align="left"><%= text_area(:resolucionespersona, :observacion, :cols => 70, :rows => 3, :maxlength=>"1000", :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+  </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :resolucionespersona, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>

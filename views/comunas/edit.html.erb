@@ -1,0 +1,32 @@
+<h1>Editing comuna</h1>
+
+<% form_for(@comuna) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :codigo_comuna %><br />
+    <%= f.text_field :codigo_comuna %>
+  </p>
+  <p>
+    <%= f.label :comuna %><br />
+    <%= f.text_field :comuna %>
+  </p>
+  <p>
+    <%= f.label :codigo_barrio %><br />
+    <%= f.text_field :codigo_barrio %>
+  </p>
+  <p>
+    <%= f.label :barrio %><br />
+    <%= f.text_field :barrio %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @comuna %> |
+<%= link_to 'Back', comunas_path %>

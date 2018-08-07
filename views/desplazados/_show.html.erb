@@ -1,0 +1,177 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DESPLAZADO</div></td>
+  </tr>
+</table>
+<BR/>
+<% @persona.desplazados.each do |desplazado| %>
+    <% if desplazado.id != @desplazado.id %>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="center">
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">1. CRUCES ESPECIALES </div></td>
+        </tr>
+        </table>
+     <table width="50%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Catastro Medellin :</td>
+          <td width="13%" class="camposDesc"><%=h desplazado.catastro_medellin %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Lista espera : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.lista_espera %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Auto 092 : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.auto_092 %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Municipio desplazamiento : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.municipio_desplazamiento %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Municipio aspiracion : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.municipio_aspiracion %></td>
+        </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">2. HOGARES EN MEDELLÍN SOLIDARIA </div></td>
+        </tr>
+        </table>
+        <table width="50%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Cogestor : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.cogestor %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Comuna : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.comuna %></td>
+        </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">3. DATOS DE UBICACIÓN-GERENCIA DESPLAZAMIENTO FORZADO </div></td>
+        </tr>
+        </table>
+        <table width="50%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Gerencia desplazados : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.gerencia_desplazados %></td>
+        </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">4. REVISIÓN DOCUMENTACIÓN </div></td>
+        </tr>
+        </table>
+        <table width="50%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Presento reajuste : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.presento_reajuste %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Carta medellin : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.carta_medellin %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Colilla banco : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.colilla_banco %></td>
+        </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">5. RESULTADO CONVOCATORIA </div></td>
+        </tr>
+        </table>
+        <table width="50%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Fecha : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.fecha %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Hora : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.hora %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Como se Entero : </td>
+          <td width="13%" class="camposDesc"><%=h desplazado.entero %></td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">6. CALIFICACION </div></td>
+        </tr>
+        </table>
+        <table width="70%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="80%" class="campos">Fecha Asignacion Subsidio Nacional : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable1 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Mujer Cabeza de Familia Auto 092 : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable2 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Mujer Cabeza de Familia : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable3 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Nro de Miembros del Grupo Familiar : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable4 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Grupo familiar con uno o más miembros menores de 14 años : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable5 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Grupo familiar con uno o más miembros con discapacidad : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable6 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">Grupo familiar con uno o más miembros mayores de 65 años : </td>
+          <td width="20%" class="camposDesc"><%=h desplazado.variable7 %></td>
+        </tr>
+        <tr>
+          <td width="80%" class="campos">CALIFICACION TOTAL : </td>
+          <td width="20%" class="camposDesc"><%= (desplazado.variable1.to_i +
+    desplazado.variable2.to_i +
+    desplazado.variable3.to_i +
+    desplazado.variable4.to_i +
+    desplazado.variable5.to_i +
+    desplazado.variable6.to_i +
+    desplazado.variable7.to_i)
+  %></td>
+        </tr>
+      </table>
+       <BR/>
+<% if permiso("desplazado","A").to_s == "S" %>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td width="95%" height="30"><div align="right">
+     <%= link_to 'Editar', edit_desplazado_path(desplazado), :class=>"editarlink"%>
+     </div></td>
+<% form_tag buscar_desplazados_path, :method => 'get' do %>
+        <td width="5%" height="30"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'format', :value => 'xls' %>
+          </span></div>
+        </div></td>
+<% end %>
+  </tr>
+</table>
+      <% end %>
+      </div>
+      </td>
+        </tr>
+      </table>
+<% end %>
+<% end %>

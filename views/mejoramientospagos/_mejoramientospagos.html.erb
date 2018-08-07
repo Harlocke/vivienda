@@ -1,0 +1,89 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">RELACION DE PAGOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@mejoramiento, @mejoramientospago] do |form| %>
+   <% if !@mejoramientospago.id %>
+       <% if permiso("mejoramientosespecial","C").to_s == "S" or permiso("mejoramientospagosespecial","C").to_s == "S" %>
+          <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" %>
+            <%= render :partial => "/mejoramientospagos/mejoramientospagos_form" %>
+          <% end %>
+       <% end %>
+   <% end %>
+<% if @mejoramiento.mejoramientospagos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="10%" height="30" align="left" class="oce-first">Porcentaje</td>
+    <td width="10%" height="30" align="left" class="oce-first">Fecha Pago</td>
+    <td width="10%" height="30" align="left" class="oce-first">Nro Factura</td>
+    <td width="10%" height="30" align="left" class="oce-first">Valor</td>
+    <td width="35%" height="30" align="left" class="oce-first">Descripción</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% @mejoramiento.mejoramientospagos.each do |mejoramientospago| %>
+<%  if mejoramientospago.id != @mejoramientospago.id %>
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientospago_<%= mejoramientospago.id%>">
+     <td width="15%" height="30" align="left" class="camposDesc"><%=mejoramientospago.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=mejoramientospago.user.username rescue nil%></td>
+     <td width="10%" height="30" align="left" class="camposDesc"><%=mejoramientospago.conveniosforma.porcentaje rescue nil%> % <br/>
+                                                                 <%=mejoramientospago.conveniosforma.clase rescue nil%></td>
+     <td width="10%" height="30" align="left" class="camposDesc"><%=mejoramientospago.fecha_pago.strftime("%Y-%m-%d") rescue nil%></td>
+     <td width="10%" height="30" align="left" class="camposDesc"><%=mejoramientospago.nro_factura rescue nil%></td>
+     <td width="10%" height="30" align="left" class="camposDesc">$ <%=number_to_currency(mejoramientospago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+     <td width="35%" height="30" align="left" class="camposDesc"><%=mejoramientospago.descripcion rescue nil%></td>
+     <td width="10%" align="right" class="camposDesc"><div align="center">
+       <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" or permiso("mejoramientospagosespecial","C").to_s == "S" %>
+          <% if permiso("mejoramientospago","A").to_s == "S" %>
+            <%= link_to_remote('Editar',{:url => edit_mejoramiento_mejoramientospago_path(@mejoramiento, mejoramientospago),:method => :get}, :class=>"editarlink")%>
+          <% end %>
+          <% if permiso("mejoramientospago","E").to_s == "S"  %>
+            <%= link_to_remote('Borrar',{:url => mejoramiento_mejoramientospago_path(@mejoramiento, mejoramientospago),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+          <%= link_to 'Lista', {:controller=>"mejoramientospagos", :action=>"verlista", :id=>mejoramientospago.id},:class=>"modlink"%>
+       <%end%></div>
+        </td>
+ </tr>
+</table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="mejoramientospago_<%=@mejoramientospago.id%>">
+            <%= render :partial => "mejoramientospagos_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+     <%= hidden_field :mejoramiento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientospago] %>
+<div id="mejoramientospago">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientospago] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientospago');", 5000)
+</script>
+<% end %>
+</div>

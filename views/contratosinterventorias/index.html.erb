@@ -1,0 +1,30 @@
+<h1>Listing contratosinterventorias</h1>
+
+<table>
+  <tr>
+    <th>Contrato</th>
+    <th>Userinterventoria</th>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+    <th>User</th>
+    <th>User actualiza</th>
+  </tr>
+
+<% @contratosinterventorias.each do |contratosinterventoria| %>
+  <tr>
+    <td><%=h contratosinterventoria.contrato_id %></td>
+    <td><%=h contratosinterventoria.userinterventoria_id %></td>
+    <td><%=h contratosinterventoria.fecha_inicio %></td>
+    <td><%=h contratosinterventoria.fecha_fin %></td>
+    <td><%=h contratosinterventoria.user_id %></td>
+    <td><%=h contratosinterventoria.user_actualiza %></td>
+    <td><%= link_to 'Show', contratosinterventoria %></td>
+    <td><%= link_to 'Edit', edit_contratosinterventoria_path(contratosinterventoria) %></td>
+    <td><%= link_to 'Destroy', contratosinterventoria, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New contratosinterventoria', new_contratosinterventoria_path %>

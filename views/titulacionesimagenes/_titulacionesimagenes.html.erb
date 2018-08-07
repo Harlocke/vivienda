@@ -1,0 +1,67 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+</table>
+<% if permiso("titulacionesimagen","C").to_s == "S" %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_titulacion_titulacionesimagen_path(@titulacion.id) %></span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesimagen] do |form| %>
+<% if !@titulacionesimagen.id %>
+<% end %>
+<% if @titulacion.titulacionesimagenes.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first" align="left">Cargue</td>
+    <td width="35%" height="30" class="oce-first" align="left">Descripcion</td>
+    <td width="30%" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="15%" class="oce-first" align="left">Fecha del Documento</td>
+    <td width="5%" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+<% for titulacionesimagen in @titulacion.titulacionesimagenes.find(:all, :order => 'fecha_doc asc') %>
+    <% if titulacionesimagen.id != @titulacionesimagen.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> titulacionesimagen_<%=titulacionesimagen.id%>">
+     <td align="left" class="camposDesc">
+        <%=titulacionesimagen.created_at.strftime("%Y-%m-%d %X")%><br/>
+        <a title="<%=titulacionesimagen.user.nombre rescue nil%>"><%=titulacionesimagen.user.username rescue nil%></a>
+      </td>
+     <td height="30" class="camposDesc" align="left"><%=titulacionesimagen.descripcion rescue nil%></td>
+     <td class="camposDesc" align="left"><%=titulacionesimagen.titulacion_file_name rescue nil%></td>
+     <td class="camposDesc" align="left"><%=titulacionesimagen.fecha_doc rescue nil%></td>
+     <td class="camposDesc" align="right"><div align="center">
+      <%= link_to "Ver", titulacionesimagen.titulacion.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+       <% if permiso("titulacionesimagen","E").to_s == "S" %>
+         <br/><%= link_to_remote('Borrar',{:url => titulacion_titulacionesimagen_path(@titulacion, titulacionesimagen),
+                       :method => :delete, :confirm => "¿Seguro?",
+                        :before => "$(this).up('.titulacionesimagen_#{titulacionesimagen.id}').remove()"},
+                        :class=>"borrarlink")%>
+
+       <% end %></div>
+     </td>
+ </tr>
+<% else %>
+      <tr class="<%=cycle('even1', 'odd1')%>" id="titulacionesimagen_<%=@titulacionesimagen.id%>">
+          <%= render :partial => "titulacionesimagenes_form" %>
+      </tr>
+     <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :titulacion, :id %>
+<% end %>
+</div>

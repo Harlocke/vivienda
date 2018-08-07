@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/resolucionmin.png" width="64" height="64"/></td>
+          <td width="85%"><div class="col_enc">&nbsp;&nbsp;INFORMACION RESOLUCION <% unless @resolucion.new_record? %>- ( <%=@resolucion.nro_resolucion%> DEL <%=@resolucion.anno%> )<% end %></div></td>
+          <td width="12%"><div align="right">
+              <%= link_to image_tag('atras.png', { :border=>0, :title => "Busca Resoluciones"}),resoluciones_path %>
+              <% if permiso("resolucion","C").to_s == "S" %>
+                   <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),new_resolucion_path %>
+              <% end %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% unless @resolucion.new_record? %>
+    <%= link_to image_tag("resol.png", :title => "Informacion Resoluciones", :style=>"#{@resolucion.d_etapa('1')} padding:4px;"),edit_resolucion_path(:id=>@resolucion.id,:etapa=>"1")%>
+    <%= link_to image_tag("personasresol.png", :title => "Personas Asociadas", :style=>"#{@resolucion.d_etapa('2')} padding:4px;"),edit_resolucion_path(:id=>@resolucion.id,:etapa=>"2")%>
+    <%= link_to image_tag("user_suit.png", :title => "Empleados - Contratistas", :style=>"#{@resolucion.d_etapa('3')} padding:4px;"),edit_resolucion_path(:id=>@resolucion.id,:etapa=>"3")%>
+    <%= link_to image_tag("imagenes.png", :title => "Imagenes", :style=>"#{@resolucion.d_etapa('4')} padding:4px;"),edit_resolucion_path(:id=>@resolucion.id,:etapa=>"4")%>
+<% end %>
+<% if @resolucion.etapa.to_s == '1' %>
+    <fieldset>
+      <% if permiso("resolucion","C").to_s == 'S' %> 
+        <%= render "completo" %> 
+      <% else %> 
+        <%= render "datoinicial" %> 
+      <% end %>
+    </fieldset>
+<% elsif @resolucion.etapa.to_s == '2' %>
+    <fieldset><div align="center" id="resolucionespersonas_form"><%= render :partial => "/resolucionespersonas/resolucionespersonas" %></div></fieldset>
+<% elsif @resolucion.etapa.to_s == '4' %>
+    <fieldset><div align="center" id="resolucionesimagenes_form"><%= render :partial => "/resolucionesimagenes/resolucionesimagenes" %></div></fieldset>
+<% elsif @resolucion.etapa.to_s == '3' %>
+    <fieldset><div align="center" id="resolucionescontratistas_form"><%= render :partial => "/resolucionescontratistas/resolucionescontratistas" %></div></fieldset>
+<% end %>
+<br/><br/>

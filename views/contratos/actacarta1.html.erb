@@ -1,0 +1,58 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="580" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%">
+  <tr>
+    <td height="40" class="camposDesc">
+      <br/><div align="left">Medellin, <%=descmesmin(@contrato.fecha_disponibilidad.strftime("%m")) rescue nil%> <%=@contrato.fecha_disponibilidad.strftime("%d") rescue nil%> de <%=@contrato.fecha_disponibilidad.strftime("%Y") rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="camposDesc">
+Doctor<br/>
+<strong>Subdirector Administrativo y Financiero</strong><br/>
+Instituto social de Vivienda y Hábitat de Medellín<br/>
+Medellín<br/>
+      </td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><br/><br/>Asunto : Solicitud certificación Personal Planta de Cargos del Instituto<br/><br/></td>
+    </tr>
+    <tr>
+      <td class="camposDesc">
+        <div align="justify">
+          Comedidamente le solicito certificar, si en la planta de cargos del INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN-ISVIMED, existe un cargo para
+          <strong>“<%=@contrato.objeto%>”.</strong><br/><br/><br/>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="camposDesc">
+        Atentamente,
+<br/><br/>
+<br/><br/>
+    <strong><%=Sifi.find(17).valor.to_s rescue nil%><br/>
+    <%=Sifi.find(19).valor.to_s rescue nil%></strong><br/>
+    Instituto Social de Vivienda y Hábitat de Medellín
+      </td>
+    </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0" class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%></td></tr>
+</table>
+      </td>
+  </tr>
+</table>
+<br/>
+<br/>
+</div>

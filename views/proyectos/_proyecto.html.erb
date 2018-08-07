@@ -1,0 +1,36 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td width="97%"><div class="col_enc">COPROPIEDADES</div></td>
+    <td width="3%"><div align="right"><%= link_to image_tag('nuevo.png', { :border=>0, :title => "Nueva Copropiedad"}), {:controller => "proyectoscopropiedades", :action => "new", :proyectoid=>@proyecto.id}%></div></td>
+  </tr>
+</table>
+<% if @proyecto.proyectoscopropiedades.exists? %>
+  <div align="center">
+    <table width="95%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="middle">
+          <td width="60%" height="30" class="oce-first"><strong><div align="justify">Nombre Copropiedad</div></strong></td>
+          <td width="10%" class="oce-first"><strong><div align="justify">Bloques</div></strong></td>
+          <td width="10%" class="oce-first"><strong><div align="center">Nro Aptos totales</div></strong></td>
+          <td width="20%" class="oce-first"></td>
+        </tr>
+      <% @proyecto.proyectoscopropiedades.each do |proyectoscopropiedad| %>
+         <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="proyectoscopropiedad_<%= proyectoscopropiedad.id%>">
+           <td height="30" class="camposDesc"><div align="justify"><%=proyectoscopropiedad.nombre rescue nil%></div></td>
+           <td class="camposDesc"><div align="justify">
+               <% for proyectoscopbloque in proyectoscopropiedad.proyectoscopbloques.find(:all, :order => 'id ASC') %>
+                  Bloque <%=proyectoscopbloque.bloque.descripcion rescue nil%><br/>
+               <% end %>
+             </div></td>
+           <td class="camposDesc"><div align="center"><%=Apto.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{proyectoscopropiedad.id}))"]) rescue nil%></div></td>
+           <td class="camposDesc"><div align="center">
+              <%= link_to 'Editar',{:controller=>"proyectoscopropiedades", :action=>"edit", :id=>proyectoscopropiedad.id}, :class=>"editarlink"%>
+             <% if permiso("proyectocopelimina","A").to_s == "S" %>
+              <%= link_to_remote('Borrar',{:url => proyecto_proyectoscopropiedad_path(@proyecto, proyectoscopropiedad),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+             <%end %>
+              &nbsp;<%= link_to "Informe", {:controller => "proyectoscopropiedades", :action => "ver", :id=>proyectoscopropiedad.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%></div>
+            </td>
+         </tr>
+      <%end %>
+    </table>
+  </div>
+<% end %>

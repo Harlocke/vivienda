@@ -1,0 +1,28 @@
+<div align="center">
+
+  <table width="50%" border="0" cellspacing="2" align="center" cellpadding="0">
+    <tr class="odd1">
+      <td width="50%" class="campos">Fecha inicio</td>
+      <td width="50%" class="campos">Fecha Fin</td>
+    </tr>
+    <tr valign="top">
+      <td><%= calendar_date_select "agendasrango", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      <%= error_message_on :agendasrango, :fecha_inicio, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "agendasrango", "fecha_fin", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      <%= error_message_on :agendasrango, :fecha_fin, :css_class =>"cerror"%></td>
+      
+    </tr>
+  </table>
+  <table width="50%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>
+  <table width="50%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :agendasrango, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+  </div></td>
+    </tr>
+  </table>
+</div>

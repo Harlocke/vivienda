@@ -1,0 +1,28 @@
+<h1>Editing empleadosgrupo</h1>
+
+<% form_for(@empleadosgrupo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :empleado_id %><br />
+    <%= f.text_field :empleado_id %>
+  </p>
+  <p>
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </p>
+  <p>
+    <%= f.label :parentesco %><br />
+    <%= f.text_field :parentesco %>
+  </p>
+  <p>
+    <%= f.label :fecha_nacimiento %><br />
+    <%= f.date_select :fecha_nacimiento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @empleadosgrupo %> |
+<%= link_to 'Back', empleadosgrupos_path %>

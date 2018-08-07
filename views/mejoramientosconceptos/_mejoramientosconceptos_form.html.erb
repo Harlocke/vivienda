@@ -1,0 +1,36 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="70%" class="campos" align="left">Concepto *</td>
+        <td width="20%" class="campos" align="left">Realizado *</td>
+        <td width="10%" class="campos" align="left"></td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left"><%= select(:mejoramientosconcepto,
+                :descripcion,  [["ACTA DE INCIO","ACTA DE INCIO"],
+                                ["APERTURA Y USO DE BITACORA","APERTURA Y USO DE BITACORA"],
+                                ["ACTAS DE VECINDAD","ACTAS DE VECINDAD"],
+                                ["BITACORA SOCIALIZADA","BITACORA SOCIALIZADA"],
+                                ["CONCEPTOS DE ASPECTOS SOCIALES","CONCEPTOS DE ASPECTOS SOCIALES"],
+                                ["DEFINDO EL APORTE TOTAL DEL BENEFICIARIO","DEFINDO EL APORTE TOTAL DEL BENEFICIARIO"],
+                                ["EJECUCION EN EL TIEMPO PLANEADO","EJECUCION EN EL TIEMPO PLANEADO"],
+                                ["LIMPIEZA DE ESCOMBROS","LIMPIEZA DE ESCOMBROS"],
+                                ["PLANEACION DE OBRA","PLANEACION DE OBRA"],
+                                ["PQRS","PQRS"],
+                                ["PRESUPUESTO Y PLANO SOCIALIZADO","PRESUPUESTO Y PLANO SOCIALIZADO"],
+                                ["OTROS","OTROS"]],
+                        { :include_blank => true },
+                      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :mejoramientosconcepto, :descripcion, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= select(:mejoramientosconcepto,
+                :tipo, [["SI","SI"],
+              ["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:60px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :mejoramientosconcepto, :tipo, :css_class =>"cerror"%></td>
+        <td ><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+<%= hidden_field :mejoramiento, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+
+        </tr>
+    </table>

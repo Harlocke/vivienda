@@ -1,0 +1,701 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/titulacionmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION TITULACION ( ID PREDIO : <%=@titulacion.id%> ) - <%= link_to 'Seguimiento', {:controller=>"titulaciones", :action=>"seguimiento", :id=>@titulacion.id}, :popup => ['windownew','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></div></td>
+              <td width="3%"><div align="right">
+                <%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar Predios"}),titulaciones_path %>                  
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/titulo.png" border="0" title="Información Predio"/></a></li>
+<% unless @titulacion.new_record? %>
+        <li><a href="#tab2"><img src="/images/beneficiarios.png" border="0" title="Propietarios"/></a></li>
+        <li><a href="#tab3"><img src="/images/user_suit.png" border="0" title="Asignaciones"/></a></li>
+        <li><a href="#tab4"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab6"><img src="/images/imagenes.png" border="0" title="Informacion Digitalizada"/><% if @titulacion.titulacionesimagenes.exists? %>
+         <img src="/images/link_adjuntar.gif" title="Tiene Archivos digitales cargados"/>
+        <% end %></a></li>
+        <% if  @existearchivo %>
+          <li><a href="#tab23"><img src="/images/archivo1.png" border="0" title="Ubicacion Archivo de Gestion"/></a></li>
+        <% end %>
+        <li><a href="#tab7"><img src="/images/prestamo.png" border="0" title="Prestamo"/></a></li>
+        <li><a href="#tab8"><img src="/images/resoluciones.png" border="0" title="Demandas"/></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<% form_for(@titulacion) do |f| %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN PREDIO</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="17%" class="campos">Cobama</td>
+          <td width="33%" class="campos">Barrio </td>
+          <td width="50%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+           <td class="camposDesc"><%= f.text_field :cobama ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :cobama, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%=select("titulacion", "titulacionesbarrio_id", Titulacionesbarrio.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= f.error_message_on :titulacionesbarrio_id, :css_class =>"cerror"%>
+          </td>
+          <td class="camposDesc"><%=select("titulacion", "user_juridico", User.find(:all,:order=>'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= f.error_message_on :user_juridico, :css_class =>"cerror"%>
+          </td>
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="18%" class="campos">Tipo de Proceso </td>
+          <td width="10%" class="campos">Manzana </td>
+          <td width="10%" class="campos">Lote </td>
+          <td width="50%" class="campos">Direccion </td>
+          <td width="12%" class="campos">Unidades Habit.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= select(:titulacion,:tipoproceso, [["FISCAL","FISCAL"],
+                                              ["PERTENENCIA","PERTENENCIA"]],
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo" })%>
+          <%= f.error_message_on :tipoproceso, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :manzana ,{ :class => "campo", :size => 7,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :manzana, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :lote ,{ :class => "campo", :size => 7,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :lote, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :direccion,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+           <td class="camposDesc"><%= f.text_field :unidades ,{ :class => "campo", :size => 5,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :unidades, :css_class =>"cerror"%></td>
+           
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Acta Entrega</td>
+          <td width="15%" class="campos">Area </td>
+          <td width="55%" class="campos">Expediente </td>
+          <td width="15%" class="campos">Fecha Expediente </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%= f.text_field :acta_entrega ,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :acta_entrega, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :area ,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :area, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :expediente ,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :expediente, :css_class =>"cerror"%></td>
+          <td class="camposDesc">
+               <%= calendar_date_select "titulacion", "fecha_expediente", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= f.error_message_on :fecha_expediente, :css_class =>"cerror"%>
+           </td>
+        </tr>
+     </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos">Escritura de Loteo</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            <%= f.text_area(:escritura_lote, :cols => 140, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= f.error_message_on :escritura_lote, :css_class =>"cerror"%></td>
+        </tr>
+     </table>
+      <% unless @titulacion.new_record? %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td><fieldset>
+             <div id="titulacionesfallidos_form">
+                <%= render :partial => "/titulacionesfallidos/titulacionesfallidos" %>
+             </div></fieldset>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Estado del Proceso</td>
+          <td width="20%" class="campos">Certificado Uso Suelo </td>
+          <td width="30%" class="campos">Operador</td>
+          <td width="10%" rowspan="2"><% unless @titulacion.new_record? %>
+               <a href="javascript:mostrardivall('titulacionesdatos_<%=@titulacion.id%>');" class="mostrarlink">Mas datos</a>
+             <% end %> </td>
+        </tr>
+        <tr>
+          <td class="camposDesc">
+              <%= select(:titulacion,:estado, [["ADECUACIONES EJE","ADECUACIONES EJE"],
+                                              ["CENTRALIDAD VECINAL","CENTRALIDAD VECINAL"],
+                                              ["COMERCIO","COMERCIO"],
+                                              ["COMPLETO","COMPLETO"],
+                                              ["CRUCE","CRUCE"],
+                                              ["COMPLETO","COMPLETO"],
+                                              ["EQUIPAMIENTO GENERAL","EQUIPAMIENTO GENERAL"],
+                                              ["ESTUDIO DE SUELO","ESTUDIO DE SUELO"],
+                                              ["EN PROCESO","EN PROCESO"],
+                                              ["FALLIDO","FALLIDO"],
+                                              ["INCOMPLETO","INCOMPLETO"],
+                                              ["HABILITADO","HABILITADO"],
+                                              ["MUTACION REGISTRADA","MUTACION REGISTRADA"],
+                                              ["PARCIAL PARQUE AMBIENTAL","PARCIAL PARQUE AMBIENTAL"],
+                                              ["PARCIAL POR VIA","PARCIAL POR VIA"],
+                                              ["PARQUE AMBIENTAL","PARQUE AMBIENTAL"],
+                                              ["POSITVO","POSITVO"],
+                                              ["PROTECCION AMBIENTAL","PROTECCION AMBIENTAL"],
+                                              ["RETIRO DE QUEBRADA","RETIRO DE QUEBRADA"],
+                                              ["SISTEMA COLECTOR","SISTEMA COLECTOR"],
+                                              ["SUSPENDIDO","SUSPENDIDO"],
+                                              ["TITULADA","TITULADA"],
+                                              ["ZONA VERDE","ZONA VERDE"],
+                                              ["ZONA VERDE-PLAZOLETA","ZONA VERDE-PLAZOLETA"]],
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo" })%>
+           <%= f.error_message_on :estado, :css_class =>"cerror"%></td>          
+          <td class="camposDesc"><%= f.text_field :certificado_uso_suelo ,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">
+              <%= select(:titulacion,:operador, [["PRESENCIA COLOMBIA SUIZA","PRESENCIA COLOMBIA SUIZA"],
+                                              ["UNIVERSIDAD DE ANTIOQUIA","UNIVERSIDAD DE ANTIOQUIA"],
+                                              ["ISVIMED","ISVIMED"]],
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo" })%>
+           <%= f.error_message_on :estado, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <% if permiso("titulacionesgestion","C").to_s == "S" %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Gestion Caja</td>
+          <td width="80%" class="campos">Gestion Carpeta</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+             <%= f.text_field :gestion_caja ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :gestion_caja, :css_class =>"cerror"%>
+           </td>
+           <td class="camposDesc">
+             <%= f.text_field :gestion_carpeta ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :gestion_carpeta, :css_class =>"cerror"%>
+           </td>
+        </tr>
+      </table>
+     <% else %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Gestion Caja</td>
+          <td width="80%" class="campos">Gestion Carpeta</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=@titulacion.gestion_caja rescue nil%></td>
+           <td class="camposDesc"><%=@titulacion.gestion_carpeta rescue nil%></td>
+        </tr>
+      </table>
+      <%end%>
+</td>
+  </tr>
+</table>
+      
+</div>
+<div id="titulacionesdatos_<%=@titulacion.id%>" style="display:none;">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">ESTUDIO DE TITULOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Fecha Elaboracion</td>
+          <td width="20%" class="campos">Resultado</td>
+          <td width="60%" class="campos">Observaciones</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "titulo_elaboracion", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc"><%= select(:titulacion,:titulo_resultado, { "POSITIVO" => "POSITIVO",
+                           "NEGATIVO" => "NEGATIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="camposDesc">
+            <%= f.text_area(:titulo_observacion, :cols => 90, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">CONFRONTACION CON POT</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="30%" class="campos">Resultado</td>
+          <td width="70%" class="campos">Observaciones</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%= select(:titulacion,:pot_resultado,
+                     { "POSITIVO" => "POSITIVO",
+                       "NEGATIVO" => "NEGATIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="camposDesc">
+            <%= f.text_area(:pot_observacion, :cols => 100, :rows => 4, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">SOLICITUD DE PLANOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Solicitado</td>
+          <td width="20%" class="campos">Fecha Solicitud</td>
+          <td width="60%" class="campos">Fecha Entrega</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+             <%= select(:titulacion, :planos, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "planos_solicitud", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "planos_entrega", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">AVALUOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Solicitado</td>
+          <td width="20%" class="campos">Fecha Solicitud</td>
+          <td width="20%" class="campos">Fecha Entrega</td>
+          <td width="40%" class="campos">Valor Avaluo</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+             <%= select(:titulacion, :avaluo, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "avaluo_solicitud", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "avaluo_entrega", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc">
+           <%= f.text_field :avaluo_valor ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">CONSTRUCCION DE EXPEDIENTE</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Realizado</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+             <%= select(:titulacion, :expedienter, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">VERIFICACION DE REQUISITOS Y DETERMINACION DE BENEFICIARIOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Realizado</td>
+          <td width="40%" class="campos">Resultado</td>
+          <td width="40%" class="campos">Observaciones</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc">
+             <%= select(:titulacion, :requisitos, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc"><%= select(:titulacion,:requisitos_resultado,
+                     { "HABIL" => "HABIL",
+                       "INHABIL - OTRO" => "INHABIL - OTRO",
+                       "INHABIL - CRUCE OTRA PROPIEDAD" => "INHABIL - CRUCE OTRA PROPIEDAD",
+                       "INHABIL - COMERCIO" => "INHABIL - COMERCIO",
+                       "INHABIL - CONFLICTOS SOBRE POSESION" => "INHABIL - CONFLICTOS SOBRE POSESION",
+                       "INHABIL - RELOTEOS (DIFERENCIA AREAS)" => "INHABIL - RELOTEOS (DIFERENCIA AREAS)",
+                       "INHABIL - VERIFICACION DE OTRO SUBSIDIO" => "INHABIL - VERIFICACION DE OTRO SUBSIDIO"
+                     },
+                        { :include_blank => true },
+                      { :style=>"width:280px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+           <td class="camposDesc">
+            <%= f.text_area(:requisitos_observacion, :cols => 70, :rows => 4, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">PUBLICACION DE BENEFICIARIOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Publicado</td>
+          <td width="20%" class="campos">Fecha</td>
+          <td width="80%" class="campos">Medios de Publicacion</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+             <%= select(:titulacion, :publicacion, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "publicacion_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc">
+             <%= f.text_field :publicacion_medio ,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">RECURSOS A LA PUBLICACIÓN</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="25%" class="campos">Presento</td>
+          <td width="25%" class="campos">Fecha</td>
+          <td width="25%" class="campos">Respuesta</td>
+          <td width="25%" class="campos">Fecha</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+             <%= select(:titulacion, :publicacion_recurso, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "publicacion_recurso_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+           <td class="camposDesc">
+             <%= select(:titulacion, :publicacion_respuesta, { "SI" => "SI", "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "publicacion_respuesta_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">NOTIFICACIÓN</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="30%" class="campos">Tipo</td>
+          <td width="20%" class="campos">Personal - Fecha</td>
+          <td width="20%" class="campos">Edicto Fecha Fijacion</td>
+          <td width="30%" class="campos">Edicto Fecha Desfijacion</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            <%= select(:titulacion, :notificacion_tipo, {"EDICTO" => "EDICTO",
+                                                         "PERSONAL" => "PERSONAL",
+                                                         "CONDUCTA CONCLUYENTE" => "CONDUCTA CONCLUYENTE"},
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "notificacion_persona_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "notificacion_edicto_fijacion", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "notificacion_edicto_desfija", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+           </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">CONSTANCIA DE EJECUTORIA</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos">Fecha</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "ejecutorio_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">REGISTRO</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Fecha</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+                  <%= calendar_date_select "titulacion", "registro_fecha", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">ENTREGA DE TITULOS</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Fecha</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+              <%= calendar_date_select "titulacion", "entrega_titulos", :year_range => 50.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+</div>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+       <% unless @titulacion.new_record? %>
+        Ultima Actualización: <%=User.find(@titulacion.user_actualiza).username rescue nil%> - <%=@titulacion.updated_at.strftime("%Y-%m-%d %X")%>
+       <% end %></td>
+    <td  height="30"><div align="right">
+        <% if permiso("titulacion","A").to_s == "S" %>
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% elsif permiso("titulacion","C").to_s == "S" %>
+          &nbsp;&nbsp;<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% end %>
+        <% if permiso("titulacion","E").to_s == "S" %>
+           &nbsp;&nbsp;<%= link_to 'Eliminar', @titulacion, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+           &nbsp;<%= link_to "Barrio",titulacionesbarrios_path, :title => "Crear Persona Rapido", :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"editarlink"%>
+        <% end %></div></td>
+  </tr>
+</table>
+<% end %>
+</fieldset>
+</div>
+<% unless @titulacion.new_record? %>
+    <div class="panel" id="tab2">
+      <fieldset>
+         <div id="titulacionespersonas_form">
+            <%= render :partial => "/titulacionespersonas/titulacionespersonas" %>
+         </div>
+         <% if @titulacion.anttitulacionespersonas.exists? %>
+           <fieldset id ="el02">
+              <%= render :partial => "/anttitulacionespersonas/show" %>
+           </fieldset>
+         <% end %>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab4">
+      <fieldset>
+         <div id="titulacionesobservaciones_form">
+            <%= render :partial => "/titulacionesobservaciones/titulacionesobservaciones" %>
+         </div>
+        </fieldset>
+    </div>
+    <div class="panel" id="tab3">
+      <fieldset>
+         <div id="titulacionesasignaciones_form">
+            <%= render :partial => "/titulacionesasignaciones/titulacionesasignaciones" %>
+         </div>
+       </fieldset>
+    </div>
+    <div class="panel" id="tab6">
+      <fieldset>
+         <div id="titulacionesimagenes_form">
+            <%= render :partial => "/titulacionesimagenes/titulacionesimagenes" %>
+         </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab23">
+      <%= render :partial => "/archivos/showt" %>
+    </div>
+    <div class="panel" id="tab7">
+      <fieldset>
+         <div id="titulacionesprestamos_form">
+            <%= render :partial => "/titulacionesprestamos/titulacionesprestamos" %>
+         </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab8">
+      <fieldset>
+         <div id="titulacionesdemandas_form">
+            <%= render :partial => "/titulacionesdemandas/titulacionesdemandas" %>
+         </div>
+      </fieldset>
+    </div>
+<% end %>

@@ -1,0 +1,103 @@
+<div align="center">
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="24%" align="left" class="camposDesc13">Medellin, <%=Time.now().strftime("%Y-%m-%d")%></td>
+          <td width="76%" align="left" class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">Asunto: Informacion Bienes a Cargo</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">Funcionario responsable: <strong><%=User.find(@idfunuser).nombre rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">
+            El Instituto Social de Vivienda y Hábitat de Medellín ISVIMED-Subdirección Administrativa y Financiera, le  hace entrega de los bienes que se detallan a continuación, en desarrollo de las actividades específicas que cumple con el Instituto.<br/><br/>
+          Una vez recibidos los implementos en mención, se deberá velar por la conservación, custodia e integridad de los bienes, siendo responsable por la pérdida o deterioro que por el mal uso se ocasione, en cuyo evento responderá administrativamente, sin perjuicio de la responsabilidad penal o fiscal que pudiera derivarse.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50%" class="campos"><div align="center">Usuario Uso</div></td>
+              <td width="20%" class="campos">Tipo de Elemento</td>
+              <td width="10%" class="campos"><div align="center">Placa</div></td>
+              <td width="20%" class="campos"><div align="center">Serial</div></td>
+            </tr>
+<%   usuarioasignado = ""
+     @elementosusers = Elementosuser.find(:all,:conditions=>["elemento_id in (select id from elementos where user_id = #{@idfunuser}) and fecha_fin is null"], :order=>"user_id")
+     @elementosusers.each do |elementosuser|
+       usuarioasignado = elementosuser.user.nombre rescue nil
+       @elemento = Elemento.find(elementosuser.elemento_id)
+%>
+<tr valign="middle">
+    <td class="camposDesc"><%=usuarioasignado%></td>
+    <td class="camposDesc"><div align="left"><%=h @elemento.tiposelemento.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=h @elemento.placa%></div></td>
+    <td class="camposDesc"><div align="center"><%=h @elemento.serial%></div></td>
+  </tr>
+<% end %>
+          </table></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">________________________________________</td>
+          <td width="10%">&nbsp;</td>
+          <td width="45%">________________________________________</td>
+        </tr>
+        <tr>
+          <td><strong>NOMBRE FUNCIONARIO QUE ENTREGA</strong></td>
+          <td>&nbsp;</td>
+          <td><strong><%=User.find(@idfunuser).nombre rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td>SUBDIRECCION ADMINISTRATIVA Y FINANCIERA</td>
+          <td>&nbsp;</td>
+          <td><%=Dependencia.find(User.find(@idfunuser).dependencia_id).descripcion rescue nil%></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+</table>
+      <br/>
+<table width="100%" height="0" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="camposDesc">S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+  <tr><td height="0"class="camposDesc"><%=User.find(is_admin).nombre%></td></tr>
+  </table>
+    </td>
+  </tr>
+</table>
+</div>

@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<br/>
+<div align="center">
+    <table width="600" height="40"  align="center">
+      <tr><td><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr><td width="3%"><img src="/images/pqrsmin.png" width="64" height="64"/></td>
+      <td width="97%"><div class="col_enc">PQRS</div></td>
+      </tr></table></td></tr>
+    </table>
+    <table width="600" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+          <h3>Formulario para Atención a PQRS</h3>
+          <br/><br/>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+              <tr class="odd1">
+                <td align="left" class="camposDescN16"><br/><%=@valor.to_s rescue nil%> <br/><br/></td>
+              </tr>
+            </table><br/><br/>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+              <tr>
+                <td align="left" class="camposDescN12">
+Pulse <%=link_to 'Aqui', edit_persona_path(@personaid) %> para regresar al modulo de personas</td>
+              </tr>
+            </table>          </td>
+      </tr>
+    </table>
+</div>
+<br/>

@@ -1,0 +1,98 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">DEMANDAS</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesdemanda] do |form| %>
+<% if permiso("titulacionesdemanda","C").to_s == "S" %>
+   <% if !@titulacionesdemanda.id %>
+	<%= render :partial => "/titulacionesdemandas/titulacionesdemandas_form" %>
+   <% end %>
+<% end %>
+  <% if @titulacion.titulacionesdemandas.exists? %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" align="left" class="oce-first">Radicado</td>
+    <td width="20%" height="30" align="left" class="oce-first">Juzgado</td>
+    <td width="20%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="30%" height="30" align="left" class="oce-first">Abogado</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+    <% @titulacion.titulacionesdemandas.each do |titulacionesdemanda| %>
+     <% if titulacionesdemanda.id != @titulacionesdemanda.id %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesdemanda_<%= titulacionesdemanda.id%>">
+     <td height="30" class="camposDesc"><%=titulacionesdemanda.radicado rescue nil%></td>
+     <td class="camposDesc"><%=titulacionesdemanda.juzgado rescue nil%></td>
+     <td class="camposDesc"><%=titulacionesdemanda.estado rescue nil%></td>
+     <td class="camposDesc"><%=User.find(titulacionesdemanda.user_juridico).nombre rescue nil%></td>
+     <td class="camposDesc">
+       <% if permiso("titulacionesdemanda","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_titulacion_titulacionesdemanda_path(@titulacion, titulacionesdemanda),
+		:method => :get},:class=>"editarlink")%>
+       <%end%>
+       <%= link_to 'Seguimiento', new_nota_titulacionesseguimiento_path(titulacionesdemanda.id), :class=>"imagennotas"%>
+       <% if permiso("titulacionesdemanda","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => titulacion_titulacionesdemanda_path(@titulacion, titulacionesdemanda),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <%end%>
+        </td>
+   </tr>
+   <% if titulacionesdemanda.titulacionesseguimientos.exists? %>
+    <tr>
+      <td colspan="5">
+        <div align="center">
+            <table width="95%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="20%" align="left" height="20" class="oce-first">Fecha - Usuario</td>
+                <td width="10%" align="left" height="20" class="oce-first">Fecha Actuación</td>
+                <td width="70%" align="left" height="20" class="oce-first">Observacion </td>
+              </tr>
+              <% for titulacionesseguimiento in titulacionesdemanda.titulacionesseguimientos.find(:all, :order => 'fecha DESC') %>
+              <tr  class="<%=cycle('even1', 'odd1')%>">
+                <td align="left" class="camposDesc"><%=titulacionesseguimiento.created_at.strftime("%Y-%m-%d %X")%><br/>
+                  <a title="<%=titulacionesseguimiento.user.nombre rescue nil%>"><%=titulacionesseguimiento.user.username rescue nil%></a></td>
+                <td align="left" class="camposDesc"><%=titulacionesseguimiento.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+                <td align="left" class="camposDesc"><%=titulacionesseguimiento.observacion rescue nil%></td>
+              </tr>
+               <% end %>
+            </table>
+        </div>
+      </td>
+    </tr>
+<% end %>
+
+
+     <% else %>
+     <table><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "titulacionesdemandas_form" %>
+      <table>
+   <% end %>
+   <% end %>
+  </table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesdemanda] %>
+<div id="titulacionesdemanda">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesdemanda] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesdemanda');", 5000)
+</script>
+<% end %>
+</div>
+

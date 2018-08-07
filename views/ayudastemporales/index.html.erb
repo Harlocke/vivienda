@@ -1,0 +1,54 @@
+<h1>Listing ayudastemporales</h1>
+
+<table>
+  <tr>
+    <th>Identificacion jefe</th>
+    <th>Identificacion bene</th>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Parentesco</th>
+    <th>Estado atencion</th>
+    <th>Nro carpeta</th>
+    <th>Tipo evacuacion</th>
+    <th>Fecha remision</th>
+    <th>Nro ficha simpad</th>
+    <th>Evento</th>
+    <th>Direccion evento</th>
+    <th>Telefono evento</th>
+    <th>Barrio evento</th>
+    <th>Direccion nueva viv</th>
+    <th>Telefono nueva viv</th>
+    <th>Barrio nueva viv</th>
+    <th>Fecha contrato</th>
+  </tr>
+
+<% @ayudastemporales.each do |ayudastemporal| %>
+  <tr>
+    <td><%=h ayudastemporal.identificacion_jefe %></td>
+    <td><%=h ayudastemporal.identificacion_bene %></td>
+    <td><%=h ayudastemporal.nombre %></td>
+    <td><%=h ayudastemporal.apellido %></td>
+    <td><%=h ayudastemporal.parentesco %></td>
+    <td><%=h ayudastemporal.estado_atencion %></td>
+    <td><%=h ayudastemporal.nro_carpeta %></td>
+    <td><%=h ayudastemporal.tipo_evacuacion %></td>
+    <td><%=h ayudastemporal.fecha_remision %></td>
+    <td><%=h ayudastemporal.nro_ficha_simpad %></td>
+    <td><%=h ayudastemporal.evento %></td>
+    <td><%=h ayudastemporal.direccion_evento %></td>
+    <td><%=h ayudastemporal.telefono_evento %></td>
+    <td><%=h ayudastemporal.barrio_evento %></td>
+    <td><%=h ayudastemporal.direccion_nueva_viv %></td>
+    <td><%=h ayudastemporal.telefono_nueva_viv %></td>
+    <td><%=h ayudastemporal.barrio_nueva_viv %></td>
+    <td><%=h ayudastemporal.fecha_contrato %></td>
+    <td><%= link_to 'Show', ayudastemporal %></td>
+    <td><%= link_to 'Edit', edit_ayudastemporal_path(ayudastemporal) %></td>
+    <td><%= link_to 'Destroy', ayudastemporal, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ayudastemporal', new_ayudastemporal_path %>

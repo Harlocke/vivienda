@@ -1,0 +1,104 @@
+<table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%"><span class="campos">Tipo de Subsidio *</span></td>
+          <td width="20%"><span class="campos">Valor Asignado *</span></td>
+          <td width="20%"><span class="campos">Valor Utilizado </span></td>
+          <td width="20%"><span class="campos">Bolsa</span></td>
+        </tr>
+        <tr>
+          <td><%=select("subsidio", "tipos_subsidio_id", TiposSubsidio.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :subsidio, :tipos_subsidio_id, :css_class =>"cerror"%></td>
+          <td><%= text_field :subsidio, :valor,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :subsidio, :valor, :css_class =>"cerror"%></td>
+          <td><%= text_field :subsidio, :valor_utilizado,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :subsidio, :valor_utilizado, :css_class =>"cerror"%></td>
+          <td><%= text_field :subsidio, :bolsa,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :subsidio, :bolsa, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" align="center" cellspacing="2">
+        <tr class="odd1">
+          <td width="45%"><span class="campos">Nro Resoluci&oacute;n o Asignaci&oacute;n *</span></td>
+          <td width="15%"><span class="campos">Fechas Asignacion *</span></td>
+          <td width="20%"><span class="campos">Entidad Otorga </span></td>
+          <td width="20%"><span class="campos">Caja que lo administra </span></td>
+        </tr>
+        <tr>
+          <td><%= text_field :subsidio, :resolucion,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :subsidio, :resolucion, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "subsidio", "fecha_asig", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :subsidio, :fecha_asig, :css_class =>"cerror"%></td>
+          <td><%= select(:subsidio,:entidad_otorga, select_entidadotorga,{ :include_blank => true },
+                          { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= select(:subsidio,:entidad_admin, select_entidadadmin, { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" align="center" cellspacing="2">
+  <tr class="odd1">
+    <td width="32%"><span class="campos">Estado</span></td>
+    <td width="35%"><span class="campos">Tipo de Cobro </span></td>
+    <td width="15%"><span class="campos">Fecha Envio </span></td>
+    <td width="18%"><span class="campos">Solicitud de Pago (SP) </span></td>
+  </tr>
+  <tr>
+    <td><%= select(:subsidio, :estado, select_estadosubsidio, { :include_blank => true },
+                      { :style=>"width:240px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    <td><%= select(:subsidio, :tipo_cobro, select_tipocobro,{ :include_blank => true },
+                      { :style=>"width:280px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    <td><%= calendar_date_select "subsidio", "fecha_cobro", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+    <td><%= text_field :subsidio, :solicitud_pago,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" align="center" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%"><span class="campos">Fecha Pago </span></td>
+          <td width="32%"><span class="campos">Modalidad</span></td>
+          <td width="18%"><span class="campos">Vigencia Subsidio </span></td>
+          <td width="45%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "subsidio", "fecha_pago", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td><%= select(:subsidio,
+                :modalidad, { "ARRENDAMIENTO" => "ARRE",
+                              "NUEVA" => "NUEVA",
+                              "USADA" => "USADA",
+                              "NUEVA POR REPOSICION" => "NPR",
+                              "MEJORAMIENTO" => "MEJ"},
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= calendar_date_select "subsidio", "fecha_vigencia", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+
+<table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :subsidio, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>
+  

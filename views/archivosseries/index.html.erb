@@ -1,0 +1,36 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/archivomin.png" width="64" height="64"/></td>
+              <td width="87%"><div class="col_enc">ARCHIVOS SERIES</div></td>
+              <td width="10%"><div align="right">
+                <% if permiso("archivosserie","C").to_s == "S" %>
+                  <%= link_to image_tag('nuevo.png', { :border=>0, :title => "Nuevo"}),new_archivosserie_path %>
+                <% end %>
+                  <%= link_to image_tag('atras.png', { :border=>0, :title => "Buscar"}),archivos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="10%" height="30" class="oce-first">Codigo subserie</td>
+    <td width="60%" height="30" class="oce-first">Subserie</td>
+    <td width="20%" height="30" class="oce-first">Codigo final</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+<% @archivosseries.each do |archivosserie| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h archivosserie.codigo_subserie %></td>
+    <td class="camposDesc"><%=h archivosserie.subserie %></td>
+    <td class="camposDesc"><%=h archivosserie.codigo_final %></td>
+    <td class="camposDesc"><div align="center">
+        <%= link_to 'Editar',edit_archivosserie_path(archivosserie), :class=>"editarlink"%></div></td>
+  </tr>
+<% end %>
+</table>
+<br/>

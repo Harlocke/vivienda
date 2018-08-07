@@ -1,0 +1,36 @@
+<h1>Editing iguanasactualizacion</h1>
+
+<% form_for(@iguanasactualizacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :iguana %><br />
+    <%= f.text_field :iguana %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :tabla_id %><br />
+    <%= f.text_field :tabla_id %>
+  </p>
+  <p>
+    <%= f.label :bloque %><br />
+    <%= f.text_field :bloque %>
+  </p>
+  <p>
+    <%= f.label :tipo_transaccion %><br />
+    <%= f.text_field :tipo_transaccion %>
+  </p>
+  <p>
+    <%= f.label :observacion %><br />
+    <%= f.text_field :observacion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @iguanasactualizacion %> |
+<%= link_to 'Back', iguanasactualizaciones_path %>

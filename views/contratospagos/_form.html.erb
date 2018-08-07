@@ -1,0 +1,114 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CONTRATISTA ( <%=@contrato.empleado.identificacion%> - <%=@contrato.empleado.nombres%>)</div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  edit_empleado_path(@contrato.empleado_id) %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Nro Contrato</td>
+    <td width="10%" height="30" class="oce-first">Fecha Inicio</td>
+    <td width="10%" height="30" class="oce-first">Fecha Final</td>
+    <td width="70%" height="30" class="oce-first">Objeto</td>
+  </tr>
+   <tr>
+     <td height="30" class="camposDesc"><%=@contrato.nro_contrato%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_inicio%></td>
+     <td height="30" class="camposDesc"><%=@contrato.fecha_final%></td>
+     <td height="30" class="camposDesc"><%=@contrato.objeto%></td>
+ </tr>
+</table>
+   <br>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;EJECUCIONES - PAGOS - ANTICIPOS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+   <%= f.hidden_field :tipo_pago %>
+<% if @contratospago.tipo_pago.to_s == "P" %>
+<table width="70%" align="center">
+  <tr>
+    <td class="campos" width="40%">Nro Cuenta : *</td>
+    <td width="60%"><%= f.text_field :nro_cuenta,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :nro_cuenta, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Cuenta Cobro : *</td>
+    <td><%= calendar_date_select "contratospago", :fecha_cuenta, :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+     <%= f.error_message_on :fecha_cuenta, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Aprobacion : *</td>
+     <td><%= calendar_date_select "contratospago", "fecha_aprobacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      <%= f.error_message_on :fecha_aprobacion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Total: *</td>
+    <td><%= f.text_field :valor_total,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :valor_total, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Amortizar: *</td>
+    <td><%= f.text_field :valor_amortizar,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :valor_amortizar, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Pagar *</td>
+    <td><%= f.text_field :valor_pagar,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :valor_pagar, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Rubro : *</td>
+    <td><%=select("contratospago", "rubro_id", Rubro.find(:all,:conditions => ['id in (select rubro_id from contratosrubros where contrato_id = ?)', @contrato.id]).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:550px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+     <%= f.error_message_on :rubro_id, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Orden :</td>
+     <td><%= calendar_date_select "contratospago", "fecha_orden", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      <%= f.error_message_on :fecha_orden, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<% else %>
+<table width="70%" align="center">
+  <tr>
+    <td class="campos" width="40%">Valor Anticipo: </td>
+    <td width="60%"><%= f.text_field :valor,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :valor, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Porcentaje Amortizacion : </td>
+        <td><%= f.text_field :porcentaje_amorti,{ :class => "campo", :size => 20,:maxlength => 5,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+     <%= f.error_message_on :porcentaje_amorti, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<% end %>

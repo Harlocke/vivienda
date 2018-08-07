@@ -1,0 +1,59 @@
+<fieldset>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td height="30"><div class="col_enc">ENCUESTAS DE SATISFACCION</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Crear un encuesta', {:controller=>"personasencuestas", :action=>"new", :persona_id=>@persona.id} %></span></div></div></td>
+    </tr>
+  </table>
+  <% @persona.personasencuestas.each do |personasencuesta| %>
+  <div align="center">
+    <table width="90%" align="center" id="one-column-emphasis">
+      <tr class="odd1">
+        <td width="65%" height="20" class="campos" align="left">Consecutivo registro </td>
+        <td class="camposDesc" align="left"><%=personasencuesta.id rescue nil%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Motivo </td>
+        <td class="camposDesc" align="left"><%=personasencuesta.temadesc rescue nil%></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos" align="center" colspan="2">PERCEPCIÓN FRENTE A LA ATENCIÓN RECIBIDA</td>
+      </tr>
+      <tr>
+        <td height="20" class="campos"><div align="left">Considera que la información que recibió fue completa y clara?</div></td>
+        <td class="camposDesc"><div align="left"><%=personasencuesta.info_recibida rescue nil%></div></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos"><div align="left">Recibió por parte del  personal que lo atendió un trato respetuoso y  amable?</div></td>
+        <td class="camposDesc"><div align="left"><%=personasencuesta.respetuoso rescue nil%></div></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos"><div align="left">El tiempo que espero para ser atendio fue entre:</div></td>
+        <td class="camposDesc"><div align="left"><%=personasencuesta.tiempo rescue nil%></div></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos"><div align="left">Considera que las Instalaciones donde fue atendido son cómodas? </div></td>
+        <td class="camposDesc"><div align="left"><%=personasencuesta.instalaciones rescue nil%></div></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos"><div align="left">Se sintió satisfacho con la atención recibida? </div></td>
+        <td class="camposDesc"><div align="left"><%=personasencuesta.satisfecho rescue nil%></div></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos" align="left">Fecha</td>
+        <td class="camposDesc" align="left"><%=personasencuesta.user.username rescue nil%> - <%=personasencuesta.updated_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+      </tr>
+    </table>
+    <br/>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <br/>
+  </div>
+  <% end %>
+  <br/>
+</fieldset>

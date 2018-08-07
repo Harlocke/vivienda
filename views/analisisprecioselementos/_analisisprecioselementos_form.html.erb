@@ -1,0 +1,35 @@
+<div align="center"><table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="85%" height="20" class="campos"><div align="left">Elemento</div></td>
+    <td width="15%" height="20" class="campos"><div align="left">Cantidad</div></td>
+  </tr>
+  <tr valign="middle">
+    <td class="campos"><div align="left">
+        <%= text_field_with_auto_complete :analisisprecioselemento, :precioselemento_autobuscar,
+	    { :class => "campo",
+                :size => 130,
+                :maxlength => 450},
+	    { :url => listar_precioselementos_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+     <%= error_message_on :analisisprecioselemento, :precioselemento_autobuscar, :css_class =>"cerror"%>
+       </div></td>
+    <td class="campos"><div align="left">
+        <%= text_field "analisisprecioselemento", "cantidad",{ :class => "campo", :size => 10}%>
+    <%= error_message_on :analisisprecioselemento, :cantidad, :css_class =>"cerror"%>
+      </div></td>
+  </tr>
+</table>
+    <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="60%"><div align="right">
+      &nbsp;&nbsp;<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :analisisprecioselemento, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+<br/>

@@ -1,0 +1,28 @@
+<p>
+  <b>Mes:</b>
+  <%=h @almacenescierre.mes %>
+</p>
+
+<p>
+  <b>Anno:</b>
+  <%=h @almacenescierre.anno %>
+</p>
+
+<p>
+  <b>Producto:</b>
+  <%=h @almacenescierre.producto_id %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%=h @almacenescierre.cantidad %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%=h @almacenescierre.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_almacenescierre_path(@almacenescierre) %> |
+<%= link_to 'Back', almacenescierres_path %>

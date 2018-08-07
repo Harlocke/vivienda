@@ -1,0 +1,58 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION COMPLETA DEMANDAS - TITULACIONES</h3>
+</div>
+<table border="1">
+  <tr valign="middle" bgcolor="#00FF00">
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>ID</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Tipo de proceso</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Radicado</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Fecha radicado</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Estado</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Notificado</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Inspeccion Judifical</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Sentencia</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Fecha Creacion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Usuario Creacion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Fecha Ult. Actualizacion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Usuario Ult. Actualizacion</strong></td>
+    <td colspan="2" style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Cobama</strong></td>
+  </tr>
+<% @demandas.each do |demanda| %>
+  <tr valign="middle">
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.id rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.tipoproceso rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left">&nbsp;<%=demanda.radicado.to_s rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.fecha_radicado rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.estado rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.notificado rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.inspeccion rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.sentencia rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.created_at.strftime("%Y-%m-%d %X")%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=User.find(demanda.user_id).nombre rescue nil%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=demanda.updated_at.strftime("%Y-%m-%d %X")%></div></td>
+     <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><div align="left"><%=User.find(demanda.user_actualiza).nombre rescue nil%></div></td>
+     <td colspan="2" style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left">
+        <% demanda.demandascobamas.each do |demandascobama| %>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+              <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top"><%=demandascobama.cobama%></td>
+              <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;" valign="top">
+               <% if Titulacion.exists?(["cobama = '#{demandascobama.cobama}'"]) == true
+                    @titulacion = Titulacion.find(:first, :conditions=>["cobama = '#{demandascobama.cobama}'"]) %>
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                      <% @titulacion.titulacionespersonas.each do |titulacionespersona| %>
+                        <tr style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><td align="left" class="camposDesc"><%=titulacionespersona.persona.identificacion rescue nil%> - <%=titulacionespersona.persona.nombres rescue nil%></td></tr>
+                      <% end %>
+                    </table>
+               <% else %>
+               El Cobama no se encuentra registrado en el modulo de Titulaciones
+               <% end %>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+       </div></td>
+  </tr>
+<% end %>
+</table>

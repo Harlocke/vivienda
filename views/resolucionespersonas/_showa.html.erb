@@ -1,0 +1,80 @@
+<fieldset>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td height="20"><div class="col_enc">RESOLUCIONES</div></td>
+    </tr>
+  </table>
+  <div align="center">
+      <% for resolucionespersona in @ayuda.persona.resolucionespersonas.find(:all, :order => 'created_at DESC') %>
+            <br/>
+            <table width="90%" align="center" id="one-column-emphasis">
+              <tr class="odd1">
+                <td width="20%" height="20" class="campos" align="left">Nro Resolucion</td>
+                <td width="80%" align="left" class="camposDesc"><%=resolucionespersona.resolucion.nro_resolucion rescue nil%> - <%=resolucionespersona.resolucion.anno rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" height="20" align="left">Fecha Resolucion</td>
+                <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.fecha rescue nil%></td>
+              </tr>
+              <tr class="odd1">
+                <td class="campos" height="20" align="left">Clase de Resolucion</td>
+                <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.resolucionesclase.descripcion rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" height="20" align="left">Modalidad del Subsidio </td>
+                <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.modalidad rescue nil%></td>
+              </tr>
+              <tr class="odd1">
+                <td class="campos" height="20" align="left">Objeto</td>
+                <td align="left" class="camposDesc"><div align="justify"><%=resolucionespersona.resolucion.resuelve rescue nil%></div></td>
+              </tr>
+              <tr>
+                <td class="campos" height="20" align="left">Observaciones</td>
+                <td class="camposDesc"><div align="justify"><%=resolucionespersona.resolucion.observaciones rescue nil%></div></td>
+              </tr>
+              <tr class="odd1">
+                <td class="campos" height="20" align="left">Dependencia Solicitante</td>
+                <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.dependencia.descripcion rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" height="20" align="left">Responsable</td>
+                <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.user.nombre rescue nil%></td>
+              </tr>
+            </table>
+            <% if Resolucionesimagen.exists?(["resolucion_id = #{resolucionespersona.resolucion_id}"])
+                resolucion = Resolucion.find(resolucionespersona.resolucion_id)%>
+                <br/>
+                <table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+                  <tr><td height="20"><div class="col_enc">INFORMACION DIGITALIZADA</div></td></tr>
+                </table>
+                <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+                  <tr valign="middle">
+                    <td width="45%" class="oce-first" align="left">Descripcion</td>
+                    <td width="50%" class="oce-first" align="left">Nombre del Archivo</td>
+                    <td width="5%" class="oce-first" align="left">&nbsp;</td>
+                  </tr>
+                  <% resolucion.resolucionesimagenes.each do |resolucionesimagen| %>
+                   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                     <td class="camposDesc" align="left"><%=resolucionesimagen.descripcion%></td>
+                     <td class="camposDesc" align="left"><%=resolucionesimagen.resolucion_file_name%></td>
+                     <td class="camposDesc" align="right"><%= link_to "Ver", resolucionesimagen.resolucion.url(:original, false),
+                                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                     </td>
+                   </tr>
+                  <% end %>
+                </table>
+            <% else %>
+                <br/>
+                <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+                  <tr>
+                    <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+                    <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+                  </tr>
+                </table>
+            <% end %>
+            <table width="90%" height="0" border="0" cellpadding="0" cellspacing="0">
+              <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+            </table>
+    <% end %>
+  </div>
+</fieldset>

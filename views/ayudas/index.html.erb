@@ -1,0 +1,83 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/arrendamientotemporalmin.png" width="64" height="64"/></td>
+          <td width="79%"><div class="col_enc">ARRENDAMIENTO TEMPORAL</div></td>
+          <td width="18%"><div align="right">   
+          <%= link_to image_tag('refreshs.png',{ :border=>0, :title => "Refresh"}), ayudas_path%>       
+          <%= link_to image_tag('agendass.png',{ :border=>0, :title => "Agenda"}), agendas_path, { :popup => ['Agendas','height=800,width=600,scrollbars=yes']}%>       
+          <% if permiso("ayuda","C").to_s == "S" %>
+             <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),new_ayuda_path %>            
+          <% end %>
+          </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<% form_tag buscar_ayudas_path, :method => 'get' do %>
+<%# REQ-0 Arrendamiento temporal - 22/03/2018 - harlynton.castano%>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Identificacion</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20, :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td height="20" class="campos" align="left">Nombre</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :nombre, params[:nombre],{ :class => "campo", :size => 70, :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td height="20" class="campos" align="left">Tipo de Relación</td>
+      <td class="camposDesc" align="left"><%= select("ubicacion","tipoevacuacion",select_tiporelacion, { :include_blank => true },{ :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+    <tr>
+      <td height="20" class="campos" align="left">Carpeta</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :carpeta, params[:carpeta],{ :class => "campo", :size => 20, :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+     <tr class="odd1">
+      <td height="20" class="campos" align="left">Dirección</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :direccion, params[:direccion],{ :class => "campo", :size => 70, :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      </td>
+    </tr>
+    <tr>
+      <td height="20" class="campos" align="left">Nro Ficha DAGRD </td>
+      <td class="camposDesc" align="left"><%= text_field_tag :nroficha, params[:nroficha],{ :class => "campo", :size => 20, :onChange=> "javascript:this.value=this.value.toUpperCase();", :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+   
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+  <td  height="20">
+      <div align="left">
+        <div class="uiButton"><img class="img" src="/images/personir.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= link_to "Propietarios", propietarios_path %></span></div>
+        <div class="uiButton"><img class="img" src="/images/agendasm.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= link_to "Proceso de Agenda", agendasprocesos_path %></span></div>
+        <div class="uiButton"><img class="img" src="/images/agendasm.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+        <%= link_to "Buscador Agenda", busqueda_agendas_path, { :popup => ['Buscador_agenda','height=450,width=800,scrollbars=yes']}%></span></div>
+        <div class="uiButton"><img class="img" src="/images/agendasm.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+        <%= link_to "Agenda por dia", agendadia_agendas_path, { :popup => ['Agenda_por_dia','height=800,width=900,scrollbars=yes']}%></span></div>
+      </div>
+    </td>
+
+    <td  height="40">
+      <div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+              </span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>

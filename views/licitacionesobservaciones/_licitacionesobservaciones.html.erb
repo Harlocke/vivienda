@@ -1,0 +1,61 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@licitacion, @licitacionesobservacion] do |form| %>
+    <% if !@licitacionesobservacion.id %>
+	<%= render :partial => "/licitacionesobservaciones/licitacionesobservaciones_form" %>
+    <% end %>
+<% if @licitacion.licitacionesobservaciones.exists? %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="18%" height="30" class="oce-first"><div align="center">Fecha</div></th>
+    <th width="70%" height="30" class="oce-first">Observaciones</th>
+    <th width="12%" height="30" class="oce-first">&nbsp;</th>
+  </tr>
+<% for licitacionesobservacion in @licitacion.licitacionesobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if licitacionesobservacion.id != @licitacionesobservacion.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="licitacionesobservacion_<%=licitacionesobservacion.id%>">
+          <td  height="30" class="camposDesc"><%=licitacionesobservacion.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=licitacionesobservacion.user.nombre rescue nil%>"><%=licitacionesobservacion.user.username rescue nil%></a>          </td>
+          <td class="camposDesc"><%=licitacionesobservacion.observaciones%></td>
+          <td class="camposDesc">
+            <% if permiso("licitacionesobservacion","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_licitacion_licitacionesobservacion_path(@licitacion, licitacionesobservacion),
+		:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("licitacionesobservacion","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => licitacion_licitacionesobservacion_path(@licitacion, licitacionesobservacion),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+        </td>
+        </tr>
+<% else %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><div class="col_enc">EDITAR OBSERVACION</div></td></tr></table>
+     <%= render :partial => "licitacionesobservaciones_form" %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+        <% end %>
+</table>
+<% else %>
+<div id="capacitacion">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+            <%= hidden_field :licitacion, :id %>
+<% end %>
+<br/>
+<% if flash[:licitacioneslicitacionesobservacion] %>
+<div id="licitacioneslicitacionesobservacion">
+    <div class="alert alert-success">
+      <%= flash[:licitacioneslicitacionesobservacion] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('licitacioneslicitacionesobservacion');", 5000)
+</script>
+<% end %>

@@ -1,0 +1,53 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATOS
+    <%= link_to "Nuevo", {:controller => "contratos", :action => "new", :empleadoid=>@empleado.id}, :class=>"btn btn-success"%> </div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<% if @empleado.contratos.exists? %>
+   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+    <tr valign="middle">
+      <td width="5%" height="30" class="oce-first"><div align="center">Nro</div></td>
+      <td width="13%" height="30" class="oce-first"><div align="center">Fecha<p></p>Inicio</div></td>
+      <td width="13%" height="30" class="oce-first"><div align="center">Fecha<p></p>Final</div></td>
+      <td width="13%" height="30" class="oce-first"><div align="center">Fch Final +<p></p>Modificacion</div></td>
+      <td width="13%" height="30" class="oce-first"><div align="center">Valor <p></p>Contrato</div></td>
+      <td width="13%" height="30" class="oce-first"><div align="center">Valor Contrato +<p></p>Modificacion</div></td>
+      <td width="30%" height="30" class="oce-first"></td>
+    </tr>
+    <% for contrato in @empleado.contratos.find(:all, :order => 'fecha_inicio DESC') %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="contrato_<%= contrato.id%>">
+         <td height="30" class="camposDesc"><div align="center"><%=contrato.nro_contrato%></div></td>
+         <td height="30" class="camposDesc"><div align="center"><%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></div></td>
+         <td height="30" class="camposDesc"><div align="center"><%=contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%></div></td>
+         <td height="30" class="camposDesc"><div align="center"><%=contrato.fecha_masmodi.strftime("%Y-%m-%d") rescue nil%></div></td>
+         <td height="30" class="camposDesc"><div align="center"><%=number_to_currency(contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+         <td height="30" class="camposDesc"><div align="center"><%=number_to_currency(contrato.valor_masmodi,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+         <td class="camposDesc"><div align="center">
+            <% if permiso("contrato","A").to_s == "S" %>
+                <%= link_to "Editar", {:controller=>"contratos", :action=>"edit", :id=>contrato.id}, :class=>"editarlink"%>&nbsp;|
+            <% end %>
+            <% if permiso("contrato","E").to_s == "S" %>
+                <%= link_to_remote('Borrar',{:url => empleado_contrato_path(@empleado, contrato),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>&nbsp;|
+            <% end %>            
+            <%= link_to "Ver", {:controller => "contratos", :action => "ver", :id=>contrato.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>&nbsp;|
+            <% if permiso("contrato","A").to_s == "S" %>
+              <%= link_to "Acta", {:controller => "contratos", :action => "actainicio", :id=>contrato.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>&nbsp;|
+              <%= link_to "Inter", {:controller => "contratos", :action => "actainterventoria", :id=>contrato.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>&nbsp;|
+              <%= link_to "Carta1", {:controller => "contratos", :action => "actacarta1", :id=>contrato.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>&nbsp;|
+              <%= link_to "Carta2", {:controller => "contratos", :action => "actacarta2", :id=>contrato.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>&nbsp;|
+              <%= link_to "Comp", {:controller => "contratos", :action => "solicitarcompromiso", :id=>contrato.id},  :popup => ['new_window','height=100,width=230,scrollbars=yes'], :class=>"emaillink"%>
+              <% if permiso("interventoriasespecial","C").to_s == "S" %>|
+                <%= link_to "D1", {:controller => "estudiosprevios", :action => "ir", :id=>contrato.id},:title=>"Ir al Estudio previo", :class=>"imagennotas"%>
+                <%= link_to "D2", {:controller => "interventorias", :action => "actualizacionact", :id=>contrato.id},:title=>"Actualizar informe de interventoria", :confirm=>"Esta Seguro?", :class=>"imagennotas"%>
+              <% end %>
+            <% end %>
+            </div>
+          </td>
+       </tr>
+    <% end %>
+  </table>
+<% end %>

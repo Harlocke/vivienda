@@ -1,0 +1,90 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<%   if permiso("comitesimagen","C").to_s == "S"
+       if permiso("comitesespecial","C").to_s == "S" %>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2">
+            <tr>
+              <td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_comite_comitesimagen_path(@comite.id) %></span></div></div></td>
+            </tr>
+          </table>
+<%     else
+         if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+            <table width="100%" border="0" cellpadding="2" cellspacing="2">
+              <tr>
+                <td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_comite_comitesimagen_path(@comite.id) %></span></div></div></td>
+              </tr>
+            </table>
+<%       end
+       end
+     end %>
+<br/>
+<div align="center">
+<% remote_form_for [@comite, @comitesimagen] do |form| %>
+<% if !@comitesimagen.id %>
+<% end %>
+<% if @comite.comitesimagenes.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="30" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" height="30" class="oce-first" align="left">Nombre del comite</td>
+    <td width="20%" height="20" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+</table>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <% for comitesimagen in @comite.comitesimagenes.find(:all, :conditions =>['comite_content_type not like ?', '%image%'],:order => 'created_at DESC') %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="comitesimagen_<%= comitesimagen.id%>">
+     <td width="30%" height="30" class="camposDesc" align="left"><%=comitesimagen.descripcion%></td>
+     <td width="50%" height="30" class="camposDesc" align="left"><%=comitesimagen.comite_file_name%></td>
+     <td width="20%" height="30" class="camposDesc" align="right">
+      <%= link_to "Ver", comitesimagen.comite.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+<%   if permiso("comitesimagen","E").to_s == "S"
+       if permiso("comitesespecial","C").to_s == "S" %>
+           &nbsp;|&nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesimagen_path(@comite, comitesimagen),:method=>:delete,:confirm=>"¿Seguro?"},:class=>"borrarlink")%>
+<%     else
+         if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+           &nbsp;|&nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesimagen_path(@comite, comitesimagen),:method=>:delete,:confirm=>"¿Seguro?"},:class=>"borrarlink")%>
+<%       end
+       end
+     end %>
+     </td>
+   </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+ <% for comitesimagen in @comite.comitesimagenes.find(:all, :conditions =>['comite_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="comitesimagen_<%= comitesimagen.id%>">
+     <td width="100%" height="30" class="camposDesc"><div align="center">
+        <%= link_to image_tag (comitesimagen.comite.url, :size =>"250x250", :border=>0,
+                              :title => "Ver Documento"),
+                              comitesimagen.comite.url(:original, false),
+                             { :title=>"#{comitesimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+         <br/><%=comitesimagen.descripcion%>  <% if permiso("comitesimagen","E").to_s == "S" %>
+               &nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesimagen_path(@comite, comitesimagen),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %>
+               <br/>
+       </div>
+       </td>
+   </tr>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :comite, :id %>
+<% end %>
+</div>

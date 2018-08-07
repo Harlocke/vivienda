@@ -1,0 +1,24 @@
+<h1>Editing mejoramientosactualizacion</h1>
+
+<% form_for(@mejoramientosactualizacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :mejoramiento_id %><br />
+    <%= f.text_field :mejoramiento_id %>
+  </p>
+  <p>
+    <%= f.label :bloque %><br />
+    <%= f.text_field :bloque %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @mejoramientosactualizacion %> |
+<%= link_to 'Back', mejoramientosactualizaciones_path %>

@@ -1,0 +1,107 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ETAPAS RELACIONADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@procesosjuridico, @procesosetapa] do |form| %>
+  <% if permiso("procesosetapa","C").to_s == "S" %>
+   <% if !@procesosetapa.id %>
+	<%= render :partial => "/procesosetapas/procesosetapas_form" %>
+   <% end %>
+<% end %>
+<% if @procesosjuridico.procesosetapas.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="8%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Etapa</td>
+    <td width="8%" height="30" align="left" class="oce-first">Fecha Limite</td>
+    <td width="8%" height="30" align="left" class="oce-first">Fecha Actuacion</td>
+    <td width="30%" height="30" align="left" class="oce-first">Observaciones</td>
+    <td width="10%" height="30" align="left" class="oce-first">Resultado</td>
+    <td width="6%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="15%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for procesosetapa in @procesosjuridico.procesosetapas.find(:all, :order => 'fecha_actuacion ASC') %>
+   <% if procesosetapa.id != @procesosetapa.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="procesosetapa_<%= procesosetapa.id%>">
+     <td width="8%" height="30" align="left" class="camposDesc"><%=procesosetapa.created_at%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=procesosetapa.etapasproceso.descripcion rescue nil%></td>
+     <td width="8%" height="30" align="left" class="camposDesc"><%=procesosetapa.fecha_limite%></td>
+     <td width="8%" height="30" align="left" class="camposDesc"><%=procesosetapa.fecha_actuacion%></td>
+     <td width="30%" height="30" align="left" class="camposDesc"><%=procesosetapa.observaciones%></td>
+     <td width="10%" height="30" align="left" class="camposDesc"><%=procesosetapa.destado%></td>
+     <td width="6%" height="30" align="left" class="camposDesc"><%=procesosetapa.dfirmeza%></td>
+      <td width="15%" align="right" class="camposDesc">
+        <% if permiso("procesosetapa","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_procesosjuridico_procesosetapa_path(@procesosjuridico, procesosetapa),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("procesosetapa","E").to_s == "S" %>
+         &nbsp;|&nbsp;<%= link_to_remote('Borrar',{:url => procesosjuridico_procesosetapa_path(@procesosjuridico, procesosetapa),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %>
+      <% if procesosetapa.etapasproceso_id.to_s == '10012' or procesosetapa.etapasproceso_id.to_s == '10013'
+           if procesosetapa.estado.to_s == '2' or procesosetapa.estado.to_s == '3'  %>
+         <%= link_to "Cumplimiento", {:controller => "procesosetapas", :action => "seguimiento", :id=>procesosetapa.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"imagensuspension"%>
+         &nbsp;
+      <%   end %>
+      <% end%>
+      </td>
+   </tr>
+    <% if procesosetapa.cumplimiento_fallo %>
+   <tr>
+     <td colspan="8" align="center">
+       <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="20%" align="left" class="oce-first">CUMPLIMIENTO FALLO</td>
+            <td width="84%" align="left" class="camposDesc"><%=procesosetapa.cumplimiento_fallo%></td>
+          </tr>
+       </table>
+     </td>
+   </tr>
+    <% end %>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR PROCESO</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="procesosetapa_<%=@procesosetapa.id%>">
+     <%= render :partial => "procesosetapas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :procesosjuridico, :id %>
+<% end %>
+<% if flash[:procesosetapa] %>
+<br/>
+<div id="procesosetapa">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:procesosetapa] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('procesosetapa');", 5000)
+</script>
+<% end %>
+</div>

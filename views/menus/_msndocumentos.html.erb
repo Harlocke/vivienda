@@ -1,0 +1,25 @@
+<%
+  existenmensaje = Mensajesenvio.exists?(["user_id = #{is_admin} and estado = 'C'"])
+  if existenmensaje
+%>
+    <table width="80%" height="100%" border="0"  align="center"cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="100%"><div class="col_enc">DOCUMENTOS PRESTADOS Y/O ENTREGADOS (<%=@mensajesenviosc.count rescue 0%>)</div></td>
+      </tr>
+    </table>
+    <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="93%" height="20" class="oce-first">Descripcion</td>
+        <td width="7%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @mensajesenviosc.each do |mensajesenvio| %>
+      <tr class="<%=cycle('even1', 'odd1')%> post1S_<%=mensajesenvio.id%>">
+        <td height="30" class="camposDesc"><div align="justify"><strong><%=h mensajesenvio.created_at.strftime("%Y-%m-%d %X") %></strong> - <%=h mensajesenvio.descripcion %></div></td>
+        <td class="camposDesc"><div align="center">
+          <%= link_to_remote image_tag('application_edit.png', { :border => 0, :title => "Verificado"}),
+          :url => mensajesenvio_url(:id => mensajesenvio), :method => :delete,
+          :before => "$(this).up('.post1S_#{mensajesenvio.id}').remove()"%></div></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

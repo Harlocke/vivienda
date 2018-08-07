@@ -1,0 +1,1 @@
+page.replace_html :iguanasmejoras_form, :partial => "iguanasmejoras", :object => @iguanasmejora

@@ -1,0 +1,1 @@
+page.replace_html :valorizacionespagos_form, :partial => "valorizacionespagos", :object => @valorizacionespago

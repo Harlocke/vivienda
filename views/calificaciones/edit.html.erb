@@ -1,0 +1,28 @@
+<h1>Editing calificacion</h1>
+
+<% form_for(@calificacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nro_formulario %><br />
+    <%= f.text_field :nro_formulario %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @calificacion %> |
+<%= link_to 'Back', calificaciones_path %>

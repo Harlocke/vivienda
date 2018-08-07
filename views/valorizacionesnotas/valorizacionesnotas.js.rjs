@@ -1,0 +1,1 @@
+page.replace_html :valorizacionesnotas_form, :partial => "valorizacionesnotas", :object => @valorizacionesnota

@@ -1,0 +1,262 @@
+<h3>Informe Consolidado por dependencia (Impresora en Arriendo)</h3>
+<table border="1">
+<tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="14%" rowspan="3" colspan="4"><div align="center"><strong>USUARIO</strong></div></td>
+    <td height="28" colspan="3" ><div align="center"><strong>MES JULIO 2016</strong></div></td>
+    <td colspan="9" ><div align="center"><strong>CONSUMO <%=@mes%></strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COSTOS</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td rowspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td rowspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td width="4%" rowspan="2" ><div align="center"><strong>TOTAL</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>TOTAL COPIAS - IMPRESIONES</strong></div></td>
+    <td width="2%" rowspan="2" ><div align="center"><strong>Tendencia</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>% DE PARTICIPACION</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>VALORES</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+  </tr>
+  <% @impsdep.each do |imp|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td colspan="4" ><%=imp.dependencia.descripcion_stiker rescue nil%></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat2) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1.to_i + imp.dat2.to_i) rescue 0%></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat4) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat5) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat6) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat7) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat8) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat9) rescue 0 %></div></td>
+        <td ></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat10) rescue 0 %> %</div></td>        
+        <td ><div align="center"><%=h camponumerico(imp.dat11) rescue 0 %> %</div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat12) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat13) rescue 0 %></div></td>
+      </tr>
+  <% end %>  
+</table>
+<br/>
+<h3>Informe detallado (Impresora en Arriendo)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="14%" rowspan="3" ><div align="center"><strong>USUARIO</strong></div></td>
+    <td width="15%" rowspan="3"  ><div align="center"><strong>CARGO</strong></div></td>
+    <td width="15%" rowspan="3" ><div align="center"><strong>DEPENDENCIA</strong></div></td>
+    <td width="6%" rowspan="3" ><div align="center"><strong>PROCESO</strong></div></td>
+    <td height="28" colspan="3" ><div align="center"><strong>MES JULIO 2016</strong></div></td>
+    <td colspan="9" ><div align="center"><strong>CONSUMO <%=@mes%></strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COSTOS</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td rowspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td rowspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td width="4%" rowspan="2" ><div align="center"><strong>TOTAL</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>TOTAL COPIAS - IMPRESIONES</strong></div></td>
+    <td width="2%" rowspan="2" ><div align="center"><strong>Tendencia</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>% DE PARTICIPACION</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>VALORES</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+  </tr>
+   <% @impresorasconsumos.each do |impresorasconsumo|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td ><%=h impresorasconsumo.user.nombre rescue nil %></td>
+        <td ><%=h impresorasconsumo.cargos rescue nil %></td>
+        <td ><%=h impresorasconsumo.dependencia.descripcion_stiker rescue nil %></td>
+        <td ><div align="center"><%=h impresorasconsumo.proceso rescue nil %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_ante_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_ante_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.totalmesanterior) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.cant_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.cant_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.total_mes) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.total_acumulado) rescue 0 %></div></td>
+        <td ><div align="center"><%=h impresorasconsumo.tendencia rescue nil %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.part_acumulado) rescue 0 %> %</div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.part_mes) rescue 0 %> %</div></td>
+        <td ><div align="rigth"><%=h camponumerico(impresorasconsumo.valor_mes) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(impresorasconsumo.valor_acumulado) rescue 0 %></div></td>
+      </tr>
+  <% end %>
+  <% @imps.each do |imp|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat2) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1.to_i + imp.dat2.to_i) rescue 0%></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat4) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat5) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat6) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat7) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat8) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat9) rescue 0 %></div></td>
+        <td ></td>
+        <td ><div align="center"></div></td>        
+        <td ><div align="center"></div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat12) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat13) rescue 0 %></div></td>
+      </tr>
+  <% end %>
+</table>
+<h3>Informe Consolidado por dependencia (Impresoras Propias)</h3>
+<table border="1">
+<tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td width="14%" rowspan="3" colspan="4"><div align="center"><strong>USUARIO</strong></div></td>
+    <td height="28" colspan="3" ><div align="center"><strong>MES JULIO 2016</strong></div></td>
+    <td colspan="9" ><div align="center"><strong>CONSUMO <%=@mes%></strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COSTOS</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td rowspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td rowspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td width="4%" rowspan="2" ><div align="center"><strong>TOTAL</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>TOTAL COPIAS - IMPRESIONES</strong></div></td>
+    <td width="2%" rowspan="2" ><div align="center"><strong>Tendencia</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>% DE PARTICIPACION</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>VALORES</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+  </tr>
+  <% @impsdepp.each do |imp|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td colspan="4" ><%=imp.dependencia.descripcion_stiker rescue nil%></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat2) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1.to_i + imp.dat2.to_i) rescue 0%></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat4) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat5) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat6) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat7) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat8) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat9) rescue 0 %></div></td>
+        <td ></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat10) rescue 0 %> %</div></td>        
+        <td ><div align="center"><%=h camponumerico(imp.dat11) rescue 0 %> %</div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat12) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat13) rescue 0 %></div></td>
+      </tr>
+  <% end %>  
+</table>
+<h3>Informe detallado (Impresoras propias)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td width="14%" rowspan="3" ><div align="center"><strong>USUARIO</strong></div></td>
+    <td width="15%" rowspan="3"  ><div align="center"><strong>CARGO</strong></div></td>
+    <td width="15%" rowspan="3" ><div align="center"><strong>DEPENDENCIA</strong></div></td>
+    <td width="6%" rowspan="3" ><div align="center"><strong>PROCESO</strong></div></td>
+    <td height="28" colspan="3" ><div align="center"><strong>MES JULIO 2016</strong></div></td>
+    <td colspan="9" ><div align="center"><strong>CONSUMO <%=@mes%></strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COSTOS</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td rowspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td rowspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td width="4%" rowspan="2" ><div align="center"><strong>TOTAL</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>COPIAS</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>IMPRESIONES</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>TOTAL COPIAS - IMPRESIONES</strong></div></td>
+    <td width="2%" rowspan="2" ><div align="center"><strong>Tendencia</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>% DE PARTICIPACION</strong></div></td>
+    <td colspan="2" ><div align="center"><strong>VALORES</strong></div></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Consumo</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Mes</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acumulado</strong></div></td> 
+  </tr>
+   <% @impresorasconsumosp.each do |impresorasconsumo|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td ><%=h impresorasconsumo.user.nombre rescue nil %></td>
+        <td ><%=h impresorasconsumo.cargos rescue nil %></td>
+        <td ><%=h impresorasconsumo.dependencia.descripcion_stiker rescue nil %></td>
+        <td ><div align="center"><%=h impresorasconsumo.proceso rescue nil %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_ante_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_ante_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.totalmesanterior) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.cant_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_copias) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.cant_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.acum_impresion) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.total_mes) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.total_acumulado) rescue 0 %></div></td>
+        <td ><div align="center"><%=h impresorasconsumo.tendencia rescue nil %></div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.part_acumulado) rescue 0 %> %</div></td>
+        <td ><div align="center"><%=h camponumerico(impresorasconsumo.part_mes) rescue 0 %> %</div></td>
+        <td ><div align="rigth"><%=h camponumerico(impresorasconsumo.valor_mes) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(impresorasconsumo.valor_acumulado) rescue 0 %></div></td>
+      </tr>
+  <% end %>
+  <% @impsp.each do |imp|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#0099FF">
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat2) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat1.to_i + imp.dat2.to_i) rescue 0%></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat4) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat5) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat6) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat7) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat8) rescue 0 %></div></td>
+        <td ><div align="center"><%=h camponumerico(imp.dat9) rescue 0 %></div></td>
+        <td ></td>
+        <td ></td>
+        <td ></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat12) rescue 0 %></div></td>
+        <td ><div align="rigth"><%=h camponumerico(imp.dat13) rescue 0 %></div></td>
+      </tr>
+  <% end %>
+</table>
+

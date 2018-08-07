@@ -1,0 +1,291 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/buscadormin.png"/></td>
+          <td width="94%"><div class="col_enc">INFORME <%=@nameinforme rescue nil%> FASE 2 CENSOS</div></td>
+          <td width="3%"><div align="right">
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<% form_tag buscar2_fase2censos_path, :method => 'get' do %>
+<div align="center">
+<table width="72%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr class="odd1">
+      <td width="45%" class="campos" height="25" align="left"><%=@fase2censo.d_noform rescue nil%></td>
+      <td width="55%" class="camposDesc" align="left"><%= text_field_tag :noform, params[:noform],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p1  rescue nil%></td>
+      <td class="camposDesc" align="left">Entre <%= calendar_date_select "ubicacion", "fchinicial", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "fchfinal", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p4  rescue nil%></td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "p4", select_comunaespecial.collect {|p| [ p.comuna, p.codigo_comuna ] }, { :include_blank => true },
+            { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p5  rescue nil%></td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "p5", select_barrios.collect {|p| [ p.barrio, p.codigo_barrio ] }, { :include_blank => true },
+            { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p9  rescue nil%></td>
+      <td class="camposDesc" align="left">Entre <%= text_field_tag :areatotal1, params[:areatotal1],{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %> &nbsp;&nbsp;y&nbsp;&nbsp;<%= text_field_tag :areatotal2, params[:areatotal2],{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p10  rescue nil%></td>
+      <td class="camposDesc" align="left">Entre <%= text_field_tag :areaconst1, params[:areaconst1],{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %> &nbsp;&nbsp;y&nbsp;&nbsp;<%= text_field_tag :areaconst2, params[:areaconst2],{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p11  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p11, select_fase2censosmatricula,{ :include_blank => true },{ :style=>"width:320px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p11_1  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= text_field_tag :p11_1, params[:p11_1],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p12  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p12, select_fase2censosmatricula,{ :include_blank => true },{ :style=>"width:320px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p12_1  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= text_field_tag :p12_1, params[:p12_1],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p13  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p13, select_fase2censosestrato,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>    
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p14  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p14, select_fase2censotenencia,{ :include_blank => true },{ :style=>"width:280px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p16  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p16, select_fase2censotipologia,{ :include_blank => true },{ :style=>"width:130px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p22  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p22, select_fase2censocuartos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p23  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p23, select_fase2censoestado,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p24  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p24, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p25  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p25, select_fase2censocuartos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p26  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p26, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p27  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p27, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p28  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p28, select_fase2censocuartos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p29  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p29, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p30  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p30, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p31  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p31, select_fase2censocuartos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p32  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p32, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p33  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p33, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p34  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p34, select_fase2censocompartido,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p35  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p35, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p36  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p36, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p37  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p37, select_fase2censootrouso,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p38  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p38, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p39  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p39, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p40  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p40, select_fase2censocompartido,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p40_1  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p40_1, select_fase2censoexclusivo,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p41  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p41, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p41_1  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p41_1, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p42  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p42, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p42_1  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p42_1, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p102  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p102, select_fase2censoalimentacion,{ :include_blank => true },{ :style=>"width:300px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p103  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p103, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p104  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p104, select_fase2censoenchapecocina,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p105  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p105, select_fase2censoenchapecocina,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p106  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p106, select_fase2censoenchapecocina,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p107  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p107, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p109  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p109, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p110  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p110, select_fase2censoenchapecocina,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p115  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p115, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p169  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p169, select_fase2censoserviciosanitario,{ :include_blank => true },{ :style=>"width:380px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p170  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p170, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p171  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p171, select_fase2censossino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p172  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p172, select_fase2censoimplementos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p175  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p175, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p176  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p176, select_fase2censossino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p177  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p177, select_fase2censoimplementos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p178  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p178, select_fase2censosala,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p179  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p179, select_fase2censossino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p180  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p180, select_fase2censoimplementos,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p181  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p181, select_fase2censossinoaplica,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left"><%=@fase2censo.d_p182  rescue nil%></td>
+      <td class="camposDesc" align="left"><%= select(:ubicacion, :p182, select_fase2censossino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%></td>
+    </tr>
+</table>
+<table width="72%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+</table>
+<table width="72%" border="0" cellpadding="2" align="center" cellspacing="0">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'format', :value => 'xls'%>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<%end%>
+<br/>

@@ -1,0 +1,113 @@
+<table width="95%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Ficha</td>
+          <td width="25%" class="campos">Fecha evento</td>
+          <td width="25%" class="campos">Evento</td>
+          <td width="25%" class="campos">Dirección del evento</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudasevento, :ficha, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :ficha, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayudasevento", "fecha", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudasevento, :fecha, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :evento, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :direccion, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :direccion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Cnt Integrantes Nucleo en evento</td>
+          <td width="25%" class="campos">Teléfonos del evento</td>
+          <td width="25%" class="campos">Barrio del evento</td>
+          <td width="25%" class="campos">Tenencia de la vivienda </td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudasevento, :integrantes, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :integrantes, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :telefono, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :telefono, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :barrio, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :barrio, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :tenencia, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :tenencia, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Comuna</td>
+          <td width="25%" class="campos">Regresaria a la zona?</td>
+          <td width="25%" class="campos">Pérdida de enseres </td>
+          <td width="25%" class="campos">Presunta dirección según tenencia</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudasevento, :comuna, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :comuna, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudasevento, :regresaria, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasevento, :regresaria, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudasevento, :perdida, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudasevento, :perdida, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudasevento, :direccion_tenencia, { :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudasevento, :direccion_tenencia, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="37%" class="campos">Observación</td>
+        </tr>
+        <tr>
+          <td><%=text_area(:ayudasevento, :observacion, :cols => 130, :rows => 3, :class => 'campo', :maxlength => 3900,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayudasevento, :observacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30">
+            <div align="right">
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :ayudasevento, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+  </tr>
+</table>

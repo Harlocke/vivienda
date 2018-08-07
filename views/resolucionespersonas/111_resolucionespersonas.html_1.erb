@@ -1,0 +1,111 @@
+</form>
+<div align="left"><table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PERSONAS VINCULADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@resolucion, @resolucionespersona] do |form| %>
+   <% if !@resolucionespersona.id %>
+      <% if permiso("resolucionespersona","C").to_s == "S" %>
+	<%= render :partial => "/resolucionespersonas/resolucionespersonas_form" %>
+      <% end %>
+   <% end %>
+resolucion....<%=@resolucionespersona.id rescue nil%>+++++
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="45%" height="30" class="oce-first">Persona Vinculada</td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor Subsidio Dinero</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor Subsidio Especie</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor Recon. Mejoras</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor <p></p>Credito</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor <p></p>Escrituración</div></td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+<% a = 1
+   for resolucionespersona in @resolucion.resolucionespersonas.search(@page) %>
+   <% if resolucionespersona.id != @resolucionespersona.id %>
+1........<%=a%>+++++++
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>"  id="resolucionespersona_<%=resolucionespersona.id%>">
+     <td width="45%" height="30" class="camposDesc"><%=resolucionespersona.persona.autobuscar rescue nil%></td>
+     <td width="10%" height="30" class="camposDesc"><div align="center"><%=number_to_currency(resolucionespersona.subsidio_dinero,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="10%" height="30" class="camposDesc"><div align="center"><%=number_to_currency(resolucionespersona.subsidio_especie,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="10%" height="30" class="camposDesc"><div align="center"><%=number_to_currency(resolucionespersona.subsidio_mejoras,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="10%" height="30" class="camposDesc"><div align="center"><%=number_to_currency(resolucionespersona.credito,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="10%" height="30" class="camposDesc"><div align="center"><%=number_to_currency(resolucionespersona.titulacion,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="15%" class="camposDesc"><div align="center">
+        <% if permiso("resolucionespersona","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_resolucion_resolucionespersona_path(@resolucion, resolucionespersona),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("resolucionespersona","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url =>resolucion_resolucionespersona_path(@resolucion, resolucionespersona),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %></div></td>
+       </tr>
+   <% if resolucionespersona.observacion.to_s != "" %>
+   <tr  valign="middle">
+     <td height="0" colspan="6" align="left" class="camposDesc">
+       <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td width="15%" class="oce-first">Observacion:</td>
+         <td width="85%" class="camposDesc"><div align="justify"><%=resolucionespersona.observacion%></div></td>
+       </tr>
+     </table></td>
+    </tr>
+    <% end %>
+<% else
+    a = 0
+%>
+2........<%=a%>+++++++
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR RESOLUCIONES</div></td>
+  </tr>
+  </table>
+    <tr id="resolucionespersona_<%=@resolucionespersona.id%>">
+       <%= render :partial => "resolucionespersonas_form" %>
+    </tr>    
+    </fieldset>
+<% end %>
+        <% end %>
+</table>
+<% if a == 1 %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr>
+         <td width="85%" class="camposDesc"><div align="center"><%= will_paginate @res rescue nil %></div></td>
+       </tr>
+     </table>
+<% end %>
+........<%=a%>+++++++
+            <%= hidden_field :resolucion, :id %>
+<% end %>
+<br/>
+<% if flash[:resolucionespersona] %>
+<div id="resolucionespersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:resolucionespersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('resolucionespersona');", 5000)
+</script>
+<% end %>
+<table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@resolucion.resolucionespersonas.count%></div></td>
+  </tr>
+</table>
+

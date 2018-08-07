@@ -1,0 +1,2 @@
+module LegalizazonasmatriculasHelper
+end

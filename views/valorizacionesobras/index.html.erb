@@ -1,0 +1,24 @@
+<h1>Listing valorizacionesobras</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Valor</th>
+    <th>Estado</th>
+  </tr>
+
+<% @valorizacionesobras.each do |valorizacionesobra| %>
+  <tr>
+    <td><%=h valorizacionesobra.descripcion %></td>
+    <td><%=h valorizacionesobra.valor %></td>
+    <td><%=h valorizacionesobra.estado %></td>
+    <td><%= link_to 'Show', valorizacionesobra %></td>
+    <td><%= link_to 'Edit', edit_valorizacionesobra_path(valorizacionesobra) %></td>
+    <td><%= link_to 'Destroy', valorizacionesobra, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New valorizacionesobra', new_valorizacionesobra_path %>

@@ -1,0 +1,91 @@
+<%=  stylesheet_link_tag 'chain_selects' %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">SEGUIMIENTO</div></td>
+  </tr>
+</table>
+<% remote_form_for [@ayuda, @ayudasetapa] do |form| %>
+  <%# if permiso("ayudasetapa","C").to_s == "S" %>
+ <% if !@ayudasetapa.id %>
+	 <%= render :partial => "/ayudasetapas/ayudasetapas_form" %>
+    <%# end %>
+ <% end %>
+<% if @ayuda.ayudasetapas.exists? %>
+<% ob = Objeto.find_by_sql(["select distinct aclasificacion from ayudasetapas where ayuda_id = #{@ayuda.id} group by aclasificacion"])
+   ob.each do |o|
+%>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td colspan="5" height="20" align="left" class="oce-first"><h3><%= Aclasificacion.find(o.aclasificacion.to_i).descripcion.to_s  %></h3></td>
+    </tr>
+  <tr valign="middle">
+    <td width="25%" height="15" align="left" class="oce-first"><strong>Creación</strong></td>
+    <td width="30%" height="15" align="left" class="oce-first"><strong>Etapa</strong></td>
+    <td width="15%" height="15" align="left" class="oce-first"><strong>Fecha</strong></td>
+    <td width="15%" height="15" align="left" class="oce-first"><strong>Fecha de cumplimiento</strong></td>
+    <td width="15%" height="15" align="left" class="oce-first"></td>
+  </tr>  
+<% for ayudasetapa in @ayuda.ayudasetapas.find(:all,:conditions=>["aclasificacion = #{o.aclasificacion}"], :order => 'fecha DESC') %>
+   <% if ayudasetapa.id != @ayudasetapa.id %>
+
+   <tr  valign="middle" id="ayudasetapa_<%=ayudasetapa.id%>" class="<%=cycle('even1', 'odd1')%>">
+      <td height="30" align="left" class="camposDesc"><%=ayudasetapa.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=ayudasetapa.user.nombre rescue nil%>"><%=ayudasetapa.user.username rescue nil%></a></td>
+     </td>
+     <td align="left" class="camposDesc"><%=ayudasetapa.etapasdesc %></td>
+     <td align="left" class="camposDesc"><%=ayudasetapa.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+     <td align="left" class="camposDesc"><%=ayudasetapa.fecha_cumplimiento.strftime("%Y-%m-%d %X") rescue nil%></td>
+     <td class="camposDesc"><div align="center">
+    <%# if permiso("ayudasetapa","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_ayuda_ayudasetapa_path(@ayuda, ayudasetapa),
+		:method => :get}, :class=>"editarlink")%>
+    <%#  end %>
+    <%# if permiso("ayudasetapa","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => ayuda_ayudasetapa_path(@ayuda, ayudasetapa),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%#  end %>
+    <% if Aetapa.find(ayudasetapa.aetapa.to_i).cumplimiento.to_s == "SI" and ayudasetapa.fecha_cumplimiento.to_s == ""%>
+      |&nbsp;<%= link_to_remote('Cumple',{:url => cumplimiento_ayuda_ayudasetapa_path(@ayuda, ayudasetapa),:method => :get}, :class=>"verlink")%>
+    <% end -%>   
+    </div>
+    </td>
+ </tr>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR AYUDAS PAGOS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="ayudasetapa_<%=@ayudasetapa.id%>">
+     <%= render :partial => "ayudasetapas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+</table>
+<br/>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :ayuda, :id %>
+<% end %><!-- remote_form_for -->
+<br/>
+<% if flash[:ayudasetapa] %>
+<div id="ayudasetapa">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:ayudasetapa] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('ayudasetapa');", 5000)
+</script>
+<% end %><!-- flash[:ayudasetapa] -->

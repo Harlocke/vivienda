@@ -1,0 +1,1 @@
+page.replace_html :saneamientosimagenes_form, :partial => "saneamientosimagenes", :object => @saneamientosimagen

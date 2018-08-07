@@ -1,0 +1,53 @@
+<table width="100%" border="1" cellspacing="5">
+  <tr>
+    <td style="font-size: 20px; font-family: tahoma; vertical-align:middle; vertical-align:middle;" height="30" colspan="5" rowspan="4"><div align="center"><strong>LISTADO MAESTRO DE REGISTROS</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>CODIGO: F-GM-22</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>VERSIÓN: 01</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>FECHA: 26/02/2015</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>PAGINA: 1</strong></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr  valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle; vertical-align:middle;" height="30" bgcolor="#00CCFF" colspan="4"><strong>NOMBRE DEL PROCESO</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="3"><strong><%=@calidadproceso.tipoproceso rescue nil%> - <%=@calidadproceso.descripcion rescue nil%></strong></td>
+  </tr>
+  <tr valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" bgcolor="#00CCFF" colspan="4"><strong>TIPOLOGÍA</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="3"><strong><%=@calidadproceso.tipologia rescue nil%></strong></td>
+  </tr>
+  <tr valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" bgcolor="#00CCFF"colspan="4"><strong>FECHA DE ACTUALIZACIÓN DEL LISTADO MAESTRO</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="3"><strong><div align="left"><%=@calidadproceso.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></strong></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" ><div align="center"><strong>CODIGO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>VERSIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>NOMBRE DEL DOCUMENTO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>UBICACIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>MEDIO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>TIEMPO DE RETENCIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>DISPOSICIÓN FINAL</strong></div></td>
+  </tr>
+<% @calidaddocumentos.each do |calidaddocumento| %>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.codigo rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.version rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><%=calidaddocumento.nombre rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.ubicacion rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.medio_recopila rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.tiempo_archivo rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.destino_posterior rescue nil%></div></td>
+  </tr>    
+<% end %>
+</table>

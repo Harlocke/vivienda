@@ -1,0 +1,26 @@
+<h1>Listing periodosliquidaciones</h1>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Fecha inicial</th>
+    <th>Fecha final</th>
+    <th>Estado</th>
+  </tr>
+
+<% @periodosliquidaciones.each do |periodosliquidacion| %>
+  <tr>
+    <td><%=h periodosliquidacion.codigo %></td>
+    <td><%=h periodosliquidacion.fecha_inicial %></td>
+    <td><%=h periodosliquidacion.fecha_final %></td>
+    <td><%=h periodosliquidacion.estado %></td>
+    <td><%= link_to 'Show', periodosliquidacion %></td>
+    <td><%= link_to 'Edit', edit_periodosliquidacion_path(periodosliquidacion) %></td>
+    <td><%= link_to 'Destroy', periodosliquidacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New periodosliquidacion', new_periodosliquidacion_path %>

@@ -1,0 +1,90 @@
+<%=  javascript_include_tag :defaults %>
+<div class="page-header">
+<h3>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED -- NIT: 900.014.480-8 -- Año: <%=@anno%></h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="27%" height="18"><div align="center">Empleado</div></td>
+    <td width="8%" height="18"><div align="center">Salario</div></td>
+    <td width="9%"><div align="center">Total Devengado </div></td>
+    <td width="9%"><div align="center">Total Incapacidad </div></td>
+    <td width="6%"><div align="center">Salud</div></td>
+    <td width="6%"><div align="center">Pension</div></td>
+    <td width="8%"><div align="center">Solidaridad</div></td>
+    <td width="8%"><div align="center">Retefuente</div></td>
+    <td width="8%"><div align="center">Novedades</div></td>
+    <td width="9%"><div align="center">Total Deducciones </div></td>
+    <td width="9%"><div align="center">Otros Dev.</div></td>
+    <td width="7%"><div align="center">Total a Pagar </div></td>
+  </tr>
+  <%  total0 = 0
+      total1 = 0
+      total2 = 0
+      total3 = 0
+      total4 = 0
+      total5 = 0
+      total6 = 0
+      total7 = 0
+      total8 = 0
+      total9 = 0
+      total10 = 0
+      total11 = 0
+  %>
+  <% @nominas.each do |nomina| %>
+  <%
+      total0 = total0 + nomina.salario
+      total2 = total2 + nomina.subtotal
+      total3 = total3 + nomina.salud
+      total4 = total4 + nomina.pension
+      total5 = total5 + nomina.solidaridad
+      total6 = total6 + nomina.retefuente
+      total7 = total7 + nomina.novedades
+      total8 = total8 + nomina.total_deducciones
+      total9 = total9 + nomina.total
+      total10 = total10 + nomina.total_incapacidad
+      total11 = total11 + nomina.otros_devengados
+  %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td  height="30" ><%=nomina.empleado.identificacion %> - <%=nomina.empleado.nombres %></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.salario,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.subtotal,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.total_incapacidad,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.salud,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.pension,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.solidaridad,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.retefuente,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.novedades,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.total_deducciones,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td >
+      <div align="right"><%=number_to_currency(nomina.otros_devengados,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td>
+      <div align="right"><%=number_to_currency(nomina.total,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+  </tr>
+  <% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td height="30" ><div align="center">TOTALES</div></td>
+    <td><div align="right"><%=number_to_currency(total0,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total2,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total10,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total3,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total4,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total5,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total6,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total7,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total8,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total11, {:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+    <td><div align="right"><%=number_to_currency(total9,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+  </tr>
+</table>
+
+
+

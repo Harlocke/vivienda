@@ -1,0 +1,1 @@
+page.replace_html :titulacionesprofesionales_form, :partial => "titulacionesprofesionales", :object => @titulacionesprofesional

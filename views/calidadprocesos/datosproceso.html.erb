@@ -1,0 +1,65 @@
+<div class="page-header">
+  <h3>INFORMACION COMPLETA CALIDAD  - FGF06 VERSION 2 FECHA: 2013-08-06</h3>
+</div>
+<table border="1">
+  <tr valign="middle" bgcolor="#00FF00">
+    <td colspan="7"><strong>Proceso</strong></td>
+    <td colspan="12"><strong>Documento</strong></td>
+  </tr>
+  <tr valign="middle" bgcolor="#00FF00">
+    <td><strong>Tipo de Proceso</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Tipologia</strong></td>
+    <td><strong>Objetivo</strong></td>
+    <td><strong>Alcance</strong></td>
+    <td><strong>Codigo</strong></td>
+    <td><strong>Version</strong></td>
+    <td><strong>ID</strong></td>
+    <td><strong>Codigo</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Version</strong></td>
+    <td><strong>Estado</strong></td>
+    <td><strong>Fecha Creacion</strong></td>
+    <td><strong>Medio Recopila</strong></td>
+    <td><strong>Ubicacion</strong></td>
+    <td><strong>Medio Almacenamiento</strong></td>
+    <td><strong>Tiempo Archivo</strong></td>
+    <td><strong>Fecha Cambio</strong></td>
+    <td><strong>Naturaleza del Cambio</strong></td>
+  </tr>
+<% @calidadprocesos.each do |calidadproceso|
+      for calidaddocumento in calidadproceso.calidaddocumentos.find(:all, :conditions=>["activo = 'ACTIVO'"]) %>
+  <tr>
+    <td><%=calidadproceso.tipoproceso rescue nil%></td>
+    <td><%=calidadproceso.descripcion rescue nil%></td>
+    <td><%=calidadproceso.tipologia rescue nil%></td>
+    <td><%=calidadproceso.objetivo rescue nil%></td>
+    <td><%=calidadproceso.alcance rescue nil%></td>
+    <td><%=calidadproceso.codigo rescue nil%></td>
+    <td><%=calidadproceso.version rescue nil%></td>
+    <td><%=calidaddocumento.id rescue nil%></td>
+    <td><%=calidaddocumento.codigo rescue nil%></td>
+    <td><%=calidaddocumento.nombre rescue nil%></td>
+    <td><%=calidaddocumento.version rescue nil%></td>
+    <td><%=calidaddocumento.activo rescue nil%></td>
+    <td><%=calidaddocumento.fecha_creacion rescue nil%></td>
+    <td><%=calidaddocumento.medio_recopila rescue nil%></td>
+    <td><%=calidaddocumento.ubicacion rescue nil%></td>
+    <td><%=calidaddocumento.medio_almacenamiento rescue nil%></td>
+    <td><%=calidaddocumento.tiempo_archivo rescue nil%></td>
+    <td colspan="2">
+        <% if calidaddocumento.calidaddocnotas.exists? %>
+            <table border="1">
+               <% calidaddocumento.calidaddocnotas.each do |calidaddocnota| %>
+              <tr>
+                <td><%=calidaddocnota.created_at.strftime("%Y-%m-%d %X")%> - <%=calidaddocnota.user.username rescue nil%></td>
+                <td><%=calidaddocnota.observaciones rescue nil%></td>
+              </tr>
+               <% end %>
+            </table>
+        <% end %>
+    </td>
+  </tr>    
+<%   end
+   end %>
+</table>

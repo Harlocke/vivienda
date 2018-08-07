@@ -1,0 +1,79 @@
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'scaffold' %>
+<% form_for([@requerimiento, @actividad]) do |f| %>
+  <%= f.error_messages %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="100%"><div class="col_enc">&nbsp;&nbsp;REQUERIMIENTO DE : <%=@requerimiento.persona.identificacion%> - <%=@requerimiento.persona.primer_nombre%> <%=@requerimiento.persona.segundo_nombre%> <%=@requerimiento.persona.primer_apellido%> <%=@requerimiento.persona.segundo_apellido%></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+  <tr>
+    <td class="campos">Nro Solicitud</td>
+    <td class="camposDesc"><%=@requerimiento.id%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha</td>
+    <td class="camposDesc"><%=@requerimiento.fecha%></td>
+  </tr>
+  <tr>
+    <td width="14%" class="campos" >Descripcion</td>
+    <td width="86%" class="camposDesc"><%=@requerimiento.descripcion%></td>
+  </tr>
+  <tr>
+    <td width="14%" class="campos" >Dependencia</td>
+    <td width="86%" class="camposDesc"><%=@requerimiento.dependencia.descripcion%></td>
+  </tr>
+<tr>
+    <td width="14%"></td>
+    <td width="86%"></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="90%"><div class="col_enc">&nbsp;&nbsp;ACTIVIDADES</div></td>
+              <td width="10%"><div align="right"><%= image_submit_tag '/images/disk.png', :title => "Guardar"%>
+                                                   <%= link_to image_tag('application_view_list.png',
+	                                           { :border=>0, :title => "Listar Actividades"}),
+                                                   requerimiento_actividades_path(@requerimiento)%>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+  <tr>
+    <td class="campos">Fecha</td>
+    <td class="camposDesc"><%= calendar_date_select_tag "actividad[fecha]", @actividad.fecha.to_s,
+            :year_range => [90.years.ago, 0.years.from_now], :class=> "campo", :size => 13%></td>
+  </tr>
+  <tr>
+    <td class="campos">Descripcion</td>
+    <td class="camposDesc"><%= f.text_area :descripcion, { :class => "campoMultiLinea", :cols=>"140", :rows=>"2",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <tr>
+    <td class="campos">Estado</td>
+    <td class="camposDesc"><%= f.text_field :estado ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+<tr>
+    <td width="14%"></td>
+    <td width="86%"></td>
+  </tr>
+</table>
+<% end %>
+
+

@@ -1,0 +1,928 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CENSO</div></td>
+  </tr>
+</table>
+<div align="center">
+<% @persona.personasbases.each do |personasbase| %>
+<table width="95%" align="center" id="one-column-emphasis">
+  <tr class="odd1">
+    <td width="60%" class="campos" height="30" align="left"><%=personasbase.d_id_estado %></td>
+    <td width="40%" align="left" class="camposDesc"><%=personasbase.id_estado rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_estado %></td>
+    <td align="left" class="camposDesc"><%=personasbase.estado rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_noform %></td>
+    <td align="left" class="camposDesc"><%=personasbase.noform rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_id_hogares %></td>
+    <td align="left" class="camposDesc"><%=personasbase.id_hogares rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_hogar %></td>
+    <td align="left" class="camposDesc"><%=personasbase.hogar rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_persona %></td>
+    <td align="left" class="camposDesc"><%=personasbase.persona rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_codpersonsa %></td>
+    <td align="left" class="camposDesc"><%=personasbase.codpersonsa rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_codhogar %></td>
+    <td align="left" class="camposDesc"><%=personasbase.codhogar rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p1 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p1 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p2 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p2 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p3 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p3 rescue nil%>
+      <% if personasbase.p3.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p3},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p4 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p4 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p5 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p5 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p6 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p6 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p6_1 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p6_1 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p7 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p7 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p8 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p8 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p9 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p9 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p10 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p10 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p11 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p11 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p11_1 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p11_1 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p12 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p12 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p12_1 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p12_1 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p13 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p13 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p14 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p14 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p15 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p15 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p16 %> </td>
+    <td align="left" class="camposDesc"><%=personasbase.p16 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p17 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p17 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p18 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p18 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p19 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p19 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p20 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p20 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p21 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p21 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p22 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p22 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p23 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p23 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p24 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p24 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p25 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p25 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p26 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p26 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p27 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p27 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p28 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p28 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p29 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p29 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p30 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p30 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p31 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p31 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p32 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p32 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p33 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p33 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p34 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p34 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p35 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p35 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p36 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p36 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p37 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p37 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p38 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p38 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p39 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p39 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p40 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p40 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p40_1 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p40_1 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p41 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p41 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p41_1 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p41_1 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p42 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p42 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p42_1 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p42_1 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p43 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p43 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p44 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p44 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p45 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p45 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p46 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p46 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p47 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p47 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p48 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p48 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p49 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p49 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p49_1 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p49_1 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p50 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p50 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p51 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p51 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p52 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p52 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p53 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p53 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p54 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p54 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p55 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p55 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p56 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p56 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p57 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p57 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p58 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p58 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p59 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p59 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p60 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p60 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p61 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p61 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p62 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p62 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p63 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p63 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p71 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p71 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p72 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p72 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p73 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p73 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p74 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p74 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p75 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p75 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p76 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p76 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p77 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p77 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p78 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p78 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p79 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p79 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p80 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p80 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p81 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p81 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p82 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p82 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p83 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p83 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p84 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p84 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p85 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p85 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p86 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p86 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p87 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p87 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p88 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p88 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p89 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p89 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p90 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p90 rescue nil%>
+    <% if personasbase.p90.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p90},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p91 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p91 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p92 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p92 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p92_2 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p92_2 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p93 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p93 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p94 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p94 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p95 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p95 rescue nil%>
+    <% if personasbase.p95.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p95},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %>
+    </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p96 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p96 rescue nil%>
+    <% if personasbase.p96.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p96},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p97 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p97 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p98 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p98 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p99 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p99 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p100 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p100 rescue nil%>
+    <% if personasbase.p100.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p100},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p101 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p101 rescue nil%>
+    <% if personasbase.p101.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p101},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p102 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p102 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p103 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p103 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p104 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p104 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p105 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p105 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p106 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p106 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p107 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p107 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p108 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p108 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p109 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p109 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p110 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p110 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p111 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p111 rescue nil%>
+    <% if personasbase.p111.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p111},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p112 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p112 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p113 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p113 rescue nil%>
+    <% if personasbase.p113.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p113},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p114 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p114 rescue nil%>
+    <% if personasbase.p114.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p114},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p115 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p115 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p116 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p116 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p117 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p117 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p118 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p118 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p119 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p119 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p120 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p120 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p121 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p121 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p122 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p122 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p123 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p123 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p124 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p124 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p125 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p125 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p126 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p126 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p127 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p127 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p128 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p128 rescue nil%>
+    <% if personasbase.p128.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p128},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p129 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p129 rescue nil%>
+    <% if personasbase.p129.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p129},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p130 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p130 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p131 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p131 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p132 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p132 rescue nil%>
+    <% if personasbase.p132.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p132},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p133 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p133 rescue nil%>
+    <% if personasbase.p133.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p133},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p134 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p134 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p135 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p135 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p136 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p136 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p137 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p137 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p138 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p138 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p139 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p139 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p140 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p140 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p141 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p141 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p142 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p142 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p143 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p143 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p144 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p144 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p145 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p145 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p146 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p146 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p147 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p147 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p148 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p148 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p149 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p149 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p150 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p150 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p151 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p151 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p152 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p152 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p153 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p153 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p154 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p154 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p155 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p155 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p156 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p156 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p157 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p157 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p158 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p158 rescue nil%>
+    <% if personasbase.p158.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p158},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p159 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p159 rescue nil%>
+    <% if personasbase.p159.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p159},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p160 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p160 rescue nil%>
+    <% if personasbase.p160.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p160},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p161 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p161 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p162 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p162 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p163 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p163 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p164 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p164 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p165 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p165 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p166 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p166 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p167 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p167 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p168 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p168 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p169 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p169 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p170 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p170 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p171 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p171 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p172 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p172 rescue nil%>
+      <% if personasbase.p172.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p172},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p173 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p173 rescue nil%>
+    <% if personasbase.p173.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p173},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %>
+    </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p174 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p174 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p175 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p175 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p176 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p176 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p177 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p177 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p178 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p178 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p179 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p179 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p180 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p180 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p181 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p181 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p182 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p182 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p183 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p183 rescue nil%>
+    <% if personasbase.p183.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p183},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p184 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p184 rescue nil%>
+    <% if personasbase.p184.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p184},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p185 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p185 rescue nil%>
+    <% if personasbase.p185.to_s.to(2) == 'IMG'%>
+      <%= link_to image_tag('cargado.gif'), {:controller=>"personasbases", :action=>"imagen", :id=>personasbase.p185},:title=>"Ver Imagen",:Onclick => "return GB_showCenter('Imagenes', this.href, 450, 700)"%>
+      <% end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p186 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p186 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p187 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p187 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p188 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p188 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p189 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p189 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p190 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p190 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p191 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p191 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p192 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p192 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p193 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p193 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p194 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p194 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p198 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p198 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p198_1 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p198_1 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p199 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p199 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p200 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p200 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_p201 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p201 rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_p202 %></td>
+    <td align="left" class="camposDesc"><%=personasbase.p202 rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_empadronador %></td>
+    <td align="left" class="camposDesc"><%=personasbase.empadronador rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left"><%=personasbase.d_supervisor %></td>
+    <td align="left" class="camposDesc"><%=personasbase.supervisor rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left"><%=personasbase.d_coordinador %></td>
+    <td align="left" class="camposDesc"><%=personasbase.coordinador rescue nil%></td>
+  </tr>
+</table>
+<% end %>
+</div>
+</fieldset>

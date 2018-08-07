@@ -1,0 +1,32 @@
+<h1>Listing almacenesinmuebles</h1>
+
+<table>
+  <tr>
+    <th>Matricula</th>
+    <th>Descripcion</th>
+    <th>Direccion certificado</th>
+    <th>Lugar</th>
+    <th>Estado</th>
+    <th>Direccion catastro</th>
+    <th>Avaluo</th>
+  </tr>
+
+<% @almacenesinmuebles.each do |almacenesinmueble| %>
+  <tr>
+    <td><%=h almacenesinmueble.matricula %></td>
+    <td><%=h almacenesinmueble.descripcion %></td>
+    <td><%=h almacenesinmueble.direccion_certificado %></td>
+    <td><%=h almacenesinmueble.lugar %></td>
+    <td><%=h almacenesinmueble.estado %></td>
+    <td><%=h almacenesinmueble.direccion_catastro %></td>
+    <td><%=h almacenesinmueble.avaluo %></td>
+    <td><%= link_to 'Show', almacenesinmueble %></td>
+    <td><%= link_to 'Edit', edit_almacenesinmueble_path(almacenesinmueble) %></td>
+    <td><%= link_to 'Destroy', almacenesinmueble, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New almacenesinmueble', new_almacenesinmueble_path %>

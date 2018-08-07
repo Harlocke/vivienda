@@ -1,0 +1,106 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Cruces SIFI</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Identificacion Cruzada</strong></td>
+    <td width="20%"><strong>Identificacion Jefe de Hogar</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+    <td width="20%"><strong>Identificacion Beneficiario</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Vivienda Nueva</div></strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Proyecto</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Direccion</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Bloque</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Piso</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Apto</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Entregado</strong></td>
+    <td width="50%"><strong>Vivienda Nueva <br/>Fecha Entrega</strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Vivienda Usada</div></strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Reasentamiento</div></strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Obra Publica</div></strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Titulaciones</div></strong></td>
+    <td width="50%"><strong><div align="right">Cruzado con <br/>Resoluciones</div></strong></td>
+    <td width="50%"><strong><div align="center">Grupo Familiar</div></strong></td>
+  </tr>
+<% @viviendasreportes.each do |viviendasreporte| 
+    if viviendasreporte.vivienda_id
+      @vivienda = Vivienda.find(viviendasreporte.vivienda_id)
+    end
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=viviendasreporte.identificacion rescue nil%></div></td>
+     <% if viviendasreporte.persona_id.to_i > 0 %>
+     <td><div align="left"><%=viviendasreporte.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.telefonos rescue nil%></div></td>
+       <% if viviendasreporte.benevivienda_id.to_i > 0 %>
+         <td><div align="left"><%=viviendasreporte.benevivienda.identificacion rescue nil%></div></td>
+         <td><div align="left"><%=viviendasreporte.benevivienda.nombres rescue nil%></div></td>
+       <% else %>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+       <% end %>
+       <% if viviendasreporte.vivienda_id.to_i > 0 %>
+          <td><div align="left">Cruzado</div></td>
+          <td><div align="left"><%=@vivienda.proyecto.descripcion rescue nil%></div></td>
+          <td><div align="left"><%=@vivienda.bloque.direccion rescue nil%></div></td>
+          <td><div align="left"><%=@vivienda.bloque.descripcion rescue nil%></div></td>
+          <td><div align="left"><%=@vivienda.piso.descripcion rescue nil%></div></td>
+          <td><div align="left"><%=@vivienda.apto.descripcion rescue nil%></div></td>
+          <td><div align="left"><%=@vivienda.descentregado%></div></td>
+          <td><div align="left"><%=@vivienda.fecha_entrega%></div></td>
+       <% else %>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+         <td><div align="left"></div></td>
+       <% end %>
+       <td><div align="left"><% if viviendasreporte.viviendasusada_id.to_i > 0%> Cruzado <% end %></div></td>
+       <td><div align="left"><% if viviendasreporte.iguana_id.to_i > 0%> Cruzado <% end %></div></td>
+       <td><div align="left"><% if viviendasreporte.obraspublica_id.to_i > 0%> Cruzado <% end %></div></td>
+       <td><div align="left"><% if viviendasreporte.titulacion_id.to_i > 0%> Cruzado <% end %></div></td>
+       <td><div align="left"><% if viviendasreporte.resolucion_id.to_i > 0%> Cruzado <% end %></div></td>
+       <td>
+       <% if viviendasreporte.persona.beneviviendas %>
+         <table border="1">
+          <% viviendasreporte.persona.beneviviendas.each do |benevivienda| %>
+           <tr bgcolor="#00CCFF" valign="middle">
+            <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong><%=benevivienda.identificacion%></strong></td>
+            <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong><%=benevivienda.nombres%></strong></td>
+            </tr>
+          <% end %>
+         </table>
+        <%
+     end %>
+     </td>
+    <% else %>
+     <td><div align="left"><%=viviendasreporte.identificacion rescue nil%></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

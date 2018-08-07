@@ -1,0 +1,118 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><div align="center"><%=image_tag("frame.png")%></div></td>
+  </tr>
+</table>
+<br/><br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="60%">
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+          <tr valign="middle">
+            <td width="80%" height="30" class="oce-first"><div align="left">Dato</div></td>
+            <td width="20%" height="30" class="oce-first"><div align="center">Resultado</div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro total de registros cargados</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null"])%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null"])%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Vivienda Nueva</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and vivienda_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Vivienda Usada</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and viviendasusada_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Reasentamiento</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and iguana_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Obra Publica</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and obraspublica_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Titulaciones</div></td>
+            <td  class="camposDesc"<div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and titulacion_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" class="camposDesc"><div align="left">Nro de personas cruzadas con Resoluciones</div></td>
+            <td class="camposDesc"><div align="center"><%=Viviendasreporte.count(:conditions => [" user_id is null and persona_id is not null and resolucion_id is not null"]).to_i rescue nil%></div></td>
+          </tr>
+        </table>
+    </td>
+    <td width="40%">
+        <table width="80%" border="0" cellpadding="0" cellspacing="0" align="center" >
+          <tr>
+            <td width="70%" ><div align="center">
+              <% form_tag informesdatos_viviendasreportes_path, :method => 'get' do %>
+                 <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                 <%= submit_tag "Datos Basicos", :disable_with => "Generando... Espere por favor!" %>
+                 </span></div>
+              <% end %>
+            </div><br/></td>
+          </tr>
+          <tr>
+            <td width="70%" ><div align="center">
+              <% form_tag infocompleta_viviendasreportes_path, :method => 'get' do %>
+                 <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                 <%= submit_tag "Informacion Completa", :disable_with => "Generando... Espere por favor!" %>
+                 </span></div>
+              <% end %>
+            </div><br/></td>
+          </tr>
+          <tr>
+            <td width="70%" ><div align="center">
+                <% form_tag cargarviv_viviendasreportes_path, :method => 'get' do %>
+                      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                    <%= submit_tag "Iniciar Generación Viviendas", :disable_with => "Generando... Espere por favor!" %>
+                    </span></div>
+              <% end %>
+             </div><br/></td>
+          </tr>
+          <tr>
+        <td width="30%" ><div align="center">
+              <% form_tag cargar_viviendasreportes_path, :method => 'get' do %>
+                      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                    <%= submit_tag "Iniciar Generación con Etapas", :disable_with => "Generando... Espere por favor!" %>
+                    </span></div>
+              <% end %></div><br/></td>
+          </tr>
+          <tr>
+        <td width="30%" ><div align="center">
+              <% form_tag informesifi_viviendasreportes_path, :method => 'get' do %>
+                    <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                       <%= submit_tag "Informacion de Cruces SIFI" %>
+                    </span></div>
+              <% end %></div><br/></td>
+          </tr>
+          <tr>
+        <td width="30%" ><div align="center">
+              <% form_tag informesifigrupo_viviendasreportes_path, :method => 'get' do %>
+                    <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                       <%= submit_tag "Informacion de Cruces SIFI con grupo Familiar" %>
+                    </span></div>
+              <% end %></div><br/></td>
+          </tr>
+          <tr>
+        <td width="30%" ><div align="center">
+              <% form_tag informesifiresoluciones_viviendasreportes_path, :method => 'get' do %>
+                    <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                       <%= submit_tag "Informacion de Resoluciones SIFI" %>
+                    </span></div>
+              <% end %></div><br/></td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+</table>
+<br/>
+
+
+

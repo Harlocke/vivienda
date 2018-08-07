@@ -1,0 +1,103 @@
+<h1>New vivienda</h1>
+
+<% form_for(@vivienda) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :consecutivo_viv %><br />
+    <%= f.text_field :consecutivo_viv %>
+  </p>
+  <p>
+    <%= f.label :proyecto %><br />
+    <%= f.text_field :proyecto %>
+  </p>
+  <p>
+    <%= f.label :bloque %><br />
+    <%= f.text_field :bloque %>
+  </p>
+  <p>
+    <%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :piso %><br />
+    <%= f.text_field :piso %>
+  </p>
+  <p>
+    <%= f.label :apto %><br />
+    <%= f.text_field :apto %>
+  </p>
+  <p>
+    <%= f.label :local %><br />
+    <%= f.text_field :local %>
+  </p>
+  <p>
+    <%= f.label :bun %><br />
+    <%= f.text_field :bun %>
+  </p>
+  <p>
+    <%= f.label :tenencia %><br />
+    <%= f.text_field :tenencia %>
+  </p>
+  <p>
+    <%= f.label :poblacion_objeto %><br />
+    <%= f.text_field :poblacion_objeto %>
+  </p>
+  <p>
+    <%= f.label :valor_vivienda %><br />
+    <%= f.text_field :valor_vivienda %>
+  </p>
+  <p>
+    <%= f.label :consig_escrituras %><br />
+    <%= f.text_field :consig_escrituras %>
+  </p>
+  <p>
+    <%= f.label :pago_escrituras %><br />
+    <%= f.text_field :pago_escrituras %>
+  </p>
+  <p>
+    <%= f.label :valor_ahorro_prog %><br />
+    <%= f.text_field :valor_ahorro_prog %>
+  </p>
+  <p>
+    <%= f.label :valor_ahorro_tras %><br />
+    <%= f.text_field :valor_ahorro_tras %>
+  </p>
+  <p>
+    <%= f.label :valor_donacion %><br />
+    <%= f.text_field :valor_donacion %>
+  </p>
+  <p>
+    <%= f.label :entregado %><br />
+    <%= f.text_field :entregado %>
+  </p>
+  <p>
+    <%= f.label :fecha_entrega %><br />
+    <%= f.date_select :fecha_entrega %>
+  </p>
+  <p>
+    <%= f.label :fonade %><br />
+    <%= f.text_field :fonade %>
+  </p>
+  <p>
+    <%= f.label :vinculado %><br />
+    <%= f.text_field :vinculado %>
+  </p>
+  <p>
+    <%= f.label :estado_inmueble %><br />
+    <%= f.text_field :estado_inmueble %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', viviendas_path %>

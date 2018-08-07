@@ -1,0 +1,124 @@
+<%=  javascript_include_tag :defaults %>
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/crucesminambientemin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CRUCES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% if flash[:temporalerror] %>
+  <table width="70%" border="0" cellpadding="0" cellspacing="0" align="center" >
+    <tr>
+      <td><div align="center"><%= image_tag("delete.png", :size => "16x16") %></div></td>
+      <td><strong>&nbsp;&nbsp;<%=flash[:temporalerror]%></strong></td>
+    </tr>
+  </table>
+<% else %>
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td colspan="2" height="30" class="oce-first"><div align="center"><strong>FASE 1 TERMINADA CON EXITO <%= image_tag("tick.png", :size => "16x16")%></strong></div></td>
+          </tr>
+          <tr>
+            <td colspan="2" height="30" class="camposDesc">En total hay <strong><%=@cruces.count%></strong> identificaciones cargadas, ahora debe cargar el archivo con el detalle del cruce con base en la siguiente estructura...</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="camposDesc"><hr size="1" noshade class="hrlinea"/></td>
+          </tr>
+          <tr>
+            <td class="camposDesc" width="20%">&nbsp;&nbsp;<strong>Campo 1 : </strong></td>
+            <td class="camposDesc" width="80%">Tipo de entidad (1.Afiliados, 2.Beneficiarios, 3.Catant, 4.Catbog, 5.Catcali, 6.Catmed, 7.Igac, 8.Nuevo Hogar) </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 2 : </strong></td>
+            <td class="camposDesc">Nit de la entidad </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 3 : </strong></td>
+            <td class="camposDesc">Nombre de la entidad </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 4 : </strong></td>
+            <td class="camposDesc">Identificacion usuario </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 5 : </strong></td>
+            <td class="camposDesc">Apellidos </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 6 : </strong></td>
+            <td class="camposDesc">Nombres </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 7 : </strong></td>
+            <td class="camposDesc">Cedula catastral </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 8 : </strong></td>
+            <td class="camposDesc">Direccion inmueble </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 9 : </strong></td>
+            <td class="camposDesc">Matricula </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 10 : </strong></td>
+            <td class="camposDesc">Departamento </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 11 : </strong></td>
+            <td class="camposDesc">Municipio </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 12 : </strong></td>
+            <td class="camposDesc">Fecha solicitud </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 13 : </strong></td>
+            <td class="camposDesc">Entidad otorgante </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 14 : </strong></td>
+            <td class="camposDesc">Caja compensación </td>
+          </tr>
+          <tr>
+            <td class="camposDesc">&nbsp;&nbsp;<strong>Campo 15 : </strong></td>
+            <td class="camposDesc">Asignado </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <br/>
+          <% form_tag 'cargarfinal', :id => 'subir', :multipart => true do %>
+           <table width="100%" align="center">
+             <tr>
+               <td class="campos">
+                <label for="dump_file">
+                  Seleccione el archivo a cargar :
+                </label>
+               </td>
+             </tr>
+             <tr>
+               <td>
+                 <%= file_field_tag "file", :size=>"50"%>
+               </td>
+             </tr>
+             <tr>
+               <td colspan='2'>
+                 <div align="center">
+                   <%= submit_tag "Cargar", :disable_with => "Cargando....", :class=>"buttonAsLink" %>
+            </div></td>
+             </tr>
+          </table>
+          <% end %>
+            </td>
+          </tr>
+        </table>
+        
+  <br/>
+<% end %>
+<br/>

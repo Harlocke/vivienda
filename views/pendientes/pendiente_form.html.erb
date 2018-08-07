@@ -1,0 +1,119 @@
+
+
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/seguimientomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SEGUIMIENTO COMPROMISOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),pendientes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+  <div id="container">
+    
+      <fieldset>
+       <% form_for(@pendiente) do |f| %>
+            <div align="center">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td height="30"><div class="col_enc">REGISTRO DE TAREAS</div></td>
+        </tr>
+      </table>
+       <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos" >Responsables</td>
+          <td width="60%" class="campos">Tarea / Actividad *</td>
+        </tr>
+        <tr>
+          <td  class="camposDesc" valign="top">
+            <%= f.check_box :control_int,{},'SI','NO'%> CONTROL INTERNO<br/>
+            <%= f.check_box :planeacion,{},'SI','NO'%> SUBDIRECCION DE PLANEACION<br/>
+            <%= f.check_box :administrativa,{},'SI','NO'%> SUBDIRECCION ADMINISTRATIVA Y FINANCIERA<br/>
+            <%= f.check_box :poblacional,{},'SI','NO'%> SUBDIRECCION POBLACIONAL<br/>
+            <%= f.check_box :juridica,{},'SI','NO'%> SUBDIRECCION JURIDICA<br/>
+            <%= f.check_box :dotacion,{},'SI','NO'%> SUBDIRECCION DE DOTACION DE VIVIENDA Y HABITAT<br/>
+            <%= f.check_box :comunicaciones,{},'SI','NO'%> COMUNICACIONES<br/>
+            <%= f.check_box :direccion,{},'SI','NO'%> DIRECCION GENERAL
+            <strong><%= error_message_on :pendiente, :depend, :css_class =>"cerror"%></strong>
+         </td>
+          <td class="camposDesc"><%= text_area(:pendiente, :tarea, :cols => 90, :rows => 10, :class => 'campo', :maxlength => 4000,
+                                      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                                      <%= error_message_on :pendiente, :tarea, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <br/>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="14%" class="campos">Fecha Asignación *</td>
+          <td width="15%" class="campos">Fecha Vencimiento *</td>
+          <td width="13%" class="campos">Fecha Solución</td>
+          <td width="10%" class="campos">Estado *</td>
+          <td width="48%" class="campos">Observaciones</td>
+          
+        </tr>
+        <tr valign="top">
+           <td><%= calendar_date_select "pendiente", "fecha_asignacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :pendiente, :fecha_asignacion, :css_class =>"cerror"%></td>
+           <td ><%= calendar_date_select "pendiente", "fecha_vence", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+                <%= error_message_on :pendiente, :fecha_vence, :css_class =>"cerror"%></td>
+           <td ><%= calendar_date_select "pendiente", "fecha_solucion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :pendiente, :fecha_solucion, :css_class =>"cerror"%></td>
+           <td ><%= select(:pendiente, :estado,select_pendientesestado ,
+                                        { :include_blank => true },
+                                        { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :pendiente,:estado, :css_class =>"cerror"%></td> 
+          <td class="camposDesc"><%= text_area(:pendiente, :observaciones, :cols => 65, :rows => 4, :class => 'campo', :maxlength => 4000,
+                                      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                                      <%= error_message_on :pendiente, :observaciones, :css_class =>"cerror"%></td>      
+        </tr>
+      </table>
+
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td width="60%" align="left" class="camposDesc odd">
+            <% unless @pendiente.new_record? %>
+            <strong>Fecha Creación : </strong> </strong><%= @pendiente.created_at.strftime("%Y-%m-%d %X")%> - <strong>Fecha Actualización : </strong><%= @pendiente.updated_at.strftime("%Y-%m-%d %X")%>
+            <% end %>
+            </td>
+          <% if permiso("pendiente","A").to_s == "S" %>
+          <td width="40%" height="30" class="camposDesc" ><div align="right"> <strong>Estado de la Tarea:</strong> <%= @pendiente.estado_pendiente rescue nil%>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% unless @pendiente.new_record? %>
+            <%= link_to "Email", {:controller => "pendientes", :action => "enviomensaje", :id=>@pendiente.id},  :confirm => "Esta seguro que desea enviar la tarea Electronicamente?", :class=>"emaillink"%>  
+            <%= link_to "Ver", {:controller => "pendientes", :action => "visualizar", :id=>@pendiente.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <% end %>                  
+          </div></td>
+          <% end %>
+        </tr>
+      </table>
+  </div>
+<% end %>
+<br/><br/>
+<% unless @pendiente.new_record? %>
+      
+        <div id="pendientesnotas_form">
+            <%= render :partial => "/pendientesnotas/pendientesnotas" %>
+         </div>
+      
+ </div>
+<% end %>
+        </fieldset>
+</div>
+
+
+
+<br/>

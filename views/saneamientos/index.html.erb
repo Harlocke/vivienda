@@ -1,0 +1,91 @@
+<table width="100%" height="40">
+  <tr>
+    <td class="camposDesc">
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/saneamientomin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">INVENTARIO DE INMUEBLES</div></td>
+          <td width="3%"><div align="right">
+              <% if permiso("saneamiento","C").to_s == "S" %>
+           <%= link_to image_tag('database_add.png',
+                                { :border=>0, :title => "Nuevo"}),new_saneamiento_path %>
+              <% end %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<% form_tag buscar_saneamientos_path, :method => 'get' do %>
+<div align="center">
+<table width="72%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr class="odd1">
+      <td width="30%" height="25" class="campos" align="left">Nro de Matricula</td>
+      <td width="70%" class="camposDesc" align="left"><%= text_field_tag :nro_matricula, params[:nro_matricula],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left">Comuna - Barrio</td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "comuna_id", select_comuna.collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left">Identificacion Titular</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="25" align="left">CBML</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :cobama, params[:cobama],{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="25" align="left">Clasificación del proceso</td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "encargo_tramite", select_encargo_tramite, { :include_blank => true },
+            { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+</table>
+<table width="72%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+</table>
+<table width="72%" border="0" cellpadding="2" align="center" cellspacing="0">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'format', :value => 'xls'%>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<%end%>
+<table width="85%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORMES CONSOLIDADOS</div></td>
+  </tr>
+</table>
+<table width="85%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="100%"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Generar detallado', {:controller=>"saneamientos", :action=>"informedetallado" } %>
+      </span></div>
+     <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Consolidado Clasificación', {:controller=>"saneamientos", :action=>"informeconsolidado" } %>
+      </span></div>
+     <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Consolidado Comuna', {:controller=>"saneamientos", :action=>"informeconsolidado2" } %>
+      </span></div>
+</div></td>
+  </tr>
+</table>

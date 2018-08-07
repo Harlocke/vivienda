@@ -1,0 +1,38 @@
+<p>
+  <b>Fecha:</b>
+  <%=h @vehiculoscancelacion.fecha %>
+</p>
+
+<p>
+  <b>Hora inicio:</b>
+  <%=h @vehiculoscancelacion.hora_inicio %>
+</p>
+
+<p>
+  <b>Hora fin:</b>
+  <%=h @vehiculoscancelacion.hora_fin %>
+</p>
+
+<p>
+  <b>Vehiculo:</b>
+  <%=h @vehiculoscancelacion.vehiculo_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @vehiculoscancelacion.user_id %>
+</p>
+
+<p>
+  <b>Destino:</b>
+  <%=h @vehiculoscancelacion.destino %>
+</p>
+
+<p>
+  <b>Observacion:</b>
+  <%=h @vehiculoscancelacion.observacion %>
+</p>
+
+
+<%= link_to 'Edit', edit_vehiculoscancelacion_path(@vehiculoscancelacion) %> |
+<%= link_to 'Back', vehiculoscancelaciones_path %>

@@ -1,0 +1,2 @@
+module Feria2009rechazadosHelper
+end

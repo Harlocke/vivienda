@@ -1,0 +1,20 @@
+<h1>Listing empleadostipos</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @empleadostipos.each do |empleadostipo| %>
+  <tr>
+    <td><%=h empleadostipo.descripcion %></td>
+    <td><%= link_to 'Show', empleadostipo %></td>
+    <td><%= link_to 'Edit', edit_empleadostipo_path(empleadostipo) %></td>
+    <td><%= link_to 'Destroy', empleadostipo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New empleadostipo', new_empleadostipo_path %>

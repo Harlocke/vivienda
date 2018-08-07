@@ -1,0 +1,175 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACIÓN PROYECTOS <%=@proyecto.descripcion rescue nil%></div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Ver Proyectos"}),proyectos_path %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<div id="container">
+<div id="mainmenu">
+  <ul id="tabs">
+    <li><a href="#tab1"><img src="/images/proceso.png" border="0" title="Información Proyecto "/></a></li>
+    <% unless @proyecto.new_record? %>
+      <% if permiso("proyectocopropiedad","A").to_s == "S" %>
+          <li><a href="#tab2"><img src="/images/copro_gral.png" border="0" title="Copropiedades"/></a></li>
+          <li><a href="#tab3"><img src="/images/house.png" border="0" title="Proyecto Habitacional"/></a></li>
+      <% end %>
+      <% if permiso("proyectosfactibilidad","A").to_s == "S" %>      
+          <li><a href="#tab4"><img src="/images/censo.png" border="0" title="Prefactibilidad"/></a></li>
+      <% end %>      
+    <% end %>
+  </ul>
+</div>
+<div class="panel" id="tab1">
+  <fieldset>
+    <% form_for(@proyecto, :html => { :multipart => true }) do |f| %>
+    <div align="center">
+        <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+          <tr><td></td></tr>
+          <tr>
+            <td height="30"><div class="col_enc">PROYECTO</div></td>
+          </tr>
+        </table>
+        <table width="80%" align="center">
+          <tr>
+            <td width="20%"><%= image_tag @proyecto.foto.url(:medium) %></td>
+            <td width="60%"><table width="100%" align="center">
+          <tr class="odd1">
+            <td class="campos" width="180" height="0">Descripcion</td>
+            <td width="350"><%= f.text_field :descripcion,{ :class => "campo", :size => "65",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+          <tr>
+            <td class="campos" width="180" height="0">Sub Etapa</td>
+            <td width="350"><%= f.text_field :sub_etapa,{ :class => "campo",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" width="180" height="0">Estado Proyecto</td>
+            <td width="350"><%= f.text_field :etapa_proyecto,{ :class => "campo",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+          <tr>
+            <td class="campos" width="180" height="0">Abogado</td>
+            <td width="350"><%=select("proyecto", "userabogado_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+                    { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+                    </td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" width="180" height="0">Imagen</td>
+            <td width="350"><%= f.file_field :foto,
+                    { :class => "campo",
+                      :size => 46,
+                      :maxlength => 1000,
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+          <table width="100%" align="center">
+            <tr>
+              <td class="campos" width="290" height="0">Capital</td>
+              <td width="206"><%= f.text_field :capital,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr class="odd1">
+              <td class="campos" width="290" height="0">Interes</td>
+              <td width="206"><%= f.text_field :interes,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr>
+              <td class="campos" width="290" height="0">Valor Banco Agrario</td>
+              <td width="206"><%= f.text_field :banco_agrario,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr class="odd1">
+              <td class="campos" width="290" height="0">Valor Fovimed</td>
+              <td width="206"><%= f.text_field :fovimed,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr>
+              <td class="campos" width="290" height="0">Valor Isvimed</td>
+              <td width="206"><%= f.text_field :isvimed,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr class="odd1">
+              <td class="campos" width="290" height="0">Nro de Subsidios Legalizados</td>
+              <td width="206"><%= f.text_field :subsidios_legalizados,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr>
+              <td class="campos" width="290" height="0">Nro de Subsidios en Proceso</td>
+              <td width="206"><%= f.text_field :subsidios_enproceso,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+            <tr class="odd1">
+              <td class="campos" width="290" height="0">Nro de Subsidios con Problemas</td>
+              <td width="206"><%= f.text_field :subsidios_problemas,{ :class => "campo",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            </tr>
+          </table></td>
+      </tr>
+    </table>
+    <table width="90%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <table width="90%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <% if permiso("proyecto","C").to_s == "S" %>
+        <td  height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+        <% end %>
+      </tr>
+    </table>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab2">
+  <fieldset>
+    <% unless @proyecto.new_record? %>
+      <%= render 'proyecto' %>
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab3">
+  <fieldset>
+    <% unless @proyecto.new_record? %>
+      <%= render 'proyectos/habitacional'%>
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab4">
+  <fieldset>
+    <% unless @proyecto.new_record? %>
+      <div id="proyectosfactibilidades_form">
+          <%= render :partial => "/proyectosfactibilidades/proyectosfactibilidades" %>
+      </div> 
+    <% end %>
+  </fieldset>
+</div>
+</div>
+
+
+
+
+
+

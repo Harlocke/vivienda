@@ -1,0 +1,67 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">BLOQUES DEL PROYECTO</div></td>
+  </tr>
+</table>
+<% remote_form_for [@proyectoscopropiedad, @proyectoscopbloque] do |form| %>
+<% if !@proyectoscopbloque.id %>
+    <%= render :partial => "/proyectoscopbloques/proyectoscopbloques_form" %>
+<% end %>
+<% if @proyectoscopropiedad.proyectoscopbloques.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr valign="middle">    
+    <td width="38%" height="30" align="left" class="oce-first">Proyecto</td>
+    <td width="10%" align="left" class="oce-first">Bloque</td>
+    <td width="30%" height="30" align="left" class="oce-first">Dirección</td>
+    <td width="10%" height="30" align="left" class="oce-first">Nro Aptos</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for proyectoscopbloque in @proyectoscopropiedad.proyectoscopbloques.find(:all, :order => 'id ASC') %>
+   <% if proyectoscopbloque.id != @proyectoscopbloque.id %>
+     <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="proyectoscopbloque_<%=proyectoscopbloque.id%>">
+       <td><div align="left" class="camposDesc"><%=proyectoscopbloque.proyectoscopropiedad.proyecto.descripcion rescue nil%></div></td>
+       <td><div align="left" class="camposDesc"><%=proyectoscopbloque.bloque.descripcion rescue nil%></div></td>
+       <td><div align="left" class="camposDesc"><%=proyectoscopbloque.bloque.direccion rescue nil%><br/>
+           <% legalizacionesproyectos = Legalizacionesproyecto.find(:all, :conditions=>["proyecto = #{proyectoscopbloque.proyecto_id} and bloque = #{proyectoscopbloque.bloque_id}"])
+              if legalizacionesproyectos
+                legalizacionesproyectos.each do |legalizacionesproyecto|
+                  legalizacionesmatriculas = Legalizacionesmatricula.find(:all, :conditions=>["legalizacionesproyecto_id = #{legalizacionesproyecto.id}"])
+                  legalizacionesmatriculas.each do |legalizacionesmatricula|
+                   %>
+                     <strong>Matricula RPH: </strong><%=legalizacionesmatricula.matricula rescue nil %><br/>
+           <%     end
+                end
+              end %>
+         </div></td>
+       <td><div align="left" class="camposDesc"><%=Apto.count(:conditions=>["piso_id in (select id from pisos where bloque_id = #{proyectoscopbloque.bloque_id})"])%></div></td>
+       <td width="12%" align="center" class="camposDesc">
+         <% if permiso("proyectocopbloque","A").to_s == "S" %>
+           <%= link_to_remote('Editar',{:url=>edit_proyectoscopropiedad_proyectoscopbloque_path(@proyectoscopropiedad,proyectoscopbloque),:method => :get},:class=>"editarlink")%>
+           |&nbsp;<%= link_to_remote('Borrar',{:url => proyectoscopropiedad_proyectoscopbloque_path(@proyectoscopropiedad, proyectoscopbloque),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+         <% end %>
+     </td>
+   </tr>
+  <% else %>
+       <table width="64%" align="center"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+       <%= render :partial => "proyectoscopbloques_form" %>
+        <table width="64%" align="center">
+  <% end %>
+<% end %>
+</table>
+<% else %>
+
+<% end %>
+<%= hidden_field :proyectoscopropiedad, :id %>
+<% end %>
+<br/>
+<% if flash[:proyectoscopbloque] %>
+<div id="proyectoscopbloque">
+    <div class="alert alert-success">
+      <%= flash[:proyectoscopbloque] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('proyectoscopbloque');", 5000)
+</script>
+<% end %>

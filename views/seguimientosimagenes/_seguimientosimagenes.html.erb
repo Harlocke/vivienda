@@ -1,0 +1,98 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_seguimiento_seguimientosimagen_path(@seguimiento.id) %></span></div>
+   </div></td>
+  </tr>
+</table>
+<br/>
+<div align="center">
+<% remote_form_for [@seguimiento, @seguimientosimagen] do |form| %>
+<% if !@seguimientosimagen.id %>
+<% end %>
+<% if @seguimiento.seguimientosimagenes.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="40%" height="20" class="oce-first">Descripcion</th>
+    <th width="40%" height="20" class="oce-first">Nombre del Archivo</th>
+    <th width="20%" height="20" class="oce-first"></th>
+  </tr>
+  <% for seguimientosimagen in @seguimiento.seguimientosimagenes.find(:all, :conditions =>['seguimiento_content_type not like ?', '%image%'],:order => 'created_at DESC') %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientosimagen_<%= seguimientosimagen.id%>">
+     <td  class="camposDesc"><%=seguimientosimagen.descripcion%></td>
+     <td  class="camposDesc"><%=seguimientosimagen.seguimiento_file_name%></td>
+     <td  class="camposDesc">
+      <%= link_to "Ver", seguimientosimagen.seguimiento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+        &nbsp;&nbsp;<%= link_to_remote('Borrar',{:url => seguimiento_seguimientosimagen_path(@seguimiento, seguimientosimagen),
+                        :method => :delete, :confirm => "¿Seguro?"},:class=>"borrarlink")%>
+     </td>
+   </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+<div align="center">
+<table width="90%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<% i = 0 %>
+<% for seguimientosimagen in @seguimiento.seguimientosimagenes.find(:all, :conditions =>['seguimiento_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+  <% i = i + 1
+     if i <= 3
+  %>
+  <td width="0%">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+     <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientosimagen_<%= seguimientosimagen.id%>">
+       <td width="100%" class="camposDesc"><div align="center">
+          <%= link_to image_tag(seguimientosimagen.seguimiento.url(:original, false), :size =>"250x250", :border=>0,
+                                :title => "Ver Documento"),
+                                seguimientosimagen.seguimiento.url(:original, false),
+                               { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+           <br/><%=seguimientosimagen.descripcion%>
+                 &nbsp;<%= link_to_remote('Borrar',{:url => seguimiento_seguimientosimagen_path(@seguimiento, seguimientosimagen),
+                          :method => :delete, :confirm => "¿Seguro?"}, :class=>"btn btn-mini btn-danger")%>
+                 <br/>
+         </div>
+         </td>
+     </tr>
+    </table>
+  </td>
+  <% else
+     i = 1
+  %>
+  </tr>
+</table>
+<br/>
+<table width="90%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td width="50%">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+     <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientosimagen_<%= seguimientosimagen.id%>">
+       <td width="100%" class="camposDesc"><div align="center">
+          <%= link_to image_tag(seguimientosimagen.seguimiento.url(:original, false), :size =>"250x250", :border=>0,
+                                :title => "Ver Documento"),
+                                seguimientosimagen.seguimiento.url(:original, false),
+                               { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+           <br/><%=seguimientosimagen.descripcion%>
+                 &nbsp;<%= link_to_remote('Borrar',{:url => seguimiento_seguimientosimagen_path(@seguimiento, seguimientosimagen),
+                          :method => :delete, :confirm => "¿Seguro?"}, :class=>"btn btn-mini btn-danger")%>
+                 <br/>
+         </div>
+         </td>
+     </tr>
+    </table>
+  </td>
+  <% end  %>
+<% end %>
+</tr>
+</table>
+</div>
+
+<% else %>
+<div id="capacitacion">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+   <%= hidden_field :seguimiento, :id %>
+<% end %>
+</div>

@@ -1,0 +1,127 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/solicitudalmacenmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BANDEJA DE SOLICITUDES AL ALMACEN</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                                           { :border=>0, :title => "Menu Almacen"}),almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div id="container">
+  <div id="mainmenu">
+    <ul id="tabs">
+      <li><a href="#tab1"><img src="/images/find.png" border="0" title="Pendientes"/></a></li>
+      <li><a href="#tab2"><img src="/images/tick.png" border="0" title="Solucionadas"/></a></li>
+    </ul>
+  </div>
+<div class="panel" id="tab1">
+  <fieldset>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">SOLICITUDES PENDIENTES</div></td>
+      </tr>
+    </table>
+    <div align="center">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+      <tr>
+        <td width="15%" height="30" class="oce-first"><div align="center">Fecha Solicitud</div></td>
+        <td width="55%" class="oce-first">Usuario</td>
+        <td width="15%" class="oce-first"><div align="center">Consecutivo</div></td>
+        <td width="15%" class="oce-first"></td>
+      </tr>
+    <% #@almacenessolicitudes = Almacenessolicitud.find(:all, :conditions=>["revisado is not null"], :order=>"created_at desc")
+       hayuno = ""
+       for almacenessolicitud in @almacenessolicitudes
+         revisado = Almacenessolicitud.exists?(['consecutivo = ? and revisado is not null', almacenessolicitud.consecutivo])
+         if !revisado
+           hayuno = 'S'
+    %>
+        <tr class="<%=cycle('even1', 'odd1')%> postS_<%=almacenessolicitud.id%>">
+          <td class="camposDesc"><div align="center"><%=h almacenessolicitud.fecha_envio.strftime("%Y-%m-%d %X") %></div></td>
+          <td class="camposDesc"><%=h almacenessolicitud.user.nombre rescue nil %></td>
+          <td class="camposDesc"><div align="center"><%=h almacenessolicitud.consecutivo %></div></td>
+          <td class="camposDesc">
+            <div align="center">
+            <%= link_to "Verificar", {:controller => "almacenessolicitudes", :action => "versolicitud", :consecutivo=>almacenessolicitud.consecutivo}, :class=>"verlink"%>
+            |&nbsp;<%= link_to 'Borrar', {:controller => "almacenessolicitudes", :action => "borrar", :consecutivo=>almacenessolicitud.consecutivo},
+                   :confirm => 'Esta Seguro de Eliminar?',:class=>"borrarlink",
+                   :before => "$(this).up('.post1S_#{almacenessolicitud.id}').remove()"%>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    <% if hayuno.to_s == "" %>
+      <tr>
+        <td colspan="4"><br/>
+          <div id="notice">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;No hay solicitudes Pendientes</td>
+   </tr>
+  </table>
+</div>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    </div>
+</fieldset>
+  </div>
+<div class="panel" id="tab2">
+  <fieldset>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">SOLICITUDES RESUELTAS</div></td>
+      </tr>
+    </table>
+     <div align="center">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+      <tr>
+        <td width="15%" height="30" class="oce-first"><div align="center">Fecha Solicitud</div></td>
+        <td width="55%" class="oce-first">Usuario</td>
+        <td width="15%" class="oce-first"><div align="center">Consecutivo</div></td>
+        <td width="15%" class="oce-first"><div align="center">Salida</div></td>
+        <td width="15%" class="oce-first"></td>
+      </tr>
+    <% for almacenessolicitud in @almacenesssolicitudes %>
+      <tr class="<%=cycle('even1', 'odd1')%> postS_<%=almacenessolicitud.id%>">
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.fecha_envio.strftime("%Y-%m-%d %X") %></div></td>
+        <td class="camposDesc"><%=h almacenessolicitud.user.nombre rescue nil %></td>
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.consecutivo %></div></td>
+        <td class="camposDesc"><div align="center"><%=h almacenessolicitud.nro_salida %></div></td>
+        <td class="camposDesc">
+          <div align="center">
+        <%
+          revisado = Almacenessolicitud.exists?(['consecutivo = ? and revisado is not null', almacenessolicitud.consecutivo])
+          if  revisado
+         %>
+            <%= link_to "Ver", {:controller => "almacenessolicitudes", :action => "versolicitud", :consecutivo=>almacenessolicitud.consecutivo}, :class=>"verlink"%>
+         <% else %>
+              <%= link_to "Nuevo", {:controller => "almacenessolicitudes", :action => "versolicitud", :consecutivo=>almacenessolicitud.consecutivo}, :class=>"verlink"%>
+              |&nbsp;<%= link_to 'Borrar', {:controller => "almacenessolicitudes", :action => "borrar", :consecutivo=>almacenessolicitud.consecutivo},
+                 :confirm => 'Esta Seguro de Eliminar?',:class=>"borrarlink",
+                 :before => "$(this).up('.post1S_#{almacenessolicitud.id}').remove()"%>
+         <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    </div>
+  </fieldset>
+</div>
+</div>
+
+<br/>

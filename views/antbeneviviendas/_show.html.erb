@@ -1,0 +1,25 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">GRUPO FAMILIAR ANTERIOR</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="25%" height="20" class="oce-first">Elimina Usuario - Fecha</td>
+    <td width="15%" height="20" class="oce-first">Identificacion</td>
+    <td width="30%" class="oce-first">Nombre</td>
+    <td width="10%" class="oce-first">Fecha Nacto</td>
+    <td width="20%" class="oce-first">Parentesco</td>
+  </tr>
+</table>
+<% @persona.antbeneviviendas.each do |antbenevivienda| %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr  valign="middle" id="benevivienda_<%=antbenevivienda.id%>">
+     <td width="25%" class="camposDesc"><%=antbenevivienda.user.username rescue nil%> - <%=antbenevivienda.created_at.strftime("%Y-%m-%d %X")%></td>
+    <td width="15%" height="20" class="camposDesc"><%=antbenevivienda.documento.descripcion rescue nil%> - <%=antbenevivienda.identificacion%></td>
+    <td width="30%" class="camposDesc"><%=antbenevivienda.primer_nombre%> <%=antbenevivienda.segundo_nombre%> <%=antbenevivienda.primer_apellido%> <%=antbenevivienda.segundo_apellido%></td>
+    <td width="10%" class="camposDesc"><%=antbenevivienda.fecha_nacimiento%></td>
+    <td width="20%" class="camposDesc"><%=antbenevivienda.parentesco.descripcion rescue nil%></td>
+ </tr>
+</table>
+<% end %>

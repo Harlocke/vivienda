@@ -1,0 +1,130 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">RESOLUCIONES ASOCIADAS </div></td>
+  </tr>
+</table>
+<% remote_form_for [@convenio, @conveniosresolucion] do |form| %>
+  <% if permiso("conveniosresolucion","C").to_s == "S"%>
+        <% if !@conveniosresolucion.id %>
+      <%= render :partial => "/conveniosresoluciones/conveniosresoluciones_form" %>
+    <% end %>
+  <% end %>
+<% if @convenio.conveniosresoluciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha Creacion</td>
+    <td width="8%" class="oce-first">Nro Resol.</td>
+    <td width="8%" class="oce-first">Fecha</td>
+    <td width="54%" class="oce-first">Resuelve</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% for conveniosresolucion in @convenio.conveniosresoluciones.find(:all, :order => 'created_at DESC') %>
+   <% if conveniosresolucion.id != @conveniosresolucion.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosresolucion_<%=conveniosresolucion.id%>">
+      <td width="15%" height="30" class="camposDesc"><%=conveniosresolucion.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=conveniosresolucion.user.username rescue nil%></td>
+      <td width="8%" class="camposDesc"><%=conveniosresolucion.resolucion.nro_resolucion rescue nil%></td>
+      <td width="8%" class="camposDesc"><%=conveniosresolucion.resolucion.fecha rescue nil%></td>
+      <td width="54%" class="camposDesc"><div align="justify"><%=conveniosresolucion.resolucion.resuelve rescue nil%><br/>
+          <strong>FORMA DE CALCULO : </strong><%=conveniosresolucion.calculo rescue nil%>
+          <% if conveniosresolucion.calculo.to_s == 'EJECUCION 2015'%>
+          <br/><strong>TRANSPORTE A CABECERA - CORREGIMIENTOS : </strong><%=conveniosresolucion.incremento_corregimiento rescue nil%>
+          <br/><strong>TRANSPORTE A VEREDAS SOBRE EL VALOR DE LA CABECERA : </strong><%=conveniosresolucion.incremento_adicional rescue nil%>
+          <br/><strong>INCLUYE DIAGNOSTICO : </strong><%=conveniosresolucion.incluye_diagnostico rescue nil%>
+          <br/><strong>MANO DE OBRA NO CALIFICADA : </strong><%=conveniosresolucion.especial rescue nil%>
+          <% else %>
+          <br/><strong>MANO DE OBRA NO CALIFICADA : </strong><%=conveniosresolucion.especial rescue nil%>
+          <%end%>
+        </div>
+      </td>
+      <td width="15%" class="camposDesc"><div align="center">
+       <% if permiso("conveniosresolucion","A").to_s == "S" %>
+       <%= link_to_remote('Editar',{:url => edit_convenio_conveniosresolucion_path(@convenio, conveniosresolucion),
+                  :method => :get}, :class=>"editarlink")%>
+       <% end %>
+       <% if permiso("conveniosresolucion","E").to_s == "S" %>
+         <%= link_to_remote('Borrar',{:url => convenio_conveniosresolucion_path(@convenio, conveniosresolucion),
+                  :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %>
+      <% if permiso("conveniosresolintencion","C").to_s == "S" %>
+          <%= link_to 'Nueva Intencion', {:controller=>"conveniosresolintenciones", :action=>"new", :convenio_id=>@convenio.id, :resolucion_id=>conveniosresolucion.resolucion_id, :conveniosresolucion_id=>conveniosresolucion.id}, :class=>"imagenpagos"   %>
+      <% end %></div></td>
+   </tr>
+   <% if conveniosresolucion.conveniosresolintenciones.exists? %>
+       <tr>
+         <td colspan="6">
+           <div align="center">
+            <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td align="center" class="oce-first">Fecha Creacion</td>
+                <td align="center" class="oce-first">Nro factura</td>
+                <td align="center" class="oce-first">Nro Intencion</td>
+                <td align="center" class="oce-first">Resolucion</td>
+                <td align="center" class="oce-first">Fecha de la Intención</td>
+                <td align="center" class="oce-first">% de Cobro</td>
+                <td align="center" class="oce-first"></td>
+              </tr
+              <% conveniosresolucion.conveniosresolintenciones.each do |conveniosresolintencion| %>
+              <tr valign="middle">
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.created_at.strftime("%Y-%m-%d") rescue nil%></div></td>
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.nro_factura rescue nil%></div></td>
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.id rescue nil%></div></td>
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.resolucion.nro_resolucion rescue nil%> - <%=conveniosresolintencion.resolucion.fecha rescue nil%></div></td>
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.fecha.strftime("%Y-%m-%d") rescue nil%></div></td>
+                <td class="camposDesc"><div align="center"><%=conveniosresolintencion.conveniosforma.porcentaje rescue nil%> - <%=conveniosresolintencion.conveniosforma.clase rescue nil%></div></td>
+                <td class="camposDesc"><div align="center">
+                  <% if permiso("conveniosresolintencion","A").to_s == "S" %>
+                     <%= link_to 'Editar', edit_conveniosresolintencion_path(conveniosresolintencion), :class=>"editarlink" %>
+                  <% end%>
+                  <% if permiso("conveniosresolintencion","E").to_s == "S" %>
+                     <% if conveniosresolintencion.generada.to_s == "" %>
+                        <%= link_to 'Eliminar', conveniosresolintencion, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+                     <% end %>
+                  <% end %></div></td>
+              </tr>
+              <% end %>
+            </table>
+           </div>
+         </td>
+       </tr>
+   <% end %>
+  </table>
+  <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR RADICADOS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="conveniosresolucion_<%=@conveniosresolucion.id%>">
+     <%= render :partial => "conveniosresoluciones_form" %>
+    </tr>
+    </fieldset>
+  <% end %>
+<% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :convenio, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosresolucion] %>
+<div id="conveniosresolucion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:conveniosresolucion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosresolucion');", 5000)
+</script>
+<% end %>

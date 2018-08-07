@@ -1,0 +1,26 @@
+<h1>Listing feriadocenterechazados</h1>
+
+<table>
+  <tr>
+    <th>Feriadocentejefe</th>
+    <th>Nroformulario</th>
+    <th>Causarechazo</th>
+    <th>Formula</th>
+  </tr>
+
+<% @feriadocenterechazados.each do |feriadocenterechazado| %>
+  <tr>
+    <td><%=h feriadocenterechazado.feriadocentejefe_id %></td>
+    <td><%=h feriadocenterechazado.nroformulario %></td>
+    <td><%=h feriadocenterechazado.causarechazo %></td>
+    <td><%=h feriadocenterechazado.formula %></td>
+    <td><%= link_to 'Show', feriadocenterechazado %></td>
+    <td><%= link_to 'Edit', edit_feriadocenterechazado_path(feriadocenterechazado) %></td>
+    <td><%= link_to 'Destroy', feriadocenterechazado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feriadocenterechazado', new_feriadocenterechazado_path %>

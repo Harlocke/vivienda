@@ -1,0 +1,60 @@
+<div align="center">
+<% remote_form_for [@valorizacionesestado, @valorizacionesestadosnota] do |form| %>
+   <% if !@valorizacionesestadosnota.id %>
+      <tr>
+	<%= render :partial => "/valorizacionesestadosnotas/valorizacionesestadosnotas_form" %>
+      </tr>
+<% end %>
+<% if @valorizacionesestado.valorizacionesestadosnotas.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="10%" height="30" class="oce-first">Proyecto</td>
+    <td width="75%" class="oce-first">Observaciones</td>
+  </tr>
+</table>
+<% for valorizacionesestadosnota in @valorizacionesestado.valorizacionesestadosnotas.find(:all, :order => 'created_at DESC') %>
+   <% if valorizacionesestadosnota.id != @valorizacionesestadosnota.id %>
+      <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="valorizacionesestadosnota_<%=valorizacionesestadosnota.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=valorizacionesestadosnota.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=valorizacionesestadosnota.user.nombre rescue nil%>"><%=valorizacionesestadosnota.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="10%" class="camposDesc" align="left"><%=valorizacionesestadosnota.proyecto%></td>
+          <td width="75%" class="camposDesc" align="left"><%=valorizacionesestadosnota.observaciones%></td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :valorizacionesestado, :id %>
+<% end %>
+<br/>
+<% if flash[:valorizacionesestadosnota] %>
+<div id="valorizacionesestadosnota">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:valorizacionesestadosnota] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('valorizacionesestadosnota');", 5000)
+</script>
+<% end %>
+</div>

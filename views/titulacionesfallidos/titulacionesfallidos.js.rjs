@@ -1,0 +1,1 @@
+page.replace_html :titulacionesfallidos_form, :partial => "titulacionesfallidos", :object => @titulacionesfallido

@@ -1,0 +1,44 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+      <td width="3%"><%=image_tag('informemin.png')%></td>
+      <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMES DE INTERVENTORIA</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+                { :border=>0, :title => "Buscar"}),interventorias_path %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="50%" height="20" class="oce-first" colspan="2">Contratista</td>
+    <td width="15%" height="20" class="oce-first"><div align="center">Contrato</div></td>
+    <td width="15%" class="oce-first"><div align="center">Periodo</div></td>
+    <td width="20%" class="oce-first"><div align="center"></div></td>
+  </tr>
+  <% @interventorias.each do |interventoria| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td width="12%" height="20" class="camposDesc"><div align="left"><%=h interventoria.empleado.identificacion rescue nil %></div></td>
+    <td width="38%" class="camposDesc"><div align="left"><%=h interventoria.empleado.nombres rescue nil %></div></td>
+    <td class="camposDesc"><div align="center"><%=interventoria.contrato.nro_contrato%> de <%=interventoria.contrato.fecha_firma.strftime("%d-%m-%Y") rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=interventoria.anno%> - <%=descmesmin(interventoria.mes) rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+        <% if permiso("interventoriaespecial","C").to_s == "S" %>
+        <%= link_to 'Editar', {:controller=>"interventorias", :action=>"edit", :id=>interventoria.id, :etapa=>"1"}, :class=>"editarlink"%>
+        <% end %>
+        <%= link_to 'Informe', {:controller=>"interventorias", :action=>"verificacion", :id=>interventoria.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"rubrolink"%>
+        <% if interventoria.estado.to_s == 'APROBADOGH' %>
+             <%= link_to 'Imprimir', {:controller=>"interventorias", :action=>"visualizar", :contrato_id=>interventoria.contrato_id, :ano=>interventoria.anno, :mes=>interventoria.mes},  :popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"imprimirlink"%>
+         <% end %>
+         <% if interventoria.mes.to_s == interventoria.contrato.fechafinalreal.strftime("%m").to_s %>
+            <%= link_to 'Informe final', {:controller=>"interventorias", :action=>"visualizarfinal", :contrato_id=>interventoria.contrato.id,
+              :ano=>interventoria.anno, :mes=>interventoria.mes},  :popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"verlink"%><br/>
+         <% end %>
+      </div></td>
+  </tr>
+  <% end %>
+</table>

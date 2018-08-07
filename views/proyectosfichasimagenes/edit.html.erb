@@ -1,0 +1,20 @@
+<h1>Editing proyectosfichasimagen</h1>
+
+<% form_for(@proyectosfichasimagen) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :proyectosficha_id %><br />
+    <%= f.text_field :proyectosficha_id %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @proyectosfichasimagen %> |
+<%= link_to 'Back', proyectosfichasimagenes_path %>

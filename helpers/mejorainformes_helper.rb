@@ -1,0 +1,2 @@
+module MejorainformesHelper
+end

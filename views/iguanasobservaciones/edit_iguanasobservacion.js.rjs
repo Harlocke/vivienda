@@ -1,0 +1,1 @@
+page.replace_html :iguanasobservaciones_form, :partial => "/iguanasobservaciones/iguanasobservaciones"

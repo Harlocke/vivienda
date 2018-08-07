@@ -1,0 +1,106 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">GRUPO FAMILIAR </div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @benevivienda] do |form| %>
+  <% if permiso("benevivienda","C").to_s == "S"
+      if permisoespecial(@persona.id).to_s == "S" %>
+        <% if !@benevivienda.id %>
+      <tr>
+	<%= render :partial => "/beneviviendas/beneviviendas_form" %>
+      </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+<% if @persona.beneviviendas.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Identificacion</td>
+    <td width="25%" class="oce-first">Nombre</td>
+    <td width="10%" class="oce-first">Fecha Nac.</td>
+    <td width="20%" class="oce-first">Parentesco</td>
+    <td width="15%" class="oce-first">Condicion Especial</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% a = 0
+   @persona.beneviviendas.each do |benevivienda| %>
+   <% if benevivienda.id != @benevivienda.id %>
+    <% if permisoferia.to_s == "SIII" and @persona.feriavipa.to_s == 'SI' and @persona.vinculacion_opv.to_s != "" %>
+        <% if a <= 0 %>
+          <% a = 1%>
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+            <tr>
+            <td height="30" class="camposNotas camposDesc13"><div align="center"><br/><strong>
+                  <%= link_to "F I N A L I Z A R   -   I N S C R I P C I Ó N", {:controller => "personas", :action => "feriavipa", :id=>@persona.id},:confirm=>"Esta seguro que desea finalizar el proceso de inscripción?\nNo podra realizar mas cambios.", :class=>"verlink"%>
+                  </strong></div><br/>
+            </td>
+            </tr>
+          </table>
+         <% end %>
+    <% end %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="benevivienda_<%=benevivienda.id%>">
+    <td width="15%" height="30" class="camposDesc">
+      <% if cruzadoben(benevivienda.id).to_s == 'S' %>
+         <img src="/images/rojo1.png" title="*** Este Beneficiario presenta cruce con la base de datos de Minambiente...."/>
+      <% end %>
+   <%=benevivienda.documento.descripcion rescue nil%> - <%=benevivienda.identificacion%></td>
+    <td width="25%" class="camposDesc"><%=benevivienda.primer_nombre%> <%=benevivienda.segundo_nombre%> <%=benevivienda.primer_apellido%> <%=benevivienda.segundo_apellido%></td>
+    <td width="10%" class="camposDesc"><%=benevivienda.fecha_nacimiento%></td>
+    <td width="20%" class="camposDesc"><%=benevivienda.parentesco.descripcion rescue nil%></td>
+    <td width="15%" class="camposDesc"><%=benevivienda.especial.descripcion rescue nil%></td>
+    <td width="15%" class="camposDesc">
+     <% if permiso("benevivienda","A").to_s == "S" %>
+     <%= link_to_remote('Editar',{:url => edit_persona_benevivienda_path(@persona, benevivienda),
+		:method => :get}, :class=>"editarlink")%>
+      <% end %>
+     <% if permiso("benevivienda","E").to_s == "S"
+         if permisoespecial(@persona.id).to_s == "S" %>
+     |&nbsp;<%= link_to_remote('Borrar',{:url => persona_benevivienda_path(@persona, benevivienda),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+         <% end %>
+    <% end %></td>
+ </tr>
+</table>
+  <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR BENEFICIARIOS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="benevivienda_<%=@benevivienda.id%>">
+     <%= render :partial => "beneviviendas_form" %>
+    </tr>
+    </fieldset>
+  <% end %>
+<% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:benevivienda] %>
+<div id="benevivienda">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:benevivienda] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('benevivienda');", 5000)
+</script>
+<% end %>
+</fieldset>

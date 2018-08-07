@@ -1,0 +1,221 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciarecibidamin.png" width="64" height="64"/></td>
+              <td width="85%"><div class="col_enc">CORRESPONDENCIA RECIBIDA</div></td>
+              <td width="12%"><div align="right"><%= link_to image_tag('atras.png', { :border=>0, :title => "Buscar"}),correspondenciasrecibidas_path %>
+                  <% if permiso("correspondenciasrecibida","C").to_s == "S" %>
+                    <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),new_correspondenciasrecibida_path %>
+                  <% end %>
+                </div></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+</table>
+<% unless @correspondenciasrecibida.new_record? %>
+  <%= link_to image_tag("recibida.png", :title => "Informacion Recibida", :style=>"#{@correspondenciasrecibida.d_etapa('1')} padding:4px;"),edit_correspondenciasrecibida_path(:id=>@correspondenciasrecibida.id,:etapa=>"1")%>
+  <%= link_to image_tag("traslado.png", :title => "Traslado Dependencias", :style=>"#{@correspondenciasrecibida.d_etapa('2')} padding:4px;"),edit_correspondenciasrecibida_path(:id=>@correspondenciasrecibida.id,:etapa=>"2")%>
+  <%= link_to image_tag("traslado.png", :title => "Traslado Usuarios", :style=>"#{@correspondenciasrecibida.d_etapa('4')} padding:4px;"),edit_correspondenciasrecibida_path(:id=>@correspondenciasrecibida.id,:etapa=>"4")%>
+  <%= link_to image_tag("imagenes.png", :title => "Informacion Digitalizada", :style=>"#{@correspondenciasrecibida.d_etapa('3')} padding:4px;"),edit_correspondenciasrecibida_path(:id=>@correspondenciasrecibida.id,:etapa=>"3")%>
+<% end %>
+<% if @correspondenciasrecibida.etapa.to_s == '1' %>
+<fieldset>
+<div align="center">
+<% form_for(@correspondenciasrecibida) do |f|  %>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION REGISTRO</div></td>
+  </tr>
+</table>
+     <table width="95%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="30%" height="20" class="campos" align="left">Nro Radicado *</td>
+          <td class="camposDesc" align="left">
+            <% if @correspondenciasrecibida.nro_radicado %>
+              <%=@correspondenciasrecibida.nro_radicado%>
+              <%= error_message_on :correspondenciasrecibida, :nro_radicado, :css_class =>"cerror"%>
+            <% end %>&nbsp;&nbsp;<h class="cerror">* Ultimo Radicado ... <%=is_recibida%></h></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Fecha Elaboracion Doc. *</td>
+          <td class="camposDesc" align="left">
+            <%= calendar_date_select "correspondenciasrecibida", "fecha_elaboracion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :correspondenciasrecibida, :fecha_elaboracion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos" align="left">Numero Externo</td>
+          <td class="camposDesc" align="left"><%= f.text_field :numero_externo,{ :class => "campo", :size => 50,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+    <tr>
+      <td height="20" class="campos" align="left">Remitente Identificacion *</td>
+      <td class="camposDesc" align="left"> <%= text_field_with_auto_complete :correspondenciasrecibida, :persona_autobuscar,
+	         { :class => "campo",:size => 90,:maxlength => 150,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" },
+	         { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %> &nbsp;
+<% if permiso("correspondenciasrecibida","C").to_s == "S" %>
+  <%= link_to "",newrapido_personas_path, :title => "Crear Persona", :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"nuevoplink"%>
+<% end %>
+  <%= error_message_on :correspondenciasrecibida, :persona_autobuscar, :css_class =>"cerror"%>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td height="20" class="campos" align="left">Remitente Identificacion Bene *</td>
+      <td class="camposDesc" align="left"> <%= text_field_with_auto_complete :correspondenciasrecibida, :benevivienda_autobuscar,
+	        { :class => "campo",:size => 90,:maxlength => 150,:onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" },
+	        { :url => listar_beneviviendas_path(:js), :method => :get, :with => "'search2=' + element.value" } %>
+          <%= error_message_on :correspondenciasrecibida, :benevivienda_autobuscar, :css_class =>"cerror"%>
+      </td>
+    </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Remitente Empresa *</td>
+          <td class="camposDesc" align="left">
+           <%= text_field_with_auto_complete :correspondenciasrecibida, :correspondenciasremitente_autobuscar, { :class => "campo",
+                :size => 90, :maxlength => 150, :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" },
+	              { :url => listar_correspondenciasremitentes_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+            <%= error_message_on :correspondenciasrecibida, :correspondenciasremitente_autobuscar, :css_class =>"cerror"%>
+            <% if permiso("correspondenciasrecibida","C").to_s == "S" %>
+            &nbsp;<%= link_to "",new2_correspondenciasremitentes_path, :title => "Crear Remitente", :popup => ['new_window','height=530,width=900,scrollbars=yes'], :class=>"nuevop2link"%>
+            <% end %>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos" align="left">Asunto *</td>
+          <td class="camposDesc" align="left">
+                <%=text_area(:correspondenciasrecibida, :asunto, :cols => 100, :rows => 4, :class => 'campo',:maxlength => 4000,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %><br/>
+                <h5>Tipo Asunto *</h5>
+               <%= select(:correspondenciasrecibida,:clase, select_claserecibida, { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Dependencia *</td>
+          <td class="camposDesc" align="left">
+                  <%=select("correspondenciasrecibida", "dependencia_id", Dependencia.find(:all, :conditions=>["id not in (10010,10004,10041,10040,10043)"], :order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+                    { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            </td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos" align="left">Anexos</td>
+          <td class="camposDesc" align="left">
+            <%=text_area(:correspondenciasrecibida, :anexos, :cols => 100, :rows => 4, :class => 'campo',:maxlength => 4000, :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          </td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Clase *</td>
+          <td class="camposDesc" align="left">
+              <%=select("correspondenciasrecibida", "correspondenciasclase_id", select_correspondenciasclase.collect {|p| [ p.descripcion.to_s, p.id ] }, { :include_blank => true },
+                { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <%= error_message_on :correspondenciasrecibida, :correspondenciasclase_id, :css_class =>"cerror"%> - Recibida por Email 
+            <%= select(:correspondenciasrecibida,:recibidoemail, select_sino, { :include_blank => true }, { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'"} )%>
+
+</td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos" align="left">Observaciones</td>
+          <td class="camposDesc" align="left">
+<%=text_area(:correspondenciasrecibida, :observacion, :cols => 100, :rows => 4, :class => 'campo',:maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+        </tr>
+      <% unless @correspondenciasrecibida.new_record? %>
+<% if Correspondenciasradicado.exists?(["correspondenciasrecibida_id = ? ", @correspondenciasrecibida.id]) == true
+     @correspondenciasradicados = Correspondenciasradicado.find_all_by_correspondenciasrecibida_id(@correspondenciasrecibida.id)
+     @correspondenciasradicados.each do |correspondenciasradicado|
+%>
+        <tr>
+          <td height="20" class="campos" align="left">Radicado Respuesta</td>
+          <td class="camposNotas" align="left"><%=correspondenciasradicado.correspondenciasenviada.nro_radicado rescue nil%> - Fecha : <%=correspondenciasradicado.correspondenciasenviada.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%></td>
+        </tr>
+    <% end %>
+  <% else %>
+        <tr>
+          <td class="campos" align="left">Respuesta sin radicado</td>
+          <td class="camposDesc" valign="top">
+            SI <%= f.radio_button("respuesta", "SI") %> NO <%= f.radio_button("respuesta", "NO") %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" align="left">&nbsp;</td>
+          <td class="camposDesc" valign="top">Observaciones:
+            <%=text_area(:correspondenciasrecibida, :respuestaobs, :cols => 80, :rows => 4, :class => 'campo',:maxlength => 4000,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+            <%= error_message_on :correspondenciasrecibida, :respuestaobs, :css_class =>"cerror"%></td>
+        </tr>
+  <% end %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Confidencial</td>
+          <td class="camposDesc" align="left"><%= f.check_box :confidencial,{},'SI','NO'%></td>
+        </tr>
+        <tr class="odd1">
+          <td  height="20" class="campos" align="left">Fecha Limite</td>
+          <td class="camposNotas" align="left"><%=@correspondenciasrecibida.fecha_limite.strftime("%Y-%m-%d") rescue nil%></td>
+        </tr>
+        <tr>
+          <td  height="20" class="campos" align="left">Creación</td>
+          <td class="camposDesc" align="left"><%=User.find(@correspondenciasrecibida.user_id).nombre rescue nil%> - <%= @correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td  height="20" class="campos" align="left">Información Entrega / Recepción</td>
+          <td class="camposNotas" align="left">
+            <% if @correspondenciasrecibida.userrecibida_id %>
+               <%=User.find(@correspondenciasrecibida.userrecibida_id).nombre rescue nil%> - <%= @correspondenciasrecibida.fecharecibida.strftime("%Y-%m-%d %X") rescue nil%>
+            <% else %>
+                <%=link_to 'Marcar Recibida',{:controller=>"correspondenciasrecibidas", :action=>"recibida", :id=>@correspondenciasrecibida.id}, :confirm=>"Seguro que desea recibir este documento???", :class=>"modlink"%>
+            <% end %>
+           </td>
+        </tr>
+        <% if @correspondenciasrecibida.user_envio.to_s != "" %>
+          <tr>
+            <td  height="20" class="campos" align="left">Envio Electronico</td>
+            <td class="camposDesc" align="left"><%=User.find(@correspondenciasrecibida.user_envio).nombre rescue nil%> - <%= @correspondenciasrecibida.fechaenvio.strftime("%Y-%m-%d %X") rescue nil%></td>
+          </tr>
+        <% else %>
+          <% if permiso("correspondenciasenvio","C").to_s == "S" %>
+          <tr>
+            <td  height="20" class="campos" align="left">Envio Electronico</td>
+            <td class="camposDesc" align="left">Pulse <%= link_to 'Aqui', {:controller => "correspondenciasrecibidas", :action => "enviocorrespondencia", :id=>@correspondenciasrecibida.id},:class=>"emaillink" %> para enviar el radicado ya!</td>
+          </tr>
+          <% end %>
+        <% end %>
+
+      <% end %>
+    </table>
+<table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="95%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+      <% unless @correspondenciasrecibida.new_record? %>
+      Ultima Actualización: <%=User.find(@correspondenciasrecibida.useract_id).username rescue nil%> - <%=@correspondenciasrecibida.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+    <% end %></td>
+    <% if permiso("correspondenciasrecibida","A").to_s == "S" %>
+      <td height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% if @correspondenciasrecibida.nro_radicado %>
+        <%= link_to 'Stiker 1', {:controller => "correspondenciasrecibidas", :action => "stikerp", :inicial =>@correspondenciasrecibida.nro_radicado, :final =>@correspondenciasrecibida.nro_radicado, :cantidad=>"1"}, :popup => ['new_window','height=300,width=500,scrollbars=yes'], :class=>"stikerlink" %>
+        <%= link_to 'Stiker 2', {:controller => "correspondenciasrecibidas", :action => "stikerp", :inicial =>@correspondenciasrecibida.nro_radicado, :final =>@correspondenciasrecibida.nro_radicado, :cantidad=>"2"}, :popup => ['new_window','height=300,width=500,scrollbars=yes'], :class=>"stikerlink" %>
+        <%= link_to 'Stiker 3', {:controller => "correspondenciasrecibidas", :action => "stikerp", :inicial =>@correspondenciasrecibida.nro_radicado, :final =>@correspondenciasrecibida.nro_radicado, :cantidad=>"3"}, :popup => ['new_window','height=300,width=500,scrollbars=yes'], :class=>"stikerlink" %>
+        <% end %>
+      </div></td>
+    <% end %>
+  </tr>
+</table>
+<% end %>
+  </div>
+  </fieldset>
+</div>
+<% elsif @correspondenciasrecibida.etapa.to_s == '2' %>
+    <fieldset><div align="center" id="correspondenciasdependencias_form"><%= render :partial => "/correspondenciasdependencias/correspondenciasdependencias" %></div></fieldset>
+<% elsif @correspondenciasrecibida.etapa.to_s == '3' %>
+    <fieldset><div align="center" id="corresrecibidasimagenes_form"><%= render :partial => "/corresrecibidasimagenes/corresrecibidasimagenes" %></div></fieldset>
+<% elsif @correspondenciasrecibida.etapa.to_s == '4' %>
+    <div align="center" id="correspondenciasrecibidasusers_form"><%= render :partial => "/correspondenciasrecibidasusers/correspondenciasrecibidasusers" %></div>
+<% end %>
+<br/><br/>

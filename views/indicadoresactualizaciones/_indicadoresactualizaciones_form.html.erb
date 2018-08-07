@@ -1,0 +1,49 @@
+<div align="center">
+  <table width="95%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="20%" class="campos">No. de campo actualizado</td>
+      <td width="20%" class="campos">Fecha</td>
+      <td width="20%" class="campos">Autor</td>
+    </tr>
+    <tr>
+      <td><%= select(:indicadoresactualizacion, :campo, select_indicadorcontrolcambio,{ :include_blank => true },
+                    { :style=>"width:370px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :indicadoresactualizacion, :campo, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "indicadoresactualizacion", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :indicadoresactualizacion, :fecha, :css_class =>"cerror"%></td>
+      <td><%= text_field :indicadoresactualizacion, :auotor, { :class => "campo", :size => 45,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :indicadoresactualizacion, :auotor, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="95%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="50%" class="campos">Descripción del cambio realizado</td>
+      <td width="50%" class="campos">Observaciones</td>      
+    </tr>
+    <tr>
+      <td><%=text_area(:indicadoresactualizacion, :descripcion, :cols => 50, :rows => 3,
+                       :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :indicadoresactualizacion, :descripcion, :css_class =>"cerror"%></td> 
+      <td><%=text_area(:indicadoresactualizacion, :observaciones, :cols => 50, :rows => 3,
+                       :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :indicadoresactualizacion, :observaciones, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+     <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>
+  <table width="95%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30">
+        <div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :indicadoresactualizacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

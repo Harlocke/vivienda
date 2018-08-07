@@ -1,0 +1,3 @@
+page.replace_html :correspondenciasradicados_form, :partial => "correspondenciasradicados", :object => @correspondenciasradicado
+#page.replace_html :benevivienda, flash[:benevivienda]
+#flash.discard

@@ -1,0 +1,66 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ELEMENTOS DEL ANALISIS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@analisisprecio, @analisisprecioselemento] do |form| %>
+      <% if !@analisisprecioselemento.id %>
+        <%= render :partial => "/analisisprecioselementos/analisisprecioselementos_form" %>
+      <% end %>
+<% if @analisisprecio.analisisprecioselementos.exists? %>
+<div align="center">
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="5%" height="30" class="oce-first">Codigo</td>
+    <td width="45%" class="oce-first">Elemento</td>
+    <td width="5%" class="oce-first">Unidad</td>
+    <td width="5%" class="oce-first"><div align="center">Cant</div></td>
+    <td width="10%" class="oce-first"><div align="right">Vlr. Unitario</div></td>
+    <td width="10%" class="oce-first"><div align="right">Vlr. Total</div></td>
+    <td width="7%" class="oce-first"><div align="right">Vlr HTA</div></td>
+    <td width="8%" class="oce-first"><div align="center">Fch Act.</div></td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<%  @analisisprecio.analisisprecioselementos.each do |analisisprecioselemento| %>
+<% if analisisprecioselemento.id != @analisisprecioselemento.id %>
+   <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="analisisprecioselemento_<%=analisisprecioselemento.id%>">
+    <td height="20" class="camposDesc"><%=h analisisprecioselemento.precioselemento.codigo rescue nil %></td>
+    <td class="camposDesc"><%=h analisisprecioselemento.precioselemento.grupo rescue nil %> - <%=h analisisprecioselemento.precioselemento.descripcion rescue nil %></td>
+    <td class="camposDesc"><%=h analisisprecioselemento.precioselemento.unidadmedida rescue nil %></td>
+    <td class="camposDesc"><div align="center"><%=h analisisprecioselemento.cantidad rescue nil%></div></td>
+    <td class="camposDesc"><div align="right"><%=h camponumerico(analisisprecioselemento.valorunitario) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=h camponumerico(analisisprecioselemento.valortotal) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=h camponumerico(analisisprecioselemento.herramienta) rescue nil %></div></td>
+    <td class="camposDesc"><div align="center"><%=h analisisprecioselemento.precioselemento.fecha_verificacion rescue nil %></div></td>
+    <td class="camposDesc"><div align="center">
+      <% if analisisprecioselemento.precioselemento.precioselementoshijos.exists? %>
+        <%=link_to image_tag("link_suspencion.png"), {:controller=>"elementoshijos", :action=>"mostrar", :id=>analisisprecioselemento.precioselemento_id},:title=>"Insumo con Subanalisis", :popup => ['new_window','height=530,width=900,scrollbars=yes']%>
+       <% end %>
+      <%= link_to_remote('Editar',{:url => edit_analisisprecio_analisisprecioselemento_path(@analisisprecio, analisisprecioselemento),
+                      :method => :get}, :class=>"editarlink")%>
+      <%= link_to_remote('Borrar',{:url =>analisisprecio_analisisprecioselemento_path(@analisisprecio, analisisprecioselemento),
+                      :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%></div>
+      </td>
+   </tr>
+<% else %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><div class="col_enc">EDITAR ELEMENTOS DEL ANALISIS</div></td></tr></table>
+     <%= render :partial => "analisisprecioselementos_form" %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+<% end %>
+  <tr valign="middle" class="odd1">
+    <td colspan="5" class="campos"><div align="right">Subtotal</div></td>
+    <td class="campos"><div align="right"><%=camponumerico(@analisisprecio.analisisprecioselementos.sum("valortotal"))%></div></td>
+    <td class="campos"><div align="right"><%=camponumerico(@analisisprecio.analisisprecioselementos.sum("herramienta"))%></div></td>
+    <td colspan="2" class="campos"><div align="right"><strong><%=camponumerico(@analisisprecio.analisisprecioselementos.sum("valortotal") + @analisisprecio.analisisprecioselementos.sum("herramienta"))%></strong></div></td>
+  </tr>
+</table>
+<% end %>
+</div>
+<%= hidden_field :analisisprecio, :id %>
+<% end %>
+<br/>

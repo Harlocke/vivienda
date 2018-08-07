@@ -1,0 +1,30 @@
+<table width="90%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="50%"><span class="campos">Dependencia *</span></td>
+        <td width="25%"><span class="campos">Nro Oficio</span></td>
+      </tr>
+      <tr>
+        <td><%=select("correspondenciasdependencia", "dependencia_id", Dependencia.find(:all, :conditions=>["id not in (10010,10004,10041,10040,10043)"], :order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :correspondenciasdependencia, :dependencia_id, :css_class =>"cerror"%></td>
+        <td><%=  text_field :correspondenciasdependencia, :nro_oficio ,{ :class => "campo", :size => 30,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :correspondenciasdependencia, :nro_oficio, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+<table width="90%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="90%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :correspondenciasrecibida, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>
+

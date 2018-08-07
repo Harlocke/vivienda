@@ -1,0 +1,52 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/seguimientomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SEGUIMIENTO COMPROMISOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),pendientes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%" height="30" class="oce-first"></td>
+    <td width="11%" class="oce-first">Fecha<br/>Asignación</td>
+    <td width="11%" class="oce-first">Fecha<br/>Vencimiento</td>
+    <td width="12%" class="oce-first">Estado</td>
+    <td width="58%" class="oce-first">Tarea / Actividad</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @pendientes.each do |pendiente| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%= pendiente.estado_pendiente rescue nil%></td>
+    <td class="camposDesc"><%=h pendiente.fecha_asignacion%></td>
+    <td class="camposDesc" align="left"><%=pendiente.fecha_vence rescue nil%></td>
+    <td class="camposDesc" align="left"><%=pendiente.estado rescue nil%></td>
+    <td class="camposDesc" align="left"><div align="justify"><%=pendiente.tarea rescue nil%></div>
+      <strong>Responsables: </strong><%=pendiente.asignadoa rescue nil%></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_pendiente_path(pendiente),:class=>"editarlink"%>
+    <%= link_to "Ver", {:controller => "pendientes", :action => "visualizar", :id=>pendiente.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      </div></td>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@pendientes.count%></div></td>
+  </tr>
+</table>
+
+

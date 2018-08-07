@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h2>Informacion Interventoria: <%=@contratosainforme.contrato.empleado.identificacion%> - <%=@contratosainforme.contrato.empleado.nombre%> - <%= link_to 'Regresar a la actividad del Informe',  edit_contratosainformesdato_path(@contratosainformesdato), :class=>"btn btn-success"%></h2>
+</div>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%" class="campos">Tipo de proceso *</td>
+          <td width="30%" class="campos">Radicado *</td>
+          <td width="15%" class="campos">Fecha radicado</td>
+          <td width="30%" class="campos">Juzgado</td>
+        </tr>
+        <tr>
+          <td class="campos"><%=@titulacionesdemanda.tipoproceso rescue nil%></td>
+          <td class="campos"><%=@titulacionesdemanda.radicado rescue nil%></td>
+          <td class="camposDesc"><%=@titulacionesdemanda.fecha_radicado rescue nil%></td>
+          <td class="camposDesc"><%=@titulacionesdemanda.juzgado rescue nil%>
+        </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h2>Beneficiarios de la actividad Municipio: <%=@region.municipio rescue nil%></h2><br/>
+<% form_for @contratosainformesdato do |f|
+  @contratosactividad = Contratosactividad.find(@contratosainformesdato.contratosactividad_id)
+%>
+  <div align="center">
+    <div id="contratosadatosrecursos_form">
+      <%= render :partial => "/contratosadatosrecursos/contratosadatosrecursos" %>
+    </div>
+  </div>
+<% end%>
+
+

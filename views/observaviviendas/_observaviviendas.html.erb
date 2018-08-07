@@ -1,0 +1,56 @@
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES DE LA VIVIENDA</div></td>
+  </tr>
+</table>
+<% remote_form_for [@vivienda, @observavivienda] do |form| %>
+        <% if !@observavivienda.id %>
+      <div align="center">
+	<%= render :partial => "/observaviviendas/observaviviendas_form" %>
+        </div>
+<% end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="5%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for observavivienda in @vivienda.observaviviendas.find(:all, :order => 'created_at DESC') %>
+   <% if observavivienda.id != @observavivienda.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="observavivienda_<%=observavivienda.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=observavivienda.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=observavivienda.user.nombre rescue nil%>"><%=observavivienda.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="15%" class="camposDesc" align="left"><%=observavivienda.dtipoatencion%></td>
+          <td width="65%" class="camposDesc" align="left"><%=observavivienda.observacion%></td>
+          <td width="5%" class="camposDesc" align="left"><%= link_to "Acta", {:controller => "observaviviendas", :action => "atencion", :id=>observavivienda.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+            <%= hidden_field :vivienda, :id %>
+<% end %>
+<% if flash[:observavivienda] %>
+<div id="observavivienda">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%" align="right"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:observavivienda] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('observavivienda');", 5000)
+</script>
+<% end %>

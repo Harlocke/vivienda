@@ -1,0 +1,2 @@
+module InteractobservacionesHelper
+end

@@ -1,0 +1,16 @@
+<h1>Editing catastrosdato</h1>
+
+<% form_for(@catastrosdato) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :catatro_id %><br />
+    <%= f.text_field :catatro_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @catastrosdato %> |
+<%= link_to 'Back', catastrosdatos_path %>

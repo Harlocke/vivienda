@@ -1,0 +1,83 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORME DE AVANCE O CIERRE DE OBRA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@mejoramiento, @mejoramientosinterventoria] do |form| %>
+   <% if !@mejoramientosinterventoria.id 
+        if @mejoramiento.mejoramientosestado_id >= 6 
+           if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+            <%= render :partial => "/mejoramientosinterventorias/mejoramientosinterventorias_form" %>
+          <% else %>
+	         <div align="center">
+          <table width="50%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+            <tr>
+              <td  class="campos"><div align="center">Según el estado del mejoramiento ya no se puede crear mas visitas</div></td>
+            </tr>
+          </table><br/></div>
+          <% end %>
+        <% else %>
+         <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+            <%= render :partial => "/mejoramientosinterventorias/mejoramientosinterventorias_form" %>
+         <% end %>
+       <% end %>
+   <% end %>
+<% if @mejoramiento.mejoramientosinterventorias.exists? %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="55%" class="oce-first">Usuario registra</td>
+    <td width="25%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% a = 0
+   for mejoramientosinterventoria in @mejoramiento.mejoramientosinterventorias.find(:all, :order => 'created_at DESC') %>
+   <% if mejoramientosinterventoria.id != @mejoramientosinterventoria.id
+     a = a + 1%>
+         <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="mejoramientosinterventoria_<%=mejoramientosinterventoria.id%>">
+          <td class="camposDesc"><%=mejoramientosinterventoria.created_at.strftime("%Y-%m-%d %X")%></td>
+          <td class="camposDesc" align="left"><%=mejoramientosinterventoria.user.nombre rescue nil%></td>
+          <td class="camposDesc" align="left">
+          <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+            <% if a == 1 %>
+            <%= link_to 'Editar', {:controller=>"mejoramientosinformes", :action=>"edit", :id=>mejoramientosinterventoria.id},:class=>"editarlink"%>
+              <% if permiso("mejoramientospago","E").to_s == "S"  %>
+                <%= link_to_remote('Borrar',{:url => mejoramiento_mejoramientosinterventoria_path(@mejoramiento, mejoramientosinterventoria),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+              <% end %>
+            <% elsif @mejoramiento.convenio_id == 116 %>
+            <%= link_to 'Editar', {:controller=>"mejoramientosinformes", :action=>"edit", :id=>mejoramientosinterventoria.id},:class=>"editarlink"%>
+            <% end %>
+            <%= link_to "Informe", {:controller => "mejoramientosinformes", :action => "informe", :id=>mejoramientosinterventoria.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+          <% end %></td>
+        </tr>
+<% end %>
+        <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :mejoramiento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientosinterventoria] %>
+<div id="mejoramientosinterventoria">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientosinterventoria] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientosinterventoria');", 5000)
+</script>
+<% end %>
+</div>

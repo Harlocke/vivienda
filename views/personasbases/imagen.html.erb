@@ -1,0 +1,6 @@
+<% if File.exists?(@ruta) %>
+  <div align="center"><img src="/images/<%=@imagen%>"/></div>
+<% else %>
+  <div align="center"><br/><img src="/images/logosistemas.jpg"/><br/><br/>
+  La Imagen NO Existe... (<%=@imagen%>)</div>
+<% end %>

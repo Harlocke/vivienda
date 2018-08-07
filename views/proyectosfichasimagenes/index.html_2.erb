@@ -1,0 +1,22 @@
+<h1>Listing proyectosfichasimagenes</h1>
+
+<table>
+  <tr>
+    <th>Proyectosficha</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @proyectosfichasimagenes.each do |proyectosfichasimagen| %>
+  <tr>
+    <td><%=h proyectosfichasimagen.proyectosficha_id %></td>
+    <td><%=h proyectosfichasimagen.descripcion %></td>
+    <td><%= link_to 'Show', proyectosfichasimagen %></td>
+    <td><%= link_to 'Edit', edit_proyectosfichasimagen_path(proyectosfichasimagen) %></td>
+    <td><%= link_to 'Destroy', proyectosfichasimagen, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New proyectosfichasimagen', new_proyectosfichasimagen_path %>

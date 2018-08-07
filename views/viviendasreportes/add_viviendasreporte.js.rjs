@@ -1,0 +1,1 @@
+page.replace_html 'viviendasreporte_list', :partial => 'list'

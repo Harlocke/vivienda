@@ -1,0 +1,49 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciasinternamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BUSCADOR CORRESPONDENCIA RECIBIDA</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_correspondenciasinternas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Consecutivo</div></td>
+    <td width="5%" height="30" class="oce-first">Anno</td>
+    <td width="20%" class="oce-first"><div align="center">Fecha Documento</div></td>
+    <td width="25%" class="oce-first"><div align="center">Dependencia</div></td>
+    <td width="35%" class="oce-first"><div align="center">Usuario Proyecta</div></td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @correspondenciasinternas.each do |correspondenciasinterna| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasinterna.consecutivo%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.anno%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.fecha_documento%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.dependencia.descripcion%></div></td>
+    <td class="camposDesc"><div align="center"><%=User.find(correspondenciasinterna.user_proyecta).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_correspondenciasinterna_path(correspondenciasinterna),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@correspondenciasinternas.count%></div></td>
+  </tr>
+</table>

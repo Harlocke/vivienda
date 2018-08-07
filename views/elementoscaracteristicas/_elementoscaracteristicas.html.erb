@@ -1,0 +1,79 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">CARACTERISTICAS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@elemento, @elementoscaracteristica] do |form| %>
+  <% if permiso("elementoscaracteristica","C").to_s == "S" %>
+     <% if !@elementoscaracteristica.id %>
+      	<%= render :partial => "/elementoscaracteristicas/elementoscaracteristicas_form" %>
+     <% end %>
+  <% end %>
+<% if @elemento.elementoscaracteristicas.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" class="oce-first">Fecha</td>
+    <td width="25%" height="30" class="oce-first">Tipo Caracteristica</td>
+    <td width="40%" class="oce-first">Descripcion </td>
+    <td width="20%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @elemento.elementoscaracteristicas.each do |elementoscaracteristica| %>
+<% if elementoscaracteristica.id != @elementoscaracteristica.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="elementoscaracteristica_<%=elementoscaracteristica.id%>">
+    <td width="15%" class="camposDesc"><%=elementoscaracteristica.created_at.strftime("%Y-%m-%d %X")%></td>
+    <td width="25%" height="30" class="camposDesc"><%=elementoscaracteristica.tiposcaracteristica.descripcion rescue nil%></td>
+    <td width="40%" class="camposDesc"><%=elementoscaracteristica.descripcion%></td>
+    <td width="20%" class="camposDesc">
+      <div align="center">
+            <% if permiso("elementoscaracteristica","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_elemento_elementoscaracteristica_path(@elemento, elementoscaracteristica),
+                        :method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("elementoscaracteristica","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => elemento_elementoscaracteristica_path(@elemento, elementoscaracteristica),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      </div></td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR CARACTERISTICAS</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="elementoscaracteristica_<%=@elementoscaracteristica.id%>">
+      <%= render :partial => "elementoscaracteristicas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :elemento, :id %>
+<% end %>
+<br/>
+<% if flash[:elementoscaracteristica] %>
+<div id="elementoscaracteristica">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:elementoscaracteristica] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('elementoscaracteristica');", 5000)
+</script>
+<% end %>
+
+

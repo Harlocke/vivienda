@@ -1,0 +1,63 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">DEMANDANTES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@procesosjuridico, @procesospersona] do |form| %>
+<% if permiso("procesospersona","C").to_s == "S" %>
+       <% if !@procesospersona.id %>
+            <%= render :partial => "/procesospersonas/procesospersonas_form" %>
+       <% end %>
+<% end %>
+  <% if @procesosjuridico.procesospersonas.exists? %>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="30" align="left" class="oce-first">Persona Vinculada</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @procesosjuridico.procesospersonas.each do |procesospersona| %>
+     <% if procesospersona.id != @procesospersona.id %>
+  <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="procesospersona_<%= procesospersona.id%>">
+     <td width="90%" height="30" align="left" class="camposDesc"><%=procesospersona.persona.autobuscar rescue nil%></td>
+      <td width="10%" align="right" class="camposDesc">
+        <% if permiso("procesospersona","E").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => procesosjuridico_procesospersona_path(@procesosjuridico, procesospersona),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+        </td>
+ </tr>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :procesosjuridico, :id %>
+<% end %>
+<br/>
+<% if flash[:procesospersona] %>
+<div id="procesospersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:procesospersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('procesospersona');", 5000)
+</script>
+<% end %>
+</div>
+

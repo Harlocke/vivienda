@@ -1,0 +1,1 @@
+page.replace_html :estudiospreviosrubros_form, :partial => "/estudiospreviosrubros/estudiospreviosrubros"

@@ -1,0 +1,1 @@
+page.replace_html :personaslistas_form, :partial => "personaslistas", :object => @personaslista

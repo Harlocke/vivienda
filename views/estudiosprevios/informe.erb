@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h3>INFORME ESTUDIOS PREVIOS</h3>
+</div>
+<table border="1">
+  <tr valign="middle" bgcolor="#00FF00">
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Fecha Inicio</strong></td>
+    <td><strong>Fecha Fecha Fin</strong></td>
+    <td><strong>Nro Estructurador</strong></td>
+    <td><strong>Fecha Estructurador</strong></td>
+    <td><strong>Nro Contratación</strong></td>
+    <td><strong>Fecha Contratación</strong></td>
+    <td><strong>Valor Mes</strong></td>
+    <td><strong>Valor Día</strong></td>
+    <td><strong>Objeto</strong></td>
+    <td><strong>CDP</strong></td>
+    <td><strong>Fecha CDP</strong></td>
+    <td><strong>Valor CDP</strong></td>
+  </tr>
+<% for estudiosprevio in @estudiosprevios %>
+  <tr valign="middle">
+    <td><div align="left"><%=estudiosprevio.empleado.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.empleado.nombre rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.fecha_inicio rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.fecha_fin rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.nro_estructurador rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.fecha_estructurador rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.nro_contratacion rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.fecha_contratacion rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.valor_mes rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.valor_dia rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.objeto rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.nro_cdp rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.fecha_cdp rescue nil%></div></td>
+     <td><div align="left"><%=estudiosprevio.valor_cdp rescue nil%></div></td>
+     
+     
+  </tr>
+<% end %>
+</table>
+
+
+
+
+

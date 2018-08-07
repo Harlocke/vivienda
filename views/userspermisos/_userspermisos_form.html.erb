@@ -1,0 +1,55 @@
+<div align="center"><table width="70%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="55%" height="20" class="campos"><div align="left">Modulo</div></td>
+    <td width="15%" height="20" class="campos"><div align="left">Actualiza</div></td>
+    <td width="15%" height="20" class="campos"><div align="left">Elimina</div></td>
+    <td width="15%" height="20" class="campos"><div align="left">Crea</div></td>
+  </tr>
+  <tr valign="middle">
+    <td class="campos"><div align="left">
+       <% if @userspermiso.id %>
+        <%=select("userspermiso", "objeto_id", Objeto.find(:all,:order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <% else %>
+        <%=select("userspermiso", "objeto_id", Objeto.find(:all, :conditions => ["id not in (select objeto_id from userspermisos where user_id = #{@user.id})"], :order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <% end %>
+      <%= error_message_on :userspermiso, :objeto_id, :css_class =>"cerror"%></div></td>
+    <td class="campos"><div align="left">
+        <%= select(:userspermiso,
+                :actualiza, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </div></td>
+    <td class="campos"><div align="left">
+        <%= select(:userspermiso,
+                :elimina, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </div></td>
+    <td class="campos"><div align="left">
+        <%= select(:userspermiso,
+                :crea, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </div></td>
+  </tr>
+</table>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="70%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="60%"><div align="right">
+      &nbsp;&nbsp;<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :userspermiso, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+<br/>

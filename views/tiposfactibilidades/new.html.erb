@@ -1,0 +1,27 @@
+<h1>New tiposfactibilidad</h1>
+
+<% form_for(@tiposfactibilidad) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fase %><br />
+    <%= f.text_field :fase %>
+  </p>
+  <p>
+    <%= f.label :descripcion_fase %><br />
+    <%= f.text_field :descripcion_fase %>
+  </p>
+  <p>
+    <%= f.label :codigo %><br />
+    <%= f.text_field :codigo %>
+  </p>
+  <p>
+    <%= f.label :actividad %><br />
+    <%= f.text_field :actividad %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', tiposfactibilidades_path %>

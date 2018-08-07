@@ -1,0 +1,24 @@
+<h1>Editing aetapa</h1>
+
+<% form_for(@aetapa) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :aclasificacion %><br />
+    <%= f.text_field :aclasificacion %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :cumplimiento %><br />
+    <%= f.text_field :cumplimiento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @aetapa %> |
+<%= link_to 'Back', aetapas_path %>

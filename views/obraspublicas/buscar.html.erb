@@ -1,0 +1,45 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/obrapublicamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION OBRA PUBLICA</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_obraspublicas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="45%" height="30" class="oce-first">Identificacion Usuario</td>
+    <td width="30%" height="30" class="oce-first">Proyecto</td>
+    <td width="20%" class="oce-first">Estado</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @obraspublicas.each do |obraspublica| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="45" class="camposDesc"><%=h obraspublica.persona.autobuscar rescue nil%></td>
+    <td height="30" class="camposDesc"><%=h obraspublica.obrasproyecto.descripcion rescue nil%></td>
+    <td height="20" class="camposDesc"><%=h obraspublica.estado%></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_obraspublica_path(obraspublica),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@obraspublicas.count%></div></td>
+  </tr>
+</table>

@@ -1,0 +1,23 @@
+<h1>New planespago</h1>
+
+<% form_for(@planespago) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :plan_id %><br />
+    <%= f.text_field :plan_id %>
+  </p>
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', planespagos_path %>

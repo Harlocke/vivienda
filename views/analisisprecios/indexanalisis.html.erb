@@ -1,0 +1,44 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/presupuestomin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">INFORMACION ANALISIS PRECIOS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td >&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="60%" >
+<table height="0" border="0" align="center" cellpadding="2" cellspacing="2">
+  <tr>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('insumo.png', { :border => 0, :title => "Insumos" }),
+                              precioselementos_path %></div>
+    </td>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('manalisis.png', { :border => 0, :title => "Analisis de Precios" }),
+                              analisisprecios_path %></div>
+    </td>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('mpresupuesto.png', { :border => 0, :title => "Presupuestos" }),
+                              licitaciones_path %></div>
+    </td>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('seguimiento.png', { :border => 0, :title => "Seguimientos" }),
+                              seguimientos_path %></div>
+    </td>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('grupo.png', { :border => 0, :title => "Grupos" }),
+                              grupos_path %></div>
+    </td>
+  </tr>
+</table>
+</td>
+    </tr>
+  </table>
+<BR/>
+

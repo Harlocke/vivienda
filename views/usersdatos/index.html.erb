@@ -1,0 +1,78 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/usersdatomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">USUARIOS SIFI</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+<table width="70%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="50%" class="campos">Digite el nombre del usuario que desea buscar :</td>
+     <td width="50%"><%= text_field_tag :search, params[:search],{ :class => "campo2",  :size => "30",
+  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= image_submit_tag '/images/find.png', :width => '18', :name => nil %></td>
+   </tr>
+</table>
+    <% end %>
+  <% end %>
+<br/>
+<% if @usersdatos.count > 0 %>
+<% @usersdatos.each do |usersdato| %>
+<table width="70%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="25%" valign="top"><div align="center"><%= image_tag usersdato.userfoto.url(:thumb)%></div></td>
+    <td width="5%">&nbsp;</td>
+    <td width="70%"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr class="odd1">
+        <td width="30%" class="campos">Nombre </td>
+        <td width="70%" class="camposDesc"><%=usersdato.user.nombre rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Dependencia </td>
+        <td class="camposDesc"><%=usersdato.user.dependencia.descripcion rescue nil%></td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos">E-mail</td>
+        <td  class="camposDesc"><%=usersdato.user.email rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Telefono</td>
+        <td class="camposDesc"><%=usersdato.telefono%></td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos">Extension</td>
+        <td class="camposDesc"><%=usersdato.extension%></td>
+      </tr>
+      <% if permiso("usersdato","A").to_s == "S" %>
+      <tr>
+        <td class="campos">&nbsp;</td>
+        <td><%= link_to 'Editar Informacion', edit_usersdato_path(usersdato),:class=>"editarlink"%></td>
+      </tr>
+      <% end %>
+    </table></td>
+  </tr>
+</table>
+  <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<%  end %>
+<div id="personasdireccion">
+    <div  class="campos">Total Registros : <%= @usersdatos.count %></div>
+</div>
+<br/>
+<%  end %>
+</div>
+<br/>

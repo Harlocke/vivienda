@@ -1,0 +1,66 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORME DE AVANCE O CIERRE DE OBRA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@licitacion, @licitacionesinforme] do |form| %>
+   <% if !@licitacionesinforme.id%>
+            <%= render :partial => "/licitacionesinformes/licitacionesinformes_form" %>
+   <% end %>
+<% if @licitacion.licitacionesinformes.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="45%" class="oce-first">Usuario registra</td>
+    <td width="15%" class="oce-first">Total Ejecutado</td>
+    <td width="10%" class="oce-first">Porcentaje</td>
+    <td width="15%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% a = 0
+   for licitacionesinforme in @licitacion.licitacionesinformes.find(:all, :order => 'created_at DESC') %>
+   <% if licitacionesinforme.id != @licitacionesinforme.id
+     a = a + 1%>
+         <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="licitacionesinforme_<%=licitacionesinforme.id%>">
+          <td class="camposDesc"><%=licitacionesinforme.created_at.strftime("%Y-%m-%d %X")%></td>
+          <td class="camposDesc" align="left"><%=licitacionesinforme.user.nombre rescue nil%></td>
+          <td class="camposDesc" align="left">$ <%=camponumerico(licitacionesinforme.licitacionesinformesdetalles.sum("valor_total")) rescue nil %></td>
+          <td class="camposDesc" align="left"><%=number_to_currency(licitacionesinforme.porcentajeavanceinforme,{:precision => 2, :unit=>"", :delimiter =>"."}) %> %</td>
+          <td class="camposDesc"><div align="center">
+            <% if a == 1 %>
+            <%= link_to 'Editar', {:controller=>"licitacionesinformes", :action=>"ver", :id=>licitacionesinforme.id},:class=>"editarlink"%>
+            <% end %>
+            <%= link_to "Informe", {:controller => "licitacionesinformes", :action => "informe", :id=>licitacionesinforme.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            </div> </td>
+        </tr>
+<% end %>
+        <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :licitacion, :id %>
+<% end %>
+<br/>
+<% if flash[:licitacionesinforme] %>
+<div id="licitacionesinforme">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:licitacionesinforme] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('licitacionesinforme');", 5000)
+</script>
+<% end %>
+</div>

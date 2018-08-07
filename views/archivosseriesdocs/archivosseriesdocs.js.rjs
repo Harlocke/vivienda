@@ -1,0 +1,1 @@
+page.replace_html :archivosseriesdocs_form, :partial => "archivosseriesdocs", :object => @archivosseriesdoc

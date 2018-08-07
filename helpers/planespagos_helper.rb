@@ -1,0 +1,2 @@
+module PlanespagosHelper
+end

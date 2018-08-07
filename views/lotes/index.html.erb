@@ -1,0 +1,32 @@
+<h1>Listing lotes</h1>
+
+<table>
+  <tr>
+    <th>Direccion</th>
+    <th>Ubicacion</th>
+    <th>Interesado</th>
+    <th>Telefono</th>
+    <th>Poligonotratamiento</th>
+    <th>Barrio</th>
+    <th>Comuna</th>
+    <th>Fechaingreso</th>
+  </tr>
+
+<% @lotes.each do |lote| %>
+  <tr>
+    <td><%=h lote.direccion %></td>
+    <td><%=h lote.ubicacion %></td>
+    <td><%=h lote.interesado %></td>
+    <td><%=h lote.telefono %></td>
+    <td><%=h lote.poligonotratamiento %></td>
+    <td><%=h lote.barrio %></td>
+    <td><%=h lote.fechaingreso %></td>
+    <td><%= link_to 'Edit', edit_lote_path(lote) %></td>
+    <td><%= link_to 'Destroy', lote, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New lote', new_lote_path %>

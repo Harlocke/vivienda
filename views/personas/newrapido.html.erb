@@ -1,0 +1,107 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<%=image_tag("frame.png")%>
+
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/personasmin.png" width="64" height="64"/></td>
+                <td width="94%"><div class="col_enc">&nbsp;&nbsp;REGISTRO RAPIDO EN PERSONAS</div></td>
+              <td width="3%"><div align="right">
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% form_tag newrapidocreate_personas_path, :method => 'get' do %>
+<div align="center">
+ <table width="550" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td height="30">
+      <fieldset>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">DATOS BASICOS JEFE DE HOGAR</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr>
+        <td width="50%"><span class="campos">Documento</span></td>
+        <td><%=select("ubicacion", "documento_id", Documento.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      </tr>
+      <tr>
+        <td width="203"><span class="campos">Identificaci&oacute;n *</span></td>
+        <td><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+      </tr>        
+      <tr>
+        <td width="250"><span class="campos">Primer Nombre *</span></td>
+        <td><%= text_field_tag :primer_nombre, params[:primer_nombre],{ :class => "campo", :size => 40,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        </td>
+      </tr>        
+      <tr>
+        <td width="220"><span class="campos">Segundo Nombre</span></td>
+        <td><%= text_field_tag :segundo_nombre, params[:segundo_nombre],{ :class => "campo", :size => 40,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        </td>
+      </tr>        
+      <tr>
+        <td width="228"><span class="campos">Primer Apellido *</span></td>
+        <td><%= text_field_tag :primer_apellido, params[:primer_apellido],{ :class => "campo", :size => 40,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        </td>
+      </tr>        
+      <tr>
+        <td width="173"><span class="campos">Segundo Apellido</span></td>
+        <td><%= text_field_tag :segundo_apellido, params[:segundo_apellido],{ :class => "campo", :size => 40,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+</fieldset>
+   </td>
+  </tr>
+</table>
+      </div>
+<% end %>
+
+<% if flash[:notice] %>
+<div id="notice">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:notice] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('notice');", 5000)
+</script>
+<% end %>

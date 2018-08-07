@@ -1,0 +1,38 @@
+<div align="center">
+<table width="60%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="73%" class="campos" align="left">Descripcion del Archivo a Cargar</td>
+        <td class="camposDesc" align="left"><%= f.text_field :descripcion ,{ :class => "campo", :size =>60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= f.error_message_on :descripcion, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="27%" class="campos" align="left">Archivo a Cargar</td>
+        <td class="camposDesc" align="left"><%= f.file_field :mejoramiento,
+            { :size => 200,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= f.error_message_on :mejoramiento, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="73%" class="campos" align="left">Tipo</td>
+        <td class="camposDesc" align="left">
+          <%= f.select(:cuando, [
+              ["EXPEDIENTE DE DIAGNOSTICO","EXPEDIENTE DE DIAGNOSTICO"],
+              ["EXPEDIENTE DE CIERRE","EXPEDIENTE DE CIERRE"],
+              ["REGISTRO FOTOGRAFICO","REGISTRO FOTOGRAFICO"],
+              ["OTROS","OTROS"]],
+            { :include_blank => true },
+                       { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= f.error_message_on :cuando, :css_class =>"cerror"%>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+</div>

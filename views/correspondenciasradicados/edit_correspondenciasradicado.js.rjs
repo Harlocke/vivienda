@@ -1,0 +1,1 @@
+page.replace_html :correspondenciasradicados_form, :partial => "/correspondenciasradicados/correspondenciasradicados"

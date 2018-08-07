@@ -1,0 +1,20 @@
+<h1>Editing mejoramientosestado</h1>
+
+<% form_for(@mejoramientosestado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :consecutivo %><br />
+    <%= f.text_field :consecutivo %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @mejoramientosestado %> |
+<%= link_to 'Back', mejoramientosestados_path %>

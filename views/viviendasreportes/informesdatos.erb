@@ -1,0 +1,20 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Datos SIFI</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="20%"><strong>Identificacion Cruzada</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="50%"><strong>Direccion</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+  </tr>
+<% @viviendasreportes.each do |viviendasreporte| %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+     <td><div align="left"><%=viviendasreporte.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.direccion rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.telefonos rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,97 @@
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30" align="left"><div class="col_enc">DATOS DEL INDICADOR (<%=@indicador.nombreindicador rescue nil%>) - <%=link_to 'Ver Gráfica del Indicador', {:controller=>"indicadoresfichas", :action=>"visualizar", :id=>"1", :indicador_id =>@indicador.id},
+                    :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"verlink"%></div></td>
+  </tr>
+</table>
+<% remote_form_for [@indicador, @indicadoresficha] do |form| %>
+    <% if !@indicadoresficha.id %>
+
+    <% end %>
+<% if @indicador.indicadoresfichas.exists? %>
+<table width="100%" border="0" align="right" cellpadding="0" cellspacing="0" >
+  <tr valign="middle">
+    <td width="2%" class="camposNotas camposDesc12" height="30" align="center"><strong>Meta anual: </strong> <%=@indicador.meta%>  ---- <strong>Meta cuatrenio: </strong> <%=@indicador.meta_cuatrenio%>  ----   <strong>Meta periódica: </strong><%=@indicador.meta_periodica%></td>
+</tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="2%" height="30" class="oce-first"></td>
+    <td width="8%" height="30" class="oce-first" align="center">Mes</td>
+    <td width="4%" height="30" class="oce-first" align="center">Año</td>
+    <% if @indicador.clase_indicador.to_s == 'COMPUESTO' or @indicador.clase_indicador.to_s == 'ESPECIFICO' %>    
+        <td width="16%" height="30" class="oce-first" align="center"><%=@indicador.numerador%></td>
+        <td width="16%" height="30" class="oce-first" align="center"><%=@indicador.denominador%></td>
+    <% elsif @indicador.clase_indicador.to_s == 'SIMPLE' %>    
+        <td width="32%" height="30" class="oce-first" align="center"><%=@indicador.numerador%></td>
+    <% end %>    
+    <td width="7%" height="30" class="oce-first" align="center">Resultado</td>
+    <td width="40%" height="30" class="oce-first" align="center">Análisis</td>
+    <td width="7%" height="30" class="oce-first"></td>
+  </tr>
+<%
+   @valores = ""
+   for indicadoresficha in @indicador.indicadoresfichas.find(:all, :order => 'anno, to_number(mes) asc') %>
+      <% if indicadoresficha.id != @indicadoresficha.id %>
+   <tr valign="middle" id="indicadoresficha_<%=indicadoresficha.id%>" class="<%=cycle('even1', 'odd1')%>">
+     <td class="camposDesc" align="center"><%=indicadoresficha.estado rescue nil%></td>
+     <td class="camposDesc" align="center"><%=descmes(indicadoresficha.mes) rescue nil%></td>
+     <td class="camposDesc" align="center"><%=indicadoresficha.anno%></td>
+    <% if @indicador.clase_indicador.to_s == 'COMPUESTO' or @indicador.clase_indicador.to_s == 'ESPECIFICO' %>       
+       <td class="camposDesc" align="center"><%=indicadoresficha.valor_numerador%> </td>
+       <td class="camposDesc" align="center"><%=indicadoresficha.valor_denominador%></td>
+    <% elsif @indicador.clase_indicador.to_s == 'SIMPLE' %>    
+        <td class="camposDesc" align="center"><%=indicadoresficha.valor_numerador%> </td>
+    <% end %>   
+     <td class="camposDesc" align="center">
+      <% if indicadoresficha.resultado %>
+        <%=indicadoresficha.resultado%> <%=indicadoresficha.unidadmedida rescue nil%>
+      <% end %>
+     </td>
+     <td class="camposDesc" align="justify"><%=indicadoresficha.accion%>
+     <% if indicadoresficha.indicadoresfichasimagenes.exists? %>
+       <% for indicadoresfichasimagen in indicadoresficha.indicadoresfichasimagenes.each %>
+             <br/>
+              <%= link_to "- "+indicadoresfichasimagen.descripcion, indicadoresfichasimagen.indicadoresficha.url(:original, false),
+                          { :popup => ['indicadores','height=450,width=600,scrollbars=yes']}%>
+             <%= link_to image_tag('link_delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),
+                          {:controller=>"indicadoresfichasimagenes", :action=>"destroy2", :id=>indicadoresfichasimagen.id, :indicador_id=>indicadoresficha.indicador_id}%>                     
+        <% end %>
+     <% end %></td>
+     <td class="camposDesc" align="left"><div align="center">
+        <%= link_to_remote('Editar',{:url => edit_indicador_indicadoresficha_path(@indicador, indicadoresficha),
+		          :method => :get},:class=>"editarlink")%>
+        <%= link_to_remote('Limpiar',{:url => limpia_indicador_indicadoresficha_path(@indicador, indicadoresficha),
+		          :method => :get},:class=>"borrarlink", :title =>"Limpiar Indicador")%>
+         <%= link_to 'Docs', new_img_indicadoresfichasimagen_path(indicadoresficha.id),:class=>"imagenlink"%>
+      </div>
+    </td>
+ </tr>
+<% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+       <tr valign="top"><td><br/><h3>Editar Indicador</h3></td></tr>
+     </table>
+     <%= render :partial => "indicadoresfichas_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+        <% end %>
+</table>
+<% else %>
+<div id="indicadoresficha">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+            <%= hidden_field :indicador, :id %>
+<% end %>
+     </table>
+<br/>
+<% if flash[:indicadoresficha] %>
+<div id="indicadoresficha">
+    <div class="alert alert-success">
+      <%= flash[:indicadoresficha] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('indicadoresficha');", 5000)
+</script>
+<% end %>

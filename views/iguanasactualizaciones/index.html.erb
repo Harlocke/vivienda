@@ -1,0 +1,30 @@
+<h1>Listing iguanasactualizaciones</h1>
+
+<table>
+  <tr>
+    <th>Iguana</th>
+    <th>User</th>
+    <th>Tabla</th>
+    <th>Bloque</th>
+    <th>Tipo transaccion</th>
+    <th>Observacion</th>
+  </tr>
+
+<% @iguanasactualizaciones.each do |iguanasactualizacion| %>
+  <tr>
+    <td><%=h iguanasactualizacion.iguana %></td>
+    <td><%=h iguanasactualizacion.user %></td>
+    <td><%=h iguanasactualizacion.tabla_id %></td>
+    <td><%=h iguanasactualizacion.bloque %></td>
+    <td><%=h iguanasactualizacion.tipo_transaccion %></td>
+    <td><%=h iguanasactualizacion.observacion %></td>
+    <td><%= link_to 'Show', iguanasactualizacion %></td>
+    <td><%= link_to 'Edit', edit_iguanasactualizacion_path(iguanasactualizacion) %></td>
+    <td><%= link_to 'Destroy', iguanasactualizacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New iguanasactualizacion', new_iguanasactualizacion_path %>

@@ -1,0 +1,116 @@
+<div id="container">
+<% form_for(@encuesta) do |f| %>
+  <div align="center">
+  <%=image_tag("frame.png")%>
+<table width="850" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">ENCUESTA</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td height="30"><div align="left">Su opinión es muy importante para asegurar la calidad de la comunicación organizacional.</div></td>
+  </tr>
+</table><br/>
+
+ <table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="80%" height="20" class="campos"><div align="left">1. La claridad de la comunicación sobre los programas, proyectos, metas y estrategias del Instituto es:</div></th>
+    <td width="20%" ><%= select(:encuesta, :claridad, select_puntaje,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%>
+              <%= f.error_message_on :exp_entregado, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td colspan="2"">
+    <%=text_area(:encuesta, :claridad_comentario, :cols => 135, :rows => 3, :class => 'campo', :maxlength => 3900,  :placeholder => " En caso de que su calificación en alguno de los ítems sea inferior a 3 o «NO», por favor especifique por qué:", :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :encuesta, :claridad_comentario, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+ <table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="80%" height="20" class="campos"><div align="left">2. La oportunidad en el suministro de la información sobre los programas, proyectos, metas y estrategias del Instituto es:</div></th>
+    <td width="20%"><%= select(:encuesta, :suministro, select_puntaje,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%>
+              <%= f.error_message_on :suministro, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td colspan="2"">
+    <%=text_area(:encuesta, :suministro_comentario, :cols => 135, :rows => 3, :class => 'campo', :maxlength => 3900, :placeholder => " En caso de que su calificación en alguno de los ítems sea inferior a 3 o «NO», por favor especifique por qué:", :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :encuesta, :suministro_comentario, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="80%" height="20" class="campos"><div align="left">3. Su nivel de satisfacción con la estrategias comunicacionales es:</div></th>
+    <td width="20%"><%= select(:encuesta, :satisfaccion, select_puntaje,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%>
+              <%= f.error_message_on :satisfaccion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+    <%=text_area(:encuesta, :satisfaccion_comentario, :cols => 135, :rows => 3, :class => 'campo', :maxlength => 3900, :placeholder => " En caso de que su calificación en alguno de los ítems sea inferior a 3 o «NO», por favor especifique por qué:", :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :encuesta, :satisfaccion_comentario, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="80%" height="20" class="campos"><div align="left">4. ¿Los espacios que se han generado para la comunicación organizacional a todo el personal son suficientes? </div></th>
+    <td width="20%"><%= select(:encuesta, :espacios, select_sino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%>
+              <%= f.error_message_on :espacios, :css_class =>"cerror"%></td>
+  </tr>
+</table><br/>
+
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="65%" height="20" class="campos"><div align="left">5.  ¿Por qué medio se entera de la información organizacional? </div></th>
+    <td width="20%"><%= select(:encuesta, :medio, select_informacion,{ :include_blank => true },{ :style=>"width:180px", :class => "campo"})%>
+              <%= f.error_message_on :medio, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td colspan="2"">
+    <%=text_area(:encuesta, :medio_cual, :cols => 135, :rows => 3, :class => 'campo', :maxlength => 3900, :placeholder => " ¿Cual?",
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :encuesta, :medio_cual, :css_class =>"cerror"%></td>
+  </tr>
+</table><br/>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="80%" height="20" class="campos"><div align="left">6. ¿Considera que la comunicación interna está orientada a articular las acciones al logro del propósito misional? </div></th>
+    <td width="20%"><%= select(:encuesta, :comunicacion_interna, select_sino,{ :include_blank => true },{ :style=>"width:120px", :class => "campo"})%>
+              <%= f.error_message_on :comunicacion_interna, :css_class =>"cerror"%></td>
+  </tr>
+</table><br/>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <th width="100%" height="20" class="campos"><div align="left">Recomendaciones y sugerencias para mejorar la comunicación interna.</div><br/>
+    <%=text_area(:encuesta, :observacion, :cols => 135, :rows => 3, :class => 'campo', :maxlength => 3900, :placeholder => " ¿Cual?",
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %></th>
+  </tr>
+</table><br/>
+  <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+  </div></td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+
+</div>
+<br/>
+
+
+
+
+

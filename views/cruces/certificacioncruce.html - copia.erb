@@ -1,0 +1,488 @@
+<%=image_tag("frame.png")%>
+<br/>
+<div align="center" class="camposDescN16">CERTIFICACIÓN REQUISITOS PARA ASIGNACIÓN DEL SUBSIDIO MUNICIPAL DE VIVIENDA</div>
+<br/>
+<div align="center">
+<%
+  last_id = Cruce.maximum('id',:conditions=>["persona_id = #{@persona.id} and benevivienda_id is null"])
+  if last_id
+    @cruce = Cruce.find(last_id)
+    if Crucesdato.exists?(["cruce_id = ?", last_id]) == false
+%>
+   <div align="center">
+        <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+          <tr class="odd1">
+            <td colspan="2" class="campos"><div align="center">CRUCE JEFE DE HOGAR</div></td>
+          </tr>
+          <tr>
+            <td width="15%" class="odd1 campos"><div align="left">Fecha Cruce</div></td>
+            <td width="85%" class="campos">**** No presenta cruce. Fecha de la ultima solicitud de cruce <strong><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></strong></td>
+          </tr>
+          <tr>
+            <td class="odd1 campos"><div align="left">Identificacion</div></td>
+            <td class="campos"><%=@persona.identificacion%> - <%=@persona.nombres rescue nil%></td>
+          </tr>
+        </table>
+      </div>
+<%  else %>
+      <div align="center">
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td colspan="2" class="campos"><div align="center">CRUCE JEFE DE HOGAR</div></td>
+        </tr>
+        <tr>
+          <td width="15%" class="odd1 campos"><div align="left">Fecha Cruce</div></td>
+          <td width="85%" class="campos"><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></td>
+        </tr>
+        <tr>
+          <td class="odd1 campos"><div align="left">Identificacion</div></td>
+          <td class="campos"><%=@persona.identificacion%> - <%=@persona.nombres rescue nil%></td>
+        </tr>
+        <% if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '1'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Afiliado</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '1'"]) %>
+
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="20%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="80%" class="campos"><div align="left">Nombre Entidad</div></td>
+                    </tr>
+            <%   @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end%>
+        <%if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '2'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Beneficiarios</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '2'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="20%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="80%" class="campos"><div align="left">Nombre Entidad</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '3'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catant</div></td>
+          <td>
+            <% @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '3'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="20%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="5%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="5%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '4'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catbog</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '4'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '5'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catcali</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '5'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '6'"]) == true %>           <tr>
+          <td class="odd1 campos"><div align="left">Catmed</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '6'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '7'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Igac</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '7'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+            </td>
+          </tr>
+            <% end %>
+      </table>
+      </div>
+<%  end
+  else
+%>
+      <div align="center">
+        <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+          <tr class="odd1">
+            <td colspan="2" class="campos"><div align="center">CRUCE JEFE DE HOGAR</div></td>
+            <td colspan="2" class="campos"><div align="center">**** No presenta cruce. Nunca se ha solicitad cruce</div></td>
+          </tr>
+          <tr>
+            <td class="odd1 campos"><div align="left">Identificacion</div></td>
+            <td class="campos"><%=@persona.identificacion%> - <%=@persona.nombres rescue nil%></td>
+          </tr>
+        </table>
+      </div>
+<%  end %>
+<br/>
+<%
+  @beneviviendas = Benevivienda.find(:all, :conditions=>["persona_id = #{@persona.id} and identificacion is not null"])
+  @beneviviendas.each do |benevivienda|
+  last_id = Cruce.maximum('id',:conditions=>["benevivienda_id = #{benevivienda.id}"])
+  if last_id
+    @cruce = Cruce.find(last_id)
+    if Crucesdato.exists?(["cruce_id = ?", last_id]) == false
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="campos"><div align="center">CRUCE BENEFICIARIO CON IDENTIFICACION <%=benevivienda.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Fecha de la ultima solicitud de cruce <strong><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></strong></div></td>
+          </tr>
+        </table>
+      </div>
+<%  else %>
+      <div align="center">
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td colspan="2" class="campos"><div align="center">CRUCE BENEFICIARIO</div></td>
+        </tr>
+        <tr>
+          <td width="15%" class="odd1 campos"><div align="left">Fecha Cruce</div></td>
+          <td width="85%" class="campos"><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></td>
+        </tr>
+        <tr>
+          <td class="odd1 campos"><div align="left">Identificacion</div></td>
+          <td class="campos"><%=benevivienda.identificacion%> - <%=benevivienda.nombres rescue nil%></td>
+        </tr>
+        <% if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '1'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Afiliado</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '1'"]) %>
+
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="20%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="80%" class="campos"><div align="left">Nombre Entidad</div></td>
+                    </tr>
+            <%   @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end%>
+        <%if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '2'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Beneficiarios</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '2'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="20%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="80%" class="campos"><div align="left">Nombre Entidad</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '3'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catant</div></td>
+          <td>
+            <% @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '3'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="20%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="5%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="5%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '4'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catbog</div></td>
+          <td>
+            <%  @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '4'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '5'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catcali</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '5'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '6'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Catmed</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '6'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+          </td>
+        </tr>
+        <% end %>
+        <%  if Crucesdato.exists?(["cruce_id = #{@cruce.id} and tipo_entidad = '7'"]) == true %>
+        <tr>
+          <td class="odd1 campos"><div align="left">Igac</div></td>
+          <td>
+            <%@crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '7'"]) %>
+                  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                    <tr class="odd1">
+                      <td width="10%" class="campos"><div align="left">Nit Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Nombre Entidad</div></td>
+                      <td width="10%" class="campos"><div align="left">Cedula Catastral</div></td>
+                      <td width="10%" class="campos"><div align="left">Dirección Inmueble</div></td>
+                      <td width="10%" class="campos"><div align="left">Matricula Inmobiliaria</div></td>
+                      <td width="10%" class="campos"><div align="left">Dpto</div></td>
+                      <td width="10%" class="campos"><div align="left">Mpio</div></td>
+                    </tr>
+            <% @crucesdatos.each do |crucesdato| %>
+                    <tr>
+                      <td class="camposDesc"><%=crucesdato.entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.nombre_entidad%></td>
+                      <td class="camposDesc"><%=crucesdato.cedula_catastral%></td>
+                      <td class="camposDesc"><%=crucesdato.direccion_inmueble%></td>
+                      <td class="camposDesc"><%=crucesdato.matricula%></td>
+                      <td class="camposDesc"><%=crucesdato.departamento%></td>
+                      <td class="camposDesc"><%=crucesdato.municipio%></td>
+                    </tr>
+            <%   end %>
+                  </table>
+            </td>
+          </tr>
+            <% end %>
+      </table>
+      </div>
+
+<%  end
+  else
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="campos"><div align="center">CRUCE BENEFICIARIO CON IDENTIFICACION <%=benevivienda.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Nunca se ha solicitad cruce</div></td>
+          </tr>
+        </table>
+      </div>
+<%
+  end
+%>
+<br/>
+<%
+  end
+%>
+</div>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+
+
+

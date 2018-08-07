@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h2>Normograma</h2>
+</div>
+<div align="center">
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>Tema</th>
+    <th>Tipo documento</th>
+    <th>Numero</th>
+    <th>Anno</th>
+    <th>Fecha expedicion</th>
+  </tr>
+<% @calidadnormogramas.each do |calidadnormograma| %>
+  <tr>
+    <td><%=h calidadnormograma.tema %></td>
+    <td><%=h calidadnormograma.tipo_documento %></td>
+    <td><%=h calidadnormograma.numero %></td>
+    <td><%=h calidadnormograma.anno %></td>
+    <td><%=h calidadnormograma.fecha_expedicion %></td>
+  </tr>
+<% end %>
+  </table>
+</div>
+<br/>

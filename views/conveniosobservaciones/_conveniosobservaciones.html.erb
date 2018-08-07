@@ -1,0 +1,59 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@convenio, @conveniosobservacion] do |form|
+       if !@conveniosobservacion.id %>
+           <%= render :partial => "/conveniosobservaciones/conveniosobservaciones_form" %>
+<%   end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="18%" height="30" class="oce-first">Fecha</td>
+    <td width="82%" class="oce-first">Observaciones</td>
+  </tr>
+</table>
+<% for conveniosobservacion in @convenio.conveniosobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if conveniosobservacion.id != @conveniosobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="conveniosobservacion_<%=conveniosobservacion.id%>">
+          <td align="left" width="18%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=conveniosobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=conveniosobservacion.user.nombre rescue nil%>"><%=conveniosobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="82%" class="camposDesc" align="left"><%=conveniosobservacion.observacion%></td>
+        </tr>
+      </table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="conveniosobservacion_<%=@conveniosobservacion.id%>">
+            <%= render :partial => "conveniosobservaciones_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+  <% end %>
+  <%= hidden_field :convenio, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosobservacion] %>
+<div id="conveniosobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%" align="right"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:conveniosobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosobservacion');", 5000)
+</script>
+<% end %>

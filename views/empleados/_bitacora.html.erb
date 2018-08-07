@@ -1,0 +1,34 @@
+<div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTROL Y SEGUIMIENTO DEL EMPLEADO</div></td>
+  </tr>
+</table>
+<table width="95%"  border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>
+		  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+		    <tr class="odd1">
+			    <td width="20%" class="oce-first">Fecha - Usuario </td>
+			    <td width="20%" class="oce-first">Dependencia</td>
+			    <td width="60%" class="oce-first">Resumen de Actualización</td>
+			   </tr>
+		 <% for p in @empleado.empleadobitacoras.find(:all, :order=> "created_at DESC") %>
+		  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+		     <td class="camposDesc"><div align="letf"><%= p.created_at. strftime("%Y-%m-%d %X") rescue nil%><br/><%= p.user.nombre rescue nil%></div></td>
+		     <td class="camposDesc"><div align="left"><%= p.dependencia.descripcion rescue nil %></div></td>
+		     <td class="camposDesc"><div align="left">
+		     	<strong>Tipo:</strong> <%= p.contrato rescue nil %><br/>
+		     	<strong>Salud:</strong> <%= p.eps rescue nil %> - <strong>Pesión:</strong> <%= p.pension rescue nil %> - <strong>ARL:</strong> <%= p.arl rescue nil %><br/>
+		     	<strong>Profesión:</strong> <%= p.profesion rescue nil%> - <strong>Cargo:</strong> <%= p.cargo rescue nil%><br/>
+		     	<strong>Entidad:</strong> <%= p.entidad rescue nil%> - <strong>Cuenta: </strong><%= p.nro_cuenta rescue nil%><br/>
+		     	<strong>Observacion:</strong> <%= p.observacion rescue nil%>
+		     </div></td>
+		   </tr>
+		 <% end %>
+		</table>
+		</td>
+	</tr>
+</table>
+</div>
+

@@ -1,0 +1,20 @@
+<h1>Listing fichaselementos</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @fichaselementos.each do |fichaselemento| %>
+  <tr>
+    <td><%=h fichaselemento.descripcion %></td>
+    <td><%= link_to 'Show', fichaselemento %></td>
+    <td><%= link_to 'Edit', edit_fichaselemento_path(fichaselemento) %></td>
+    <td><%= link_to 'Destroy', fichaselemento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fichaselemento', new_fichaselemento_path %>

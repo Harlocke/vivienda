@@ -1,0 +1,24 @@
+<h1>Listing listaspagos</h1>
+
+<table>
+  <tr>
+    <th>Capitulo</th>
+    <th>Descripcion</th>
+    <th>Orden</th>
+  </tr>
+
+<% @listaspagos.each do |listaspago| %>
+  <tr>
+    <td><%=h listaspago.capitulo %></td>
+    <td><%=h listaspago.descripcion %></td>
+    <td><%=h listaspago.orden %></td>
+    <td><%= link_to 'Show', listaspago %></td>
+    <td><%= link_to 'Edit', edit_listaspago_path(listaspago) %></td>
+    <td><%= link_to 'Destroy', listaspago, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New listaspago', new_listaspago_path %>

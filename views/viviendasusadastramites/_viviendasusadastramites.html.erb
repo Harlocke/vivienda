@@ -1,0 +1,123 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr><td  height="30"><div class="col_enc">TRAMITES VINCULADAS</div></td></tr>
+</table>
+<div align="center">
+<% remote_form_for [@viviendasusada, @viviendasusadastramite] do |form| %>
+<% if permiso("viviendasusadastramite","C").to_s == "S" %>
+   <% if !@viviendasusadastramite.id %>
+        <% if Viviendasusadastramite.exists?(['viviendasusada_id = ? and fecha_recibido is null', @viviendasusada.id])%>
+            <table width="80%" height="30" border="0" cellpadding="0" cellspacing="0" bordercolor="#FF0000">
+             <tr>
+                  <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+                  <td width="90%" align="left" class="campos">&nbsp;&nbsp;Lo siento pero no se puede incluir nuevas actividades hasta que no se finalicen las actuales...</td>
+             </tr>
+            </table>
+         <br/>
+        <% else %>
+  	  <%= render :partial => "/viviendasusadastramites/viviendasusadastramites_form" %>
+        <% end %>
+   <% end %>
+<% end %>
+<% if @viviendasusada.viviendasusadastramites.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="5%" height="20" align="left" class="oce-first"></td>
+    <td width="24%" align="left" class="oce-first">Fecha</td>
+    <td width="26%" align="left" class="oce-first">Tramite</td>
+    <td width="10%" align="left" class="oce-first">Fch Solicitud</td>
+    <td width="10%" align="left" class="oce-first">Fch Recibido</td>
+    <td width="10%" align="left" class="oce-first">Fch Notificado</td>
+    <td width="15%" align="left" class="oce-first"></td>
+  </tr>
+<% @viviendasusada.viviendasusadastramites.each do |viviendasusadastramite| %>
+   <% if viviendasusadastramite.id != @viviendasusadastramite.id %>
+   <% if (viviendasusadastramite.fecha_recibido.to_s != "")
+       if viviendasusadastramite.fecha_solicitud.to_s != ""
+          cantidad = Festivo.count(:conditions =>['fecha between ? and ?', viviendasusadastramite.fecha_solicitud, viviendasusadastramite.fecha_recibido])
+          segundos = (viviendasusadastramite.fecha_recibido - viviendasusadastramite.fecha_solicitud).to_i
+          minutos  = (segundos/60).to_i #es el nÃºmero total de minutos
+          horas    = (minutos/60).to_i #nÃºmero total de horas
+          dias     = (horas/24).to_i # nÃºmero total de dÃ­as
+          dias = (dias + 1) - cantidad
+          if (dias <= viviendasusadastramite.tipostramite.tiempo )
+            band = "verde.png"
+          elsif (dias > viviendasusadastramite.tipostramite.tiempo and dias <= (viviendasusadastramite.tipostramite.tiempo+2) )
+            band = "amarillo.png"
+          else
+            band = "rojo.png"
+          end
+       end
+      else
+        if viviendasusadastramite.fecha_solicitud.to_s != ""
+          cantidad = Festivo.count(:conditions =>['fecha between ? and ?', viviendasusadastramite.fecha_solicitud, Time.now])
+          segundos = (Time.now - viviendasusadastramite.fecha_solicitud).to_i
+          minutos  = (segundos/60).to_i #es el nÃºmero total de minutos
+          horas    = (minutos/60).to_i #nÃºmero total de horas
+          dias     = (horas/24).to_i # nÃºmero total de dÃ­as
+          dias     = (dias + 1) - cantidad
+          if (dias <= viviendasusadastramite.tipostramite.tiempo )
+            band = "verde.png"
+          elsif (dias > viviendasusadastramite.tipostramite.tiempo and dias <= (viviendasusadastramite.tipostramite.tiempo+2) )
+            band = "amarillo.png"
+          else
+            band = "rojo.png"
+          end
+        end
+      end
+    %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="viviendasusadastramite_<%=viviendasusadastramite.id%>">
+      <td class="camposDesc"><img class="img" src="/images/<%=band%>"/></td>
+      <td class="camposDesc">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+             <td class="camposDesc" align="left"><a title="Creacion"><%=viviendasusadastramite.created_at.strftime("%Y-%m-%d %X") rescue nil%>
+             &nbsp;<%=User.find(viviendasusadastramite.user_id).username rescue nil%></a></td>
+          </tr>
+          <tr>
+             <td class="camposDesc" align="left"><a title="Ultima Actualizacion"><%=viviendasusadastramite.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+             &nbsp;<%=User.find(viviendasusadastramite.useract_id).username rescue nil%></a></td>
+          </tr>
+        </table>
+      </td>
+      <td class="camposDesc"><%=viviendasusadastramite.tipostramite.descripcion%></td>
+      <td class="camposDesc"><%=viviendasusadastramite.fecha_solicitud%></td>
+      <td class="camposDesc"><%=viviendasusadastramite.fecha_recibido%></td>
+      <td class="camposDesc"><%=viviendasusadastramite.fecha_notificado%></td>
+      <td align="right" class="camposDesc">
+        <% if permiso("viviendasusadastramite","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_viviendasusada_viviendasusadastramite_path(@viviendasusada, viviendasusadastramite),:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("viviendasusadastramite","E").to_s == "S" %>
+          |&nbsp;<%= link_to_remote('Borrar',{:url => viviendasusada_viviendasusadastramite_path(@viviendasusada, viviendasusadastramite),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <% end %></td>
+   </tr>
+  <% else %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "viviendasusadastramites_form" %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :viviendasusada, :id %>
+<% end %>
+<br/>
+<% if flash[:viviendasusadastramite] %>
+  <br/>
+  <div id="viviendasusadastramite">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:viviendasusadastramite] %></td>
+      </tr>
+    </table>
+  </div>
+  <script type="text/javascript">setTimeout("new Effect.Fade('viviendasusadastramite');", 5000)</script>
+<% end %>

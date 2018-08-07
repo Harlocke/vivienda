@@ -1,0 +1,48 @@
+<strong>INFORMACION ACTUALIZACIONES</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Persona</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Contratista</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Caja</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Carpeta</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Manzana</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Lote</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Actualizacion</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Usuario realiza la actualizacion</strong></td>
+  </tr>
+<% for archivosactualizacion in @archivosactualizaciones
+        cadena = ""
+        cadenae = ""
+        @archivospersonas = Archivospersona.find_all_by_archivo_id(archivosactualizacion.archivo_id);
+        for archivospersona in @archivospersonas
+          persona  = Persona.find(archivospersona.persona_id);
+          if cadena != ""
+            cadena = cadena + ' - ' + persona.autobuscar
+          else
+            cadena = persona.autobuscar
+          end
+        end
+        @archivosempleados = Archivosempleado.find_all_by_archivo_id(archivosactualizacion.archivo_id);
+        for archivosempleado in @archivosempleados
+          empleado  = Empleado.find(archivosempleado.empleado_id);
+          if cadenae != ""
+            cadenae = cadenae + ' - ' + empleado.autobuscar
+          else
+            cadenae = empleado.autobuscar
+          end
+        end
+%>
+  <tr valign="middle">
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=cadena rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=cadenae rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.archivo.caja rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.archivo.carpeta rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.archivo.manzana rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.archivo.lote rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosactualizacion.user.nombre rescue nil%></div></td>
+ </tr>
+<% end %>
+</table>
+

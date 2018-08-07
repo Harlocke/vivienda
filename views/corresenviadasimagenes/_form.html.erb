@@ -1,0 +1,26 @@
+<div align="center">
+<table width="50%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="73%" class="campos" align="left">Descripcion del Archivo a Cargar</td>
+        <td width="27%" class="campos" align="left">Archivo a Cargar</td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left"><%= f.text_field :descripcion ,{ :class => "campo", :size =>60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= f.error_message_on :descripcion, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.file_field :enviada,
+            { :class => "campo",
+              :size => 46,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      </tr>
+    </table>
+	
+    </td>
+  </tr>
+</table>
+</div>

@@ -1,0 +1,88 @@
+<%
+   @valores = ""
+   @meses = ""
+   @limite = ""
+   @meta = ""
+   @indicadoresfichas = Indicadoresficha.find_all_by_indicador_id(@indicador.id)
+   for indicadoresficha in @indicador.indicadoresfichas.find(:all, :order => 'id')
+      @valores = @valores + (indicadoresficha.resultado.to_i).to_s + ','
+      @meses   = @meses + '"' + descmesmin(indicadoresficha.mes).to_s + '-' + indicadoresficha.anno.to_s + '",'
+      @limite  = @limite + @indicador.limite.to_s+ ','
+      @meta  = @meta + @indicador.meta.to_s+ ','
+   end
+%>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+   <title>..:: ---- ::..</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+   <%= javascript_include_tag '/hc_js/highcharts' %>
+   <%= javascript_include_tag '/hc_js/modules/exporting' %>
+<script type="text/javascript">
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Indicador <%=@indicador.nombreindicador%>',
+                x: -20 //center
+            },
+            <%#*subtitle: {%>
+                <%#*text: 'Source: WorldClimate.com',%>
+                <%#*x: -20%>
+            <%#*},%>
+            xAxis: {
+                categories: [<%=@meses%>]
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:,..0f}'
+                }
+            }
+        },             
+            series: [{
+                name: 'Resultado',
+                data: [<%=@valores%>]
+            },{
+                name: 'Limite',
+                data: [<%=@limite%>]
+            },{
+                name: 'Meta',
+                data: [<%=@meta%>]
+            }]
+        });
+    });
+
+});
+    </script>
+  </head>
+  <body>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+  </body>
+</html>

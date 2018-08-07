@@ -1,0 +1,413 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/estudiospreviosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PRESUPUESTOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),estudiosprevios_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% form_for(@estudiosprevio) do |f| %>
+          <div align="center">
+<table width="900"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="40%" class="campos">Contratista </td>
+    <td width="60%" class="camposDesc"><%= text_field_with_auto_complete :estudiosprevio, :empleado_autobuscar,
+	    { :class => "campo",
+                :size => 100,
+                :maxlength => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_empleados_path(:js), :method => :get, :with => "'search=' + element.value" } %><br/>&nbsp;Digite la identificación&nbsp;<%= link_to "",new2_empleados_path, :title => "Crear Empleado", :popup => ['new_window','height=530,width=900,scrollbars=yes'], :class=>"nuevoplink"%>
+      <%= f.error_message_on :empleado_autobuscar, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Objeto </td>
+    <td >
+      <%=text_area(:estudiosprevio, :objeto, :cols => 120, :rows => 6, :class => 'campo',:maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+  <%= f.error_message_on :objeto, :css_class =>"cerror"%></td>
+  </tr>
+  <% unless @estudiosprevio.new_record?%>
+  <tr class="odd1">
+    <td class="campos">Nro Presupuestal </td>
+    <td >
+    <%= f.text_field :nro_presupuestal ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_presupuestal, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Presup</td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_presupuestal", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= f.error_message_on :fecha_presupuestal, :css_class =>"cerror"%></td>
+  </tr>
+  <% end -%>
+  <tr class="odd1">
+    <td class="campos">Nro Estructurador </td>
+    <td >
+    <%= f.text_field :nro_estructurador ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_estructurador, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Estruct</td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_estructurador", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= f.error_message_on :fecha_estructurador, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Nro Contratación </td>
+    <td >
+    <%= f.text_field :nro_contratacion ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= f.error_message_on :nro_contratacion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Contrat </td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_contratacion", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_contratacion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr  class="odd1">
+    <td class="campos">Valor Mes </td>
+    <td >
+    <%= f.text_field :valor_mes ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= observe_field :estudiosprevio_valor_mes, :url => { :action => :valormes },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                          +'&pvrdia='+$F('estudiosprevio_dias')
+                          +'&pvrmes='+$F('estudiosprevio_meses')
+                          +'&pvrcant='+$F('estudiosprevio_cantidad')"%>
+  <%= f.error_message_on :valor_mes, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Dia </td>
+    <td >
+    <%= f.text_field :valor_dia,{ :class => "campodisabled", :size => 20, :readonly=>"yes",
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_dia, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Nro Dias </td>
+    <td >
+    <%= f.text_field :dias ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= observe_field :estudiosprevio_dias, :url => { :action => :dias },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvrdia='+$F('estudiosprevio_valor_dia')
+                           +'&pvr1='+$F('estudiosprevio_valor_mes')
+                           +'&pvr2='+$F('estudiosprevio_meses')
+                           +'&pvrcant='+$F('estudiosprevio_cantidad')"%>
+  <%= f.error_message_on :dias, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Nro Meses </td>
+    <td >
+    <%= f.text_field :meses ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= observe_field :estudiosprevio_meses, :url => { :action => :meses },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvrdia='+$F('estudiosprevio_valor_dia')
+                           +'&pvr1='+$F('estudiosprevio_valor_mes')
+                           +'&pvr2='+$F('estudiosprevio_dias')
+                           +'&pvrcant='+$F('estudiosprevio_cantidad')"%>
+  <%= f.error_message_on :meses, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Cantidad </td>
+    <td >
+    <%= f.text_field :cantidad ,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= observe_field :estudiosprevio_cantidad, :url => { :action => :cantidad },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvrdia='+$F('estudiosprevio_valor_dia')
+                           +'&pvr1='+$F('estudiosprevio_valor_mes')
+                           +'&pvr2='+$F('estudiosprevio_dias')
+                           +'&pvr3='+$F('estudiosprevio_meses')"%>
+  <%= f.error_message_on :cantidad, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Contrato </td>
+    <td >
+    <%= f.text_field :valor_total ,{ :class => "campodisabled", :size => 20, :readonly=>"yes",
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_total, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Valor Compromiso </td>
+    <td >
+    <%= f.text_field :valor_compromiso ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_compromiso, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Fecha Suscripción </td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_suscripcion", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_suscripcion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Fecha Inicio </td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_inicio", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_inicio, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha Fin </td>
+    <td >
+    <%= calendar_date_select "estudiosprevio", "fecha_fin", :year_range =>[2010,2020], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_fin, :css_class =>"cerror"%></td>
+  </tr>
+   <% unless @estudiosprevio.new_record? %>
+      <tr class="odd1">
+        <td class="campos">Interventor </td>
+        <td >
+          <%=select("estudiosprevio", "user_interventor", is_select_empleadointerventor.collect {|p| [ p.cargo.to_s + ' ('+p.nombres.to_s+')', p.id ] }, { :include_blank => true },
+                { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= f.error_message_on :user_interventor, :css_class =>"cerror"%></td>
+      </tr>
+   <% else %>
+      <tr class="odd1">
+        <td class="campos">Interventor </td>
+        <td >
+          <%=select("estudiosprevio", "user_interventor", is_select_empleadointerventor_act.collect {|p| [ p.cargo.to_s + ' ('+p.nombres.to_s+')', p.id ] }, { :include_blank => true },
+                { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= f.error_message_on :user_interventor, :css_class =>"cerror"%></td>
+      </tr>
+   <% end %>
+  <tr>
+    <td class="campos">Modalidad </td>
+    <td >
+    <%=select("estudiosprevio", "modalidad_id", is_select_modalidad.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+  <%= f.error_message_on :modalidad_id, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Tipo de Contrato </td>
+    <td >
+    <%=select("estudiosprevio", "tiposcontrato_id", is_select_tiposcontrato.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+  <%= f.error_message_on :tiposcontrato_id, :css_class =>"cerror"%></td>
+  </tr>
+  <% unless @estudiosprevio.new_record? %>
+    <tr>
+      <td class="campos">Abogado Asignado </td>
+      <td >
+        <%=select("estudiosprevio", "abogadoempleado_id", is_select_empleado.collect {|p| [ p.nombres, p.id ] }, { :include_blank => true },
+              { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      <%= f.error_message_on :abogadoempleado_id, :css_class =>"cerror"%></td>
+    </tr>
+  <% else %>
+    <tr>
+      <td class="campos">Abogado Asignado </td>
+      <td >
+        <%=select("estudiosprevio", "abogadoempleado_id", is_select_empleado_act.collect {|p| [ p.nombres, p.id ] }, { :include_blank => true },
+              { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      <%= f.error_message_on :abogadoempleado_id, :css_class =>"cerror"%></td>
+    </tr>
+  <% end %>
+  <% unless @estudiosprevio.new_record? %>
+  <tr class="odd1">
+    <td class="campos">Rubro</td>
+    <td>
+         <div id="estudiospreviosrubros_form">
+            <%= render :partial => "/estudiospreviosrubros/estudiospreviosrubros" %>
+         </div>
+    </td>
+  </tr>
+  <% end %>
+  <% unless @estudiosprevio.new_record? %>
+  <tr>
+    <td class="campos">Actividades</td>
+    <td>
+         <div id="estudiosactividades_form">
+            <%= render :partial => "/estudiosactividades/estudiosactividades" %>
+         </div>
+    </td>
+  </tr>
+  <% end %>
+  <tr class="odd1">
+    <td class="campos">Nro CDP 1 </td>
+    <td class="campos">
+    <%= f.text_field :nro_cdp,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_cdp, :css_class =>"cerror"%> &nbsp;Fecha  &nbsp;<%= calendar_date_select "estudiosprevio", "fecha_cdp", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_cdp, :css_class =>"cerror"%> &nbsp;Valor&nbsp;
+    <%= f.text_field :valor_cdp ,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_cdp, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Nro CDP 2 </td>
+    <td class="campos">
+    <%= f.text_field :nro_cdp2,{ :class => "campo", :size => 12,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_cdp2, :css_class =>"cerror"%> &nbsp;Fecha&nbsp;  <%= calendar_date_select "estudiosprevio", "fecha_cdp2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_cdp2, :css_class =>"cerror"%> &nbsp;Valor&nbsp;
+    <%= f.text_field :valor_cdp2 ,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_cdp2, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Nro CDP 3 </td>
+    <td class="campos">
+    <%= f.text_field :nro_cdp3,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_cdp3, :css_class =>"cerror"%> &nbsp;Fecha&nbsp;  <%= calendar_date_select "estudiosprevio", "fecha_cdp3", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_cdp3, :css_class =>"cerror"%> &nbsp;Valor&nbsp;
+    <%= f.text_field :valor_cdp3 ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_cdp3, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Nro CDP 4 </td>
+    <td class="campos">
+    <%= f.text_field :nro_cdp4,{ :class => "campo", :size => 12,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :nro_cdp4, :css_class =>"cerror"%> &nbsp;Fecha&nbsp;  <%= calendar_date_select "estudiosprevio", "fecha_cdp4", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+  <%= f.error_message_on :fecha_cdp4, :css_class =>"cerror"%> &nbsp;Valor&nbsp;
+    <%= f.text_field :valor_cdp4 ,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+  <%= f.error_message_on :valor_cdp4, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Poliza </td>
+    <td >
+   <%= select(:estudiosprevio,:poliza, { "SI" => "S","NO" => "N","NO APLICA" => "NA"},{ :include_blank => true },
+             { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+  <%= f.error_message_on :poliza, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Secop </td>
+    <td >
+    <%= select(:estudiosprevio,:secop, { "SI" => "S","NO" => "N","NO APLICA" => "NA"},{ :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+  <%= f.error_message_on :secop, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Anticipo ? </td>
+    <td >
+    <%= select(:estudiosprevio,:anticipo, { "SI" => "SI","NO" => "NO"},{ :include_blank => true },
+                { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+  <%= f.error_message_on :anticipo, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Pago Anticipado? </td>
+    <td ><%= select(:estudiosprevio,:pago_anticipado, { "SI" => "SI","NO" => "NO"},{ :include_blank => true },
+         { :style=>"width:90px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+  <%= f.error_message_on :pago_anticipado, :css_class =>"cerror"%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Observaciones </td>
+    <td >
+      <%=text_area(:estudiosprevio, :observaciones, :cols => 120, :rows => 6, :class => 'campo',:maxlength => 4000,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+      <%= f.error_message_on :observaciones, :css_class =>"cerror"%></td>
+  </tr>
+  <% unless @estudiosprevio.new_record? %>
+  <tr>
+    <td class="campos">Estado </td>
+    <td class="camposDesc"><%=@estudiosprevio.estado rescue nil%>
+      <% if @estudiosprevio.estado.to_s == "ASIGNADO" %>
+         - Nro Contrato: <%=Contrato.find(@estudiosprevio.contrato_id).nro_contrato rescue nil%>
+      <% end %>
+      <% unless @estudiosprevio.new_record? %>
+        <% if @estudiosprevio.nro_presupuestal.to_s != "" and @estudiosprevio.fecha_presupuestal.to_s != "" %>
+        |&nbsp;<%= link_to "Minuta", {:controller => "estudiosprevios", :action => "minutapdf", :id=>@estudiosprevio.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+        <% end -%>
+    <% end -%>
+    </td>
+  </tr>
+  <% if @estudiosprevio.estado.to_s == "ASIGNADO" %>
+      <tr class="odd1">
+        <td class="campos" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+      <tr>
+        <td class="campos">Modificaciones</td>
+        <td><div id="estudiosmodificaciones_form">
+              <%= render :partial => "/estudiosmodificaciones/estudiosmodificaciones" %>
+            </div>
+        </td>
+      </tr>
+      <% end %>
+  <% end %>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+      <% unless @estudiosprevio.new_record? %>
+        Ultima Actualización: <%=User.find(@estudiosprevio.user_id).username rescue nil%> - <%=@estudiosprevio.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+      <% end %></td>
+     <td  height="30"><div align="right">
+        <% if @estudiosprevio.estado.to_s == 'PENDIENTE' or @estudiosprevio.estado.to_s == ""%>
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+          <% unless @estudiosprevio.new_record? %>
+          <%= link_to "Solicitar", {:controller => "estudiosprevios", :action => "solicitarcontrato", :id=>@estudiosprevio.id}, :confirm=>"Seguro?", :class=>"emaillink"%>
+          <% end %>
+        <% end %>
+        <% if permiso("estudiospresupuestal","C").to_s == "S" %>
+          <% unless @estudiosprevio.new_record? %>
+          <% if @estudiosprevio.nro_presupuestal.to_s == "" and @estudiosprevio.fecha_presupuestal.to_s == "" %>
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Actualizar", :disable_with => "Guardando..."%></span></div>
+            <% end -%>
+          <% end -%>
+        <% end -%>
+        <% if permiso("estudiosespecial","C").to_s == "S" %>
+          <%= link_to "Solicitar", {:controller => "estudiosprevios", :action => "solicitarcontrato", :id=>@estudiosprevio.id}, :confirm=>"Seguro?", :class=>"emaillink"%>
+        <% end %>
+        </div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+</div>
+<% end %>

@@ -1,0 +1,2 @@
+module Feria2014beneficiariosHelper
+end

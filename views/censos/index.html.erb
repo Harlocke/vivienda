@@ -1,0 +1,374 @@
+<h1>Listing censos</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Idformulario</th>
+    <th>Campo1</th>
+    <th>Campo2</th>
+    <th>Campo3</th>
+    <th>Campo4</th>
+    <th>Campo5</th>
+    <th>Campo6</th>
+    <th>Campo7</th>
+    <th>Campo8</th>
+    <th>Campo9</th>
+    <th>Campo10</th>
+    <th>Campo11</th>
+    <th>Campo12</th>
+    <th>Campo13</th>
+    <th>Campo14</th>
+    <th>Campo15</th>
+    <th>Campo16</th>
+    <th>Campo17</th>
+    <th>Campo18</th>
+    <th>Campo19</th>
+    <th>Campo20</th>
+    <th>Campo21</th>
+    <th>Campo22</th>
+    <th>Campo23</th>
+    <th>Campo24</th>
+    <th>Campo25</th>
+    <th>Campo26</th>
+    <th>Campo27</th>
+    <th>Campo28</th>
+    <th>Campo29</th>
+    <th>Campo30</th>
+    <th>Campo31</th>
+    <th>Campo32</th>
+    <th>Campo33</th>
+    <th>Campo34</th>
+    <th>Campo35</th>
+    <th>Campo36</th>
+    <th>Campo37</th>
+    <th>Campo38</th>
+    <th>Campo39</th>
+    <th>Campo40</th>
+    <th>Campo41</th>
+    <th>Campo42</th>
+    <th>Campo43</th>
+    <th>Campo44</th>
+    <th>Campo45</th>
+    <th>Campo46</th>
+    <th>Campo47</th>
+    <th>Campo48</th>
+    <th>Campo49</th>
+    <th>Campo50</th>
+    <th>Campo51</th>
+    <th>Campo52</th>
+    <th>Campo53</th>
+    <th>Campo54</th>
+    <th>Campo55</th>
+    <th>Campo56</th>
+    <th>Campo57</th>
+    <th>Campo58</th>
+    <th>Campo59</th>
+    <th>Campo60</th>
+    <th>Campo61</th>
+    <th>Campo62</th>
+    <th>Campo63</th>
+    <th>Campo64</th>
+    <th>Campo65</th>
+    <th>Campo66</th>
+    <th>Campo67</th>
+    <th>Campo68</th>
+    <th>Campo69</th>
+    <th>Campo70</th>
+    <th>Campo71</th>
+    <th>Campo72</th>
+    <th>Campo73</th>
+    <th>Campo74</th>
+    <th>Campo75</th>
+    <th>Campo76</th>
+    <th>Campo77</th>
+    <th>Campo78</th>
+    <th>Campo79</th>
+    <th>Campo80</th>
+    <th>Campo81</th>
+    <th>Campo82</th>
+    <th>Campo83</th>
+    <th>Campo84</th>
+    <th>Campo85</th>
+    <th>Campo86</th>
+    <th>Campo87</th>
+    <th>Campo88</th>
+    <th>Campo89</th>
+    <th>Campo90</th>
+    <th>Campo91</th>
+    <th>Campo92</th>
+    <th>Campo93</th>
+    <th>Campo94</th>
+    <th>Campo95</th>
+    <th>Campo96</th>
+    <th>Campo97</th>
+    <th>Campo98</th>
+    <th>Campo99</th>
+    <th>Campo100</th>
+    <th>Campo101</th>
+    <th>Campo102</th>
+    <th>Campo103</th>
+    <th>Campo104</th>
+    <th>Campo105</th>
+    <th>Campo106</th>
+    <th>Campo107</th>
+    <th>Campo108</th>
+    <th>Campo109</th>
+    <th>Campo110</th>
+    <th>Campo111</th>
+    <th>Campo112</th>
+    <th>Campo113</th>
+    <th>Campo114</th>
+    <th>Campo115</th>
+    <th>Campo116</th>
+    <th>Campo117</th>
+    <th>Campo118</th>
+    <th>Campo119</th>
+    <th>Campo120</th>
+    <th>Campo121</th>
+    <th>Campo122</th>
+    <th>Campo123</th>
+    <th>Campo124</th>
+    <th>Campo125</th>
+    <th>Campo126</th>
+    <th>Campo127</th>
+    <th>Campo128</th>
+    <th>Campo129</th>
+    <th>Campo130</th>
+    <th>Campo131</th>
+    <th>Campo132</th>
+    <th>Campo133</th>
+    <th>Campo134</th>
+    <th>Campo135</th>
+    <th>Campo136</th>
+    <th>Campo137</th>
+    <th>Campo138</th>
+    <th>Campo139</th>
+    <th>Campo140</th>
+    <th>Campo141</th>
+    <th>Campo142</th>
+    <th>Campo143</th>
+    <th>Campo144</th>
+    <th>Campo145</th>
+    <th>Campo146</th>
+    <th>Campo147</th>
+    <th>Campo148</th>
+    <th>Campo149</th>
+    <th>Campo150</th>
+    <th>Campo151</th>
+    <th>Campo152</th>
+    <th>Campo153</th>
+    <th>Campo154</th>
+    <th>Campo155</th>
+    <th>Campo156</th>
+    <th>Campo157</th>
+    <th>Campo158</th>
+    <th>Campo159</th>
+    <th>Campo160</th>
+    <th>Campo161</th>
+    <th>Campo162</th>
+    <th>Campo163</th>
+    <th>Campo164</th>
+    <th>Campo165</th>
+    <th>Campo166</th>
+    <th>Campo167</th>
+    <th>Campo168</th>
+    <th>Campo169</th>
+    <th>Campo170</th>
+    <th>Campo171</th>
+    <th>Campo172</th>
+    <th>Campo173</th>
+    <th>Campo174</th>
+    <th>Campo175</th>
+    <th>Campo176</th>
+  </tr>
+
+<% @censos.each do |censo| %>
+  <tr>
+    <td><%=h censo.persona_id %></td>
+    <td><%=h censo.Idformulario %></td>
+    <td><%=h censo.campo1 %></td>
+    <td><%=h censo.campo2 %></td>
+    <td><%=h censo.campo3 %></td>
+    <td><%=h censo.campo4 %></td>
+    <td><%=h censo.campo5 %></td>
+    <td><%=h censo.campo6 %></td>
+    <td><%=h censo.campo7 %></td>
+    <td><%=h censo.campo8 %></td>
+    <td><%=h censo.campo9 %></td>
+    <td><%=h censo.campo10 %></td>
+    <td><%=h censo.campo11 %></td>
+    <td><%=h censo.campo12 %></td>
+    <td><%=h censo.campo13 %></td>
+    <td><%=h censo.campo14 %></td>
+    <td><%=h censo.campo15 %></td>
+    <td><%=h censo.campo16 %></td>
+    <td><%=h censo.campo17 %></td>
+    <td><%=h censo.campo18 %></td>
+    <td><%=h censo.campo19 %></td>
+    <td><%=h censo.campo20 %></td>
+    <td><%=h censo.campo21 %></td>
+    <td><%=h censo.campo22 %></td>
+    <td><%=h censo.campo23 %></td>
+    <td><%=h censo.campo24 %></td>
+    <td><%=h censo.campo25 %></td>
+    <td><%=h censo.campo26 %></td>
+    <td><%=h censo.campo27 %></td>
+    <td><%=h censo.campo28 %></td>
+    <td><%=h censo.campo29 %></td>
+    <td><%=h censo.campo30 %></td>
+    <td><%=h censo.campo31 %></td>
+    <td><%=h censo.campo32 %></td>
+    <td><%=h censo.campo33 %></td>
+    <td><%=h censo.campo34 %></td>
+    <td><%=h censo.campo35 %></td>
+    <td><%=h censo.campo36 %></td>
+    <td><%=h censo.campo37 %></td>
+    <td><%=h censo.campo38 %></td>
+    <td><%=h censo.campo39 %></td>
+    <td><%=h censo.campo40 %></td>
+    <td><%=h censo.campo41 %></td>
+    <td><%=h censo.campo42 %></td>
+    <td><%=h censo.campo43 %></td>
+    <td><%=h censo.campo44 %></td>
+    <td><%=h censo.campo45 %></td>
+    <td><%=h censo.campo46 %></td>
+    <td><%=h censo.campo47 %></td>
+    <td><%=h censo.campo48 %></td>
+    <td><%=h censo.campo49 %></td>
+    <td><%=h censo.campo50 %></td>
+    <td><%=h censo.campo51 %></td>
+    <td><%=h censo.campo52 %></td>
+    <td><%=h censo.campo53 %></td>
+    <td><%=h censo.campo54 %></td>
+    <td><%=h censo.campo55 %></td>
+    <td><%=h censo.campo56 %></td>
+    <td><%=h censo.campo57 %></td>
+    <td><%=h censo.campo58 %></td>
+    <td><%=h censo.campo59 %></td>
+    <td><%=h censo.campo60 %></td>
+    <td><%=h censo.campo61 %></td>
+    <td><%=h censo.campo62 %></td>
+    <td><%=h censo.campo63 %></td>
+    <td><%=h censo.campo64 %></td>
+    <td><%=h censo.campo65 %></td>
+    <td><%=h censo.campo66 %></td>
+    <td><%=h censo.campo67 %></td>
+    <td><%=h censo.campo68 %></td>
+    <td><%=h censo.campo69 %></td>
+    <td><%=h censo.campo70 %></td>
+    <td><%=h censo.campo71 %></td>
+    <td><%=h censo.campo72 %></td>
+    <td><%=h censo.campo73 %></td>
+    <td><%=h censo.campo74 %></td>
+    <td><%=h censo.campo75 %></td>
+    <td><%=h censo.campo76 %></td>
+    <td><%=h censo.campo77 %></td>
+    <td><%=h censo.campo78 %></td>
+    <td><%=h censo.campo79 %></td>
+    <td><%=h censo.campo80 %></td>
+    <td><%=h censo.campo81 %></td>
+    <td><%=h censo.campo82 %></td>
+    <td><%=h censo.campo83 %></td>
+    <td><%=h censo.campo84 %></td>
+    <td><%=h censo.campo85 %></td>
+    <td><%=h censo.campo86 %></td>
+    <td><%=h censo.campo87 %></td>
+    <td><%=h censo.campo88 %></td>
+    <td><%=h censo.campo89 %></td>
+    <td><%=h censo.campo90 %></td>
+    <td><%=h censo.campo91 %></td>
+    <td><%=h censo.campo92 %></td>
+    <td><%=h censo.campo93 %></td>
+    <td><%=h censo.campo94 %></td>
+    <td><%=h censo.campo95 %></td>
+    <td><%=h censo.campo96 %></td>
+    <td><%=h censo.campo97 %></td>
+    <td><%=h censo.campo98 %></td>
+    <td><%=h censo.campo99 %></td>
+    <td><%=h censo.campo100 %></td>
+    <td><%=h censo.campo101 %></td>
+    <td><%=h censo.campo102 %></td>
+    <td><%=h censo.campo103 %></td>
+    <td><%=h censo.campo104 %></td>
+    <td><%=h censo.campo105 %></td>
+    <td><%=h censo.campo106 %></td>
+    <td><%=h censo.campo107 %></td>
+    <td><%=h censo.campo108 %></td>
+    <td><%=h censo.campo109 %></td>
+    <td><%=h censo.campo110 %></td>
+    <td><%=h censo.campo111 %></td>
+    <td><%=h censo.campo112 %></td>
+    <td><%=h censo.campo113 %></td>
+    <td><%=h censo.campo114 %></td>
+    <td><%=h censo.campo115 %></td>
+    <td><%=h censo.campo116 %></td>
+    <td><%=h censo.campo117 %></td>
+    <td><%=h censo.campo118 %></td>
+    <td><%=h censo.campo119 %></td>
+    <td><%=h censo.campo120 %></td>
+    <td><%=h censo.campo121 %></td>
+    <td><%=h censo.campo122 %></td>
+    <td><%=h censo.campo123 %></td>
+    <td><%=h censo.campo124 %></td>
+    <td><%=h censo.campo125 %></td>
+    <td><%=h censo.campo126 %></td>
+    <td><%=h censo.campo127 %></td>
+    <td><%=h censo.campo128 %></td>
+    <td><%=h censo.campo129 %></td>
+    <td><%=h censo.campo130 %></td>
+    <td><%=h censo.campo131 %></td>
+    <td><%=h censo.campo132 %></td>
+    <td><%=h censo.campo133 %></td>
+    <td><%=h censo.campo134 %></td>
+    <td><%=h censo.campo135 %></td>
+    <td><%=h censo.campo136 %></td>
+    <td><%=h censo.campo137 %></td>
+    <td><%=h censo.campo138 %></td>
+    <td><%=h censo.campo139 %></td>
+    <td><%=h censo.campo140 %></td>
+    <td><%=h censo.campo141 %></td>
+    <td><%=h censo.campo142 %></td>
+    <td><%=h censo.campo143 %></td>
+    <td><%=h censo.campo144 %></td>
+    <td><%=h censo.campo145 %></td>
+    <td><%=h censo.campo146 %></td>
+    <td><%=h censo.campo147 %></td>
+    <td><%=h censo.campo148 %></td>
+    <td><%=h censo.campo149 %></td>
+    <td><%=h censo.campo150 %></td>
+    <td><%=h censo.campo151 %></td>
+    <td><%=h censo.campo152 %></td>
+    <td><%=h censo.campo153 %></td>
+    <td><%=h censo.campo154 %></td>
+    <td><%=h censo.campo155 %></td>
+    <td><%=h censo.campo156 %></td>
+    <td><%=h censo.campo157 %></td>
+    <td><%=h censo.campo158 %></td>
+    <td><%=h censo.campo159 %></td>
+    <td><%=h censo.campo160 %></td>
+    <td><%=h censo.campo161 %></td>
+    <td><%=h censo.campo162 %></td>
+    <td><%=h censo.campo163 %></td>
+    <td><%=h censo.campo164 %></td>
+    <td><%=h censo.campo165 %></td>
+    <td><%=h censo.campo166 %></td>
+    <td><%=h censo.campo167 %></td>
+    <td><%=h censo.campo168 %></td>
+    <td><%=h censo.campo169 %></td>
+    <td><%=h censo.campo170 %></td>
+    <td><%=h censo.campo171 %></td>
+    <td><%=h censo.campo172 %></td>
+    <td><%=h censo.campo173 %></td>
+    <td><%=h censo.campo174 %></td>
+    <td><%=h censo.campo175 %></td>
+    <td><%=h censo.campo176 %></td>
+    <td><%= link_to 'Show', censo %></td>
+    <td><%= link_to 'Edit', edit_censo_path(censo) %></td>
+    <td><%= link_to 'Destroy', censo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New censo', new_censo_path %>

@@ -1,0 +1,47 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INFORME DETALLADO PROYECTOS</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="5"><strong>Informacion Proyecto</strong></td>
+    <td rowspan="2"><strong>Bloques</strong></td>
+    <td rowspan="2"><strong>Observaciones</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Sub Etapa</strong></td>
+    <td><strong>Estado Proyecto</strong></td>
+    <td><strong>Nombre Copropiedad</strong></td>
+  </tr>
+<% @proyectoscopropiedades.each do |proyectoscopropiedad|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=proyectoscopropiedad.proyecto.id rescue nil%></div></td>
+     <td><div align="left"><%=proyectoscopropiedad.proyecto.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=proyectoscopropiedad.proyecto.sub_etapa rescue nil%></div></td>
+     <td><div align="left"><%=proyectoscopropiedad.proyecto.etapa_proyecto rescue nil%></div></td>
+     <td><div align="left"><%=proyectoscopropiedad.nombre rescue nil%></div></td>
+     <td>
+       <% if proyectoscopropiedad.proyectoscopbloques.exists? %>
+           <table border="1">
+          <% for proyectoscopbloque in proyectoscopropiedad.proyectoscopbloques.find(:all, :order => 'created_at DESC')  %>
+             <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+               <td><div align="left"><%=proyectoscopbloque.bloque.descripcion.to_s rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+     <td>
+       <% if proyectoscopropiedad.proyectoscopnotas.exists? %>
+           <table border="1">
+          <% for proyectoscopnota in proyectoscopropiedad.proyectoscopnotas.find(:all, :order => 'created_at DESC')  %>
+             <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+               <td><div align="left"><%=proyectoscopnota.created_at.strftime("%Y-%m-%d %X") rescue nil%> - (<%=proyectoscopnota.user.username rescue nil%>) : <%=proyectoscopnota.dtipoatencion.to_s rescue nil%>: <%=proyectoscopnota.observacion.to_s rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

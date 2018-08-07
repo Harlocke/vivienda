@@ -1,0 +1,30 @@
+<div align="center">
+<table width="70%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="30%" class="campos" align="left">Tipo de Documento</td>
+        <td width="70%" class="campos" align="left"><%=f.select("archivosdocumento_id", Archivosdocumento.find(:all, :conditions=>["id in (select archivosdocumento_id from archivosseriesdocs where archivosserie_id = #{@archivo.archivosserie_id})"],:order => 'descripcion').collect {|p| [ p.descripcion.to_s, p.id ] }, { :include_blank => true },
+      { :style=>"width:480px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <%= f.error_message_on :archivosdocumento_id, :css_class =>"cerror"%></td>
+      </tr>
+        <tr>
+          <td class="campos">Fecha del Documento </td>
+          <td><%= calendar_date_select "archivosimagen", "fecha_doc", :year_range =>[1980,2018], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= f.error_message_on :fecha_doc, :css_class =>"cerror"%></td>
+        </tr>      
+      <tr>
+        <td class="campos" align="left">Archivo a Cargar</td>
+        <td class="camposDesc" align="left"><%= f.file_field :archivo,
+            { :class => "campo",
+              :size => 46,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= f.error_message_on :archivo, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+</div>

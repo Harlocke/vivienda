@@ -1,0 +1,65 @@
+<table width="100%" border="1" cellspacing="5">
+  <tr>
+    <td style="font-size: 20px; font-family: tahoma; vertical-align:middle; vertical-align:middle;" height="30" colspan="7" rowspan="4"><div align="center"><strong>LISTADO MAESTRO DE DOCUMENTOS</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>CODIGO: F-GM-18</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>VERSIÓN: 02</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>FECHA: 26/02/2015</strong></td>
+  </tr>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="2"><strong>PAGINA: 1</strong></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr  valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle; vertical-align:middle;" height="30" bgcolor="#00CCFF" colspan="4"><strong>NOMBRE DEL PROCESO</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="5"><strong><%=@calidadproceso.tipoproceso rescue nil%> - <%=@calidadproceso.descripcion rescue nil%></strong></td>
+  </tr>
+  <tr valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" bgcolor="#00CCFF" colspan="4"><strong>TIPOLOGÍA</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="5"><strong><%=@calidadproceso.tipologia rescue nil%></strong></td>
+  </tr>
+  <tr valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" bgcolor="#00CCFF"colspan="4"><strong>FECHA DE ACTUALIZACIÓN DEL LISTADO MAESTRO</strong></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" colspan="5"><strong><div align="left"><%=@calidadproceso.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></strong></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" height="30" ><div align="center"><strong>CODIGO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>VERSIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>FECHA DE VERSIÓN<br/>VIGENTE</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>NOMBRE DEL DOCUMENTO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>FECHA DE ÚLTIMA <br/>ACTUALIZACIÓN O REVISIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>DESCRIPCIÓN DEL CAMBIO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>UBICACIÓN</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>MEDIO</strong></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><strong>DISPOSICIÓN FINAL</strong></div></td>
+  </tr>
+<% @calidaddocumentos.each do |calidaddocumento| %>
+  <tr>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.codigo rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.version rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.calidadproceso.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><%=calidaddocumento.nombre rescue nil%></td>
+    <% if calidaddocumento.calidaddocnotas.exists?
+          calidaddocnota = calidaddocumento.calidaddocnotas.find(:first,:order=>"created_at desc") %>
+            <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocnota.created_at.strftime("%Y-%m-%d %X")%> - <%=calidaddocnota.user.username rescue nil%></div></td>
+            <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><%=calidaddocnota.observaciones rescue nil%></td>
+<%       
+       else
+%>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" >SIN INFO</td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" >SIN INFO</td>
+<%     end  %>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.ubicacion rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.medio_recopila rescue nil%></div></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;" ><div align="center"><%=calidaddocumento.destino_posterior rescue nil%></div></td>
+  </tr>    
+<% end %>
+</table>

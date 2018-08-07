@@ -1,0 +1,62 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@seguimiento, @seguimientosobservacion] do |form| %>
+    <% if !@seguimientosobservacion.id %>
+	<%= render :partial => "/seguimientosobservaciones/seguimientosobservaciones_form" %>
+    <% end %>
+<% if @seguimiento.seguimientosobservaciones.exists? %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="18%" height="30" class="oce-first"><div align="center">Fecha</div></th>
+    <th width="70%" height="30" class="oce-first">Observaciones</th>
+    <th width="12%" height="30" class="oce-first">&nbsp;</th>
+  </tr>
+<% for seguimientosobservacion in @seguimiento.seguimientosobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if seguimientosobservacion.id != @seguimientosobservacion.id %>
+        <tr valign="middle" id="seguimientosobservacion_<%=seguimientosobservacion.id%>">
+          <td height="30" class="camposDesc"><%=seguimientosobservacion.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=seguimientosobservacion.user.nombre rescue nil%>"><%=seguimientosobservacion.user.username rescue nil%></a>          </td>
+          <td class="camposDesc"><%=seguimientosobservacion.observaciones%></td>
+          <td class="camposDesc" >
+            <% if permiso("seguimientosobservacion","A").to_s == "S" %>
+              <%= link_to_remote ('Editar',{:url => edit_seguimiento_seguimientosobservacion_path(@seguimiento, seguimientosobservacion),
+		:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("seguimientosobservacion","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote ('Borrar',{:url => seguimiento_seguimientosobservacion_path(@seguimiento, seguimientosobservacion),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+        </td>
+        </tr>
+<% else %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><div class="col_enc">EDITAR OBSERVACION</div></td></tr></table>
+     <%= render :partial => "seguimientosobservaciones_form" %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+        <% end %>
+</table>
+
+<% else %>
+<div id="capacitacion">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+            <%= hidden_field :seguimiento, :id %>
+<% end %>
+<br/>
+<% if flash[:seguimientosseguimientosobservacion] %>
+<div id="seguimientosseguimientosobservacion">
+    <div class="alert alert-success">
+      <%= flash[:seguimientosseguimientosobservacion] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('seguimientosseguimientosobservacion');", 5000)
+</script>
+<% end %>

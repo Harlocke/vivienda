@@ -1,0 +1,2 @@
+module EmpleadobitacorasHelper
+end

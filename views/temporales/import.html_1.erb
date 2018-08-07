@@ -1,0 +1,76 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/resolucionmin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;INFORMACION RESOLUCIONES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="70%" border="0" align="center" cellpadding="1" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#FF0000">
+        <td height="30" colspan="2"><div align="left"><strong>RECOMENDACIONES PARA CARGUE DE INFORMACI&Oacute;N</strong></div></td>
+      </tr>
+      <tr>
+        <td width="120"><div align="center"><strong>1.</strong></div></td>
+        <td width="746">El archivo debe ser con extensión CSV y separado con (;) </td>
+      </tr>
+      <tr>
+        <td><div align="center"><strong>2.</strong></div></td>
+        <td>El orden de los campos es:</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 1 : </strong>Nro Resolucion </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 2 : </strong>Año </td>
+      </tr
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 3 : </strong> Identificaci&oacute;n de persona a Vincular </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 4 : </strong>Valor Subsidio Municipal en Especie </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 5 : </strong>Valor Subsidio Municipal en Dinero </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 6 : </strong>Valor Subdisio de Mejoras </td>
+      </tr>
+      <tr bgcolor="#FF0000">
+        <td height="30" colspan="2"><div align="left"><strong>Nota: Con base en este orden es que el sistema ejecuta el proceso automatico. Este proceso no tiene reversión.</strong></div></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<% form_for :dump, :url=>{:controller=>"temporales", :action=>"csv_import"}, :html => { :multipart => true } do |f| -%>
+ <table width="70%" align="center">
+   <tr>
+     <td width="40%">
+      <label for="dump_file">
+        Seleccione el archivo a cargar :
+      </label>
+     </td>
+     <td width="60%" >
+       <%= f.file_field :file -%>
+     </td>
+   </tr>
+   <tr>
+     <td colspan='2'>
+       <div align="center"><%= submit_tag 'Cargar' -%></div></td>
+   </tr>
+</table>
+<% end -%>

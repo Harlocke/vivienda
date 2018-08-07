@@ -1,0 +1,1 @@
+page.replace_html :corresinternasdirigidos_form, :partial => "/corresinternasdirigidos/corresinternasdirigidos"

@@ -1,0 +1,237 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mpresupuestomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;PRESUPUESTO NRO - <%=@licitacion.id rescue nil%> </div></td>
+              <td width="3%">
+                <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),licitaciones_path %>
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/elemento.png" border="0" title="Analisis"/></a></li>
+  <% unless @licitacion.new_record? %>
+        <li><a href="#tab2"><img src="/images/analisis.png" border="0" title="APU"/></a></li>
+        <li><a href="#tab6"><img src="/images/ficha.png" border="0" title="Informes de Avances"/></a></li>
+        <li><a href="#tab7"><img src="/images/subsidio.png" border="0" title="Pagos"/></a></li>
+        <li><a href="#tab4"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab5"><img src="/images/imagenes.png" border="0" title="Documentos"/></a></li>
+  <% end %>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset>
+<% form_for(@licitacion) do |f| %>
+  <div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">ANALISIS</div></td>
+  </tr>
+</table>
+  <table width="760" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+<table class="table table-bordered table-striped">
+    <tr>
+    <th width="25%" height="20" class="campos"><div align="left">Id :</div></th>
+    <td width="75%"><div align="left"><%=@licitacion.id%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Persona : *</div></th>
+    <td ><div align="left"><%= text_field_with_auto_complete :licitacion, :persona_autobuscar,
+	    { :class => "campo",
+                :size => 85,
+                :maxlength => 150,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+          <%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%>
+      <%= f.error_message_on :persona_autobuscar, :css_class =>"cerror"%></div></td>
+  </tr>
+  <% unless @licitacion.new_record?
+      if @licitacion.persona_id %>
+        <tr>
+          <td class="camposDesc"></td>
+          <td class="camposDesc"><strong>Direccion:</strong> <%=@licitacion.persona.direccion rescue nil%><br/>
+              <strong>Telefono:</strong> <%=@licitacion.persona.telefons rescue nil%><br/>
+              <% if @licitacion.persona.beneviviendas.exists? %>
+              <strong>Beneficiarios: </strong><br/>
+                 <% @licitacion.persona.beneviviendas.each do |benevivienda| %>
+                   <%=benevivienda.autobuscar rescue nil%><br/>
+                 <% end %>
+            <% end %></td>
+        </tr>
+        <tr>
+          <td class="campos">Valor Resolucion</td>
+          <td class="camposDesc"><%=camponumerico(@licitacion.valor_resolucion) rescue nil%></td>
+        </tr>
+  <%   end
+    end%>
+  <tr>
+    <th height="20" class="campos"><div align="left">AIU : *</div></th>
+    <td ><div align="left">
+          <%= f.text_field :aiu ,{ :class => "campo",:size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :aiu, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Estado : *</div></th>
+    <td ><div align="left">
+          <%= f.select(:estado, [["DIAGNOSTICO","DIAGNOSTICO"],
+["SIN RESOLUCION","SIN RESOLUCION"],
+["RENUNCIA","RENUNCIA"],
+["SIN INICIAR","SIN INICIAR"],
+["EN EJECUCION","EN EJECUCION"],
+["TERMINADO","TERMINADO"],
+["RECIBIDO ISV","RECIBIDO ISV"],
+["RECIBIDO EN CIERRE FINANCIERO","RECIBIDO EN CIERRE FINANCIERO"],
+["LIQUIDADO","LIQUIDADO"]],
+                        { :include_blank => true },
+                      { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= f.error_message_on :estado, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Descripcion : *</div></th>
+    <td ><div align="left">
+<%= text_area(:licitacion, :descripcion, :cols => 100, :rows => 4, :class => 'campo',
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= f.error_message_on :descripcion, :css_class =>"cerror"%></div></td>
+  </tr>
+<% unless @licitacion.new_record? %>
+    <tr>
+      <th height="20" align="left" class="campos">Ult. Actualización :</th>
+      <td align="left" class="camposDesc"><%= @licitacion.updated_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@licitacion.user_actualiza).nombre rescue nil%></td>
+    </tr>
+    <tr>
+      <th height="20" align="left" class="campos">Creación :</th>
+      <td align="left" class="camposDesc"><%= @licitacion.created_at.strftime("%Y-%m-%d %X")%> - <%=  @licitacion.user.nombre rescue nil%></td>
+    </tr>
+<% end %>
+</table>
+  <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+          <% unless @licitacion.new_record? %>
+            <%=link_to 'Consolidado',{:controller=>"licitaciones", :action=>"informe", :id=>@licitacion.id},
+            :popup => ['new_windowbitacora','height=500,width=1000,scrollbars=yes'], :class=>"imagennotas"%>
+          <% end %>
+  </div></td>
+    </tr>
+  </table>
+ <br/>
+<% if @licitacion.resolucion_id %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">RESOLUCION</div></td>
+  </tr>
+</table>
+  <div align="center">
+<table width="100%" align="center" id="one-column-emphasis">
+  <tr class="odd1">
+    <td width="30%" class="campos" align="left">Nro Resolucion</td>
+    <td width="70%" align="left" class="camposDesc"><%=@licitacion.resolucion.nro_resolucion rescue nil%> -
+      <%=@licitacion.resolucion.anno rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" align="left">Fecha Resolucion</td>
+    <td align="left" class="camposDesc"><%=@licitacion.resolucion.fecha rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" align="left">Clase de Resolucion</td>
+    <td align="left" class="camposDesc"><%=@licitacion.resolucion.resolucionesclase.descripcion rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" align="left">Modalidad del Subsidio </td>
+    <td align="left" class="camposDesc"><%=@licitacion.resolucion.modalidad rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" align="left">Objeto</td>
+    <td align="left" class="camposDesc"> <%=@licitacion.resolucion.resuelve rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" align="left">Observaciones</td>
+    <td align="left" class="camposDesc"><%=@licitacion.resolucion.observaciones rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" align="left">Dependencia Solicitante</td>
+    <td align="left" class="camposDesc"><%=@licitacion.resolucion.dependencia.descripcion rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" align="left">Valor Subsidio</td>
+    <td align="left" class="camposDesc"><%=number_to_currency(@licitacion.valor_resolucion,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+    </div>
+<br/>
+<% end %>
+
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+</fieldset>
+</div>
+<% unless @licitacion.new_record? %>
+  <div class="panel" id="tab2">
+    <fieldset>
+     <div id="licitacionesenlaces_form">
+        <%= render :partial => "/licitacionesenlaces/licitacionesenlaces"%>
+     </div>
+    </fieldset>
+  </div>
+  <div class="panel" id="tab4">
+    <fieldset>
+     <div id="licitacionesobservaciones_form">
+        <%= render :partial => "/licitacionesobservaciones/licitacionesobservaciones"%>
+     </div>
+    </fieldset>
+  </div>
+  <div class="panel" id="tab5">
+    <fieldset>
+     <div id="licitacionesimagenes_form">
+        <%= render :partial => "/licitacionesimagenes/licitacionesimagenes"%>
+     </div>
+    </fieldset>
+  </div>
+<div class="panel" id="tab6">
+  <fieldset>
+       <div id="licitacionesinformes_form">
+          <%= render :partial => "/licitacionesinformes/licitacionesinformes" %>
+       </div>
+    </fieldset>
+</div>
+<div class="panel" id="tab7">
+  <fieldset>
+       <div id="licitacionespagos_form">
+          <%= render :partial => "/licitacionespagos/licitacionespagos" %>
+       </div>
+    </fieldset>
+</div>
+<% end %>
+</div>
+<br/>
+

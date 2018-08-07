@@ -1,0 +1,64 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/balancemin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">INFORMACION PROCESOS JURIDICOS</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+          { :border=>0, :title => "Listado"}),procesosjuridicos_path %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Tipo Proceso</div></td>
+    <td width="25%" class="oce-first"><div align="center">Nro Radicado</div></td>
+    <td width="55%" class="oce-first"><div align="left">Juzgado</div></td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @procesosjuridicos.each do |procesosjuridico| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="left"><%=h procesosjuridico.tiposproceso.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=h procesosjuridico.nro_radicado %></div></td>
+    <td class="camposDesc"><div align="left"><%=h procesosjuridico.juzgado %>
+        <br/><strong>Demandante: </strong>
+           <%  if procesosjuridico.demandante %>
+              <%=h procesosjuridico.demandante %>
+           <% else
+                datosdemandante = ""
+                procesosjuridico.procesospersonas.each do |procesospersona|
+                  if datosdemandante.to_s == ""
+                    datosdemandante = procesospersona.persona.autobuscar.to_s
+                  else
+                    datosdemandante = datosdemandante + " - " + procesospersona.persona.autobuscar.to_s
+                  end
+                end %>
+                <%=h datosdemandante %>
+           <% end %>
+     </div></td>
+    <td class="camposDesc"><div align="center">
+        <% if permiso("procesosjuridico","A").to_s == "S" %>
+            <%= link_to 'Editar', edit_procesosjuridico_path(procesosjuridico), :class=>"editarlink" %>
+        <% end %>
+        <% if permiso("procesosjuridico","E").to_s == "S" %>
+            &nbsp;<%= link_to 'Borrar', procesosjuridico_path(procesosjuridico),
+                                  :method => :delete, :confirm => "¿Seguro?", :class=>"borrarlink"%>
+        <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @procesosjuridicos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @procesosjuridicos.total_entries %></div></td>
+  </tr>
+</table>
+<br/>

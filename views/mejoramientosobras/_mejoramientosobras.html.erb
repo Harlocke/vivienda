@@ -1,0 +1,85 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PERSONAS LABORANDO</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@mejoramiento, @mejoramientosobra] do |form| %>
+   <% if !@mejoramientosobra.id %>
+     <% if permiso("mejoramientosespecial","C").to_s == "S" or @mejoramiento.user_tecnologo == is_admin %>
+       <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" %>
+         <%= render :partial => "/mejoramientosobras/mejoramientosobras_form" %>
+       <% end %>
+     <% end %>
+   <% end %>
+<% if @mejoramiento.mejoramientosobras.exists? %>
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="15%" height="30" align="left" class="oce-first">Fecha</td>
+      <td width="40%" height="30" align="left" class="oce-first">Identificacion - Nombre</td>
+      <td width="10%" height="30" align="left" class="oce-first">Salario</td>
+      <td width="20%" height="30" align="left" class="oce-first">Cargo</td>
+      <td width="5%" height="30" class="oce-first"></td>
+    </tr>
+  </table>
+  <% @mejoramiento.mejoramientosobras.each do |mejoramientosobra| %>
+    <%  if mejoramientosobra.id != @mejoramientosobra.id %>
+      <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientosobra_<%= mejoramientosobra.id%>">
+         <td width="15%" height="30" align="left" class="camposDesc"><%=mejoramientosobra.updated_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=mejoramientosobra.user.username rescue nil%></td>
+         <td width="40%" height="30" align="left" class="camposDesc"><%=mejoramientosobra.identificacion rescue nil%><br/>
+         <%=mejoramientosobra.nombre rescue nil%></td>
+         <td width="10%" height="30" align="left" class="camposDesc">$ <%=number_to_currency(mejoramientosobra.salario,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+         <td width="20%" height="30" align="left" class="camposDesc"><%=mejoramientosobra.cargo rescue nil%></td>
+         <td width="5%" align="right" class="camposDesc"><div align="center">
+          <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" %>
+            <% if permiso("mejoramientosespecial","A").to_s == "S" or @mejoramiento.user_tecnologo == is_admin or @mejoramiento.user_profesional == is_admin %>
+              <%= link_to_remote('Editar',{:url => edit_mejoramiento_mejoramientosobra_path(@mejoramiento, mejoramientosobra),:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("mejoramientosespecial","A").to_s == "S" or @mejoramiento.user_tecnologo == is_admin or @mejoramiento.user_profesional == is_admin %>
+              <%= link_to_remote('Borrar',{:url => mejoramiento_mejoramientosobra_path(@mejoramiento, mejoramientosobra),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+          <% end %> </div>
+          </td>
+       </tr>
+      </table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="mejoramientosobra_<%=@mejoramientosobra.id%>">
+            <%= render :partial => "mejoramientosobras_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+  <% end %>
+ <% else %>
+  <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+    <tr>
+      <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+      <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+   </tr>
+  </table>
+<% end %>
+ <%= hidden_field :mejoramiento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientosobra] %>
+<div id="mejoramientosobra">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientosobra] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientosobra');", 5000)
+</script>
+<% end %>
+</div>
+

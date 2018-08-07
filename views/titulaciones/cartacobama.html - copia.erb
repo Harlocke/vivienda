@@ -1,0 +1,58 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% @titulaciones.each do |titulacion| 
+  if titulacion.titulacionespersonas.exists? %>
+<% titulacion.titulacionespersonas.each do |titulacionespersona| %>
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="center"><%=image_tag('logoisvimed_midle.png')%></div>
+      <div align="justify" style="font-size: 16px; font-family: Arial Narrow; line-height: 130%; ">
+      Medellín,<br/><br/>
+      Señor(a)<br/>
+      <strong><%=titulacionespersona.persona.nombres rescue nil%></strong><br/>
+      <strong>C.C. <%=titulacionespersona.persona.identificacion rescue nil%></strong><br/>
+      <strong><%=titulacion.direccion rescue nil%></strong><br/>
+      Medellín<br/><br/>
+      <strong>Asunto:</strong> Notificación cobama <strong><%=titulacion.cobama rescue nil%></strong><br/><br/>
+      Cordial saludo,<br/><br/>
+      El Instituto Social de Vivienda y Hábitat de Medellín (ISVIMED), brinda asesoramiento sobre los procesos de pertenencia, este acompañamiento, ha buscado por diversos medios y maneras el logro de los objetivos propuestos en lo que a la obtención del respectivo título que acredite el derecho real de dominio se refiere; para ello hemos adelantado jornadas de socialización en las comunidades intervenidas, jornadas de capacitación a nuestros funcionarios y de las demás dependencias y entidades que se articulan en el proceso, así mismo, hemos brindado asesoría personalizada a la comunidad, realizado trabajo de campo que consiste en la recolección de información y documentos; como resultado de todo esto se conformó su expediente, el cual permitirá abordar la etapa final del proceso ante los jueces competentes.<br/><br/>
+      Sin embargo, la implementación y puesta en marcha de la Ley 1561 de 2012 en los despachos judiciales, ha generado múltiples conflictos, demoras y retrasos que escapan a la voluntad del instituto, motivo por el cual queremos informarle que queda a su discreción continuar con el proceso a través de sus propios medios o permanecer en espera de que el Isvimed pueda desarrollar lo que por competencia le es dable una vez la rama judicial haya unificado criterios de aplicación de la normatividad vigente.<br/><br/>
+      En caso de requerir información adicional, con gusto será suministrada en nuestras instalaciones en la Carrera 77 Número 48-01, sector estadio; en el horario de Lunes a Jueves 8:00 a.m a 5:00 p.m.   y los Viernes de 8:00 a.m a 4:00 p.m.  y en nuestra línea telefónica 446 22 88 Ext. 323.<br/><br/>
+      Atentamente,
+      </div><br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">________________________________________</td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;"><strong><%=Sifi.find(30).valor rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;"><%=Sifi.find(31).valor rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;">ISVIMED</td>
+        </tr>
+      </table><br/>
+      <table width="60%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Elaboró</td>
+          <td width="25%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Gabriel Ángel Marulanda Londoño</td>
+        </tr>
+        <tr>
+          <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Abogado</td>
+        </tr>
+      </table>
+      <div align="justify" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%; " >S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div>
+    </td>
+  </tr>
+</table>
+<H1 class=SaltoDePagina> </H1>
+<%end%>
+<%end%>
+<%end%>

@@ -1,0 +1,34 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/construmensajemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CREACION DE MENSAJES</div></td>
+              <td width="3%"><div align="right">
+               <%= link_to image_tag('database_add.png',
+	                            { :border=>0, :title => "Nuevo"}),new_mensaje_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="5%" height="30" class="oce-first">ID</td>
+    <td width="62%" height="30" class="oce-first">Descripcion</td>
+    <td width="22%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @mensajes.each do |mensaje| %>
+  <tr valign="middle">
+    <td class="camposDesc"><div align="center"><strong><%=h mensaje.id %></strong></div></td>
+    <td class="camposDesc"><%=h mensaje.descripcion %></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to image_tag('application_edit.png',{ :border=>0, :title => "Actualizar"}), edit_mensaje_path(mensaje) %>
+    <%= link_to image_tag('delete.png',{ :border=>0, :title => "Borrar"}),  mensaje_path(mensaje),
+                          :confirm => 'Esta Seguro de Eliminar?',:method => :delete %>
+      </div></td>
+  </tr>
+<% end %>
+</table>

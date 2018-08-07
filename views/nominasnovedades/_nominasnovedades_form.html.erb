@@ -1,0 +1,63 @@
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Tipo de Novedad *</td>
+          <td width="15%" class="campos">Fecha *</td>
+          <td width="10%" class="campos">Valor </td>
+          <td width="10%" class="campos">Dias </td>
+          <td width="10%" class="campos">Porcentaje </td>
+        </tr>
+        <tr>
+          <td class="camposDesc" valign="top"><%= select(:nominasnovedad, :tipo_novedad, select_tiposnovedad,{ :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :nominasnovedad, :tipo_novedad, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= calendar_date_select "nominasnovedad", "fecha_novedad", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :nominasnovedad, :fecha_novedad, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= text_field :nominasnovedad, :valor,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %>
+          <%= error_message_on :nominasnovedad, :valor, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= text_field :nominasnovedad, :dias,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %>
+          <%= error_message_on :nominasnovedad, :dias, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= text_field :nominasnovedad, :porcentaje,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %>
+          <%= error_message_on :nominasnovedad, :dias, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tr class="odd1">
+          <td width="60%" class="campos">Observaciones</td>
+          <td width="20%" class="campos">Fecha Inicial</td>
+          <td width="20%" class="campos">Fecha Final</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" valign="top"><%= text_field :nominasnovedad, :observaciones,{ :class => "campo", :size => 80,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %>
+          <%= error_message_on :nominasnovedad, :observaciones, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= calendar_date_select "nominasnovedad", "fecha_inicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :nominasnovedad, :fecha_inicial, :css_class =>"cerror"%></td>
+          <td class="camposDesc" valign="top"><%= calendar_date_select "nominasnovedad", "fecha_final", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :nominasnovedad, :fecha_final, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :nominasnovedad, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>

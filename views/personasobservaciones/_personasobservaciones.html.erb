@@ -1,0 +1,58 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @personasobservacion] do |form| %>
+        <% if !@personasobservacion.id %>
+      <div align="center">
+	<%= render :partial => "/personasobservaciones/personasobservaciones_form" %>
+        </div>
+<% end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="5%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for personasobservacion in @persona.personasobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if personasobservacion.id != @personasobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="personasobservacion_<%=personasobservacion.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=personasobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=personasobservacion.user.nombre rescue nil%>"><%=personasobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="15%" class="camposDesc" align="left"><%=personasobservacion.dtipoatencion%></td>
+          <td width="65%" class="camposDesc" align="left"><div align="justify"><%=personasobservacion.observacion%></div></td>
+          <td width="5%" class="camposDesc" align="left">
+            <%= link_to "Acta", {:controller => "personasobservaciones", :action => "atencionpdf", :id=>personasobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            
+          </td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<% if flash[:personasobservacion] %>
+<div id="personasobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%" align="right"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:personasobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personasobservacion');", 5000)
+</script>
+<% end %>

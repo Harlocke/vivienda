@@ -1,0 +1,20 @@
+<h1>Editing correspondenciasclase</h1>
+
+<% form_for(@correspondenciasclase) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :codigo %><br />
+    <%= f.text_field :codigo %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @correspondenciasclase %> |
+<%= link_to 'Back', correspondenciasclases_path %>

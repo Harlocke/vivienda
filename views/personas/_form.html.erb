@@ -1,0 +1,184 @@
+<% form_for(@persona) do |f| %>
+  <%= f.error_messages %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="97%"><div class="col_enc">INFORMACION PERSONAS</div></td>
+              <td width="3%"><div align="right"><%= image_submit_tag '/images/disk.png'%>
+                                                   <%= link_to image_tag('application_view_list.png',
+	                                           { :border=>0, :title => "Lista Personas"}),personas_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0" class="acci_tittabla2"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0">
+            <tr>
+              <td width="80%" class="acci_tittabla3">&nbsp;&nbsp;INFORMACION PERSONAS</td>
+              <td width="20%"><div align="right"><%= image_submit_tag '/images/disk.png'%>
+                                                   <%= link_to image_tag('application_view_list.png',
+	                                           { :border=>0, :title => "Lista Personas"}),personas_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="970" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" width="294" height="0">Tipo de Documento</td>
+    <td width="664"></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0">Identificación</td>
+    <td><%= f.text_field :identificacion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td class="campos" height="0"></td>
+    <td></td>
+  </tr>
+</table>
+
+
+    <table width="777" align="center">
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="186" class="acci_titcontenido2">Identificación :</td>
+        <td width="579">
+        <%= f.text_field :identificacion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2">Nombre Completo :</td>
+        <td><%= f.text_field :primer_nombre,{ :class => "campo",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+				<%= f.text_field :segundo_nombre,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+				<%= f.text_field :primer_apellido,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+				<%= f.text_field :segundo_apellido,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :genero %> :</td>
+        <td>Masculino <%= f.radio_button("genero", "true") %> Femenino <%= f.radio_button("genero", "false") %></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :fecha_nacimiento %> :</td>
+        <td><%= calendar_date_select_tag "persona[fecha_nacimiento]", @persona.fecha_nacimiento.to_s,
+            :year_range => [90.years.ago, 0.years.from_now], :class=> "campo"%></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :parentesco_id %> :</td>
+        <td><select id="persona_parentesco_id" name="persona[parentesco_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@parentescos, "id", "descripcion", @persona.parentesco_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :estado_civil_id %> :</td>
+        <td><select id="select" name="persona[estado_civil_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@estados_civiles, "id", "descripcion", @persona.estado_civil_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :ocupacion_id %> :</td>
+        <td><select id="select2" name="persona[ocupacion_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@ocupaciones, "id", "descripcion", @persona.ocupacion_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2">Condición <%= f.label :especial_id %> :</td>
+        <td><select id="select3" name="persona[especial_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@especiales, "id", "descripcion", @persona.especial_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2">Condición <%= f.label :familiar_id %> :</td>
+        <td><select id="select4" name="persona[familiar_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@familiares, "id", "descripcion", @persona.familiar_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :ingresos %> :</td>
+        <td><%= f.text_field :ingresos ,{ :class => "campo",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :sisben_id %> :</td>
+        <td><select id="select5" name="persona[sisben_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@sisbenes, "id", "descripcion", @persona.sisben_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :caja_id %> compensación :</td>
+        <td><select id="select6" name="persona[caja_id]" class ="campo" style="width:300px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@cajas, "id", "descripcion", @persona.caja_id ) %>
+        </select></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :direccion %> :</td>
+        <td><%= f.text_field :direccion,{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2"><%= f.label :estrato %> :</td>
+        <td>1 <%= f.radio_button("estrato", "1") %>
+            2 <%= f.radio_button("estrato", "2") %>
+            3 <%= f.radio_button("estrato", "3") %>
+            4 <%= f.radio_button("estrato", "4") %>
+            5 <%= f.radio_button("estrato", "5") %>
+            6 <%= f.radio_button("estrato", "6") %>
+            Sin Estrato <%= f.radio_button("estrato", "0") %></td>
+      </tr>
+      <tr>
+        <td class="acci_titcontenido2">Telefonos :</td>
+        <td><%= f.text_field :telefonos1,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+			<%= f.text_field :telefonos2,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+			<%= f.text_field :celular,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+       <tr>
+        <td class="acci_titcontenido2"><%= f.label :e_mail %> :</td>
+        <td><%= f.text_field :e_mail,{ :class => "campo",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+  </table>
+<% end %>

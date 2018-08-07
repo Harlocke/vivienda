@@ -1,0 +1,15 @@
+<h1>New modalidad</h1>
+
+<% form_for(@modalidad) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', modalidades_path %>

@@ -1,0 +1,63 @@
+<table  width="300px" cellspacing="0" cellpadding="0">
+  <tr align="center">
+    <td><table border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td align="left"><img src="http://190.0.34.154:3013/images/frame.png"/></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td><table bgcolor="#4184F3" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td height="50px" colspan="3"></td>
+              </tr>
+              <tr valign="middle">
+                <td width="32px"></td>
+                <td style="vertical-align:middle; font-size: 25px; color: white; font-family: Verdana, Geneva, sans-serif;">Solicitud Soporte Atendida</td>
+                <td width="32px"></td>
+              </tr>
+              <tr>
+                <td height="18px" colspan="3"></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr>
+          <td><table bgcolor="#FAFAFA" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr height="16px">
+                <td width="32px" rowspan="3"></td>
+                <td></td>
+                <td width="32px" rowspan="3"></td>
+              </tr>
+              <tr>
+                <td><table border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td>Le informamos que se ha resuelto el Requerimiento Nro <strong><%=@soporte.id%></strong> solicitado por <strong><%=@soporte.user.nombre %></strong> con la siguiente información:<br/><br/><br/>
+                        <div align="justify"><%=@soporte.descripcion%><br/><br/><br/></div>
+                        <div align="justify" style="font-size: 10px; font-family: Tahoma;">S I F I - Sistema de Informacion ISVIMED<br/><%=Time.now.strftime("%Y-%m-%d %X")%></div>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table></td>
+              </tr>
+              <tr height="32px"></tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+      </tbody>
+    </table></td>
+    <td width="32px"></td>
+  </tr>
+</table>
+
+

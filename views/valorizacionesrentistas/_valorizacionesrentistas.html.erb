@@ -1,0 +1,63 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ARRENDATARIOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@valorizacion, @valorizacionesrentista] do |form| %>
+<% if permiso("valorizacionesrentista","C").to_s == "S" %>
+     <% if !@valorizacionesrentista.id %>
+          <%= render :partial => "/valorizacionesrentistas/valorizacionesrentistas_form" %>
+     <% end %>
+<% end %>
+  <% if @valorizacion.valorizacionesrentistas.exists? %>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="30" align="left" class="oce-first">Arrendatario</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @valorizacion.valorizacionesrentistas.each do |valorizacionesrentista| %>
+     <% if valorizacionesrentista.id != @valorizacionesrentista.id %>
+  <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="valorizacionesrentista_<%= valorizacionesrentista.id%>">
+     <td width="90%" height="30" align="left" class="camposDesc"><%=valorizacionesrentista.persona.autobuscar rescue nil%></td>
+      <td width="10%" align="right" class="camposDesc">
+        <% if permiso("valorizacionesrentista","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => valorizacion_valorizacionesrentista_path(@valorizacion, valorizacionesrentista),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+        </td>
+ </tr>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :valorizacion, :id %>
+<% end %>
+<br/>
+<% if flash[:valorizacionesrentista] %>
+<div id="valorizacionesrentista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:valorizacionesrentista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('valorizacionesrentista');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciaremitentemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION REMITENTES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),correspondenciasremitentes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+<% form_for(@correspondenciasremitente) do |f| %>
+<table width="60%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="30%" height="20" class="campos" align="left">Identificacion </td>
+          <td width="70%" class="camposDesc" align="left"><%= f.text_field :identificacion,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :correspondenciasremitente, :identificacion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Nombre </td>
+          <td class="camposDesc" align="left"><%= f.text_field :nombre,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :correspondenciasremitente, :nombre, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Cargo </td>
+          <td class="camposDesc" align="left"><%= f.text_field :cargo,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :correspondenciasremitente, :cargo, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Entidad </td>
+          <td class="camposDesc" align="left"><%= f.text_field :entidad,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :correspondenciasremitente, :entidad, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos" align="left">Email </td>
+          <td class="camposDesc" align="left"><%= f.text_field :email,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :correspondenciasremitente, :email, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+  <table width="60%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="60%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <% if permiso("correspondenciasremitente","A").to_s == "S" %>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+<% end %>
+  </tr>
+</table>
+<% end %>
+  </div>
+<BR/>

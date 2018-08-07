@@ -1,0 +1,58 @@
+
+<% remote_form_for [@personasarrendamiento, @arrendamientoscontrato] do |form| %>
+  <%# if permiso("arrendamientoscontrato","C").to_s == "S" %>
+        <% if !@arrendamientoscontrato.id %>
+          <%= render :partial => "/arrendamientoscontratos/arrendamientoscontratos_form" %>
+        <% end %>
+ <%# end %>
+<% if @personasarrendamiento.arrendamientoscontratos.exists? %>
+<% @personasarrendamiento.arrendamientoscontratos.each do |arrendamientoscontrato| %>
+   <% if arrendamientoscontrato.id != @arrendamientoscontrato.id %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr>
+    <td class="camposDesc" align="left" >
+        <%=arrendamientoscontrato.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=arrendamientoscontrato.user.nombre rescue nil%>"><%=arrendamientoscontrato.user.username rescue nil%></a><br/>
+        <%=arrendamientoscontrato.updated_at.strftime("%Y-%m-%d %X")%> - <a title="<%=User.find(arrendamientoscontrato.user_actualiza).nombre rescue nil%>"><%=User.find(arrendamientoscontrato.user_actualiza).username rescue nil%></a>
+    </td>
+    
+    <td class="camposDesc">
+              <%= link_to_remote('Editar',{:url => edit_personasarrendamiento_arrendamientoscontrato_path(@personasarrendamiento, arrendamientoscontrato),
+		:method => :get}, :class=>"editarlink")%>
+               <%= link_to_remote('Borrar',{:url => personasarrendamiento_arrendamientoscontrato_path(@personasarrendamiento, arrendamientoscontrato),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+               <%= link_to 'datos', {:controller=>"arrendamientoscontratos",:action=>"datos", :id=>arrendamientoscontrato.id}, :class=>"notaslink"%>
+    </td>
+ </tr>
+</table>
+<% else %>
+        Editar
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr><td  height="30"><div class="col_enc">EDITAR arrendamientoscontratoS</div></td></tr>
+    </table>
+     <%= render :partial => "arrendamientoscontratos_form" %>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :personasarrendamiento, :id %>
+<% end %>
+<br/>
+<% if flash[:arrendamientoscontrato] %>
+<div id="arrendamientoscontrato">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:arrendamientoscontrato] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('arrendamientoscontrato');", 5000)
+</script>
+<% end %>

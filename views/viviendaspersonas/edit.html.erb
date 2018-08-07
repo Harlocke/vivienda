@@ -1,0 +1,20 @@
+<h1>Editing viviendaspersona</h1>
+
+<% form_for(@viviendaspersona) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.label :vivienda_id %><br />
+    <%= f.text_field :vivienda_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @viviendaspersona %> |
+<%= link_to 'Back', viviendaspersonas_path %>

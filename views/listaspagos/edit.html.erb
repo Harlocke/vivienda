@@ -1,0 +1,24 @@
+<h1>Editing listaspago</h1>
+
+<% form_for(@listaspago) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :capitulo %><br />
+    <%= f.text_field :capitulo %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :orden %><br />
+    <%= f.text_field :orden %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @listaspago %> |
+<%= link_to 'Back', listaspagos_path %>

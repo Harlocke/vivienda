@@ -1,0 +1,121 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Mejoramientos</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="16"><strong>Datos del Usuario</strong></td>
+    <td colspan="8"><strong>Convenio</strong></td>
+    <td colspan="11"><strong>Resolucion</strong></td>
+    <td colspan="16"><strong>Detalle de Pagos</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="20%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Direccion</strong></td>
+    <td width="20%"><strong>Telefono</strong></td>
+    <td width="20%"><strong>Comuna</strong></td>
+    <td width="20%"><strong>Barrio</strong></td>
+    <td width="20%"><strong>Tipo de Mejoramiento</strong></td>
+    <td width="20%"><strong>Año Cumplimiento</strong></td>
+    <td width="20%"><strong>Estado</strong></td>
+    <td width="20%"><strong>Coordinador</strong></td>
+    <td width="20%"><strong>Profesional</strong></td>
+    <td width="20%"><strong>Tecnologo</strong></td>
+    <td width="20%"><strong>Interventor</strong></td>
+    <td width="20%"><strong>Responsable Operador 1</strong></td>
+    <td width="20%"><strong>Responsable Operador 2</strong></td>
+    <td width="20%"><strong>Responsable Operador 3</strong></td>
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="15%"><strong>Nro Soluciones</strong></td>
+    <td width="20%"><strong>Tipo Solucion</strong></td>
+    <td width="35%"><strong>Ubicacio</strong></td>
+    <td width="42%"><strong>Responsable Diagnostico</strong></td>
+    <td width="18%"><strong>Valor Diagnostico</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Clase de Resolucion</strong></td>
+    <td width="20%"><strong>Modalidad del Subsidio </strong></td>
+    <td width="20%"><strong>Objeto</strong></td>
+    <td width="20%"><strong>Valor Subsidio</strong></td>
+    <td width="20%"><strong>Total Pagado</strong></td>
+    <td width="20%"><strong>Saldo del subsidio</strong></td>
+    <td width="20%"><strong>Avance Ejecutado</strong></td>
+    <td width="20%"><strong>Saldo NO Ejecutado</strong></td>
+    <td width="20%"><strong>Porcentaje Ejecucion</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+    <td width="20%"><strong>Valor 1</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+    <td width="20%"><strong>Valor 2</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+    <td width="20%"><strong>Valor 3</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Valor 4</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+    <td width="20%"><strong>Valor 5</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+    <td width="20%"><strong>Valor 6</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td> 
+    <td width="20%"><strong>Valor 7</strong></td>
+    <td width="20%"><strong>Nro Factura</strong></td>
+    <td width="20%"><strong>Fecha</strong></td>
+    <td width="20%"><strong>Porcentaje</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.persona.identificacion rescue nil%></td>
+    <td><%=mejoramiento.persona.nombres rescue nil %></td>
+    <td><%=mejoramiento.persona.direccion rescue nil%></td>
+    <td><%=mejoramiento.persona.telefons rescue nil%></td>
+    <td><%=mejoramiento.comuna.comuna rescue nil%></td>
+    <td><%=mejoramiento.comuna.barrio rescue nil%></td>
+    <td><%=mejoramiento.tipomejoramiento rescue nil%></td>
+    <td><%=mejoramiento.anno rescue nil%></td>
+    <td><%=mejoramiento.mejoramientosestado.descripcion rescue nil%></td>
+    <td><%=User.find(mejoramiento.user_coordinador).nombre rescue nil%></td>
+    <td><%=User.find(mejoramiento.user_profesional).nombre rescue nil%></td>
+    <td><%=User.find(mejoramiento.user_tecnologo).nombre rescue nil%></td>
+    <td><%=User.find(mejoramiento.user_interventor).nombre rescue nil%></td>
+    <td><%=mejoramiento.responsable1 rescue nil%></td>
+    <td><%=mejoramiento.responsable2 rescue nil%></td>
+    <td><%=mejoramiento.responsable3 rescue nil%></td>
+    <td><%=mejoramiento.convenio.nro_convenio rescue nil%></td>
+    <td><%=mejoramiento.convenio.vigencia rescue nil%></td>
+    <td><%=mejoramiento.convenio.nro_viviendas rescue nil%></td>
+    <td><%=mejoramiento.convenio.tipo_solucion rescue nil%></td>
+    <td><%=mejoramiento.convenio.comuna.comuna rescue nil rescue nil%></td>
+    <td><%=mejoramiento.convenio.responsable_diagnostico rescue nil%></td>
+    <td><%=mejoramiento.convenio.valor_diagnostico rescue nil%></td>
+    <td><%=mejoramiento.convenio.ejecutor rescue nil%></td>
+    <td><%=mejoramiento.resolucion.nro_resolucion rescue nil%> - <%=mejoramiento.resolucion.anno rescue nil%></td>
+    <td><%=mejoramiento.resolucion.fecha rescue nil%></td>
+    <td><%=mejoramiento.resolucion.resolucionesclase.descripcion rescue nil%></td>
+    <td><%=mejoramiento.resolucion.modalidad rescue nil%></td>
+    <td><%=mejoramiento.resolucion.resuelve rescue nil%></td>
+    <td><div align="right"><%=camponumerico(mejoramiento.valor_resolucion) rescue 0%></div></td>
+    <td><div align="right"><%=camponumerico(mejoramiento.mejoramientospagos.sum("valor")) rescue 0%></div></td>
+    <td><div align="right"><%=camponumerico(mejoramiento.valor_resolucion - mejoramiento.mejoramientospagos.sum("valor")) rescue 0%></div></td>
+    <td><div align="right"><%=camponumerico(mejoramiento.vlrtotaleje) rescue 0%></div></td>
+    <td><div align="right"><%=camponumerico(mejoramiento.valor_resolucion - mejoramiento.vlrtotaleje) rescue 0%></div></td>
+    <td><div align="right"><%=mejoramiento.porcentajeeje rescue 0%></div></td>
+    <% mejoramiento.mejoramientospagos.each do |mejoramientospago|  %>
+      <td><%=mejoramientospago.conveniosforma.porcentaje rescue nil%></td>
+      <td><%=camponumerico(mejoramientospago.valor) rescue nil%></td>
+      <td><%=mejoramientospago.nro_factura rescue nil%></td>
+      <td><%=mejoramientospago.fecha_pago rescue nil%></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

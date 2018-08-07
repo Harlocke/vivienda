@@ -1,0 +1,22 @@
+<h1>Listing relaciones</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Identificacion</th>
+  </tr>
+
+<% @relaciones.each do |relacion| %>
+  <tr>
+    <td><%=h relacion.persona_id %></td>
+    <td><%=h relacion.identificacion %></td>
+    <td><%= link_to 'Show', relacion %></td>
+    <td><%= link_to 'Edit', edit_relacion_path(relacion) %></td>
+    <td><%= link_to 'Destroy', relacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New relacion', new_relacion_path %>

@@ -1,0 +1,20 @@
+<h1>Listing fechascontables</h1>
+
+<table>
+  <tr>
+    <th>Fecha</th>
+  </tr>
+
+<% @fechascontables.each do |fechascontable| %>
+  <tr>
+    <td><%=h fechascontable.fecha %></td>
+    <td><%= link_to 'Show', fechascontable %></td>
+    <td><%= link_to 'Edit', edit_fechascontable_path(fechascontable) %></td>
+    <td><%= link_to 'Destroy', fechascontable, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fechascontable', new_fechascontable_path %>

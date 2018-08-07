@@ -1,0 +1,36 @@
+<h1>Editing contratosinterventoria</h1>
+
+<% form_for(@contratosinterventoria) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :contrato_id %><br />
+    <%= f.text_field :contrato_id %>
+  </p>
+  <p>
+    <%= f.label :userinterventoria_id %><br />
+    <%= f.text_field :userinterventoria_id %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicio %><br />
+    <%= f.date_select :fecha_inicio %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin %><br />
+    <%= f.date_select :fecha_fin %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :user_actualiza %><br />
+    <%= f.text_field :user_actualiza %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @contratosinterventoria %> |
+<%= link_to 'Back', contratosinterventorias_path %>

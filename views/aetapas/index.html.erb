@@ -1,0 +1,24 @@
+<h1>Listing aetapas</h1>
+
+<table>
+  <tr>
+    <th>Aclasificacion</th>
+    <th>Descripcion</th>
+    <th>Cumplimiento</th>
+  </tr>
+
+<% @aetapas.each do |aetapa| %>
+  <tr>
+    <td><%=h aetapa.aclasificacion %></td>
+    <td><%=h aetapa.descripcion %></td>
+    <td><%=h aetapa.cumplimiento %></td>
+    <td><%= link_to 'Show', aetapa %></td>
+    <td><%= link_to 'Edit', edit_aetapa_path(aetapa) %></td>
+    <td><%= link_to 'Destroy', aetapa, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New aetapa', new_aetapa_path %>

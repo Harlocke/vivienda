@@ -1,0 +1,52 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/salidasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">ENTRADA DE PRODUCTOS</div></td>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_almacenesentradas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first"><div align="center">Fecha Registro</div></td>
+    <td width="30%" height="30" class="oce-first">Producto</td>
+    <td width="30%" class="oce-first">Proveedor</td>
+    <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+    <td width="15%" class="oce-first"><div align="center">Factura - Remision</div></td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @almacenesentradas.each do |almacenesentrada| %>
+<tr class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><div align="center"><%=h almacenesentrada.created_at.strftime("%Y-%m-%d %X") %></div></td>
+    <td class="camposDesc"><%=h almacenesentrada.producto.descripcion rescue nil %></td>
+    <td class="camposDesc"><%=h almacenesentrada.empleado.nombre rescue nil %></td>
+    <td class="camposDesc"><div align="center"><%=h almacenesentrada.cantidad %></div></td>
+    <td class="camposDesc"><div align="center"><%=h almacenesentrada.nro_factura%> - <%=h almacenesentrada.nro_remision%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_almacenesentrada_path(almacenesentrada),:class=>"editarlink"%>
+        <% if permiso("almacenesentrada","E").to_s == "S" %>
+    &nbsp;|&nbsp;<%= link_to 'Borrar', almacenesentrada_path(almacenesentrada), :confirm => 'Esta Seguro de Eliminar?',:method => :delete, :class=>"borrarlink" %>
+        <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="90%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@almacenesentradas.count%></div></td>
+  </tr>
+</table>

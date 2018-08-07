@@ -1,0 +1,22 @@
+<h1>Listing tiposactos</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>User</th>
+  </tr>
+
+<% @tiposactos.each do |tiposacto| %>
+  <tr>
+    <td><%=h tiposacto.descripcion %></td>
+    <td><%=h tiposacto.user %></td>
+    <td><%= link_to 'Show', tiposacto %></td>
+    <td><%= link_to 'Edit', edit_tiposacto_path(tiposacto) %></td>
+    <td><%= link_to 'Destroy', tiposacto, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tiposacto', new_tiposacto_path %>

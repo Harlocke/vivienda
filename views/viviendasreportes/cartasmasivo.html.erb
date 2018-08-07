@@ -1,0 +1,220 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" height="0" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="24%" align="left" class="camposDesc">Medellin,</td>
+          <td width="76%" align="left" class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <% if @viviendascarta.titulo.to_s != "" %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.titulo rescue nil%></td>
+        </tr>
+        <% end 
+           if @viviendascarta.nombre.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDescN"><%=@viviendascarta.nombre rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.cargo.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.cargo rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.atn_nombre.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDescN">ATN: <%=@viviendascarta.atn_nombre rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.atn_cargo.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.atn_cargo rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.empresa.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.empresa rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.direccion.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.direccion rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.telefono.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.telefono rescue nil%></td>
+        </tr>
+        <% end
+           if @viviendascarta.ciudad.to_s != ""
+        %>
+        <tr>
+          <td colspan="2" height="0" align="left" class="camposDesc"><%=@viviendascarta.ciudad rescue nil%></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc"><strong>Asunto:</strong> Remisión de (<%=@cantidad%>) minutas para su firma</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">Cordial Saludo</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">Le envío <%=@cantidad.to_i.to_words.upcase%> (<%=@cantidad%>) minutas de escrituras públicas de beneficiarios de los proyectos que adelanta el instituto, para su firma:</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc"><table width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="10%" class="campos">NRO. MATRICULA</td>
+              <td width="18%" class="campos">PROYECTO</td>
+              <td width="25%" class="campos">NOMBRES Y APELLIDOS</td>
+              <td width="12%" class="campos" align="center">CEDULA</td>
+              <td width="5%" class="campos" align="center">BLQ</td>
+              <td width="5%" class="campos" align="center">APTO</td>
+              <td width="29%" class="campos">OBSERVACIONES / ANEXOS</td>
+            </tr>
+<% for viviendasreporte in @viviendasreportes
+     cadena = ""
+      if viviendasreporte.var1.to_s == "S"
+        if cadena != ""
+          cadena = cadena + ',  Cedula Actualizada'
+        else
+          cadena = ' Se Adjunta Cedula Actualizada '
+        end
+      end
+      if viviendasreporte.var2.to_s == "S"
+        if cadena != ""
+          cadena = cadena + ',  Carta Subsidio Nacional'
+        else
+          cadena = ' Se Adjunta Carta Subsidio Nacional '
+        end
+      end
+      if viviendasreporte.var3.to_s == "S"
+        if cadena != ""
+          cadena = cadena + ',  Carta Credito o Resolucion'
+        else
+          cadena = ' Se Adjunta Carta Credito o Resolucion'
+        end
+      end
+     @viviendaspersona = Viviendaspersona.exists?(["persona_id = ?", viviendasreporte.persona_id])
+     if  @viviendaspersona
+       viviendaspersona = Viviendaspersona.find_by_persona_id(viviendasreporte.persona_id)
+       viviendaspersona1 = Viviendaspersona.find_by_vivienda_id(viviendaspersona.vivienda_id)
+       @vivienda = Vivienda.find(viviendaspersona.vivienda_id)
+%>
+
+            <tr>
+              <td class="camposDesc"><%=@vivienda.nro_matricula rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.proyecto.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=viviendaspersona1.persona.primer_nombre rescue nil%> <%=viviendaspersona.persona.segundo_nombre rescue nil%> <%=viviendaspersona.persona.primer_apellido rescue nil%> <%=viviendaspersona.persona.segundo_apellido rescue nil%></td>
+              <td class="camposDesc" align="center"><%=viviendaspersona1.persona.identificacion rescue nil%></td>
+              <td class="camposDesc" align="center"><%=@vivienda.bloque.descripcion rescue nil%></td>
+              <td class="camposDesc" align="center"><%=@vivienda.apto.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=cadena%></td>
+            </tr>
+<% 
+      end
+    end
+%>
+          </table></td>
+        </tr>
+        <% if @observaciones.to_s != "" %>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">Observación General: <%=@observaciones%></td>
+        </tr>
+        <%end%>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">Cualquier información adicional, favor enviarla al correo electrónico <strong><%=User.find(is_admin).email%></strong> o comunicarse a la extensión <strong><%=Usersdato.find_by_user_id(is_admin).extension%></strong>.</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">Atentamente, </td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="campos13">CATALINA MARTINEZ SILVA</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="campos13">Subdirectora Juridica</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table width="90%" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;
+    <table width="90%"  border="1" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="15%" rowspan="2"class="camposDesc">Proyectó</td>
+          <td width="35%"class="camposDesc"><%=User.find(is_admin).nombre%></td>
+          <td width="15%" rowspan="2"class="camposDesc">Reviso y Aprobó</td>
+          <td width="35%"class="camposDesc">MONICA QUIROZ</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">Trámites Legales</td>
+          <td class="camposDesc">Subdirectora Juridica</td>
+        </tr>
+      </table>
+    </td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>

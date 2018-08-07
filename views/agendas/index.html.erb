@@ -1,0 +1,83 @@
+<div align="center"><%=image_tag("frame.png")%></div>
+<br/>
+<% if @e.to_s == 'SI' %>
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="50%" height="20" class="oce-first">Nombre</td>
+        <td width="20%" class="oce-first">Proceso</td>    
+        <td width="15%" class="oce-first">Fecha</td>    
+        <td width="15%" class="oce-first">Hora Cita</td>
+      </tr>
+    <% @agendas.each do |agenda| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" height="20"><%=h agenda.persona.autobuscar rescue nil %><% if agenda.presente.to_s == 'SI'%><strong> (PRESENTE)</strong><%end%></td>
+        <td class="camposDesc"><%=h agenda.lugaragenda rescue nil%></td>
+        <td class="camposDesc"><%=h agenda.fechaagenda rescue nil%></td>
+        <td class="camposDesc"><%=h agenda.horaagenda rescue nil%></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>
+<% @agendasprocesos.each do |ap| 
+   agendas = Agenda.find_by_sql(["select a.* from agendas a, agendashorarios h, agendasfechas f
+                                  where  f.fecha = trunc(sysdate)
+                                  and    f.agendasproceso_id = #{ap.id}
+                                  and    a.agendasfecha = f.id
+                                  and    a.agendasproceso = #{ap.id}
+                                  and    a.estado = 'PENDIENTE'
+                                  and    a.presente = 'SI'
+                                  and    a.agendashorario = h.id
+                                  order by h.horario, a.created_at"])
+   if agendas.count > 0
+  %>
+    <div align="center">
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr valign="middle">
+            <td height="30">
+              <div style="font-size:12px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=ap.id.to_s%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=ap.id.to_s%>')">AGENDA <%=ap.descripcion.to_s rescue nil%> (<%=agendas.count rescue 0%>) </a> </strong>        
+                  </div>         
+                <div id="demo1<%=ap.id.to_s%>" style="display:none;"><br/>
+                  <div align="center">
+                      <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr valign="middle">
+                          <td width="75%" height="20" class="oce-first">Usuario</td>
+                          <td width="20%" class="oce-first"><div align="center">Hora</div></td>
+                          <td width="5%" class="oce-first"><div align="center"></div></td>
+                        </tr>
+                        <% for agenda in agendas %>
+                          <tr valign="middle"  class="<%=cycle('even1', 'odd1')%> post1S_<%=agenda.id%>">
+                            <td class="camposDesc" height="25" align="left"><%=agenda.persona.autobuscar rescue nil%><% if agenda.presente.to_s == 'SI'%><strong> (PRESENTE)</strong><%end%>
+                              <% if agenda.observacion %><br/><small><em><%=agenda.observacion rescue nil%></em></small><% end%>
+                              <% @agendasalertas = Agendasalerta.find(:all, :conditions=>["persona_id = #{agenda.persona_id} and estado = 'PENDIENTE'"], :order=>"created_at desc") 
+                                 if @agendasalertas.count.to_i > 0%><% @agendasalertas.each do |a|%><div align="justify" style="background-color:#F5A9A9;" class="camposDesc">*. <%=a.descripcion%></div><%end%></td>
+                              <% end%>
+                            </td>
+                            <td class="camposDesc"><div align="center"><%=agenda.horaagenda rescue nil%></div></td>
+                            <td class="camposDesc"><div align="center">
+                              <%= link_to_remote image_tag("10minutos.png", :title => "Iniciar Atención"),:url => agenda_url(:id => agenda, :clase => 'INICIAR'), :method => :delete, :before => "$(this).up('.post1S_#{agenda.id}').remove()" %>
+                            </div></td>
+                          </tr>
+                      <% end %>
+                      </table>
+                  </div>           
+                </div>
+            </td>
+          </tr>
+      </table>
+    </div>
+  <% else %>
+    <div align="center">
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr valign="middle">
+            <td height="30">
+              <div style="font-size:12px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=ap.id.to_s%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=ap.id.to_s%>')">AGENDA <%=ap.descripcion.to_s rescue nil%> (<%=agendas.count rescue 0%>) </a> </strong>        
+                  </div>         
+                <div id="demo1<%=ap.id.to_s%>" style="display:none;"><br/>
+                  <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN11"><br/>NO hay información<br/><br/></div>
+                </div>
+            </td>
+          </tr>
+      </table>
+    </div>
+  <% end %>
+<% end %>

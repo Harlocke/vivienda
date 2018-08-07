@@ -1,0 +1,15 @@
+<h1>New proyectostipo</h1>
+
+<% form_for(@proyectostipo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', proyectostipos_path %>

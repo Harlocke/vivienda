@@ -1,0 +1,146 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/transportemin.png" width="64" height="64"/></td>
+          <td width="70%"><div class="col_enc">&nbsp;&nbsp;VEHICULOS (<%=namedate(@fecha)%>)</div></td>
+          <td width="27%"> <% form_tag buscar_vehiculos_path, :method => 'get' do %>
+              <%= calendar_date_select "ubicacion", "fecha", :year_range => [2014, 2017], :class=> "span2_1", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+            <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                <%= submit_tag "Buscar", :name => 'format', :value => 'Buscar'%></span></div>
+         <% end %></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+  <div id="mainmenu">
+    <ul id="tabs">
+      <% @vehiculos.each do |vehiculo| %>
+            <% if permiso("vehiculosprogramacion","C").to_s == "S"%>
+              <% if vehiculo.placa.to_s == 'SMX544' %>
+                <li><a href="#tab<%=vehiculo.id rescue nil%>"><img src="/images/vehiculo.png" border="0" title="Ir al Vehiculo <%=vehiculo.placa.to_s%>"/><div align="justify" style="font-size: 9px; font-family: Verdana, Geneva, sans-serif;"><%=vehiculo.placa.to_s%></div></a></li>
+              <% else %>
+                <li><a href="#tab<%=vehiculo.id rescue nil%>"><img src="/images/vehiculo1.png" border="0" title="Ir al Vehiculo <%=vehiculo.placa.to_s%>"/><div align="justify" style="font-size: 9px; font-family: Verdana, Geneva, sans-serif;"><%=vehiculo.placa.to_s%></div></a></li>
+              <% end %>
+           <% else %>
+              <% if vehiculo.placa.to_s == 'SMX544' %>
+                <li><a href="#tab<%=vehiculo.id rescue nil%>"><img src="/images/vehiculo.png" border="0" title="Ir al Vehiculo"/></a></li>
+              <% else %>
+                <li><a href="#tab<%=vehiculo.id rescue nil%>"><img src="/images/vehiculo1.png" border="0" title="Ir al Vehiculo"/></a></li>
+              <% end %>
+           <% end %>
+      <% end %>
+    </ul>
+    <br/>
+<% @vehiculos.each do |vehiculo| %>
+  <div class="panel" id="tab<%=vehiculo.id rescue nil%>">
+    <% if permiso("vehiculosprogramacion","C").to_s == "S" %>
+      <div align="justify" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif; background-color:#FF0000;"><strong><%=vehiculo.placa.to_s%> - Tiempo Disponible (<%=vehiculo.diasrestantes(@fecha).to_s%> minutos )</strong></div>
+    <% else %>
+      <% if vehiculo.placa.to_s == 'SMX544' %>
+       <div align="justify" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif; background-color:#FF0000;"><strong>Vehiculo tipo VAN - Tiempo Disponible (<%=vehiculo.diasrestantes(@fecha).to_s%> minutos )</strong></div>
+      <% else %>
+       <div align="justify" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif; background-color:#FF0000;"><strong>Tiempo Disponible (<%=vehiculo.diasrestantes(@fecha).to_s%> minutos )</strong></div>
+      <% end %>
+    <% end %>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+        <% i = 0
+           @vehiculosprogramaciones = Vehiculosprogramacion.find(:all,:conditions=>["vehiculo_id = #{vehiculo.id} and fecha = '#{@fecha.to_date}'"], :order=>"vehiculoshorario_id")
+           @vehiculosprogramaciones.each do |vehiculosprogramacion|%>
+
+          <% if vehiculosprogramacion.user_id
+               if vehiculosprogramacion.updated_at.to_s == Time.now.to_s
+                 @color = "#FF0000;"
+               else
+                 @color = "#E7E7FE;"
+               end
+          %>
+          <tr><td height="25" class="campos" style="background-color: <%=@color%>"><%=vehiculosprogramacion.vehiculoshorario.descripcion rescue nil%>
+              <% if vehiculosprogramacion.programainicial.to_s == ""
+                   i = 0%>
+                <% if vehiculosprogramacion.permiteactualizar.to_s == 'S' or permiso("vehiculosprogramacion","C").to_s == "S" %>
+                  <% if vehiculosprogramacion.user_actualiza == is_admin or permiso("vehiculosprogramacion","C").to_s == "S" %>
+                     <% if @fecha.to_s >= Time.now.to_s or @fecha.to_s >= Time.now.strftime("%Y-%m-%d")%>
+                        <% if permiso("vehiculosprogramacion","C").to_s == "S" %>
+                            <%= link_to image_tag('/images/vehi_editar.png'),{:controller=>"vehiculosprogramaciones", :action=>"edit", :id=>vehiculosprogramacion.id}, :title=>"Editar la reserva" %>
+                            <%= link_to image_tag('/images/vehi_borrar.png'),{:controller=>"vehiculosprogramaciones", :action=>"borrar", :id=>vehiculosprogramacion.id}, :title=>"Eliminar la reserva", :confirm=>"Esta seguro que desea Eliminar la reserva???" %>
+                        <% end %>
+                     <% end%>
+                  <% end %>
+                <% end %>
+                <%= link_to image_tag('/images/vermed.png'),{:controller=>"vehiculosprogramaciones", :action=>"visualizar", :id=>vehiculosprogramacion.id}, :title=>"Ver Informacion de la reserva",:Onclick => "return GB_showCenter('Información Reserva', this.href, 400, 700)" %>
+                Responsable : <%=vehiculosprogramacion.responsable rescue nil%>
+              <% else %>
+                 <% if i == 0 %>
+                   ***** Destino: <%=vehiculosprogramacion.destino rescue nil%>
+                   <% i = i + 1 %>
+                 <% end %>
+              <% end %>
+             </td>
+          </tr>
+          <% else %>
+           <tr><td height="25" class="camposDesc"><%=vehiculosprogramacion.vehiculoshorario.descripcion rescue nil%>
+               <% if permiso("vehiculosprogramacion","C").to_s == "S" %>
+                   <%   if @fecha.to_s == Time.now.to_s or @fecha.to_s == Time.now.strftime("%Y-%m-%d")%>
+                       <%  if vehiculosprogramacion.vehiculoshorario.hora_militar.to_s > Time.now.strftime("%X").to_s  %>
+                             <%= link_to image_tag('/images/1nuevo.png'),{:controller=>"vehiculosprogramaciones", :action=>"edit", :id=>vehiculosprogramacion.id} %>
+                       <%  end %>
+                   <%   elsif @fecha.to_s > Time.now.to_s or @fecha.to_s > Time.now.strftime("%Y-%m-%d")%>
+                        <%= link_to image_tag('/images/1nuevo.png'),{:controller=>"vehiculosprogramaciones", :action=>"edit", :id=>vehiculosprogramacion.id} %>
+                   <%   end %>
+               <% end %>
+           </td></tr>
+          <% end %>
+        <% end  %>
+      </table>
+  </div>
+<% end %>
+  </div>
+<% if permiso("vehiculosprogramacion","C").to_s == "S"  %>
+  <div align="center">
+    <table width="80%" border="0" cellpadding="2" cellspacing="0"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td align="left" height="30"><div class="col_enc">PLANILLA DEL DIA</div></td>
+      </tr>
+    </table>
+    <% form_tag horario_vehiculos_path, :method => 'get' do %>
+    <table width="75%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="50%" class="odd1"><span class="campos">Seleccion la fecha a imprimir</span></td>
+        <td width="50%"><%= calendar_date_select "ubicacion", "fecha", :year_range => select_rangocalendar, :class=> "span2_1", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      </tr>
+    </table>
+    <table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" align="center" cellspacing="0">
+      <tr>
+        <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "Generar Informe" %>
+          </span></div>
+          </div></td>
+      </tr>
+    </table>
+    <% end %>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">DATOS DE LOS VEHICULOS</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= link_to 'Información Vehicuolos', {:controller=>"vehiculos", :action=>"indexc", :id=>1} %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+  </div>
+<%end%>

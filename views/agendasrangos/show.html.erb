@@ -1,0 +1,23 @@
+<p>
+  <b>Agendasproceso:</b>
+  <%=h @agendasrango.agendasproceso %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @agendasrango.user %>
+</p>
+
+<p>
+  <b>Fecha inicio:</b>
+  <%=h @agendasrango.fecha_inicio %>
+</p>
+
+<p>
+  <b>Fecha fin:</b>
+  <%=h @agendasrango.fecha_fin %>
+</p>
+
+
+<%= link_to 'Edit', edit_agendasrango_path(@agendasrango) %> |
+<%= link_to 'Back', agendasrangos_path %>

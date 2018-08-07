@@ -1,0 +1,82 @@
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">LISTA DE VERIFICACION
+      <%= link_to "Informe", {:controller => "mejoramientospagoslistas", :action => "informe", :id=>@mejoramientospago.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@mejoramientospago, @mejoramientospagoslista] do |form| %>
+       <% if !@mejoramientospagoslista.id %>
+       <% end %>
+  <% if @mejoramientospago.mejoramientospagoslistas.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" align="left" class="oce-first">Proceso</td>
+    <td width="60%" height="30" align="left" class="oce-first">Documentacion</td>
+    <td width="5%" class="oce-first"><div align="center">SI</div></td>
+    <td width="5%" class="oce-first"><div align="center">NO</div></td>
+    <td width="10%" class="oce-first"><div align="center">NO APLICA</div></td>
+  </tr>
+<% @mejoramientospago.mejoramientospagoslistas.each do |mejoramientospagoslista| %>
+<%  if mejoramientospagoslista.id != @mejoramientospagoslista.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientospagoslista_<%= mejoramientospagoslista.id%>">
+     <td height="30" class="camposDesc"><div align="left"><strong><%=mejoramientospagoslista.listaspago.capitulo rescue nil%></strong></div></td>
+     <td height="30" class="camposDesc"><div align="justify"><%=mejoramientospagoslista.listaspago.descripcion rescue nil%></div></td>
+     <td class="camposDesc"><div align="center">
+          <% if mejoramientospagoslista.estado.to_s == 'SI' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+            <%= link_to_remote('SI',{:url => si_mejoramientospago_mejoramientospagoslista_path(@mejoramientospago, mejoramientospagoslista),:method => :get}, :class=>"modlink")%>
+          <% end %>
+        </div>
+     </td>
+     <td class="camposDesc"><div align="center">
+          <% if mejoramientospagoslista.estado.to_s == 'NO' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+            <%= link_to_remote('NO',{:url => no_mejoramientospago_mejoramientospagoslista_path(@mejoramientospago, mejoramientospagoslista),:method => :get}, :class=>"modlink")%>
+          <% end %>
+        </div>
+     </td>
+     <td class="camposDesc"><div align="center">
+         <% if mejoramientospagoslista.estado.to_s == 'NO APLICA' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+            <%= link_to_remote('NO APLICA',{:url => na_mejoramientospago_mejoramientospagoslista_path(@mejoramientospago, mejoramientospagoslista),:method => :get}, :class=>"modlink")%>
+          <% end %>
+        </div>
+     </td>
+ </tr>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="mejoramientospagoslista_<%=@mejoramientospagoslista.id%>">
+            <%= render :partial => "mejoramientospagoslistas_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<% end %>
+</table>
+<%= hidden_field :mejoramientospago, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientospagoslista] %>
+<div id="mejoramientospagoslista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientospagoslista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientospagoslista');", 5000)
+</script>
+<% end %>
+</div>
+<br/><br/>

@@ -1,0 +1,2 @@
+module ComitesimagenesHelper
+end

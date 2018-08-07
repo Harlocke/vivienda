@@ -1,0 +1,31 @@
+<h1>New almacenescierre</h1>
+
+<% form_for(@almacenescierre) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :mes %><br />
+    <%= f.text_field :mes %>
+  </p>
+  <p>
+    <%= f.label :anno %><br />
+    <%= f.text_field :anno %>
+  </p>
+  <p>
+    <%= f.label :producto_id %><br />
+    <%= f.text_field :producto_id %>
+  </p>
+  <p>
+    <%= f.label :cantidad %><br />
+    <%= f.text_field :cantidad %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', almacenescierres_path %>

@@ -1,0 +1,265 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">COMITE</div></td>
+  </tr>
+</table>
+<%  form_for(@comite) do |f|%>
+<%    if @comite.comitestipo_id == 10009 or @comite.comitestipo_id == 10010 %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="5" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="15%" class="campos">Tipo</td>
+        <td width="40%" class="campos">Temas</td>
+        <td width="10%" class="campos">Nro</td>
+        <td width="20%" class="campos">Concejal</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+        <td class="camposDesc"><%=@comite.nro_comision%></td>
+        <td class="camposDesc"><%=@comite.concejal%></td>
+      </tr>
+    </table>
+<%    else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="3" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="20%" class="campos">Tipo de Comite</td>
+        <td width="65%" class="campos">Temas</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+      </tr>
+    </table>
+<%    end %>
+<br/>
+<% if @comite.comitesactividades.exists? %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="6" class="campos">ACTIVIDADES PENDIENTES</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Subdireccion</td>
+        <td width="35%" class="campos">Actividad</td>
+        <td width="10%" class="campos">Fecha Limite</td>
+        <td width="10%" class="campos">Estado</td>
+        <td width="20%" class="campos">Observaciones</td>
+        <td width="10%" class="campos">Fecha Solucion</td>
+      </tr>
+      <% @comite.comitesactividades.each do |comitesactividad| %>
+      <tr>
+        <td class="camposDesc"><%=comitesactividad.dependencia.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=comitesactividad.tarea%></td>
+        <td class="camposDesc"><%=comitesactividad.fecha_limite.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=comitesactividad.estado%></td>
+        <td class="camposDesc"><%=comitesactividad.observaciones%></td>
+        <td class="camposDesc"><%=comitesactividad.fecha_solucion.strftime("%Y-%m-%d") rescue nil%></td>
+      </tr>
+      <% end %>
+    </table>
+<% else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="1" class="campos">ACTIVIDADES PENDIENTES</td>
+      </tr>
+      <tr>
+        <td class="camposDesc">No hay actividades Pendientes</td>
+      </tr>
+    </table>
+<% end %>
+<H1 class="SaltoDePagina">.</H1>
+<br/>
+<%    if @comite.comitestipo_id == 10009 or @comite.comitestipo_id == 10010 %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="5" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="15%" class="campos">Tipo</td>
+        <td width="40%" class="campos">Temas</td>
+        <td width="10%" class="campos">Nro</td>
+        <td width="20%" class="campos">Concejal</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+        <td class="camposDesc"><%=@comite.nro_comision%></td>
+        <td class="camposDesc"><%=@comite.concejal%></td>
+      </tr>
+    </table>
+<%    else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="5" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="20%" class="campos">Tipo de Comite</td>
+        <td width="65%" class="campos">Temas</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+      </tr>
+    </table>
+<%    end %>
+<br/>
+<% if @comite.comitesobservaciones.exists? %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="6" class="campos">OBSERVACIONES</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="75%" class="campos">Observacion</td>
+      </tr>
+<% for comitesobservacion in @comite.comitesobservaciones.find(:all, :order => 'created_at ASC') %>
+      <tr>
+        <td class="camposDesc"><%=comitesobservacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+        <td class="camposDesc"><%=comitesobservacion.observaciones%></td>
+      </tr>
+      <% end %>
+    </table>
+<% else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="1" class="campos">OBSERVACIONES</td>
+      </tr>
+      <tr>
+        <td class="camposDesc">No hay observaciones</td>
+      </tr>
+    </table>
+<% end %>
+<H1 class="SaltoDePagina">.</H1>
+<br/>
+<%    if @comite.comitestipo_id == 10009 or @comite.comitestipo_id == 10010 %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="5" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="15%" class="campos">Tipo</td>
+        <td width="40%" class="campos">Temas</td>
+        <td width="10%" class="campos">Nro</td>
+        <td width="20%" class="campos">Concejal</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+        <td class="camposDesc"><%=@comite.nro_comision%></td>
+        <td class="camposDesc"><%=@comite.concejal%></td>
+      </tr>
+    </table>
+<%    else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="3" class="campos">INFORMACION GENERAL DEL ACTA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%" class="campos">Fecha</td>
+        <td width="20%" class="campos">Tipo de Comite</td>
+        <td width="65%" class="campos">Temas</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@comite.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td class="camposDesc"><%=@comite.comitestipo.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@comite.temas%></td>
+      </tr>
+    </table>
+<%    end %>
+<br/>
+<% if @comite.comitesimagenes.exists? %>
+   <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="2" class="campos">INFORMACION DIGITALIZADA</td>
+      </tr>
+      <tr class="odd1">
+        <td width="40%" class="campos">Descripcion</td>
+        <td width="60%" class="campos">Nombre del Archivo</td>
+      </tr>
+      <% for comitesimagen in @comite.comitesimagenes.find(:all, :conditions =>['comite_content_type not like ?', '%image%'],:order => 'created_at DESC') %>
+      <tr valign="center">
+        <td class="camposDesc" ><%=comitesimagen.descripcion%></td>
+        <td class="camposDesc"><%=comitesimagen.comite_file_name%></td>
+      </tr>
+      <% end %>
+    </table>
+<br/>
+<table width="810" border="0" align="center" cellpadding="0" cellspacing="0">
+ <% for comitesimagen in @comite.comitesimagenes.find(:all, :conditions =>['comite_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+   <tr valign="middle">
+     <td width="100%" class="camposDesc"><div align="center">
+        <%= link_to image_tag (comitesimagen.comite.url, :size =>"250x250", :border=>0,
+                              :title => "Ver Documento"),
+                              comitesimagen.comite.url(:original, false),
+                             { :title=>"#{comitesimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+         <br/><%=comitesimagen.descripcion%>
+       </div>
+       </td>
+   </tr>
+  <% end %>
+</table>
+<% else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="1" class="campos">INFORMACION DIGITALIZADA</td>
+      </tr>
+      <tr>
+        <td class="camposDesc">No hay participantes</td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<% if @comite.comitesusers.exists? %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="2" class="campos">PARTICIPANTES</td>
+      </tr>
+      <tr class="odd1">
+        <td width="40%" class="campos">Nombre</td>
+        <td width="60%" class="campos">Firma</td>
+      </tr>
+      <% @comite.comitesusers.each do |comitesuser| %>
+      <tr valign="center">
+        <td class="camposDesc" height="40" ><%=comitesuser.user.nombre%></td>
+        <td class="camposDesc">&nbsp;</td>
+      </tr>
+      <% end %>
+    </table>
+<% else %>
+    <table width="810" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="1" class="campos">PARTICIPANTES</td>
+      </tr>
+      <tr>
+        <td class="camposDesc">No hay participantes</td>
+      </tr>
+    </table>
+<% end %>
+<% end %>
+<table width="800" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="camposDesc"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <%=is_usuario%></td></tr>
+</table>
+</div>

@@ -1,0 +1,92 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/informemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INTERVENTORIA - <%=@interventoria.contrato.empleado.autobuscar rescue nil%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),interventorias_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CUENTA DE COBRO</div></td>
+  </tr>
+</table>
+<table width="820" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%" height="25" class="campos"><strong>Contrato número:</strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.nro_contrato%> de <%=@interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Tipo de Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Valor total del Contrato:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                 <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i)%>
+              <% else %>
+                 <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase%>
+              <% end %> PESOS M/L)</td>
+          </tr>
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Valor mensual:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Duración del Contrato:</strong></td>
+            <td class="camposDesc"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_dias%> dias
+                 <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+            </td>
+          </tr>
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Periodo</strong></td>
+            <td class="camposDesc">Mes: <%=descmes(@interventoria.mes) rescue nil%> - Año <%=@interventoria.anno rescue nil%> </td>
+          </tr>
+        </table>
+        <br/>
+        <% if @interventoria.version.to_s == '1'%>
+          <%= render 'version1' %>        
+        <% else %>
+          <%= render 'version2' %>        
+        <% end %>
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="25%" height="25" class="campos"><strong>Observaciones y forma de pago:</strong></td>
+            <td width="75%" class="camposDesc"><%=camponumerico(@interventoria.observaciones) rescue 0%>&nbsp;&nbsp;</td>
+          </tr>
+        </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">Ultima Actualización: <%=User.find(@interventoria.user_actualiza).username rescue nil%> - <%=@interventoria.updated_at.strftime("%Y-%m-%d %X")%></td>
+          <td height="30"><div align="right">
+        </div></td>
+        </tr>
+      </table>
+   </td>
+  </tr>
+</table> 
+</div>
+<%= render 'actverificacionfinal' %>
+<br/>

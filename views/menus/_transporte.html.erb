@@ -1,0 +1,26 @@
+<% if @vehiculossolicitudes.count > 0 %>
+	<div style="font-size:12px; font-family: Tahoma; display:table;"><strong><a href="javascript:void(0);" onclick="SINO('demo3<%=is_admin.to_s%>')"><img src="/images/transportemenu.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo3<%=is_admin.to_s%>')"><div style="display:table-cell; vertical-align:middle;"><p>VER SOLICITUDES DE TRANSPORTE (<%=@vehiculossolicitudes.count rescue 0%>) </p></div></a> </strong>        
+	</div>         
+	<div id="demo3<%=is_admin.to_s%>" style="display:none;">
+	  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+	     <tr valign="middle">
+	        <td width="13%" height="20" class="oce-first">Creacion</td>
+	        <td width="67%" align="left" class="oce-first">Destino</td>
+	        <td width="15%" align="left" class="oce-first"><div align="center">Fecha - Hora</div></td>
+	        <td width="5%" class="oce-first"><div align="center"></div></td>
+	     </tr>
+	    <%  @vehiculossolicitudes.each do |vehiculossolicitud| %>
+	     <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+        <td class="camposDesc"><div align="justify">
+          <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %> - <strong>Telefono: </strong><%=h vehiculossolicitud.telefono %><br/>
+          <strong>Destino: </strong><%=h vehiculossolicitud.destino rescue nil %></div></td>
+        <td class="camposDesc"><div align="center"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %><br/>
+          <strong>Hora Inicio: </strong><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%><br/>
+          <strong>Hora Final: </strong><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil%></div></td>
+        <td class="camposDesc"><div align="center"><%=vehiculossolicitud.estsol rescue nil %></div></strong></td>
+	    </tr>
+	    <% end %>
+	  </table>
+	</div>
+<% end %>

@@ -1,0 +1,182 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<% unless @calidadproceso.new_record? %>
+<table width="100%" height="40">
+      <tr>
+        <td><% if @calidadproceso.tipoproceso.to_s == 'BIENESTAR' %>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/bienestarmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BIENESTAR</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),verprocesosbienestar_calidadprocesos_path %>
+                </div></td>
+            </tr>
+          </table>
+          <% else %>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/calidadmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CALIDAD</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),calidadprocesos_path %>
+                </div></td>
+            </tr>
+          </table>
+          <% end %></td>
+      </tr>
+</table>
+<% else %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/calidadmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CALIDAD</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),calidadprocesos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% end %>
+<% unless @calidadproceso.new_record? %>
+  <%= link_to image_tag("menucalidad.png", :title => "Información Proceso", :style=>"#{@calidadproceso.d_etapa('1')} padding:4px;"),edit_calidadproceso_path(:id=>@calidadproceso.id,:etapa=>"1")%>
+  <%= link_to image_tag("menunormas.png", :title => "Documentos", :style=>"#{@calidadproceso.d_etapa('2')} padding:4px;"),edit_calidadproceso_path(:id=>@calidadproceso.id,:etapa=>"2")%>
+  <%= link_to image_tag("menuindicador.png", :title => "Normograma", :style=>"#{@calidadproceso.d_etapa('3')} padding:4px;"),edit_calidadproceso_path(:id=>@calidadproceso.id,:etapa=>"3")%>
+<% end %>
+<% if @calidadproceso.etapa.to_s == '1' %>
+    <fieldset>
+    <% form_for (@calidadproceso) do |f| %>
+    <div align="center">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">PROCESOS DE CALIDAD( <%=@calidadproceso.descripcion rescue nil%> )</div></td>
+        </tr>
+      </table>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="23%" class="campos">Tipo de Proceso</td>
+          <td width="45%" class="campos">Nombre</td>
+          <td width="32%" class="campos">Tipologia</td>
+        </tr>
+         <tr>
+            <td><% unless @calidadproceso.new_record? %>
+                  <%=@calidadproceso.tipoproceso rescue nil%>
+                <% else %>
+                  <%= select(:calidadproceso,:tipoproceso, { "ESTRATEGICOS" => "ESTRATEGICOS",
+                            "MISIONALES" => "MISIONALES",
+                            "APOYO" => "APOYO",
+                            "CONTROL Y MEJORA" => "CONTROL Y MEJORA"},
+                    { :include_blank => true },
+                  { :style=>"width:170px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+                <% end %>
+            <%= f.error_message_on :tipoproceso, :css_class =>"cerror"%></td>
+             <td><%= f.text_field :descripcion,{ :class => "campo", :size =>60,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" } %>
+                    <%= f.error_message_on :descripcion, :css_class =>"cerror"%></td>
+             <td><%= f.text_field :tipologia,{ :class => "campo", :size => 40,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :tipologia, :css_class =>"cerror"%></td>
+          </tr>
+      </table>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="55%" class="campos">Objetivo</td>
+        </tr>
+        <tr>
+            <td><%=f.text_area(:objetivo, :cols => 120, :rows => 5, :class => 'campo', :maxlength => 3900,
+                 :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                 <%= f.error_message_on :objetivo, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Alcance</td>
+        </tr>
+        <tr>
+         <td><%=f.text_area(:alcance, :cols => 120, :rows => 5, :class => 'campo', :maxlength => 3900,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= f.error_message_on :alcance, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="12%" class="campos">Codigo</td>
+          <td width="12%" class="campos">Version</td>
+        </tr>
+        <tr>
+           <td><%= f.text_field :codigo,{ :class => "campo", :size => 15,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :codigo, :css_class =>"cerror"%></td>
+           <td><%= f.text_field :version,{ :class => "campo", :size => 15,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :version, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="95%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">
+            <% unless @calidadproceso.new_record? %>
+            Ultima Actualización: <%=User.find(@calidadproceso.user_actualiza).username rescue nil%> - <%=@calidadproceso.updated_at.strftime("%Y-%m-%d %X")%>
+          <% end %></td>
+          <td  height="30"><div align="right">
+              <% if permiso("calidadproceso","A").to_s == "S" %>
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+              <% end %>
+      </div></td>
+        </tr>
+      </table>
+      </div>
+    <% end %>
+    </fieldset>
+<% elsif @calidadproceso.etapa.to_s == '2' %>
+    <fieldset><div id="calidaddocumentos_form"><%= render :partial => "/calidaddocumentos/calidaddocumentos" %></div></fieldset>
+<% elsif @calidadproceso.etapa.to_s == '3' %>
+    <fieldset>
+    <%  if @existenormograma %>
+        <div class="page-header">
+          <h2>Normograma</h2>
+        </div>
+        <div align="center">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <th>Tema</th>
+            <th>Tipo documento</th>
+            <th>Numero</th>
+            <th>Anno</th>
+            <th>Fecha expedicion</th>
+          </tr>
+        <% @calidadnormogramas.each do |calidadnormograma| %>
+          <tr>
+            <td><%=h calidadnormograma.tema %></td>
+            <td><%=h calidadnormograma.tipo_documento %></td>
+            <td><%=h calidadnormograma.numero %></td>
+            <td><%=h calidadnormograma.anno %></td>
+            <td><%=h calidadnormograma.fecha_expedicion %></td>
+          </tr>
+        <% end %>
+          </table>
+        </div>
+        <br/>
+    <% else %>
+       NO hay información
+    <% end %>
+    </fieldset>
+<% end %>
+<br/><br/>

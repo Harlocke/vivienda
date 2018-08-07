@@ -1,0 +1,55 @@
+<%
+    "control_int,planeacion,administrativa,poblacional,juridica,dotacion,comunicaciones,direccion".split(",").map { |s| 
+      @pendientes = Pendiente.find(:all, :conditions=>["#{s.to_s} = 'SI' and estado in ('PENDIENTE', 'EN TRAMITE')"], :order=>"fecha_vence asc")
+%>
+    <% if @pendientes.count.to_i > 0 
+       permitedit = is_subdireccionpermiso(s.to_s)
+      %>
+        <div align="center">
+          <table width="90%" border="0" cellpadding="0" cellspacing="2">
+              <tr valign="middle">
+                <td height="30">
+                  <div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=s.to_s%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=s.to_s%>')">PENDIENTE <%=is_subdireccion(s.to_s)%> (<%=@pendientes.count%>) </a> </strong>        
+                      </div>         
+                    <div id="demo1<%=s.to_s%>" style="display:none;"><br/>
+                      <div align="center">
+                          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td width="3%" height="30" class="oce-first"></td>
+                              <td width="11%" class="oce-first">Fecha<br/>Asignación</td>
+                              <td width="11%" class="oce-first">Fecha<br/>Vencimiento</td>
+                              <td width="12%" class="oce-first">Estado</td>
+                              <td width="58%" class="oce-first">Tarea / Actividad</td>
+                              <td width="5%" class="oce-first">&nbsp;</td>
+                            </tr>
+                          <% @pendientes.each do |pendiente| %>
+                          <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                              <td class="camposDesc"><%= pendiente.estado_pendiente rescue nil%></td>
+                              <td class="camposDesc"><%=h pendiente.fecha_asignacion%></td>
+                              <td class="camposDesc" align="left"><%=pendiente.fecha_vence rescue nil%></td>
+                              <td class="camposDesc" align="left"><%=pendiente.estado rescue nil%></td>
+                              <td class="camposDesc" align="justify"><%=pendiente.tarea rescue nil%>
+                                <strong><br/>Responsables: </strong><%=pendiente.asignadoa rescue nil%>
+                              </td>
+                              <td class="camposDesc"><div align="center">
+                              <% if permitedit%>
+                              <%= link_to 'Editar', edit_pendiente_path(pendiente),:class=>"editarlink"%>
+                              <% end %>
+                                </div></td>
+                          <% end %>
+                          </table>
+                          <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+                            <tr valign="middle">
+                              <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@pendientes.count%></div></td>
+                            </tr>
+                          </table>  
+                      </div>           
+                    </div>
+                </td>
+              </tr>
+          </table>
+        </div>
+    <% end %>
+<%
+     }
+%>

@@ -1,0 +1,33 @@
+<div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16"><strong><a href="javascript:void(0);" onclick="SINO('demo1')">
+  <img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1')">Pendientes de reparto (<%=@repartosp.count%>)</a>  </strong></div>
+  <div id="demo1" style="display:none;">
+  <fieldset>
+      <% if @repartosp.count > 0 %>
+        <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="10%" height="30" class="oce-first"><div align="center">Id</div></td>
+          <td width="18%" class="oce-first"><div align="left">Fecha Creacion</div></td>
+          <td width="42%" class="oce-first"><div align="left">Solicitante</div></td>
+          <td width="10%" class="oce-first"><div align="center">Estado</div></td>
+          <td width="10%" class="oce-first"><div align="center">Matricula</div></td>          
+          <td width="10%" class="oce-first">&nbsp;</td>
+        </tr>
+        <% @repartosp.each do |reparto| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td height="20" class="camposDesc"><div align="center"><%=reparto.id%></div></td>
+          <td class="camposDesc"><div align="left"><%=reparto.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+          <td class="camposDesc"><div align="left"><%=User.find(reparto.user_solicita).nombre rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=reparto.estado rescue nil%> </div></td>
+          <td class="camposDesc"><div align="center"><%=reparto.matriculas rescue nil%></div></td>          
+          <td class="camposDesc"><div align="center">
+              <%= link_to 'Editar', edit_reparto_path(reparto),:class=>"editarlink"%>
+            </div></td>
+        </tr>
+        <% end %>
+        </table>
+      <% else %>
+            <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+      <% end %>
+    <br/>
+  </fieldset>
+</div>

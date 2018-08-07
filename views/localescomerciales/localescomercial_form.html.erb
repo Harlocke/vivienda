@@ -1,0 +1,116 @@
+
+
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">LOCALES COMERCIALES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),proyectos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+  <div id="container">
+      <fieldset>
+       <% form_for(@localescomercial) do |f| %>
+            <div align="center">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td height="30"><div class="col_enc">REGISTRO DE FICHA</div></td>
+        </tr>
+      </table>
+    <br/>
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="12%" class="campos">Fecha Escritura</td>
+          <td width="12%" class="campos">Escritura Publica</td>
+          <td width="36%" class="campos">Proyecto</td>
+          <td width="14%" class="campos">Acta de Entrega</td>
+          <td width="13%" class="campos">Notaria</td>
+          <td width="13%" class="campos">NIT</td>
+          
+        </tr>
+        <tr valign="top">
+
+         <td><%= calendar_date_select "localescomercial", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :localescomercial, :fecha, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :escritura,{ :class => "campo", :size => 13,
+                               :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                               :onFocus => "this.style.border='1px solid #f00'",
+                               :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= error_message_on :localescomercial, :escritura, :css_class =>"cerror"%></td>
+           <td ><%= select(:localescomercial, :proyecto,select_proyectoslocales ,
+                                        { :include_blank => true },
+                                        { :style=>"width:280px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :pendiente,:estado, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "localescomercial", "acta_entrega", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :localescomercial, :acta_entrega, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :notaria,{ :class => "campo", :size => 14,
+                               :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                               :onFocus => "this.style.border='1px solid #f00'",
+                               :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :localescomercial, :notaria, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nit,{ :class => "campo", :size => 15,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :localescomercial, :nit, :css_class =>"cerror"%></td>
+               
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="30%" class="campos">Propietario</td>
+          <td width="20%" class="campos">Matricula Inmobiliaria</td>
+          <td width="50%" class="campos">Dirección</td>
+          
+        </tr>
+        <tr valign="top">
+          <td ><%= select(:localescomercial, :propietario, select_propietarioslocales ,
+                                        { :include_blank => true },
+                                        { :style=>"width:280px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :pendiente,:estado, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :matricula_inmob,{ :class => "campo", :size => 20,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+                      <%= error_message_on :localescomercial, :matricula_inmob, :css_class =>"cerror"%></td>
+          <td><%= text_area(:localescomercial, :direccion, :cols => 65, :rows => 4, :class => 'campo', :maxlength => 4000,
+                                      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                                      <%= error_message_on :localescomercial, :direccion, :css_class =>"cerror"%></td>  
+          </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/>
+
+        </tr>
+      </table>
+      <% if permiso("localescomercial","A").to_s == "S" %>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>      
+          <td width="40%" height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                          
+          </div></td>
+         
+        </tr>
+      </table>
+      <% end -%>
+  </div>
+<% end %>
+<br/>
+        </fieldset>
+</div>
+
+
+
+<br/>

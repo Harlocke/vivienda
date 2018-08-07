@@ -1,0 +1,64 @@
+<h1>Listing viviendas</h1>
+
+<table>
+  <tr>
+    <th>Consecutivo viv</th>
+    <th>Proyecto</th>
+    <th>Bloque</th>
+    <th>Direccion</th>
+    <th>Piso</th>
+    <th>Apto</th>
+    <th>Local</th>
+    <th>Bun</th>
+    <th>Tenencia</th>
+    <th>Poblacion objeto</th>
+    <th>Valor vivienda</th>
+    <th>Consig escrituras</th>
+    <th>Pago escrituras</th>
+    <th>Valor ahorro prog</th>
+    <th>Valor ahorro tras</th>
+    <th>Valor donacion</th>
+    <th>Entregado</th>
+    <th>Fecha entrega</th>
+    <th>Fonade</th>
+    <th>Vinculado</th>
+    <th>Estado inmueble</th>
+    <th>Estado</th>
+    <th>Persona</th>
+  </tr>
+
+<% @viviendas.each do |vivienda| %>
+  <tr>
+    <td><%=h vivienda.consecutivo_viv %></td>
+    <td><%=h vivienda.proyecto %></td>
+    <td><%=h vivienda.bloque %></td>
+    <td><%=h vivienda.direccion %></td>
+    <td><%=h vivienda.piso %></td>
+    <td><%=h vivienda.apto %></td>
+    <td><%=h vivienda.local %></td>
+    <td><%=h vivienda.bun %></td>
+    <td><%=h vivienda.tenencia %></td>
+    <td><%=h vivienda.poblacion_objeto %></td>
+    <td><%=h vivienda.valor_vivienda %></td>
+    <td><%=h vivienda.consig_escrituras %></td>
+    <td><%=h vivienda.pago_escrituras %></td>
+    <td><%=h vivienda.valor_ahorro_prog %></td>
+    <td><%=h vivienda.valor_ahorro_tras %></td>
+    <td><%=h vivienda.valor_donacion %></td>
+    <td><%=h vivienda.entregado %></td>
+    <td><%=h vivienda.fecha_entrega %></td>
+    <td><%=h vivienda.fonade %></td>
+    <td><%=h vivienda.vinculado %></td>
+    <td><%=h vivienda.estado_inmueble %></td>
+    <td><%=h vivienda.estado %></td>
+    <td><%=h vivienda.persona_id %></td>
+    <td><%= link_to 'Show', vivienda %></td>
+    <td><%= link_to 'Edit', edit_vivienda_path(vivienda) %></td>
+    <td><%= link_to 'Destroy', vivienda, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vivienda', new_vivienda_path %>

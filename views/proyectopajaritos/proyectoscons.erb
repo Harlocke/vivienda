@@ -1,0 +1,60 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>CONSOLIDADO PROYECTOS PAJARITO</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="4%" ><div align="center"><strong>Proyecto</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Unidad de<br/> Gestion</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Fecha</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Notaria</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Matricula Inmobiliaria</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Nombre Predio</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Matricula Mayor Extension</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Matricula Resultante</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Propietario</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Nit</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Escritura</strong></div></td>
+  </tr>
+   <% @proyectopajaritos.each do |proyectopajarito|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td ><%=h proyectopajarito.proyecto rescue nil %></td>
+        <td ><div align="center"><%=h proyectopajarito.unidad_gestion rescue nil %></div></td>
+        <td ><%=h proyectopajarito.fecha rescue nil %></td>
+        <td ><%=h proyectopajarito.notaria rescue nil %></td>
+        <td ><%=h proyectopajarito.matricula_inmob rescue nil %></td>
+        <td ><%=h proyectopajarito.nombre_predio rescue nil %></td>
+        <td ><%=h proyectopajarito.matricula_extension rescue nil %></td>
+        <td ><%=h proyectopajarito.matricula_result rescue nil %></td>
+        <td ><%=h proyectopajarito.propietario rescue nil %></td>
+        <td ><%=h proyectopajarito.nit rescue nil %></td>
+        <td ><%=h proyectopajarito.escritura rescue nil %></td>
+       </tr>
+  <% end %>
+</table>
+<br/>
+<h3>PROYECTOS</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @proyectoscons.each do |proyectoscon|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%= proyectoscon.proyecto rescue nil%></div></td>
+     <td><div align="left"><%= proyectoscon.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<h3>UNIDAD DE GESTION</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Unidad de Gestion</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @unidades.each do |unidad|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%= unidad.unidad_gestion rescue nil%></div></td>
+     <td><div align="left"><%= unidad.cant1 rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

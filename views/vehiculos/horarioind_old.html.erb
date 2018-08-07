@@ -1,0 +1,61 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 3}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<%=  javascript_include_tag :defaults %>
+<%=image_tag("frame.png")%>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" style="font-size: 14px; font-family: Tahoma;"><div align="center"><strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED -- NIT: 900.080.526-9</strong></div></td>
+        </tr>
+        <tr>
+          <td height="0" style="font-size: 13px; font-family: Tahoma;"><div align="center"><strong>PLANILLA CONTROL SERVICIO DE TRANSPORTE F-AL-11 VERSION 01 - MAYO 20 DE 2014</strong></div></td>
+        </tr>
+        <tr>
+          <td height="0" style="font-size: 13px; font-family: Tahoma;"><div align="center"><strong>TRANSPORTE - <%=namedate(@fecha) rescue nil%> - VEHICULO <%=@vehiculo.placa rescue nil%> - CONDUCTOR: <%=@vehiculo.nombre rescue nil%> - CELULAR: <%=@vehiculo.celular rescue nil%></strong></div></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<br/>
+<div align="center">
+<table width="949" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr>
+    <td width="8%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Horario</div></strong></td>
+    <td width="50%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Responsable del servicio - Detalle</strong></td>
+    <td width="6%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Hora Salida</div></strong></td>
+    <td width="6%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Hora llegada</div></strong></td>
+    <td width="25%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Firma persona transportada<br/>(Funcionario y/o contratista)</div></strong></td>
+    <td width="5%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Nro Personas</div></strong></td>
+  </tr>
+<% for vehiculosprogramacion in @vehiculo.vehiculosprogramaciones.find(:all,:conditions=>["fecha = '#{@fecha.to_date}'"],:order=>"vehiculoshorario_id") %>
+  <tr>
+    <td height="25" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=vehiculosprogramacion.vehiculoshorario.descripcion rescue nil%></div></td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">
+      <% if vehiculosprogramacion.user_id.to_s != "" %>
+        <% if vehiculosprogramacion.programainicial.to_s == "" %>
+          <%=vehiculosprogramacion.responsablenombre rescue nil%> (<%=vehiculosprogramacion.responsabledependencia rescue nil%> ) -Destino: <%=vehiculosprogramacion.destino rescue nil%>
+        <% else %>
+            RESERVADO
+        <% end %>
+     <% end %></td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+  </tr>
+<% end  %>
+</table><br/>
+<table width="500" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr>
+    <td width="80%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Nro de Horas Adicionales </strong></td>
+    <td width="20%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"></td>
+  </tr>
+</table>
+</div>
+<div style="font-size: 9px; font-family: Tahoma;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+<H1 class=SaltoDePagina>_</H1>

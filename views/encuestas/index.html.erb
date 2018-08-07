@@ -1,0 +1,40 @@
+<h1>Listing encuestas</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Claridad</th>
+    <th>Claridad comentario</th>
+    <th>Suministro</th>
+    <th>Suministro comentario</th>
+    <th>Satisfaccion</th>
+    <th>Satisfaccion comentario</th>
+    <th>Espacios</th>
+    <th>Medio</th>
+    <th>Medio cual</th>
+    <th>Comunicacion interna</th>
+  </tr>
+
+<% @encuestas.each do |encuesta| %>
+  <tr>
+    <td><%=h encuesta.user_id %></td>
+    <td><%=h encuesta.claridad %></td>
+    <td><%=h encuesta.claridad_comentario %></td>
+    <td><%=h encuesta.suministro %></td>
+    <td><%=h encuesta.suministro_comentario %></td>
+    <td><%=h encuesta.satisfaccion %></td>
+    <td><%=h encuesta.satisfaccion_comentario %></td>
+    <td><%=h encuesta.espacios %></td>
+    <td><%=h encuesta.medio %></td>
+    <td><%=h encuesta.medio_cual %></td>
+    <td><%=h encuesta.comunicacion_interna %></td>
+    <td><%= link_to 'Show', encuesta %></td>
+    <td><%= link_to 'Edit', edit_encuesta_path(encuesta) %></td>
+    <td><%= link_to 'Destroy', encuesta, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New encuesta', new_encuesta_path %>

@@ -1,0 +1,16 @@
+<h1>Editing resolucionesclase</h1>
+
+<% form_for(@resolucionesclase) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @resolucionesclase %> |
+<%= link_to 'Back', resolucionesclases_path %>

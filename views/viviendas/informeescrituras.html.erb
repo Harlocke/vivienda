@@ -1,0 +1,98 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td colspan="4"><strong>USUARIO</strong></td>
+    <td colspan="14"><strong>ESCRITURACION</strong></td>
+    <td colspan="4"><strong>CREDITO</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Bloque</strong></td>
+    <td><strong>Piso</strong></td>
+    <td><strong>Apto</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Usuario Identificacion</strong></td>
+    <td><strong>Usuario Nombre</strong></td>
+    <td><strong>Telefono</strong></td>
+    <td><strong>Email</strong></td>
+    <td><strong>Nro Matricula</strong></td>
+    <td><strong>Nro Escritura</strong></td>
+    <td><strong>Fecha Escritura</strong></td>
+    <td><strong>Notaria</strong></td>
+    <td><strong>Nro Escritura Aclaracion</strong></td>
+    <td><strong>Fecha Escritura Aclaracion</strong></td>
+    <td><strong>Notaria Aclaracion</strong></td>
+    <td><strong>Consecutivo</strong></td>
+    <td><strong>Caja</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Fecha Entrega</strong></td>
+    <td><strong>Usuario Entrega</strong></td>
+    <td><strong>Fecha Recepcion </strong></td>
+    <td><strong>Usuario Recibe</strong></td>
+    <td><strong>Nombre Entidad</strong></td>
+    <td><strong>Valor</strong></td>
+    <td><strong>Fecha Credito</strong></td>
+    <td><strong>Fecha Vencimiento</strong></td>
+  </tr>
+<%
+  for vivienda in @viviendas
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=vivienda.proyecto.descripcion rescue nil%></td>
+    <td><%=vivienda.proyecto.direccion rescue nil%></td>
+    <td><%=vivienda.bloque.descripcion rescue nil%></td>
+    <td><%=vivienda.piso.descripcion rescue nil%></td>
+    <td><%=vivienda.apto.descripcion rescue nil%></td>
+    <td><%=vivienda.descentregado%></td>
+<%
+      @viviendaspersonas = Viviendaspersona.find_all_by_vivienda_id(vivienda.id);
+      cadenaidentificacion = ""
+      contador = 0
+      cadena = ""
+      telefonos = ""
+      email = ""
+      for viviendaspersona in @viviendaspersonas
+        persona  = Persona.find(viviendaspersona.persona_id);
+        if contador == 0
+          cadenaidentificacion = persona.identificacion
+          contador = contador  +  1
+        end
+        cadena = cadena + persona.nombres + ' - '
+        telefonos = telefonos + persona.telefonos.to_s +  ' - '
+        email = email + persona.e_mail.to_s +  ' - '
+      end
+%>
+    <td><%=cadenaidentificacion%></td>
+    <td><%=cadena%></td>
+    <td><%=telefonos%></td>
+    <td><%=email%></td>
+    <td><%=vivienda.nro_matricula%></td>
+    <td><%=vivienda.esc_nro_escritura%></td>
+    <td><%=vivienda.esc_expedicion%></td>
+    <td><%=vivienda.esc_notaria_origen%></td>
+    <td><%=vivienda.escritura_aclaratoria%></td>
+    <td><%=vivienda.aclaratoria_fecha%></td>
+    <td><%=vivienda.aclaratoria_notaria%></td>
+    <td><%=vivienda.inv_consecutivo%></td>
+    <td><%=vivienda.inv_caja%></td>
+    <td><%=vivienda.inv_esc_entrega%></td>
+    <td><%=vivienda.inv_esc_fecha%></td>
+    <td><%=User.find(vivienda.inv_user).nombre rescue nil%></td>
+    <td><%=vivienda.fecha_recepcion%></td>
+    <td><%=User.find(vivienda.user_recepcion).nombre rescue nil%></td>
+    <%
+      for viviendaspersona in @viviendaspersonas
+        @creditos  = Credito.find_all_by_persona_id(viviendaspersona.persona_id);
+        for credito in @creditos %>
+          <td><%=credito.entidad.descripcion rescue nil%></td>
+          <td><%=credito.valor rescue nil%></td>
+          <td><%=credito.fecha_credito rescue nil%></td>
+          <td><%=credito.fecha_vencimiento rescue nil%></td>
+<%      end
+      end %>
+  </tr>
+<%   end %>
+</table>

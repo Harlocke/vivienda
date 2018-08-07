@@ -1,0 +1,44 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Nombre Adjudicatario</td>
+          <td width="20%" class="campos">Tiene crédito en CISA </td>
+          <td width="20%" class="campos">Valor crédito en CISA </td>
+          <td width="20%" class="campos">Adjudicatario habita el inmueble </td>
+        </tr>
+        <tr>
+          <td><%= text_field_with_auto_complete :corvidespersona, :persona_autobuscar,
+	    { :class => "campo",
+                :size => 60,
+                :maxlength => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+            <%= error_message_on :corvidespersona, :persona_autobuscar, :css_class =>"cerror"%>
+          </td>
+           <td><%= select(:corvidespersona, :cisa, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%></td>
+           <td ><%= text_field :corvidespersona, :valor_cisa,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :corvidespersona, :valor_cisa, :css_class =>"cerror"%></td>
+           <td><%= select(:corvidespersona, :habita, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%></td>
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :corvidespersona, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

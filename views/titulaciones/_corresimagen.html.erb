@@ -1,0 +1,233 @@
+<% if @titulacion.titulacionespersonas.exists? %>
+  <% @titulacion.titulacionespersonas.each do |titulacionespersona| %>
+    <% if titulacionespersona.persona.correspondenciasrecibidas.exists? %>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <div align="center">
+                <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+                  <tr>
+                    <td height="30"><div class="col_enc"><a href="javascript:void(0);"  title="Pulse aqui para ver la correspondencia Recibida" onclick="SINO('ademo<%=titulacionespersona.persona_id%>')"><%=titulacionespersona.persona.autobuscar rescue nil%> CORRESPONDENCIA RECIBIDA</a></div></td>
+                  </tr>
+                </table>
+                <div id="ademo<%=titulacionespersona.persona_id%>" style="display:none;">
+                <% titulacionespersona.persona.correspondenciasrecibidas.each do |correspondenciasrecibida| %>
+                <table width="90%" border="0"  id="one-column-emphasis">
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Nro Radicado - Fecha &nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.nro_radicado%> - <%=correspondenciasrecibida.fecha_elaboracion%></div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Numero Externo&nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.numero_externo%></div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Remitente Empresa &nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.correspondenciasremitente.identificacion rescue nil%> - <%=correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%>
+                          </div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Asunto &nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.asunto%></div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Dependencia &nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.dependencia.descripcion rescue nil%>
+                            </div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Clase &nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Observaciones&nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%=correspondenciasrecibida.observacion%></div></td>
+                        </tr>
+                <% if Correspondenciasradicado.exists?(["correspondenciasrecibida_id = ? ", correspondenciasrecibida.id]) == true
+                     @correspondenciasradicados = Correspondenciasradicado.find_all_by_correspondenciasrecibida_id(correspondenciasrecibida.id)
+                     @correspondenciasradicados.each do |correspondenciasradicado|
+                %>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Radicado Respuesta&nbsp;&nbsp;</div></td>
+                          <td class="camposNotas"><div align="left"><%=correspondenciasradicado.correspondenciasenviada.nro_radicado rescue nil%> - Fecha : <%=correspondenciasradicado.correspondenciasenviada.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%></div></td>
+                        </tr>
+                    <% end %>
+                  <% end %>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Fecha Limite&nbsp;&nbsp;</div></td>
+                          <td class="camposNotas"><div align="left"><%=correspondenciasrecibida.fecha_limite%></div></td>
+                        </tr>
+                        <tr>
+                          <td width="33%" height="20" class="campos"><div align="left">Fecha Registro en el Sistema&nbsp;&nbsp;</div></td>
+                          <td class="camposDesc"><div align="left"><%= correspondenciasrecibida.fecha_recibido.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+                        </tr>
+                </table>
+                <% if correspondenciasrecibida.corresrecibidasimagenes.exists? %>
+                <br/>
+                <table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+                  <tr>
+                    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+                  </tr>
+                </table>
+                <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+                  <tr valign="middle">
+                    <td width="45%" class="campos odd" align="left">Descripcion</td>
+                    <td width="50%" class="campos odd" align="left">Nombre del Archivo</td>
+                    <td width="5%" class="campos odd" align="left">&nbsp;</td>
+                  </tr>
+                  <% correspondenciasrecibida.corresrecibidasimagenes.each do |corresrecibidasimagen| %>
+                   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                     <td class="camposDesc" align="left"><%=corresrecibidasimagen.descripcion%></td>
+                     <td class="camposDesc" align="left"><%=corresrecibidasimagen.recibida_file_name%></td>
+                     <td class="camposDesc" align="right">
+                      <%= link_to "Ver", corresrecibidasimagen.recibida.url(:original, false),
+                                     { :popup => ['imagenes','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                     </td>
+                   </tr>
+                  <% end %>
+                </table>
+                <% else %>
+                <br/>
+                <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+                      <tr>
+                        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+                        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+                     </tr>
+                </table>
+                  <% end %>
+                <% if correspondenciasrecibida.correspondenciasrecibidasusers.exists? %>
+                <br/>
+                <table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+                  <tr>
+                    <td height="30"><div class="col_enc">USUARIOS ASIGNADOS</div></td>
+                  </tr>
+                </table>
+                <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+                  <tr valign="middle">
+                    <td width="30%" class="campos odd" align="left">Fecha Registro Asignacion</td>
+                    <td width="70%" class="campos odd" align="left">Usuario</td>
+                  </tr>
+                  <% correspondenciasrecibida.correspondenciasrecibidasusers.each do |correspondenciasrecibidasuser| %>
+                   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                    <td width="15%" class="camposDesc"><%=correspondenciasrecibidasuser.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+                    <td width="40%" class="camposDesc"><%=correspondenciasrecibidasuser.user.nombre rescue nil%></td>
+                   </tr>
+                  <% end %>
+                </table>
+                <% else %>
+                <br/>
+                <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+                      <tr>
+                        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+                        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay usuario asignado.</td>
+                     </tr>
+                </table>
+                  <% end %>
+                <% end %>
+                </div>
+                </div>
+              </td>
+            </tr>
+        </table>
+        <% end %>
+    <% if titulacionespersona.persona.correspondenciasenviadas.exists? %>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+        <div align="center">
+        <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+          <tr>
+            <td height="30" ><div class="col_enc"><a href="javascript:void(0);"  title="Pulse aqui para ver la correspondencia Enviada" onclick="SINO('ademoE<%=titulacionespersona.persona_id%>')"><%=titulacionespersona.persona.autobuscar rescue nil%> CORRESPONDENCIA ENVIADA</a></div></td>
+          </tr>
+        </table>
+        <div id="ademoE<%=titulacionespersona.persona_id%>" style="display:none;">
+        <% titulacionespersona.persona.correspondenciasenviadas.each do |correspondenciasenviada| %>
+          <table width="90%" border="0"  id="one-column-emphasis">
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Nro Radicado y Fecha &nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.nro_radicado%> - <%=correspondenciasenviada.fecha_elaboracion%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Lugar destino&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.lugar_destino%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Remitente Empresa &nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.correspondenciasremitente.nombre rescue nil%>
+            </div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Asunto &nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.asunto%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Dependencia - Usuario&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.dependencia.descripcion rescue nil%> - <%=User.find(correspondenciasenviada.userdependencia_id).nombre rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Anexos&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.anexos%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Devolucion&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.devolucion%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Reenvio&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.reenvio%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Guia Correo&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.guiacorreo%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Observaciones&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.observacion%></div></td>
+          </tr>
+          <tr>
+            <td width="33%" height="20" class="campos"><div align="left">Fecha Registro en el Sistema&nbsp;&nbsp;</div></td>
+            <td class="camposDesc"><div align="left"><%=correspondenciasenviada.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+          </tr>
+          </table>
+          <% if correspondenciasenviada.corresenviadasimagenes.exists? %>
+          <br/>
+          <table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+            <tr>
+              <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+            </tr>
+          </table>
+          <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+            <tr valign="middle">
+              <td width="45%" class="campos odd" align="left">Descripcion</td>
+              <td width="50%" class="campos odd" align="left">Nombre del Archivo</td>
+              <td width="5%" class="campos odd" align="left">&nbsp;</td>
+            </tr>
+            <% correspondenciasenviada.corresenviadasimagenes.each do |corresenviadasimagen| %>
+            <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+              <td class="camposDesc" align="left"><%=corresenviadasimagen.descripcion%></td>
+              <td class="camposDesc" align="left"><%=corresenviadasimagen.enviada_file_name%></td>
+              <td class="camposDesc" align="right">
+              <%= link_to "Ver", corresenviadasimagen.enviada.url(:original, false),
+                           { :popup => ['imagenes','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+              </td>
+            </tr>
+          <% end %>
+          </table>
+          <% else %>
+          <br/>
+          <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+            <tr>
+              <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+              <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+            </tr>
+          </table>
+          <% end %>
+          <% end %>
+          </div>
+          </div>
+      </td>
+    </tr>
+    </table>
+<% end %>
+<% end %>
+<% end %>

@@ -1,0 +1,115 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <td colspan="3" class="campos"><div align="left">HONORARIOS DEL PERIODO</div></td>
+    <td colspan="2" class="campos"><div align="center"><%=camponumerico(@interventoria.valor_mes) rescue 0%></div></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Item</td>
+    <td class="campos"><div align="left">Descripcion</div></td>
+    <td class="campos"><div align="center">Valor Esperado</div></td>
+    <td class="campos"><div align="center">Valor Real</div></td>
+    <td class="campos"><div align="center">Limites</div></td>
+  </tr>
+  <tr>
+    <td width="15%" rowspan="6" class="campos">DEDUCCIONES</td>
+    <td width="40%" class="camposDesc"><div align="left">Aportes Salud</div></td>
+    <td width="13%" class="camposDesc"><div align="right"><%=camponumerico(@interventoria.salud_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td width="12%" class="camposDesc"><div align="right"><%=camponumerico(@interventoria.salud) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td width="20%" class="camposDesc"><div align="right">0</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Aportes ARL</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.arl_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%= camponumerico(@interventoria.arl) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right">0</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Intereses Creditos de Vivienda 100 UVT</div></td>
+    <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%= camponumerico(@interventoria.interes_credito) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right">0</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Salud Medicina Prepagada 16 UVT</div></td>
+    <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.salud_prepagada) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right">459.000</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc" ><div align="left">Dependientes (10% honorarios del periodo) 32 UVT</div></td>
+    <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.dependientes) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right">859.000</div></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" >TOTAL DEDUCCIONES </td>
+    <td class="campos" >&nbsp;</td>
+    <td class="campos" ><div align="right"><%=camponumerico(@interventoria.subtotal) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="campos">&nbsp;</td>
+  </tr>
+  <tr>
+    <td rowspan="4" class="campos">RENTAS EXENTAS </td>
+    <td class="camposDesc"><div align="left">Aportes Obligatorias Fondos de Pension</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.pension_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.pension) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right">1.740.000</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Aportes Cuentas AFC</div></td>
+    <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.afc) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="camposDesc" rowspan="2"><div align="justify" style="font-size: 9px;">La suma de los aportes no puede ser mayor al 30% del total de los honorarios del periodo</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Aportes Voluntarios Fondos de Pension</div></td>
+    <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.voluntarias) rescue 0%>&nbsp;&nbsp;</div></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">TOTAL RENTAS EXENTAS </td>
+    <td class="campos">&nbsp;</td>
+    <td class="campos"><div align="right"><%=camponumerico(@interventoria.subtotalr) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="campos">&nbsp;</td>
+  </tr>
+  <tr class="odd1">
+    <td colspan="3" class="campos"><div align="left">SUBTOTAL</div></td>
+    <td class="campos"><div align="right"><%=camponumerico(@interventoria.subtotalt) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="campos">&nbsp;</td>
+  </tr>
+  <tr>
+    <td rowspan="5" class="campos">OTROS CONCEPTOS </td>
+    <td class="camposDesc"><div align="left">Menos Renta Exenta (Art 2. Dcto 1070/2013)</div></td>
+    <td><div align="left">&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.renta) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Base Retencion en la Fuente</div></td>
+    <td><div align="left">&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.base_retefuente) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Base Rte en la Fuente en UVT</div></td>
+    <td><div align="left">&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.base_uvt) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td><div align="left"></div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Retencion en la Fuente&nbsp; (ART 383 E.T.)</div></td>
+    <td><div align="left">&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.retefuente383) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td><div align="left"></div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><div align="left">Retencion en la Fuente&nbsp; (ART 384 E.T.)</div></td>
+    <td><div align="left">&nbsp;</div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.retefuente384) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td><div align="left"></div></td>
+  </tr>
+  <tr class="odd1">
+    <td colspan="3" class="campos"><div align="left">TOTAL A PAGAR</div></td>
+    <td class="campos"><div align="right"><%=camponumerico(@interventoria.total) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="campos">&nbsp;</td>
+  </tr>
+</table>

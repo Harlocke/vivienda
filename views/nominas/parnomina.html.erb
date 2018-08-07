@@ -1,0 +1,121 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/nominamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;NOMINA</div></td>
+              <td width="3%"><div align="right"> </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">Generación PRE-NOMINA</div></td>
+  </tr>
+</table>
+<% form_tag exenomina_nominas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="27%" class="campos">Seleccione el periodo de liquidacion a Generar</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=select("ubicacion", "periodosliquidacion_id", Periodosliquidacion.find(:all, :conditions => ['estado = 1'], :order=>"fecha_final asc").collect {|p| [ p.fecha_inicial.to_s+' - '+p.fecha_final.to_s, p.id ] }, { :include_blank => true },
+      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <% if permiso("nomina","C").to_s == "S" %>
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar", :name => 'nil', :value => 'Generar Pre-Nomina', :disable_with => "Generando..." %>
+          </span></div>
+        <%end%>
+     </div></td>
+  </tr>
+</table>
+<% end %>
+
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">Consulta - NOMINA</div></td>
+  </tr>
+</table>
+<% form_tag consulta_nominas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="27%" class="campos">Seleccione el periodo de liquidacion a Generar</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=select("ubicacion", "periodosliquidacion_id", Periodosliquidacion.find(:all, :conditions => ['estado = 0'], :order=>"fecha_final desc").collect {|p| [ p.fecha_inicial.to_s+' - '+p.fecha_final.to_s, p.id ] }, { :include_blank => true },
+      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Pre_nomina", :name => 'nil', :value => 'Generar - Nomina', :disable_with => "Generando..." %>
+          </span></div>
+     </div></td>
+  </tr>
+</table>
+<% end %>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">Consolidados - NOMINA</div></td>
+  </tr>
+</table>
+<% form_tag consolidado_nominas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="27%" class="campos">Seleccione el Año</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">
+       <%= select("ubicacion",
+                :anno, [ ["2011", "2011"],
+                         ["2012", "2012"],
+                         ["2013", "2013"],
+                         ["2014", "2014"],
+                         ["2015", "2015"],
+                         ["2016", "2016"],
+                         ["2017", "2017"]],
+                       {:prompt => "– SELECCIONE EL AÑO –"},
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Consolidado", :name => 'nil', :value => 'Generar - Nomina', :disable_with => "Generando..." %>
+          </span></div>
+     </div></td>
+  </tr>
+</table>
+<% end %>

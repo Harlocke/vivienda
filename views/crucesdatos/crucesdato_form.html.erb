@@ -1,0 +1,63 @@
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/crucesminambientemin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;DATOS DEL CRUCE</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_for(@crucesdato) do |f| %>
+<br/>
+<div align="center">
+<table width="80%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <td width="40%" height="20" class="campos" align="left">Nombre Entidad</td>
+    <td width="60%" class="camposDesc" align="left"><%=@crucesdato.nombre_entidad%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Identificación - Apellidos Nombres</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.identificacion%> <%=@crucesdato.nombres%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Dirección Inmueble</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.direccion_inmueble%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Dpto</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.departamento%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Mpio</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.municipio%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Matricula Inmobiliaria</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.matricula%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Cedula Catastral</td>
+    <td class="camposDesc" align="left"><%=@crucesdato.cedula_catastral%></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos" align="left">Indique las observaciones de porque va realizar el levantemiento del cruce.</td>
+    <td class="camposDesc" align="left">
+      <%=text_area(:crucesdato, :ratifica_observaciones, :cols => 80, :rows => 4, :class => 'campo',:maxlength => 4000,
+       :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+    </td>
+  </tr>
+</table>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <div class="uiButton"><img class="img" src="/images/cancel.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar', {:controller=>"cruces", :action=>"mostrar", :persona_id =>@crucesdato.cruce.persona_id,:id=>1}%></span></div>
+     </div></td>
+  </tr>
+</table>
+  </div>
+<% end %>

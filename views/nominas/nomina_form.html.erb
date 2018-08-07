@@ -1,0 +1,96 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/nominamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;MODIFICACIONES <%=@nomina.nombreperiodo%></div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+                { :border=>0, :title => "Regresar a la nomina"}),{:controller=>"nominas", :action=>"consulta", :id=>@nomina.periodosliquidacion_id} %>
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<% form_for(@nomina) do |f| %>
+<div align="center">
+<table width="60%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr class="odd1">
+            <td width="40%" height="20" class="campos"><div align="left">Empleado</div></td>
+            <td width="60%" class="camposDesc"><%=@nomina.empleado.identificacion %> - <%=@nomina.empleado.nombres %></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Salario</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :salario,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Dias</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :dias,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Total Devengado </div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :subtotal,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Total Incapacidad </div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :total_incapacidad,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Salud</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :salud,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Pension</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :pension,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Solidaridad</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :solidaridad,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Retefuente</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :retefuente,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Novedades</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :novedades,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Total Deducciones </div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :total_deducciones,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="campos"><div align="left">Otros Dev.</div></td>
+            <td class="camposDesc"><div align="left"><%= f.text_field :otros_devengados,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="20" class="campos"><div align="left">Total a Pagar </div></td>
+            <td class="campos"><div align="left"><%= f.text_field :total,{ :class => "campo", :size => 20,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div></td>
+          </tr>
+     </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">
+            <% unless @nomina.new_record? %>
+            Ultima Actualización: <%=is_usernameuser(@nomina.useract_id) rescue nil%> - <%=@nomina.updated_at.strftime("%Y-%m-%d %X")%>
+          <% end %></td>
+          <td  height="30"><div align="right">
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+             </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>
+<% end %>

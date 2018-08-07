@@ -1,0 +1,16 @@
+<h1>Editing viviendasreporte</h1>
+
+<% form_for(@viviendasreporte) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @viviendasreporte %> |
+<%= link_to 'Back', viviendasreportes_path %>

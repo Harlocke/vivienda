@@ -1,0 +1,38 @@
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" align="left" class="campos">Fecha *</td>
+          <td width="25%" align="left" class="campos">Actividad *</td>
+          <td width="15%" align="left" class="campos">Valor *</td>
+          <td width="35%" align="left" class="campos">Observaciones *</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= calendar_date_select "empleadosactividad", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%>
+          <%= error_message_on :empleadosactividad, :fecha, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadosactividad, :tipo_actividad,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :empleadosactividad, :tipo_actividad, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadosactividad, :valor,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :empleadosactividad, :valor, :css_class =>"cerror"%></td>
+        <td align="left" class="camposDesc"><%= text_area(:empleadosactividad, :observaciones, :cols => 40, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %>
+        <%= error_message_on :empleadosactividad, :observaciones, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :empleado, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>

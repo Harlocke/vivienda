@@ -1,0 +1,28 @@
+<h1>Listing interventoriasfechas</h1>
+
+<table>
+  <tr>
+    <th>Anno</th>
+    <th>Mes</th>
+    <th>Fecha inicial</th>
+    <th>Fecha final</th>
+    <th>Fecha limite</th>
+  </tr>
+
+<% @interventoriasfechas.each do |interventoriasfecha| %>
+  <tr>
+    <td><%=h interventoriasfecha.anno %></td>
+    <td><%=h interventoriasfecha.mes %></td>
+    <td><%=h interventoriasfecha.fecha_inicial %></td>
+    <td><%=h interventoriasfecha.fecha_final %></td>
+    <td><%=h interventoriasfecha.fecha_limite %></td>
+    <td><%= link_to 'Show', interventoriasfecha %></td>
+    <td><%= link_to 'Edit', edit_interventoriasfecha_path(interventoriasfecha) %></td>
+    <td><%= link_to 'Destroy', interventoriasfecha, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New interventoriasfecha', new_interventoriasfecha_path %>

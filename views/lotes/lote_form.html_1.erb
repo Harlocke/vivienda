@@ -1,0 +1,821 @@
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION LOTES</div></td>
+              <td width="3%"><div align="right">
+                <%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar Lotes"}),proyectos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<fieldset>
+  <div align="center">
+<% form_for(@lote) do |f| %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN GENERAL DEL LOTE</div></td>
+  </tr>
+</table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="30%" class="campos">Direccion</td>
+          <td width="25%" class="campos">Ubicacion*</td>
+          <td width="40%" class="campos">Interesado </td>
+          <td width="5%" class="campos">Telefono</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= f.text_field :direccion,{ :class => "campo", :size => 45,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :ubicacion,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :ubicacion, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :interesado,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :interesado, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :telefono,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :telefono, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="35%" class="campos">Poligono de Tratamiento</td>
+          <td width="22%" class="campos">Barrio</td>
+          <td width="22%" class="campos">Comuna</td>
+          <td width="22%" class="campos">Area Lote</td>
+          <td width="15%" class="campos">Cobama Lote</td>
+          <td width="15%" class="campos">Matricula Inmobiliaria</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= f.text_field :poligonotratamiento,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :poligonotratamiento, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :barrio,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :barrio, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :comuna,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :comuna, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :arealote,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :arealote, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :cobamalote,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :cobamalote, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :matricula,{ :class => "campo", :size => 27,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :matricula, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="55%" class="campos">Uso del Suelo</td>
+          <td width="15%" class="campos">Aptitud Geologica</td>
+          <td width="15%" class="campos">Tipo de Suelo</td>
+          <td width="15%" class="campos">Zona Alto Riesgo</td>
+          <td width="10%" class="campos">Cesion Vial</td>
+        </tr>
+        <tr>
+
+          <td class="camposDesc">    <%= select(:lote,
+                :usosuelo, { "RESIDENCIAL TIPO 1" =>"RESIDENCIAL TIPO 1",
+"RESIDENCIAL TIPO 2" =>"RESIDENCIAL TIPO 2",
+"RESIDENCIAL TIPO 3" =>"RESIDENCIAL TIPO 3",
+"INDUSTRIAL" =>"INDUSTRIAL",
+"AREAS Y CORREDORES DE ACTIVIDAD MULTIPLE - ZONALES" =>"AREAS Y CORREDORES DE ACTIVIDAD MULTIPLE - ZONALES",
+"AREAS Y CORREDORES DE ACTIVIDAD MULTIPLE - BARRIALES" =>"AREAS Y CORREDORES DE ACTIVIDAD MULTIPLE - BARRIALES",
+"CENTRO TRADICIONAL" =>"CENTRO TRADICIONAL",
+"CORREDORES ESPECIALIZADOS" =>"CORREDORES ESPECIALIZADOS"},
+                        { :include_blank => true },
+                      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= f.error_message_on :usosuelo, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= select(:lote,
+                :aptitudgeol, { "B"=>"B",
+"A"=>"A",
+"C"=>"C",
+"D"=>"D",
+"E"=>"E"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= f.error_message_on :aptitudgeol, :css_class =>"cerror"%></td>
+          <td height="19" class="camposDesc"><%= select(:lote,
+                :tiposuelo, { "URBANO"=>"URBANO",
+                              "RURAL"=>"RURAL",
+                              "PROTECCION"=>"PROTECCION",
+                              "SUBURBANO"=>"SUBURBANO"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= f.error_message_on :tiposuelo, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= select(:lote,
+                :zonaaltoriesgo, { "SI"=>"SI","NO"=>"NO"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= f.error_message_on :zonaaltoriesgo, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :cesionvial,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :cesionvial, :css_class =>"cerror"%>
+          <%= observe_field :lote_cesionvial, :url => { :action => :cesionvial },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_arealote')
+                           +'&pvr3='+$F('lote_municipal_indiceconstruccion')
+                           +'&pvr4='+$F('lote_nacional_indiceconstruccion')
+                           +'&pvr5='+$F('lote_municipal_indiceocupacion')
+                           +'&pvr6='+$F('lote_nacional_indiceocupacion')
+                           +'&pvr7='+$F('lote_municipal_densidadvivienda')
+                           +'&pvr8='+$F('lote_nacional_densidadvivienda')
+                           +'&pvr9='+$F('lote_nacional_vivienda')"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos">Area Neta Lote</td>
+          <td width="15%" class="campos">Oficio</td>
+          <td width="15%" class="campos">Fecha Ingreso</td>
+          <td width="55%" class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= f.text_field :areanetalote,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :areanetalote, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :oficiocorreootro,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :oficiocorreootro, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :fechaingreso,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :fechaingreso, :css_class =>"cerror"%></td>
+          <td class="camposDesc"></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">1. NORMAS GENERALES</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">A. APROVECHAMIENTOS= BENEFICIOS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%">&nbsp;</td>
+    <td colspan="2" class="campos"><div align="center">NORMA MUNICIPAL NO VIP</div></td>
+    <td colspan="2" class="campos"><div align="center">NORMAS NACIONALES VIP</div></td>
+  </tr>
+  <tr>
+    <td width="133" class="campos"> - INDICE CONSTRUCCION (PISOS)</td>
+    <td width="13%">
+      <%= f.text_field :municipal_indiceconstruccion,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_indiceconstruccion, :css_class =>"cerror"%>
+       <%= observe_field :lote_municipal_indiceconstruccion, :url => { :action => :municipal_indiceconstruccion },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_indiceconstru_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_indiceconstruccion,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_indiceconstruccion, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_indiceconstruccion, :url => { :action => :nacional_indiceconstruccion },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_indiceconstrun_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos"> - INDICE OCUPACION</td>
+    <td width="13%">
+      <%= f.text_field :municipal_indiceocupacion,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_indiceocupacion, :css_class =>"cerror"%>
+       <%= observe_field :lote_municipal_indiceocupacion, :url => { :action => :municipal_indiceocupacion },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_indiceocupa_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_indiceocupacion,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_indiceocupacion, :css_class =>"cerror"%>
+       <%= observe_field :lote_nacional_indiceocupacion, :url => { :action => :nacional_indiceocupacion },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_indiceocupacion_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos"> - DENSIDAD (VIVIENDA POR HECTAREA)</td>
+    <td width="13%">
+      <%= f.text_field :municipal_densidadvivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_densidadvivienda, :css_class =>"cerror"%>
+       <%= observe_field :lote_municipal_densidadvivienda, :url => { :action => :municipal_densidadvivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_densidadvivi_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_densidadvivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_densidadvivienda, :css_class =>"cerror"%>
+       <%= observe_field :lote_nacional_densidadvivienda, :url => { :action => :nacional_densidadvivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_densidadvivi_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos"> - APROVECHAM COMERCIO (MAX EN M2)</td>
+    <td width="13%">
+      <%= f.text_field :municipal_aprovechamcomercio,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_aprovechamcomercio, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="13%">
+      <%= f.text_field :nacional_aprovechamcomercio,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_aprovechamcomercio, :css_class =>"cerror"%>
+    </td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">B. CESIONES DE SUELO Y EQUIPAMIENTO= CARGAS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%">&nbsp;</td>
+    <td colspan="2" class="campos"><div align="center">NORMA MUNICIPAL NO VIP</div></td>
+    <td colspan="2" class="campos"><div align="center">NORMAS NACIONALES VIP</div></td>
+  </tr>
+  <tr>
+    <td width="133" class="campos">a. SUELO PARA ZONAS VERDES</td>
+    <td width="13%">
+      <%= f.text_field :municipal_sueloverdes,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_sueloverdes, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_sueloverdes_valor,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="campos"> - VIVIENDA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_vivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_vivienda, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_vivienda, :url => { :action => :municipal_vivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_sueloverdes')
+                           +'&pvr3='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_vivienda_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_vivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_vivienda, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_vivienda, :url => { :action => :nacional_vivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_areanetalote')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_vivienda_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos"> - OTROS USOS</td>
+    <td width="13%">
+      <%= f.text_field :municipal_otrosusos,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_otrosusos, :css_class =>"cerror"%>
+       <%= observe_field :lote_municipal_otrosusos, :url => { :action => :municipal_otrosusos},
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_aprovechamcomercio')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_otrosusos_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_otrosusos,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_otrosusos, :css_class =>"cerror"%>
+ <%= observe_field :lote_nacional_otrosusos, :url => { :action => :nacional_otrosusos},
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_aprovechamcomercio')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_otrosusos_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+  <tr>
+    <td class="campos"> - MINIMO ZONAS VERDES POR SUELO</td>
+    <td width="13%">
+      <%= f.text_field :municipal_minimoverdes,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_minimoverdes, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_minimoverdes, :url => { :action => :municipal_minimoverdes },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_arealote')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_minimoverdes_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+<tr>
+    <td width="133" class="campos">b. CONSTRUCCION EQUIPAMENTO</td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="campos"> - VIVIENDA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_bvivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_bvivienda, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_bvivienda, :url => { :action => :municipal_bvivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_bvivienda_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">
+      <%= f.text_field :nacional_bvivienda,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :nacional_bvivienda, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_bvivienda, :url => { :action => :nacional_bvivienda },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_densidadvivi_valor')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_bvivienda_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+<tr>
+    <td class="campos"> - OTROS USOS</td>
+    <td width="13%">
+      <%= f.text_field :municipal_botrosusos,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_botrosusos, :css_class =>"cerror"%>
+       <%= observe_field :lote_municipal_botrosusos, :url => { :action => :municipal_botrosusos },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_aprovechamcomercio')"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_botrosusos_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+
+<tr>
+    <td width="133" class="campos">c. CESIONES DE VIAS</td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+<tr>
+    <td class="campos"> - SOLICITAR LAS VIAS OBLIGADAS</td>
+    <td width="13%">
+      <%= f.text_field :municipal_solicitarvias,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_solicitarvias, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">
+      <%= f.text_field :municipal_solicitarvias_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">2. NORMAS ESPECIFICAS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">A. RETIROS GENERALES</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%">&nbsp;</td>
+    <td colspan="2" class="campos"><div align="center">NORMA MUNICIPAL NO VIP</div></td>
+    <td colspan="2" class="campos"><div align="center">NORMAS NACIONALES VIP</div></td>
+  </tr>
+  <tr>
+    <td class="campos"> - RETIROS A LINDEROS ENTRE FACHADAS</td>
+    <td width="13%">
+      <%= f.text_field :municipal_entrefachadas,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_entrefachadas, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="13%">
+      <%= f.text_field :nacional_entrefachadas,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_entrefachadas, :css_class =>"cerror"%>
+    </td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="campos"> - RETIROS A 11MTS A EJE DE VIA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_aejedevia,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_aejedevia, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="13%">
+      <%= f.text_field :nacional_aejedevia,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_aejedevia, :css_class =>"cerror"%>
+    </td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">B. PARQUEADEROS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="49%">&nbsp;</td>
+    <td colspan="2" class="campos"><div align="center">NORMA MUNICIPAL NO VIP</div></td>
+    <td colspan="2" class="campos"><div align="center">NORMAS NACIONALES VIP</div></td>
+  </tr>
+  <tr>
+    <td class="campos">ESTRATO PREDOMINANTE DEL SECTOR</td>
+    <td width="13%">
+      <%= f.text_field :municipal_estratosector,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_estratosector, :css_class =>"cerror"%>
+    </td>
+    <td width="13%">&nbsp;</td>
+    <td width="13%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="campos"> - PRIVADOS MINIMO 1 CELDA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_privadosminimo,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_privadosminimo, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_privadosminimo, :url => { :action => :municipal_privadosminimo },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%"><%= f.text_field :municipal_privadosmin_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td width="13%">
+      <%= f.text_field :nacional_privadosminimo,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_privadosminimo, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_privadosminimo, :url => { :action => :nacional_privadosminimo },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_densidadvivi_valor')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_privadosmin_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+<tr>
+    <td class="campos"> - PRIVADOS MAXIMO 1 CELDA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_privadosmaximo,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_privadosmaximo, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_privadosmaximo, :url => { :action => :municipal_privadosmaximo },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%"><%= f.text_field :municipal_privadosmax_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td width="13%">
+      <%= f.text_field :nacional_privadosmaximo,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_privadosmaximo, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_privadosmaximo, :url => { :action => :nacional_privadosmaximo },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_densidadvivi_valor')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_privadosmax_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+<tr>
+    <td class="campos"> - VISITANTES 1 CELDA</td>
+    <td width="13%">
+      <%= f.text_field :municipal_visitantes,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_visitantes, :css_class =>"cerror"%>
+      <%= observe_field :lote_municipal_visitantes, :url => { :action => :municipal_visitantes },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%"><%= f.text_field :municipal_visitantes_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td width="13%">
+      <%= f.text_field :nacional_visitantes,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_visitantes, :css_class =>"cerror"%>
+      <%= observe_field :lote_nacional_visitantes, :url => { :action => :nacional_visitantes },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_densidadvivi_valor')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_visitantes_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+<tr>
+    <td class="campos"> - MOTOS</td>
+    <td width="13%">
+      <%= f.text_field :municipal_motos,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :municipal_motos, :css_class =>"cerror"%>
+ <%= observe_field :lote_municipal_motos, :url => { :action => :municipal_motos },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_municipal_densidadvivi_valor')"%>
+    </td>
+    <td width="13%"><%= f.text_field :municipal_motos_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    <td width="13%">
+      <%= f.text_field :nacional_motos,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= f.error_message_on :nacional_motos, :css_class =>"cerror"%>
+ <%= observe_field :lote_nacional_motos, :url => { :action => :nacional_motos },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'valor='+encodeURIComponent(value)
+                           +'&pvr2='+$F('lote_nacional_densidadvivi_valor')"%>
+    </td>
+    <td width="12%">
+      <%= f.text_field :nacional_motos_valor,{ :class => "campodisabled", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    </td>
+  </tr>
+</table>
+</td>
+  </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2">
+            <tr>
+              <td  height="30"><div align="right">
+                  <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                  <% if permiso("lote","E").to_s == "S" %>
+                     &nbsp;&nbsp;<%= link_to 'Eliminar', @lote, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+                  <% end %>
+                 </div></td>
+            </tr>
+          </table>
+  <% end %>
+  </div>
+</fieldset>

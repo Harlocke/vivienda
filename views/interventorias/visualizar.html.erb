@@ -1,0 +1,121 @@
+<style type="text/css">
+<!--
+H3.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc" ALIGN="center">CERTIFICADO PARA PAGO</div></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contratista: </strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.empleado.autobuscar rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contrato número:</strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.nro_contrato%> de <%=@interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Tipo de Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Objeto del Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify"><%=@interventoria.contrato.objeto%></div></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Valor total del Contrato:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                 <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i)%>
+              <% else %>
+                 <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase%>
+              <% end %> PESOS M/L)</td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Valor mensual:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Duración del Contrato:</strong></td>
+            <td class="camposDesc"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_dias%> dias
+                <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+            </td>
+          </tr>
+
+          <tr class="odd1">
+            <td  class="campos"><strong>Nro Compromiso:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_compromiso rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Nro Disponibilidad:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_disponibilidad rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Periodo</strong></td>
+            <td class="camposDesc">Mes: <%=descmes(@interventoria.mes) rescue nil%> - Año <%=@interventoria.anno rescue nil%> </td>
+          </tr>
+        </table>
+        <br/>
+      <% if @interventoria.version.to_s == '1'%>
+        <%= render 'version1' %>        
+      <% else %>
+        <%= render 'version2' %>        
+      <% end %>
+      <br/>
+      <div align="justify" style="font-size: 11px;">
+      CERTIFICO BAJO GRAVEDAD DE JURAMENTO, QUE LOS DOCUMENTOS SOPORTE DEL PAGO DE APORTES OBLIGATORIOS
+                AL SISTEMA GENERAL DE SEGURIDAD SOCIAL, CORRESPONDEN A LOS INGRESOS PROVENIENTES DEL CONTRATO NO. <strong><%=@interventoria.contrato.nro_contrato%></strong>
+                DE <strong><%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></strong>,
+                MATERIA DEL PAGO SUJETO A RETENCIÓN EN LA FUENTE, Y QUE EL VALOR A DISMINUIR DE LA BASE DE RETENCIÓN EN LA FUENTE
+                CORRESPONDE AL MES DE <strong><%=descmes(@interventoria.mes) rescue nil%></strong> DE <strong><%=@interventoria.anno rescue nil%></strong></div><br/>
+      <div align="justify" style="font-size: 11px;">LOS APORTES OBLIGATORIOS AL SISTEMA GENERAL DE SEGURIDAD SOCIAL CORRESPONDEN A LOS INGRESOS DEL PERIODO Y ESTÁ DE ACUERDO A LOS MONTOS EXIGIDOS POR LEY : REVISADO POR GESTIÓN HUMANA</div><br/>
+      <div align="justify" style="font-size: 11px;">EL CONTRATISTA CUMPLIO A CABALIDAD CON LAS OBLIGACIONES PACTADAS EN EL CONTRATO SEGÚN VERIFICACION REALIZADA AL INFORME DE ACTIVIDADES QUE SE ENCUENTRA ALMACENADO EN EL SIFI (MODULO DE INFORMES DE INTERVENTORIA), LOS SOPORTES DEL PAGO DE LA SEGURIDAD SOCIAL REPOSAN EN LA CARPETA DEL CONTRATO, POR LO ANTERIOR SE AUTORIZA EL PAGO DE SUS HONORARIOS DEL PERIODO <strong><%=descmes(@interventoria.mes) rescue nil%></strong> DE <strong><%=@interventoria.anno rescue nil%></strong></div>
+    </td>
+  </tr>
+</table><H3 class=SaltoDePagina> </H3>
+<table width="100%" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="../../images/frame.png"/></td>
+      </tr>
+    </table><br/><br/>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>  
+      <div align="justify" style="font-size: 12px;">EN CUMPLIMIENTO DE LO SEÑALADO  EN EL PARÁGRAFO 2 DEL ARTÍCULO 383 Y EN EL NUMERAL 2 DEL ARTÍCULO 388 DEL ESTATUTO TRIBUTARIO, INFORMO QUE PARA PRESTAR MIS SERVICIOS DURANTE EL MES DE <strong><%=descmes(@interventoria.mes) rescue nil%></strong> DE <strong><%=@interventoria.anno rescue nil%></strong>, NO HE CONTRATADO O VINCULADO DOS O MÁS TRABAJADORES ASOCIADOS A LA ACTIVIDAD.<br/><br/>
+   <strong><%=@interventoria.observaciones rescue nil%></strong></div><br/><br/><br/>
+      Atentamente,<br/><br/><br/><br/>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="0" class="campos">_____________________________________________________</td>
+        <td width="50%" height="0" class="campos">_____________________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos">SUPERVISOR</td>
+        <td height="0" class="campos">CONTRATISTA</td>
+      </tr>
+      <tr valign="top">
+        <td height="0" class="campos"><%=@interventoria.nombreinterventor%></td>
+        <td height="0" class="campos"><%=@interventoria.contrato.empleado.nombres rescue nil%><br/>
+                                   C.C. <%=@interventoria.contrato.empleado.identificacion rescue nil%><br/>
+        Direccion: <%=@interventoria.contrato.empleado.direccion rescue nil%><br/>
+        Telefono: <%=@interventoria.contrato.empleado.telefono rescue nil%></td>
+      </tr>
+    </table><br/>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+    </td>
+  </tr>
+</table>
+</div>

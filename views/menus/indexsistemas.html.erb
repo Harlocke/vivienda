@@ -1,0 +1,26 @@
+<h3>Para el Área de Sistemas del Instituto de Vivienda y Habitat de Medellin - ISVIMED - es importante contar con su calificación de los soportes que se solicitan a través del SIFI</h3>
+<div style="font-size: 11px; color: red;">Debes calificar para poder ingresar al Menú de Opciones del SIFI.</div>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="20" class="oce-first">Fecha</td>
+    <td width="70%" height="20" class="oce-first">Descripcion</td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @mensajesenvios.each do |mensajesenvio| %>
+  <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="center"><strong><%=h mensajesenvio.created_at.strftime("%Y-%m-%d %X") %></strong></div></td>
+    <td class="camposDesc"><%=h mensajesenvio.descripcion %></td>
+    <td class="camposDesc"><div align="center">
+      <% if mensajesenvio.estado == "I"%>
+         <%= image_tag("tick.png", :size => "16x16") %>
+      <% else %>
+         <%= link_to 'Calificar', edit_mensajesenvio_path(mensajesenvio),:title => "Actualizar", :class=>"editarlink" %>
+      <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<br/>
+<div style="font-size: 11px; color: red;">Si ya finalizaste la revisión y quieres volver al menu principal del SIFI, pulsa <%= link_to 'Aqui',menus_path %></div>

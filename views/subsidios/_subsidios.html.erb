@@ -1,0 +1,97 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">SUBSIDIOS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @subsidio] do |form| %>
+  <% if permiso("subsidio","C").to_s == "S" %>
+        <% if !@subsidio.id %>
+	<%= render :partial => "/subsidios/subsidios_form" %>
+    <% end %>
+<% end %>
+<% if @persona.subsidios.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Tipo Subsidio</td>
+    <td width="10%" class="oce-first">Valor Asignado</td>
+    <td width="15%" class="oce-first">Nro Resolucion ó Asignacion</td>
+    <td width="20%" class="oce-first">Estado</td>
+    <td width="15%" class="oce-first">Tipo de Cobro</td>
+    <td width="20%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @persona.subsidios.each do |subsidio| %>
+<% if subsidio.id != @subsidio.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="subsidio_<%=subsidio.id%>">
+    <td width="20%" height="30" class="camposDesc"><%=subsidio.tipos_subsidio.descripcion rescue nil%></td>
+    <td width="10%" class="camposDesc">$ <%=number_to_currency(subsidio.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" class="camposDesc"><%=subsidio.resolucion%></td>
+    <td width="20%" class="camposDesc"><%=subsidio.estadosubsidio%></td>
+    <td width="17%" class="camposDesc"><%=subsidio.tipocobro%></td>
+    <td width="18%" class="camposDesc">
+      <div align="center">
+      <%= link_to "Ver", {:controller => "subsidios", :action => "visualizar", :id=>subsidio.id}, :popup => ['new_window','height=550,width=600,scrollbars=yes'], :class=>"verlink"%>
+      <% if subsidio.restringue.to_s == "X" %>
+            <% if permiso("subsidioespecial","A").to_s == "S" %>
+              |&nbsp;<%= link_to_remote('Editar',{:url => edit_persona_subsidio_path(@persona, subsidio),
+                        :method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("subsidioespecial","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => persona_subsidio_path(@persona, subsidio),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      <% else %>
+            <% if permiso("subsidio","A").to_s == "S" %>
+              |&nbsp;<%= link_to_remote('Editar',{:url => edit_persona_subsidio_path(@persona, subsidio),
+                        :method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("subsidio","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => persona_subsidio_path(@persona, subsidio),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      <% end %>
+      </div></td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR SUBSIDIOS</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="subsidio_<%=@subsidio.id%>">
+      <%= render :partial => "subsidios_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:subsidio] %>
+<div id="subsidio">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:subsidio] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('subsidio');", 5000)
+</script>
+<% end %>
+</fieldset>
+
+

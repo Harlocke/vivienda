@@ -1,0 +1,70 @@
+<h1>Listing proyectosfichas</h1>
+
+<table>
+  <tr>
+    <th>Proyecto</th>
+    <th>Valor proyecto</th>
+    <th>Nro viviendas</th>
+    <th>Nro locales</th>
+    <th>Instrumento gestion</th>
+    <th>Comuna</th>
+    <th>Vigencia</th>
+    <th>Fecha fin estudios</th>
+    <th>Fecha inicio obra</th>
+    <th>Fecha fin obra</th>
+    <th>Fecha entrega</th>
+    <th>Fecha inauguracion</th>
+    <th>Por avance pro</th>
+    <th>Por avance eje</th>
+    <th>Constructor</th>
+    <th>Gerente</th>
+    <th>Interventor</th>
+    <th>Empleos calificados</th>
+    <th>Empleos nocalificados</th>
+    <th>Porcentaje empleos</th>
+    <th>Nro predios adquirir</th>
+    <th>Nro predios dificiles</th>
+    <th>Nro viviendas esc</th>
+    <th>Fecha fin predio</th>
+    <th>Fecha inicio licitacion</th>
+    <th>Fecha adjudicacion</th>
+  </tr>
+
+<% @proyectosfichas.each do |proyectosficha| %>
+  <tr>
+    <td><%=h proyectosficha.proyecto_id %></td>
+    <td><%=h proyectosficha.valor_proyecto %></td>
+    <td><%=h proyectosficha.nro_viviendas %></td>
+    <td><%=h proyectosficha.nro_locales %></td>
+    <td><%=h proyectosficha.instrumento_gestion %></td>
+    <td><%=h proyectosficha.comuna_id %></td>
+    <td><%=h proyectosficha.vigencia %></td>
+    <td><%=h proyectosficha.fecha_fin_estudios %></td>
+    <td><%=h proyectosficha.fecha_inicio_obra %></td>
+    <td><%=h proyectosficha.fecha_fin_obra %></td>
+    <td><%=h proyectosficha.fecha_entrega %></td>
+    <td><%=h proyectosficha.fecha_inauguracion %></td>
+    <td><%=h proyectosficha.por_avance_pro %></td>
+    <td><%=h proyectosficha.por_avance_eje %></td>
+    <td><%=h proyectosficha.constructor %></td>
+    <td><%=h proyectosficha.gerente %></td>
+    <td><%=h proyectosficha.interventor %></td>
+    <td><%=h proyectosficha.empleos_calificados %></td>
+    <td><%=h proyectosficha.empleos_nocalificados %></td>
+    <td><%=h proyectosficha.porcentaje_empleos %></td>
+    <td><%=h proyectosficha.nro_predios_adquirir %></td>
+    <td><%=h proyectosficha.nro_predios_dificiles %></td>
+    <td><%=h proyectosficha.nro_viviendas_esc %></td>
+    <td><%=h proyectosficha.fecha_fin_predio %></td>
+    <td><%=h proyectosficha.fecha_inicio_licitacion %></td>
+    <td><%=h proyectosficha.fecha_adjudicacion %></td>
+    <td><%= link_to 'Show', proyectosficha %></td>
+    <td><%= link_to 'Edit', edit_proyectosficha_path(proyectosficha) %></td>
+    <td><%= link_to 'Destroy', proyectosficha, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New proyectosficha', new_proyectosficha_path %>

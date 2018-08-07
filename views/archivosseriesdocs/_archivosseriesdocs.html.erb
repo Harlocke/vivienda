@@ -1,0 +1,55 @@
+<div align="center"><table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">DOCUMENTOS PERMITIDOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@archivosserie, @archivosseriesdoc] do |form| %>
+<% if !@archivosseriesdoc.id %>
+     <% if permiso("archivosserie","A").to_s == "S" %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+	<%= render :partial => "/archivosseriesdocs/archivosseriesdocs_form" %>
+      </tr>
+     <% end %>
+<% end %>
+      <div align="center">
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Id</td>
+    <td width="70%" height="30" class="oce-first">Documento</td>
+    <td width="20%" height="30" class="oce-first"></td>
+  </tr>
+<% for archivosseriesdoc in @archivosserie.archivosseriesdocs.find(:all, :order => 'archivosdocumento_id') %>
+   <% if archivosseriesdoc.id != @archivosseriesdoc.id %>
+   <tr  valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="archivosseriesdoc_<%=archivosseriesdoc.id%>">
+     <td width="10%" height="20" class="camposDesc"><%=archivosseriesdoc.archivosdocumento_id%></td>
+     <td width="40%" height="20" class="camposDesc"><%=archivosseriesdoc.archivosdocumento.descripcion rescue nil%></td>
+     <td width="20%" height="20" class="camposDesc">
+       <% if permiso("archivosserie","A").to_s == "S" %>
+<%= link_to_remote('Editar',{:url => edit_archivosserie_archivosseriesdoc_path(@archivosserie, archivosseriesdoc),
+		:method => :get}, :class=>"editarlink")%>
+<%= link_to_remote('Borrar',{:url =>archivosserie_archivosseriesdoc_path(@archivosserie, archivosseriesdoc),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %>
+</td>
+ </tr>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR permisos</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="archivosseriesdoc_<%=@archivosseriesdoc.id%>">
+      <%= render :partial => "archivosseriesdocs_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+<% end %>
+</table>
+        </div>
+            <%= hidden_field :archivosserie, :id %>
+<% end %>

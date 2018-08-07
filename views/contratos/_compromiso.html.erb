@@ -1,0 +1,157 @@
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table><br/><br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr>
+              <td width="25%" style="font-family: Arial Narrow; line-height: 150%; font-size: 12px;"><div align="left">Señores:</div></td>
+            </tr>
+            <tr>
+              <td width="25%" style="font-family: Arial Narrow; line-height: 150%; font-size: 12px;"><strong><div align="left">SUBDIRECCIÓN APOYO ADMINISTRATIVO Y FINANCIERO</div></strong></td>
+            </tr>
+        </table>
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr>
+              <td width="25%" style="font-family: Arial Narrow; line-height: 150%; font-size: 12px;"><div align="left">Asunto: Solicitud Compromiso</div></td>
+            </tr>
+        </table>
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+            <tr>
+              <td width="25%" style="font-family: Arial Narrow; line-height: 150%; font-size: 12px;"><div align="left">Cordialmente solicito expedir compromiso presupuestal, con la información que relaciono a continuación:</div></td>
+            </tr>
+        </table>
+        <br/>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0" style="border-collapse:collapse">
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>FECHA</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@contrato.namesdatehoy%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" rowspan="2" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DESCRIPCIÓN</strong></td>
+            <td width="104" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center"><strong>CONTRATO</strong></div></td>
+            <td width="119" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center"><strong>CONVENIO</strong></div></td>
+            <td width="146" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center"><strong>RESOLUCIÓN</strong></div></td>
+            <td width="105" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center"><strong>OTROS</strong></div></td>
+          </tr>
+          <tr>
+            <td width="104" height="20" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center">X</div></td>
+            <td width="119" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center">&nbsp;</div></td>
+            <td width="146" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center">&nbsp;</div></td>
+            <td width="105" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="center">&nbsp;</div></td>
+          </tr>
+          <tr >
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>NOMBRE</strong></td>
+            <td colspan="4" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@contrato.empleado.nombres rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>NIT / C.C.</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@contrato.empleado.documento.descripcion rescue nil%>  <%=@contrato.empleado.identificacion rescue nil%> - <%=@contrato.empleado.verificacion rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DIRECCIÓN</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@contrato.empleado.direccion rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>TELÉFONO</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@contrato.empleado.telefono rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>OBJETO</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="justify"><%=@contrato.objeto%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>VALOR CONTRATO</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left">$ <%=number_to_currency(@contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>VALOR COMPROMISO</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left">$ <%=number_to_currency(@estudiosprevio.valor_compromiso,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>PROYECTO</strong></td>
+            <td colspan="4" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;">
+              <div align="left"><% if @contrato.contratosrubros.exists? %>
+                  <% @contrato.contratosrubros.each do |contratosrubro| %>
+                    *  <%=contratosrubro.rubro.descripcion rescue nil %> - $ <%=number_to_currency(contratosrubro.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%><br/>
+                  <% end %>
+              <% else %>
+                 No hay proyectos registradas
+              <% end %></div>
+            </td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>RUBRO PRESUPUESTAL</strong></td>
+            <td colspan="4" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;">
+              <div align="left"><% if @contrato.contratosrubros.exists? %>
+                  <% @contrato.contratosrubros.each do |contratosrubro| %>
+                    *  <%=contratosrubro.rubro.codigo_corto rescue nil %><br/>
+                  <% end %>
+              <% else %>
+                 No hay rubros registradas
+              <% end %></div>
+            </td>
+          </tr>
+          <tr valign="middle">
+            <td height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DISPONIBILIDAD 1</strong> </td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><strong>No. </strong><%=@estudiosprevio.nro_cdp%>&nbsp;&nbsp;<strong> - Fecha: </strong> &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp%>&nbsp;&nbsp;<strong> - Valor: </strong> &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <% if @estudiosprevio.nro_cdp2 %>
+          <tr valign="middle">
+            <td height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DISPONIBILIDAD 2</strong> </td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><strong>No. </strong><%=@estudiosprevio.nro_cdp2%>&nbsp;&nbsp;<strong> - Fecha: </strong> &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp2%>&nbsp;&nbsp;<strong> - Valor: </strong> &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp2,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <% end %>
+          <% if @estudiosprevio.nro_cdp3 %>
+          <tr valign="middle">
+            <td height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DISPONIBILIDAD 3</strong> </td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><strong>No. </strong><%=@estudiosprevio.nro_cdp3%>&nbsp;&nbsp;<strong> - Fecha: </strong> &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp3%>&nbsp;&nbsp;<strong> - Valor: </strong> &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp3,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <% end %>
+          <% if @estudiosprevio.nro_cdp4 %>
+          <tr valign="middle">
+            <td height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DISPONIBILIDAD 4</strong> </td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><strong>No. </strong><%=@estudiosprevio.nro_cdp4%>&nbsp;&nbsp;<strong> - Fecha: </strong> &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp4%>&nbsp;&nbsp;<strong> - Valor: </strong> &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp4,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          </tr>
+          <% end %>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>No. Y FECHA CONTRATO</strong></td>
+            <td colspan="4" valign="top" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left">Contrato Nro. <%=@contrato.nro_contrato%> - <%=@contrato.namedatefchinicio rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>DEPENDENCIA</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@estudiosprevio.userdependencia rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td width="228" height="20" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><strong>ID SIFI</strong></td>
+            <td colspan="4" style="border:1px solid #000000; font-family: Arial Narrow; line-height: 150%; font-size: 11px;"><div align="left"><%=@estudiosprevio.id rescue nil%></div></td>
+          </tr>
+        </table>
+        <br/>
+        <div style="font-size: 11px; font-family: Arial Narrow; line-height: 150%;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong>
+        <div style="font-size: 10px; font-family: Arial Narrow;">
+          <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+           CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+        </div>
+        <br/>
+    </td>
+  </tr>
+</table>
+</div>

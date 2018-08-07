@@ -1,0 +1,37 @@
+<%=  javascript_include_tag :defaults %>
+<table width="70%" border="0" align="center" cellpadding="1" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#FF0000">
+        <td height="30" colspan="2"><div align="left"><strong>RECOMENDACIONES PARA CARGUE DE INFORMACI&Oacute;N</strong></div></td>
+      </tr>
+      <tr>
+        <td width="120"><div align="center"><strong>1.</strong></div></td>
+        <td width="746">El archivo debe ser con extensión CSV y separado con (;) </td>
+      </tr>
+      <tr>
+        <td><div align="center"><strong>2.</strong></div></td>
+        <td>El orden de los campos es:</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<% form_for :dump, :url=>{:controller=>"ayudastemporales", :action=>"csv_import"}, :html => { :multipart => true } do |f| -%>
+ <table width="70%" align="center">
+   <tr>
+     <td width="40%">
+      <label for="dump_file">
+        Seleccione el archivo a cargar :
+      </label>
+     </td>
+     <td width="60%" >
+       <%= f.file_field :file -%>
+     </td>
+   </tr>
+   <tr>
+     <td colspan='2'>
+       <div align="center"><%= submit_tag 'Cargar' -%></div></td>
+   </tr>
+</table>
+<% end -%>

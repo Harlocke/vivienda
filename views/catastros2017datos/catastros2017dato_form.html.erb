@@ -1,0 +1,166 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/###.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION CATASTRAL</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),catastros2017datos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<fieldset>
+  <% form_for(@catastros2017dato) do |f| %>
+   <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="8%" height="20"><span class="campos">Cod Comuna</span></td>
+        <td width="10%"><span class="campos">Matricula</span></td>
+        <td width="8%"><span class="campos">Cod Barrio</span></td>
+        <td width="8%"><span class="campos">CEDCAT</span></td>
+        <td width="8%"><span class="campos">Manzana</span></td>
+        <td width="20%"><span class="campos">CBML</span></td>
+        <td width="14%"><span class="campos">Area - Lote</span></td>
+        <td width="8%"><span class="campos">Estrato</span></td>
+        <td width="8%"><span class="campos">Area Cons</span></td>
+        <td width="8%"><span class="campos">Num Pisos</span></td>
+      </tr> 
+      <tr>
+        <td class="camposDesc" align="left"><%= f.text_field :codcomuna,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :codcomuna, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :matricula,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :matricula, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :codbarrio,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :codbarrio, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :cedcat,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :cedcat, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :manzana,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :manzana, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :cbml,{ :class => "campo", :size => 21,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :cbml, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :arealote,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :arealote, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :estrato,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :estrato, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :areacons,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :areacons, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :numpisos,{ :class => "campo", :size => 8,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :numpisos, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="20%"><span class="campos">Dirección</span></td>
+        <td width="20%"><span class="campos">Dirección Especial</span></td>
+        <td width="30%"><span class="campos">Nombres</span></td>
+        <td width="30%"><span class="campos">Apellidos</span></td>
+      </tr> 
+      <tr>
+        <td class="camposDesc" align="left"><%= f.text_field :direccionencasillada,{ :class => "campo", :size => 28,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :direccionencasillada, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :direccionespecial,{ :class => "campo", :size => 28,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :direccionespecial, :css_class =>"cerror"%></td>
+
+        <td class="camposDesc" align="left"><%= f.text_field :nombre,{ :class => "campo", :size => 38,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :nombre, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :apellidos,{ :class => "campo", :size => 38,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :apellidos, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="5%" height="20"><span class="campos">Poder</span></td>
+        <td width="15%"><span class="campos">Relacion Prop</span></td>
+        <td width="15%"><span class="campos">Tipo Propietario</span></td>
+        <td width="15%"><span class="campos">Identificación</span></td>
+        <td width="15%"><span class="campos">POT</span></td>
+      </tr> 
+      <tr>
+        <td class="camposDesc" align="left"><%= f.text_field :porder,{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :porder, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :relacionprop,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :relacionprop, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :tipopropietario,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :tipopropietario, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.text_field :identificacion,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :catastros2017dato, :identificacion, :css_class =>"cerror"%></td>
+        <td ><%= select(:catastros2017dato,:pot, select_cumple,{ :include_blank => true },{ :style=>"width:150px", :class => "campo" })%>
+             <%= f.error_message_on :pot, :css_class =>"cerror"%> </td>
+      </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <% if permiso("catastros2017dato","C").to_s == "S" %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+           </div></td>
+      </tr>
+    </table>
+    <% end -%>
+  <% end %>
+</fieldset>
+<br/>
+

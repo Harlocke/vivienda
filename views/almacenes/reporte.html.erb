@@ -1,0 +1,233 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/reportesmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;REPORTES ALMACEN</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Menu Almacen"}),almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CIERRE DE ALMACEN</div></td>
+  </tr>
+</table>
+<% form_tag informe_almacenescierres_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="30%" class="campos" align="left">Año</td>
+    <td width="30%" class="campos" align="left">Mes</td>
+    <td width="30%" class="campos" align="left">Tipo</td>
+    <td width="10%" class="campos" align="left">Formato</td>
+  </tr>
+  <tr>
+      <td class="camposDesc" align="left">
+        <%= select("ubicacion",
+                :anno, select_annos,
+                       {:prompt => "– SELECCIONE EL AÑO –"},
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    <td class="camposDesc" align="left">
+        <%= select( "ubicacion",:mes, select_mes, {:prompt => "– SELECCIONE EL MES –"},
+                { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      <td class="camposDesc" align="left">
+       <% if permiso("almacenesreporte","C").to_s == "S" %>
+         <%= select("ubicacion",:tipo, [ ["CIERRE INVENTARIO" , "CONSOLIDADO"],["PRUEBA" , "PRUEBA"]],
+                    {:prompt => "– SELECCIONE EL TIPO –"},{ :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+       <% else %>
+         <%= select("ubicacion",:tipo, [["PRUEBA" , "PRUEBA"]],
+                    {:prompt => "– SELECCIONE EL TIPO –"},{ :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+       <% end %>
+      </td>
+      <td>
+        <%= select("ubicacion",:tipoinforme, select_formato, { :include_blank => true },{ :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Proceso", :name => 'nil', :value => 'Buscar'%>
+          </span></div>
+      <%#*<div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">%>
+      <%#= submit_tag "Buscar", :name => 'format', :value => 'xls' %>
+          <%#*</span></div>%>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CONSUMO POR USUARIO</div></td>
+  </tr>
+</table>
+<% form_tag informe2_almacenescierres_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="50%" class="campos" align="left">Seleccione el Usuario</td>
+  </tr>
+  <tr>
+      <td class="camposDesc" align="left"><%=select("ubicacion", :usuario, select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Proceso", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CONSUMO POR DEPENDENCIA</div></td>
+  </tr>
+</table>
+<% form_tag informe3_almacenescierres_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="50%" class="campos" align="left">Seleccione la dependencia</td>
+    <td width="25%" class="campos" align="left">Año</td>
+    <td width="25%" class="campos" align="left">Mes</td>
+  </tr>
+  <tr>
+      <td class="camposDesc" align="left"><%=select("ubicacion", :dependencia, Dependencia.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+                  <td class="camposDesc" align="left">
+        <%= select("ubicacion",:anno, select_annos, {:prompt => "– SELECCIONE EL AÑO –"},
+                      { :style=>"width:160px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    <td class="camposDesc" align="left">
+        <%= select( "ubicacion",:mes, select_mes,{:prompt => "– SELECCIONE EL MES –"},
+                { :style=>"width:160px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Proceso", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">PROMEDIOS DE COMPRA</div></td>
+  </tr>
+</table>
+<% form_tag informe4_almacenesentradas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="25%" class="campos" align="left">Seleccion el Año</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" align="left"><%= select("ubicacion",:anno, select_annos,{:prompt => "– SELECCIONE EL AÑO –"},
+                   { :style=>"width:160px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Proceso", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">SALIDAS CONSOLIDADAS</div></td>
+  </tr>
+</table>
+<% form_tag informesalidas_almacenescierres_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="60%" class="campos" align="left">Seleccione el Producto</td>
+    <td width="20%" class="campos" align="left">Fecha Inicio</td>
+    <td width="20%" class="campos" align="left">Fecha Final</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" align="left"><%=select("ubicacion", :producto, Producto.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      <td><%= calendar_date_select "ubicacion", "fchinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      <td><%= calendar_date_select "ubicacion", "fchfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+  </tr>
+</table>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="50%" class="campos" align="left">Seleccione el Usuario</td>
+    <td width="50%" class="campos" align="left">Formato</td>
+  </tr>
+  <tr>
+      <td class="camposDesc" align="left"><%=select("ubicacion", :usuario, select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      <td>
+        <%= select("ubicacion",:tipoinforme, select_formato, { :include_blank => true },{ :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Generar Proceso", :name => 'nil', :value => 'Buscar' %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+</div>

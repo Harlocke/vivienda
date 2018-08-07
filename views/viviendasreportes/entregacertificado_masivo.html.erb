@@ -1,0 +1,210 @@
+</link><style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% 
+  @personas = Persona.find(:all, :conditions=>["identificacion in ('43444578','43635217','43814339','43044793','32105558','32141742','32144905','71002839','32184493','43572244','1017192338','1039686043','32355740','21813430','21675881','71642488','71659771','98701734','1007807760','17121055','43109056','1017145123','43780355','43284503','43591634','43441392','21673023','21619830','43258037','1038806507','1038099831','43265382','21386494','42974517','43513077','71950484','32481374','71637152','43597993','43092298','1040043936','43598268','21791668','1017229100','22068238','8104496','71213130','70301869','43039988','71784166','787989','22215102','11789303','71581472','98456160','37176428','43031475','21515022','41369584','43498237','42960657','39267190','42994610','32207285','42979124','17806987','21707304','34941610','43066730','32107787','3630798','98645122','1000294608','71737458','21810220','43556028','21610263','1017139056','1036600863','43340812','1039452537','22186720','1017198848','43575309','3374396','21464527','43283237','32255720','70546005','71361358','71211408','4833434','8241287','22216008','43518427','21881430','43813648','21548698','21396921','32508150','35850946','43416118','21805472','21553228','43551690','43381130','44006690','43030585','1039284118','43568350','32441433','30351913','43038509','43676491','22505826','3582163','15295107','39190586','71668236','43262206','42682234','1017158536','43545929','32109711','1128391536','1053821254','43616356','22215425','22147666','43866308','30336757','43417374','64587985','43587459','43560838','3664067','4353815','71606154','1128272709','1027883053','43527683','39200613','43532007','30688790','22216201','43620000','44000248','32077307','43593515','21672378','43825437','43098167','22215263','43806755','43156819','21932009','43615996','43002060','71591452','39200403','43661210','70782124','39401141','43836908','43909544','1017152328','43491028','43032267','32255530','21708553','11809015','43560650','1020405252','22018955','21672336','32141090','1033647625','22020762','43750640','21610137','649238','43757613','21953087','75059763','41171164','21611489','98450562','6695776','43632240','1000659107','32109915','1112459198','22226040','32107532','43829217','43046925','43561923','21945082','39178538','8472960','43539978','21961306','21792678','39175697','1128400406','43926984','22081685','26794806','7247432','43027948','71392494','1143116224','71700648','43107572','42059734','43632379','43634295','22229161','43754545','71575484','43554855','21811124','32440378','71331878','21683814','8362599','98499055','43583776','43828691','21658096','43836308','43541078','43167538','43727567','1017135739','43211393','42994969','43637284','43443487','43603614','43639400','1020443809','70434000','98576068','71709616','71585199','32256952','1036638750','3667483','21379911','43569108','70045744','43022672','22116346','21550398','21791562','43911106','43453692','42972784','32555487','42677313','43031091','32206095','43150406','8438530','43986841','71384066','70576763','21964167','1036606665','21466828','15263443','1044120746','1216715053','8102632','42889554','43055212','3615972','1017142427','43028734','32531893','43087927','21691684','23897465','32562208','43839272','41910996','8011886','43088842','1038799008','70108554','1128473784','32258191','43116403','1152200002','35893445','43079581','43996823','43150225','32504325','43042318','21398981','32432367','21945618','43381042','22005951','39400644','43620748','1128389472','8283332','43782350','1128430140','32321859','43549421','43151434','39307641','43087303','43630079','43118600','3588598','43206399','44004508','43926374','32109197','42778256','39356032','43007769','21977466','43038893','70555699','42755770','39453154','45519770','43970122','43104218','1022093080','21673714','32494062','43668606','43974369','71371387','42940963','32391948','22147738','21509245','43275063','4832927','50965784','29154438','8419490','43576034','42867502','21594522','21911793','43417406','39447498','43494346','43381940','70082558','1046528516','21665156','22147789','39409670','43547730','43321793','30028146','71330887','6450864','8435148','94488139','42963337','70434716','43168871','42973925','43475759','43275338','43489619','39352537','21980000','43588055','1017176978','22153495','43603982','21697508','43634747','43083802','21945255','8025838','43874966','43573837','32443196','32512588','4524098','71994855','1017124155','71763542','43830738','43494227','50974735','43868647','32241794','43757861','7538115','8250917','43272591','71586917','42981288','21756219','21785989','32477075','54258304','43643922','43037727','21743390','43635696','21611000','71375570','1036649142')"], :order=>"primer_nombre")
+  @personas.each do |persona|
+    @viviendaspersona = Viviendaspersona.find_by_persona_id(persona.id)
+%>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><div align="center"><table width="90%" height="0" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">Nota: La escritura se entrega protocolizada e inscrita en la oficina de Instrumentos Publicos</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos13"><div align="center">CONSTANCIA DE ENTREGA DE CERTIFICADO DE TRADICIÓN Y LIBERTAD</div></td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">Medellín, <%=descmes(Time.now.strftime("%m").to_i)%> 27 DE <%=Time.now.strftime("%Y")%></td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">NOMBRE: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.persona.nombres rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">C.C. &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.persona.identificacion rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos13"><div align="center">INFORMACION DE LA VIVIENDA</div></td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROYECTO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.proyecto.descripcion rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLOQUE: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.bloque.descripcion rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PISO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.piso.descripcion rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APARTAMENTO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.apto.descripcion rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos13"><div align="center">INFORMACION DE LAS ESCRITURAS</div></td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Escritura Nro. <span class="campos13"><%=@viviendaspersona.vivienda.esc_nro_escritura rescue nil%></span>  del  <span class="campos13"><%=@viviendaspersona.vivienda.esc_expedicion rescue nil%></span>
+          <% if @viviendaspersona.vivienda.escritura_aclaratoria %>
+              -  Escritura Aclaracion Nro. <span class="campos13"><%=@viviendaspersona.vivienda.escritura_aclaratoria rescue nil%></span>  del  <span class="campos13"><%=@viviendaspersona.vivienda.aclaratoria_fecha rescue nil%>
+          <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matricula Inmobiliaria nro. <span class="campos13"><%=@viviendaspersona.vivienda.nro_matricula rescue nil%></span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notaria:  <span class="campos13"><%=@viviendaspersona.vivienda.esc_notaria_origen rescue nil%></span>
+          <% if @viviendaspersona.vivienda.escritura_aclaratoria %>
+              -  Notaria Aclaración: <span class="campos13"><%=@viviendaspersona.vivienda.aclaratoria_notaria rescue nil%></span>
+          <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">Recibi a Satisfacción copia de las escrituras debidamente registradas de la vivienda que se describe y del acta de entrega firmada por las partes</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">Para Constancia se firma el dia <span class="campos13">27</span> del mes de <span class="campos13"><%=descmes(Time.now.strftime("%m").to_i)%></span> de <span class="campos13"><%=Time.now.strftime("%Y")%></span></td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+         <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12"></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">C.C.</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="campos12">Telefonos: </td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+      </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+<H1 class=SaltoDePagina> </H1>
+<% end %>
+
+

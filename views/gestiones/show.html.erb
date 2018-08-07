@@ -1,0 +1,13 @@
+<p>
+  <b>Descripcion:</b>
+  <%=h @gestion.descripcion %>
+</p>
+
+<p>
+  <b>Valor:</b>
+  <%=h @gestion.valor %>
+</p>
+
+
+<%= link_to 'Edit', edit_gestion_path(@gestion) %> |
+<%= link_to 'Back', gestiones_path %>

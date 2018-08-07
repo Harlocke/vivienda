@@ -1,0 +1,18 @@
+<p>
+  <b>Descripcion:</b>
+  <%=h @modulo.descripcion %>
+</p>
+
+<p>
+  <b>Ruta:</b>
+  <%=h @modulo.ruta %>
+</p>
+
+<p>
+  <b>Mensaje:</b>
+  <%=h @modulo.mensaje %>
+</p>
+
+
+<%= link_to 'Edit', edit_modulo_path(@modulo) %> |
+<%= link_to 'Back', modulos_path %>

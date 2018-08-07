@@ -1,0 +1,1 @@
+page.replace_html 'asigtemporal_list2', :partial => 'list2'

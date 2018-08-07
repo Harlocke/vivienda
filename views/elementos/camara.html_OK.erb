@@ -1,0 +1,68 @@
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Snap Photo</button>
+<button id="snap2">Images</button>
+<button onclick="myFunction()">Click me</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+
+
+
+
+
+<script>
+// Grab elements, create settings, etc.
+var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+    });
+}
+
+// Elements for taking the snapshot
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+  context.drawImage(video, 0, 0, 640, 480);
+
+  var sampleImage = document.getElementById("video"),
+  canvas = convertImageToCanvas(sampleImage),
+  image = convertCanvasToImage(canvas),
+  canvas2 = convertImageToCanvas(image),
+  image2 = convertCanvasToImage(canvas2);
+
+  // Actions
+  document.getElementById("canvasHolder").appendChild(canvas);
+  document.getElementById("pngHolder").appendChild(image);
+  document.getElementById("canvasHolder2").appendChild(canvas2);
+  document.getElementById("pngHolder2").appendChild(image2);
+
+  // Converts image to canvas; returns new canvas element
+  function convertImageToCanvas(image) {
+  var canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      canvas.getContext("2d").drawImage(image, 0, 0);                
+      return canvas;
+  }
+
+  // Converts canvas to an image
+  function convertCanvasToImage(canvas) {
+      var image = new Image();
+      image.src = canvas.toDataURL("image/png");
+      var imaged = canvas.toDataURL("image/png");
+      var anchor = document.createElement('a');
+      anchor.setAttribute('download', '7121790.png');
+      anchor.setAttribute('href', imaged);
+      anchor.click();
+      <%#=return image;%>
+  }
+
+});
+
+</script>

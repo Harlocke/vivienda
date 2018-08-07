@@ -1,0 +1,221 @@
+<% if @archivo.archivospersonas.exists? 
+    @archivo.archivospersonas.each do |archivospersona|
+        if Viviendaspersona.exists?(["persona_id = #{archivospersona.persona_id}"]) == true
+           @viviendaspersonas = Viviendaspersona.find_all_by_persona_id(archivospersona.persona_id)
+           @viviendaspersonas.each do |viviendaspersona|
+    %>
+        <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="2"><div class="col_enc">VIVIENDA NUEVA</div></td>
+          </tr>
+          <tr>
+            <td width="10%">&nbsp;</td>
+            <td width="90%"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                <td width="25%" class="campos" align="left">Usuario:</td>
+                <td width="75%" class="camposDesc" align="left"><%=viviendaspersona.persona.autobuscar rescue nil%></td>
+              </tr>
+              <tr>
+                <td width="25%" class="campos" align="left">Proyecto:</td>
+                <td width="75%" class="camposDesc" align="left"><%=viviendaspersona.vivienda.proyecto.descripcion rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" align="left">Bloque:</td>
+                <td class="camposDesc" align="left"><%=viviendaspersona.vivienda.bloque.descripcion rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" align="left">Piso:</td>
+                <td class="camposDesc" align="left"><%=viviendaspersona.vivienda.piso.descripcion rescue nil%></td>
+              </tr>
+              <tr>
+                <td class="campos" align="left">Apto:</td>
+                <td class="camposDesc" align="left"><%=viviendaspersona.vivienda.apto.descripcion rescue nil%></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br/>
+      <% end %>      
+  <%  end %>
+  <%  if Iguanaspersona.exists?(["persona_id = #{archivospersona.persona_id}"]) == true
+         @iguanaspersonas = Iguanaspersona.find_all_by_persona_id(archivospersona.persona_id)
+         @iguanaspersonas.each do |iguanaspersona| %>
+        <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="2"><div class="col_enc">IGUANA</div></td>
+          </tr>
+          <tr>
+            <td width="10%">&nbsp;</td>
+            <td width="90%">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="25%" class="campos" align="left">Usuario:</td>
+                  <td width="75%" class="camposDesc" align="left"><%=iguanaspersona.persona.autobuscar rescue nil%></td>
+                </tr>
+              </table>
+              <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="19%" class="campos">Identificacion Plano </td>
+                    <td width="32%" class="campos">Tecnico Asociado </td>
+                    <td width="24%" class="campos">Social Asignado </td>
+                    <td width="25%" class="campos">Juridico Asignado </td>
+                  </tr>
+                  <tr>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.nro_registro rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.grupo_asignado rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.social_asignado rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.juridico_asignado rescue nil%></td>
+                  </tr>
+              </table>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="19%" class="campos">Sector </td>
+                    <td width="32%" class="campos">Encuesta </td>
+                    <td width="24%" class="campos">Cobama </td>
+                  </tr>
+                  <tr>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.sector rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.encuesta rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.cobama rescue nil%></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="131" class="campos">Comuna</td>
+                    <td width="131" class="campos">Barrio</td>
+                    <td width="131" class="campos">Manzana</td>
+                    <td width="132" class="campos">Lote</td>
+                    <td width="132" class="campos">Interior</td>
+                    <td width="166" class="campos">Disponibilidad</td>
+                  </tr>
+                  <tr>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.comuna rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.barrio rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.manzana rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.lote rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.interior rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.disponibilidad rescue nil%></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="17%" class="campos">Matricula </td>
+                    <td width="35%" class="campos">Direccion </td>
+                    <td width="20%" class="campos">Valor total compensaci&oacute;n</td>
+                    <td width="28%" class="campos">Caso</td>
+                  </tr>
+                  <tr>
+                    <td height="19" class="camposDesc"><%=iguanaspersona.iguana.matricula rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.direccion rescue nil%></td>
+                    <td height="19" class="camposDesc"><%=iguanaspersona.iguana.valor_compensacion rescue nil%></td>
+                    <td class="camposDesc"><%=iguanaspersona.iguana.caso rescue nil%></td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+        </table>
+        <br/>
+      <% end %>      
+  <%  end %>
+  <%  if Viviendasusadaspersona.exists?(["persona_id = #{archivospersona.persona_id}"]) == true
+         @viviendasusadaspersonas = Viviendasusadaspersona.find_all_by_persona_id(archivospersona.persona_id)
+         @viviendasusadaspersonas.each do |viviendasusadaspersona| %>
+        <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="2"><div class="col_enc">VIVIENDA USADA</div></td>
+          </tr>
+          <tr>
+            <td width="10%">&nbsp;</td>
+            <td width="90%">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="25%" class="campos" align="left">Usuario:</td>
+                  <td width="75%" class="camposDesc" align="left"><%=viviendasusadaspersona.persona.autobuscar rescue nil%></td>
+                </tr>
+              </table>
+              <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                <tr>
+                  <td width="25%" align="left" class="campos">Tipo de Poblaci&oacute;n </td>
+                  <td width="15%" align="left" class="campos">Sector </td>
+                  <td width="35%" align="left" class="campos">Proyecto</td>
+                </tr>
+                <tr>
+                  <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.familiar.descripcion rescue nil%></td>
+                  <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.tipospoblacion.descripcion rescue nil%></td>
+                  <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.proyecto rescue nil%></td>
+                </tr>
+              </table>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr>
+                    <td width="25%" align="left" class="campos">Barrio</td>
+                    <td width="20%" align="left" class="campos">Fecha Recepcion Doc.</td>
+                    <td width="25%" align="left" class="campos">Direccion EEPP </td>
+                    <td width="25%" align="left" class="campos">Direccion Catastro </td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.sector rescue nil%></td>
+                    <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.fecha_recibido_doc rescue nil%></td>
+                    <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.direccion_eepp%></td>
+                    <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.direccion_catastro%></td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+        </table>
+        <br/>
+      <% end %>      
+  <%  end %>
+  <%  if Titulacionespersona.exists?(["persona_id = #{archivospersona.persona_id}"]) == true
+         @titulacionespersonas = Titulacionespersona.find_all_by_persona_id(archivospersona.persona_id)
+         @titulacionespersonas.each do |titulacionespersona| %>
+        <table width="80%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="2"><div class="col_enc">TITULACIONES</div></td>
+          </tr>
+          <tr>
+            <td width="10%">&nbsp;</td>
+            <td width="90%"><table width="80%" align="center" id="one-column-emphasis">
+                    <tr class="odd1">
+                      <td width="20%" class="campos" align="left"><div align="left">Id Titulacion</div></td>
+                      <td width="80%" align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.id rescue nil%></div></td>
+                    </tr>
+                    <tr>
+                      <td class="campos" align="left"><div align="left">Comuna</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.cobama rescue nil%></div></td>
+                    </tr>
+                    <tr class="odd1">
+                      <td class="campos" align="left"><div align="left">Barrio</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.barrio rescue nil%></div></td>
+                    </tr>
+                    <tr>
+                      <td class="campos" align="left"><div align="left">Manzana</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.manzana rescue nil%></div></td>
+                    </tr>
+                    <tr class="odd1">
+                      <td class="campos" align="left"><div align="left">Lote</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.lote rescue nil%></div></td>
+                    </tr>
+                    <tr>
+                      <td class="campos" align="left"><div align="left">Interior</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.interior rescue nil%></div></td>
+                    </tr>
+                    <tr class="odd1">
+                      <td class="campos" align="left"><div align="left">Sector</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.sector rescue nil%></div></td>
+                    </tr>
+                    <tr>
+                      <td class="campos" align="left"><div align="left">Direccion</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.direccion rescue nil%></div></td>
+                    </tr>
+                    <tr class="odd1">
+                      <td class="campos" align="left"><div align="left">Estado del Proceso</div></td>
+                      <td align="left" class="camposDesc"><div align="left"><%=titulacionespersona.titulacion.estado rescue nil%></div></td>
+                    </tr>
+                </table>
+            </td>
+          </tr>
+        </table>
+      <% end %>      
+  <%  end %>
+  <%end %>  
+<%end %>

@@ -1,0 +1,97 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">CREDITOS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @credito] do |form| %>
+  <% if permiso("credito","C").to_s == "S" %>
+        <% if !@credito.id %>
+      <tr>
+	<%= render :partial => "/creditos/creditos_form" %>
+      </tr>
+    <% end %>
+ <% end %>
+<% if @persona.creditos.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="28%" height="30" class="oce-first">Entidad</td>
+    <td width="10%" class="oce-first">Valor</td>
+    <td width="15%" class="oce-first">Fecha Credito</td>
+    <td width="15%" class="oce-first">Fecha Vencimiento</td>
+    <td width="10%" class="oce-first">Resolucion</td>
+    <td width="10%" class="oce-first">Estado</td>
+    <td width="12%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @persona.creditos.each do |credito| %>
+   <% if credito.id != @credito.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="credito_<%=credito.id%>">
+    <td width="28%" height="30" class="camposDesc"><%=credito.entidad.descripcion rescue nil%></td>
+    <td width="10%" class="camposDesc">$ <%=number_to_currency(credito.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" class="camposDesc"><%=credito.fecha_credito%></td>
+    <td width="15%" class="camposDesc"><%=credito.fecha_vencimiento%></td>
+    <td width="10%" class="camposDesc"><%=credito.resolucion%></td>
+    <td width="10%" class="camposDesc"><%=credito.estado%></td>
+    <td width="12%" class="camposDesc">
+      <% if credito.restringue.to_s == "X" %>
+            <% if permiso("subsidioespecial","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_persona_credito_path(@persona, credito),
+		:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("subsidioespecial","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => persona_credito_path(@persona, credito),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      <% else %>
+            <% if permiso("credito","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_persona_credito_path(@persona, credito),
+		:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("credito","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => persona_credito_path(@persona, credito),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+      <% end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR CREDITOS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="credito_<%=@credito.id%>">
+     <%= render :partial => "creditos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:credito] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:credito] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('credito');", 5000)
+</script>
+<% end %>
+</fieldset>

@@ -1,0 +1,53 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INVENTARIO DETALLADO DE INMUEBLES (TOTAL : <%=@saneamientos.count rescue 0%>)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Matricula Inmobiliaria</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>CBML</strong></td>
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Comuna - Barrio</strong></td>
+    <td><strong>Solicitud cierre de folio</strong></td>
+    <td><strong>Identificacion Titular de dominio</strong></td>
+    <td><strong>Nombre Titular de dominio</strong></td>
+    <td><strong>Nro escritura o resolución</strong></td>
+    <td><strong>Fecha escritura transferencia</strong></td>
+    <td><strong>Notaria o entidad que expide el titulo</strong></td>
+    <td><strong>Radicado Salida descargue catastral</strong></td>
+    <td><strong>Radicado notificacion descargue catastral</strong></td>
+    <td><strong>Visita ocular para clasificación</strong></td>
+    <td><strong>Nro del titulo de adquisicion</strong></td>
+    <td><strong>Fecha del titulo de adquisicion</strong></td>
+    <td><strong>Notaria o entidad que expide el titulo de adquisicion</strong></td>
+    <td><strong>Area</strong></td>
+    <td><strong>Clasificación del proceso</strong></td>
+    <td><strong>Valor Avaluo</strong></td>
+  </tr>
+<% @saneamientos.each do |saneamiento|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=saneamiento.id rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.nro_matricula rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.direccion rescue nil%></div></td>
+     <td><div align="left">&nbsp;<%=saneamiento.cbml rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.proyecto rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.comuna.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.fch_solicitud rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.nombre_razonsocial rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.escritura_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.fch_escritura_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.notaria rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.radicado_salida rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.radicado_notificacion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.fecha_visitaocular rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.titulo_adquisicion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.fecha_titadq rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.notaria_adq rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.area rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.encargo_tramite rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.valor_avaluo rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>
+

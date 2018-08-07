@@ -1,0 +1,24 @@
+<h1>Editing listasverificacion</h1>
+
+<% form_for(@listasverificacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :proceso %><br />
+    <%= f.text_field :proceso %>
+  </p>
+  <p>
+    <%= f.label :codigo %><br />
+    <%= f.text_field :codigo %>
+  </p>
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @listasverificacion %> |
+<%= link_to 'Back', listasverificaciones_path %>

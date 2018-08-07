@@ -1,0 +1,82 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">REGISTRO DE ASISTENTES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@comite, @comitesuser] do |form| %>
+<%   if permiso("comitesuser","C").to_s == "S"
+       if permiso("comitesespecial","C").to_s == "S"
+         if !@comitesuser.id %>
+           <%= render :partial => "/comitesusers/comitesusers_form" %>
+<%       end
+       else
+         if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true
+           if !@comitesuser.id %>
+              <%= render :partial => "/comitesusers/comitesusers_form" %>
+<%         end
+         end
+       end
+     end %>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha Registro</td>
+    <td width="70%" height="30" align="left" class="oce-first">Usuario</td>
+    <td width="15%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for comitesuser in @comite.comitesusers.find(:all, :order => 'created_at DESC') %>
+   <% if comitesuser.id != @comitesuser.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="comitesuser_<%=comitesuser.id%>">
+     <td width="15%" align="left" class="camposDesc"><%=comitesuser.created_at.strftime("%Y-%m-%d %X")%></td>
+     <td width="70%" align="left" class="camposDesc"><%=comitesuser.user.nombre rescue nil%></td>
+     <td width="15%" align="right" class="camposDesc">
+    <%   if permiso("comitesuser","E").to_s == "S"
+           if permiso("comitesespecial","C").to_s == "S" %>
+               <%= link_to_remote('Borrar',{:url => comite_comitesuser_path(@comite, comitesuser),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%     else
+             if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+               <%= link_to_remote('Borrar',{:url => comite_comitesuser_path(@comite, comitesuser),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%       end
+           end
+         end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="comitesuser_<%=@comitesuser.id%>">
+     <%= render :partial => "comitesusers_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+            <%= hidden_field :comite, :id %>
+<% end %>
+</div>
+<br/>
+<% if flash[:comitesuser] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:comitesuser] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('comitesuser');", 5000)
+</script>
+<% end %>

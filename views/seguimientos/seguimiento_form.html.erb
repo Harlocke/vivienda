@@ -1,0 +1,206 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/seguimientomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;SEGUIMIENTO NRO - <%=@seguimiento.id rescue nil%> </div></td>
+              <td width="3%">
+                 <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),seguimientos_path %>
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/contratos.png" border="0" title="Contrato"/></a></li>
+  <% unless @seguimiento.new_record? %>
+        <li><a href="#tab2"><img src="/images/presupuestos.png" border="0" title="Presupuestos"/></a></li>
+        <li><a href="#tab4"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab5"><img src="/images/imagenes.png" border="0" title="Documentos"/></a></li>
+
+  <% end %>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset>
+<% form_for(@seguimiento) do |f| %>
+  <div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATO</div></td>
+  </tr>
+</table>
+  <table width="800" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+ <table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+    <th width="25%" height="20" class="campos"><div align="left">Id :</div></th>
+    <td width="75%" class="camposDesc"><div align="left"><%=@seguimiento.id%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Nro Contrato : *</div></th>
+    <td  class="camposDesc"><div align="left">
+          <%= f.text_field :nro_contrato ,{ :class => "campo", :size => 10, :onChange=> "javascript:this.value=this.value.toUpperCase();" }%>
+          <%= f.error_message_on :nro_contrato, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Año : </div></th>
+    <td  class="camposDesc"><div align="left">
+        <%= select(:seguimiento, :anno, select_annos, { :include_blank => true }, { :style=>"width:100px", :class => "campo"})%>
+        <%= f.error_message_on :anno, :css_class =>"cerror"%>
+          </div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Programa : </div></th>
+    <td  class="camposDesc"><div align="left">
+        <%= select(:seguimiento, :programa, [["INSTITUCIONAL","INSTITUCIONAL"],
+                  ["CINTURON VERDE","CINTURON VERDE"],["PP","PP"],["JVE","JVE"],["EXCED","EXCED"]],
+                  { :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+          </div></td>
+  </tr>
+<% unless @seguimiento.new_record? %>
+    <tr>
+      <th height="20" align="left" class="campos">Ult. Actualización :</th>
+      <td align="left" class="camposDesc"><%= @seguimiento.updated_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@seguimiento.user_actualiza).nombre rescue nil%></td>
+    </tr>
+    <tr>
+      <th height="20" align="left" class="campos">Creación :</th>
+      <td align="left" class="camposDesc"><%= @seguimiento.created_at.strftime("%Y-%m-%d %X")%> - <%=  @seguimiento.user.nombre rescue nil%></td>
+    </tr>
+<% end %>
+</table>
+  <% unless @seguimiento.new_record? %>
+  <fieldset>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="16%" class="campos">Nro Contrato </td>
+      <td width="14%" class="campos">Fecha Firma </td>
+      <td width="70%" class="campos">Objeto</td>
+    </tr>
+    <tr>
+      <td class="camposDesc" valign="top"><%=@seguimiento.contrato.nro_contrato%></td>
+      <td class="camposDesc" valign="top"><%=@seguimiento.contrato.fecha_firma.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.objeto%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="15%" class="campos">Valor</td>
+      <td width="10%" class="campos">Plazo Mes</td>
+      <td width="10%" class="campos">Plazo Dias</td>
+      <td width="15%" class="campos">Fecha Inicio </td>
+      <td width="15%" class="campos">Fecha Final </td>
+      <td width="20%" class="campos">Estado del Contrato</td>
+      <td width="15%" class="campos">Fecha Liquidacion</td>
+    </tr>
+    <tr>
+      <td class="camposDesc">$ <%=number_to_currency(@seguimiento.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.plazo_mes%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.plazo_dias%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.destado%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_liquidacion.strftime("%Y-%m-%d") rescue nil%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="35%" class="campos">Interventor Asignado </td>
+      <td width="10%" class="campos">Gaceta</td>
+      <td width="10%" class="campos">Secop</td>
+      <td width="15%" class="campos">Camara Comercio</td>
+      <td width="30%" class="campos">Tipo de Contrato</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=Empleado.find(@seguimiento.contrato.interventorempleado_id).nombre rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicaciongazeta%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicacionsecop%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicacioncc%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.tiposcontrato.descripcion rescue nil%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="10%" class="campos">Garantia</td>
+      <td width="30%" class="campos">Descripcion Garantia</td>
+      <td width="12%" class="campos">Fecha Aprobacion</td>
+      <td width="12%" class="campos">Nro Compromiso</td>
+      <td width="12%" class="campos">Fecha Compromiso</td>
+      <td width="12%" class="campos">Nro Disponibilidad</td>
+      <td width="12%" class="campos">Fecha Disponibilidad</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpoliza%> </td>
+      <td class="camposDesc"><%=@seguimiento.contrato.descgarantia%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_garantia.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.nro_compromiso%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_compromiso.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.nro_disponibilidad%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_disponibilidad.strftime("%Y-%m-%d") rescue nil%></td>
+    </tr>
+    </table>
+  </fieldset>
+  <% end %>
+  <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+          <% unless @seguimiento.new_record? %>
+          <%=link_to 'Seguimiento',{:controller=>"seguimientos", :action=>"mostrar", :id=>@seguimiento.id},
+          :popup => ['new_windowbitacora','height=500,width=1000,scrollbars=yes'], :class=>"imprimirlink"%>
+        <% end %>
+  </div></td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+</fieldset>
+</div>
+ <% unless @seguimiento.new_record? %>
+  <div class="panel" id="tab2">
+    <fieldset>
+       <div id="seguimientoslicitaciones_form">
+          <%= render :partial => "/seguimientoslicitaciones/seguimientoslicitaciones"%>
+       </div>
+    </fieldset>
+  </div>
+  <div class="panel" id="tab3">
+    <fieldset>
+       <div id="seguimientosmodificaciones_form">
+          <%= render :partial => "/seguimientosmodificaciones/seguimientosmodificaciones"%>
+       </div>
+    </fieldset>
+  </div>
+  <div class="panel" id="tab4">
+    <fieldset>
+       <div id="seguimientosobservaciones_form">
+          <%= render :partial => "/seguimientosobservaciones/seguimientosobservaciones"%>
+       </div>
+    </fieldset>
+  </div>
+  <div class="panel" id="tab5">
+    <fieldset>
+       <div id="seguimientosimagenes_form">
+          <%= render :partial => "/seguimientosimagenes/seguimientosimagenes"%>
+       </div>
+    </fieldset>
+  </div>
+<% end %>
+</div>
+<br/>

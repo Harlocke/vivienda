@@ -1,0 +1,136 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION ARCHIVO</div></td>
+  </tr>
+</table>
+<% @titulacion.titulacionespersonas.each do |titulacionespersona|
+    titulacionespersona.persona.archivospersonas.each do |archivospersona| %>
+  <div align="center">
+     <table width="90%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Persona</td>
+          <td class="camposDesc" align="left"><%=archivospersona.persona.autobuscar rescue nil%></td>
+        </tr>
+        <% if archivospersona.archivo.tipo.to_s != "S" %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Caja</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.caja rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Carpeta</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.carpeta rescue nil%></td>
+        </tr>
+        <% end %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Barrio</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.barrio rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Manzana</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.manzana rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Lote</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.lote rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Unidad de Conservacion</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.unidad_conservacion rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Nro de Folios</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.nro_folios rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Serie - Subserie Documental</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.archivosserie.codigo_final rescue nil%> <%=archivospersona.archivo.archivosserie.subserie rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Ubicación</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.dtipo rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Ult. Actualizacion</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.updated_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=archivospersona.archivo.user.nombre rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Creacion</td>
+          <td class="camposDesc" align="left"><%=archivospersona.archivo.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(archivospersona.archivo.usercrea).nombre rescue nil%></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <% if archivospersona.archivo.archivosimagenes.exists? %>
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+                <tr>
+                  <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+                </tr>
+              </table>
+              <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+                <tr valign="middle">
+                  <td width="45%" class="oce-first" align="left">Tipo de documento</td>
+                  <td width="50%" class="oce-first" align="left">Nombre del Archivo</td>
+                  <td width="5%" class="oce-first" align="left">&nbsp;</td>
+                </tr>
+                <% archivospersona.archivo.archivosimagenes.each do |archivosimagen| %>
+                 <tr  valign="middle">
+                   <td height="30" class="camposDesc" align="left"><%=archivosimagen.archivosdocumento.descripcion rescue nil%></td>
+                   <td class="camposDesc" align="left"><%=archivosimagen.archivo_file_name%></td>
+                   <td class="camposDesc" align="right">
+                     <%= link_to "Ver", archivosimagen.archivo.url(:original, false),
+                         { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                   </td>
+                 </tr>
+                <% end %>
+              </table>
+            <% else %>
+              <table width="100%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+                <tr>
+                  <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+                  <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+                </tr>
+              </table>
+            <% end %>
+          </td>
+        </tr>
+        <% if archivospersona.archivo_id.to_s != "" %>
+          <% if Archivosprestamo.exists?(["archivo_id = #{archivospersona.archivo_id} and fecha_devolucion is null"])
+               archivosprestamos = Archivosprestamo.find(:all, :conditions=>["archivo_id = #{archivospersona.archivo_id} and fecha_devolucion is null"])
+               archivosprestamos.each do |archivosprestamo|
+          %>
+          <tr class="odd1">
+            <td width="33%" height="20" class="campos" align="left">Expediente Prestado a</td>
+            <td class="camposDesc" align="left"><%=User.find(archivosprestamo.userprestamo).nombre rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="33%" height="20" class="campos" align="left">Fecha vence prestamo</td>
+            <td class="camposDesc" align="left"><%=archivosprestamo.fecha_vence.strftime("%Y-%m-%d %X") rescue nil%></td>
+          </tr>
+             <% end %>
+          <% else
+              if archivospersona.archivo.tipo == "U"%>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente NO se encuentra Disponible para prestamo debido a que se encuentra en la Unidad de Tramites</div></td>
+                  </tr>
+              <% elsif archivospersona.archivo.tipo.to_s == "S" %>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente NO se encuentra habilitado para prestamos, solo puede consultarse digital</div></td>
+                  </tr>
+              <% else %>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente se encuentra "Disponible para prestamo"</div></td>
+                  </tr>
+              <% end %>
+          <% end %>
+        <% end %>
+     </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+  </div>
+<% end %>
+<% end %>
+<br/>
+</fieldset>

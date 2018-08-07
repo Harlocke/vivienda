@@ -1,0 +1,1 @@
+page.replace_html :agendasprocesosusers_form, :partial => "/agendasprocesosusers/agendasprocesosusers"

@@ -1,0 +1,10 @@
+<% form_for(@asigprestamo, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+<%= render :partial => 'form', :locals => { :f => f } %>
+<table width="60%" align="center">
+  <tr>
+    <td class="campos" width="294" height="30"><%= f.submit "Guardar" %></td>
+    <td width="664"></td>
+  </tr>
+</table>
+<% end %>

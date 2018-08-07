@@ -1,0 +1,263 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CREACIÓN DEL PRESUPUESTO DE MEJORAMIENTO</div></td>
+  </tr>
+  <tr>
+    <td height="10" class="camposDesc">
+      <%= link_to "Informe", {:controller => "mejoramientoselementos", :action => "informe", :id=>@mejoramiento.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <%= link_to "Acta Cambio", {:controller => "mejoramientoselementos", :action => "actacambioobra", :id=>@mejoramiento.id}, :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <%= link_to "Acta Terminación", {:controller => "mejoramientoselementos", :action => "actaterminaobra", :id=>@mejoramiento.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <%= link_to "Acta Recibo", {:controller => "mejoramientoselementos", :action => "actareciboobra", :id=>@mejoramiento.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <%= link_to "Informe XLS", {:controller => "mejoramientoselementos", :action => "informe", :id=>@mejoramiento.id, :format=>"xls"},:class=>"verlink"%>
+      <%= link_to "Informe Criterios", {:controller => "mejoramientos", :action => "informefotografia", :id=>@mejoramiento.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <% if @mejoramiento.just_fecha.to_s == "" and permisomejoramiento(@mejoramiento.id).to_s == "S"  %>
+        <%= link_to "Generar Cambio", {:controller => "mejoramientoselementos", :action => "actacambioobra", :id=>@mejoramiento.id, :id2=>2},:confirm=>"Esta seguro que desea Generar el Proceso de Acta de Cambio?\nEste proceso bloquea el mejoramiento para Actualizaciones Futuras", :class=>"imagensuspension"%>
+      <% end %>
+      <% if @mejoramiento.just_terminacion_fecha.to_s == "" and permisomejoramiento(@mejoramiento.id).to_s == "S"  %>
+        <%= link_to "Generar Terminación", {:controller => "mejoramientoselementos", :action => "actaterminaobra", :id=>@mejoramiento.id, :id2=>2},:confirm=>"Esta seguro que desea Generar el Proceso de Acta de Terminación?\nEste proceso bloquea el mejoramiento para Actualizaciones Futuras", :class=>"imagensuspension"%>
+      <% end %>
+      <% if @mejoramiento.just_recibo_fecha.to_s == "" and permisomejoramiento(@mejoramiento.id).to_s == "S"  %>
+        <%= link_to "Generar Recibo", {:controller => "mejoramientoselementos", :action => "actareciboobra", :id=>@mejoramiento.id, :id2=>2},:confirm=>"Esta seguro que desea Generar el Proceso de Acta de Recibo?\nEste proceso bloquea el mejoramiento para Actualizaciones Futuras", :class=>"imagensuspension"%>
+      <% end %>
+      </td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@mejoramiento, @mejoramientoselemento] do |form| %>
+<% if permiso("mejoramientoselemento","C").to_s == "S" %>
+   <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" %>
+     <% if !@mejoramientoselemento.id %>
+          <%= render :partial => "/mejoramientoselementos/mejoramientoselementos_form" %>
+     <% end %>
+   <% end %>
+<% end %>
+<% if @mejoramiento.mejoramientoselementos.exists? %>
+<table width="98%" border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="5" class="oce-first"><div align="center">De Diagnostico</div></td>
+    <td colspan="2" class="oce-first"><div align="center">De Ejecucion</div></td>
+    <td class="oce-first"></td>
+  </tr>
+  <tr valign="middle">
+    <td width="50%" height="30" class="oce-first">Item</td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Unidad</div></td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Cant</div></td>
+    <td width="8%" height="30" class="oce-first"><div align="center">Valor<br/>Unitario</div></td>
+    <td width="11%" height="30" class="oce-first"><div align="center">Valor<br/>Total</div></td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Cant</div></td>
+    <td width="11%" height="30" class="oce-first"><div align="center">Subtotal</div></td>
+    <td width="5%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<%  @valoracum = 0
+    @valornormal = 0
+    @valoradmin = 0
+    if @mejoramiento.calculo.to_s == "EJECUCION 2015"
+      @codigoshabilitados = " mejoramientositem_id not in (10043,2) "
+    else
+      @codigoshabilitados = " mejoramientositem_id not in (10043) "
+    end
+    for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all,:conditions=>[@codigoshabilitados], :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento|
+      if mejoramientoselemento.id != @mejoramientoselemento.id
+        @valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+        #if @mejoramiento.calculo.to_s == "EJECUCION 2015"
+          #if mejoramientoselemento.mejoramientositem_id.to_i != 10043 and mejoramientoselemento.mejoramientositem_id.to_i != 2
+            #@valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+          #end
+        #else
+          #if mejoramientoselemento.mejoramientositem_id.to_i !=  10043
+            #@valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+          #end
+        #end
+        if Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_f > 0.0
+         clase = "campos"
+        else
+         clase = "camposDesc"
+        end
+  %>
+  <table width="97%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientoselemento_<%= mejoramientoselemento.id%>">
+     <td width="50%" height="30" class="<%=clase%>"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> <%=mejoramientoselemento.mejoramientositem.codigo rescue nil%> - <%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div></td>
+     <td width="5%" class="<%=clase%>"><div align="center"><%=mejoramientoselemento.mejoramientositem.unidad rescue nil%></div></td>
+     <td width="5%" class="<%=clase%>"><div align="center"><%=mejoramientoselemento.cantidad rescue nil%></div></td>
+     <td width="8%" class="<%=clase%>"><div align="right"><%=number_to_currency(mejoramientoselemento.valor_unitario,{:precision => 2, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="11%" class="<%=clase%>"><div align="right">
+         <%  if mejoramientoselemento.mejoramientositem_id.to_i ==  10043 %>
+          0
+         <%  elsif mejoramientoselemento.valor_total.to_i > 0 %>
+          <%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."}) rescue 0%>
+         <%  else %>
+          0
+         <%  end %></div></td>
+     <td width="5%" class="<%=clase%>"><div align="center"><%=Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])%></div></td>
+     <td width="11%" class="<%=clase%>"><div align="right"><%=number_to_currency(Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]),{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="5%" class="camposDesc"><div align="center">
+         <% if permisobloqueomejoramiento(@mejoramiento.id).to_s == "S" %>
+           <% if permiso("mejoramientoselemento","A").to_s == "S" %>
+               <%= link_to_remote('',{:url => edit_mejoramiento_mejoramientoselemento_path(@mejoramiento, mejoramientoselemento),:method => :get},:title=>"Editar", :class=>"editarlink")%>
+           <% else %>
+             <% if Mejoramientosinterventoria.exists?(["mejoramiento_id = #{@mejoramiento.id}"]) == false %>
+                <% if permiso("mejoramientoselemento","A").to_s == "S" or @mejoramiento.user_tecnologo == is_admin %>
+                  <%= link_to_remote('',{:url => edit_mejoramiento_mejoramientoselemento_path(@mejoramiento, mejoramientoselemento),:method => :get},:title=>"Editar", :class=>"editarlink")%>
+                <% end %>
+                <% if permiso("mejoramientoselemento","E").to_s == "S"  %>
+                  <%= link_to_remote('',{:url => mejoramiento_mejoramientoselemento_path(@mejoramiento, mejoramientoselemento),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+                <% end %>
+             <% end %>
+           <% end %>
+           <% if @mejoramiento.calculo.to_s == 'SIN ADMINISTRACION' %>
+              <%= link_to_remote('',{:url => edit_mejoramiento_mejoramientoselemento_path(@mejoramiento, mejoramientoselemento),:method => :get},:title=>"Editar", :class=>"editarlink")%>
+           <% end %>
+           <%= link_to '', new_mejoramientoselemento_mejoraelementosimagen_path(mejoramientoselemento.id),:title=>"Imagenes", :class=>"imagenlink" %>
+         <% end %>
+     </div></td>
+ </tr>
+ <% if mejoramientoselemento.observaciones %>
+ <tr>
+   <td colspan="8">
+     <div align="center">
+        <table width="80%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td class="campos"><div align="justify">SUSTENTACION: <%=mejoramientoselemento.observaciones rescue nil%></div></td></tr>
+        </table>
+     </div>
+   </td>
+ </tr>
+ <% end %>
+</table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="mejoramientoselemento_<%=@mejoramientoselemento.id%>">
+            <%= render :partial => "mejoramientoselementos_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="50%" height="20" class="oce-first">&nbsp;</td>
+    <td width="5%" class="oce-first"><div align="center">&nbsp;</div></td>
+    <td width="5%" class="oce-first"><div align="center">&nbsp;</div></td>
+    <td width="8%" class="oce-first"><div align="center">Subtotal&nbsp;&nbsp;</div></td>
+    <td width="11%" class="odd1 campos"><div align="right"><%=number_to_currency(@valornormal,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+    <td width="5%" class="oce-first"><div align="center">&nbsp;</div></td>
+    <td width="11%" class="odd1 campos"><div align="right"><%=number_to_currency(@mejoramiento.vlracum,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+  <% if @mejoramiento.calculo.to_s == 'SIN ADMINISTRACION' %>
+    <tr valign="middle">
+      <td height="20" class="oce-first">&nbsp;</td>
+      <td colspan="3" class="oce-first"><div align="right">Gastos Administrativos &nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(530550.to_i) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(530550.to_i) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <tr valign="middle">
+      <td height="20" class="oce-first">&nbsp;</td>
+      <td colspan="3" class="oce-first"><div align="right">Diagnostico&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(800000.to_i) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(800000.to_i) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+  <% else %>
+    <tr valign="middle">
+      <td height="20" class="oce-first">&nbsp;</td>
+      <td colspan="3" class="oce-first"><div align="right">Administración 13%&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmin) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valoradmineje) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <tr valign="middle">
+      <td height="20" class="oce-first">&nbsp;</td>
+      <td colspan="3" class="oce-first"><div align="right">Diagnostico&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valordiag) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <% if @mejoramiento.calculo.to_s == 'EJECUCION 2015' %>
+    <tr valign="middle">
+      <td height="20" colspan="4" class="oce-first"><div align="right">Incremento Transporte a cabecera - Corregimientos&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporte) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporte_eje) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <tr valign="middle">
+      <td height="20" colspan="4" class="oce-first"><div align="right">Incremento Transporte a veredas sobre el valor de la cabecera&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporteadd) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valortransporteadd_eje) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <tr valign="middle">
+      <td height="20" colspan="4" class="oce-first"><div align="right">Gastos bancario 4 x mil&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor4pormil) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor4pormileje) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <% end %>
+    <% if @mejoramiento.especial.to_s == 'SI' %>
+    <tr valign="middle">
+      <td height="20" colspan="4" class="oce-first"><div align="right">Mano de obra no calificada 10%&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right">0&nbsp;&nbsp;</div></td>
+      <td class="oce-first"><div align="center">&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor10ejecucion) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="oce-first"></td>
+    </tr>
+    <% end %>
+  <% end %>
+  <tr valign="middle">
+    <td height="20" class="oce-first">&nbsp;</td>
+    <td colspan="3" class="oce-first"><div align="right">Total&nbsp;&nbsp;</div></td>
+    <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotal) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="oce-first"><div align="center">&nbsp;</div></td>
+    <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrtotaleje) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="oce-first"><div align="center"><%=@mejoramiento.porcentajeeje rescue 0%> %</div></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" class="oce-first">&nbsp;</td>
+    <td colspan="3" class="oce-first"><div align="right">Valor Pendiente Cierre&nbsp;&nbsp;</div></td>
+    <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+    <td class="oce-first"><div align="center">&nbsp;</div></td>
+    <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.pendientecierre) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="oce-first"><div align="center">&nbsp;</div></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="4" class="oce-first"><div align="right">Valor del SUBSIDIO&nbsp;&nbsp;</div></td>
+    <td colspan="3" class="odd1 campos"><div align="center"><%=camponumerico(@mejoramiento.valor_resolucion) rescue 0%>&nbsp;&nbsp;</div></td>
+    <td class="oce-first"><div align="center">&nbsp;</div></td>
+  </tr>
+</table>
+  <%= hidden_field :mejoramiento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientoselemento] %>
+<div id="mejoramientoselemento">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+     <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientoselemento] %></td>
+     </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientoselemento');", 5000)
+</script>
+<% end %>
+</div>
+

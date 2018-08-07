@@ -1,0 +1,95 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Conceptos Sociales y criterios de Obra por Operador Convenio / Resolucion</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">CONVENIO</div></strong></td>
+    <td colspan="3"><strong><div align="center">RESOLUCION</div></strong></td>
+    <td colspan="2"><strong><div align="center">ACTA DE INCIO</div></strong></td>
+    <td colspan="2"><strong><div align="center">APERTURA Y USO DE BITACORA</div></strong></td>
+    <td colspan="2"><strong><div align="center">ACTAS DE VECINDAD</div></strong></td>
+    <td colspan="2"><strong><div align="center">BITACORA SOCIALIZADA</div></strong></td>
+    <td colspan="2"><strong><div align="center">CONCEPTOS DE ASPECTOS SOCIALES</div></strong></td>
+    <td colspan="2"><strong><div align="center">DEFINDO EL APORTE TOTAL DEL BENEFICIARIO</div></strong></td>
+    <td colspan="2"><strong><div align="center">EJECUCION EN EL TIEMPO PLANEADO</div></strong></td>
+    <td colspan="2"><strong><div align="center">LIMPIEZA DE ESCOMBROS</div></strong></td>
+    <td colspan="2"><strong><div align="center">PLANEACION DE OBRA</div></strong></td>
+    <td colspan="2"><strong><div align="center">PQRS</div></strong></td>
+    <td colspan="2"><strong><div align="center">PRESUPUESTO Y PLANO SOCIALIZADO</div></strong></td>
+    <td colspan="2"><strong><div align="center">SE PIDEN APORTES ADICIONALES AL BENEFICIARIO</div></strong></td>
+    <td colspan="2"><strong><div align="center">OTROS</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Beneficiarios</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+    <td width="20%"><strong>SI</strong></td>
+    <td width="20%"><strong>NO</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|
+   convenio = Convenio.find(mejoramiento.convenio_id)
+   resolucion = Resolucion.find(mejoramiento.resolucion_id) %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=convenio.nro_convenio rescue nil%></td>
+    <td><%=convenio.vigencia rescue nil%></td>
+    <td><%=convenio.ejecutor rescue nil%></td>
+    <td><%=resolucion.nro_resolucion rescue nil%> - <%=resolucion.anno rescue nil%></td>
+    <td><%=resolucion.fecha rescue nil%></td>
+    <td><%=resolucion.resolucionespersonas.count rescue nil%></td>
+    <td><%=mejoramiento.estado1_s rescue nil%></td>
+    <td><%=mejoramiento.estado1_n rescue nil%></td>
+    <td><%=mejoramiento.estado2_s rescue nil%></td>
+    <td><%=mejoramiento.estado2_n rescue nil%></td>
+    <td><%=mejoramiento.estado3_s rescue nil%></td>
+    <td><%=mejoramiento.estado3_n rescue nil%></td>
+    <td><%=mejoramiento.estado4_s rescue nil%></td>
+    <td><%=mejoramiento.estado4_n rescue nil%></td>
+    <td><%=mejoramiento.estado5_s rescue nil%></td>
+    <td><%=mejoramiento.estado5_n rescue nil%></td>
+    <td><%=mejoramiento.estado6_s rescue nil%></td>
+    <td><%=mejoramiento.estado6_n rescue nil%></td>
+    <td><%=mejoramiento.estado7_s rescue nil%></td>
+    <td><%=mejoramiento.estado7_n rescue nil%></td>
+    <td><%=mejoramiento.estado8_s rescue nil%></td>
+    <td><%=mejoramiento.estado8_n rescue nil%></td>
+    <td><%=mejoramiento.estado9_s rescue nil%></td>
+    <td><%=mejoramiento.estado9_n rescue nil%></td>
+    <td><%=mejoramiento.estado10_s rescue nil%></td>
+    <td><%=mejoramiento.estado10_n rescue nil%></td>
+    <td><%=mejoramiento.estado11_s rescue nil%></td>
+    <td><%=mejoramiento.estado11_n rescue nil%></td>
+    <td><%=mejoramiento.estado12_s rescue nil%></td>
+    <td><%=mejoramiento.estado12_n rescue nil%></td>
+    <td><%=mejoramiento.estado13_s rescue nil%></td>
+    <td><%=mejoramiento.estado13_n rescue nil%></td>
+  </tr>
+<% end %>
+</table>

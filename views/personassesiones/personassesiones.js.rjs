@@ -1,0 +1,1 @@
+page.replace_html :personassesiones_form, :partial => "personassesiones", :object => @personassesion

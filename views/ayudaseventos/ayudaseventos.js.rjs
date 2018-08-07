@@ -1,0 +1,1 @@
+page.replace_html :ayudaseventos_form, :partial => "ayudaseventos", :object => @ayudasevento

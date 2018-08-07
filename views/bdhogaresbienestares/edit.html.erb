@@ -1,0 +1,80 @@
+<h1>Editing bdhogaresbienestar</h1>
+
+<% form_for(@bdhogaresbienestar) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :persona %><br />
+    <%= f.text_field :persona %>
+  </p>
+  <p>
+    <%= f.label :codigounidadserviciouds %><br />
+    <%= f.text_field :codigounidadserviciouds %>
+  </p>
+  <p>
+    <%= f.label :nombreunidadserviciouds %><br />
+    <%= f.text_field :nombreunidadserviciouds %>
+  </p>
+  <p>
+    <%= f.label :nombremunicipiouds %><br />
+    <%= f.text_field :nombremunicipiouds %>
+  </p>
+  <p>
+    <%= f.label :nombrezonarestouds %><br />
+    <%= f.text_field :nombrezonarestouds %>
+  </p>
+  <p>
+    <%= f.label :nombrecentropobladouds %><br />
+    <%= f.text_field :nombrecentropobladouds %>
+  </p>
+  <p>
+    <%= f.label :nombrecomunauds %><br />
+    <%= f.text_field :nombrecomunauds %>
+  </p>
+  <p>
+    <%= f.label :nombrebarriouds %><br />
+    <%= f.text_field :nombrebarriouds %>
+  </p>
+  <p>
+    <%= f.label :direccionuds %><br />
+    <%= f.text_field :direccionuds %>
+  </p>
+  <p>
+    <%= f.label :telefonouds %><br />
+    <%= f.text_field :telefonouds %>
+  </p>
+  <p>
+    <%= f.label :identificacion %><br />
+    <%= f.text_field :identificacion %>
+  </p>
+  <p>
+    <%= f.label :primernombre %><br />
+    <%= f.text_field :primernombre %>
+  </p>
+  <p>
+    <%= f.label :segundonombre %><br />
+    <%= f.text_field :segundonombre %>
+  </p>
+  <p>
+    <%= f.label :primerapellido %><br />
+    <%= f.text_field :primerapellido %>
+  </p>
+  <p>
+    <%= f.label :segundoapellido %><br />
+    <%= f.text_field :segundoapellido %>
+  </p>
+  <p>
+    <%= f.label :nombreservicio %><br />
+    <%= f.text_field :nombreservicio %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @bdhogaresbienestar %> |
+<%= link_to 'Back', bdhogaresbienestares_path %>

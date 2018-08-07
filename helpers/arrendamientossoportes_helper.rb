@@ -1,0 +1,2 @@
+module ArrendamientossoportesHelper
+end

@@ -1,0 +1,51 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/salidasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SALIDA DE PRODUCTOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag buscar_almacenessalidas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="30%"><span class="campos">Producto</span></td>
+    <td width="70%" class="camposDesc"><%=select("ubicacion", "producto_id", Producto.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+  <tr>
+    <td><span class="campos">Usuario</span></td>
+    <td class="camposDesc"><%=select("ubicacion", "usuario", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+  <tr>
+    <td><span class="campos">Fecha Salida</span></td>
+    <td class="camposDesc">
+       Entre <%= calendar_date_select "ubicacion", "inicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "final", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+

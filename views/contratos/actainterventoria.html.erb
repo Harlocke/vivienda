@@ -1,0 +1,108 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+       <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+       <div align="justify" style="font-size: 13px; font-family: Arial Narrow; line-height: 150%; ">
+         <br/>
+         Medellin, <%=descmesmin(@contrato.fecha_inicio.strftime("%m")) rescue nil%> <%=@contrato.fecha_inicio.strftime("%d") rescue nil%> de <%=@contrato.fecha_inicio.strftime("%Y") rescue nil%><br/><br/><br/>
+         Doctor(a)<br/>
+        <strong><%=@contrato.nombresinterventor rescue nil%><br/>
+        <%=@contrato.cargointerventor rescue nil%></strong><br/>
+        Instituto Social de Vivienda y Hábitat de Medellín<br/>
+        Ciudad<br/><br/><br/>
+        <strong>ASUNTO: Designación de Supervisión.</strong><br/><br/>
+        Con el fin de realizar la supervisión, me permito entregarle el Contrato de
+          <strong><%=@contrato.tiposcontrato.descripcion rescue nil%> N° <%=@contrato.nro_contrato%></strong>, celebrado entre el Instituto Social de Vivienda
+          y Hábitat de Medellín – ISVIMED- y <strong><%=@contrato.empleado.nombres%></strong> identificada con la cédula de ciudadanía número
+          <strong><%=number_to_currency(@contrato.empleado.identificacion,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong>. El valor total del presente contrato asciende a la suma de
+          <strong>$ <%=number_to_currency(@contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                <% if @contrato.valor_contrato.to_i >= 1000000000%>
+                   <%=numero_a_palabras(@contrato.valor_contrato.to_i)%>
+                <% else %>
+                   <%=@contrato.valor_contrato.to_i.to_words.upcase%>
+                <% end %>
+                PESOS M/L)</strong>,
+          El plazo de ejecución de este contrato será de <strong>
+          <% if @contrato.plazo_mes.to_i > 0 %>
+             <%=@contrato.plazo_mes%> meses
+          <% end %>
+          <% if @contrato.plazo_dias.to_i > 0 %>
+             <%=@contrato.plazo_dias%> dias
+          <% end %></strong>
+             contados desde la firma del acta de inicio y sin superar el <%=@contrato.fecha_final.strftime("%d") rescue nil%> de <%=descmesmin(@contrato.fecha_final.strftime("%m")) rescue nil%> de <%=@contrato.fecha_final.strftime("%Y") rescue nil%> y que tiene por objeto:
+          <strong>“<%=@contrato.objeto%>”</strong>.<br/><br/>
+          En su calidad de Supervisor (a), deberá ejercer funciones de orientación, supervisión, vigilancia y control técnico, administrativo y financiero del contrato, en razón de lo cual  tendrá  la facultad y el deber de realizar,  entre otras, las siguientes actividades:<br/>
+          <br/>
+          <strong>1.</strong> Verificar la ejecución del contrato y exigir el  cumplimiento de todos y cada una de los compromisos y cláusulas del mismo.<br/><br/>
+          <strong>2.</strong> Revisar y aprobar los productos estipulados en el contrato y exigir su corrección cuando sea necesario.<br/><br/>
+          <strong>3.</strong> Verificar en los términos legales el cumplimiento de los aportes al régimen de seguridad social y parafiscal.<br/><br/>
+          <strong>4.</strong> Efectuar las observaciones, recomendaciones y llamados de atención  necesarias para la buena ejecución del contrato, todos los cuales deberán ser siempre por escrito.<br/><br/>
+          <strong>5.</strong> Informar al ISVIMED las acciones del CONTRATISTA que puedan afectar la ejecución del contrato así como  aquellas que den lugar a la imposición de sanciones, con la respectiva conclusión o recomendación.<br/><br/>
+          <br/>
+          <H1 class=SaltoDePagina></H1>
+          <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+            <tr>
+              <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="http://190.0.34.154:3013/images/feriaisvimed.png"/></div></td>
+              <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center"><%=@calidadversion.descripcion rescue nil%></div></strong></td>
+              <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+            </tr>
+            <tr>
+              <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> 2 DE 2</td>
+            </tr>
+          </table>
+          <br/>
+          <strong>6.</strong> Gestionar oportunamente ante el ISVIMED las solicitudes para la modificación, prorroga o adición del contrato cuando sea necesario.<br/><br/>
+          <strong>7.</strong> Verificar la expedición, extensión o corrección  de las garantías por parte del contratista cuando a ello haya lugar.<br/><br/>
+          <strong>8.</strong> Evitar que se inicie el contrato o sus adiciones sin que se hayan cumplido los requisitos de ejecución propios del contrato como la constitución o ampliación de las garantías, pago de la publicación o  pago del impuesto de timbre cuando a ellos haya lugar.<br/><br/>
+          <strong>9.</strong> Evitar la ejecución o pago de actividades anteriores a la legalización del contrato (requisitos de perfeccionamiento y ejecución).<br/><br/>
+          <strong>10.</strong> Verificar el cumplimiento de requisitos necesarios para la legalización de las prorrogas, adiciones o modificaciones que se efectúen al contrato.<br/><br/>
+          <strong>11.</strong> Resolver las consultas que formule el CONTRATISTA.<br/><br/>
+          <strong>12.</strong> Elaborar las actas a que haya lugar.<br/><br/>
+          <strong>13.</strong> Seguir el procedimiento establecido por el ISVIMED para realizar la liquidación del contrato.<br/><br/>
+          <strong>14.</strong> Las demás derivadas de su función principal de orientación, supervisión, vigilancia y control.<br/><br/>
+          <strong>15.</strong> Mantener la carpeta original del contrato actualizada con  todos los documentos y actas que se realicen con el contratista y al mismo tiempo mantener una carpeta escaneada con toda la información del contrato. El interventor podrá obtener y manejar copias del contrato.<br/><br/>
+          <strong>16.</strong> No retirar la carpeta original de las instalaciones de ISVIMED.<br/><br/>
+          <strong>17.</strong> Conocer y aplicar el manual de interventoría de ISVIMED<br/><br/>
+          <% if @contrato.cargointerventor.to_s == 'PROFESIONAL UNIVERSITARIO MEJORAMIENTO'  %>
+          <strong>18.</strong> Vigilar que el asociado cumpla con el aporte exigido en cada uno de los convenios suscritos por el ISVIMED para el mejoramiento de vivienda.<br/><br/>
+          <% end %>
+          Cordialmente,
+          <br/><br/><br/>
+          ___________________________________________<br/>
+          <strong><%=Sifi.find(17).valor.to_s rescue nil%><br/>
+          <%=Sifi.find(19).valor.to_s rescue nil%></strong><br/>
+          Instituto Social de Vivienda y Hábitat de Medellín
+         </div>
+        <div style="font-size: 10px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+        <br/>
+    </td>
+  </tr>
+</table>
+</div>

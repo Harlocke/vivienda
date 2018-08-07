@@ -1,0 +1,115 @@
+<div align="center">
+<table width="750" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="../../images/frame.png"/></td>
+      </tr>
+    </table>
+  <br/>
+<table width="750" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td colspan="3"><div class="col_enc" align="left">PROYECTO  <%=Proyecto.find(@proyectosficha.proyecto_id).descripcion rescue nil%></div></td>
+  </tr>
+  <tr valign="top">
+    <td width="49%">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <tr valign="middle">
+    <td width="60%" height="20"><div align="left">Nro Soluciones Habitacionales</div></td>
+    <td width="40%" class="campos"><div align="left">&nbsp;<%=h @proyectosficha.nro_viviendas %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Ubicación</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=Comuna.find(@proyectosficha.comuna_id).descripcion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Valor</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.valor_proyecto %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Fecha Inicio</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.fecha_inicio_obra %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Fecha Fin</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.fecha_fin_obra %></div></td>
+  </tr>
+</table>
+    </td>
+    <td width="2%">&nbsp;</td>
+    <td width="49%">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <tr valign="middle">
+    <td width="30%"  height="20"><div align="left">% Programa</div></td>
+    <td width="70%" class="campos"><div align="left">&nbsp;<%=h @proyectosficha.por_avance_pro %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">% Ejecucion</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.por_avance_eje %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Constructor</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.constructor %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Interventor</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.interventor %></div></td>
+  </tr>
+  <tr valign="middle">
+    <td ><div align="left">Gerencia</div></td>
+    <td  class="campos"><div align="left">&nbsp;<%=h @proyectosficha.gerente %></div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <% i = 0 %>
+         <% for proyectosfichasimagen in @proyectosficha.proyectosfichasimagenes.find(:all, :conditions =>['proyectosficha_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+            <% i = i + 1
+               if i <= 2
+            %>
+            <td width="50%">
+                    <table width="100%" height="175" border="0" cellpadding="2" cellspacing="6">
+                      <tr>
+                        <td height="133" align="center" valing="middle">
+                       <%= link_to image_tag (proyectosfichasimagen.proyectosficha.url, :size =>"350x300", :border=>0),
+                              proyectosfichasimagen.proyectosficha.url(:original, false) %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="19" align="center"><%= proyectosfichasimagen.descripcion%></td>
+                      </tr>
+                    </table>
+            </td>
+            <% else
+               i = 1
+            %>
+            </tr>
+        </table>
+          <br/>
+        <table width="750" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            <td width="50%">
+                    <table width="100%" height="175" border="0" cellpadding="2" cellspacing="6">
+                      <tr>
+                        <td height="133" align="center" valing="middle">
+                       <%= link_to image_tag (proyectosfichasimagen.proyectosficha.url, :size =>"350x300", :border=>0),
+                              proyectosfichasimagen.proyectosficha.url(:original, false) %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="19" align="center"><%= proyectosfichasimagen.descripcion%></td>
+                      </tr>
+                    </table>
+            </td>
+            <% end  %>
+          <% end %>
+          </tr>
+        </table>
+  <table width="760"  border="0" cellspacing="0" cellpadding="0" >
+      <tr>
+        <td width="60%" height="20" class="camposDesc"><div align="left"><%=Time.now.strftime("%Y-%m-%d %X")%> - <%=User.find(is_admin).nombre rescue nil%></div></td>
+        <td width="40%" height="20" class="camposDesc"><div align="right"><a href="javascript:window.print()" class="imprimirlink">Imprimir</a>&nbsp;&nbsp;</div></td>
+      </tr>
+  </table>
+<br/>

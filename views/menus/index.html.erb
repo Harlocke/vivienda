@@ -1,0 +1,41 @@
+<br/>
+<%= render '/menus/contratos' %>
+<%= render '/menus/correspondencia' %>
+<%= render '/menus/cruces' %>
+<%= render '/menus/transporte' %>
+<%= render '/menus/visitatecnica' %>
+<% if permiso("viviendasusadavisita","C").to_s == "S"%>
+    <%= render '/menus/visitatecnicapendiente' %>
+<% end %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td >&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="60%" >
+        <table height="0" border="0" align="center" cellpadding="2" cellspacing="2">
+          <tr>
+            <% i = 0 %>
+            <% @usersmodulos.each do |usersmodulo| %>
+             <% i = i + 1  %>
+            <% if i <= 7 %>
+            <td width="0%" align="left">
+            <%= link_to image_tag("#{usersmodulo.modulo.imagen}", { :border => 0, :title => "#{usersmodulo.modulo.mensaje}" }),"#{usersmodulo.modulo.controlador}"%>
+            </td>
+            <% else %>
+            <% i = 1 %>
+            </tr>
+            <tr>
+            <td width="0%"  align="left">
+            <%= link_to image_tag("#{usersmodulo.modulo.imagen}", { :border => 0, :title => "#{usersmodulo.modulo.mensaje}" }),"#{usersmodulo.modulo.controlador}"%>
+            </td>
+            <% end %>
+            <% end %>
+          </tr>
+        </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<%= render '/menus/msnsoporte' %>
+<%= render '/menus/msndocumentos' %>

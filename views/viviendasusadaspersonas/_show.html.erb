@@ -1,0 +1,87 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION VIVIENDA USADA</div></td>
+  </tr>
+</table>
+<% @persona.viviendasusadaspersonas.each do |viviendasusadaspersona| %>
+    <% if viviendasusadaspersona.id != @viviendasusadaspersona.id %>
+  <div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="16%" align="left" class="campos">Tipo de Poblaci&oacute;n </td>
+          <td width="35%" align="left" class="campos">Proyecto</td>
+          <td width="25%" align="left" class="campos">Sector</td>
+          <td width="24%" align="left" class="campos">Fecha Recepcion Documentos </td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.tipospoblacion.descripcion rescue nil%></td>
+          <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.proyecto%></td>
+          <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.sector%></td>
+          <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.fecha_recibido_doc%></td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="39%" align="left" class="campos">Direccion EEPP </td>
+            <td width="35%" align="left" class="campos">Direccion Catastro </td>
+            <td width="35%" align="left" class="campos">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.direccion_eepp%></td>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.direccion_catastro%></td>
+            <td align="left" class="camposDesc"></td>
+          </tr>
+        </table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORMACIÓN VIVIENDA DE REPOSICIÓN</div></td>
+  </tr>
+</table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="30%" align="left" class="campos">Direccion Vivienda Reposici&oacute;n </td>
+            <td width="28%" align="left" class="campos">Matricula Vivienda Reposicion </td>
+          </tr>
+          <tr>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.direccion_vivreposicion%></td>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.matricula_vivreposicion%></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="40%" align="left" class="campos">Vendedor</td>
+            <td width="35%" align="left" class="campos">Modo adquisici&oacute;n </td>
+            <td width="25%" align="left" class="campos">Valor Vivienda</td>
+          </tr>
+          <tr>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.nombre_vendedor%></td>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.modo_adquisicion%></td>
+            <td align="left" class="camposDesc"><%=viviendasusadaspersona.viviendasusada.valor_vivienda%></td>
+          </tr>
+        </table>
+</td>
+      </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_viviendasusada_path(viviendasusadaspersona.viviendasusada_id) %></span></div>
+</div></td>
+  </tr>
+</table>
+    
+  </div>
+
+     <% end %>
+<% end %>
+</fieldset>

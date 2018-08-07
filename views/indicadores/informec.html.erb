@@ -1,0 +1,125 @@
+<div class="page-header">
+  <h2>SMO - SISTEMA DE MEDICIÓN ORGANIZACIONAL - Consolidado</h2>
+</div>
+<table width="100%" border="1" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="70%"><strong>Proceso</strong></th>
+    <th width="15%"><strong>Resultado Cumplimiento Procesos</strong></th>
+    <th width="15%"><strong>% Ponderado (Proceso)</strong></th>
+  </tr>
+<% vlrtotal = 0
+   @indicadores.each do |indicador| %>
+  <tr valign="middle">
+    <td height="25"><%=h indicador.proceso%></td>
+<%  @indicadores = Indicador.find_all_by_proceso(indicador.proceso)
+      sum = 0.0
+      vlrp = 0
+      @indicadores.each do |ind|
+        cant = 0
+        sumvalor = 0        
+        rst1 = valorindicador('01','2016',ind.id)
+        if rst1
+          cant = cant + 1;
+          sumvalor = sumvalor + rst1.to_f
+        end
+
+        rst2 = valorindicador('02','2016',ind.id)
+        if rst2
+          cant = cant + 1;
+          sumvalor = sumvalor + rst2.to_f
+        end
+
+        rst3 = valorindicador('03','2016',ind.id)
+        if rst3
+          cant = cant + 1;
+          sumvalor = sumvalor + rst3.to_f
+        end
+
+        rst4 = valorindicador('04','2016',ind.id)
+        if rst4
+          cant = cant + 1;
+          sumvalor = sumvalor + rst4.to_f
+        end
+
+        rst5 = valorindicador('05','2016',ind.id)
+        if rst5
+          cant = cant + 1;
+          sumvalor = sumvalor + rst5.to_f
+        end
+
+        rst6 = valorindicador('06','2016',ind.id)
+        if rst6
+          cant = cant + 1;
+          sumvalor = sumvalor + rst6.to_f
+        end
+
+        rst7 = valorindicador('07','2016',ind.id)
+        if rst7
+          cant = cant + 1;
+          sumvalor = sumvalor + rst7.to_f
+        end
+
+        rst8 = valorindicador('08','2016',ind.id)
+        if rst8
+          cant = cant + 1;
+          sumvalor = sumvalor + rst8.to_f
+        end
+
+        rst9 = valorindicador('09','2016',ind.id)
+        if rst9
+          cant = cant + 1;
+          sumvalor = sumvalor + rst9.to_f
+        end
+
+        rst10 = valorindicador('10','2016',ind.id)
+        if rst10
+          cant = cant + 1;
+          sumvalor = sumvalor + rst10.to_f
+        end
+
+        rst11 = valorindicador('11','2016',ind.id)
+        if rst11
+          cant = cant + 1;
+          sumvalor = sumvalor + rst11.to_f
+        end
+
+        rst12 = valorindicador('12','2016',ind.id)
+        if rst12
+          cant = cant + 1;
+          sumvalor = sumvalor + rst12.to_f
+        end
+
+        if cant.to_i > 0
+          vlr = sumvalor/cant rescue nil
+          if vlr
+            valor = (vlr * ind.ponderado.to_f)/100
+            vlrp = vlrp + valor
+          end
+        end
+        # vlr
+        # valor
+    end
+    color1 = ""
+    if vlrp.to_f >= 90.to_f
+     color1 = "#00FF00"
+    elsif vlrp.to_f >= 80.to_f
+     color1 = "#FFFF00"
+    elsif vlrp.to_i < 80.to_i and vlrp.to_i > 0
+     color1 = "#FF0000"
+    elsif vlrp == 0
+     color1 = "#FF0000"
+    end
+    vlrtotal = vlrtotal.to_f + vlrp.to_f
+%>
+   <th bgcolor="<%=color1%>"><%=vlrp%>%</th>
+    <td></td>
+  </tr>
+<% end %>
+  <tr valign="middle">
+    <th width="70%" height="25"><strong>Porcentaje total procesos</strong></th>
+    <th width="15%"><strong><%=vlrtotal%></strong></th>
+    <th width="15%"><strong></strong></th>
+  </tr>
+</table>
+<br/>
+

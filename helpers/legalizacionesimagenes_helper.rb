@@ -1,0 +1,2 @@
+module LegalizacionesimagenesHelper
+end

@@ -1,0 +1,54 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">BITACORA DE SEGUIMIENTO</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@correspondenciasinterna, @corresinternasbitacora] do |form| %>
+    <% if !@corresinternasbitacora.id %>
+    <% end %>
+<% if @correspondenciasinterna.corresinternasbitacoras.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="60%" height="30" align="left" class="oce-first">Actividad</td>
+    <td width="20%" class="oce-first">Usuario</td>
+  </tr>
+  <% for corresinternasbitacora in @correspondenciasinterna.corresinternasbitacoras.find(:all, :order => 'created_at desc')%>
+     <% if corresinternasbitacora.id != @corresinternasbitacora.id %>
+          <tr valign="middle" id="corresinternasbitacora_<%=corresinternasbitacora.id%>" class="<%=cycle('even1', 'odd1')%>">
+            <td class="camposDesc" align="left"><%=corresinternasbitacora.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+            <td class="camposDesc" align="left"><%=corresinternasbitacora.actividad%></td>
+            <td class="camposDesc" align="left"><%=corresinternasbitacora.user.username rescue nil%></td>
+          </tr>
+     <% end %>
+  <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+  <tr>
+    <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+    <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+  </tr>
+</table>
+<% end %>
+            <%= hidden_field :corresinterna, :id %>
+<% end %>
+</table>
+  </div>
+<br/>
+<% if flash[:corresinternasbitacora] %>
+<div id="corresinternasbitacora">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:corresinternasbitacora] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('corresinternasbitacora');", 5000)
+</script>
+<% end %>

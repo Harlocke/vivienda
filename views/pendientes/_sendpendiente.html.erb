@@ -1,0 +1,86 @@
+<table  width="300px" cellspacing="0" cellpadding="0">
+  <tr align="center">
+    <td><table border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td align="left"><img src="http://190.0.34.154:3013/images/frame.png"/></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td><table bgcolor="#4184F3" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td height="72px" colspan="3"></td>
+              </tr>
+              <tr valign="middle">
+                <td width="32px"></td>
+                <td style="vertical-align:middle; font-size: 25px; color: white; font-family: Verdana, Geneva, sans-serif;">Asignación de Tarea</td>
+                <td width="32px"></td>
+              </tr>
+              <tr>
+                <td height="18px" colspan="3"></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr>
+          <td><table bgcolor="#FAFAFA" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr height="16px">
+                <td width="32px" rowspan="3"></td>
+                <td></td>
+                <td width="32px" rowspan="3"></td>
+              </tr>
+              <tr>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td>Hola, <br/><br/>
+                        <%=@pendiente.asignadoa rescue nil %><br/>
+                        <div align="justify">El <strong>SIFI</strong> le informa que tiene la siguiente tarea asignada.<br/><br/>
+                         <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+                           <tr >
+                              <td width="30%" class="campos"><div align="left"><strong>Fecha Asignación</strong></div></td>
+                              <td width="70%" class="camposDesc"><%= @pendiente.fecha_asignacion rescue nil%></td>
+                            </tr>
+                            <tr >
+                              <td class="campos"><div align="left"><strong>Fecha Vencimiento</strong></div></td>
+                              <td class="camposDesc"><%= @pendiente.fecha_vence rescue nil%></td>
+                            </tr>
+                            <tr >
+                              <td class="campos"><div align="left"><strong>Tarea<strong></div></td>
+                              <td class="camposDesc"><div align="justify"><%= @pendiente.tarea rescue nil%></div></td>
+                            </tr>
+                         </table><br/><br/>
+                       
+                        Atentamente,<br/>S I F I - Sistema de Informacion ISVIMED<br/><%=Time.now.strftime("%Y-%m-%d %X")%></div>
+                       </td>
+                    </tr>
+                  </tbody>
+                </table></td>
+              </tr>
+              <tr height="32px"></tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 10px; font-family: Tahoma;">
+                <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/>
+                CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table></td>
+    <td width="32px"></td>
+  </tr>
+</table>
+
+

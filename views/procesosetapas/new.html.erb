@@ -1,0 +1,25 @@
+<h1>New procesosetapa</h1>
+
+<% form_for(@procesosetapa) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :etapasproceso_id %><br />
+    <%= f.text_field :etapasproceso_id %>
+  </p>
+  <p>
+    <%= f.label :fecha_limite %><br />
+    <%= f.date_select :fecha_limite %>
+  </p>
+  <p>
+    <%= f.label :fecha_actuacion %><br />
+    <%= f.date_select :fecha_actuacion %>
+  </p>
+  <p>
+    <%= f.label :observaciones %><br />
+    <%= f.text_field :observaciones %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

@@ -1,0 +1,20 @@
+<strong>CONSOLIDADO PROYECTOS Y BLOQUES</strong>
+<br/>
+<table  border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>PROYECTOS</strong></td>
+    <td><strong>BLOQUES</strong></td>
+    <td><strong>APTOS</strong></td>
+    <td><strong>REGISTRADOS</strong></td>
+  </tr>
+<%
+  for viviendasreporte in @viviendasreportes
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><%=viviendasreporte.descripcion rescue nil%></td>
+    <td ><%=viviendasreporte.bloquedescripcion rescue nil%></td>
+    <td ><%=viviendasreporte.aptos rescue nil%></td>
+    <td ><%=viviendasreporte.registrados rescue nil%></td>
+  </tr>
+<%   end %>
+</table>

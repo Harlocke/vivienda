@@ -1,0 +1,140 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciasinternamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CORRESPONDENCIA INTERNA</div></td>
+              <% if permiso("correspondenciasinterna","C").to_s == "S" %>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_correspondenciasinterna_path %>
+                </div></td>
+              <% end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag buscar_correspondenciasinternas_path, :method => 'get' do
+%>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+          <td width="33%" height="20" class="campos" align="left">Consecutivo </td>
+          <td class="camposDesc" align="left"><%= text_field_tag :consecutivo, params[:consecutivo],{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>&nbsp;&nbsp;<h class="cerror">* Ultimo Radicado ... <%=@ultimoradicado%></h></td>
+        </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Fecha Documento</td>
+      <td class="camposDesc" align="left">
+        Entre <%= calendar_date_select "ubicacion", "fchdocinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "fchdocfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Dependencia</td>
+      <td class="camposDesc" align="left">
+        <%=select("ubicacion", "dependencia_id", Dependencia.find(:all, :order => 'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Tipo</td>
+      <td class="camposDesc" align="left">
+        <%= select("ubicacion", "tipo", {"REDIRECCION DE PETICIONES" => "REDIRECCION DE PETICIONES",
+                           "SOLICITUD DE INFORMACION Y/O APOYO" => "SOLICITUD DE INFORMACION Y/O APOYO",
+                         "INFORMACION GENERAL" => "INFORMACION GENERAL"},
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Asunto</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :asunto, params[:asunto],{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Usuario Proyecta</td>
+      <td class="camposDesc" align="left">
+        <%=select("ubicacion", "user_proyecta", User.find(:all, :conditions =>["activo ='S'"],:order => 'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      </td>
+    </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+        <% if permiso("correspondenciasinterna","C").to_s == "S" %>
+       <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'format', :value => 'xls' %>
+          </span></div>
+        <% end %>
+</div></td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/indicadoresmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INDICADORES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% if @correspondenciasinternas.count != 0 %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Consecutivo</div></td>
+    <td width="5%" height="30" class="oce-first">Anno</td>
+    <td width="20%" class="oce-first"><div align="center">Fecha Documento</div></td>
+    <td width="25%" class="oce-first"><div align="center">Dependencia</div></td>
+    <td width="35%" class="oce-first"><div align="center">Usuario Proyecta</div></td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @correspondenciasinternas.each do |correspondenciasinterna| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasinterna.consecutivo%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.anno%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.fecha_documento%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.dependencia.descripcion%></div></td>
+    <td class="camposDesc"><div align="center"><%=User.find(correspondenciasinterna.user_proyecta).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_correspondenciasinterna_path(correspondenciasinterna),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table class="table">
+  <tr>
+     <td><div align="center">Total Registros: <%= @correspondenciasinternas.count %><br/>
+       </div></td>
+   </tr>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;Usted no tiene indicadores asociados</td>
+     </tr>
+</table>
+<% end %>

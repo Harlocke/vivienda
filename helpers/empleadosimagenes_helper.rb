@@ -1,0 +1,2 @@
+module EmpleadosimagenesHelper
+end

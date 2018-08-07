@@ -1,0 +1,244 @@
+<table  width="300px" cellspacing="0" cellpadding="0">
+  <tr align="center">
+    <td><table border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td align="left"><img src="http://190.0.34.154:3013/images/frame.png"/></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td><table bgcolor="#4184F3" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td height="72px" colspan="3"></td>
+              </tr>
+              <tr valign="middle">
+                <td width="32px"></td>
+                <td style="vertical-align:middle; font-size: 25px; color: white; font-family: Verdana, Geneva, sans-serif;">Informe Aprobado para Contabilizar</td>
+                <td width="32px"></td>
+              </tr>
+              <tr>
+                <td height="18px" colspan="3"></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr>
+          <td><table bgcolor="#FAFAFA" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr height="16px">
+                <td width="32px" rowspan="3"></td>
+                <td></td>
+                <td width="32px" rowspan="3"></td>
+              </tr>
+              <tr>
+                <td>
+                    <table width="700" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                      <tr>
+                        <td width="20%" height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Contratista: </strong></td>
+                        <td width="80%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><%=@interventoria.contrato.empleado.autobuscar rescue nil%></td>
+                      </tr>
+                      <tr>
+                        <td width="20%" height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Contrato número:</strong></td>
+                        <td width="80%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><%=@interventoria.contrato.nro_contrato%> de <%=@interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Tipo de Contrato:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Objeto del Contrato:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="justify"><%=@interventoria.contrato.objeto%></div></td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Valor total del Contrato:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                          <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                             <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i)%>
+                          <% else %>
+                             <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase%>
+                          <% end %> PESOS M/L)</td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Valor mensual:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                             <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Duración del Contrato:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                               <%=@interventoria.contrato.plazo_mes%> meses -
+                            <% end %>
+                            <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                               <%=@interventoria.contrato.plazo_dias%> dias
+                            <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Nro Compromiso:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><%=@interventoria.contrato.nro_compromiso rescue nil%></td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Nro Disponibilidad:</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><%=@interventoria.contrato.nro_disponibilidad rescue nil%></td>
+                      </tr>
+                      <tr>
+                        <td height="25px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Periodo</strong></td>
+                        <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">Mes: Diciembre - Año <%=@interventoria.anno rescue nil%> </td>
+                      </tr>
+                    </table>
+                    <br/>
+                  <table width="700" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                    <tr>
+                      <td height="20px" colspan="3" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left"><strong>HONORARIOS DEL PERIODO</strong></div></td>
+                      <td colspan="2" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="center"><strong><%=number_to_currency(@interventoria.valor_mes, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%></strong></div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>Item</strong></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left"><strong>Descripcion</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="center"><strong>Valor Esperado</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="center"><strong>Valor Real</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="center"><strong>Limites</strong></div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" width="15%" rowspan="6" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>DEDUCCIONES</strong></td>
+                      <td height="20px" width="40%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Aportes Salud</div></td>
+                      <td width="13%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.salud_auto, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td width="12%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.salud, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td width="20%" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Aportes ARL</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.arl_auto, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%= number_to_currency(@interventoria.arl, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Intereses Creditos de Vivienda 100 UVT</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%= number_to_currency(@interventoria.interes_credito, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">&nbsp;&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Salud Medicina Prepagada 16 UVT</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.salud_prepagada, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">459.000</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;" ><div align="left">Dependientes (10% honorarios del periodo) 32 UVT</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.dependientes, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">859.000</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;" ><strong>TOTAL DEDUCCIONES</strong></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;" ><div align="right"><%=number_to_currency(@interventoria.subtotal, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td height="20px" rowspan="4" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>RENTAS EXENTAS</strong></td>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Aportes Obligatorias Fondos de Pension</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.pension_auto, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.pension, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">1.740.000</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Aportes Cuentas AFC</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.afc, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;" rowspan="2"><div align="justify" style="font-size: 9px;">La suma de los aportes no puede ser mayor al 30% del total de los honorarios del periodo</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Aportes Voluntarios Fondos de Pension</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right">0&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.voluntarias, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>TOTAL RENTAS EXENTAS</strong></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.subtotalr, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td height="20px" colspan="3" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left"><strong>SUBTOTAL</strong></div></td>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.subtotalt, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td height="20px" rowspan="5" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><strong>OTROS CONCEPTOS</strong></td>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Menos Renta Exenta (Art 2. Dcto 1070/2013)</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.renta, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Base Retencion en la Fuente</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.base_retefuente, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Base Rte en la Fuente en UVT</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.base_uvt, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Retencion en la Fuente&nbsp; (ART 383 E.T.)</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.retefuente383, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">Retencion en la Fuente&nbsp; (ART 384 E.T.)</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.retefuente384, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left">&nbsp;</div></td>
+                    </tr>
+                    <tr>
+                      <td height="20px" colspan="3" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left"><strong>TOTAL A PAGAR</strong></div></td>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@interventoria.total, :precision => 0, :unit=>"", :delimiter =>".") rescue 0%>&nbsp;&nbsp;</div></td>
+                      <td style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td height="20px" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="left"><strong>OBSERVACIONES</strong></div></td>
+                      <td height="20px" colspan="4" style="border:1px solid #000000; font-size: 10px; font-family: Tahoma;"><div align="justify"><%=@interventoria.observaciones rescue nil%></div></td>
+                    </tr>
+
+                  </table><br/>
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td><div align="justify">Atentamente,<br/>S I F I - Sistema de Informacion ISVIMED<br/><%=Time.now.strftime("%Y-%m-%d %X")%></div></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <tr height="32px"></tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 10px; font-family: Tahoma;">
+                <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/>
+                CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table></td>
+    <td width="32px"></td>
+  </tr>
+</table>
+
+

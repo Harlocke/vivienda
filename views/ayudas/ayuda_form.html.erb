@@ -1,0 +1,1057 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/arrendamientotemporalmin.png" width="64" height="64"/></td>
+          <td width="79%"><div class="col_enc">ARRENDAMIENTO TEMPORAL 
+          <% unless @ayuda.new_record? %>(<%=@ayuda.persona.autobuscar rescue nil%>)<% end %>
+          </div></td>
+          <td width="18%"><div align="right">   
+          <%= link_to image_tag('refreshs.png',{ :border=>0, :title => "Refresh"}), ayudas_path%>       
+          <%= link_to image_tag('agendass.png',{ :border=>0, :title => "Agenda"}), agendas_path, {:popup => ['Agendas','height=800,width=600,scrollbars=yes']}%>       
+          <%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar"}),ayudas_path %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% unless @ayuda.new_record? %>
+  <% if @agendasalertas.count > 0%>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr>
+        <td style="background-color:#F5A9A9;" class="camposDesc">
+        <div align="justify"><strong>ALERTAS</strong></div>
+        <% @agendasalertas.each do |a|%>  <div align="justify"><%= link_to image_tag("cancel.png", :title => "Desactivar Alerta"),cambioestado_agendasalertas_path(:id=>a.id, :estado=>"DESACTIVADA", :idayuda=>@ayuda.id), :confirm=>"Esta seguro que desea Desactivar esta Alerta?"%> - <%=a.completa%></div><%end%></td>
+      </tr>
+    </table>
+  <% end%>
+  <%= link_to image_tag("ayudas.png", :title => "Información Registro", :style=>"#{@ayuda.d_etapa('1')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"1")%>
+  <%= link_to image_tag("ficha.png", :title => "Fichas", :style=>"#{@ayuda.d_etapa('2')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"2")%>
+  <%= link_to image_tag("desplazado.png", :title => "Resumen Seguimiento Social", :style=>"#{@ayuda.d_etapa('9')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"9")%>
+  <%#= link_to image_tag("elemento.png", :title => "Información del Evento", :style=>"#{@ayuda.d_etapa('10')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"10")%>
+  <%= link_to image_tag("info2.png", :title => "Información de Orientación", :style=>"#{@ayuda.d_etapa('11')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"11")%>
+  <%= link_to image_tag("pagos.png", :title => "Pagos", :style=>"#{@ayuda.d_etapa('3')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"3")%>
+  <%= link_to image_tag("page_gear.png", :title => "Seguimiento", :style=> "#{@ayuda.d_etapa('18')} padding:4px"), edit_ayuda_path(:id=>@ayuda.id,:etapa=>"18")%>
+  <%= link_to image_tag("novedad.png", :title => "Novedades", :style=>"#{@ayuda.d_etapa('4')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"4")%>
+  <%= link_to image_tag("vivienda.png", :title => "Viviendas", :style=>"#{@ayuda.d_etapa('5')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"5")%>
+  <%= link_to image_tag("elemento.png", :title => "Información del Contrato", :style=>"#{@ayuda.d_etapa('10')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"10")%>
+  <%= link_to image_tag("pasos.png", :title => "Talleres", :style=>"#{@ayuda.d_etapa('7')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"7")%>
+  <%= link_to image_tag("interno.png", :title => "Descripción Adicional", :style=>"#{@ayuda.d_etapa('8')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"8")%>
+  <%= link_to image_tag("imagenes.png", :title => "Documentos", :style=>"#{@ayuda.d_etapa('19')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"19")%>
+  <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@ayuda.d_etapa('6')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"6")%>
+  <% if @existeresolucionespersona%>
+    <%= link_to image_tag("resol.png", :title => "Resoluciones", :style=>"#{@ayuda.d_etapa('13')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"13")%>
+  <% end%>
+  <% if @existecruce %>
+    <%= link_to image_tag("cruzado.png", :title => "Cruce Minambiente", :style=>"#{@ayuda.d_etapa('14')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"14")%>
+  <% end %>  
+  <% if  @existerecibida %>
+    <%= link_to image_tag("recibida.png", :title => "Correspondencias Recibida", :style=>"#{@ayuda.d_etapa('15')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"15")%>
+  <% end %>
+  <% if  @existeenviada %>
+    <%= link_to image_tag("enviada.png", :title => "Correspondencias Enviada", :style=>"#{@ayuda.d_etapa('16')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"16")%>
+  <% end %>
+  <%= link_to image_tag("quejam.png", :title => "PQRS", :style=>"#{@ayuda.d_etapa('17')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"17")%>
+  <%= link_to image_tag("agenda.png", :title => "Agendas", :style=>"#{@ayuda.d_etapa('12')} padding:4px;"),edit_ayuda_path(:id=>@ayuda.id,:etapa=>"12")%>
+<% end %>
+<% if @ayuda.etapa.to_s == '1' %>
+    <fieldset>
+    <% form_for(@ayuda) do |f| %>
+    <%= f.hidden_field :etapa%>
+    <script  type="text/javascript">
+       function habcampo(f)
+        {
+           if (f.ayuda_acreditado.value == "SI"){
+            f.ayuda_fecha_no_acreditacion.disabled = true
+            f.ayuda_atiende_como.disabled = false
+            f.ayuda_fecha_acreditacion.disabled = false
+            f.ayuda_quien_acredita.disabled = false
+            f.ayuda_proceso_sucesion.disabled = false
+            f.ayuda_estaproceso_sucesion.disabled = false
+            f.ayuda_valorpredio_evac_seg.disabled = false
+            f.ayuda_valorpredio_evac.disabled = false
+           } else if (f.ayuda_acreditado.value == "NO"){
+            f.ayuda_fecha_acreditacion.disabled = true
+            f.ayuda_quien_acredita.disabled = true
+            f.ayuda_fecha_no_acreditacion.disabled = false
+           } else if (f.ayuda_acreditado.value == "NO TIENE COMO ACREDITAR"){
+            f.ayuda_fecha_no_acreditacion.disabled = true
+            f.ayuda_atiende_como.disabled = true
+            f.ayuda_fecha_acreditacion.disabled = true
+            f.ayuda_quien_acredita.disabled = true
+           } else if (f.ayuda_acreditado.value == "PARCIAL") {
+            f.ayuda_fecha_no_acreditacion.disabled = true
+            f.ayuda_atiende_como.disabled = true
+            f.ayuda_fecha_acreditacion.disabled = true
+            f.ayuda_quien_acredita.disabled = true
+            f.ayuda_proceso_sucesion.disabled = true
+            f.ayuda_estaproceso_sucesion.disabled = true
+            f.ayuda_valorpredio_evac_seg.disabled = false
+            f.ayuda_valorpredio_evac.disabled = false
+           } else if (f.ayuda_acreditado.value == "NINGUNO"){
+            f.ayuda_fecha_no_acreditacion.disabled = false
+            f.ayuda_atiende_como.disabled = false
+            f.ayuda_fecha_acreditacion.disabled = false
+            f.ayuda_quien_acredita.disabled = false
+            f.ayuda_proceso_sucesion.disabled = false
+            f.ayuda_estaproceso_sucesion.disabled = false
+            f.ayuda_valorpredio_evac_seg.disabled = false
+            f.ayuda_valorpredio_evac.disabled = false
+           } else if (f.ayuda_acreditado.value == "SI-PARCIA"){
+            f.ayuda_fecha_no_acreditacion.disabled = true
+            f.ayuda_atiende_como.disabled = true
+            f.ayuda_fecha_acreditacion.disabled = true
+            f.ayuda_quien_acredita.disabled = true
+            f.ayuda_proceso_sucesion.disabled = true
+            f.ayuda_estaproceso_sucesion.disabled = true
+            f.ayuda_valorpredio_evac_seg.disabled = false
+            f.ayuda_valorpredio_evac.disabled = false
+           } 
+           if (f.ayuda_predial.value == "NO"  || f.ayuda_certificado_libertad.value == "NO"){
+            f.ayuda_nro_matricula.disabled = true
+            f.ayuda_porc_derecho.disabled = true
+           } else if (f.ayuda_predial.value == "SI" || f.ayuda_certificado_libertad.value == "SI"){
+            f.ayuda_nro_matricula.disabled = false
+            f.ayuda_porc_derecho.disabled = false
+           } else if (f.ayuda_predial.value == "SI" && f.ayuda_certificado_libertad.value == "NO"){
+            f.ayuda_nro_matricula.disabled = false
+            f.ayuda_porc_derecho.disabled = false
+           } else if (f.ayuda_predial.value == "NO" && f.ayuda_certificado_libertad.value == "SI"){
+            f.ayuda_nro_matricula.disabled = false
+            f.ayuda_porc_derecho.disabled = false
+           }
+           if (f.ayuda_autoriza.value == "SI"){
+            f.ayuda_autoriza_vivienda.disabled = false
+            f.ayuda_no_autoriza_vivienda.disabled = true
+            f.ayuda_solicitud_vivienda.disable = false
+            f.ayuda_autor_isvimed.disable = false
+           } else if (f.ayuda_autoriza.value == "NO"){
+            f.ayuda_autoriza_vivienda.disabled = true
+            f.ayuda_no_autoriza_vivienda.disabled = false
+            f.ayuda_solicitud_vivienda.disable = true
+            f.ayuda_autor_isvimed.disable = false
+           }
+           if (f.ayuda_declara_juramentada.value == "SI"){
+              f.ayuda_fecha_declaracion.disabled = false
+            } else if (f.ayuda_declara_juramentada.value == "NO"){
+              f.ayuda_fecha_declaracion.disabled = true
+            }
+            if (f.ayuda_esta_postulado.value == "NO"){
+              f.ayuda_entidad_postulacion.disabled = true
+            } else if (f.ayuda_esta_postulado.value == "SI"){
+              f.ayuda_entidad_postulacion.disabled = false
+            }
+            if (f.ayuda_enviado_a_postulacion.value == "NO"){
+              f.ayuda_fecha_envio.disabled = true
+            } else if (f.ayuda_enviado_a_postulacion.value == "SI"){
+              f.ayuda_fecha_envio.disabled = false
+            }
+            if (f.ayuda_devuelto_por_isvimed.value == "NO"){
+              f.ayuda_fecha_devolucion.disabled = true
+            } else if (f.ayuda_devuelto_por_isvimed.value == "SI"){
+              f.ayuda_fecha_devolucion.disabled = false
+            }
+        }
+
+    </script>
+    <%unless @ayuda.new_record? %>
+      <%= link_to "Certificado", {:controller => "ayudas", :action => "certificacionprograma", :id => @ayuda.id},:popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"verlink"%>
+   <% end%>
+    <div align="center">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>  
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">INFORMACIÓN PERSONA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="55%" class="campos">Persona Asociada </td>
+          <td width="15%" class="campos">Número de Carpeta </td>
+          <td width="20%" class="campos">Origen de fondo</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            <% unless @ayuda.new_record? 
+                if @ayuda.persona_id %>
+                  <%=@ayuda.persona.autobuscar rescue nil%>
+                  <%= link_to "",edit_persona_path(@ayuda.persona_id), :title => "Ir a Persona", :class=>"nuevoplink"%>
+                  <br/><strong>Direccion:</strong> <%=@ayuda.persona.direccion rescue nil%> - 
+                      <strong>Telefono:</strong> <%=@ayuda.persona.telefons rescue nil%><br/>
+                      <% if @ayuda.persona.beneviviendas.exists? %>
+                      <strong>Beneficiarios: </strong><br/>
+                         <% @ayuda.persona.beneviviendas.each do |benevivienda| %>
+                           <%=benevivienda.autobuscar rescue nil%><br/>
+                         <% end %>
+                    <% end %>
+            <%   end
+               else%>
+                <%= text_field_with_auto_complete :ayuda, :persona_autobuscar, { :class => "campo",:size => 80,:maxlength => 150,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'", :placeholder=>"Lista desplegable - Digite el dato" },{:url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+                <%= f.error_message_on :persona_autobuscar, :css_class =>"cerror"%>
+                <%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=530,width=900,scrollbars=yes'], :class=>"nuevoplink"%>
+            <% end%></td>
+         <td><%= f.text_field :nro_carpeta,{ :class => "campo", :size => 12,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :nro_carpeta, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :origen_fondo, select_entidadotorga,{ :include_blank => true },{ :style=>"width:165px", :class => "campo"})%>
+              <%= f.error_message_on :origen_fondo, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Doc. de núcleo (físicos) </td>
+          <td width="15%" class="campos">Fecha Remisión</td>
+          <!-- <td width="20%" class="campos">Expediente entregado ISVIMED</td> -->
+          <td width="10%" class="campos">Caso especial</td>
+          <td width="40%" class="campos">Responsable caso especial</td>
+          <td width="15%" class="campos">Tipo de Evacuación </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :documentacion_nucleo, select_arriendonucleo,{ :include_blank => true },{ :style=>"width:165px", :class => "campo"})%>
+              <%= f.error_message_on :documentacion_nucleo, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_remision", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_remision, :css_class =>"cerror"%></td>
+          <!-- <td><%#= select(:ayuda, :exp_entregado, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%#= f.error_message_on :exp_entregado, :css_class =>"cerror"%></td> -->
+          <td><%= select(:ayuda, :caso_especial, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :caso_especial, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :resp_casoespecial,{ :class => "campo", :size => 50,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :resp_casoespecial, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda,:tipo_evacuacion, select_tipoevacuacion,{ :include_blank => true },{ :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= f.error_message_on :tipo_evacuacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="50%" class="campos">Asignado a</td>
+          <td width="50%" class="campos">Categoría ISVIMED </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :asignado_a,{ :class => "campo", :size => 70,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :asignado_a, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :categorias_isvimed, select_arriendocategoria,{ :include_blank => true },{ :style=>"width:420px", :class => "campo"})%>
+              <%= f.error_message_on :categorias_isvimed, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          
+          <td width="30%" class="campos">Estado de Atención </td>
+        </tr>
+        <tr>
+          
+          <td><%= select(:ayuda, :estado_atencion, select_arriendoatencion,{ :include_blank => true },{ :style=>"width:300px", :class => "campo"})%>
+              <%= f.error_message_on :estado_atencion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <% unless @ayuda.new_record? %>
+             <a href="javascript:mostrardivall('cambiovivienda_<%=@ayuda.id%>');" class="mostrarlink">Cambio de Vivienda</a> -
+             <a href="javascript:mostrardivall('tenenciavivienda_<%=@ayuda.id%>');" class="mostrarlink">Tenencia y Acreditación</a> - 
+             <a href="javascript:mostrardivall('postulacionvivienda_<%=@ayuda.id%>');" class="mostrarlink">Postulación de Vivienda</a> - 
+             <a href="javascript:mostrardivall('cancelacionvivienda_<%=@ayuda.id%>');" class="mostrarlink">Cancelaciones</a>
+      <% end %>
+      <div id="cambiovivienda_<%=@ayuda.id%>" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">CAMBIO DE VIVIENDA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Fecha Solicitud </td>
+          <td width="15%" class="campos">Fecha Autorización</td>      
+          <td width="15%" class="campos">Fecha de no Autorización</td>
+          <td width="10%" class="campos">Autorizado</td>
+          <td width="45%" class="campos">Autorizado por</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayuda", "solicitud_vivienda", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :solicitud_vivienda, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "autoriza_vivienda", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :autoriza_vivienda, :css_class =>"cerror"%></td>      
+          <td><%= calendar_date_select "ayuda", "no_autoriza_vivienda", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :no_autoriza_vivienda, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :autoriza, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :autoriza, :css_class =>"cerror"%></td> 
+          <td><%=select("ayuda", "autor_isvimed", User.find(:all,:conditions=>["activo = 'S'"], :order => 'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+           { :style=>"width:370px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1"> 
+          <td width="35%" class="campos">Motivo cambio de vivienda</td>
+          <td width="15%" class="campos">Comparte vivienda?</td>
+          <td width="50%" class="campos">Con quien comparte vivienda?</td>
+        </tr>
+        <tr>    
+          <td><%= select(:ayuda, :motivo_cambio, select_motivocambio,{ :include_blank => true },{ :style=>"width:300px", :class => "campo"})%>
+              <%= f.error_message_on :motivo_cambio, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :comparte_vivienda, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :comparte_vivienda, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :conquien_comparte,{ :class => "campo", :size => 65,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :conquien_comparte, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    </div>
+    <div id="tenenciavivienda_<%=@ayuda.id%>" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">TENENCIA Y ACREDITACIÓN</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Acreditado? </td>
+          <td width="25%" class="campos">Fecha de acreditación </td>
+          <td width="25%" class="campos">Fecha de NO acreditación </td>
+          <td width="25%" class="campos">Requiere proceso de sucesión</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :acreditado, select_arriendoacreditado,{ :style=>"width:180px", :class => "campo", :value=>"NINGUNO"}, { :onchange => "habcampo(this.form);"})%>
+             <%= f.error_message_on :acreditado, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_acreditacion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+               <%= f.error_message_on :fecha_acreditacion, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_no_acreditacion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_no_acreditacion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :proceso_sucesion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+             <%= f.error_message_on :proceso_sucesion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="30%" class="campos">Quien Acredita</td>
+          <td width="20%" class="campos">Valor del predio evacuado</td>
+          <td width="25%" class="campos">Valor del predio evacuado segun</td>
+          <td width="25%" class="campos">Esta en proceso de sucesión</td>
+
+        </tr>
+        <tr>
+          <td><%= f.text_field :quien_acredita,{ :class => "campo", :size => 45,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :quien_acredita, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :valorpredio_evac,{ :class => "campo", :size => 25,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :valorpredio_evac, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :valorpredio_evac_seg, select_segun_valorpredio,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+             <%= f.error_message_on :valorpredio_evac_seg, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :estaproceso_sucesion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+             <%= f.error_message_on :estaproceso_sucesion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Se atiende como</td>
+          <td width="40%" class="campos">Valor de Predio evacuado</td>
+          <td width="40%" class="campos">Valor de Predio evacuado Segun</td>
+        </tr>
+        <tr> 
+          <td><%= select(:ayuda, :atiende_como, select_atiende_como,{ :include_blank => true },{ :style=>"width:150px", :class => "campo"})%>
+             <%= f.error_message_on :atiende_como, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :valorpredio1, select_predio_evacuado,{ :include_blank => true },{ :style=>"width:250px", :class => "campo"})%>
+              <%= f.error_message_on :valorpredio1, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :valorpredio2, select_predio_evacuado,{ :include_blank => true },{ :style=>"width:250px", :class => "campo"})%>
+              <%= f.error_message_on :valorpredio2, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="100%" class="campos">Observación</td>
+        </tr>
+        <tr> 
+          <td><%=text_area(:ayuda, :observacion, :cols => 155, :rows => 3, :class => 'campo', :maxlength => 3900,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayuda, :observacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">TIPO DE ACREDITACIONES</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Nro matrícula inmobiliaria</td>
+          <td width="10%" class="campos">Predial </td>
+          <td width="10%" class="campos">Compraventa </td>
+          <td width="10%" class="campos">Escritura </td>
+          <td width="10%" class="campos">Sisben </td>
+          <td width="10%" class="campos">Extrajuicio </td>
+          <td width="10%" class="campos">Porc del derecho </td>       
+        </tr>
+        <tr>
+          <td><%= f.text_field :nro_matricula,{ :class => "campo", :size => 30,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :nro_matricula, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :predial, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :predial, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :compraventa, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :compraventa, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :escritura, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :escritura, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :sisben, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :sisben, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :extrajuicio, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :extrajuicio, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :porc_derecho,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :porc_derecho, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Carta de JAC </td>
+          <td width="10%" class="campos">Certificado de libertad </td>
+          <td width="10%" class="campos">Certificado escolar </td>
+          <td width="10%" class="campos">Servicios públicos </td>
+          <td width="10%" class="campos">Certificación EPM </td>
+          <td width="10%" class="campos">Constancia de demolición</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :carta_jac, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :carta_jac, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :certificado_libertad, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :certificado_libertad, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :certificado_escolar, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :certificado_escolar, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :servicios_publicos, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :servicios_publicos, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :certificacion_epm, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :certificacion_epm, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :constancia_demolicion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :constancia_demolicion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Orden de evacuacion</td>
+          <td width="10%" class="campos">Promesa de compraventa</td>
+          <td width="10%" class="campos">Documento de catastro</td>
+          <td width="10%" class="campos">Descargue de catastro 2</td>
+          <td width="10%" class="campos">Certificado de no demolicion</td>
+          <td width="10%" class="campos">No Descargue (Matricula real)</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :orden_evacuacion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :orden_evacuacion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :promesa_compraventa, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :promesa_compraventa, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :dcto_catastro, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :dcto_catastro, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :descargue_catastro, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :descargue_catastro, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :cert_nodemolicion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :cert_nodemolicion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :nro_descargue, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :nro_descargue, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    </div>
+    <div id="postulacionvivienda_<%=@ayuda.id%>" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">POSTULACIÓN DE VIVIENDAS</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Declaración juramentada</td>
+          <td width="25%" class="campos">Fecha de la declaración juramentada</td>
+          <td width="15%" class="campos">Esta postulado? </td>
+          <td width="20%" class="campos">Entidad de postulación? </td>
+          <td width="20%" class="campos">Enviado a postulación? </td>           
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :declara_juramentada, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :declara_juramentada, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_declaracion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= f.error_message_on :fecha_declaracion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :esta_postulado, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :esta_postulado, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :entidad_postulacion, select_arriendoentidad,{ :include_blank => true },{ :style=>"width:130px", :class => "campo"})%>
+              <%= f.error_message_on :entidad_postulacion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :enviado_a_postulacion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :enviado_a_postulacion, :css_class =>"cerror"%></td>          
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Fecha de envío </td>
+          <td width="25%" class="campos">Fecha de devolución </td>
+          <td width="15%" class="campos">Devuelto ISVIMED ? </td>
+          <td width="20%" class="campos">Lista de Chequeo</td>
+          <td width="20%" class="campos">Fecha de Chequeo</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayuda", "fecha_envio", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= f.error_message_on :fecha_envio, :css_class =>"cerror"%></td>  
+          <td><%= calendar_date_select "ayuda", "fecha_devolucion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_devolucion, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :devuelto_por_isvimed, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo", :onchange => "habcampo(this.form);"})%>
+              <%= f.error_message_on :devuelto_por_isvimed, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :lista_chequeo, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :lista_chequeo, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_chequeo", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_chequeo, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Ahorro P-C </td>
+          <td width="10%" class="campos">Ahorro P-C dónde? </td>
+          <td width="10%" class="campos">Ahorro P-C cuánto? </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :ahorro_pc, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :ahorro_pc, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ahorro_pc_donde,{ :class => "campo", :size => 30,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ahorro_pc_donde, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ahorro_pc_cuanto,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ahorro_pc_cuanto, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    </div>
+    <div id="cancelacionvivienda_<%=@ayuda.id%>" style="display:none;">
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Subsidio de vivienda </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :subsidios_vivienda, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :subsidios_vivienda, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    </div>
+<!--
+      
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Próxima visita</td>
+          <td width="15%" class="campos">Próximo pago</td>
+          <td width="20%" class="campos">Fecha entregado ISVIMED</td>
+          <td width="20%" class="campos">Dependencia entregada al ISVIMED</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayuda", "proxima_visita", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :proxima_visita, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "proximo_pago", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :proximo_pago, :css_class =>"cerror"%></td>  
+          <td><%= calendar_date_select "ayuda", "fecha_entrega", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_entrega, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :dependencia_entrega,{ :class => "campo", :size => 22,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :dependencia_entrega, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      >
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Doc. de Núcleo Completa </td>
+          <td width="10%" class="campos">Num. Persona </td>
+          
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :grupo_completa, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :grupo_completa, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :num_persona,{ :class => "campo", :size => 12,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :num_persona, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Fase C. Humanitaria </td>
+          <td width="10%" class="campos">Nro Ficha DAGRD </td>
+          <td width="10%" class="campos">Mejoramiento de Vivienda </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :estado_atencion, select_arriendofasehumanitaria,{ :include_blank => true },{ :style=>"width:150px", :class => "campo"})%>
+              <%= f.error_message_on :fase_c_humanitaria, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nro_ficha_simpad,{ :class => "campo", :size => 50,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :nro_ficha_simpad, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :mejoramiento_vivienda, select_arriendomejoramiento,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+              <%= f.error_message_on :mejoramiento_vivienda, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Fecha primer contacto </td>
+          <td width="15%" class="campos">Donación</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayuda", "fecha_primer_contrato", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_primer_contrato, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :donacion, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :donacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Fecha de donación</td>
+          
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayuda", "fecha_donacion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_donacion, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>    
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">IDENTIFICACIÓN</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Esta caracterizado </td>      
+          <td width="10%" class="campos">Fecha de caracterización </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :esta_caracterizado, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :esta_caracterizado, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_caracterizacion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= f.error_message_on :fecha_caracterizacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">SUBSIDIOS Y OTROS</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Tipo subsidios vivienda </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :tipo_subsidios_vivienda, select_sino,{ :include_blank => true },{ :style=>"width:190px", :class => "campo"})%>
+              <%= f.error_message_on :tipo_subsidios_vivienda, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Entidad subsidio vivienda </td>
+          <td width="10%" class="campos">Otras viviendas </td>
+          <td width="10%" class="campos">Otras viviendas ubicación </td>
+          <td width="10%" class="campos">Subsidio solicitado </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :entidad_subsidio_vivienda, select_arriendoentidadsubsidio,{ :include_blank => true },{ :style=>"width:190px", :class => "campo"})%>
+              <%= f.error_message_on :entidad_subsidio_vivienda, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :otras_viviendas, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :otras_viviendas, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :otras_viviendas_ubicacion,{ :class => "campo", :size => 30,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :otras_viviendas_ubicacion, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :subsidio_solicitado,{ :class => "campo", :size => 30,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :subsidio_solicitado, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">VIVIENDA EVACUADA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Comunas </td>
+          <td width="10%" class="campos">Dirección </td>
+          <td width="10%" class="campos">Nro de Rancho </td>
+        </tr>
+        <tr>
+          <td><%= text_field_with_auto_complete :ayuda, :comuna_descripcion2, { :class => "campo",:size => 80,:maxlength => 150,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'", :placeholder=>"Lista desplegable - Digite el dato" },{:url => listar_comunas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+                <%= f.error_message_on :comuna_descripcion2, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :direccion,{ :class => "campo", :size => 40,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nro_rancho,{ :class => "campo", :size => 5,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :nro_rancho, :css_class =>"cerror"%></td>      
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Perm. en sector </td>
+          <td width="10%" class="campos">Perm. en Medellín </td>
+          <td width="10%" class="campos">Lugar procedencia </td>
+          <td width="10%" class="campos">Nro flia vivienda </td>
+          <td width="10%" class="campos">Residencia - Negocio </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :permanencia_en_sector,{ :class => "campo", :size => 15,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :permanencia_en_sector, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :permanencia_en_medellin,{ :class => "campo", :size => 15,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :permanencia_en_medellin, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :lugar_procedencia,{ :class => "campo", :size => 40,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :lugar_procedencia, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nro_familias_en_vivienda,{ :class => "campo", :size => 10,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+               <%= f.error_message_on :nro_familias_en_vivienda, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :residencia_negocio, select_arriendoresidencia,{ :include_blank => true },{ :style=>"width:180px", :class => "campo"})%>
+              <%= f.error_message_on :residencia_negocio, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Tipo negocio </td>
+          <td width="10%" class="campos">Tiempo R-N </td>
+          <td width="10%" class="campos">CNT Tiempo </td>
+          <td width="10%" class="campos">Descargue catastro </td>
+          <td width="10%" class="campos">Descargue serv. públicos </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :tipo_negocio,{ :class => "campo", :size => 40,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :tipo_negocio, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :residencia_negocio, select_arriendotiemporn,{ :include_blank => true },{ :style=>"width:180px", :class => "campo"})%>
+              <%= f.error_message_on :tiempo_rn, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :cnt_tiempo,{ :class => "campo", :size => 10,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :cnt_tiempo, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :descargue_catastro, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :descargue_catastro, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :descargue_servicios_publicos, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :descargue_servicios_publicos, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">VALORACIÓN ECONÓMICA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Miembros que aportan </td>
+          <td width="15%" class="campos">Otro distinto </td>
+          <td width="20%" class="campos">Trabajan y no aportan </td>
+          <td width="18%" class="campos">Solventa las nec. básicas </td>
+          <td width="20%" class="campos">Ingresos mensuales </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :miembros_aportan,{ :class => "campo", :size => 10,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :miembros_aportan, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :otro_distinto, select_arriendootrodestino,{ :include_blank => true },{ :style=>"width:100px", :class => "campo"})%>
+              <%= f.error_message_on :otro_distinto, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :trabajan_no_aportan,{ :class => "campo", :size => 10,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :trabajan_no_aportan, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :solventa_basicas, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+              <%= f.error_message_on :solventa_basicas, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :ingresos_mensuales, select_arriendoingresos,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+              <%= f.error_message_on :ingresos_mensuales, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Egresos mensuales </td>
+          <td width="10%" class="campos">Ingresos Salarios (formal) </td>
+          <td width="10%" class="campos">Ingresos Salarios (informal) </td>
+          <td width="10%" class="campos">Ingresos subsidios </td>
+          <td width="10%" class="campos">Ingresos Pensión </td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :egresos_mensuales, select_arriendoingresos,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+              <%= f.error_message_on :egresos_mensuales, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ingresos_salarios_formal,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_salarios_formal, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ingresos_ingresos_informal,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_ingresos_informal, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ingresos_subsidios,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_subsidios, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ingresos_pension,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_pension, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Ingresos Ayuda </td>
+          <td width="10%" class="campos">Ingresos Otros </td>
+          <td width="10%" class="campos">Egresos Arriendo </td>
+          <td width="10%" class="campos">Egresos Alimentación </td>
+          <td width="10%" class="campos">Egresos Educación </td>
+          <td width="10%" class="campos">Egresos Deudas </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :ingresos_ayuda,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_ayuda, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :ingresos_otro,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :ingresos_otro, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_arriendo,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_arriendo, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_alimentacion,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_alimentacion, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_educacion,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_educacion, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_deudas,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_deudas, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Egresos Serv. Públicos </td>
+          <td width="10%" class="campos">Egresos Salud </td>
+          <td width="10%" class="campos">Egresos Vestido </td>
+          <td width="10%" class="campos">Egresos Transporte </td>
+          <td width="10%" class="campos">Total Ingresos </td>
+          <td width="10%" class="campos">Total Egresos </td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :egresos_servicios_publicos,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_servicios_publicos, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_salud,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_salud, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_vestido,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_vestido, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :egresos_transporte,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :egresos_transporte, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :total_ingresos,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :total_ingresos, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :total_egresos,{ :class => "campo", :size => 20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= f.error_message_on :total_egresos, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">INFORMACIÓN DEL EVENTO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Ficha</td>
+          <td width="25%" class="campos">Fecha evento</td>
+          <td width="25%" class="campos">Ficha con fecha de evento</td>
+          <td width="25%" class="campos">Comuna del evento</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayuda, :ficha_evento, { :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :ficha_evento, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayuda", "fecha_evento", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayuda, :fecha_evento, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :fic_fecha_evento, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :fic_fecha_evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :comuna_evento, { :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :comuna_evento, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Cnt Integrantes Nucleo en evento</td>
+          <td width="25%" class="campos">Teléfonos del evento</td>
+          <td width="25%" class="campos">Barrio del evento</td>
+          <td width="25%" class="campos">Tenencia de la vivienda </td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayuda, :integrantes_evento, { :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :integrantes_evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :telefono_evento, { :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :telefono_evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :barrio_evento, { :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :barrio_evento, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :tenencia_evento, select_eventos,{ :include_blank => true },{ :style=>"width:200px", :class => "campo"})%>
+              <%= f.error_message_on :tenencia_evento, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Regresaria a la zona?</td>
+          <td width="15%" class="campos">Albergue</td>
+          <td width="20%" class="campos">Pérdida de enseres </td>
+          <td width="45%" class="campos">Presunta dirección según tenencia</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :regresaria_evento, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :regresaria_evento, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :albergue_evento, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :albergue_evento, :css_class =>"cerror"%></td>
+          <td><%= select(:ayuda, :perdida_evento, select_presentacionparcial,{ :include_blank => true },
+                        { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :perdida_evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :direccion_tenencia, { :class => "campo", :size => 70,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :direccion_tenencia, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Evento </td>
+          <td width="35%" class="campos">Remisión</td>
+          <td width="40%" class="campos">Dirección del evento</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :evento, select_evento,{ :include_blank => true },
+                        { :style=>"width:190px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :evento, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :remision, { :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :remision, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :direccion_evento, { :class => "campo", :size => 60,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :direccion_evento, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Evento 2 </td>
+          <td width="35%" class="campos">Remisión 2</td>
+          <td width="40%" class="campos">Dirección del evento 2</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :evento2, select_evento,{ :include_blank => true },
+                        { :style=>"width:190px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :evento2, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :remision2, { :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :remision2, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :direccion_evento2, { :class => "campo", :size => 60,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :direccion_evento2, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Evento 3 </td>
+          <td width="35%" class="campos">Remisión 3</td>
+          <td width="40%" class="campos">Dirección del evento 3</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayuda, :evento3, select_evento,{ :include_blank => true },
+                        { :style=>"width:190px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayuda, :evento3, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :remision3, { :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :remision3, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayuda, :direccion_evento3, { :class => "campo", :size => 60,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayuda, :direccion_evento3, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="100%" class="campos">Observación</td>
+        </tr>
+        <tr>
+          <td><%=text_area(:ayuda, :observacion_evento, :cols => 165, :rows => 3, :class => 'campo', :maxlength => 3900,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayuda, :observacion_evento, :css_class =>"cerror"%></td>
+        </tr>
+      </table> -->
+    <br/>
+    <% if permiso("ayuda","A").to_s == "S" %>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+          </tr>
+        </table>
+    <% end %>
+        </td></tr>
+        </table>
+    </div>
+    <% end %>
+  </fieldset>
+<% elsif @ayuda.etapa.to_s == '2' %>
+    <fieldset><div align="center" id="ayudasfichas_form"><%= render :partial => "/ayudasfichas/ayudasfichas" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '3' %>
+    <fieldset><div align="center" id="ayudaspagos_form"><%= render :partial => "/ayudaspagos/ayudaspagos" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '4' %>
+    <fieldset><div align="center" id="ayudasnovedades_form"><%= render :partial => "/ayudasnovedades/ayudasnovedades" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '5' %>
+    <fieldset><div align="center" id="ayudasviviendas_form"><%= render :partial => "/ayudasviviendas/ayudasviviendas" %></fieldset>
+<% elsif @ayuda.etapa.to_s == '6' %>
+    <fieldset><div align="center" id="ayudasobservaciones_form"><%= render :partial => "/ayudasobservaciones/ayudasobservaciones" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '7' %>
+    <fieldset><div align="center" id="ayudastalleres_form"><%= render :partial => "/ayudastalleres/ayudastalleres" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '8' %>
+    <fieldset><div align="center" id="ayudasadicionales_form"><%= render :partial => "/ayudasadicionales/ayudasadicionales" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '9' %>
+    <fieldset><div align="center" id="ayudassociales_form"><%= render :partial => "/ayudassociales/ayudassociales" %></div></fieldset> 
+<% elsif @ayuda.etapa.to_s == '10' %>       
+    <fieldset><div align="center" id="ayudascontratos_form"><%= render :partial => "/ayudascontratos/ayudascontratos" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '11' %>
+    <fieldset><div align="center" id="ayudasorientaciones_form"><%= render :partial => "/ayudasorientaciones/ayudasorientaciones" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '12' %>
+    <fieldset><%= render "agenda" %></fieldset><br/>
+    <fieldset><%= render "alerta" %></fieldset>
+<% elsif @ayuda.etapa.to_s == '13' %>
+    <%= render :partial => "/resolucionespersonas/showa" %>
+<% elsif @ayuda.etapa.to_s == '14' %>
+     <%#= render :partial => "/cruces/showa" %>
+<% elsif @ayuda.etapa.to_s == '15' %>
+     <%= render :partial => "/correspondenciasrecibidas/showa" %>
+<% elsif @ayuda.etapa.to_s == '16' %>
+     <%= render :partial => "/correspondenciasenviadas/showa" %>
+<% elsif @ayuda.etapa.to_s == '17' %>
+     <%= render :partial => "/quejas/showa" %>
+<% elsif @ayuda.etapa.to_s == '18'%>
+   <fieldset><div align="center" id="ayudasetapas_form"><%= render :partial => "/ayudasetapas/ayudasetapas" %></div></fieldset>
+<% elsif @ayuda.etapa.to_s == '19' %>       
+    <fieldset><div align="center" id="ayudasdocumentos_form"><%= render :partial => "/ayudasdocumentos/ayudasdocumentos" %></div></fieldset>
+<% end %>
+<br/><br/>

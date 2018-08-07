@@ -1,0 +1,89 @@
+<strong>INVENTARIO</strong>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="14"><strong>DATOS INVENTARIO</strong></td>
+    <td colspan="12"><strong>CONCEPTO BAJA</strong></td>
+    <td colspan="2"><strong>ASIGNACION</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Tipo de Elemento</strong></td>
+    <td ><strong>Marca</strong></td>
+    <td ><strong>Referencia</strong></td>
+    <td ><strong>Placa</strong></td>
+    <td ><strong>Serial</strong></td>
+    <td ><strong>Interventor</strong></td>
+    <td ><strong>Codigo Contabilidad</strong></td>
+    <td ><strong>Valor</strong></td>
+    <td ><strong>Ubicacion</strong></td>
+    <td ><strong>Clase</strong></td>
+    <td ><strong>Documento</strong></td>
+    <td ><strong>Año ingreso</strong></td>
+    <td ><strong>Obligacion</strong></td>
+    <td ><strong>Observaciones</strong></td>
+    <td ><strong>Concepto para dar de baja</strong></td>
+    <td ><strong>Baja - Pérdida</strong></td>
+    <td ><strong>Baja - Hurto</strong></td>
+    <td ><strong>Baja - Caso fortuito</strong></td>
+    <td ><strong>Baja - Fuerza mayor</strong></td>
+    <td ><strong>Baja - Inservibles</strong></td>
+    <td ><strong>Baja - Obsoletos</strong></td>
+    <td ><strong>Baja - Deterioro</strong></td>
+    <td ><strong>Baja - Otros</strong></td>
+    <td ><strong>Destino - Venta</strong></td>
+    <td ><strong>Destino - Donación</strong></td>
+    <td ><strong>Destino - Destrucción</strong></td>
+    <td ><strong>Asignado a</strong></td>
+    <td ><strong>Fecha Inicio</strong></td>
+  </tr>
+<%  @elementos.each do |elemento| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=elemento.tiposelemento.descripcion rescue nil%></td>
+    <td><%=elemento.marca%></td>
+    <td><%=elemento.referencia%></td>
+    <td><%=elemento.placa%></td>
+    <td><%=elemento.serial%></td>
+    <td><%=elemento.user.nombre rescue nil%></td>
+    <td><%=elemento.codigo_contabilidad%></td>
+    <td><div align="rigth"><%=camponumerico(elemento.valor) rescue nil%></div></td>
+    <td><%=elemento.ubicacion%></td>
+    <td><%=elemento.clase%></td>
+    <td><%=elemento.documento rescue nil%></td>
+    <td><%=elemento.anno_ingreso rescue nil%></td>
+    <td><%=elemento.obligacion rescue nil%></td>
+    <td><%=elemento.observacion rescue nil%></td>
+    <td><%=elemento.observacion_baja rescue nil%></td>
+    <% if elemento.observacion_baja %>
+    <td><%=elemento.perdida rescue nil%></td>
+    <td><%=elemento.hurto rescue nil%></td>
+    <td><%=elemento.caso rescue nil%></td>
+    <td><%=elemento.fuerza rescue nil%></td>
+    <td><%=elemento.inservible rescue nil%></td>
+    <td><%=elemento.obsoleto rescue nil%></td>
+    <td><%=elemento.deterioro rescue nil%></td>
+    <td><%=elemento.otro rescue nil%></td>
+    <td><%=elemento.venta rescue nil%></td>
+    <td><%=elemento.donacion rescue nil%></td>
+    <td><%=elemento.destruccion rescue nil%></td>
+    <% else %>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <% end %>
+    <%
+       @elementosusers = Elementosuser.find(:all, :conditions=>["elemento_id = #{elemento.id} and fecha_fin is null"])
+       @elementosusers.each do |elementosuser|
+    %>
+        <td><%=elementosuser.user.nombre rescue nil%></td>
+        <td><%=elementosuser.fecha_inicio%></td>
+<%     end %>
+  </tr>
+<%   end %>
+</table>  

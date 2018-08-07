@@ -1,0 +1,61 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_elemento_elementossoporte_path(@elemento.id) %></span></div>
+    </div></td>
+      </tr>
+    </table>
+<br/>
+<div align="center">
+<% remote_form_for [@elemento, @elementossoporte] do |form| %>
+<% if !@elementossoporte.id %>
+<% end %>
+<% if @elemento.elementossoportes.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="30" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" height="30" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="20%" height="20" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+</table>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% for elementossoporte in @elemento.elementossoportes.find(:all, :order => 'created_at DESC') %>
+    <% if elementossoporte.id != @elementossoporte.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="elementossoporte_<%=elementossoporte.id%>">
+     <td width="30%" height="30" class="camposDesc" align="left"><%=elementossoporte.descripcion%></td>
+     <td width="50%" height="30" class="camposDesc" align="left"><%=elementossoporte.elesoporte_file_name%></td>
+     <td width="20%" height="30" class="camposDesc" align="right">
+      <%= link_to "Ver", elementossoporte.elesoporte.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+       <% if permiso("elementossoporte","E").to_s == "S" %>
+            &nbsp;|&nbsp;<%= link_to_remote('Borrar',{:url => elemento_elementossoporte_path(@elemento, elementossoporte),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %>
+     </td>
+ </tr>
+<% else %>
+      <tr class="<%=cycle('even1', 'odd1')%>" id="elementossoporte_<%=@elementossoporte.id%>">
+          <%= render :partial => "elementossoportes_form" %>
+      </tr>
+     <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :elemento, :id %>
+<% end %>
+</div>

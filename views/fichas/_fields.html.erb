@@ -1,0 +1,663 @@
+<% if (fo >= 1 and fo <= 11) %>
+  <% if (fo == 1) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">INFORMACIÓN GENERAL</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 12 and fo <= 63) %>
+  <% if (fo == 12) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">INFORMACIÓN CONSTRUCTIVA</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 64 and fo <= 79) %>
+  <% if (fo == 64) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">INFORMACIÓN CONTRACTUAL</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">CONVENIO DE ESTUDIOS Y DISEÑOS</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 80 and fo <= 93) %>
+  <% if (fo == 80) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">INFORMACIÓN CONTRACTUAL</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">CONVENIO DE ESTUDIOS Y DISEÑOS</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 94 and fo <= 97) %>
+  <% if (fo == 94) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">CONTRATO DE FIDUCIA MERCANTIL O LICITACIÓN PÚBLICA </td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 98 and fo <= 111) %>
+  <% if (fo == 98) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">CONTRATO DE OBRA </td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 112 and fo <= 126) %>
+  <% if (fo == 112) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">CONTRATO DE INTERVENTORIA</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 127 and fo <= 139) %>
+  <% if (fo == 127) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">INFORMACIÓN FINANCIERA</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 140 and fo <= 146) %>
+  <% if (fo == 140) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">FUENTES ESTIMADAS DE FINANCIACION DE LOS RECURSOS</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 147 and fo <= 151) %>
+  <% if (fo == 147) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">SITUACION ACTUAL DEL FIDEICOMISO (MOVIMIENTO DE CAJA)</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">ENTRADAS ACTUALES</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 152 and fo <= 156) %>
+  <% if (fo == 152) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">SALDOS PENDIENTES DEL PROYECTO</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr valign="middle">
+    <td width="220" class="oce-first">ITEM</td>
+    <td width="156" class="oce-first" align="center">DATO</td>
+    <td width="200" class="oce-first" align="center">OBSERVACION</td>
+    <td width="200" class="oce-first" align="center">FUENTE</td>
+  </tr>
+</table>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>
+
+<% if (fo >= 157 and fo <= 167) %>
+  <% if (fo == 157) %>
+<table width="804" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td colspan="4"><hr size="3" noshade></td>
+  </tr>
+  <tr valign="middle">
+    <td colspan="2" height="25" class="oce-first">&nbsp;</td>
+    <td align="center" class="oce-first">&nbsp;</td>
+    <td align="center" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+  <% else %>
+<table width="804" align="center" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="220" class="campos"><%= fi%></td>
+    <td width="156" align="center"><%= f.text_field :valor ,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+    <td width="200" align="center"><%= f.text_area(:observaciones, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+    <td width="200" align="center"><%= f.text_area(:fuente1, :cols => 30, :rows => 3, :class => 'campo',
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'") %></td>
+  </tr>
+</table>
+  <% end %>
+<% end %>

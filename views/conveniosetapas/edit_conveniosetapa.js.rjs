@@ -1,0 +1,2 @@
+page.replace_html :conveniosetapas_form, :partial => "/conveniosetapas/conveniosetapas"
+

@@ -1,0 +1,130 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>Encuenta Satisfaccion del Usuario - Reporte Total</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="7"><strong>Encuesta</strong></td>
+    <td colspan="20"><strong>Tema</strong></td>
+    <td colspan="5"><strong>Percepcion</strong></td>
+    <td><strong></strong></td
+    <td><strong></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Consecutivo</strong></td>
+    <td><strong>Fecha</strong></td>
+    <td><strong>Realizada por</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Telefono</strong></td>
+    <td><strong>Email</strong></td>
+    <td><strong>Arriendo temporal</strong></td>
+    <td><strong>Postulaciones</strong></td>
+    <td><strong>Plan retorno</strong></td>
+    <td><strong>OPV</strong></td>
+    <td><strong>Desastres</strong></td>
+    <td><strong>Vivienda usada</strong></td>
+    <td><strong>Cartera</strong></td>
+    <td><strong>Feria de vivienda</strong></td>
+    <td><strong>Informacion general</strong></td>
+    <td><strong>Riesgo</strong></td>
+    <td><strong>Post – ventas</strong></td>
+    <td><strong>Obra pública</strong></td>
+    <td><strong>Escrituracion</strong></td>
+    <td><strong>Desplazados</strong></td>
+    <td><strong>Legalizacion</strong></td>
+    <td><strong>Vivienda nueva </strong></td>
+    <td><strong>Mejoramiento vivienda</strong></td>
+    <td><strong>Titulacion</strong></td>
+    <td><strong>Otro</strong></td>
+    <td><strong>Otro Cual</strong></td>
+    <td><strong>Considera que la informacion que recibio fue completa y clara</strong></td>
+    <td><strong>Recibio por parte del personal que lo atendio un trato respetuoso y amable</strong></td>
+    <td><strong>El tiempo que espero para ser atendio fue entre:</strong></td>
+    <td><strong>Considera que las Instalaciones donde fue atendido son comodas?</strong></td>
+    <td><strong>Se sintio satisfacho con la atencion recibida?</strong></td>
+    <td><strong>En caso de haber sido atendido en el archivo, se sintió satisfecho con la atención prestada?</strong></td>
+    <td><strong>Comentarios</strong></td>
+    <td><strong>Puntaje Total</strong></td>
+  </tr>
+<% @personasencuestas.each do |personasencuesta|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=personasencuesta.id rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.user.username rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.persona.telefonos rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.persona.email rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.arriendo rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.postulacion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.plan_retorno rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.opv rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.desastre rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.vivenda_usada rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.cartera rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.feria rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.inf_gral rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.riesgo rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.post_venta rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.obra_publica rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.escrituracion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.desplazado rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.legalizacion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.vivenda_nueva rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.mejoramiento rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.titulacion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.otro rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.otro_cual rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.info_recibida rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.respetuoso rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.tiempo rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.instalaciones rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.satisfecho rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.atencion rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.observaciones rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.total rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/>
+<h3>Informacion por Fechas</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Fecha</strong></td>
+    <td><strong>Total</strong></td>
+  </tr>
+<% @personasfechas.each do |personasencuesta|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=personasencuesta.fecha rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/>
+<h3>Informacion por Temas</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Temas</strong></td>
+    <td><strong>Si</strong></td>
+    <td><strong>No</strong></td>
+  </tr>
+<% @personastemas.each do |personasencuesta|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=personasencuesta.tipo rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.si rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.no rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/>
+<h3>Informacion por Percepción</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Percepción</strong></td>
+    <td><strong>20 Puntos</strong></td>
+    <td><strong>0 Puntos</strong></td>
+  </tr>
+<% @personaspreguntas.each do |personasencuesta|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=personasencuesta.tipo rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.puntos20 rescue nil%></div></td>
+     <td><div align="left"><%=personasencuesta.puntos0 rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,120 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<br/>
+<div align="center">
+    <table width="100%" height="40"  align="center">
+      <tr><td><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+      <td width="94%"><div class="col_enc">ENCUESTA DE SATISFACCION - <%=@personasencuesta.persona.autobuscar rescue nil%></div></td>
+      <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),edit_persona_path(@personasencuesta.persona_id) %>
+                </div></td>
+      </tr></table></td></tr>
+    </table>
+<% form_for(@personasencuesta) do |f| %>
+<%= f.hidden_field :persona_id%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">MOTIVO DE LA ATENCIÓN</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr valign="top">
+        <td width="33%" class="camposDesc">
+            <%= f.check_box :arriendo,{},'SI','NO'%> Arriendo temporal &nbsp;<br/>
+            <%= f.check_box :postulacion,{},'SI','NO'%> Postulaciones &nbsp;<br/>
+            <%= f.check_box :plan_retorno,{},'SI','NO'%> Plan retorno &nbsp;<br/>
+            <%= f.check_box :opv,{},'SI','NO'%> OPV &nbsp;<br/>
+            <%= f.check_box :desastre,{},'SI','NO'%> Desastres &nbsp;<br/>
+            <%= f.check_box :vivenda_usada,{},'SI','NO'%> Vivienda usada &nbsp;<br/>
+            <%= f.check_box :otro,{},'SI','NO'%> Otro cual? &nbsp;<%= f.text_field :otro_cual,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+        <td width="33%" class="camposDesc">
+            <%= f.check_box :cartera,{},'SI','NO'%> Cartera &nbsp;<br/>
+            <%= f.check_box :feria,{},'SI','NO'%> Feria de vivienda &nbsp;<br/>
+            <%= f.check_box :inf_gral,{},'SI','NO'%> Información general &nbsp;<br/>
+            <%= f.check_box :riesgo,{},'SI','NO'%> Riesgo &nbsp;<br/>
+            <%= f.check_box :post_venta,{},'SI','NO'%> Post – ventas &nbsp;<br/>
+            <%= f.check_box :obra_publica,{},'SI','NO'%> Obra pública &nbsp;
+        </td>
+        <td width="33%" class="camposDesc">
+            <%= f.check_box :escrituracion,{},'SI','NO'%> Escrituración &nbsp;<br/>
+            <%= f.check_box :desplazado,{},'SI','NO'%> Desplazados &nbsp;<br/>
+            <%= f.check_box :legalizacion,{},'SI','NO'%> Legalización &nbsp;<br/>
+            <%= f.check_box :vivenda_nueva,{},'SI','NO'%> Vivienda nueva &nbsp;<br/>
+            <%= f.check_box :mejoramiento,{},'SI','NO'%> Mejoramiento vivienda &nbsp;<br/>
+            <%= f.check_box :titulacion,{},'SI','NO'%> Titulación &nbsp;
+        </td>
+        </tr>
+      </table>
+  <strong><%= error_message_on :personasencuesta, :area, :css_class =>"cerror"%></strong>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+<tr><td></td></tr>
+<tr>
+  <td height="30"><div class="col_enc">PERCEPCIÓN FRENTE A LA ATENCIÓN RECIBIDA</div></td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+   <tr>
+     <td  class="campos"><div align="left">Considera que la información que recibió fue completa y clara?</div></td>
+     <td><div align="left"><%= select(:personasencuesta,:info_recibida, { "SI" => "20","NO" => "0"},{ :include_blank => true },{ :style=>"width:120px"})%>
+       <%= error_message_on :personasencuesta, :info_recibida, :css_class =>"cerror"%></div></td>
+   </tr>
+   <tr>
+     <td  class="campos"><div align="left">Recibió por parte del  personal que lo atendió un trato respetuoso y  amable?</div></td>
+     <td><div align="left"><%= select(:personasencuesta,:respetuoso, { "SI" => "20","NO" => "0"},{ :include_blank => true },{ :style=>"width:120px"})%>
+       <%= error_message_on :personasencuesta, :respetuoso, :css_class =>"cerror"%></div></td>
+   </tr>
+   <tr>
+     <td  class="campos"><div align="left">El tiempo que espero para ser atendio fue entre:</div></td>
+     <td><div align="left"><%= select(:personasencuesta,:tiempo, { "0 y 10 min" => "20","11 y 20 min" => "0"},{ :include_blank => true },{ :style=>"width:120px"})%>
+       <%= error_message_on :personasencuesta, :tiempo, :css_class =>"cerror"%></div></td>
+   </tr>
+   <tr>
+     <td  class="campos"><div align="left">Considera que las Instalaciones donde fue atendido son cómodas? </div></td>
+     <td><div align="left"><%= select(:personasencuesta,:instalaciones, { "SI" => "20","NO" => "0"},{ :include_blank => true },{ :style=>"width:120px"})%>
+       <%= error_message_on :personasencuesta, :instalaciones, :css_class =>"cerror"%></div></td>
+   </tr>
+   <tr>
+     <td  class="campos"><div align="left">Se sintió satisfacho con la atención recibida? </div></td>
+     <td><div align="left"><%= select(:personasencuesta,:satisfecho, { "SI" => "20","NO" => "0"},{ :include_blank => true },{ :style=>"width:120px"})%>
+       <%= error_message_on :personasencuesta, :satisfecho, :css_class =>"cerror"%></div></td>
+   </tr> 
+  </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+<tr><td></td></tr>
+<tr>
+  <td height="30"><div class="col_enc">COMENTARIOS REALIZADOS POR EL USUARIO</div></td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+   <tr>
+     <td><div align="left"><%= f.text_area :observaciones,{ :cols => 110, :rows => 3, :class => 'campo', :maxlength => 3900,
+       :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+       <%= error_message_on :personasencuesta, :observaciones, :css_class =>"cerror"%></div></td>
+   </tr>
+  </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+</div>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+      <% unless @personasencuesta.new_record? %>
+      Ultima Actualización: <%=User.find(@personasencuesta.user_id).username rescue nil%> - <%=@personasencuesta.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+    <% end %></td>
+    <td  height="30"><div align="right">
+        <%# if permiso("persona","A").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :confirm=>"Seguro que desea almacenar la encuesta?",:disable_with => "Guardando..."%></span></div>
+        <%# end %>
+</div></td>
+  </tr>
+</table>
+    <% end %>
+<br/><br/>

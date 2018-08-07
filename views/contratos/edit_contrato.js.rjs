@@ -1,0 +1,2 @@
+page.replace_html :contratos_form, :partial => "/contratos/contratos"
+

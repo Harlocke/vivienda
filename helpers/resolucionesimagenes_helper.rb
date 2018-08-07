@@ -1,0 +1,2 @@
+module ResolucionesimagenesHelper
+end

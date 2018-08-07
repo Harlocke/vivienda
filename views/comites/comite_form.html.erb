@@ -1,0 +1,246 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/comitemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">
+                  <% if permiso("comite","C").to_s == "S" %>
+                    COMITES
+                  <% end %>
+                  <% if permiso("comision","C").to_s == "S" %>
+                    COMISIONES Y PLENARIAS
+                  <% end %>
+                  </div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_comites_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/comite1.png" border="0" title="Información Basica Comite"/></a></li>
+<% unless @comite.new_record? %>
+        <li><a href="#tab2"><img src="/images/novedad.png" border="0" title="Actividades"/></a></li>
+        <li><a href="#tab3"><img src="/images/elementosuser.png" border="0" title="Usuarios"/></a></li>
+        <li><a href="#tab4"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab6"><img src="/images/imagenes.png" border="0" title="Informacion Digitalizada"/></a></li>
+        <li><a href="#tab7"><img src="/images/prestamo.png" border="0" title="Asignacion de Responsable"/></a></li>
+    <% if @existependiente %>
+        <li><a href="#tab5"><img src="/images/interno.png" border="0" title="Pendientes"/></a></li>
+    <% end %>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<% form_for(@comite) do |f| %>
+<div align="center">
+<table width="837"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+                <tr>
+                  <td height="30" align="left"><div class="col_enc">INFORMACION</div></td>
+                </tr>
+          </table>
+          <div align="center">
+      <table width="90%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Fecha</td>
+          <td class="camposDesc" align="left">
+            <%= calendar_date_select "comite", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+            <%= error_message_on :comite, :fecha, :css_class =>"cerror"%>
+           </td>
+        </tr>
+<% if permiso("comite","C").to_s == "S" %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Tipo de Comite</td>
+          <td class="camposDesc" align="left"><%=f.select("comitestipo_id", Comitestipo.find(:all, :order=>"descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :comite, :comitestipo_id, :css_class =>"cerror"%></td>
+        </tr>
+<% end %>
+<% if permiso("comision","C").to_s == "S" %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Tipo de Comite</td>
+          <td class="camposDesc" align="left"><%=f.select("comitestipo_id", Comitestipo.find(:all,:conditions=>["comision = 'S'"],:order=>"descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :comite, :comitestipo_id, :css_class =>"cerror"%></td>
+        </tr>
+<% end %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Temas</td>
+          <td class="camposDesc" align="left">
+          <%=f.text_area(:temas, :cols => 120, :rows => 8, :class => 'campo', :maxlength => 3900,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :comite, :temas, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Nro Comision</td>
+          <td class="camposDesc" align="left">
+          <%= f.text_field :nro_comision,{ :class => "campo", :size => 20,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :comite, :nro_comision, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Concejal Coordinador</td>
+          <td class="camposDesc" align="left">
+          <%= f.text_field :concejal,{ :class => "campo", :size => 60,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :comite, :concejal, :css_class =>"cerror"%></td>
+        </tr>
+
+        <% unless @comite.new_record? %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Usuario Creador</td>
+          <td class="camposDesc" align="left"><%=User.find(@comite.user_id).nombre rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Fecha Creacion</td>
+          <td class="camposDesc" align="left"><%= @comite.created_at.strftime("%Y-%m-%d %X")%></td>
+        </tr>
+        <% end %>
+      </table>
+            </div>
+        </td>
+      </tr>
+    </table>
+    <% if permiso("comite","A").to_s == "S" %>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% unless @comite.new_record? %>
+               <%= link_to "Ver Informe", {:controller => "comites", :action => "visualizar", :id=>@comite.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+               <%= link_to "Email", {:controller => "comites", :action => "enviomensaje", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+               <%= link_to "Email Jefe", {:controller => "comites", :action => "enviomensajejefe", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+             <% end %>
+    </div></td>
+      </tr>
+    </table>
+    <% end %>
+    <% if permiso("comision","A").to_s == "S" %>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <% if permiso("comitesespecial","C").to_s == "S" %>
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                 <% unless @comite.new_record? %>
+                   <%= link_to "Ver Informe", {:controller => "comites", :action => "visualizar", :id=>@comite.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+                   <%= link_to "Email", {:controller => "comites", :action => "enviomensaje", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+                   <%= link_to "Email Jefe", {:controller => "comites", :action => "enviomensajejefe", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+                 <% end %>
+            <% else
+                 if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+                   <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                   <% unless @comite.new_record? %>
+                     <%= link_to "Ver Informe", {:controller => "comites", :action => "visualizar", :id=>@comite.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+                     <%= link_to "Email", {:controller => "comites", :action => "enviomensaje", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+                     <%= link_to "Email Jefe", {:controller => "comites", :action => "enviomensajejefe", :id=>@comite.id},  :confirm => "Esta seguro que desea enviar las tareas Electronicamente?", :class=>"emaillink"%>
+                   <% end %>
+            <%   end
+               end %>
+    </div></td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
+<% end %>
+</fieldset>
+</div>
+<div class="panel" id="tab2">
+  <fieldset>
+<% unless @comite.new_record? %>
+   <div id="comitesactividades_form">
+    <%= render :partial => "/comitesactividades/comitesactividades" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab3">
+  <fieldset>
+<% unless @comite.new_record? %>
+   <div id="comitesusers_form">
+     <%= render :partial => "/comitesusers/comitesusers" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab4">
+  <fieldset>
+<% unless @comite.new_record? %>
+   <div id="comitesobservaciones_form">
+      <%= render :partial => "/comitesobservaciones/comitesobservaciones" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab6">
+  <fieldset>
+<% unless @comite.new_record? %>
+   <div id="comitesimagenes_form">
+      <%= render :partial => "/comitesimagenes/comitesimagenes" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab7">
+  <fieldset>
+<% unless @comite.new_record? %>
+   <div id="comitesresponsables_form">
+      <%= render :partial => "/comitesresponsables/comitesresponsables" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab5">
+  <fieldset>
+<% unless @comite.new_record? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ACTIVIDADES PENDIENTES OTROS COMITES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha Registro</td>
+    <td width="20%" height="30" align="left" class="oce-first">Dependencia</td>
+    <td width="55%" height="30" align="left" class="oce-first">Tarea</td>
+    <td width="10%" height="30" align="left" class="oce-first">Fecha Vence</td>
+  </tr>
+<% for comitesactividad in Comitesactividad.find(:all, :conditions=>[" estado= 'PENDIENTE' and comite_id != #{@comite.id} and comite_id in (select id from comites where comitestipo_id = #{@comite.comitestipo_id})"], :order => 'created_at DESC') %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="comitesactividad_<%=comitesactividad.id%>">
+     <td class="camposDesc"><%=comitesactividad.created_at.strftime("%Y-%m-%d %X")%></td>
+     <td class="camposDesc"><%=comitesactividad.dependencia.descripcion rescue nil%></td>
+     <td class="camposDesc"><%=comitesactividad.tarea%></td>
+     <td class="camposDesc"><%=comitesactividad.fecha_limite.strftime("%Y-%m-%d") rescue nil%></td>
+ </tr>
+<% end %>
+</table>
+
+<% end %>
+    </fieldset>
+</div>

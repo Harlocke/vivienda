@@ -1,0 +1,364 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+  <table width="810" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">ESTUDIO SOCIO ECONÓMICO</div></td>
+  </tr>
+</table>
+<%  form_for(@persona) do |f| %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="6" class="campos">DATOS BASICOS JEFE DE HOGAR</td>
+      </tr>
+      <tr class="odd1">
+        <td width="16%" class="campos">Identificaci&oacute;n </td>
+        <td width="20%" class="campos">Nombres </td>
+        <td width="20%" class="campos">Apellidos</td>
+        <td width="12%" class="campos">Genero</td>
+        <td width="20%" class="campos">Nacimiento</td>
+        <td width="12%" class="campos">Estado Civil</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion%></td>
+        <td class="camposDesc"><%=@persona.primer_nombre%> <%=@persona.segundo_nombre%></td>
+        <td class="camposDesc"><%=@persona.primer_apellido%> <%=@persona.segundo_apellido%></td>
+        <td class="camposDesc"><%=@persona.generos%></td>
+        <td class="camposDesc"><%=@persona.fecha_nacimiento%> -<%=@persona.lugar_nacimiento%> </td>
+        <td class="camposDesc"><%=EstadosCivil.find(@persona.estado_civil_id).descripcion rescue nil%>&nbsp;</td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="15%" class="campos">Ocupacion</td>
+          <td width="20%" class="campos">Grupo Etnico</td>
+          <td width="25%" class="campos">Condicion Especial</td>
+          <td width="40%" class="campos">Tipo de Poblacion</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@persona.ocupacion.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=@persona.grupo_etnico%></td>
+          <td class="camposDesc"><%=@persona.especial.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=@persona.familiar.descripcion rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+        <tr class="odd1">
+          <td width="15%" class="campos">Zona Poblacion </td>
+          <td width="10%" class="campos">Ingresos </td>
+          <td width="10%" class="campos">Nivel Sisben </td>
+          <td width="20%" class="campos">Caja de Compensacion </td>
+          <td width="5%" class="campos">Estrato </td>
+          <td width="40%" class="campos">Comuna - Barrio </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@persona.zona%></td>
+          <td class="camposDesc"><%=@persona.ingresos%></td>
+          <td class="camposDesc"><%=@persona.sisben.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=@persona.caja.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=@persona.estrato%></td>
+          <td class="camposDesc"><%=@persona.comuna.descripcion2 rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+        <tr class="odd1">
+          <td width="30%" class="campos">Direccion</td>
+          <td width="10%" class="campos">Ciudad</td>
+          <td width="25%" class="campos">Telefonos - Celular</td>
+          <td width="5%" class="campos">Tenencia</td>
+          <td width="30%" class="campos">Correo Electronico</td>
+        </tr>
+        <tr>
+           <td class="camposDesc"><%=@persona.direccion%></td>
+           <td class="camposDesc"><%=@persona.ciudad%></td>
+           <td class="camposDesc"><%=@persona.telefonos1%> - <%=@persona.telefonos2%> - <%=@persona.celular%></td>
+           <td class="camposDesc"><%=@persona.tenencia%></td>
+           <td class="camposDesc"><%=@persona.e_mail%>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="4" class="campos">AFECTACION DE LA VIVIENDA</td>
+      </tr>
+        <tr class="odd1">
+          <td width="28%" class="campos">Afectacion de la vivienda?</td>
+          <td width="20%" class="campos">Calamidad</td>
+          <td width="12%" class="campos">Riesgo</td>
+          <td width="40%" class="campos">Simpad</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=@persona.afectacion%></td>
+          <td class="camposDesc"><%=@persona.afect_calamidad%></td>
+          <td class="camposDesc"><%=@persona.afect_riesgo%></td>
+          <td class="camposDesc"> &nbsp;Tiene Ficha &nbsp;(<%=@persona.afect_fichasimpad%>
+            &nbsp;) Nro &nbsp;(<%=@persona.afect_nrosimpad%>
+            &nbsp;) Fecha &nbsp;<%=@persona.afect_fchsimpad%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="6" class="campos">CARACTERISTICAS DE LA VIVIENDA</td>
+      </tr>
+        <tr class="odd1">
+          <td width="20%" class="campos">Materiales Techos</td>
+          <td width="13%" class="campos">Estado Techos</td>
+          <td width="20%" class="campos">Materiales Muros</td>
+          <td width="14%" class="campos">Estado Muros</td>
+          <td width="20%" class="campos">Materiales Pisos</td>
+          <td width="13%" class="campos">Estado Pisos</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            <% if @persona.caract_techobarro.to_s == "SI" %>
+               Teja de Barro -
+            <% end %>
+            <% if @persona.caract_techoeternit.to_s == "SI" %>
+               Eternit -
+            <% end %>
+            <% if @persona.caract_techozinc.to_s == "SI" %>
+               Zinc -
+            <% end %>
+            <% if @persona.caract_techootro.to_s != "" %>
+               Otro - <%=@persona.caract_techootro%>
+            <% end %>&nbsp;
+          </td>
+          <td class="camposDesc"><%=@persona.caract_estadotecho%></td>
+          <td class="camposDesc">
+            <% if @persona.caract_pisotierra.to_s == "SI" %>
+               Tierra -
+            <% end %>
+            <% if @persona.caract_pisocemento.to_s == "SI" %>
+               Cemento -
+            <% end %>
+            <% if @persona.caract_pisomadera.to_s == "SI" %>
+               Madera -
+            <% end %>
+            <% if @persona.caract_pisobaldosa.to_s == "SI" %>
+               Baldosa -
+            <% end %>
+            <% if @persona.caract_pisootro.to_s != "" %>
+               Otro - <%=@persona.caract_pisootro%>
+            <% end %>&nbsp;
+          </td>
+          <td class="camposDesc"><%=@persona.caract_estadopisos%></td>
+          <td class="camposDesc">
+            <% if @persona.caract_murotapia.to_s == "SI" %>
+               Tapia -
+            <% end %>
+            <% if @persona.caract_muromadera.to_s == "SI" %>
+               Madera -
+            <% end %>
+            <% if @persona.caract_muroadobe.to_s == "SI" %>
+               Adobe -
+            <% end %>
+            <% if @persona.caract_murootro.to_s != "" %>
+               Otro - <%=@persona.caract_murootro%>
+            <% end %>&nbsp;
+          </td>
+          <td class="camposDesc"><%=@persona.caract_estadomuros%></td>
+        </tr>
+      </table>
+     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+       <tr class="odd1">
+          <td width="20%" class="campos">La vivienda es?</td>
+          <td width="40%" class="campos">Servicios Publicos</td>
+          <td width="40%" class="campos">Distribucion de la Vivienda</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@persona.caract_tamanovivienda%></td>
+          <td class="camposDesc">
+            <% if @persona.caract_servenergia.to_s == "SI" %>
+               Energia -
+            <% end %>
+            <% if @persona.caract_servacueducto.to_s == "SI" %>
+               Acueducto -
+            <% end %>
+            <% if @persona.caract_servagua.to_s == "SI" %>
+               Agua Potable -
+            <% end %>
+            <% if @persona.caract_servtelefono.to_s == "SI" %>
+               Telefono -
+            <% end %>
+            <% if @persona.caract_servgas.to_s == "SI" %>
+               Gas -
+            <% end %>
+            <% if @persona.caract_servalcant.to_s == "SI" %>
+                Alcantarillado -
+            <% end %>
+            <% if @persona.caract_servpozo.to_s == "SI" %>
+               Pozo Septico / Tanque
+            <% end %>&nbsp;
+          </td>
+          <td class="camposDesc">
+            <% if @persona.caract_distcocina.to_s == "SI" %>
+               Cocina -
+            <% end %>
+            <% if @persona.caract_distsala.to_s == "SI" %>
+               Sala -
+            <% end %>
+            <% if @persona.caract_distcomedor.to_s == "SI" %>
+               Comedor -
+            <% end %>
+            <% if @persona.caract_distbanos.to_s != "" %>
+               Nro de Baños <%=@persona.caract_distbanos%>
+            <% end %>
+            <% if @persona.caract_disthabit.to_s != "" %>
+               Nro de Habitaciones <%=@persona.caract_disthabit%>
+            <% end %>
+            <% if @persona.caract_distpersxhab.to_s != "" %>
+               Nro Personas por Habitacion <%=@persona.caract_distpersxhab%>
+            <% end %>&nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="4" class="campos">INFORMACION GRUPO FAMILIAR</td>
+      </tr>
+        <tr class="odd1">
+          <td width="47" class="campos">Tiempo Permanencia (Años)</td>
+          <td width="18%" class="campos">Lugar de Procedencia</td>
+          <td width="20%" class="campos">Desplazado SIPOD</td>
+          <td width="15%" class="campos">Uso de la Vivienda</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            En el Sector: (&nbsp;<%=@persona.info_permasector.to_i%>&nbsp;)&nbsp;
+            En Medellin: (&nbsp;<%=@persona.info_permamedellin.to_i%>&nbsp;)&nbsp;
+            Nro de Familias en la Vivienda: (&nbsp;<%=@persona.info_nrofamilias.to_i%>&nbsp;)
+          </td>
+          <td class="camposDesc"><%=@persona.info_lugarprocedencia%></td>
+          <td class="camposDesc">
+             SIPOD ? (&nbsp;<%=@persona.info_sipoddesplazado%>&nbsp;)&nbsp;
+            &nbsp;Registro &nbsp;<%=@persona.info_sipodregistro%>
+          </td>
+          <td class="camposDesc">&nbsp;
+            <% if @persona.info_usoresidencia.to_s == "SI" %>
+               Residencia -
+            <% end %>
+            <% if @persona.info_usoresinegocio.to_s == "SI" %>
+               Residencias con Negocio -
+               &nbsp;Tipo de Negocio: &nbsp; (&nbsp;<%=@persona.info_usonegocio%>&nbsp;)&nbsp; &nbsp;
+               Años &nbsp; (&nbsp;<%=@persona.info_usonegocioanos%>&nbsp;)
+            <% end %>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="2" class="campos">SITUACION ECONOMICA DEL HOGAR</td>
+      </tr>
+        <tr>
+          <td width="15%" class="campos odd1">Ingresos Mensuales</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;Salario (Empleados): (&nbsp;<%=@persona.situ_ingresalario.to_i%>&nbsp;)&nbsp; &nbsp;
+            Ingresos (Independientes): (&nbsp;<%=@persona.situ_ingreingresos.to_i%>&nbsp;)&nbsp; &nbsp;
+            Subsidio en Dinero: (&nbsp;<%=@persona.situ_ingresubsidio.to_i%>&nbsp;)&nbsp; &nbsp;
+            Ayuda Familiar: (&nbsp;<%=@persona.situ_ingreayuda.to_i%>&nbsp;)&nbsp; &nbsp;<br/>
+            &nbsp;Pension: (&nbsp;<%=@persona.situ_ingrepension.to_i%>&nbsp;)&nbsp; &nbsp;
+            Otro: (&nbsp; <%=@persona.situ_ingreotro.to_i%>&nbsp;)&nbsp; &nbsp;
+            Total: (&nbsp;<%=@persona.situ_ingretotal.to_i%>&nbsp;)&nbsp; &nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+        <tr>
+          <td width="15%" class="campos odd1">Gastos Mensuales</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;Arriendo: (&nbsp;<%=@persona.situ_gastoarriendo.to_i%>&nbsp;)&nbsp; &nbsp;
+            Servicios: (&nbsp;<%=@persona.situ_gastoservicios.to_i%>&nbsp;)&nbsp; &nbsp;
+            Transporte: (&nbsp;<%=@persona.situ_gastotransporte.to_i%>&nbsp;)&nbsp; &nbsp;
+            Alimentacion: (&nbsp;<%=@persona.situ_gastoalimentacion.to_i%>&nbsp;)&nbsp; &nbsp;
+            Salud: (&nbsp;<%=@persona.situ_gastosalud.to_i%>&nbsp;)&nbsp; &nbsp;<BR/>
+            &nbsp;Educacion: (&nbsp;<%=@persona.situ_gastoeducacion.to_i%>&nbsp;)&nbsp; &nbsp;
+            Vestido: (&nbsp;<%=@persona.situ_gastovestido.to_i%>&nbsp;)&nbsp; &nbsp;
+            Total: (&nbsp;<%=@persona.situ_gastototal.to_i%>&nbsp;)&nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+        <tr>
+          <td width="15%" class="campos odd1">Deudas Pendientes</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;Prestamos: (&nbsp;<%=@persona.situ_deudaprestamo.to_i%>&nbsp;)&nbsp; &nbsp;
+            Servicios Publicos: (&nbsp;<%=@persona.situ_deudaservicios.to_i%>&nbsp;)&nbsp; &nbsp;
+            Otros: (&nbsp;<%=@persona.situ_deudaotros.to_i%>&nbsp;)&nbsp; &nbsp;
+            Especificar: (&nbsp;<%=@persona.situ_deudaespecificar%>&nbsp;)&nbsp; &nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+        <tr>
+          <td width="15%" class="campos odd1">Ahorro / Cesantias ?</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;(&nbsp;<%=@persona.situ_ahorro%>&nbsp;)&nbsp; &nbsp;
+            Donde: &nbsp;<%=@persona.situ_ahorrodonde%>&nbsp; &nbsp;
+            Valor: &nbsp;<%=@persona.situ_ahorrovalor%>
+          </td>
+        </tr>
+      </table>
+<br/>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <td colspan="6" class="campos">COMPOSICION FAMILIAR</td>
+      </tr>
+        <% @persona.beneviviendas.each do |benevivienda| %>
+        <tr class="odd1">
+          <td width="25%" class="campos">Nombre y Apellidos</td>
+          <td width="10%" class="campos">Identificacion</td>
+          <td width="8%" class="campos">Sexo</td>
+          <td width="15%" class="campos">Fecha Nac.</td>
+          <td width="17%" class="campos">Escolaridad</td>
+          <td width="15%" class="campos">Parentesco</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=benevivienda.primer_nombre%> <%=benevivienda.segundo_nombre%> <%=benevivienda.primer_apellido%> <%=benevivienda.segundo_apellido%></td>
+          <td class="camposDesc"><%=benevivienda.identificacion%></td>
+          <td class="camposDesc"><%=benevivienda.generos%></td>
+          <td class="camposDesc"><%=benevivienda.fecha_nacimiento%></td>
+          <td class="camposDesc"><%=benevivienda.escolaridad%></td>
+          <td class="camposDesc"><%=benevivienda.parentesco.descripcion rescue nil%></td>
+        </tr>
+        <td colspan="6">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+            <tr>
+              <td width="15%" class="campos odd1">Estado Civil</td>
+              <td width="12%" class="camposDesc"><%=EstadosCivil.find(benevivienda.estado_civil_id).descripcion rescue nil%></td>
+              <td width="15%" class="campos odd1">Discapacidad</td>
+              <td width="20%" class="camposDesc"><%=benevivienda.tipo_discapacidad%></td>
+              <td width="16%" class="campos odd1">Ocupacion</td>
+              <td width="22%" class="camposDesc"><%=benevivienda.ocupacion.descripcion rescue nil%></td>
+            </tr>
+            <tr>
+              <td class="campos odd1">Contrato</td>
+              <td class="camposDesc"><%=benevivienda.tipo_contrato rescue nil%></td>
+              <td class="campos odd1">Seguridad Social</td>
+              <td class="camposDesc">
+                Eps (&nbsp;<%=benevivienda.eps%>&nbsp;)&nbsp;
+                Sisben (&nbsp;<%=benevivienda.sisben.descripcion rescue nil%>&nbsp;)
+              </td>
+              <td class="campos odd1">Caja Compensacion</td>
+              <td class="camposDesc"><%=benevivienda.caja.descripcion rescue nil%></td>
+            </tr>
+          </table>
+        </td>
+        <tr>
+        <td colspan="6" class="campos">&nbsp;</td>
+        </tr>
+        <% end%>
+      </table>
+<% end %>
+<br/>
+
+
+</td>
+  </tr>
+</table>
+  <table width="800" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+    <tr><td height="0"class="camposDesc"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <%=is_usuario%></td></tr>
+  </table>
+      </div>

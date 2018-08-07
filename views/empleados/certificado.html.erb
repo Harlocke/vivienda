@@ -1,0 +1,234 @@
+<div align="center"><%=image_tag("frame.png")%></div>
+<% if @empleado.tipo == 'C' %>
+    <div align="center">
+      <table width="750" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              Medellín, <%=namedate(Time.now)%>
+            </div>
+            <div align="center" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%; "><strong>CERTIFICADO</strong></div>
+            <br/>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              <strong>EL INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong> con Nit 900014480-8, creado mediante Acuerdo Municipal N° 52 de 2008,
+               certifica que el Señor(a) <strong><%=@empleado.nombres%></strong> con cédula de ciudadanía N° <%=@empleado.identificacion%>, registra los siguientes
+               contratos de prestación de servicios con el Instituto:
+            </div>
+            <br/>
+      <%  i = 0
+          @contratos = Contrato.find(:all, :conditions=>["empleado_id = #{@empleado.id}"], :order=>"fecha_inicio desc")
+          @contratos.each do |contrato|
+          i = i + 1%>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="3%" style="font-size: 11px; font-family: Arial Narrow;"><div align="center"><strong><%=i%></strong></div></td>
+              <td width="97%">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="10%" height="25" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Nro Contrato</strong></div></td>
+                    <td width="90%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Objeto</strong></td>
+                  </tr>
+                  <tr valign="middle">
+                    <td style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong><%=contrato.nro_contrato%></strong></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="justify"><%=contrato.objeto%></div></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Mensual</strong></div></td>
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Total</strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Inicio </strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Final </strong></div></td>
+                    <td width="15%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Estado del Contrato</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Interventor Asignado </strong></td>
+                    <td width="27%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Tipo de Contrato</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valormes) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valorreal) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fechafinalreal.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.destado%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=Empleado.find(contrato.interventorempleado_id).nombre rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.tiposcontrato.descripcion rescue nil%></div></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <br/>
+      <%   end %>
+          <br/>
+          <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+            El presente certificado se expide por solicitud del interesado,Para mayor información comunicarse al PBX 4304310 Ext 179<br/><br/>
+            Cordialmente,
+            <br/><br/>
+            <%=image_tag('71616755.jpg')%><br/>
+            <strong><%=Sifi.find(20).valor rescue nil%></strong><br/>
+            <%=Sifi.find(21).valor rescue nil%><br/>
+            <strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong>
+            <div align="justify" style="font-size: 10px; font-family: Arial Narrow;">S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div>
+          </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+<% elsif  @empleado.tipo == 'V' and Contratosvinculado.exists?(["empleado_id = #{@empleado.id} and fecha_final is null"])
+    @contratosvinculado = Contratosvinculado.find(:first, :conditions=>["empleado_id = #{@empleado.id} and fecha_final is null"])
+%>
+    <div align="center">
+      <table width="750" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              Medellín, <%=namedate(Time.now)%>
+            </div>
+            <div align="center" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%; "><strong>CERTIFICADO</strong></div>
+            <br/>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              <strong>EL INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong> con Nit 900014480-8, creado mediante Acuerdo Municipal N° 52 de 2008,
+               certifica que el Señor(a) <strong><%=@empleado.nombres%></strong> con cédula de ciudadanía N° <%=@empleado.identificacion%>, 
+               se encuentra vinculado (a) desde el <%=namedate(@contratosvinculado.fecha_inicio)%>, en el cargo <%=@empleado.cargo rescue nil%>, según
+               Resolución N° <%=@contratosvinculado.nro_acto rescue nil%> de <%=namedate(@contratosvinculado.fecha_inicio)%>, con una asignación
+               salarial mensual de $ <%=camponumerico(@contratosvinculado.salario) rescue nil%>.
+               <% if Contrato.exists?(["empleado_id = #{@empleado.id}"]) %> Además tuvo los siguientes contratos de prestación de servicios con el Instituto.
+               <% end %>
+            </div>
+            <br/>
+      <%  i = 0
+          @contratos = Contrato.find(:all, :conditions=>["empleado_id = #{@empleado.id}"], :order=>"fecha_inicio desc")
+          @contratos.each do |contrato|
+          i = i + 1%>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="3%" style="font-size: 11px; font-family: Arial Narrow;"><div align="center"><strong><%=i%></strong></div></td>
+              <td width="97%">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="10%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Nro Contrato</strong></div></td>
+                    <td width="90%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Objeto</strong></td>
+                  </tr>
+                  <tr valign="middle">
+                    <td style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong><%=contrato.nro_contrato%></strong></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="justify"><%=contrato.objeto%></div></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Mensual</strong></div></td>
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Total</strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Inicio </strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Final </strong></div></td>
+                    <td width="15%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Estado del Contrato</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Interventor Asignado </strong></td>
+                    <td width="27%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Tipo de Contrato</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valormes) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valorreal) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fechafinalreal.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.destado%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=Empleado.find(contrato.interventorempleado_id).nombre rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.tiposcontrato.descripcion rescue nil%></div></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <br/>
+      <%   end %>
+          <br/>
+          <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+            El presente certificado se expide por solicitud del interesado, para mayor información comunicarse al PBX 4304310 Ext 179<br/><br/>
+            Cordialmente,
+            <br/><br/><br/>
+            <strong><%=Sifi.find(20).valor rescue nil%></strong><br/>
+            <%=Sifi.find(21).valor rescue nil%><br/>
+            <strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong>
+            <div align="justify" style="font-size: 10px; font-family: Arial Narrow;">S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div>
+          </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+<% elsif  @empleado.tipo == 'V' and Contratosvinculado.exists?(["empleado_id = #{@empleado.id} and fecha_final is not null"])
+    @contratosvinculado = Contratosvinculado.find(:first, :conditions=>["empleado_id = #{@empleado.id} and fecha_final is not null"])
+%>
+    <div align="center">
+      <table width="750" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              Medellín, <%=namedate(Time.now)%>
+            </div>
+            <div align="center" style="font-size: 18px; font-family: Arial Narrow; line-height: 150%; "><strong>CERTIFICADO</strong></div>
+            <br/>
+            <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; ">
+              <strong>EL INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong> con Nit 900014480-8, creado mediante Acuerdo Municipal N° 52 de 2008,
+               certifica que el Señor(a) <strong><%=@empleado.nombres%></strong> con cédula de ciudadanía N° <%=@empleado.identificacion%>,
+               estuvo vinculado(a) desde el <%=namedate(@contratosvinculado.fecha_inicio)%> hasta el <%=namedate(@contratosvinculado.fecha_final)%> en el cargo <%=@empleado.cargo rescue nil%>, según
+               Resolución N° <%=@contratosvinculado.nro_acto rescue nil%> de <%=namedate(@contratosvinculado.fecha_inicio)%>, con una asignación
+               salarial mensual de $ <%=camponumerico(@contratosvinculado.salario) rescue nil%>.
+               <% if Contrato.exists?(["empleado_id = #{@empleado.id}"]) %> Además tuvo los siguientes contratos de prestación de servicios con el Instituto.
+               <% end %>
+            </div>
+            <br/>
+      <%  i = 0
+          @contratos = Contrato.find(:all, :conditions=>["empleado_id = #{@empleado.id}"], :order=>"fecha_inicio desc")
+          @contratos.each do |contrato|
+          i = i + 1%>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="3%" style="font-size: 11px; font-family: Arial Narrow;"><div align="center"><strong><%=i%></strong></div></td>
+              <td width="97%">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="10%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Nro Contrato</strong></div></td>
+                    <td width="90%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Objeto</strong></td>
+                  </tr>
+                  <tr valign="middle">
+                    <td style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong><%=contrato.nro_contrato%></strong></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="justify"><%=contrato.objeto%></div></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Mensual</strong></div></td>
+                    <td width="11%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Valor Total</strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Inicio </strong></div></td>
+                    <td width="8%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><strong>Fecha Final </strong></div></td>
+                    <td width="15%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Estado del Contrato</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Interventor Asignado </strong></td>
+                    <td width="27%" style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><strong>Tipo de Contrato</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valormes) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=camponumerico(contrato.valorreal) rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.fechafinalreal.strftime("%Y-%m-%d") rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.destado%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=Empleado.find(contrato.interventorempleado_id).nombre rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 10px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><%=contrato.tiposcontrato.descripcion rescue nil%></div></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <br/>
+      <%   end %>
+          <br/>
+          <div align="justify" style="font-size: 14px; font-family: Arial Narrow; line-height: 150%; "><br/>
+            El presente certificado se expide por solicitud del interesado, para mayor información comunicarse al PBX 4304310 Ext 179<br/><br/><br/>
+            Cordialmente,
+            <br/><br/><br/><br/><br/>
+            <strong><%=Sifi.find(20).valor rescue nil%></strong><br/>
+            <%=Sifi.find(21).valor rescue nil%><br/>
+            <strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong>
+            <div align="justify" style="font-size: 10px; font-family: Arial Narrow;">S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div>
+          </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+<% end %>

@@ -1,0 +1,49 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ACTIVIDADES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@grupo, @gruposactividad] do |form| %>
+      <% if !@gruposactividad.id %>
+        <%= render :partial => "/gruposactividades/gruposactividades_form" %>
+      <% end %>
+<% if @grupo.gruposactividades.exists? %>
+<div align="center">
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="10%" height="30" class="oce-first">Codigo</th>
+    <th width="65%" class="oce-first">Descripcion</th>
+    <th width="5%" class="oce-first">Unidad</th>
+    <th width="5%" class="oce-first"><div align="center">HTA</div></th>
+    <th width="15%" class="oce-first"></th>
+  </tr>
+<%  @grupo.gruposactividades.each do |gruposactividad| %>
+<% if gruposactividad.id != @gruposactividad.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="gruposactividad_<%=gruposactividad.id%>">
+    <td class="camposDesc"><%=h gruposactividad.codigo rescue nil %></td>
+    <td class="camposDesc"><%=h gruposactividad.descripcion rescue nil %></td>
+    <td class="camposDesc"><%=h gruposactividad.unidad rescue nil %></td>
+    <td class="camposDesc"><div align="center"><%=h gruposactividad.hta rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+      <%= link_to_remote('Editar',{:url => edit_grupo_gruposactividad_path(@grupo, gruposactividad),
+                      :method => :get}, :class=>"editarlink")%>
+      <%= link_to_remote('Borrar',{:url =>grupo_gruposactividad_path(@grupo, gruposactividad),
+                      :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%></div>
+      </td>
+   </tr>
+<% else %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><div class="col_enc">EDITAR</div></td></tr></table>
+     <%= render :partial => "gruposactividades_form" %>
+   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+<% end %>
+</table>
+<% end %>
+</div>
+<%= hidden_field :grupo, :id %>
+<% end %>
+<br/>

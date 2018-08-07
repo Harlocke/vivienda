@@ -1,0 +1,60 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/inventariotecnologiamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION OTROS SOPORTES</div></td>
+          <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  edit_elemento_path(@elementosotro.elemento_id) %></span></div></div>            </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Fecha</td>
+    <td width="90%" height="30" class="oce-first">Descripcion otro</td>
+  </tr>
+   <tr>
+    <td class="camposDesc"><%=@elementosotro.fecha.strftime("%Y-%m-%d")%> - <%=@elementosotro.user.username rescue nil%></td>
+    <td class="camposDesc"><%=@elementosotro.observaciones rescue nil%></td>
+ </tr>
+</table>
+<table width="80%" height="40" align="center" >
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;SOPORTE DIGITAL</div></td>
+          <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1nuevo.png"/>&nbsp;&nbsp;
+                <span class="uiButtonText"><%= link_to "Nuevo", new_img_elementosotrossoporte_path %></span></div></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellspacing="1" cellpadding="1">
+  <tr>
+    <td class="oce-first" width="10%">Fecha</td>
+    <td class="oce-first" width="35%">Descripcion</td>
+    <td class="oce-first" width="40%">Nombre Archivo</td>
+    <td class="oce-first" width="15%">&nbsp;</td>
+  </tr>
+</table>
+<% @elementosotrossoportes.each do |elementosotrossoporte| %>
+<table width="80%" border="0" cellspacing="0" cellpadding="0" align="center" >
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td width="10%" class="camposDesc"><%=elementosotrossoporte.created_at%></td>
+    <td width="35%" class="camposDesc"><%=elementosotrossoporte.descripcion %></td>
+    <td width="40%" class="camposDesc"><%=elementosotrossoporte.eleotrossoporte_file_name %></td>
+    <td width="15%" class="camposDesc"><div align="center">
+         <%= link_to "Ver", elementosotrossoporte.eleotrossoporte.url(:original, false),
+             { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+        <% if permiso("elementosotrossoporte","E").to_s == "S" %>&nbsp;|
+       <%= link_to 'Borrar', img_elementosotrossoporte_path(@elementosotro, elementosotrossoporte),
+                :confirm => 'Esta Seguro de Eliminar?', :method => :delete, :class=>"borrarlink"%>
+       <%end%>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br />

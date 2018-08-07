@@ -1,0 +1,47 @@
+<% if @correspondenciasinternast.count != 0 %>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">RADICADOS</div></td>
+    </tr>
+  </table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Consecutivo</div></td>
+    <td width="5%" height="30" class="oce-first">Anno</td>
+    <td width="20%" class="oce-first"><div align="center">Fecha Documento</div></td>
+    <td width="25%" class="oce-first"><div align="center">Dependencia</div></td>
+    <td width="35%" class="oce-first"><div align="center">Usuario Proyecta</div></td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @correspondenciasinternast.each do |correspondenciasinterna| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasinterna.consecutivo%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.anno%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.fecha_documento%></div></td>
+    <td class="camposDesc"><div align="center"><%=h correspondenciasinterna.dependencia.descripcion%></div></td>
+    <td class="camposDesc"><div align="center"><%=User.find(correspondenciasinterna.user_proyecta).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_correspondenciasinterna_path(correspondenciasinterna),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@correspondenciasinternast.count%></div></td>
+  </tr>
+</table>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">RADICADOS</div></td>
+    </tr>
+  </table>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;Usted no tiene memorandos pendientes</td>
+     </tr>
+</table>
+<% end %>
+<br/>

@@ -1,0 +1,74 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATISTAS ASOCIADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@archivo, @archivosempleado] do |form| %>
+<% if permiso("archivosempleado","C").to_s == "S" %>
+       <% if @archivo.tipo.to_s == 'S' %>
+          <table width="80%" height="30" border="0" cellpadding="0" cellspacing="0" bordercolor="#FF0000">
+            <tr>
+              <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+              <td width="90%" align="left" class="campos">&nbsp;&nbsp;Lo siento pero no este documento ya no se encuentra habilitado para prestamos</td>
+            </tr>
+          </table>
+       <% else %>
+           <% if !@archivosempleado.id %>
+                <%= render :partial => "/archivosempleados/archivosempleados_form" %>
+           <% end %>
+       <% end %>
+<% end %>
+<% if @archivo.archivosempleados.exists? %>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="30" align="left" class="oce-first">Contratista Vinculado</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @archivo.archivosempleados.each do |archivosempleado| %>
+     <% if archivosempleado.id != @archivosempleado.id %>
+  <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="archivosempleado_<%= archivosempleado.id%>">
+     <td width="90%" height="30" align="left" class="camposDesc"><%=archivosempleado.empleado.autobuscar rescue nil%></td>
+     <td width="10%" align="right" class="camposDesc"><div align="center">
+        <% if @archivo.tipo.to_s != 'S' %>
+            <% if permiso("archivosempleado","E").to_s == "S" %>
+                <%= link_to_remote('Borrar',{:url => archivo_archivosempleado_path(@archivo, archivosempleado),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+        <% end %></div>
+        </td>
+ </tr>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%=hidden_field :archivo, :id %>
+<% end %>
+<br/>
+<% if flash[:archivosempleado] %>
+<div id="archivosempleado">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:archivosempleado] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('archivosempleado');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,139 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">ACOMPAÑAMIENTO DE INTERVENTORIA - <%=@mejoramientosinforme.mejoramientosinterventoria.created_at.strftime("%Y-%m-%d %X")%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),{:controller=>"mejoramientos", :action=>"edit", :id=>@mejoramientosinforme.mejoramientosinterventoria.mejoramiento_id}%>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <table width="90%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td height="25" width="50%" align="left" class="oce-first">Beneficiario</td>
+      <td width="15%" align="left" class="oce-first">CBML</td>
+      <td width="15%" align="left" class="oce-first">Tipo de Mejoramiento</td>
+      <td width="20%" align="left" class="oce-first">Estado</td>
+    </tr>
+    <tr class="odd1">
+      <td height="25" class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.mejoramiento.persona.autobuscar rescue nil%></td>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.mejoramiento.cobama rescue nil%></td>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.mejoramiento.tipomejoramiento rescue nil%></td>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.mejoramiento.mejoramientosestado.descripcion rescue nil%></td>
+    </tr>
+  </table>
+  <br/>
+  <table width="90%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">Coordinador</td>
+      <td width="25%" align="left" class="campos">Profesional</td>
+      <td width="25%" align="left" class="campos">Tecnologo</td>
+      <td width="25%" align="left" class="campos">Interventor</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=User.find(@mejoramientosinforme.mejoramientosinterventoria.user_coordinador).nombre rescue nil rescue nil%></td>
+      <td class="camposDesc"><%=User.find(@mejoramientosinforme.mejoramientosinterventoria.user_profesional).nombre rescue nil rescue nil%></td>
+      <td class="camposDesc"><%=User.find(@mejoramientosinforme.mejoramientosinterventoria.user_tecnologo).nombre rescue nil rescue nil%></td>
+      <td class="camposDesc"><%=User.find(@mejoramientosinforme.mejoramientosinterventoria.user_interventor).nombre rescue nil rescue nil%></td>
+    </tr>
+  </table>
+  <table width="90%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="33%" align="left" class="campos">Responsable Operador 1</td>
+      <td width="33%" align="left" class="campos">Responsable Operador 2</td>
+      <td width="33%" align="left" class="campos">Responsable Operador 3</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.responsable1 rescue nil rescue nil%></td>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.responsable2 rescue nil rescue nil%></td>
+      <td class="camposDesc"><%=@mejoramientosinforme.mejoramientosinterventoria.responsable3 rescue nil rescue nil%></td>
+    </tr>
+  </table>
+</div>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="70%" height="30" class="oce-first">Item</td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Unidad</div></td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Cant<BR/>Inicial</div></td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Avance </div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor </div></td>
+    <td width="5%" height="30" class="oce-first"></td>
+  </tr>
+<% clase = ""
+   @mejoramientosinforme.mejorainformeselementos.each do |mejorainformeselemento|
+    if mejorainformeselemento.cantidad.to_f > 0.0
+      clase = "campos"
+    else
+      clase = "camposDesc"
+    end
+   if mejorainformeselemento.mejoramientoselemento.mejoramientositem_id != 10043 %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejorainformeselemento_<%= mejorainformeselemento.id%>">
+     <td height="30" class="<%=clase%>"><div align="justify"><%=mejorainformeselemento.mejoramientoselemento.mejoramientositem.descripcioninforme rescue nil%> (Valor del Item: $ <%=number_to_currency(mejorainformeselemento.mejoramientoselemento.valor_unitario,{:precision => 2, :unit=>"", :delimiter =>"."}) rescue nil%>)
+       <% if mejorainformeselemento.observacion.to_s != "" %>
+           <br/>
+           ***** OBSERVACION: <%=mejorainformeselemento.observacion.to_s%>
+       <% end %>
+       </div></td>
+     <td class="<%=clase%>"><div align="center"><%=mejorainformeselemento.mejoramientoselemento.mejoramientositem.unidad rescue nil%></div></td>
+     <td class="<%=clase%>"><div align="center"><%=mejorainformeselemento.mejoramientoselemento.cantidad rescue nil%></div></td>
+     <td class="<%=clase%>"><div align="center"><%=mejorainformeselemento.cantidad rescue nil%></div></td>
+     <td class="<%=clase%>"><div align="center"><%=camponumerico(mejorainformeselemento.valor_total) rescue nil%></div></td>
+     <td class="camposDesc"><div align="center"><%= link_to '', edit_mejorainformeselemento_path(mejorainformeselemento), :class=>"editarlink"%></div></td>
+   </tr>
+   <% if mejorainformeselemento.mejorainformescriterios.exists?  %>
+   <tr>
+     <td colspan="6"><div align="center">
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="90%" align="left" class="oce-first">Criterios de No Aceptación</td>
+          </tr>
+        <% mejorainformeselemento.mejorainformescriterios.each do |mejorainformescriterio| %>
+           <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejorainformescriterio_<%= mejorainformescriterio.id%>">
+             <td width="90%" class="camposDesc"><div style="color:red; font-size:11px; font-family: Tahoma;"><strong><%=mejorainformescriterio.capituloscriterio.descripcion rescue nil%>
+                   <% if mejorainformescriterio.realizado.to_s == "" %>
+                 &nbsp;<%=link_to image_tag('link_aplaza.png'),{:controller=>"mejorainformescriterios", :action=>"descargar",:id=>mejorainformescriterio.id},:title=>"Marcar Aceptado", :confirm=>"Esta seguro que desea marcar como resulto este criterio?" %>
+                   <% else %>
+                      -----> <img class="img" src="/images/connect2.png"/> Verificado!!! (<%=mejorainformescriterio.updated_at.strftime("%Y-%m-%d %X")%>)
+                   <% end %></strong></div></td>
+            </tr>
+           <% end %>
+        </table>
+         </div>
+     </td>
+   </tr>
+   <% end %>
+   <% if mejorainformeselemento.mejorainformesimagenes.exists?  %>
+   <tr>
+     <td colspan="6"><div align="center">
+        <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="30%" height="20" class="oce-first" align="left">Descripcion</td>
+            <td width="60%" height="20" class="oce-first" align="left">Nombre del Archivo</td>
+            <td width="10%" height="20" class="oce-first" align="left">&nbsp;</td>
+          </tr>
+        <% mejorainformeselemento.mejorainformesimagenes.each do |mejorainformesimagen| %>
+           <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejorainformesimagen_<%=mejorainformesimagen.id%>">
+             <td height="20" class="camposDesc"><%=mejorainformesimagen.descripcion%></td>
+             <td class="camposDesc"><%=mejorainformesimagen.mejorainforme_file_name%></td>
+             <td class="camposDesc">
+              <%= link_to "Ver", mejorainformesimagen.mejorainforme.url(:original, false),
+                             { :popup => ['new_window','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+             </td>
+           </tr>
+           <% end %>
+        </table>
+         </div>
+     </td>
+   </tr>
+   <% end
+      %>
+   <tr><td colspan="6"><div align="center"><hr size="1" noshade class="hrlinea"/></hr></div></td></tr>
+<% end
+   end %>
+</table>

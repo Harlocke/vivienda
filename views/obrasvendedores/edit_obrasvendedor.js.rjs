@@ -1,0 +1,1 @@
+page.replace_html :obrasvendedores_form, :partial => "/obrasvendedores/obrasvendedores"

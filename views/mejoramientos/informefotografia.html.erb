@@ -1,0 +1,194 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<%=image_tag("frame.png")%>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">MEJORAMIENTO</div></td>
+  </tr>
+</table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr class="odd1">
+      <td class="campos" colspan="4">Objeto Resolucion</td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc" colspan="4"><%=@mejoramiento.resolucion.resuelve rescue nil%>&nbsp; <strong>- VALOR SUBSIDIO: $ <%=number_to_currency(@mejoramiento.valor_resolucion,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    </tr>
+    <tr class="odd1">
+      <td width="50%" class="campos">Beneficiario</td>
+      <td width="10%" class="campos">CBML</td>
+      <td width="20%" class="campos">Tipo Mejoramiento</td>
+      <td width="20%" class="campos">Estado</td>
+    </tr>
+    <tr class="odd1">
+      <td class="camposDesc"><%=@mejoramiento.persona.autobuscar rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=@mejoramiento.cobama rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=@mejoramiento.tipomejoramiento rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=@mejoramiento.mejoramientosestado.descripcion rescue nil%>&nbsp;</td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">Coordinador UDEM</td>
+      <td width="25%" align="left" class="campos">Profesional UDEM</td>
+      <td width="25%" align="left" class="campos">Tecnologo UDEM</td>
+      <td width="25%" align="left" class="campos">Coordinador ISVIMED</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=User.find(@mejoramiento.user_coordinador).nombre rescue nil rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=User.find(@mejoramiento.user_profesional).nombre rescue nil rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=User.find(@mejoramiento.user_tecnologo).nombre rescue nil rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=User.find(@mejoramiento.user_interventor).nombre rescue nil rescue nil%>&nbsp;</td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr class="odd1">
+      <td width="33%" align="left" class="campos">Coordinador Operador</td>
+      <td width="33%" align="left" class="campos">Ingeniero Operador</td>
+      <td width="33%" align="left" class="campos">Profesional Operador</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=@mejoramiento.responsable1 rescue nil rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=@mejoramiento.responsable2 rescue nil rescue nil%>&nbsp;</td>
+      <td class="camposDesc"><%=@mejoramiento.responsable3 rescue nil rescue nil%>&nbsp;</td>
+    </tr>
+  </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr class="odd1">
+    <td width="15%" class="campos">Nro Convenio</td>
+    <td width="15%" class="campos">Vigencia</td>
+    <td width="15%" class="campos">Nro Soluciones</td>
+    <td width="20%" class="campos">Tipo Solucion</td>
+    <td width="35%" class="campos">Ubicacion</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@mejoramiento.convenio.nro_convenio rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.vigencia rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.nro_viviendas rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.tipo_solucion rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.comuna.comuna rescue nil%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr class="odd1">
+    <td width="42%" class="campos">Responsable Diagnostico</td>
+    <td width="18%" class="campos">Valor Diagnostico</td>
+    <td width="40%" class="campos">Operador</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@mejoramiento.convenio.responsable_diagnostico rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.valor_diagnostico rescue nil%></td>
+    <td class="camposDesc"><%=@mejoramiento.convenio.ejecutor rescue nil%></td>
+  </tr>
+</table>
+<br/><div align="left" class="col_enc">FOTOGRAFÍA, CRITERIOS DE NO ACEPTACIÓN Y CORRECCIONES</div>
+<% if @mejoramiento.mejoramientoselementos.exists? %>
+      <table width="98%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="30%" height="25" class="oce-first"><div align="center">ITEM</div></td>
+          <td width="13%" class="oce-first"><div align="center">INICIO</div></td>
+          <td width="13%" class="oce-first"><div align="center">PROCESOS</div></td>
+          <td width="13%" class="oce-first"><div align="center">FINAL</div></td>
+          <td width="31%" class="oce-first"><div align="center">CRITERIO</div></td>
+        </tr>
+<% for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all, :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento| %>
+   <% if mejoramientoselemento.mejoraelementosimagenes.exists?  %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div></td>
+          <td height="100" class="camposDesc"><div align="center">
+          <% for mejoraante in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'ANTES'"]) %>
+          <div class="mejora_<%=mejoraante.id%>">
+            <div style="background:url(/system/mejoraelementos/<%=mejoraante.id%>/thumb/<%=mejoraante.mejoraelemento_file_name%>); background-repeat:no-repeat; height:100px"></div>
+              <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoraante.mejoraelemento.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+            <% if permiso("mejoramientoselemento","E").to_s == "S"  %>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"mejoraelementosimagenes", :action=>"destroy2", :id=>mejoraante.id, :mejoramiento_id=>@mejoramiento.id}%>
+            <% end %>
+            </div>
+        <% end %>
+            </div></td>
+          <td height="100" class="camposDesc"><div align="center">
+      <% for mejoradura in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'DURANTE'"]) %>
+          <div class="mejora_<%=mejoradura.id%>">
+            <div style="background:url(/system/mejoraelementos/<%=mejoradura.id%>/thumb/<%=mejoradura.mejoraelemento_file_name%>); background-repeat:no-repeat; height:100px"></div>
+            <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoradura.mejoraelemento.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+            <% if permiso("mejoramientoselemento","E").to_s == "S"  %>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"mejoraelementosimagenes", :action=>"destroy2", :id=>mejoradura.id, :mejoramiento_id=>@mejoramiento.id}%>
+            <% end %>
+          </div>
+        <% end %>
+            </div></td>
+          <td height="100" class="camposDesc"><div align="center">
+      <% for mejoradesp in mejoramientoselemento.mejoraelementosimagenes.find(:all, :conditions=>["cuando = 'DESPUES'"]) %>
+          <div class="mejora_<%=mejoradesp.id%>">
+             <div style="background:url(/system/mejoraelementos/<%=mejoradesp.id%>/thumb/<%=mejoradesp.mejoraelemento_file_name%>); background-repeat:no-repeat; height:100px"></div>
+              <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoradesp.mejoraelemento.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+              <% if permiso("mejoramientoselemento","E").to_s == "S"  %>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"mejoraelementosimagenes", :action=>"destroy2", :id=>mejoradesp.id, :mejoramiento_id=>@mejoramiento.id}%>
+            <% end %>
+            </div>
+        <% end %>
+            </div></td>
+          <td class="camposDesc">
+            <%  @objetos = Objeto.find_by_sql("select distinct ic.capituloscriterio_id, ic.created_at, ic.realizado
+                                    from   mejorainformescriterios ic, mejorainformeselementos ie, mejoramientosinformes i, mejoramientosinterventorias it
+                                    where  ic.mejorainformeselemento_id = ie.id
+                                    and    ie.mejoramientosinforme_id = i.id
+                                    and    ie.mejoramientoselemento_id = #{mejoramientoselemento.id}
+                                    and    i.mejoramientosinterventoria_id = it.id
+                                    and    it.mejoramiento_id = #{mejoramientoselemento.mejoramiento_id}
+                                    group by ic.capituloscriterio_id, ic.created_at, ic.realizado")
+                if @objetos.count >0
+                  @objetos.each do |objeto|
+                    if objeto.realizado.to_s == 'SI'%>
+                      <div style="font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%> <img class="img" src="/images/connect2.png"/></strong></div>
+                     <% else %>
+                      <div style="color:red; font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%></strong></div>
+                     <% end %>
+          <%      end
+                else%>
+                    No hay criterios pendientes
+          <%     end
+          %>
+          </td>
+        </tr>
+         <% else  %>
+         <%  @objetos = Objeto.find_by_sql("select distinct ic.capituloscriterio_id, ic.created_at, ic.realizado
+                                    from   mejorainformescriterios ic, mejorainformeselementos ie, mejoramientosinformes i, mejoramientosinterventorias it
+                                    where  ic.mejorainformeselemento_id = ie.id
+                                    and    ie.mejoramientosinforme_id = i.id
+                                    and    ie.mejoramientoselemento_id = #{mejoramientoselemento.id}
+                                    and    i.mejoramientosinterventoria_id = it.id
+                                    and    it.mejoramiento_id = #{mejoramientoselemento.mejoramiento_id}
+                                    group by ic.capituloscriterio_id, ic.created_at, ic.realizado")
+                if @objetos.count >0 %>
+                  <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                  <td class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div></td>
+                  <td height="100" class="camposDesc"><div align="center"></div></td>
+                  <td height="100" class="camposDesc"><div align="center"></div></td>
+                  <td height="100" class="camposDesc"><div align="center"></div></td>
+                  <td height="100" class="camposDesc">
+                  <%  @objetos.each do |objeto|
+                        if objeto.realizado.to_s == 'SI'%>
+                      <div style="font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%> <img class="img" src="/images/connect2.png"/></strong></div>
+                     <% else %>
+                      <div style="color:red; font-size:8px; font-family: Tahoma;"><strong> * <%=Capituloscriterio.find(objeto.capituloscriterio_id).descripcion rescue nil%></strong></div>
+                     <% end %>
+          <%      end %></td>
+                  </tr>
+          <%    end  %>
+        <% end %>
+   <% end %>
+      </table>
+<% end %>
+<br/><br/><br/>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</div>

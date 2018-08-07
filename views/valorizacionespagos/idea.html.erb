@@ -1,0 +1,270 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<%
+ afavorde = ""
+ cantidad = 0
+ #valorpagar = 0
+ #porcentaje = 0
+ valorizacionespersonas = Valorizacionespersona.find_all_by_valorizacion_id(@valorizacionespago.valorizacion_id)
+ cantidad   = valorizacionespersonas.count
+ porcentaje = (100/cantidad).to_s
+ valorpagar      = (@valorizacionespago.valor.to_i / cantidad).to_f
+ valorizacionespersonas.each do |valorizacionespersona|
+   afavorde =  " A FAVOR DE : "+valorizacionespersona.persona.nombres rescue nil
+   afavorde = afavorde + " IDENTIFICADO(A) CON C.C. No. "+valorizacionespersona.persona.identificacion rescue nil
+   afavorde1 = valorizacionespersona.persona.nombres rescue nil
+   afavorde0  = valorizacionespersona.persona.identificacion rescue nil
+   dir = valorizacionespersona.persona.direccion rescue nil
+   tel = valorizacionespersona.persona.telefonos rescue nil
+%>
+
+<div align="center">
+<%=image_tag("frame.png")%>
+<br/>
+<br/>
+<br/>
+<table width="849"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2" class="camposDescN16"><table width="100%" height="89"  border="0" cellpadding="0" cellspacing="0" class="sample">
+  <tr>
+    <td width="560" height="89" class="camposDescN16"><div align="center">CONEXI&Oacute;N VIAL ABURRA - R&Iacute;O CAUDA, PROYECTO 4,1 Km. <br>
+    INSTITUTO PARA EL DESARROLLO DE ANTIOQUIA</div></td>
+    <td width="289" class="camposDescN16"><div align="center">CUENTA DE COBRO </div></td>
+  </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td height="42" colspan="3" class="camposDescN16"><div align="center">FECHA DE PRESENTACI&Oacute;N</div></td>
+        <td width="61%" rowspan="3" class="camposDescN16"><%=afavorde%></td>
+      </tr>
+      <tr>
+        <td width="11%" height="33" class="camposDescN16"><div align="center">DIA</div></td>
+        <td width="16%" class="camposDescN16"><div align="center">MES</div></td>
+        <td width="12%" class="camposDescN16"><div align="center">A&Ntilde;O</div></td>
+        </tr>
+      <tr>
+        <td height="34" class="camposDesc16"><div align="center">&nbsp;<%=@valorizacionespago.fecha_solicitud.strftime("%d")%></div></td>
+        <td class="camposDesc16"><div align="center">&nbsp;<%=@descmes%></div></td>
+        <td class="camposDesc16"><div align="center">&nbsp;<%=@valorizacionespago.fecha_solicitud.strftime("%Y")%></div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td height="32" colspan="2">&nbsp;</td>
+        <td width="20%" class="camposDescN16"><div align="center">VALOR</div></td>
+      </tr>
+      <tr>
+        <td height="233" colspan="2" class="camposDesc16"><div align="justify"><span class="camposDescN16">DESCRIPCIÓN:</span> Solicito el <span class="camposDescN16">( <%=porcentaje%> %)</span> del valor de la <span class="camposDescN16"><%=@valorizacionespago.tipopago%></span>,
+          correspondiente al valor de <span class="camposDescN16"><%=valorpagar.to_i.to_words.upcase%> PESOS M/L ($ <%=number_to_currency(valorpagar,{:precision => 0, :unit=>"", :delimiter =>"."})%>)</span>,
+          por concepto de la venta de la vivienda al Municipio de Medellín, inmueble ubicado según ficha predial en la <span class="camposDescN16"><%=@valorizacionespago.valorizacion.direccion rescue nil%></span>, sector
+          <span class="camposDescN16"><%=@valorizacionespago.valorizacion.sector rescue nil%></span> del Municipio de Medellín, Cobama <span class="camposDescN16"><%=@valorizacionespago.valorizacion.cobama rescue nil%></span>, con matricula
+          ficticia <span class="camposDescN16"><%=@valorizacionespago.valorizacion.matricula rescue nil%></span>, conforme al avaluo practicado por <%=@valorizacionespago.valorizacion.entidad_avaluadora rescue nil%> y segun
+          la Resolución de Oferta de Compra No <span class="camposDescN16"><%=@valorizacionespago.valorizacion.nro_resol_compra rescue nil%></span>
+          <% if @valorizacionespago.valorizacion.fecha_resol_compra %>
+          del <span class="camposDescN16"><%=@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%d") rescue nil%> de
+          <%=descmes(@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%m").to_i) rescue nil%> de
+          <%=@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%Y") rescue nil%></span>
+          <% end %>
+        </div></td>
+        <td rowspan="2" class="camposDescN16"><div align="center">$ <%=number_to_currency(valorpagar,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+      </tr>
+      <tr>
+        <td width="17%" height="50" valign="middle" class="camposDescN16"><div align="center">LA SUMA DE: </div></td>
+        <td width="63%" valign="middle"  class="camposDescN16" valing="center">
+        <%=valorpagar.to_i.to_words.upcase%> PESOS M/L
+        </td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" height="178"  border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr valign="top">
+        <td width="448" height="120" class="camposDescN16">
+        <br><br><br>
+        <%=afavorde1%><br>
+        C.C. <%=afavorde0%><br>
+        Direcci&oacute;n : <%=dir%><br>
+        Telefono: <%=tel%>
+    </td>
+        <td width="401" height="120" class="camposDescN16">GERENTE DE CONCESIONES<br>
+          DEPARTAMENTO DE ANTIOQUIA</td>
+      </tr>
+      <tr valign="bottom">
+        <td height="120" class="camposDescN16">VISTO BUENO DIVISI&Oacute;N JURIDICA </td>
+        <td height="120" class="camposDescN16">VISTO BUENO IDEA </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<BR/>
+<table width="750" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;
+    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="5%" rowspan="2"class="camposDesc">Elabor&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(is_admin).nombre%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Revis&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(@valorizacionespago.valorizacion.juridico_asignado).nombre rescue nil%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Aprob&oacute;</td>
+          <td width="25%"class="camposDesc">MONICA GIRALDO M.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">Auxiliar Administrativo</td>
+          <td class="camposDesc">Abogado(a)</td>
+          <td class="camposDesc">Subdirector Tecnico </td>
+        </tr>
+      </table>
+    </td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</div>
+  <H1 class=SaltoDePagina> </H1>
+<div align="center">
+<table width="750" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="../../images/frame.png"/></td>
+      </tr>
+    </table>
+<br/>
+<br/>
+<br/>
+<table width="750"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><table width="100%" height="0"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="100%" height="20" class="camposDesc16"><div align="left">Doctor</div></td>
+    </tr>
+  <tr>
+    <td height="20" class="camposDescN16"><div align="left">SEBASTI&Aacute;N &Aacute;LVAREZ D&Iacute;AZ</div></td>
+    </tr>
+  <tr>
+    <td height="20" class="camposDesc16"><div align="left">Gerente Concesiones</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">Departamento de Antioquia, Oficina 906 &nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">Medell&iacute;n</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left"></div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16"><div align="left">Asunto: Solicitud de Pago </div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="justify">El Instituto Social de Vivienda y Hábitat de Medellín - ISVIMED, en la ejecución del Plan de Gestión Social y Reasentamiento de la población que debe desplazarse para darle paso al proyecto “Conexión Vial Aburrá – Rio Cauca”, solicitamos se realice el pago de acuerdo a lo estipulado en la resolución de oferta adjunta así:</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+    </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="70%"  border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+      <tr valign="middle">
+        <td width="25%"><div align="center"></div></td>
+        <td width="22%" rowspan="2" class="camposDescN16"><div align="center">VALOR<br>
+          PAGADO</div></td>
+        <td width="25%" rowspan="2" class="camposDescN16"><div align="center">VALOR<br>
+          SOLICITADO</div></td>
+        <td width="28%" rowspan="2" class="camposDescN16"><div align="center">VALOR NETO </div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="camposDescN16"><div align="center">VALOR</div></td>
+        </tr>
+      <tr valign="middle">
+        <td height="35" class="camposDesc16"><div align="center">$ <%=number_to_currency(@valorizacionespago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td height="35" class="camposDesc16"><div align="center">$ 0</div></td>
+        <td height="35" class="camposDesc16"><div align="center">$ <%=number_to_currency(@valorizacionespago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td height="35" class="camposDesc16"><div align="center">$ <%=number_to_currency(@valorizacionespago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+      </tr>
+    </table>    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="camposDesc16"><div align="justify">El cheque por el <span class="camposDescN16"><%=porcentaje%> %</span> del valor de la <span class="camposDescN16"><%=@valorizacionespago.tipopago%></span>,
+          a nombre de <%=afavorde1%> identificado con C.C No <%=afavorde0%>, quien vendi&oacute; al Municipio de Medellín predio ubicado en la <span class="camposDescN16"><%=@valorizacionespago.valorizacion.direccion rescue nil%></span>, sector
+          <span class="camposDescN16"><%=@valorizacionespago.valorizacion.sector rescue nil%></span>, Cobama <span class="camposDescN16"><%=@valorizacionespago.valorizacion.cobama rescue nil%></span>, con matricula
+          ficticia <span class="camposDescN16"><%=@valorizacionespago.valorizacion.matricula rescue nil%></span>, conforme al avaluo practicado por <%=@valorizacionespago.valorizacion.entidad_avaluadora rescue nil%> y segun
+          la Resolución de Oferta de Compra No <span class="camposDescN16"><%=@valorizacionespago.valorizacion.nro_resol_compra rescue nil%></span>
+          <% if @valorizacionespago.valorizacion.fecha_resol_compra %>
+          del <span class="camposDescN16"><%=@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%d") rescue nil%> de
+          <%=descmes(@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%m").to_i) rescue nil%> de
+          <%=@valorizacionespago.valorizacion.fecha_resol_compra.strftime("%Y") rescue nil%></span>
+          <% end %>
+    </div></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="camposDesc16">Cordialmente,</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="camposDescN16">JOSE ALVEIRO GIRALDO</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="camposDescN16">Subdirector Administrativo y Financiero </td>
+  </tr>
+</table>
+<BR/>
+<BR/>
+<table width="750" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;
+    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="5%" rowspan="2"class="camposDesc">Elabor&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(is_admin).nombre%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Revis&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(@valorizacionespago.valorizacion.juridico_asignado).nombre rescue nil%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Aprob&oacute;</td>
+          <td width="25%"class="camposDesc">MONICA GIRALDO M.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">Auxiliar Administrativo</td>
+          <td class="camposDesc">Abogado(a)</td>
+          <td class="camposDesc">Subdirector Tecnico </td>
+        </tr>
+      </table>
+    </td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</div>
+  <H1 class=SaltoDePagina> </H1>
+<%  end %>

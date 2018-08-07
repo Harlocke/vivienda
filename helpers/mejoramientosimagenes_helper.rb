@@ -1,0 +1,2 @@
+module MejoramientosimagenesHelper
+end

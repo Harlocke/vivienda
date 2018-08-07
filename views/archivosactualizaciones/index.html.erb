@@ -1,0 +1,22 @@
+<h1>Listing archivosactualizaciones</h1>
+
+<table>
+  <tr>
+    <th>Archivo</th>
+    <th>User</th>
+  </tr>
+
+<% @archivosactualizaciones.each do |archivosactualizacion| %>
+  <tr>
+    <td><%=h archivosactualizacion.archivo_id %></td>
+    <td><%=h archivosactualizacion.user_id %></td>
+    <td><%= link_to 'Show', archivosactualizacion %></td>
+    <td><%= link_to 'Edit', edit_archivosactualizacion_path(archivosactualizacion) %></td>
+    <td><%= link_to 'Destroy', archivosactualizacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New archivosactualizacion', new_archivosactualizacion_path %>

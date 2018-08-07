@@ -1,0 +1,2 @@
+module EstudiosactividadesHelper
+end

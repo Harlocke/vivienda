@@ -1,0 +1,2 @@
+module LegalizacionesproyectosHelper
+end

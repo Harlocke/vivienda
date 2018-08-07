@@ -1,0 +1,63 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td  height="30"><div class="col_enc">TRASLADO DE ATENCIÓN REGISTRADA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="20%" align="left" class="campos">ID Predio</td>
+        <td width="24%" align="left" class="campos">Fecha y Hora de Atencion </td>
+        <td width="56%" align="left" class="campos">Profesional</td>
+      </tr>
+      <tr>
+        <td align="left" class="camposDesc"><%=@titulacionesobservacion.titulacion.id %></td>
+        <td align="left" class="camposDesc"><%=@titulacionesobservacion.created_at.strftime("%Y-%m-%d %X") %></td>
+        <td align="left" class="camposDesc"><%=@titulacionesobservacion.user.nombre rescue nil%></td>
+      </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="24%" height="19" align="left" class="campos">Desarrollo de la Atencion </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top" class="camposDesc"><%=@titulacionesobservacion.observacion%></td>
+        </tr>
+      </table>
+      <br/>
+      <br/>
+<% form_tag envia_titulacionesobservaciones_path, :method => 'get' do %>
+     <%= hidden_field_tag :id, @titulacionesobservacion.id,{ :class => "span1" } %>
+    <div align="center">
+    <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr class="odd1">
+          <td width="30%" class="campos" align="left">Trasladado a:</td>
+          <td width="70%" class="camposDesc" align="left"><%=select("ubicacion", "user_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+                { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+    </table>
+    <table width="90%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" align="center" cellspacing="0">
+      <tr>
+        <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "buscar", :name => 'nil', :value => 'Asignar', :disable_with => "Asignando..." %>
+              </span></div>
+        </div></td>
+      </tr>
+    </table>
+    </div>
+    <%end%>
+
+    </td>
+  </tr>
+</table>

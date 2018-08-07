@@ -1,0 +1,28 @@
+<h1>Listing comunas</h1>
+
+<table>
+  <tr>
+    <th>Codigo comuna</th>
+    <th>Comuna</th>
+    <th>Codigo barrio</th>
+    <th>Barrio</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @comunas.each do |comuna| %>
+  <tr>
+    <td><%=h comuna.codigo_comuna %></td>
+    <td><%=h comuna.comuna %></td>
+    <td><%=h comuna.codigo_barrio %></td>
+    <td><%=h comuna.barrio %></td>
+    <td><%=h comuna.descripcion %></td>
+    <td><%= link_to 'Show', comuna %></td>
+    <td><%= link_to 'Edit', edit_comuna_path(comuna) %></td>
+    <td><%= link_to 'Destroy', comuna, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New comuna', new_comuna_path %>

@@ -1,0 +1,53 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORME DE AVANCE O CIERRE DE OBRA - <%=@licitacionesinforme.created_at.strftime("%Y-%m-%d %X")%></div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+    <tr>
+      <td height="25" width="80%" align="left" class="oce-first">Beneficiario</td>
+      <td width="20%" align="left" class="oce-first">Estado</td>
+    </tr>
+    <tr class="odd1">
+      <td height="25" class="camposDesc"><%=@licitacionesinforme.licitacion.persona.autobuscar rescue nil%></td>
+      <td class="camposDesc"><%=@licitacionesinforme.licitacion.estado rescue nil%></td>
+    </tr>
+  </table>
+<br/>
+<table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+  <tr valign="middle">
+    <td width="70%" height="30" class="oce-first">Descripcion APU</td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Cant. Inicial</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Avance </div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor </div></td>
+  </tr>
+<% for licitacionesinformesdetalle in @licitacionesinforme.licitacionesinformesdetalles.find(:all, :order => 'created_at DESC') %>
+     <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="licitacionesinformesdetalle_<%=licitacionesinformesdetalle.id%>">
+       <td class="camposDesc"><div align="left"><%=licitacionesinformesdetalle.licitacionesenlace.analisisprecio.descripcion rescue nil %>
+         <%  @grupo = Grupo.find(licitacionesinformesdetalle.licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+        <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+        <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%></div>
+       </td>
+       <td class="camposDesc"><div align="center"><%=licitacionesinformesdetalle.licitacionesenlace.cantidad rescue nil %></div></td>
+       <td class="camposDesc"><div align="center"><%=licitacionesinformesdetalle.cantidad rescue nil %></div></td>
+       <td class="camposDesc"><div align="center"><%=camponumerico(licitacionesinformesdetalle.valor_total) rescue nil %></div></td>
+    </tr>
+<% end %>
+     <tr valign="middle" class="oce-first">
+       <td class="camposDesc" height="30" colspan="2"><div align="right">Total Ejecutado (<%=number_to_currency(@licitacionesinforme.porcentajeavanceinforme,{:precision => 2, :unit=>"", :delimiter =>"."})%> %) -</div></td>
+       <td class="camposDesc"  colspan="2"><div align="center">$ <%=camponumerico(@licitacionesinforme.licitacionesinformesdetalles.sum("valor_total")) rescue nil %></div></td>
+    </tr>
+</table>
+<br/>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</div>

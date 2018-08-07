@@ -1,0 +1,297 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/corvidemin.png"/></td>
+          <td width="94%"><div class="col_enc">SANEAMIENTO CORVIDE</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png', { :border=>0, :title => "Buscar"}),corvides_path %></div></td>                
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<div id="container">
+  <div id="mainmenu">
+      <ul id="tabs">
+      <li><a href="#tab1"><img src="/images/corvide_menu.png" border="0" title="Información Predio"/></a></li>
+<% unless @corvide.new_record? %>
+      <li><a href="#tab4"><img src="/images/beneficiarios.png" border="0" title="Adjudicatarios"/></a></li>
+      <li><a href="#tab3"><img src="/images/imagenes.png" border="0" title="Propietarios"/></a></li>
+      <li><a href="#tab2"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+  <% form_for(@corvide) do |f| %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">DATOS IDENTIFICACIÓN DEL INMUEBLE</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%"><span class="campos">Nro. Expediente *</span></td>
+          <td width="25%"><span class="campos">Matrícula Inmobiliaria *</span></td>
+          <td width="25%"><span class="campos">CBML *</span></td>
+          <td width="25%"><span class="campos">Dirección</span></td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :nro_expediente,{ :class => "campo", :size => 15,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :nro_expediente, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :matricula,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :matricula, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :cbml,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :cbml, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :direccion,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :direccion, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%"><span class="campos">Barrio</span></td>
+          <td width="25%"><span class="campos">Proyecto</span></td>
+          <td width="25%"><span class="campos">Nit - Propietario</span></td>
+        </tr>
+        <tr>
+          <td><%=select("corvide", "comuna_id", select_comuna.collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true },
+            { :style=>"width:370px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+           <%= f.error_message_on :comuna_id, :css_class =>"cerror"%></td>
+          <td><%= select(:corvide, :transferencia, select_proyectocorvide,{ :include_blank => true },{ :style=>"width:240px", :class => "campo"})%>
+           <%= f.error_message_on :transferencia, :css_class =>"cerror"%></td>
+          <td>
+            <%= select(:corvide, :propietario, { "890905211-1 MUNICIPIO DE MEDELLÍN" => "890905211-1 MUNICIPIO DE MEDELLÍN","900014480-8 ISVIMED" => "900014480-8 ISVIMED"}, { :include_blank => true },
+                      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           <%= error_message_on :corvide, :propietario, :css_class =>"cerror"%></td>
+
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%"><span class="campos">Certificado datos de propiedad</span></td>
+          <td width="25%"><span class="campos">Consecutivo datos de propiedad</span></td>
+          <td width="25%"><span class="campos">Fecha datos de propiedad</span></td>
+          <td width="25%"><span class="campos">Valor Avalúo Catastral</span></td>
+        </tr>
+        <tr>
+          <td>
+            <%= select(:corvide, :certificado_datos, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :certificado_datos, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :consecutivo_datos,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :consecutivo_datos, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "corvide", "fecha_datos", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :corvide, :fecha_datos, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :valor,{ :class => "campo", :size => 35,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :valor, :css_class =>"cerror"%></td>          
+
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%"><span class="campos">Inmueble vendido por adjudicatario</span></td>
+          <td width="15%"><span class="campos">Inmueble arrendado</span></td>
+          <td width="25%"><span class="campos">Uso que se le da a la residencia</span></td>
+          <td width="35%"><span class="campos">Inmueble habitado por poseedor no adjudicatario</span></td>
+        </tr>
+        <tr>
+          <td>
+            <%= select(:corvide, :vendido, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :vendido, :css_class =>"cerror"%></td>
+          <td>
+            <%= select(:corvide, :arrendado, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :arrendado, :css_class =>"cerror"%></td>
+          <td>
+            <%= select(:corvide, :uso, { "COMERCIAL" => "COMERCIAL","RESIDENCIAL" => "RESIDENCIAL","RESIDENCIAL + COMERCIAL" => "RESIDENCIAL + COMERCIAL"}, { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+           <%= error_message_on :corvide, :uso, :css_class =>"cerror"%></td>
+           <td>
+            <%= select(:corvide, :adjudicatario, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :adjudicatario, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">          
+          <td width="75%"><span class="campos">Nombre poseedor no adjudicatario</span></td>
+          <td width="10%"><span class="campos">Plan terraza</span></td>
+          <td width="15%"><span class="campos">Terraza construida</span></td>
+        </tr>
+        <tr>
+          <td><%= text_field_with_auto_complete :corvide, :persona_autobuscar,
+	    { :class => "campo",
+                :size => 95,
+                :maxlength => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+          <%= error_message_on :corvide, :persona_autobuscar, :css_class =>"cerror"%>
+          </td>
+          <td>
+            <%= select(:corvide, :terraza, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :terraza, :css_class =>"cerror"%>
+          </td>
+          <td>
+            <%= select(:corvide, :terrazaconst, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :terrazaconst, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%"><span class="campos">Se realizó visita a inmueble</span></td>
+          <td width="15%"><span class="campos">Tiene encuesta</span></td>
+          <td width="65%"><span class="campos">Caso especial</span></td>
+        </tr>
+        <tr>
+          <td>
+            <%= select(:corvide, :visita_inmueble, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :visita_inmueble, :css_class =>"cerror"%>
+          </td>
+          <td>
+            <%= select(:corvide, :tiene_encuesta, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :tiene_encuesta, :css_class =>"cerror"%>
+          </td>
+          <td>
+            <%= select(:corvide, :caso_especial, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :caso_especial, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">DATOS ASOCIADOS AL PROCESO DE ESCRITURACIÓN</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="35%"><span class="campos">Estado</span></td>
+          <td width="25%"><span class="campos">Notaría reparto</span></td>
+          <td width="20%"><span class="campos">Nro. escritura pública</span></td>
+          <td width="20%"><span class="campos">Fecha escritura pública</span></td>
+        </tr>
+        <tr>
+          <td>
+            <%= select(:corvide, :estado, select_estadocorvide,{ :include_blank => true },{ :style=>"width:250px", :class => "campo"})%>
+           <%= error_message_on :corvide, :estado, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :notaria_reparto,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :notaria_reparto, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :escritura_publica,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :escritura_publica, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "corvide", "fecha_escritura", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :corvide, :fecha_escritura, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%"><span class="campos">Nro. escritura Aclaratoria</span></td>
+          <td width="20%"><span class="campos">Fecha escritura Aclaratoria</span></td>        
+          <td width="26%"><span class="campos">Resolución subsidio gastos escrituración</span></td>
+          <td width="18%"><span class="campos">Nro. resolución subsidio</span></td>
+
+        </tr>
+        <tr>
+          <td><%= f.text_field :escritura_publica_acl,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :corvide, :escritura_publica_acl, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "corvide", "fecha_escritura_acl", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :corvide, :fecha_escritura_acl, :css_class =>"cerror"%></td>
+          <td><%= select(:corvide, :resol_subsidio, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :resol_subsidio, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nro_resolucion,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :corvide, :nro_resolucion, :css_class =>"cerror"%></td>
+
+        </tr>
+      </table>
+        <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td><span class="campos">Fecha resolución subsidio</span></td>
+          <td><span class="campos">Solicitud descargue inventario</span></td>        
+          <td><span class="campos">Fecha solicitud descargue</span></td>
+          <td><span class="campos">Tiene paz y salvo CISA</span></td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "corvide", "fecha_resolucion", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :corvide, :fecha_resolucion, :css_class =>"cerror"%></td>
+          <td><%= select(:corvide, :solicitud_inv, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :solicitud_inv, :css_class =>"cerror"%></td>        
+          <td><%= calendar_date_select "corvide", "fecha_descargue", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :corvide, :fecha_descargue, :css_class =>"cerror"%></td>
+          <td><%= select(:corvide, :pazysalvo_cisa, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+           <%= error_message_on :corvide, :pazysalvo_cisa, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+     <% if permiso("corvide","A").to_s == "S" %> 
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+           </div></td>
+      </tr>
+    </table>
+    <% end %> 
+  <% end %>
+ </fieldset>
+</div>
+  </div>
+<% unless @corvide.new_record? %>
+    <div class="panel" id="tab2">
+      <fieldset>
+         <div id="corvidesobservaciones_form">
+              <%= render :partial => "/corvidesobservaciones/corvidesobservaciones" %>
+           </div>
+      </fieldset>
+    </div>
+<div class="panel" id="tab3">
+      <fieldset>
+         <div id="corvidesdocumentos_form">
+              <%= render :partial => "/corvidesdocumentos/corvidesdocumentos" %>
+           </div>
+      </fieldset>
+    </div>
+<div class="panel" id="tab4">
+      <fieldset>
+         <div id="corvidespersonas_form">
+              <%= render :partial => "/corvidespersonas/corvidespersonas" %>
+           </div>
+      </fieldset>
+    </div>
+<% end %>
+<br/>

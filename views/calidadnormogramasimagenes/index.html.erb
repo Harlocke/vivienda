@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h2>Documentos Asociados al Comite -
+<%= link_to 'Nuevo', new_calidadnormograma_calidadnormogramasimagen_path, :class=>"btn btn-success"%></h2>
+</div>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="400" height="30" class="oce-first">Descripcion</td>
+    <td width="10" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% @calidadnormogramasimagenes.each do |calidadnormogramasimagen| %>
+  <tr valign="middle">
+    <td width="400" height="30" class="camposDesc"><%=calidadnormogramasimagen.descripcion %></td>
+    <td width="400" height="30" class="camposDesc"><%=calidadnormogramasimagen.foto_file_name%></td>
+    <td width="10" class="camposDesc"><%= link_to image_tag('application_get.png',
+                    { :border=>0,
+		      :title => "Bajar Documento"}),
+                      calidadnormogramasimagen.calidadnormograma.url(:original, false) %></td>
+  </tr>
+<% end %>
+</table>

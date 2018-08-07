@@ -1,0 +1,86 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">VISITAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesvisita] do |form| %>
+    <% if permiso("titulacionesvisita","C").to_s == "S"%>
+       <% if @titulacion.titulacionespersonas.exists? %>
+         <% if !@titulacionesvisita.id %>
+              <%= render :partial => "/titulacionesvisitas/titulacionesvisitas_form" %>
+         <% end %>
+      <% else %>
+          <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+              <tr>
+                <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+                <td width="90%" align="left" class="campos">&nbsp;&nbsp;No exite ninguna persona vinculada al cobama y se requiere para poder registrar visitas.</td>
+             </tr>
+          </table>         
+      <% end %>
+    <% end %>
+<% if @titulacion.titulacionesvisitas.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha Visita</td>
+    <td width="77%" class="oce-first">Observaciones</td>
+    <td width="8%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for titulacionesvisita in @titulacion.titulacionesvisitas.find(:all, :order => 'created_at DESC') %>
+   <% if titulacionesvisita.id != @titulacionesvisita.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="titulacionesvisita_<%=titulacionesvisita.id%>">
+          <td align="left" class="camposDesc"><%=titulacionesvisita.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+            <a title="<%=titulacionesvisita.user.nombre rescue nil%>"><%=titulacionesvisita.user.username rescue nil%></a></td>
+          <td class="camposDesc"><div align="justify">
+            <% if titulacionesvisita.clase.to_s == 'VISITA DE LEVANTAMIENTO' %>
+              <strong>VISITA DE LEVANTAMIENTO....</strong><br/>
+              <strong>Fecha levantamiento : </strong><%=titulacionesvisita.lev_fecha.strftime("%Y-%m-%d") rescue nil%><br/>
+              <strong>Situacion del levantamiento : </strong><%=titulacionesvisita.lev_situacion rescue nil%><br/>
+              <strong>Motivo visita fallida : </strong><%=titulacionesvisita.lev_motivo rescue nil%><br/>
+              <strong>Observacion : </strong><%=titulacionesvisita.lev_observaciones rescue nil%>
+            <%  elsif titulacionesvisita.clase.to_s == 'VISITA DE SOCIALIZACION' %>
+              <strong>VISITA DE SOCIALIZACION....</strong><br/>
+              <strong>Fecha Agendada : </strong><%=titulacionesvisita.soc_fecha_agenda.strftime("%Y-%m-%d") rescue nil%><br/>
+              <strong>Estado de la visita : </strong><%=titulacionesvisita.soc_estado rescue nil%><br/>
+              <strong>Motivo : </strong><%=titulacionesvisita.soc_motivo rescue nil%><br/>
+              <strong>Observacion : </strong><%=titulacionesvisita.soc_observaciones rescue nil%><br/>
+              <strong>Unidades de vivienda : </strong><%=titulacionesvisita.unidades rescue nil%>
+            <% end %>
+            </div>
+          </td>
+          <td class="camposDesc"><div align="center"><%= link_to "Acta", {:controller => "titulacionesvisitas", :action => "atencion", :id=>titulacionesvisita.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <% if is_admin == titulacionesvisita.user_id and titulacionesvisita.clase.to_s == "VISITA DE SOCIALIZACION" %>
+          <br/><%= link_to "Traslado", {:controller => "titulacionesvisitas", :action => "prepara", :id=>titulacionesvisita.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+          <% end %></div></td>
+        </tr>
+    <% end %>
+  <% end %>
+      </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+    <tr>
+      <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+      <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+   </tr>
+</table>
+<% end %>
+            <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesvisita] %>
+<div id="titulacionesvisita">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesvisita] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesvisita');", 5000)
+</script>
+<% end %>
+</div>

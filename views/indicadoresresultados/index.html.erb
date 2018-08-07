@@ -1,0 +1,118 @@
+<h1>Listing indicadoresresultados</h1>
+
+<table>
+  <tr>
+    <th>Indicador</th>
+    <th>Edad1</th>
+    <th>Edad2</th>
+    <th>Edad3</th>
+    <th>Edad0</th>
+    <th>Edadtotal</th>
+    <th>Genero1</th>
+    <th>Genero2</th>
+    <th>Genero0</th>
+    <th>Generototal</th>
+    <th>Afro1</th>
+    <th>Afro2</th>
+    <th>Afro0</th>
+    <th>Afrototal</th>
+    <th>Indi1</th>
+    <th>Indi2</th>
+    <th>Indi0</th>
+    <th>Inditotal</th>
+    <th>Rom1</th>
+    <th>Rom2</th>
+    <th>Rom0</th>
+    <th>Romtotal</th>
+    <th>Grupoetnicosininfo</th>
+    <th>Disc1</th>
+    <th>Disc2</th>
+    <th>Disc0</th>
+    <th>Disctotal</th>
+    <th>Comuna1</th>
+    <th>Comuna2</th>
+    <th>Comuna3</th>
+    <th>Comuna4</th>
+    <th>Comuna5</th>
+    <th>Comuna6</th>
+    <th>Comuna7</th>
+    <th>Comuna8</th>
+    <th>Comuna9</th>
+    <th>Comuna10</th>
+    <th>Comuna11</th>
+    <th>Comuna12</th>
+    <th>Comuna13</th>
+    <th>Comuna14</th>
+    <th>Comuna15</th>
+    <th>Comuna16</th>
+    <th>Comuna50</th>
+    <th>Comuna60</th>
+    <th>Comuna70</th>
+    <th>Comuna80</th>
+    <th>Comuna90</th>
+    <th>Sincomuna</th>
+    <th>Comunatotal</th>
+  </tr>
+
+<% @indicadoresresultados.each do |indicadoresresultado| %>
+  <tr>
+    <td><%=h indicadoresresultado.indicador_id %></td>
+    <td><%=h indicadoresresultado.edad1 %></td>
+    <td><%=h indicadoresresultado.edad2 %></td>
+    <td><%=h indicadoresresultado.edad3 %></td>
+    <td><%=h indicadoresresultado.edad0 %></td>
+    <td><%=h indicadoresresultado.edadtotal %></td>
+    <td><%=h indicadoresresultado.genero1 %></td>
+    <td><%=h indicadoresresultado.genero2 %></td>
+    <td><%=h indicadoresresultado.genero0 %></td>
+    <td><%=h indicadoresresultado.generototal %></td>
+    <td><%=h indicadoresresultado.afro1 %></td>
+    <td><%=h indicadoresresultado.afro2 %></td>
+    <td><%=h indicadoresresultado.afro0 %></td>
+    <td><%=h indicadoresresultado.afrototal %></td>
+    <td><%=h indicadoresresultado.indi1 %></td>
+    <td><%=h indicadoresresultado.indi2 %></td>
+    <td><%=h indicadoresresultado.indi0 %></td>
+    <td><%=h indicadoresresultado.inditotal %></td>
+    <td><%=h indicadoresresultado.rom1 %></td>
+    <td><%=h indicadoresresultado.rom2 %></td>
+    <td><%=h indicadoresresultado.rom0 %></td>
+    <td><%=h indicadoresresultado.romtotal %></td>
+    <td><%=h indicadoresresultado.grupoetnicosininfo %></td>
+    <td><%=h indicadoresresultado.disc1 %></td>
+    <td><%=h indicadoresresultado.disc2 %></td>
+    <td><%=h indicadoresresultado.disc0 %></td>
+    <td><%=h indicadoresresultado.disctotal %></td>
+    <td><%=h indicadoresresultado.comuna1 %></td>
+    <td><%=h indicadoresresultado.comuna2 %></td>
+    <td><%=h indicadoresresultado.comuna3 %></td>
+    <td><%=h indicadoresresultado.comuna4 %></td>
+    <td><%=h indicadoresresultado.comuna5 %></td>
+    <td><%=h indicadoresresultado.comuna6 %></td>
+    <td><%=h indicadoresresultado.comuna7 %></td>
+    <td><%=h indicadoresresultado.comuna8 %></td>
+    <td><%=h indicadoresresultado.comuna9 %></td>
+    <td><%=h indicadoresresultado.comuna10 %></td>
+    <td><%=h indicadoresresultado.comuna11 %></td>
+    <td><%=h indicadoresresultado.comuna12 %></td>
+    <td><%=h indicadoresresultado.comuna13 %></td>
+    <td><%=h indicadoresresultado.comuna14 %></td>
+    <td><%=h indicadoresresultado.comuna15 %></td>
+    <td><%=h indicadoresresultado.comuna16 %></td>
+    <td><%=h indicadoresresultado.comuna50 %></td>
+    <td><%=h indicadoresresultado.comuna60 %></td>
+    <td><%=h indicadoresresultado.comuna70 %></td>
+    <td><%=h indicadoresresultado.comuna80 %></td>
+    <td><%=h indicadoresresultado.comuna90 %></td>
+    <td><%=h indicadoresresultado.sincomuna %></td>
+    <td><%=h indicadoresresultado.comunatotal %></td>
+    <td><%= link_to 'Show', indicadoresresultado %></td>
+    <td><%= link_to 'Edit', edit_indicadoresresultado_path(indicadoresresultado) %></td>
+    <td><%= link_to 'Destroy', indicadoresresultado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New indicadoresresultado', new_indicadoresresultado_path %>

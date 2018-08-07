@@ -1,0 +1,66 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES DEL LOTE</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@lote, @lotesobservacion] do |form| %>
+   <% if !@lotesobservacion.id %>
+	<%= render :partial => "/lotesobservaciones/lotesobservaciones_form" %>
+<% end %>
+<% if @lote.lotesobservaciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="10%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="55%" class="oce-first">Observaciones</td>
+  </tr>
+</table>
+<% for lotesobservacion in @lote.lotesobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if lotesobservacion.id != @lotesobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="lotesobservacion_<%=lotesobservacion.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=lotesobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=lotesobservacion.user.nombre rescue nil%>"><%=lotesobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="10%" class="camposDesc" align="left"><%=lotesobservacion.dtipo%></td>
+          <td width="65%" class="camposDesc" align="left"><%=lotesobservacion.observacion%></td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :lote, :id %>
+<% end %>
+<br/>
+<% if flash[:lotesobservacion] %>
+<div id="lotesobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:lotesobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('lotesobservacion');", 5000)
+</script>
+<% end %>
+</div>

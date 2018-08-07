@@ -1,0 +1,1 @@
+page.replace_html :quejasimagenes_form, :partial => "quejasimagenes", :object => @quejasimagen

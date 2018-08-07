@@ -1,0 +1,61 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/conveniomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION CONVENIOS</div></td>
+              <td width="3%"><div align="right">
+          <% if permiso("convenio","C").to_s == "S" %>
+               <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_convenio_path %>
+          <% end %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" class="oce-first"><div align="center">Nro Convenio</div></td>
+    <td width="7%" class="oce-first">Vigencia</td>
+    <td width="33%" class="oce-first">Ejecutor</td>
+    <td width="10%" class="oce-first">Vlr Convenio</td>
+    <td width="25%" class="oce-first"><div align="center">Resoluciones</div></td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @convenios.each do |convenio| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><div align="center"><%=h convenio.nro_convenio %></div></td>
+    <td class="camposDesc"><%=h convenio.vigencia %></td>
+    <td class="camposDesc"><%=h convenio.ejecutor %><br/>
+      <strong>Tipo: </strong><%=h convenio.tipo_solucion %>
+    </td>
+    <td class="camposDesc"><div align="left"><%=camponumerico(convenio.vlr_convenio) %></div></td>
+    <td class="camposDesc">
+      <% if convenio.conveniosresoluciones.exists? %>
+          <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+            <tr valign="middle">
+              <td width="40%" class="oce-first"><div align="center">Nro Resol.</div></td>
+              <td width="60%" class="oce-first"><div align="center">Fecha</div></td>
+            </tr>
+      <% convenio.conveniosresoluciones.each do |conveniosresolucion|%>
+            <tr  valign="middle" id="conveniosresolucion_<%=conveniosresolucion.id%>">
+              <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.nro_resolucion rescue nil%></div></td>
+              <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.fecha.strftime("%Y-%m-%d") rescue nil%></div></td>
+           </tr>
+       <% end %>
+          </table>
+      <% end %>
+    </td>
+    <td class="camposDesc"><div align="center"><%= link_to 'Editar', edit_convenio_path(:id=>convenio.id, :etapa=>"1"), :class=>"editarlink" %>
+      <% if permiso("convenio","E").to_s == "S" %>
+           &nbsp;&nbsp;<%= link_to 'Eliminar', convenio, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+      <% end %>
+      </div></td>
+  </tr>
+
+<% end %>
+</table>
+<br />

@@ -1,0 +1,82 @@
+<strong>CONSOLIDADO PROYECTOS</strong>
+<br/>
+<table  border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td rowspan="2"><strong>PROYECTOS</strong></td>
+    <td rowspan="2"><strong>ETAPA PROYECTO</strong></td>
+    <td rowspan="2"><strong>APTOS</strong></td>
+    <td rowspan="2"><strong>ENTREGADOS</strong></td>
+    <td colspan="3"><strong>REGISTRADOS</strong></td>
+    <td colspan="3"><strong>CON BOLETA DE INGRESO A REGISTRO</strong></td>
+    <td colspan="3"><strong>PROTOCOLIZACION EN LA NOTARIA </strong></td>
+    <td colspan="3"><strong>EN ESCRITURACION</strong></td>
+    <td colspan="3"><strong>EN RESOLUCION</strong></td>
+    <td colspan="3"><strong>EN ACREDITACION DEL CIERRE FINANCIERO</strong></td>
+    <td colspan="3"><strong>INGRESA AL PROCESO SIN INFORMACION SUFICIENTE</strong></td>
+    <td colspan="3"><strong>VIVIENDAS GRATUITAS</strong></td>
+    <td rowspan="2"><strong>DISPONIBLES</strong></td>
+    <td rowspan="2"><strong>TOTAL</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+    <td><strong>Total</strong></td>
+    <td><strong>Entregados</strong></td>
+    <td><strong>No Entregados</strong></td>
+  </tr>
+<%
+  for viviendasreporte in @viviendasreportes
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><%=viviendasreporte.descripcion rescue nil%></td>
+    <td ><%=viviendasreporte.etapa_proyecto rescue nil%></td>
+    <td ><%=viviendasreporte.aptos rescue nil%></td>
+    <td ><%=viviendasreporte.entregados rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.registrados rescue nil%></td>
+    <td ><%=viviendasreporte.registrados_s rescue nil%></td>
+    <td ><%=viviendasreporte.registrados_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.con_boleta rescue nil%></td>
+    <td ><%=viviendasreporte.con_boleta_s rescue nil%></td>
+    <td ><%=viviendasreporte.con_boleta_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.protocolizados rescue nil%></td>
+    <td ><%=viviendasreporte.protocolizados_s rescue nil%></td>
+    <td ><%=viviendasreporte.protocolizados_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.en_escritura rescue nil%></td>
+    <td ><%=viviendasreporte.en_escritura_s rescue nil%></td>
+    <td ><%=viviendasreporte.en_escritura_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.en_resolucion rescue nil%></td>
+    <td ><%=viviendasreporte.en_resolucion_s rescue nil%></td>
+    <td ><%=viviendasreporte.en_resolucion_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.en_acreditacion rescue nil%></td>
+    <td ><%=viviendasreporte.en_acreditacion_s rescue nil%></td>
+    <td ><%=viviendasreporte.en_acreditacion_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.sin_info rescue nil%></td>
+    <td ><%=viviendasreporte.sin_info_s rescue nil%></td>
+    <td ><%=viviendasreporte.sin_info_n rescue nil%></td>
+    <td  bgcolor="#00CCFF" ><%=viviendasreporte.gratuita rescue nil%></td>
+    <td ><%=viviendasreporte.gratuita_s rescue nil%></td>
+    <td ><%=viviendasreporte.gratuita_n rescue nil%></td>
+    <td ><%=viviendasreporte.disponibles rescue nil%></td>
+    <td ><%=viviendasreporte.total rescue nil%></td>
+  </tr>
+<%   end %>
+</table>

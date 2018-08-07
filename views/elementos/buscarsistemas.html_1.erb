@@ -1,0 +1,132 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="24%" align="left" class="camposDesc13">Medellin, <%=Time.now().strftime("%Y-%m-%d")%></td>
+          <td width="76%" align="left" class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" class="campos13">PAZ Y SALVO SISTEMAS</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">Asunto: Descarga de elementos de Sistemas</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13"> El Instituto Social de Vivienda y Hábitat de Medellín - ISVIMED, le recibe los siguientes elementos con el fin de ser reintegrados a la Oficina de Sistemas:</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="10%" class="campos"><div align="center">Placa</div></td>
+              <td width="10%" class="campos"><div align="center">Cant.</div></td>
+              <td width="30%" class="campos">Tipo de Elemento</td>
+              <td width="35%" class="campos">Marca</td>
+              <td width="15%" class="campos"><div align="center">Serial</div></td>
+            </tr>
+<% @elementos.each do |elemento| %>
+<tr valign="middle">
+    <td class="camposDesc"><div align="center"><%=h elemento.placa%></div></td>
+    <td class="camposDesc"><div align="center">1</div></td>
+    <td class="camposDesc"><div align="left"><%=h elemento.tiposelemento.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=h elemento.marca%></div></td>
+    <td class="camposDesc"><div align="center"><%=h elemento.serial%></div></td>
+  </tr>
+<% end %>
+          </table></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc13">Nota: Los elementos entregados fueron revisados y se encuentran en buen estado. </td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">________________________________________</td>
+          <td width="10%">&nbsp;</td>
+          <td width="45%">________________________________________</td>
+        </tr>
+        <tr>
+          <td><strong>LUZ ADRIANA PALACIO BETANCUR</strong></td>
+          <td>&nbsp;</td>
+          <td><strong><%=User.find(@iduser).nombre%></strong></td>
+        </tr>
+        <tr>
+          <td>Subd. Administrativa y Financiera</td>
+          <td>&nbsp;</td>
+          <td>Entrega </td>
+        </tr>
+        <tr>
+          <td>Recibe</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="camposDesc">S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+  <tr><td height="0"class="camposDesc"><%=User.find(is_admin).nombre%></td></tr>
+  </table>
+    </td>
+  </tr>
+</table>
+</div>

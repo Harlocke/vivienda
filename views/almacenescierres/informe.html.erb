@@ -1,0 +1,142 @@
+<div align="center">
+<table width="850" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td width="10%" height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/1atras.png"/><span class="uiButtonText"><%= link_to 'Regresar', reporte_almacenes_path, :class=>"link" %></span></div>
+        <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" class="campos"><div align="center">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED
+              <br/>NIT: 900.080.526-9 -- INVENTARIO <%=@descmes%>/<%=@anno%></div></td>
+        </tr>
+    </table>
+    <br/>
+    <% 
+=begin
+        @objs = Objeto.find_by_sql(["select distinct tipo, decode(tipo,'1','ASEO','2','PAPELERIA','3','FERRETERIA') nombre from productos where tipo is not null order by tipo"])
+        @almacenes1cierres = Almacenescierre.all(:include => :producto, :conditions => { :productos => { :tipo => '1' }, :almacenescierres => {:anno => params[:ubicacion][:anno], :mes => params[:ubicacion][:mes], :tipo => params[:ubicacion][:tipo]}}, :order=>"productos.descripcion")
+        @almacenes2cierres = Almacenescierre.all(:include => :producto, :conditions => { :productos => { :tipo => '2' }, :almacenescierres => {:anno => params[:ubicacion][:anno], :mes => params[:ubicacion][:mes], :tipo => params[:ubicacion][:tipo]}}, :order=>"productos.descripcion")
+        @almacenes3cierres = Almacenescierre.all(:include => :producto, :conditions => { :productos => { :tipo => '3' }, :almacenescierres => {:anno => params[:ubicacion][:anno], :mes => params[:ubicacion][:mes], :tipo => params[:ubicacion][:tipo]}}, :order=>"productos.descripcion")
+        @mes  = params[:ubicacion][:mes]
+        @anno = params[:ubicacion][:anno]
+        @tipo = params[:ubicacion][:tipo]
+        @descmes = descmes(params[:ubicacion][:mes])
+=end
+%>
+
+    <table width="50%" border="0" align="center" cellpadding="0" cellspacing="0"class="sample">
+      <tr class="odd1">
+        <td colspan="3" height="25" class="campos"><div align="left">INFORME <%=@tipo%></div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="40%" height="20" class="campos"><div align="center">CLASE</div></td>
+        <td width="30%" class="campos"><div align="center">SALDO FINAL</div></td>
+        <td width="30%" class="campos"><div align="center">VALOR TOTAL FINAL</div></td>
+      </tr>
+      <% @objs.each do |obj| %>
+        <tr>
+          <td height="20" class="campos"><div align="center"><%=obj.nombre rescue nil %></div></td>
+          <td class="camposDesc"><div align="center"><%=camponumerico(Almacenescierre.sum('disponible', :conditions=>["anno = #{@anno} and mes = #{@mes} and disponible > 0 and producto_id in (select id from productos where tipo = '#{obj.tipo}')"])) rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=camponumerico(Almacenescierre.sum('valor_total', :conditions=>["anno = #{@anno} and mes = #{@mes} and disponible > 0 and producto_id in (select id from productos where tipo = '#{obj.tipo}')"])) rescue nil%></div></td>
+        </tr>        
+      <% end %>
+      <tr class="odd1">
+        <td height="20" class="campos"><div align="center">TOTAL</div></td>
+        <td class="camposDesc"><div align="center">.</div></td>
+        <td class="campos"><div align="center"><%=camponumerico(Almacenescierre.sum('valor_total', :conditions=>["anno = #{@anno} and mes = #{@mes}"])) rescue nil%></div></td>
+      </tr>
+    </table>
+    <br/>
+    <% @objs.each do |obj| 
+      @almacenes1cierres = Almacenescierre.all(:include => :producto, :conditions => { :productos => { :tipo => obj.tipo }, :almacenescierres => {:anno => @anno, :mes => @mes, :tipo =>@tipo}}, :order=>"productos.descripcion")
+      %>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"class="sample">
+      <tr class="odd1">
+        <td colspan="9" height="25" class="campos"><div align="left">INFORME <%=@tipo%> <%=obj.nombre rescue nil %></div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="44%" height="20" class="campos"><div align="center">Descripcion</div></td>
+        <td width="9%" class="campos"><div align="center">Inicial</div></td>
+        <td width="9%" class="campos"><div align="center">Entradas</div></td>
+        <td width="9%" class="campos"><div align="center">Vlr. Entrada</div></td>
+        <td width="9%" class="campos"><div align="center">Salidas</div></td>
+        <td width="9%" class="campos"><div align="center">Vlr. Salida</div></td>
+        <td width="9%" class="campos"><div align="center">Saldo Final</div></td>
+        <td width="10%" class="campos"><div align="center">Vlr Unitario</div></td>
+        <td width="10%" class="campos"><div align="center">Vlr Total</div></td>
+      </tr>
+    <%  d1 = 0 
+        d2 = 0
+        d3 = 0
+        d4 = 0
+        d5 = 0
+        d6 = 0
+        d7 = 0
+        d8 = 01
+        @almacenes1cierres.each do |almacenescierre|
+          d1 = d1 + almacenescierre.disponible_antes.to_i
+          d2 = d2 + almacenescierre.entradas.to_i
+          d3 = d3 + almacenescierre.entradas.to_i * almacenescierre.valor_promedio.to_i
+          d4 = d4 + almacenescierre.salidas.to_i
+          d5 = d5 + almacenescierre.salidas.to_i * almacenescierre.valor_promedio.to_i
+          d6 = d6 + almacenescierre.disponible.to_i
+          d7 = d7 + almacenescierre.valor_promedio.to_i
+          d8 = d8 + almacenescierre.valor_total.to_i
+        if almacenescierre.disponible.to_i > 0 or (almacenescierre.disponible.to_i == 0 and almacenescierre.salidas.to_i > 0) 
+          if almacenescierre.entradas.to_i > 0
+            clase1 = "campos"
+          else
+            clase1 = "camposDesc"
+          end 
+          if almacenescierre.salidas.to_i > 0
+            clase2 = "campos"
+          else
+            clase2 = "camposDesc"
+          end
+          if almacenescierre.disponible.to_i > 0
+            clase3 = "campos"
+          else
+            clase3 = "camposDesc"
+          end
+          %>
+          <tr class="<%=cycle('even1', 'odd1')%>">
+            <td class="camposDesc"><%=almacenescierre.producto.descripcion rescue nil%></td>
+            <td class="camposDesc"><div align="center"><%=camponumerico(almacenescierre.disponible_antes) rescue nil%></div></td>
+            <td class="<%=clase1%>"><div align="center"><%=camponumerico(almacenescierre.entradas) rescue nil%></div></td>
+            <td class="<%=clase1%>"><div align="center"><%=camponumerico(almacenescierre.entradas * almacenescierre.valor_promedio) rescue nil%></div></td>
+            <td class="<%=clase2%>"><div align="center"><%=camponumerico(almacenescierre.salidas) rescue nil%></div></td>
+            <td class="<%=clase2%>"><div align="center"><%=camponumerico(almacenescierre.salidas * almacenescierre.valor_promedio) rescue nil%></div></td>
+            <td class="<%=clase3%>"><div align="center"><%=camponumerico(almacenescierre.disponible) rescue nil%></div></td>
+            <td class="camposDesc"><div align="right"><%=camponumerico(almacenescierre.valor_promedio) rescue nil%></div></td>
+            <td class="camposDesc"><div align="right"><%=camponumerico(almacenescierre.valor_total) rescue nil%></div></td>
+          </tr>
+    <%   end
+       end %>
+          <tr class="<%=cycle('even1', 'odd1')%>">
+            <td class="campos">SUBTOTAL <%=@tipo%> <%=obj.nombre rescue nil %></td>
+            <td class="campos"><div align="center"><%=camponumerico(d1) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d2) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d3) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d4) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d5) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d6) rescue nil%></div></td>
+            <td class="campos"><div align="center"><%=camponumerico(d7) rescue nil%></div></td>            
+            <td class="campos"><div align="center"><%=camponumerico(d8) rescue nil%></div></td>            
+          </tr>       
+    </table>
+    <br/>
+    <% end %>
+
+    <br/>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+    <br/>
+    </td>
+  </tr>
+</table>
+</div>

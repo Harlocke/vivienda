@@ -1,0 +1,117 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION SEGUIMIENTO TITULACIONES</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="18"><strong>Información predio</strong></td>
+    <td colspan="10"><strong>Beneficiarios</strong></td>
+    <td><strong>----</strong></td>
+    <td colspan="3"><strong>Demandas</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Cobama</strong></td>
+    <td><strong>Barrio </strong></td>
+    <td><strong>Juridico Asignado </strong></td>
+    <td><strong>Tipo de Proceso </strong></td>
+    <td><strong>Manzana </strong></td>
+    <td><strong>Lote </strong></td>
+    <td><strong>Direccion </strong></td>
+    <td><strong>Unidades Habit.</strong></td>
+    <td><strong>Acta de Entrega</strong></td>
+    <td><strong>Area </strong></td>
+    <td><strong>Expediente </strong></td>
+    <td><strong>Fecha Expediente </strong></td>
+    <td><strong>Estado Visita</strong></td>
+    <td><strong>Nombre usuario con estado Fallido</strong></td>
+    <td><strong>Observacion Estado Fallido</strong></td>
+    <td><strong>Escritura de Loteo</strong></td>
+    <td><strong>Estado del Proceso</strong></td>
+    <td><strong>Certificado Uso Suelo </strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Matricula</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Certificado Cruce</strong></td>
+    <td><strong>Firma Poder?</strong></td>
+    <td><strong>Firma Conciliación</strong></td>
+    <td><strong>Firma Amparo de Pobreza</strong></td>
+    <td><strong>Ultima Observacion</strong></td>
+    <td><strong>Operador</strong></td>
+    <td><strong>Radicado</strong></td>
+    <td><strong>Estado</strong></td>
+    <td><strong>Observaciones Demanda</strong></td>
+  </tr>
+<% @titulaciones.each do |titulacion|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=titulacion.id%></div></td>
+     <td><div align="left">&nbsp;<%=titulacion.cobama.to_s%></div></td>
+     <td><div align="left"><%=titulacion.comuna.descripcion2 rescue nil%></div></td>
+     <td><div align="left"><%=User.find(titulacion.user_juridico).nombre rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.tipoproceso%></div></td>
+     <td><div align="left"><%=titulacion.manzana%></div></td>
+     <td><div align="left"><%=titulacion.lote%></div></td>
+     <td><div align="left"><%=titulacion.direccion%></div></td>
+     <td><div align="left"><%=titulacion.unidades%></div></td>
+     <td><div align="left"><%=titulacion.acta_entrega%></div></td>
+     <td><div align="left"><%=titulacion.area%></div></td>
+     <td><div align="left"><%=titulacion.expediente%></div></td>
+     <td><div align="left"><%=titulacion.fecha_expediente%></div></td>
+     <td colspan="3">
+         <% if titulacion.titulacionesfallidos.exists? %>
+           <table border="1">
+          <% titulacion.titulacionesfallidos.each do |titulacionesfallido| %>
+             <tr>
+              <td><div align="left"><%=titulacionesfallido.estado_visita%></div></td>
+              <td><div align="left"><%=titulacionesfallido.nombre_fallido%></div></td>
+              <td><div align="left"><%=titulacionesfallido.observacion_fallido rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+     <td><div align="left"><%=titulacion.escritura_lote%></div></td>
+     <td><div align="left"><%=titulacion.estado%></div></td>
+     <td><div align="left"><%=titulacion.certificado_uso_suelo%></div></td>
+     <td colspan="9">
+         <% if titulacion.titulacionespersonas.exists? %>
+           <table border="1">
+          <% titulacion.titulacionespersonas.each do |titulacionespersona| %>
+             <tr>
+               <td><div align="left"><%=titulacionespersona.persona.identificacion rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.persona.nombres rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.matricula rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.direccion rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.certificado_cruce rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.poder rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.conciliacion rescue nil%></div></td>
+               <td><div align="left"><%=titulacionespersona.amparo_pobreza rescue nil%></div></td>
+               <td><div align="left">
+               <% if titulacionespersona.titulacionespersonasnotas.exists?
+                    @titulacionesnota = Titulacionespersonasnota.find(:last, :conditions=>["titulacionespersona_id = #{titulacionespersona.id}"])%>
+                     <%=@titulacionesnota.observaciones rescue nil%>
+               <% end %>
+               </div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+     <td><div align="left"><%=titulacion.operador%></div></td>
+     <td colspan="3">
+         <% if titulacion.titulacionesdemandas.exists? %>
+           <table border="1">
+          <% titulacion.titulacionesdemandas.each do |titulacionesdemanda| %>
+             <tr>
+               <td><div align="left">&nbsp;<%=titulacionesdemanda.radicado.to_s rescue nil%></div></td>
+               <td><div align="left"><%=titulacionesdemanda.estado.to_s rescue nil%></div></td>
+               <td><div align="left"><%=titulacionesdemanda.observaciones.to_s rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,67 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/archivomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BUSCADOR DE ARCHIVO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),archivos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% if permiso("archivosserie","C").to_s == "S" and @imprimible.to_s == 'SI' %>
+  <%= link_to "Stiker",{:controller =>"archivos", :action=>"stiker"}, :popup => ['new_window2','height=530,width=900,scrollbars=yes'], :class=>"imagenlink"%>
+  <%= link_to "Rotulo",{:controller =>"archivos", :action=>"rotulo"}, :popup => ['new_window2','height=530,width=900,scrollbars=yes'], :class=>"imagenlink"%>
+<% end %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" height="30" class="oce-first">Identificacion Usuario / Contratista</td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Caja</div></td>
+    <td width="5%" class="oce-first"><div align="center">Carpeta</div></td>
+    <td width="25%" class="oce-first">Barrio</td>
+    <td width="20%" class="oce-first">Convenio - Contrato - Tutela</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @cant = 0
+   @archivos.each do |archivo|
+   cadena = ""
+   cadenae = ""   
+%>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="20" class="camposDesc"><% if archivo.archivosimagenes.exists? %>
+          <img src="/images/link_adjuntar.gif" title="Tiene <%=archivo.archivosimagenes.count rescue 0%> Archivos digitales cargados"/>
+        <%  @cant = @cant + 1
+           end %>
+      <% if archivo.prestadoa.to_s != "" %>
+            <%= archivo.prestadoa rescue nil%>
+      <% else %>     
+      <strong>Fecha Inicial :</strong> <%=h archivo.fecha_inicial rescue nil%><br/>
+         <strong>Fecha Final :</strong> <%=h archivo.fecha_final rescue nil%><br/>
+         <strong>Resoluciones:</strong> <%=h archivo.resol_inicial rescue nil%> - <%=h archivo.resol_final rescue nil%><br/>
+         <strong>Consecutivos:</strong> <%=h archivo.conse_inicial rescue nil%> - <%=h archivo.conse_final rescue nil%><br/>
+      <% end %>
+    </td>
+    <td class="camposDesc"><div align="center"><%=h archivo.caja%></div></td>
+    <td class="camposDesc"><div align="center"><%=h archivo.carpeta%></div></td>
+    <td class="camposDesc"><%=h archivo.barrio%></td>
+    <td class="camposDesc"><%=h archivo.convenio%></td>
+    <td class="camposDesc"><div align="center"><%= link_to 'Editar', edit_archivo_path(:id=>archivo.id, :etapa=>"1"),:class=>"editarlink"%></div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @archivos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @archivos.total_entries %> - Nro Total de Registro : <%=@archivos.count%> - Archivos con Imagenes : <%=@cant%></div></td>
+  </tr>
+</table>
+<br/>

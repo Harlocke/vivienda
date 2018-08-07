@@ -1,0 +1,98 @@
+<h1>Listing feria2010jefes</h1>
+
+<table>
+  <tr>
+    <th>Nroformulario</th>
+    <th>Documento</th>
+    <th>Identificacion</th>
+    <th>Primernombre</th>
+    <th>Segundonombre</th>
+    <th>Primerapellido</th>
+    <th>Segundoapellido</th>
+    <th>Fecha nacimiento</th>
+    <th>Parentesco</th>
+    <th>Estadocivil</th>
+    <th>Ocupacion</th>
+    <th>Condicionespecial</th>
+    <th>Ingresos mensuales</th>
+    <th>Direccion</th>
+    <th>Barrio</th>
+    <th>Ciudad</th>
+    <th>Telefonos1</th>
+    <th>Telefonos2</th>
+    <th>Celular</th>
+    <th>Antiguedad annos</th>
+    <th>Antiguedad meses</th>
+    <th>Jal</th>
+    <th>Ahorro</th>
+    <th>Valor ahorro</th>
+    <th>Sisben</th>
+    <th>Opv</th>
+    <th>Opv cual</th>
+    <th>Fecha registro</th>
+    <th>Fechahora reg</th>
+    <th>Fechahora ult act</th>
+    <th>Estacion</th>
+    <th>Turno</th>
+    <th>Barrio mod</th>
+    <th>Codigobarrio</th>
+    <th>Sisben bd</th>
+    <th>Municipio mod</th>
+    <th>Sisben bdtotal</th>
+    <th>Site direccion ubicacion</th>
+    <th>Site barrio</th>
+    <th>Site estado</th>
+  </tr>
+
+<% @feria2010jefes.each do |feria2010jefe| %>
+  <tr>
+    <td><%=h feria2010jefe.nroformulario %></td>
+    <td><%=h feria2010jefe.documento %></td>
+    <td><%=h feria2010jefe.identificacion %></td>
+    <td><%=h feria2010jefe.primernombre %></td>
+    <td><%=h feria2010jefe.segundonombre %></td>
+    <td><%=h feria2010jefe.primerapellido %></td>
+    <td><%=h feria2010jefe.segundoapellido %></td>
+    <td><%=h feria2010jefe.fecha_nacimiento %></td>
+    <td><%=h feria2010jefe.parentesco %></td>
+    <td><%=h feria2010jefe.estadocivil %></td>
+    <td><%=h feria2010jefe.ocupacion %></td>
+    <td><%=h feria2010jefe.condicionespecial %></td>
+    <td><%=h feria2010jefe.ingresos_mensuales %></td>
+    <td><%=h feria2010jefe.direccion %></td>
+    <td><%=h feria2010jefe.barrio %></td>
+    <td><%=h feria2010jefe.ciudad %></td>
+    <td><%=h feria2010jefe.telefonos1 %></td>
+    <td><%=h feria2010jefe.telefonos2 %></td>
+    <td><%=h feria2010jefe.celular %></td>
+    <td><%=h feria2010jefe.antiguedad_annos %></td>
+    <td><%=h feria2010jefe.antiguedad_meses %></td>
+    <td><%=h feria2010jefe.jal %></td>
+    <td><%=h feria2010jefe.ahorro %></td>
+    <td><%=h feria2010jefe.valor_ahorro %></td>
+    <td><%=h feria2010jefe.sisben %></td>
+    <td><%=h feria2010jefe.opv %></td>
+    <td><%=h feria2010jefe.opv_cual %></td>
+    <td><%=h feria2010jefe.fecha_registro %></td>
+    <td><%=h feria2010jefe.fechahora_reg %></td>
+    <td><%=h feria2010jefe.fechahora_ult_act %></td>
+    <td><%=h feria2010jefe.estacion %></td>
+    <td><%=h feria2010jefe.turno %></td>
+    <td><%=h feria2010jefe.barrio_mod %></td>
+    <td><%=h feria2010jefe.codigobarrio %></td>
+    <td><%=h feria2010jefe.sisben_bd %></td>
+    <td><%=h feria2010jefe.municipio_mod %></td>
+    <td><%=h feria2010jefe.sisben_bdtotal %></td>
+    <td><%=h feria2010jefe.site_direccion_ubicacion %></td>
+    <td><%=h feria2010jefe.site_barrio %></td>
+    <td><%=h feria2010jefe.site_estado %></td>
+    <td><%= link_to 'Show', feria2010jefe %></td>
+    <td><%= link_to 'Edit', edit_feria2010jefe_path(feria2010jefe) %></td>
+    <td><%= link_to 'Destroy', feria2010jefe, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2010jefe', new_feria2010jefe_path %>

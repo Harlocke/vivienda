@@ -1,0 +1,68 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" class="campos" align="left">Usuario *</td>
+        <td width="20%" class="campos" align="left">Etapa *</td>
+        <td width="15%" class="campos" align="left">Fecha Inicio *</td>
+        <td width="15%" class="campos" align="left">Fecha Fin</td>
+        </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left">
+           <%=select("conveniosetapa", "persona_id", Persona.find(:all, :conditions=>["id in (select persona_id from conveniospersonas where convenio_id = #{@convenio.id})"],:order=>'primer_nombre').collect {|p| [ p.nombres, p.id ] }, { :include_blank => true },
+      { :style=>"width:330px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :conveniosetapa, :persona_id, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= select(:conveniosetapa,
+                :etapa,{ "DIAGNOSTICO, LEGALIZACION Y POSTULACION" => "DIAGNOSTICO, LEGALIZACION Y POSTULACION",
+                             "EJECUCION" => "EJECUCION",
+                             "LIQUIDACION" => "LIQUIDACION"},
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo"})%>
+        <%= error_message_on :conveniosetapa, :etapa, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "conveniosetapa", "fechainicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :conveniosetapa, :fechainicio, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "conveniosetapa", "fechafin", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :conveniosetapa, :fechafin, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="15%" class="campos" align="left">% programado</td>
+        <td width="15%" class="campos" align="left">% ejecutado</td>
+        <td width="15" class="campos" align="left">Finalizado *</td>
+        <td width="55%" class="campos" align="left">Observacion</td>
+        </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left"><%= text_field :conveniosetapa, :programado,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :conveniosetapa, :programado, :css_class =>"cerror"%></td>
+         <td class="camposDesc" align="left"><%= text_field :conveniosetapa, :ejecutado,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :conveniosetapa, :ejecutado, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= select(:conveniosetapa,
+                :finaliza,{ "SI" => "SI",
+                             "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo"})%>
+        <%= error_message_on :conveniosetapa, :finaliza, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left">
+          <%= text_area(:conveniosetapa, :observacion, :cols => 70, :rows => 4, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :conveniosetapa, :observacion, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :conveniosetapa, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+    </table>
+    </td>
+  </tr>
+</table>

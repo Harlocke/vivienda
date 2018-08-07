@@ -1,0 +1,173 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<br/>
+<%
+  cont = 0
+  @nominas.each do |nomina|
+  cont = cont + 1
+  if cont == 2
+    cont = 1
+%>
+  <H1 class=SaltoDePagina> </H1>
+<br/>
+<%=image_tag("frame.png")%>
+<%
+   end
+%>
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">DATOS BASICOS EMPLEADO</div></td>
+  </tr>
+</table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="10%" class="campos">Documento</td>
+        <td width="15%" class="campos">Identificaci&oacute;n</td>
+        <td width="40%" class="campos">Nombre</td>
+        <td width="35%" class="campos">Correo Electronico</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=nomina.empleado.documento.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=nomina.empleado.identificacion%></td>
+        <td class="camposDesc"><%=nomina.empleado.nombres %></td>
+        <td class="camposDesc"><%=nomina.empleado.email%></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">Comprobante de Nomina Periodo - <%=nomina.periodosliquidacion.fecha_inicial%> al <%=nomina.periodosliquidacion.fecha_final%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="59%" height="18" class="campos"><div align="center"><strong> Concepto</strong></div></td>
+          <td width="8%" class="campos"><div align="center"><strong> Dias </strong></div></td>
+          <td width="15%" height="18" class="campos"><div align="center"><strong> Devengado</strong></div></td>
+          <td width="18%" class="campos"><div align="center"><strong> Deducciones</strong></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Valor Catorcena </strong></td>
+          <td class="camposDesc" align="right"><%=nomina.dias%></td>
+          <td class="camposDesc" align="right">$ <%=number_to_currency(nomina.subtotal,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+  <%  if (nomina.total_incapacidad > 0) %>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Valor Incapacidad </strong></td>
+          <td class="camposDesc" align="right"><%=14-nomina.dias%></td>
+          <td class="camposDesc" align="right">$ <%=number_to_currency(nomina.total_incapacidad,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+  <%  end %>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Salud (<%=nomina.empleado.eps%>) </strong></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc"align="right">$ <%=number_to_currency(nomina.salud,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Pension (<%=nomina.empleado.pension%>)</strong></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc"align="right">$ <%=number_to_currency(nomina.pension,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Fondo de Solidaridad Pensional (<%=nomina.empleado.pension%>)</strong></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc"align="right">$ <%=number_to_currency(nomina.solidaridad,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Retencion en la Fuente </strong></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc"align="right">$ <%=number_to_currency(nomina.retefuente,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Otras Deducciones </strong></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc"align="right">$ <%=number_to_currency(nomina.novedades,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+  <%  if (nomina.otros_devengados > 0) %>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> Otros Devengos </strong></td>
+          <td class="camposDesc" align="right"></td>
+          <td class="camposDesc" align="right">$ <%=number_to_currency(nomina.otros_devengados,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+  <%  end %>
+        <tr>
+          <td class="camposDesc" height="0" ><strong> SUBTOTAL</strong></td>
+          <td class="camposDesc" align="right">&nbsp;</td>
+          <td class="camposDesc" align="right">$ <%=number_to_currency(nomina.subtotal + nomina.total_incapacidad.to_i + nomina.otros_devengados.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td class="camposDesc" align="right">$ <%=number_to_currency(nomina.total_deducciones,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+        <tr>
+          <td height="30" colspan="3" class="camposDesc" ><strong> TOTAL A PAGAR</strong> </td>
+          <td class="camposDesc" align="center">$ <%=number_to_currency(nomina.total,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+    </table>
+<%
+    periodosliquidacion = Periodosliquidacion.find(nomina.periodosliquidacion_id)
+    @nominasnovedades = Nominasnovedad.find(:all, :conditions => ["empleado_id = #{nomina.empleado_id} and fecha_novedad between '#{periodosliquidacion.fecha_inicial.to_date}' and '#{periodosliquidacion.fecha_final.to_date}'"])
+    if @nominasnovedades.count.to_i > 0
+%>
+      <br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td  height="20"><div class="col_enc">Novedades del Periodo - <%=nomina.periodosliquidacion.fecha_inicial%> al <%=nomina.periodosliquidacion.fecha_final%></div></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="20%" height="0" class="campos"><div align="center">Tipo Novedad </div></td>
+          <td width="20%" class="campos"><div align="center">Valor</div></td>
+          <td width="5%" class="campos"><div align="center">Dias</div></td>
+          <td width="5%" class="campos"><div align="center">Porcentaje</div></td>
+          <td width="50%" class="campos"><div align="center">Observacion</div></td>
+        </tr>
+    <% @nominasnovedades.each do |nominasnovedad| %>
+        <tr>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.dtiponovedad%></div></td>
+          <td class="camposDesc"><div align="center"><%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.dias %></div></td>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.porcentaje%> %</div></td>
+          <td class="camposDesc"><div align="left"><%=nominasnovedad.observaciones rescue nil%>
+           <% if nominasnovedad.tipo_novedad == '4' or nominasnovedad.tipo_novedad == '5' or nominasnovedad.tipo_novedad == '6' %>
+             <br/>Fecha Inicio: <%=nominasnovedad.fecha_inicial rescue nil%> - Fecha Final: <%=nominasnovedad.fecha_final rescue nil%>
+           <% end %>
+            </div></td>
+        </tr>
+        <% end %>
+    </table>
+  <% end %>
+    </td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED</td></tr>
+      <tr>
+      <td  height="0"class="campos"><%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<br/>
+<%  end %>

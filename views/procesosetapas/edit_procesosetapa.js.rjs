@@ -1,0 +1,1 @@
+page.replace_html :procesosetapas_form, :partial => "/procesosetapas/procesosetapas"

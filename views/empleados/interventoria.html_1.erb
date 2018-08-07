@@ -1,0 +1,28 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMES - <%=@empleado.nombres rescue nil%></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+
+<% @empleado.contratos.each do |contrato| %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="10%" class="oce-first">Nro Contrato</td>
+    <td width="60%" class="oce-first">Objeto</td>
+    <td width="30%" class="oce-first">Fechas</td>
+  </tr>
+   <tr valign="middle">
+     <td class="camposDesc"><div align="center"><%=contrato.nro_contrato%></div></td>
+     <td class="camposDesc"><div align="justify"><%=contrato.objeto%></div></td>
+     <td class="camposDesc"><div align="justify"><%=contrato.objeto%></div></td>
+     <td class="camposDesc"><div align="center"><%= link_to 'Nuevo Informe', {:controller=>"interventorias", :action=>"new", :contrato_id=>contrato.id}, :class=>"rubrolink"%></div></td>
+   </tr>
+<% end %>
+</table>

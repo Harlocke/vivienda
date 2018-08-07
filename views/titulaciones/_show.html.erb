@@ -1,0 +1,98 @@
+     <fieldset>
+     <div align="center">
+      <table width="90%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr>
+                <td  height="30"><div class="col_enc">ESTADOS FASE CURADURIA</div></td>
+              </tr>
+            </table>
+       <table width="90%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+            <td width="30%" align="center" class="campos" colspan="2">Estado FASE 1*</td>
+            <td width="30%" align="center" class="campos" colspan="2">Estado FASE 2*</td>
+            <td width="40%" align="center" class="campos" colspan="2">Estado FASE 3*</td>
+          </tr>
+          <tr valign="top">
+            <td class="campos">Ficha de Radicado</td>
+            <td class="campos"> 
+              <%= @titulacion.ficha_radicado%></td>
+            <td class="campos">Desistido</td>
+            <td class="campos">
+            	<% if @titulacion.fases1 %>
+               <% if @titulacion.viabilidad.to_s == 'NO'%>
+                  <%= @titulacion.desistido%>
+                <% else %>
+                  <%=image_tag("delete.png")%>
+                <% end -%>
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+            </td>
+            <td class="campos">Resolución Digital</td>
+            <td class="campos">
+            	<% if @titulacion.fases3 %>
+                <%= @titulacion.resolucion_dig%>
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+             </td>
+          </tr>
+          <tr valign="top">
+            <td class="campos">Acta de Observación</td>
+            <td><%= @titulacion.acta_obs%></td>
+            <td class="campos">Negado</td>
+            <td class="campos">
+            	<% if @titulacion.fases1 %>
+                <% if @titulacion.viabilidad.to_s == 'NO'%>
+                  <%= @titulacion.negado%>
+                <% else %>
+                  <%=image_tag("delete.png")%>
+                <% end -%>
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+            </td>
+            <td class="campos">Resolución Fisica de Reconocimiento</td>
+            <td class="campos">
+            	<% if @titulacion.fases3 %>
+                <%= @titulacion.resolucion_fis%>
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="campos">Alineamiento</td>
+            <td><%= @titulacion.alineamiento%></td>
+            <td class="campos">Viabilidad</td>
+            <td class="campos">
+               <% if @titulacion.fases1 %>
+                <%= @titulacion.viabilidad%> 
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+            </td>
+            <td class="campos">Asignación de Nomenclatura</td>
+            <td class="campos">
+            	<% if @titulacion.fases3 %>
+                <%= @titulacion.asignacion_nomenclatura%>
+              <% else %>
+                <%=image_tag("delete.png")%>
+              <% end -%>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td class="campos"></td>
+            <td class="campos"></td>
+            <td class="campos"></td>
+            <td class="campos"></td>
+            <td class="campos">Planos Fisicos</td>
+            <td class="campos"><%= @titulacion.planos_fisicos%></td>
+          </tr>
+        </table>
+         </td>
+    </tr>
+    </table>
+  </div>
+ </fieldset>

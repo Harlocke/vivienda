@@ -1,0 +1,260 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">PLAN RETORNO- <%=@personasretorno.persona.autobuscar rescue nil %></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <td width="40%" valign="middle" class="campos"><div align="right">SIPOD: &nbsp;&nbsp;</div></td>
+    <td width="60%" align="left" class="camposDesc"><%=@personasretorno.sipod%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Codigo SIPOD: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.codigo_sipod%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Paso por medellin: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.paso_medellin%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Principio de Voluntariedad: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.principio_volun%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Concepto de seguridad: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.concepto_seguridad%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificado inclusión Registro: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_inclusion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Atenciones DPS: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.atencion_accsocial%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Catastro Departamental: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.cruce_catdptal%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Catastro Municipal: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.cruce_catmpal%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Cumplimiento de requisitos: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.cumple_requisitos%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Formato verificación de requisitos: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.formato_verificacion%></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACION DESPLAZAMIENTO</div></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Lugar de expulsión: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.lugar_expulsion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Direccion / Vereda: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.direccion_expulsion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fecha de expulsión: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.fecha_expulsion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Lugar de llegada: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.lugar_llegada%></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN RETORNO / REUBICACIÓN</div></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Lugar R&R: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.lugar_rr%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fecha R&R: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.fecha_rr%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Lugar llegada: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.lugar_rllegada%></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">LISTA DE CHEQUEO</div></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Extra juicio: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.extrajuicio%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Ficha social: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.ficha_social%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Ficha técnica: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.ficha_tecnica%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificado de desplazado (personería): &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_desplazado%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fotocopias grupo familiar: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.documentos_identidad%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fotocopias registro civil: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.registro_civil%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificación SISBEN: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_sisben%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Copia del predial: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.predial%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fotocopia cuenta servicios públicos: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.cuenta_servicios%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Cuadro del cierre financiero: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.cierre_financiero%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificado cruces (ISVIMED): &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_cruces%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Carpeta individualización: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.carpeta_individual%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Carpeta acción social: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.carpeta_accion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Carpeta social: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.carpeta_social%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Modalidad de intervención: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.modalidad_intervencion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Ejecutor/proyecto: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.ejecutor%></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACION TECNICA</div></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Estado: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.estado%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">% de Avance: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.porc_avance%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Alineamiento: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.alineamiento%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Solicitud de Licencia: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.solicitud_licencia%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Documento de Propiedad: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.documento_propiedad%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificado de Libertad: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_libertad%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Certificado ZONAR: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.certificado_zonar%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Disponibilidad Servicios: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.disponibilidad_servicios%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Propuesta Intervención: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.propuesta_interventoria%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Licencia Construccion: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.licencia_construccion%></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">CIERRE FINANCIERO</div></td>
+  </tr>
+</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Isvimed: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_isvimed%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Accion Social: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_accion%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">EPM: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_epm%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Operadores: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_operadores%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Otros: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_otros%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">TOTAL: &nbsp;&nbsp;</div></td>
+    <td align="left" class="camposDesc"><%=@personasretorno.valor_total%></td>
+  </tr>
+</table>
+<br/>

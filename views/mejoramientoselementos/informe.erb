@@ -1,0 +1,103 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>MEJORAMIENTO - <%=@mejoramiento.persona.autobuscar rescue nil%></h3>
+</div>
+<% if @mejoramiento.mejoramientoselementos.exists? %>
+<table border="1" width="1100">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td colspan="9"><div align="center"><strong>PRESUPUESTO</strong></div></td>
+  </tr>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td colspan="7"><div align="center"><strong>DE DIAGNOSTICO</strong></div></td>
+    <td colspan="2"><div align="center"><strong>DE EJECUCION</strong></div></td>
+  </tr>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="5%" ><strong>ID</strong></td>
+    <td width="5%" ><strong>ITEMID</strong></td>
+    <td width="90%" ><strong>ITEM</strong></td>
+    <td width="2%" ><div align="center"><strong>UNIDAD</strong></div></td>
+    <td width="2%" ><div align="center"><strong>CANT</strong></div></td>
+    <td width="2%" ><div align="center"><strong>VALOR<br/>UNITARIO</strong></div></td>
+    <td width="2%" ><div align="center"><strong>VALOR<br/>TOTAL</strong></div></td>
+    <td width="2%" ><div align="center"><strong>CANT</strong></div></td>
+    <td width="2%" ><div align="center"><strong>SUBTOTAL</strong></div></td>
+  </tr>
+<% @valoracum = 0
+   @valornormal = 0
+   @valoradmin
+   for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all, :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento|
+     if mejoramientoselemento.mejoramientositem_id.to_i !=  10043
+       @valoracum = @valoracum.to_i + Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i
+       #@valoracum = @valoracum.to_i + (Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i * mejoramientoselemento.valor_unitario.to_i)
+       @valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+     end
+  %>
+   <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+     <td><div align="center"><%=mejoramientoselemento.id rescue nil%></div></td>
+     <td><div align="center"><%=mejoramientoselemento.mejoramientositem_id rescue nil%></div></td>
+     <td width="100%" height="40"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div></td>
+     <td><div align="center"><%=mejoramientoselemento.mejoramientositem.unidad rescue nil%></div></td>
+     <td><div align="center"><%=mejoramientoselemento.cantidad rescue nil%></div></td>
+     <td><div align="right">$ <%=number_to_currency(mejoramientoselemento.valor_unitario,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     <td><div align="right">
+         <%  if mejoramientoselemento.mejoramientositem_id.to_i ==  10043 %>
+         $ 0
+         <%  else %>
+         $ <%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%>
+         <%  end %></div></td>
+     <td><div align="center"><%=Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])%></div></td>
+     <td><div align="right">$ <%=number_to_currency(Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]),{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+ </tr>
+   <% end %>
+<% end %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td >&nbsp;</td>
+    <td ><div align="center">&nbsp;</div></td>
+    <td ><div align="center">&nbsp;</div></td>
+    <td ><div align="center"><strong>Subtotal&nbsp;&nbsp;</strong></div></td>
+    <td ><div align="right"><strong><%=number_to_currency(@valornormal,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+    <td ><div align="center">&nbsp;</div></td>
+    <td ><div align="right"><strong><%=number_to_currency(@valoracum,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+  </tr>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td >&nbsp;</td>
+    <td colspan="3"><div align="right"><strong>Administracion 13%&nbsp;&nbsp;</strong></div></td>
+    <%
+       if @mejoramiento.calculo.to_s == "SUBSIDIO"
+         @valoradmin = ((@mejoramiento.valor_resolucion.to_i*13)/100)
+       else
+         @valoradmin = ((@valornormal.to_i*13)/100)
+       end
+     %>
+    <td ><div align="right"><strong><%=camponumerico(@valoradmin)%>&nbsp;&nbsp;</strong></div></td>
+    <td><div align="center">&nbsp;</div></td>
+    <td ><div align="right"><strong><%=camponumerico(@valoradmin)%>&nbsp;&nbsp;</strong></div></td>
+  </tr>
+<% @vlr = 0
+   @mejoramiento.mejoramientoselementos.each do |mejoramientoselemento|
+     if mejoramientoselemento.mejoramientositem_id.to_i ==  10043
+     @vlr = mejoramientoselemento.valor_total.to_i %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td >&nbsp;</td>
+    <td colspan="3"><div align="right"><strong>Diagnostico&nbsp;&nbsp;</strong></div></td>
+    <td ><div align="right"><strong><%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+    <td><div align="center">&nbsp;</div></td>
+    <td ><div align="right"><strong><%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+  </tr>
+<%   end
+   end%>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td >&nbsp;</td>
+    <td colspan="3"><div align="right"><strong>Total&nbsp;&nbsp;</strong></div></td>
+    <td ><div align="right"><strong><%=number_to_currency((@valornormal + @valoradmin + @vlr),{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+    <td><div align="center">&nbsp;</div></td>
+    <td ><div align="right"><strong><%=number_to_currency((@valoracum + @valoradmin + @vlr),{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</strong></div></td>
+  </tr>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td >&nbsp;</td>
+    <td colspan="3"><div align="right"><strong>Porcentaje Ejecucion&nbsp;&nbsp;</strong></div></td>
+    <td colspan="3"><strong><% @valor1 = (@valornormal + @valoradmin + @vlr) rescue 0
+           @valor2 = (@valoracum + @valoradmin + @vlr) rescue 0%>
+      <div align="center"><%=((@valor2 * 100)/@mejoramiento.valor_resolucion.to_i) rescue 0%> %</div></strong></td>
+  </tr>
+</table>

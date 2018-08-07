@@ -1,0 +1,49 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/boletinesmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">BOLETINES DE COMUNICACIONES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),comunicaciones_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <% form_for(@comunicacion) do |f| %>
+    <table width="70%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td height="20" class="campos" align="left">Fecha </td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "comunicacion", "fecha", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :comunicacion, :fecha, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="20%" height="20" class="campos" align="left">URL</td>
+        <td width="80%" class="camposDesc" align="left"><%= f.text_field :url,{ :class => "campo", :size => 100,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :comunicacion, :url, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="70%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% unless @comunicacion.new_record? %>
+            <%= link_to 'Ver', {:controller => 'comunicaciones', :action => 'ver', :id=>@comunicacion.id} ,  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <% end %>
+           </div></td>
+      </tr>
+    </table>
+  <% end %>
+</div>
+<br/>
+

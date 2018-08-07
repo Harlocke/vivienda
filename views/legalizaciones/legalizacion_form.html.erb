@@ -1,0 +1,124 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40" align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/legalizacion.png" width="64" height="64"/></td>
+          <td width="87%"><div class="col_enc">&nbsp;&nbsp;LEGALIZACION URBANISTICA VIVIENDA NUEVA ( <%=@legalizacion.descripcion rescue nil%> )</div></td>
+          <td width="10%"><div align="right">
+              <% unless @legalizacion.new_record? %>
+              <%= link_to image_tag('refresh.png',{ :border=>0, :title => "Actualizar todo"}),edit_legalizacion_path(@legalizacion.id) %>
+              <% end %>
+              <%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar"}),legalizaciones_path %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/legalizacion_m.png" border="0" title="Información Predio"/></a></li>
+<% unless @legalizacion.new_record? %>
+        <li><a href="#tab2"><img src="/images/proyectos_m.png" border="0" title="Proyectos"/></a></li>
+        <li><a href="#tab3"><img src="/images/elementossistema1.png" border="0" title="RPH"/></a></li>
+        <li><a href="#tab4"><img src="/images/menunormas.png" border="0" title="Cesión Zonas"/></a></li>
+        <li><a href="#tab5"><img src="/images/imagenes.png" border="0" title="Informacion Digitalizada"/><% if @legalizacion.legalizacionesimagenes.exists? %>
+              <img src="/images/link_adjuntar.gif" title="Tiene Archivos digitales cargados"/>
+              <% end %></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+        <% form_for(@legalizacion) do |f| %>
+          <div align="center">
+           <table width="837" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr><td></td></tr>
+            <tr><td height="30"><div class="col_enc">DATOS</div></td></tr>
+          </table>
+          <table width="837" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td>
+                <table width="100%" border="0" cellspacing="2" cellpadding="0">
+                  <tr class="odd1">
+                    <td width="50%" class="campos">Nombre del proyecto *</td>
+                    <td class="camposDesc"><%= f.text_field :descripcion,{ :class => "campo", :size => 60,
+                            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                          :onFocus => "this.style.border='1px solid #f00'",
+                          :onBlur => "this.style.border='1px solid #bbb'" } %>
+                    <%= f.error_message_on :descripcion, :css_class =>"cerror"%></td>
+                  </tr>
+                </table>
+                <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+                  <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+                </table>
+                  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+                    <tr>
+                      <td class="camposNotas" align="left">
+                        <% unless @legalizacion.new_record? %>
+                        Ultima Actualización: <%=is_usernameuser(@legalizacion.user_id) rescue nil%> - <%=@legalizacion.updated_at.strftime("%Y-%m-%d %X")%>
+                      <% end %></td>
+                      <td  height="30"><div align="right">
+                          <% if permiso("legalizacion","A").to_s == "S" %>
+                          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                          <% end %>                          
+                         </div></td>
+                    </tr>
+                  </table>
+              </td>
+            </tr>
+          </table>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+<% unless @legalizacion.new_record? %>
+    <div class="panel" id="tab2">
+      <fieldset>
+         <div id="legalizacionesproyectos_form">
+            <%= render :partial => "/legalizacionesproyectos/legalizacionesproyectos" %>
+         </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab3">
+      <fieldset>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr><td></td></tr>
+            <tr><td height="30"><div class="col_enc">REGLAMENTO DE PROPIEDAD HORIZONTAL</div></td></tr>
+          </table>
+         <br/>
+         <div id="legalizacionesreglamentos_form">
+            <%= render :partial => "/legalizacionesreglamentos/legalizacionesreglamentos" %>
+         </div>
+        <br/><br/>
+         <div id="legalizacionesmatriculas_form">
+            <%= render :partial => "/legalizacionesmatriculas/legalizacionesmatriculas" %>
+         </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab4">
+      <fieldset>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr><td></td></tr>
+            <tr><td height="30"><div class="col_enc">CESIÓN DE ZONAS DE USO PUBLICO</div></td></tr>
+          </table>
+         <br/>
+         <div id="legalizazonasreglamentos_form">
+            <%= render :partial => "/legalizazonasreglamentos/legalizazonasreglamentos" %>
+         </div>
+        <br/><br/>
+         <div id="legalizazonasmatriculas_form">
+            <%= render :partial => "/legalizazonasmatriculas/legalizazonasmatriculas" %>
+         </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab5">
+      <fieldset>
+        <div id="legalizacionesimagenes_form">
+           <%= render :partial => "/legalizacionesimagenes/legalizacionesimagenes"%>
+        </div>
+      </fieldset>
+    </div>
+<% end %>

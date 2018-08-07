@@ -1,0 +1,35 @@
+<h1>New seguimientosmodificacion</h1>
+
+<% form_for(@seguimientosmodificacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :seguimiento_id %><br />
+    <%= f.text_field :seguimiento_id %>
+  </p>
+  <p>
+    <%= f.label :tipo_modificacion %><br />
+    <%= f.text_field :tipo_modificacion %>
+  </p>
+  <p>
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </p>
+  <p>
+    <%= f.label :plazo_mes %><br />
+    <%= f.text_field :plazo_mes %>
+  </p>
+  <p>
+    <%= f.label :plazo_dias %><br />
+    <%= f.text_field :plazo_dias %>
+  </p>
+  <p>
+    <%= f.label :observaciones %><br />
+    <%= f.text_field :observaciones %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', seguimientosmodificaciones_path %>

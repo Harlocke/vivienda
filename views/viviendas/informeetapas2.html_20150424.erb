@@ -1,0 +1,51 @@
+<strong>Identificacion de Fechas de Vencimiento de Numeracion de Escrituras</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td colspan="2"><strong>USUARIO</strong></td>
+    <td><strong></strong></td>
+  </tr>
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Bloque</strong></td>
+    <td><strong>Piso</strong></td>
+    <td><strong>Apto</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Usuario Identificacion</strong></td>
+    <td><strong>Usuario Nombre</strong></td>
+    <td><strong>Fecha Vencimiento</strong></td>
+  </tr>
+<%
+   @viviendas.each do |vivienda|
+%>
+      <tr valign="middle">
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.proyecto.descripcion rescue nil%></td>
+        <td width="5%" height="30" class="camposDesc"><%=''%></td>
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.bloque.descripcion rescue nil%></td>
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.piso.descripcion rescue nil%></td>
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.apto.descripcion rescue nil%></td>
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.descentregado%></td>
+    <%
+          @viviendaspersonas = Viviendaspersona.find_all_by_vivienda_id(vivienda.id);
+          contador = 0
+          cadenaidentificacion = ""
+          cadena = ""
+          for viviendaspersona in @viviendaspersonas
+            persona  = Persona.find(viviendaspersona.persona_id);
+            if contador == 0
+              cadenaidentificacion = persona.identificacion
+              contador = contador  +  1
+            end
+            cadena = cadena + ' - ' + persona.autobuscar
+          end
+    %>
+        <td width="5%" height="30" class="camposDesc"><%=cadenaidentificacion%></td>
+        <td width="5%" height="30" class="camposDesc"><%=cadena%></td>
+        <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_registro%></td>
+      </tr>
+<%   end %>
+</table>  
+
+

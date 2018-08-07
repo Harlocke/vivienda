@@ -1,0 +1,70 @@
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONCILIACIONES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_fiducia_fiduciasdocumento_path(@fiducia.id) %></span></div>
+    </div></td>
+      </tr>
+    </table>
+<br/>
+<div align="left">
+<% remote_form_for [@fiducia, @fiduciasdocumento] do |form| %>
+<% if !@fiduciasdocumento.id %>
+<% end %>
+<% if @fiducia.fiduciasdocumentos.exists? %>
+<% @obj = Objeto.find_by_sql("select distinct anno from fiduciasdocumentos order by anno asc")
+   @obj.each do |objeto| %>
+   <div align="center">
+  <table width="80%" border="0" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="10%" class="oce-first"><div align="center"><%= objeto.anno rescue nil%></td>
+    </tr>
+   </table>
+ </div>
+<% @objs = Fiduciasdocumento.find(:all, :select =>"mes", :conditions=>["anno = '#{objeto.anno}'"], :group=>'mes', :order=>"mes asc")
+   @objs.each do |obj| %>
+  <div style="font-size:13px; font-family: Tahoma;" align="center"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=objeto.anno%>_<%=obj.descripcion_mes%>')"><a href="javascript:void(0);" onclick="SINO('demo1<%=objeto.anno%>_<%=obj.descripcion_mes%>')"><%= obj.descripcion_mes rescue nil%></a> </strong></div>
+      <div id="demo1<%=objeto.anno%>_<%=obj.descripcion_mes%>" style="display:none;" align="center">
+      <table width="70%" border="0" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="40%" class="oce-first"><strong>Descripcion Fondo</strong></td>
+        <td width="50%" class="oce-first"><strong>Nombre del Archivo</strong></td>
+        <td width="10%" class="oce-first"></td>
+      </tr>
+      <% for fiduciasdocumento in @fiducia.fiduciasdocumentos.find(:all, :conditions=>"anno = '#{objeto.anno}' and mes = '#{obj.mes}'",:order => 'descripcion ASC') %>
+       <tr  valign="middle" class="fiduciasdocumento_<%=fiduciasdocumento.id%>">
+         <td class="camposDesc"><strong>Nombre:</strong> <%=fiduciasdocumento.fiduciascontrato.fondo.capitalize rescue nil%><br/>
+                                <strong>Nro:</strong> <%=fiduciasdocumento.fiduciascontrato.nro_fondo.capitalize rescue nil%></td>
+         <td class="camposDesc"><%=fiduciasdocumento.fiducia_file_name.capitalize rescue nil%></td>
+         <td class="camposDesc"><div align="center">
+          <%= link_to image_tag("ver3.png", :title=>"Ver"), fiduciasdocumento.fiducia.url(:original, false),
+                         { :popup => ['new_window','height=450,width=600,scrollbars=yes']}%>
+          <%# if permiso("fiduciasdocumento","E").to_s == "S" %>
+            <%= link_to_remote((image_tag 'borrar.png', :title => "Borrar"),{:url => fiducia_fiduciasdocumento_path(@fiducia, fiduciasdocumento),
+                            :method => :delete, :confirm => "¿Seguro?",
+                            :before => "$(this).up('.fiduciasdocumento_#{fiduciasdocumento.id}').remove()"})%>
+           <%# end %></div>
+         </td>
+       </tr>
+      <% end %>
+     </table>
+    </div>
+  <% end -%>
+<% end -%>
+
+<% else %>
+<div id="capacitacion">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+   <%= hidden_field :fiducia, :id %>
+<% end %>
+</div>

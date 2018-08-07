@@ -1,0 +1,1006 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION CENSO FASE 2</div></td>
+  </tr>
+</table>
+<% @titulacion.titulacionespersonas.each do |titulacionespersona|
+    titulacionespersona.persona.fase2censos.each do |fase2censo| %>
+  <div align="center">
+        <%=link_to 'geo', {:controller=>"fase2censos", :action=>"ubicacion", :id=>fase2censo.id}, :popup => ['windownew','height=520,width=830,scrollbars=yes'] %>
+        <table width="95%" align="center" id="one-column-emphasis">
+          <tr>
+          <td width="33%" height="20" class="campos" align="left">Persona</td>
+          <td class="camposDesc" align="left"><%=fase2censo.persona.autobuscar rescue nil%></td>
+        </tr>
+          <tr>
+            <td class="campos" height="30" align="left">Georeferenciacion</td>
+            <td align="left" class="camposDesc"><%=fase2censo.coordenada_x%> - <%=fase2censo.coordenada_y%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="60%" class="campos" height="30" align="left"><%=fase2censo.d_id_estado %></td>
+            <td width="40%" align="left" class="camposDesc"><%=fase2censo.id_estado%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_estado %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.estado%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_noform %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.noform%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p1 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p1%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p2 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p2%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p3 %> </td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p3.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p3.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s 
+                if fase2censo.verifieddoc(var) == true %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+              <% end %>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p4 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p4%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p5 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p5%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p6 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p6%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p6_1 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p6_1%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p7 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p7%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p8 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p8%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p9 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p9%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p10 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p10%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p11 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p11%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p11_1 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p11_1%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p12 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p12%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p12_1 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p12_1%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p13 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p13%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p14 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p14%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p16 %> </td>
+            <td align="left" class="camposDesc"><%=fase2censo.p16%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p22 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p22%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p23 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p23%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p24 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p24%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p25 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p25%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p26 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p26%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p27 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p27%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p28 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p28%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p29 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p29%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p30 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p30%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p31 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p31%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p32 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p32%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p33 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p33%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p34 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p34%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p35 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p35%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p36 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p36%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p37 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p37%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p38 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p38%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p39 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p39%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p40 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p40%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p40_1 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p40_1%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p41 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p41%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p41_1 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p41_1%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p42 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p42%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p42_1 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p42_1%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p43 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p43%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p44 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p44.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p44.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p45 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p45%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p46 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p46%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p47 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p47%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p48 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p48%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p49 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p49 %>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p49_1 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p49_1.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p49_1.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p49_1.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p49_1.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p50 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p50%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p51 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p51%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p52 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p52%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p53 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p53%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p54 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p54%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p55 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p55%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p56 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p56%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p57 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p57%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p58 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p58%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p59 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p59%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p60 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p60%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p61 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p61%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p62 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p62%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p63 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p63%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p78 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p78%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p79 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p79%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p80 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p80%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p81 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p81%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p82 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p82%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p83 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p83%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p84 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p84%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p85 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p85%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p86 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p86%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p87 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p87%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p88 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p88%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p89 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p89%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p90 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p90.to_s.to(2).upcase == 'IMG'%>
+               var = fase2censo.p90.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p91 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p91%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p92 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p92%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p92_2 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p92_2%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p93 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p93%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p94 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p94%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p95 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p95.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p95.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p96 %></td>
+            <td align="left" class="camposDesc">
+           <% if fase2censo.p96.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p96.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p97 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p97%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p98 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p98%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p99 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p99%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p100 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p100.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p100.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p101 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p101.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p101.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p102 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p102%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p103 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p103%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p104 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p104%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p105 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p105%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p106 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p106%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p107 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p107%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p108 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p108%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p109 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p109%></td>
+          </tr>
+
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p110 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p110%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p111 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p111.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p111.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p112 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p112.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p112.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p113 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p113%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p114 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p114.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p114.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p115 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p115%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p116 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p116%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p117 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p117%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p118 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p118%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p119 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p119%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p120 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p120%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p121 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p121%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p122 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p122%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p123 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p123%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p124 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p124%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p125 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p125.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p125.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p126 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p126.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p126.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p127 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p127%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p128 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p128.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p128.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p129 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p129.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p129.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p130 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p130%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p131 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p131%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p132 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p132.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p132.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p133 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p133.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p133.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p134 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p134%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p135 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p135%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p136 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p136%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p137 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p137%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p138 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p138%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p139 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p139%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p140 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p140%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p141 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p141%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p142 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p142%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p143 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p143%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p144 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p144%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p145 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p145%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p146 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p146%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p147 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p147%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p148 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p148%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p149 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p149%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p150 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p150%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p151 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p151%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p152 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p152%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p153 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p153%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p154 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p154%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p155 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p155%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p156 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p156%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p157 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p157%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p158 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p158.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p158.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p159 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p159.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p159.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p160 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p160.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p160.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p161 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p161%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p162 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p162%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p163 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p163%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p164 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p164%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p165 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p165%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p166 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p166%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p167 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p167.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p167.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p168 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p168%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p169 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p169%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p170 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p170%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p171 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p171%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p172 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p172.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p172.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p173 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p173.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p173.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p174 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p174%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p175 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p175%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p176 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p176%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p177 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p177%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p178 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p178%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p179 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p179%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p180 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p180%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p181 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p181%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p182 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p182%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p183 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p183.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p183.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p184 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p184.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p184.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p185 %></td>
+            <td align="left" class="camposDesc">
+            <% if fase2censo.p185.to_s.to(2).upcase == 'IMG'
+               var = fase2censo.p185.to_s.gsub(".jpg","")+','+fase2censo.noform.to_s %>
+              <div style="float:left;"><%= image_tag retrieve_fase2censo_path(var) rescue nil%></div>
+              <div style="float:center; padding-left: 10em;"><br/>
+                <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+                <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+              </div>
+            <% end %></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p186 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p186%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p187 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p187%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p188 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p188%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p189 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p189%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p190 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p190%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p191 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p191%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p192 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p192%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p193 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p193%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p194 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p194%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p199 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p199%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p200 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p200%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p201 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p201%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_p202 %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.p202%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_empadronador %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.empadronador%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30" align="left"><%=fase2censo.d_supervisor %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.supervisor%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30" align="left"><%=fase2censo.d_coordinador %></td>
+            <td align="left" class="camposDesc"><%=fase2censo.coordinador%></td>
+          </tr>
+        </table>
+  </div>
+  <% end %>
+<% end %>
+<br/>
+</fieldset>

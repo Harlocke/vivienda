@@ -1,0 +1,427 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" align="left" class="campos">SIPOD</td>
+          <td width="15%" align="left" class="campos">Codigo SIPOD</td>
+          <td width="50%" align="left" class="campos">Paso por medellin</td>
+          <td width="20%" align="left" class="campos">Principio de Voluntariedad</td>
+       </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:sipod, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :sipod, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :codigo_sipod,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :codigo_sipod, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :paso_medellin,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :concepto_seguridad, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:principio_volun, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :principio_volun, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+                    <td width="20%" align="left" class="campos">Concepto de seguridad</td>
+          <td width="20%" align="left" class="campos">Certificado inclusión Registro</td>
+          <td width="20%" align="left" class="campos">Atenciones DPS</td>
+          <td width="40%" align="left" class="campos">Catastro Departamental</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= text_field :personasretorno, :concepto_seguridad,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :concepto_seguridad, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:certificado_inclusion, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :certificado_inclusion, :css_class =>"cerror"%></td>
+
+          <td align="left" class="campos"><%= select(:personasretorno,:atencion_accsocial, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :atencion_accsocial, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :cruce_catdptal,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :cruce_catdptal, :css_class =>"cerror"%></td>
+
+          
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="55%" align="left" class="campos">Catastro Municipal</td>
+          <td width="20%" align="left" class="campos">Cumplimiento de requisitos</td>
+          <td width="25%" align="left" class="campos">Formato verificación de requisitos</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= text_field :personasretorno, :cruce_catmpal,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :cruce_catmpal, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:cumple_requisitos, { "APLICA" => "APLICA",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :cumple_requisitos, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:formato_verificacion, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :formato_verificacion, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN DESPLAZAMIENTO</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="28%" align="left" class="campos">Lugar de expulsión</td>
+          <td width="28%" align="left" class="campos">Direccion / Vereda</td>
+          <td width="16%" align="left" class="campos">Fecha de expulsión</td>
+          <td width="28%" align="left" class="campos">Lugar de llegada</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= text_field :personasretorno, :lugar_expulsion,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :lugar_expulsion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :direccion_expulsion,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :direccion_expulsion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos">
+                 <%= calendar_date_select "personasretorno", "fecha_expulsion", :year_range =>[1930,2011], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :personasretorno, :fecha_expulsion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :lugar_llegada,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :lugar_llegada, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN RETORNO / REUBICACIÓN</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="45%" align="left" class="campos">Lugar R&R</td>
+          <td width="15%" align="left" class="campos">Fecha R&R</td>
+          <td width="40%" align="left" class="campos">Lugar llegada</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= text_field :personasretorno, :lugar_rr,{ :class => "campo", :size =>60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :lugar_rr, :css_class =>"cerror"%></td>
+          <td align="left" class="campos">
+           <%= calendar_date_select "personasretorno", "fecha_rr", :year_range =>[1930,2016], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :personasretorno, :fecha_expulsion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :lugar_rllegada,{ :class => "campo", :size => 60,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :lugar_rllegada, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">LISTA DE CHEQUEO</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" align="left" class="campos">Extra juicio</td>
+          <td width="15%" align="left" class="campos">Ficha social</td>
+          <td width="15%" align="left" class="campos">Ficha técnica</td>
+          <td width="20%" align="left" class="campos">Certificado de desplazado</td>
+          <td width="20%" align="left" class="campos">Fotocopias grupo familiar</td>
+          <td width="15%" align="left" class="campos">Fotocopias Reg. civil</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:extrajuicio, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :extrajuicio, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:ficha_social, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :ficha_social, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:ficha_tecnica, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :ficha_tecnica, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:certificado_desplazado, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :certificado_desplazado, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:documentos_identidad, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :documentos_identidad, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:registro_civil, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :registro_civil, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" align="left" class="campos">Certificación SISBEN</td>
+          <td width="15%" align="left" class="campos">Copia del predial</td>
+          <td width="15%" align="left" class="campos">Fotocopia Servicios públicos</td>
+          <td width="20%" align="left" class="campos">Cuadro del cierre financiero</td>
+          <td width="20%" align="left" class="campos">Certificado cruces (ISVIMED)</td>
+          <td width="15%" align="left" class="campos">Carpeta individualización</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:certificado_sisben, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :certificado_sisben, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:predial, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :predial, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:cuenta_servicios, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :cuenta_servicios, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:cierre_financiero, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :cierre_financiero, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:certificado_cruces, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :certificado_cruces, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:carpeta_individual, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :carpeta_individual, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" align="left" class="campos">Carpeta DPS</td>
+          <td width="15%" align="left" class="campos">Carpeta social</td>
+          <td width="25%" align="left" class="campos">Modalidad de intervención</td>
+          <td width="40%" align="left" class="campos">Ejecutor/proyecto</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:carpeta_accion, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :carpeta_accion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:carpeta_social, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :carpeta_social, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:modalidad_intervencion, {
+                "MVR" => "MVR",
+                "MVU" => "MVU",
+                "VNR" => "VNR",
+                "VNU" => "VNU"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :modalidad_intervencion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :ejecutor,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :ejecutor, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACION TECNICA</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" align="left" class="campos">Estado</td>
+          <td width="15%" align="left" class="campos">% de Avance</td>
+          <td width="25%" align="left" class="campos">Alineamiento</td>
+          <td width="45%" align="left" class="campos">Solicitud de Licencia</td>
+          <td width="45%" align="left" class="campos">Documento de Propiedad</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:estado, { "EJECUCION DE OBRA" => "EJECUCION DE OBRA",
+                           "DIAGNOSTICO TECNICO" => "DIAGNOSTICO TECNICO"},
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :estado, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :porc_avance,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :porc_avance, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:alineamiento, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :alineamiento, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :solicitud_licencia,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :solicitud_licencia, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :documento_propiedad,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :documento_propiedad, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" align="left" class="campos">Certificado de Libertad</td>
+          <td width="20%" align="left" class="campos">Certificado ZONAR</td>
+          <td width="20%" align="left" class="campos">Disponibilidad Servicios</td>
+          <td width="20%" align="left" class="campos">Propuesta Intervención</td>
+          <td width="20%" align="left" class="campos">Licencia Construccion</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos"><%= select(:personasretorno,:certificado_libertad, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :certificado_libertad, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :certificado_zonar,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :certificado_zonar, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :disponibilidad_servicios,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :disponibilidad_servicios, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:propuesta_interventoria, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :propuesta_interventoria, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= select(:personasretorno,:licencia_construccion, { "SI" => "SI",
+                           "NO" => "NO",
+                         "NO APLICA" => "NO APLICA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :personasretorno, :licencia_construccion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CIERRE FINANCIERO</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" align="left" class="campos">Isvimed</td>
+          <td width="20%" align="left" class="campos">Accion Social</td>
+          <td width="20%" align="left" class="campos">EPM</td>
+          <td width="20%" align="left" class="campos">Operadores</td>
+          <td width="20%" align="left" class="campos">Otros</td>
+          <td width="20%" align="left" class="campos">TOTAL</td>
+        </tr>
+         <tr>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_isvimed,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_isvimed, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_accion,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_accion, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_epm,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_epm, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_operadores,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_operadores, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_otros,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_otros, :css_class =>"cerror"%></td>
+          <td align="left" class="campos"><%= text_field :personasretorno, :valor_total,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :personasretorno, :valor_total, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :personasretorno, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

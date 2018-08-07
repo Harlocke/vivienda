@@ -1,0 +1,30 @@
+<div align="center">
+<table width="75%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" align="center">
+        <tr>
+          <td width="35%" class="campos">Descripcion del Archivo a Cargar </td>
+          <td width="65%" class="camposDesc" ><%=@titulacionesdocumento.titulacionesdoctipo.documento rescue nil%></td>
+        </tr>
+        <tr>
+          <td class="campos">Persona relacionada al documento </td>
+          <td><%=select("titulacionesdocumento", "persona_id", @titulacion.titulacionespersonas.all.collect {|p| [ p.persona.autobuscar, p.persona_id ] }, { :include_blank => true },
+            { :style=>"width:450px",:class => "campo"}) %></td>
+        </tr>
+        <tr>
+          <td class="campos">Archivo a cargar</td>
+          <td><%= f.file_field :titudocumento,
+                  { :class => "campo",
+                    :size => "200",
+                    :maxlength => 1000,
+                    :style => "display: block",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :titudocumento, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>

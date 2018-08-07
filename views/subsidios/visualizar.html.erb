@@ -1,0 +1,101 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<div align="center">
+<table width="550" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION - <%=@subsidio.tipos_subsidio.descripcion %></div></td>
+  </tr>
+</table>
+<table width="550" id="one-column-emphasis">
+  <tr>
+    <td colspan="2" height="20" class="oce-first"><div align="center">GRUPO FAMILIAR DE: <%=@subsidio.persona.autobuscar rescue nil%></div></td>
+  </tr>
+  <tr class="odd1">
+    <td  width="40%" valign="middle" class="campos"><div align="right">Valor Asignado: &nbsp;&nbsp;</div></td>
+    <td  width="60%" valign="middle" class="camposDesc"><%=camponumerico(@subsidio.valor) rescue nil%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Valor Utilizado:&nbsp;&nbsp; </div></td>
+    <td valign="middle" class="camposDesc"><%=camponumerico(@subsidio.valor_utilizado) rescue nil%></td>
+  </tr>
+ <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Bolsa:&nbsp;&nbsp; </div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.bolsa%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Nro Resolucion &oacute; Asignacion:&nbsp;&nbsp; </div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.resolucion%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Fecha Asignacion: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_asig%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Entidad Otorga: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.entidadotorga%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Caja que lo Administra:&nbsp;&nbsp; </div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.entidadadmin%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Estado:&nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.estadosubsidio%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Tipo de Cobro: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.tipocobro%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fecha envio: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_cobro%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Solicitud de Pago (SP):&nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.solicitud_pago%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fecha Pago:&nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_pago%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Modalidad:&nbsp;&nbsp; </div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.modalidad%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Vigencia Subsidio: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_vigencia%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Fecha Creacion: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Enviado a Cobro o Legalización: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.enviado_a_cobro_o_leg rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Fecha de Envío: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_de_envio rescue nil%></td>
+  </tr>  
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Observaciones: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.observaciones rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Fecha de Pago 100%: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_de_pago_100 rescue nil%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Fecha de Movilización 20% Final: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.fecha_de_movilizacion_20 rescue nil%></td>
+  </tr>  
+  <tr class="odd1">
+    <td valign="middle" class="campos"><div align="right">Fecha ult. actualización: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%= @subsidio.updated_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+  <tr>
+    <td valign="middle" class="campos"><div align="right">Usuario que realizó la ult. actualización: &nbsp;&nbsp;</div></td>
+    <td valign="middle" class="camposDesc"><%=User.find(@subsidio.user_id).nombre rescue nil%></td>
+  </tr>
+</table>
+</div>

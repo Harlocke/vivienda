@@ -1,0 +1,66 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% @titulaciones.each do |titulacion| 
+  if titulacion.titulacionespersonas.exists? %>
+<% titulacion.titulacionespersonas.each do |titulacionespersona| %>
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="center"><%=image_tag('logoisvimed_midle.png')%></div>
+      <div align="justify" style="font-size: 16px; font-family: Arial Narrow; line-height: 130%; ">
+      Medellín,<br/><br/>
+      Señor(a)<br/>
+      <strong><%=titulacionespersona.persona.nombres rescue nil%></strong><br/>
+      <strong>C.C. <%=titulacionespersona.persona.identificacion rescue nil%></strong><br/>
+      <strong>CBML <%=titulacion.cobama rescue nil%></strong><br/>
+      <strong><%=titulacion.direccion rescue nil%></strong><br/>
+      Medellín<br/><br/>
+      Cordial saludo,<br/><br/>
+      El Instituto Social de Vivienda y Hábitat de Medellín-ISVIMED-, tiene dentro de sus funciones brindar a los poseedores de predios particulares, asistencia técnica y jurídica para adelantar proceso de pertenencia ante los jueces de la república, que les permita acceder a la titularidad de los predios que ocupan, utilizando para ello la Ley 1561 de 2012 que regula el procedimiento especial de pertenencia.<br/><br/>
+      Sin embargo nuestra competencia se enmarca sólo en la asistencia técnica y jurídica, es decir, la identificación de los predios en cuanto a las afectaciones que puede tener el predio y los documentos que le respaldan como poseedor, pero no en la representación judicial, ya que son los despachos judiciales a quienes les corresponde adoptar el proceso y las decisiones, por lo que de querer continuar su proceso deberá contratar los servicios de un abogado particular que lo represente y adelante el proceso de pertenencia en forma independiente ante los juzgados civiles municipales.<br/><br/>
+      En los años 2013 y 2014, se adelantó por parte del ISVIMED unas jornadas de asesoría en la aplicación de la Ley 1561 de 2012, en las que se crearon unos expedientes que permitieron verificar el cumplimiento de requisitos técnicos y jurídicos tanto de los predios como de los poseedores.  Estos expedientes fueron creados con documentos en fotocopias y no con documentos originales, por lo que no es necesaria su devolución, para iniciar el proceso de manera particular.<br/><br/>
+      Para ofrecer mayor claridad sobre este proceso el Instituto y su equipo de trabajo realizará unas reuniones en la Junta de Acción Comunal -JAC- del barrio, en las fechas establecidas en el documento adjunto.<br/><br/>
+      Cualquier inquietud adicional con gusto será atendida por nuestro personal del programa de titulación de predios, ubicado en la sede 3 calle 48 C número 77 - 03 teléfonos 446-22-88 extensiones 321 y 324.<br/><br/>
+      Atentamente,
+      </div><br/><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="45%">________________________________________</td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;"><strong><%=Sifi.find(30).valor rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;"><%=Sifi.find(31).valor rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 16px; font-family: Arial Narrow; line-height: 120%;">ISVIMED</td>
+        </tr>
+      </table><br/>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Elaboró</td>
+          <td width="20%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Maritza Orozco</td>
+          <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Revisó</td>
+          <td width="20%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Beatriz H. Sánchez C.</td>
+          <td width="5%" rowspan="2" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Aprobó</td>
+          <td width="30%" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Gustavo Adolfo Córdoba García.</td>
+        </tr>
+        <tr>
+          <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Profesional Social Contratista</td>
+          <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Profesional Especializada</td>
+          <td style="font-size: 10px; font-family: Arial Narrow; line-height: 150%;">Asesor de la Subdirección de Dotación de Vivienda y Hábitat</td>
+        </tr>
+      </table>
+      <div align="justify" style="font-size: 10px; font-family: Arial Narrow; line-height: 150%; " >S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></div>
+    </td>
+  </tr>
+</table>
+<H1 class=SaltoDePagina> </H1>
+<%end%>
+<%end%>
+<%end%>

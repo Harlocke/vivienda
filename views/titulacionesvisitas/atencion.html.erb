@@ -1,0 +1,94 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td  height="30"><div class="col_enc">ACTA DE ATENCION</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="20%" align="left" class="campos">ID Predio</td>
+        <td width="24%" align="left" class="campos">Fecha y Hora de Atencion </td>
+        <td width="56%" align="left" class="campos">Profesional</td>
+      </tr>
+      <tr>
+        <td align="left" class="camposDesc"><%=@titulacionesvisitas.titulacion.id %></td>
+        <td align="left" class="camposDesc"><%=@titulacionesvisitas.created_at.strftime("%Y-%m-%d %X") %></td>
+        <td align="left" class="camposDesc"><%=@titulacionesvisitas.user.nombre rescue nil%></td>
+      </tr>
+      </table>
+      <% if @titulacionesvisitas.clase.to_s == 'VISITA DE LEVANTAMIENTO' %>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr><td></td></tr>
+            <tr>
+              <td  height="30"><div class="col_enc">VISITA DE LEVANTAMIENTO</div></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr>
+              <td width="24%"  align="left" class="campos">Fecha levantamiento </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.lev_fecha.strftime("%Y-%m-%d") rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Situacion del levantamiento </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.lev_situacion rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Motivo visita fallida </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.lev_motivo rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Observacion </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.lev_observaciones rescue nil%></td>
+            </tr>
+          </table>
+            <%  elsif @titulacionesvisitas.clase.to_s == 'VISITA DE SOCIALIZACION' %>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr><td></td></tr>
+            <tr>
+              <td  height="30"><div class="col_enc">VISITA DE SOCIALIZACION</div></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr>
+              <td width="24%"  align="left" class="campos">Fecha Agendada </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.soc_fecha_agenda.strftime("%Y-%m-%d") rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Estado de la visita </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.soc_estado rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Motivo </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.soc_motivo rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Observacion </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.soc_observaciones rescue nil%></td>
+            </tr>
+            <tr>
+              <td width="24%"  align="left" class="campos">Unidades de vivienda </td>
+              <td align="left" valign="top" class="camposDesc"><%=@titulacionesvisitas.unidades rescue nil%></td>
+            </tr>
+          </table>    
+            <% end %><br/><br/>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td align="left" class="campos">___________________________________________</td>
+          <td align="left" class="campos">___________________________________________</td>
+        </tr>
+        <tr>
+          <td width="50%" align="left" class="campos">Firma Usuario </td>
+          <td width="50%" align="left" class="campos">Firma Profesional </td>
+        </tr>
+      </table>
+      <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>

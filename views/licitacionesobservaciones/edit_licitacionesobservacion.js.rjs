@@ -1,0 +1,1 @@
+page.replace_html :licitacionesobservaciones_form, :partial => "/licitacionesobservaciones/licitacionesobservaciones"

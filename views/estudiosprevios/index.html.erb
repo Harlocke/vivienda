@@ -1,0 +1,103 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/estudiospreviosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PRESUPUESTOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('nuevo.png',{:border=>0, :title => "Nuevo"}),new_estudiosprevio_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+<% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+        <table width="50%" height="40" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+             <td class="camposDesc12">Identificación</td>
+             <td class="camposDesc12">Nro de contrato</td>
+           </tr>
+           <tr>
+             <td>
+               <%= text_field_tag :search, params[:search],{ :class => "campo2",  :size => "25",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'", :autocomplete=>"off", :placeholder=>"Identificacion" } %>
+              </td>
+              <td>
+               <%= text_field_tag :searchn, params[:searchn],{ :class => "campo2",  :size => "25",
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'", :autocomplete=>"off", :placeholder=>"Nro contrato"} %>
+             <%= image_submit_tag '/images/find.png', :width => '18', :name => nil %></td>
+           </tr>
+        </table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr>
+    <td width="75%" height="30" class="oce-first">Empleado - Objeto</td>
+    <td width="10%" class="oce-first"><div align="right">Valor Contrato</div></td>
+    <td width="10%" class="oce-first"><div align="center">Nro Contrato</div></td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<% @estudiosprevios.each do |estudiosprevio| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="justify"><strong><%=h estudiosprevio.empleado.autobuscar rescue nil %></strong>
+    <br/><strong>OBJETO:  </strong><%=h estudiosprevio.objeto %>
+    <br/><strong>DIAS:  </strong><%=h estudiosprevio.dias %> - <strong>MESES:  </strong><%=h estudiosprevio.meses %>
+    <br/><strong>ABOGADO RESPONSABLE:  </strong><%=h estudiosprevio.user.nombre %> - <%=estudiosprevio.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(estudiosprevio.valor_total) rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=Contrato.find(estudiosprevio.contrato_id).nro_contrato rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%= link_to 'Editar', edit_estudiosprevio_path(estudiosprevio), :class=>"editarlink"%>
+    <% if estudiosprevio.estado.to_s == 'PENDIENTE' and estudiosprevio.user_id == is_admin%>
+        &nbsp;<%= link_to 'Borrar', estudiosprevio_path(estudiosprevio),:confirm => 'Esta Seguro de Eliminar?',:method => :delete, :class=>"borrarlink"%>
+    <% end %></div>
+    </td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @estudiosprevios, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @estudiosprevios.total_entries %></div></td>
+  </tr>
+</table>
+<br/>
+ <table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td align="left" height="30"><div class="col_enc">INFORME DE ESTUDIOS PREVIOS</div></td>
+      </tr>
+    </table>
+    <% form_tag informe_estudiosprevios_path, :method => 'get' do %>
+    <table width="80%" border="0" align="center" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="100%" height="25" class="campos">Fecha Solicitud </td>
+      </tr>
+      <tr>
+        <td height="25" class="camposDesc">&nbsp;&nbsp;Fecha Inicial &nbsp; <%= calendar_date_select "ubicacion", "fchinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;Fecha Final&nbsp; <%= calendar_date_select "ubicacion", "fchfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      </tr>
+    </table>
+    <table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+          </tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "Informe" %>
+          </span></div>
+           </div></td>
+      </tr>
+    </table>
+    <% end -%>
+<br/>

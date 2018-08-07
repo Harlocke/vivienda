@@ -1,0 +1,50 @@
+
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION VISITAS RECONOCIMIENTO</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Cobama</strong></td>
+    <td><strong>Manzana</strong></td>
+    <td><strong>Lote</strong></td>
+    <td><strong>Dirección</strong></td>
+    <td><strong>Procedimiento</strong></td>
+    <td><strong>Estado</strong></td>
+    <td><strong>Operador</strong></td>
+    <td><strong>Clase</strong></td>
+    <td><strong>Fecha Agendada</strong></td>
+    <td><strong>Soc Estado</strong></td>
+    <td><strong>Soc Motivo</strong></td>
+    <td><strong>Soc Observación</strong></td>
+    <td><strong>Tipo Atencion</strong></td>
+    <td><strong>Usuario Visita</strong></td>
+    <td><strong>Fecha Creacion Visita</strong></td>
+  </tr>
+<% 
+ @titulaciones.each do |p|
+ @titulacionesvivistas = Titulacionesvisita.find(:all, :conditions=>["titulacion_id = #{p.id}"])
+%>
+  <% @titulacionesvivistas.each do |a| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=p.id rescue nil%></div></td>
+     <td><div align="left"><%=p.cobama rescue nil%></div></td>
+     <td><div align="left"><%=p.manzana.to_s rescue nil%></div></td>
+     <td><div align="left"><%=p.lote.to_s rescue nil%></div></td>
+     <td><div align="left"><%=p.direccion.to_s rescue nil%></div></td>
+     <td><div align="left"><%=p.procedimiento.to_s rescue nil%></div></td>
+     <td><div align="left"><%=p.estado.to_s rescue nil%></div></td>
+     <td><div align="left"><%=p.operador.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.clase.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.fecha_agenda.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.soc_estado.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.soc_motivo.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.soc_observaciones.to_s rescue nil%></div></td>
+     <td><div align="left"><%=a.tipo_atencion.to_s rescue nil%></div></td>
+     <td><div align="left"><%=User.find(a.user_id).nombre rescue nil%></div></td>
+     <td><div align="left"><%=a.created_at rescue nil%></div></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>

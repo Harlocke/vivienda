@@ -1,0 +1,76 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">CONTROL DE ACTUALIZACIONES DEL CONTENIDO DE LA FICHA</div></td>
+  </tr>
+</table>
+<% remote_form_for [@indicador, @indicadoresactualizacion] do |form| %>
+  <% if permiso("indicadoresactualizacion","C").to_s == "S" %>
+    <% if !@indicadoresactualizacion.id %>
+    	<%= render :partial => "/indicadoresactualizaciones/indicadoresactualizaciones_form" %>
+    <% end %>
+ <% end %>
+<% if @indicador.indicadoresactualizaciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="16%" height="30" align="left" class="oce-first"></td>
+    <td width="31%" height="30" align="left" class="oce-first">No. de campo actualizado</td>
+    <td width="10%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="31%" height="30" align="left" class="oce-first">Descripción del cambio realizado</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for indicadoresactualizacion in @indicador.indicadoresactualizaciones.find(:all, :order => 'created_at DESC') %>
+   <% if indicadoresactualizacion.id != @indicadoresactualizacion.id %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="indicadoresactualizacion_<%=indicadoresactualizacion.id%>">
+     <td height="25" align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=indicadoresactualizacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=indicadoresactualizacion.user.nombre rescue nil%>"><%=indicadoresactualizacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+     </td>
+     <td align="left" class="camposDesc"><%=indicadoresactualizacion.campo rescue nil%></td>
+     <td align="left" class="camposDesc"><%=indicadoresactualizacion.fecha rescue nil%></td>
+     <td align="left" class="camposDesc"><%=indicadoresactualizacion.descripcion rescue nil%><br/>
+                                                                 <strong>Autor:</strong> <%=indicadoresactualizacion.descripcion rescue nil%></td>
+    <td class="camposDesc">
+    <% if permiso("indicadoresactualizacion","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_indicador_indicadoresactualizacion_path(@indicador, indicadoresactualizacion),:method => :get}, :class=>"editarlink")%>
+    <%  end %>
+    <% if permiso("indicadoresactualizacion","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => indicador_indicadoresactualizacion_path(@indicador, indicadoresactualizacion),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%  end %>
+    </td>
+ </tr>
+  <% else %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>EDITAR ACTUALIZACIÓN INDICADOR</h3></td></tr></table>
+     <%= render :partial => "indicadoresactualizaciones_form" %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :indicador, :id %>
+<% end %>
+<br/>
+<% if flash[:indicadoresactualizacion] %>
+  <br/>
+  <div id="indicadoresactualizacion">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:indicadoresactualizacion] %></td>
+      </tr>
+    </table>
+  </div>
+  <script type="text/javascript">setTimeout("new Effect.Fade('indicadoresactualizacion');", 5000)</script>
+<% end %>

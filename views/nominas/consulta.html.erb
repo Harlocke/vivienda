@@ -1,0 +1,178 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/nominamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION NOMINA</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+                { :border=>0, :title => "Regresar a la nomina"}),{:controller=>"nominas", :action=>"parnomina", :id=>0} %>
+            </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table><br/>
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" class="campos"><div align="center">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED </div></td>
+        </tr>
+        <tr>
+          <td height="0" class="campos"><div align="center">NIT: 900.014.480-8</div></td>
+        </tr>
+        <tr>
+          <td height="0" class="campos"><div align="center"><%=@fechanomina%></div></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="27%" height="18" class="campos"><div align="center">Empleado</div></td>
+        <td width="8%" height="18" class="campos"><div align="center">Salario</div></td>
+        <td width="4%" class="campos"><div align="center">Dias</div></td>
+        <td width="9%" class="campos"><div align="center">Total Devengado </div></td>
+        <td width="9%" class="campos"><div align="center">Total Incapacidad </div></td>
+        <td width="6%" class="campos"><div align="center">Salud</div></td>
+        <td width="6%" class="campos"><div align="center">Pension</div></td>
+        <td width="8%" class="campos"><div align="center">Solidaridad</div></td>
+        <td width="8%" class="campos"><div align="center">Retefuente</div></td>
+        <td width="8%" class="campos"><div align="center">Novedades</div></td>
+        <td width="9%" class="campos"><div align="center">Total Deducciones </div></td>
+        <td width="9%" class="campos"><div align="center">Otros Dev.</div></td>
+        <td width="7%" class="campos"><div align="center">Total a Pagar </div></td>
+      </tr>
+      <%  total0 = 0
+          total1 = 0
+          total2 = 0
+          total3 = 0
+          total4 = 0
+          total5 = 0
+          total6 = 0
+          total7 = 0
+          total8 = 0
+          total9 = 0
+          total10 = 0
+          total11 = 0
+      %>
+<% @nominas.each do |nomina| %>
+<%
+          total0 = total0 + nomina.salario
+          total1 = total1 + nomina.dias
+          total2 = total2 + nomina.subtotal
+          total3 = total3 + nomina.salud
+          total4 = total4 + nomina.pension
+          total5 = total5 + nomina.solidaridad
+          total6 = total6 + nomina.retefuente
+          total7 = total7 + nomina.novedades
+          total8 = total8 + nomina.total_deducciones
+          total9 = total9 + nomina.total
+          total10 = total10 + nomina.total_incapacidad
+          total11 = total11 + nomina.otros_devengados
+%>
+      <tr>
+        <td class="camposDesc" height="30">
+            <% if permiso("nominaactualizacion","C").to_s == "S" %>
+              <%=link_to nomina.empleado.nombrecompleto, {:controller=>"nominas", :action=>"edit", :id=>nomina.id}%>
+            <% else %>
+              <%=nomina.empleado.nombrecompleto rescue nil%>
+            <% end%>
+        </td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.salario,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="center"><%=h nomina.dias %></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.subtotal,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.total_incapacidad,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.salud,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.pension,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.solidaridad,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.retefuente,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.novedades,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.total_deducciones,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="camposDesc"><div align="right"><%=number_to_currency(nomina.otros_devengados,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(nomina.total,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+      </tr>
+<% end %>
+      <tr>
+        <td class="campos" height="30" ><div align="center">TOTALES</div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total0,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total1,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total2,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total10,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total3,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total4,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total5,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total6,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total7,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total8,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total11, {:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+        <td class="campos"><div align="right"><%=number_to_currency(total9,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="27%" height="30" class="campos"><div align="left">OBSERVACIONES - <%=@fechanomina%></div></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="27%" height="18" class="campos"><div align="center">Empleado</div></td>
+          <td width="12%" height="18" class="campos"><div align="center">Tipo Novedad </div></td>
+          <td width="12%" class="campos"><div align="center">Valor</div></td>
+          <td width="10%" class="campos"><div align="center">Dias</div></td>
+          <td width="10%" class="campos"><div align="center">Porcentaje</div></td>
+          <td width="29%" class="campos"><div align="center">Observacion</div></td>
+        </tr>
+<% @nominasnovedades.each do |nominasnovedad| %>
+        <tr>
+          <td class="camposDesc" height="30" ><%=nominasnovedad.empleado.identificacion %> - <%=nominasnovedad.empleado.nombres %></td>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.dtiponovedad%></div></td>
+          <td class="camposDesc"><div align="center"><%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.dias %></div></td>
+          <td class="camposDesc"><div align="center"><%=nominasnovedad.porcentaje%> %</div></td>
+          <td class="camposDesc"><div align="left"><%=nominasnovedad.observaciones rescue nil%>
+           <% if nominasnovedad.tipo_novedad == '4' or nominasnovedad.tipo_novedad == '5' or nominasnovedad.tipo_novedad == '6' %>
+             <br/>Fecha Inicio: <%=nominasnovedad.fecha_inicial rescue nil%> - Fecha Final: <%=nominasnovedad.fecha_final rescue nil%>
+           <% end %>
+            </div></td>
+        </tr>
+        <% end %>
+    </table></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td width="80%" height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/rojo1.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+           <%= link_to "Enviar Comprobantes", {:controller => "nominas", :action => "enviarcomprobante", :periodo=>@periodoliq}, :popup => ['new_window','height=500,width=1000,scrollbars=yes']%>
+                </span></div>
+        </div></td>
+        <td width="10%" height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/printer.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+        <%= link_to "Imprimir", {:controller => "nominas", :action => "consultaimp", :periodosliquidacion_id=>@periodoliq}, :popup => ['new_window','height=500,width=1000,scrollbars=yes']%>
+                </span></div>
+     </div></td>
+     <td width="10%" height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/printer.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+        <%= link_to "Comprobantes", {:controller => "nominas", :action => "tirillamasiva", :periodosliquidacion_id=>@periodoliq}, :popup => ['new_window','height=500,width=1000,scrollbars=yes']%>
+                </span></div>
+     </div></td>
+  </tr>
+</table>
+
+

@@ -1,0 +1,1 @@
+page.replace_html :titulacionesasignaciones_form, :partial => "titulacionesasignaciones", :object => @titulacionesasignacion

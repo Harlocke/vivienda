@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Completo</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><div align="center">Consecutivo</div></td>
+    <td width="40%">Solicitante</td>
+    <td width="2%"><div align="center">Cantidad</div></td>
+    <td width="20%"><div align="center">Fecha Solicitud</div></td>
+    <td width="20%><div align="center">Fecha Atención</div></td>
+    <td width="50%">Atendido por</td>
+  </tr>
+<% @crucessolicitudest.each do |crucessolicitud| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+    <td><%=h crucessolicitud.user.nombre %></td>
+    <td><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+    <td><div align="center"><%=h crucessolicitud.created_at.strftime("%d-%m-%y %X") %></div></td>
+    <td><div align="center"><%=h crucessolicitud.updated_at.strftime("%d-%m-%y %X") %></div></td>
+    <td><%=User.find(crucessolicitud.user_atencion).nombre rescue nil %></td>
+  </tr>
+<% end %>
+</table>

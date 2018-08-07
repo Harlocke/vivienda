@@ -1,0 +1,115 @@
+<h1>New proyectosficha</h1>
+
+<% form_for(@proyectosficha) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :proyecto_id %><br />
+    <%= f.text_field :proyecto_id %>
+  </p>
+  <p>
+    <%= f.label :valor_proyecto %><br />
+    <%= f.text_field :valor_proyecto %>
+  </p>
+  <p>
+    <%= f.label :nro_viviendas %><br />
+    <%= f.text_field :nro_viviendas %>
+  </p>
+  <p>
+    <%= f.label :nro_locales %><br />
+    <%= f.text_field :nro_locales %>
+  </p>
+  <p>
+    <%= f.label :instrumento_gestion %><br />
+    <%= f.text_field :instrumento_gestion %>
+  </p>
+  <p>
+    <%= f.label :comuna_id %><br />
+    <%= f.text_field :comuna_id %>
+  </p>
+  <p>
+    <%= f.label :vigencia %><br />
+    <%= f.text_field :vigencia %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin_estudios %><br />
+    <%= f.date_select :fecha_fin_estudios %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicio_obra %><br />
+    <%= f.date_select :fecha_inicio_obra %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin_obra %><br />
+    <%= f.date_select :fecha_fin_obra %>
+  </p>
+  <p>
+    <%= f.label :fecha_entrega %><br />
+    <%= f.date_select :fecha_entrega %>
+  </p>
+  <p>
+    <%= f.label :fecha_inauguracion %><br />
+    <%= f.date_select :fecha_inauguracion %>
+  </p>
+  <p>
+    <%= f.label :por_avance_pro %><br />
+    <%= f.text_field :por_avance_pro %>
+  </p>
+  <p>
+    <%= f.label :por_avance_eje %><br />
+    <%= f.text_field :por_avance_eje %>
+  </p>
+  <p>
+    <%= f.label :constructor %><br />
+    <%= f.text_field :constructor %>
+  </p>
+  <p>
+    <%= f.label :gerente %><br />
+    <%= f.text_field :gerente %>
+  </p>
+  <p>
+    <%= f.label :interventor %><br />
+    <%= f.text_field :interventor %>
+  </p>
+  <p>
+    <%= f.label :empleos_calificados %><br />
+    <%= f.text_field :empleos_calificados %>
+  </p>
+  <p>
+    <%= f.label :empleos_nocalificados %><br />
+    <%= f.text_field :empleos_nocalificados %>
+  </p>
+  <p>
+    <%= f.label :porcentaje_empleos %><br />
+    <%= f.text_field :porcentaje_empleos %>
+  </p>
+  <p>
+    <%= f.label :nro_predios_adquirir %><br />
+    <%= f.text_field :nro_predios_adquirir %>
+  </p>
+  <p>
+    <%= f.label :nro_predios_dificiles %><br />
+    <%= f.text_field :nro_predios_dificiles %>
+  </p>
+  <p>
+    <%= f.label :nro_viviendas_esc %><br />
+    <%= f.text_field :nro_viviendas_esc %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin_predio %><br />
+    <%= f.date_select :fecha_fin_predio %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicio_licitacion %><br />
+    <%= f.date_select :fecha_inicio_licitacion %>
+  </p>
+  <p>
+    <%= f.label :fecha_adjudicacion %><br />
+    <%= f.date_select :fecha_adjudicacion %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', proyectosfichas_path %>

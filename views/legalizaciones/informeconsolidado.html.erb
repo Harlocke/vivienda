@@ -1,0 +1,77 @@
+<%=image_tag("frame.png")%>
+<br/><br/>
+<div align="center">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr valign="top">
+      <td width="49%"><div align="center" class="camposDescN16">INFORME LEGALIZACION URBANISTICA PROYECTOS INSTITUCIONALES</div></td>
+      <td width="2%"></td>
+      <td width="49%">
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+            <tr class="odd1">
+              <td width="80%" align="left" class="campos">Item</td>
+              <td width="20%" align="center" class="campos">Cantidad</td>
+            </tr>
+          <% @legalizacionesc.each do |c| %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                   <td class="camposDesc"><%=c.pp rescue nil %></td>
+                   <td class="camposDesc"><div align="center"><%=c.cantidad rescue nil%></div></td>
+                  </tr>
+          <% end %>
+          </table>        
+      </td>
+    </tr>
+    <tr valign="top">
+      <td width="38%"><br/>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+            <tr class="odd1">
+              <td colspan="4" class="campos"><div align="left">ESTADO DE PROYECTOS</div></td>
+            </tr>
+            <tr class="odd1">
+              <td width="10%" align="center" class="campos">Nro.</td>
+              <td width="70%" align="left" class="campos">Proyecto</td>
+              <td width="10%" align="center" class="campos">RPH</td>
+              <td width="10%" align="center" class="campos">Cesion</td>
+            </tr>
+          <% i = 0 
+            @legalizacionesd .each do |c|
+             i = i + 1 %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=i rescue nil%></div></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><%=c.descripcion rescue nil %></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=c.t1 rescue nil%></div></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=c.t2 rescue nil%></div></td>
+                  </tr>
+          <% end %>
+          </table>        
+      </td>
+      <td></td>
+      <td><br/>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+            <tr class="odd1">
+              <td colspan="4" class="campos"><div align="left">ESTADO DE PROYECTOS</div></td>
+            </tr>
+            <tr class="odd1">
+              <td width="10%" align="center" class="campos">Nro.</td>
+              <td width="70%" align="left" class="campos">Proyecto</td>
+              <td width="10%" align="center" class="campos">RPH</td>
+              <td width="10%" align="center" class="campos">Cesion</td>
+            </tr>
+          <% i = 0 
+            @legalizacionese .each do |c|
+             i = i + 1 %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=i rescue nil%></div></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><%=c.descripcion rescue nil %></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=c.t1 rescue nil%></div></td>
+                   <td style="vertical-align:middle; font-size: 10px;"><div align="center"><%=c.t2 rescue nil%></div></td>
+                  </tr>
+          <% end %>
+          </table>        
+      </td>
+    </tr>    
+  </table>
+</div>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+
+
+

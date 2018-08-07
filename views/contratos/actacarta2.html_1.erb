@@ -1,0 +1,59 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="580" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%">
+  <tr>
+    <td height="40" class="camposDesc">
+      <br/><div align="left">Medellin, <%=descmesmin(@contrato.fecha_disponibilidad.strftime("%m")) rescue nil%> <%=@contrato.fecha_disponibilidad.strftime("%d") rescue nil%> de <%=@contrato.fecha_disponibilidad.strftime("%Y") rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td class="camposDesc">
+Doctor<br/>
+<strong>Director</strong><br/>
+Instituto social de Vivienda y Hábitat de Medellín<br/>
+Medellín<br/>
+      </td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><br/><br/>Asunto		: Personal Planta de Cargos del Instituto<br/><br/></td>
+    </tr>
+    <tr>
+      <td class="camposDesc">
+        <div align="justify">
+          Comedidamente le informo que en la planta de cargos del INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN-ISVIMED, no existe un cargo para
+          <strong>“<%=@contrato.objeto%>”.</strong><br/><br/><br/>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="camposDesc">
+        Atentamente,
+<br/><br/>
+<br/><br/>
+            <img src="../../images/43155829.png"/><br/>
+            <strong><%=Sifi.find(36).valor rescue nil%></strong><br/>
+            <%=Sifi.find(37).valor rescue nil%><br/>
+            <strong>INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN, ISVIMED</strong>
+      </td>
+    </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0" class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%></td></tr>
+</table>
+      </td>
+  </tr>
+</table>
+<br/>
+<br/>
+</div>

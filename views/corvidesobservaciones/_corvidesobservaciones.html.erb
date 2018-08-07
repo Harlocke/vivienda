@@ -1,0 +1,81 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES CORVIDE</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@corvide, @corvidesobservacion] do |form| %>
+   <% if !@corvidesobservacion.id %>
+   <% if permiso("corvidesobservacion","C").to_s == "S" %>
+	<%= render :partial => "/corvidesobservaciones/corvidesobservaciones_form" %>
+  <% end %>
+<% end %>
+<% if @corvide.corvidesobservaciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="12%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="8%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for corvidesobservacion in @corvide.corvidesobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if corvidesobservacion.id != @corvidesobservacion.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="corvidesobservacion_<%=corvidesobservacion.id%>">
+          <td align="left" class="camposDesc"><%=corvidesobservacion.created_at.strftime("%Y-%m-%d %X")%><br/>
+            <a title="<%=corvidesobservacion.user.nombre rescue nil%>"><%=corvidesobservacion.user.username rescue nil%></a></td>
+          <td class="camposDesc" align="left"><%=corvidesobservacion.dtipoatencion rescue nil%></td>
+          <td class="camposDesc"><div align="justify"><%=corvidesobservacion.observacion rescue nil%>
+            </div>
+          </td>
+          <td width="12%" align="right" class="camposDesc">
+           <% if permiso("corvidesobservacion","A").to_s == "S" or corvidesobservacion.user_id.to_i == is_admin %>
+             <%= link_to_remote('Editar',{:url=>edit_corvide_corvidesobservacion_path(@corvide,corvidesobservacion),:method => :get},:class=>"editarlink")%>
+           <% end %>
+             <% if permiso("corvidesobservacion","E").to_s == "S" %>
+                 |&nbsp;<%= link_to_remote('Borrar',{:url => corvide_corvidesobservacion_path(@corvide, corvidesobservacion),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+           <% end %>
+     </td>
+        </tr>
+<% else %>
+<fieldset>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30"><div class="col_enc">EDITAR</div></td>
+    </tr>
+  </table>
+  <tr class="<%=cycle('even1', 'odd1')%>" id="corvidesobservacion_<%=@corvidesobservacion.id%>">
+   <%= render :partial => "corvidesobservaciones_form" %>
+  </tr>
+</fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+<% end %>
+        <% end %>
+      </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :corvide, :id %>
+<% end %>
+<br/>
+<% if flash[:corvidesobservacion] %>
+<div id="corvidesobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:corvidesobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('corvidesobservacion');", 5000)
+</script>
+<% end %>
+</div>

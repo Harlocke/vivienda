@@ -1,0 +1,308 @@
+<%= javascript_include_tag 'bootstrap-tab'%>
+<div class="page-header">
+  <h2>SISTEMA DE MEDICIÓN ORGANIZACIONAL (SMO)</h2>
+</div>
+<table class="table" width="1900" border="1" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="30"><strong>Nro</strong></th>
+    <th width="80"><strong>Proceso</strong></th>
+    <th width="100" ><strong>Nombre del indicador</strong></th>
+    <th width="50"><strong>Resultado mejora indicador</strong></th>
+    <th width="50"><strong>Resultado cumplimiento</strong></th>
+    <th width="50"><strong>% Ponderado</strong></th>
+    <th width="70"><strong>Resultado periodo anterior</strong></th>
+    <th width="40"><strong>Ene<br/>2016</strong></th>
+    <th width="40"><strong>Feb<br/>2016</strong></th>
+    <th width="40"><strong>Mar<br/>2016</strong></th>
+    <th width="40"><strong>Abr<br/>2016</strong></th>
+    <th width="40"><strong>May<br/>2016</strong></th>
+    <th width="40"><strong>Jun<br/>2016</strong></th>
+    <th width="40"><strong>Jul<br/>2016</strong></th>
+    <th width="40"><strong>Ago<br/>2016</strong></th>
+    <th width="40"><strong>Sep<br/>2016</strong></th>
+    <th width="40"><strong>Oct<br/>2016</strong></th>
+    <th width="40"><strong>Nov<br/>2016</strong></th>
+    <th width="40"><strong>Dic<br/>2016</strong></th>
+    <th width="70" ><strong>Resultado<br/>Periodo</strong></th>
+    <th width="70" ><strong>Limite Control</strong></th>
+    <th width="70" ><strong>Meta</strong></th>
+    <th width="100" ><strong>Frecuencia</strong></th>
+  </tr>
+<% @indicadores.each do |indicador|
+    cant = 0
+    sumvalor = 0
+    rst1 = valorindicador('01','2016',indicador.id)
+    if rst1
+      cant = cant + 1;
+      sumvalor = sumvalor + rst1.to_f
+      color1 = ""
+      if rst1.to_f >= indicador.meta.to_f
+       color1 = "#00FF00"
+      elsif rst1.to_f >= indicador.limite.to_f
+       color1 = "#FFFF00"
+      elsif rst1.to_i < indicador.limite.to_i and rst1.to_i > 0
+       color1 = "#FF0000"
+      elsif rst1 == 0
+       color1 = "#FF0000"
+      end
+    end
+
+    rst2 = valorindicador('02','2016',indicador.id)
+    if rst2
+      cant = cant + 1;
+      sumvalor = sumvalor + rst2.to_f
+      color2 = ""
+      if rst2.to_f >= indicador.meta.to_f
+       color2 = "#00FF00"
+      elsif rst2.to_f >= indicador.limite.to_f
+       color2 = "#FFFF00"
+      elsif rst2.to_i < indicador.limite.to_i and rst2.to_i > 0
+       color2 = "#FF0000"
+      elsif rst2 == 0
+       color2 = "#FF0000"
+      end
+    end
+
+    rst3 = valorindicador('03','2016',indicador.id)
+    if rst3
+      cant = cant + 1;
+      sumvalor = sumvalor + rst3.to_f
+      color3 = ""
+      if rst3.to_f >= indicador.meta.to_f
+       color3 = "#00FF00"
+      elsif rst3.to_f >= indicador.limite.to_f
+       color3 = "#FFFF00"
+      elsif rst3.to_i < indicador.limite.to_i and rst3.to_i > 0
+       color3 = "#FF0000"
+      elsif rst3 == 0
+       color3 = "#FF0000"
+      end
+    end
+
+    rst4 = valorindicador('04','2016',indicador.id)
+    if rst4
+      cant = cant + 1;
+      sumvalor = sumvalor + rst4.to_f
+      color4 = ""
+      if rst4.to_f >= indicador.meta.to_f
+       color4 = "#00FF00"
+      elsif rst4.to_f >= indicador.limite.to_f
+       color4 = "#FFFF00"
+      elsif rst4.to_i < indicador.limite.to_i and rst4.to_i > 0
+       color4 = "#FF0000"
+      elsif rst4 == 0
+       color4 = "#FF0000"
+      end
+    end
+
+    rst5 = valorindicador('05','2016',indicador.id)
+    if rst5
+      cant = cant + 1;
+      sumvalor = sumvalor + rst5.to_f
+      color5 = ""
+      if rst5.to_f >= indicador.meta.to_f
+       color5 = "#00FF00"
+      elsif rst5.to_f >= indicador.limite.to_f
+       color5 = "#FFFF00"
+      elsif rst5.to_i < indicador.limite.to_i and rst5.to_i > 0
+       color5 = "#FF0000"
+      elsif rst5 == 0
+       color5 = "#FF0000"
+      end
+    end
+
+    rst6 = valorindicador('06','2016',indicador.id)
+    if rst6
+      cant = cant + 1;
+      sumvalor = sumvalor + rst6.to_f
+      color6 = ""
+      if rst6.to_f >= indicador.meta.to_f
+       color6 = "#00FF00"
+      elsif rst6.to_f >= indicador.limite.to_f
+       color6 = "#FFFF00"
+      elsif rst6.to_i < indicador.limite.to_i and rst6.to_i > 0
+       color6 = "#FF0000"
+      elsif rst6 == 0
+       color6 = "#FF0000"
+      end
+    end
+
+    rst7 = valorindicador('07','2016',indicador.id)
+    if rst7
+      cant = cant + 1;
+      sumvalor = sumvalor + rst7.to_f
+      color7 = ""
+      if rst7.to_f >= indicador.meta.to_f
+       color7 = "#00FF00"
+      elsif rst7.to_f >= indicador.limite.to_f
+       color7 = "#FFFF00"
+      elsif rst7.to_i < indicador.limite.to_i and rst7.to_i > 0
+       color7 = "#FF0000"
+      elsif rst7 == 0
+       color7 = "#FF0000"
+      end
+    end
+
+    rst8 = valorindicador('08','2016',indicador.id)
+    if rst8
+      cant = cant + 1;
+      sumvalor = sumvalor + rst8.to_f
+      color8 = ""
+      if rst8.to_f >= indicador.meta.to_f
+       color8 = "#00FF00"
+      elsif rst8.to_f >= indicador.limite.to_f
+       color8 = "#FFFF00"
+      elsif rst8.to_i < indicador.limite.to_i and rst8.to_i > 0
+       color8 = "#FF0000"
+      elsif rst8 == 0
+       color8 = "#FF0000"
+      end
+    end
+
+    rst9 = valorindicador('09','2016',indicador.id)
+    if rst9
+      cant = cant + 1;
+      sumvalor = sumvalor + rst9.to_f
+      color9 = ""
+      if rst9.to_f >= indicador.meta.to_f
+       color9 = "#00FF00"
+      elsif rst9.to_f >= indicador.limite.to_f
+       color9 = "#FFFF00"
+      elsif rst9.to_i < indicador.limite.to_i and rst9.to_i > 0
+       color9 = "#FF0000"
+      elsif rst9 == 0
+       color9 = "#FF0000"
+      end
+    end
+
+    rst10 = valorindicador('10','2016',indicador.id)
+    if rst10
+      cant = cant + 1;
+      sumvalor = sumvalor + rst10.to_f
+      color10 = ""
+      if rst10.to_f >= indicador.meta.to_f
+       color10 = "#00FF00"
+      elsif rst10.to_f >= indicador.limite.to_f
+       color10 = "#FFFF00"
+      elsif rst10.to_i < indicador.limite.to_i and rst10.to_i > 0
+       color10 = "#FF0000"
+      elsif rst10 == 0
+       color10 = "#FF0000"
+      end
+    end
+
+    rst11 = valorindicador('11','2016',indicador.id)
+    if rst11
+      cant = cant + 1;
+      sumvalor = sumvalor + rst11.to_f
+      color11 = ""
+      if rst11.to_f >= indicador.meta.to_f
+       color11 = "#00FF00"
+      elsif rst11.to_f >= indicador.limite.to_f
+       color11 = "#FFFF00"
+      elsif rst11.to_i < indicador.limite.to_i and rst11.to_i > 0
+       color11 = "#FF0000"
+      elsif rst11 == 0
+       color11 = "#FF0000"
+      end
+    end
+
+    rst12 = valorindicador('12','2016',indicador.id)
+    if rst12
+      cant = cant + 1;
+      sumvalor = sumvalor + rst12.to_f
+      color12 = ""
+      if rst12.to_f >= indicador.meta.to_f
+       color12 = "#00FF00"
+      elsif rst12.to_f >= indicador.limite.to_f
+       color12 = "#FFFF00"
+      elsif rst12.to_i < indicador.limite.to_i and rst12.to_i > 0
+       color12 = "#FF0000"
+      elsif rst12 == 0
+       color12 = "#FF0000"
+      end
+    end
+    if cant.to_i > 0
+      vlr = sumvalor/cant rescue nil
+      color001 = ""
+      color003 = ""
+      if vlr.to_f >= indicador.meta.to_f
+       color001 = "#00FF00"
+      elsif vlr.to_f >= indicador.limite.to_f
+       color001 = "#FFFF00"
+      elsif vlr.to_i < indicador.limite.to_i and vlr.to_i > 0
+       color001 = "#FF0000"
+      elsif vlr == 0
+       color001 = "#FF0000"
+      end
+      if vlr.to_i > 0
+        vlrrstindi = (vlr / indicador.resultado_anterior)*100
+        vlrrstcump = (vlr / indicador.limite)*100
+        color003 = ""
+        if vlrrstcump.to_f >= indicador.meta.to_f
+         color003 = "#00FF00"
+        elsif vlrrstcump.to_f >= indicador.limite.to_f
+         color003 = "#FFFF00"
+        elsif vlrrstcump.to_i < indicador.limite.to_i and vlrrstcump.to_i > 0
+         color003 = "#FF0000"
+        elsif vlrrstcump == 0
+         color003 = "#FF0000"
+        end
+      else
+        vlrrstindi = 0
+        vlrrstcump = 0
+      end
+      if vlrrstindi
+        color002 = ""
+        if vlrrstindi.to_f >= indicador.meta.to_f
+         color002 = "#00FF00"
+        elsif vlrrstindi.to_f >= indicador.limite.to_f
+         color002 = "#FFFF00"
+        elsif vlrrstindi.to_i < indicador.limite.to_i and vlrrstindi.to_i > 0
+         color002 = "#FF0000"
+        elsif vlrrstindi == 0
+         color002 = "#FF0000"
+        end
+      end
+    end
+%>
+  <tr valign="middle">
+    <th height="40"><%=h indicador.consecutivo %></th>
+    <th><%=h indicador.proceso %></th>
+    <td><%=h indicador.nombreindicador %></td>
+    <th bgcolor="<%=color003%>"><%=vlrrstindi%>%</th>
+    <th bgcolor="<%=color002%>"><%=vlrrstcump.round(1) rescue nil%>%</th>
+    <th><%=h indicador.ponderado %> %</th>
+    <th><%=h indicador.resultado_anterior%>%</th>
+    <% if indicador.medicion.to_s == 'MENSUAL' %>
+      <td bgcolor="<%=color1%>"><div align="center"><% if rst1 %><%=rst1%>%<% end %></div></td>
+      <td bgcolor="<%=color2%>"><div align="center"><% if rst2 %><%=rst2%>%<% end %></div></td>
+      <td bgcolor="<%=color3%>"><div align="center"><% if rst3 %><%=rst3%>%<% end %></div></td>
+      <td bgcolor="<%=color4%>"><div align="center"><% if rst4 %><%=rst4%>%<% end %></div></td>
+      <td bgcolor="<%=color5%>"><div align="center"><% if rst5 %><%=rst5%>%<% end %></div></td>
+      <td bgcolor="<%=color6%>"><div align="center"><% if rst6 %><%=rst6%>%<% end %></div></td>
+      <td bgcolor="<%=color7%>"><div align="center"><% if rst7 %><%=rst7%>%<% end %></div></td>
+      <td bgcolor="<%=color8%>"><div align="center"><% if rst8 %><%=rst8%>%<% end %></div></td>
+      <td bgcolor="<%=color9%>"><div align="center"><% if rst9 %><%=rst9%>%<% end %></div></td>
+      <td bgcolor="<%=color10%>"><div align="center"><% if rst10 %><%=rst10%>%<% end %></div></td>
+      <td bgcolor="<%=color11%>"><div align="center"><% if rst11 %><%=rst11%>%<% end %></div></td>
+      <td bgcolor="<%=color12%>"><div align="center"><% if rst12 %><%=rst12%>%<% end %></div></td>
+    <% elsif indicador.medicion.to_s == 'TRIMESTRAL' %>
+      <td colspan="3" bgcolor="<%=color3%>"><div align="center"><% if rst3 %><%=rst3%>%<% end %></div></td>
+      <td colspan="3" bgcolor="<%=color6%>"><div align="center"><% if rst6 %><%=rst6%>%<% end %></div></td>
+      <td colspan="3" bgcolor="<%=color9%>"><div align="center"><% if rst9 %><%=rst9%>%<% end %></div></td>
+      <td colspan="3" bgcolor="<%=color12%>"><div align="center"><% if rst12 %><%=rst12%>%<% end %></div></td>
+    <% elsif indicador.medicion.to_s == 'SEMESTRAL' %>
+      <td colspan="6" bgcolor="<%=color1%>"><div align="center"><% if rst1 %><%=rst1%>%<% end %></div></td>
+      <td colspan="6" bgcolor="<%=color7%>"><div align="center"><% if rst7 %><%=rst7%>%<% end %></div></td>
+    <% elsif indicador.medicion.to_s == 'ANUAL' %>
+      <td colspan="12" bgcolor="<%=color1%>"><div align="center"><% if rst1 %><%=rst1%>%<% end %></div></td>
+    <% end %>
+    <th bgcolor="<%=color001%>"><div align="center"><% if cant.to_i > 0 %><%=vlr%>%<% end %></div></th>
+    <th><%=h indicador.limite %> %</th>
+    <th><%=h indicador.meta %> %</th>
+    <th><%=h indicador.medicion%></th>
+  </tr>
+<% end %>
+</table>
+<br/>

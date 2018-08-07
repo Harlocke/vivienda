@@ -1,0 +1,39 @@
+<table width="90%" height="40">
+  <tr>
+    <td class="campos">
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/agendascitasmin.png"/></td>
+          <td width="94%"><div class="col_enc">AGENDA</div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+<%=@valor rescue nil%><br/><br/>
+</div>
+<div align="center">
+  <table width="70%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td width="33%" class="campos">Usuario</td>
+      <td class="camposDesc12"><div align="left"><%=@agenda.persona.autobuscar rescue nil%><br/>
+            <strong>Telefono:</strong> <%=@agenda.persona.telefons rescue nil%><br/></div></td>
+    </tr>
+    <tr>
+      <td class="campos" >Proceso</td>
+      <td class="camposDesc12"><%= @agenda.lugaragenda%></td>
+    </tr>
+    <tr>
+      <td class="campos" >Fecha</td>
+      <td class="camposDesc12"><%= @agenda.fechaagenda%></td>
+    </tr>
+    <tr>
+      <td class="campos">Hora</td>
+      <td class="camposDesc12"><%= @agenda.horaagenda%></td>
+    </tr>
+    <tr>
+      <td class="campos">Observación</td>
+      <td class="camposDesc12"><%= @agenda.observacion rescue nil%></td>
+    </tr>    
+  </table>
+</div>

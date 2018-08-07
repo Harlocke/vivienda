@@ -1,0 +1,26 @@
+<h1>Listing feria2010calificaciones</h1>
+
+<table>
+  <tr>
+    <th>Feria2010jefe</th>
+    <th>Nroformulario</th>
+    <th>Calificacion</th>
+    <th>Puntaje</th>
+  </tr>
+
+<% @feria2010calificaciones.each do |feria2010calificacion| %>
+  <tr>
+    <td><%=h feria2010calificacion.feria2010jefe_id %></td>
+    <td><%=h feria2010calificacion.nroformulario %></td>
+    <td><%=h feria2010calificacion.calificacion %></td>
+    <td><%=h feria2010calificacion.puntaje %></td>
+    <td><%= link_to 'Show', feria2010calificacion %></td>
+    <td><%= link_to 'Edit', edit_feria2010calificacion_path(feria2010calificacion) %></td>
+    <td><%= link_to 'Destroy', feria2010calificacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2010calificacion', new_feria2010calificacion_path %>

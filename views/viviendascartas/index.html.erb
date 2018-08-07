@@ -1,0 +1,36 @@
+<h1>Listing viviendascartas</h1>
+
+<table>
+  <tr>
+    <th>Titulo</th>
+    <th>Nombre</th>
+    <th>Cargo</th>
+    <th>Atn nombre</th>
+    <th>Atn cargo</th>
+    <th>Empresa</th>
+    <th>Direccion</th>
+    <th>Telefono</th>
+    <th>Ciudad</th>
+  </tr>
+
+<% @viviendascartas.each do |viviendascarta| %>
+  <tr>
+    <td><%=h viviendascarta.titulo %></td>
+    <td><%=h viviendascarta.nombre %></td>
+    <td><%=h viviendascarta.cargo %></td>
+    <td><%=h viviendascarta.atn_nombre %></td>
+    <td><%=h viviendascarta.atn_cargo %></td>
+    <td><%=h viviendascarta.empresa %></td>
+    <td><%=h viviendascarta.direccion %></td>
+    <td><%=h viviendascarta.telefono %></td>
+    <td><%=h viviendascarta.ciudad %></td>
+    <td><%= link_to 'Show', viviendascarta %></td>
+    <td><%= link_to 'Edit', edit_viviendascarta_path(viviendascarta) %></td>
+    <td><%= link_to 'Destroy', viviendascarta, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New viviendascarta', new_viviendascarta_path %>

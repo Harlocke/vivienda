@@ -1,0 +1,2 @@
+page.replace_html :resolucionescontratistas_form, :partial => "/resolucionescontratistas/resolucionescontratistas"
+

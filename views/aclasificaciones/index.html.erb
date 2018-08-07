@@ -1,0 +1,22 @@
+<h1>Listing aclasificaciones</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Estado</th>
+  </tr>
+
+<% @aclasificaciones.each do |aclasificacion| %>
+  <tr>
+    <td><%=h aclasificacion.descripcion %></td>
+    <td><%=h aclasificacion.estado %></td>
+    <td><%= link_to 'Show', aclasificacion %></td>
+    <td><%= link_to 'Edit', edit_aclasificacion_path(aclasificacion) %></td>
+    <td><%= link_to 'Destroy', aclasificacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New aclasificacion', new_aclasificacion_path %>

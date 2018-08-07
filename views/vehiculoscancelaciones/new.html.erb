@@ -1,0 +1,39 @@
+<h1>New vehiculoscancelacion</h1>
+
+<% form_for(@vehiculoscancelacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.label :hora_inicio %><br />
+    <%= f.text_field :hora_inicio %>
+  </p>
+  <p>
+    <%= f.label :hora_fin %><br />
+    <%= f.text_field :hora_fin %>
+  </p>
+  <p>
+    <%= f.label :vehiculo_id %><br />
+    <%= f.text_field :vehiculo_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :destino %><br />
+    <%= f.text_field :destino %>
+  </p>
+  <p>
+    <%= f.label :observacion %><br />
+    <%= f.text_field :observacion %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', vehiculoscancelaciones_path %>

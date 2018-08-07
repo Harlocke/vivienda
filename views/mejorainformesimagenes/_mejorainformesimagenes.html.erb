@@ -1,0 +1,49 @@
+</form>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_mejorainformeselemento_mejorainformesimagen_path(@mejorainformeselemento.id) %></span></div>
+</div></td>
+  </tr>
+</table>
+<% remote_form_for [@mejorainformeselemento, @mejorainformesimagen] do |form| %>
+<% if !@mejorainformesimagen.id %>
+<% end %>
+<% if @mejorainformeselemento.mejorainformesimagenes.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="20" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" height="20" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="20%" height="20" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+  <% for mejorainformesimagen in @mejorainformeselemento.mejorainformesimagenes.find(:all, :order => 'created_at DESC') %>
+  <% if mejorainformesimagen.id != @mejorainformesimagen.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> mejorainformesimagen_<%=mejorainformesimagen.id%>">
+     <td height="20" class="camposDesc"><%=mejorainformesimagen.descripcion%></td>
+     <td class="camposDesc"><%=mejorainformesimagen.mejorainforme_file_name%></td>
+     <td class="camposDesc">
+      <%= link_to "Ver", mejorainformesimagen.mejorainforme.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+       <%= link_to_remote('Borrar',{:url => mejorainformeselemento_mejorainformesimagen_path(@mejorainformeselemento, mejorainformesimagen),
+                        :method => :delete, :confirm => "¿Seguro?",
+                        :before => "$(this).up('.mejorainformesimagen_#{mejorainformesimagen.id}').remove()"},
+                        :class=>"borrarlink")%>
+     </td>
+   </tr>
+   <% else %>
+      <tr id="mejorainformesimagen_<%=mejorainformesimagen.id%>">
+          <%= render :partial => "mejorainformesimagenes_form" %>
+      </tr>
+  <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :mejorainformeselemento, :id %>
+<% end %>

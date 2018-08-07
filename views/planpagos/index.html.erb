@@ -1,0 +1,38 @@
+<h1>Listing planpagos</h1>
+
+<table>
+  <tr>
+    <th>Nro cuota</th>
+    <th>Saldo inicial</th>
+    <th>Cuota plan amort</th>
+    <th>Amortizacion</th>
+    <th>Intereses</th>
+    <th>Saldo final</th>
+    <th>Valor seguro</th>
+    <th>Cuota seg</th>
+    <th>Fecha</th>
+    <th>Interes nominal ano</th>
+    <th>Crecimiento cuota</th>
+  </tr>
+
+<% @planpagos.each do |planpago| %>
+  <tr>
+    <td><%=h planpago.nro_cuota %></td>
+    <td><%=h planpago.saldo_inicial %></td>
+    <td><%=h planpago.cuota_plan_amort %></td>
+    <td><%=h planpago.amortizacion %></td>
+    <td><%=h planpago.intereses %></td>
+    <td><%=h planpago.saldo_final %></td>
+    <td><%=h planpago.valor_seguro %></td>
+    <td><%=h planpago.cuota_seg %></td>
+    <td><%=h planpago.fecha %></td>
+    <td><%=h planpago.interes_nominal_ano %></td>
+    <td><%=h planpago.crecimiento_cuota %></td>
+    <td><%= link_to 'Edit', edit_planpago_path(planpago) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New planpago', new_planpago_path %>

@@ -1,0 +1,86 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/usersinventariomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INVENTARIOS POR USUARIOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_usersinventarios_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_for(@usersinventario) do |f| %>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+          <td width="33%" height="20" class="campos" align="left">Codigo Inventario</td>
+          <td class="camposDesc" align="left"><%= f.text_field :codigo,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Elemento Inventario</td>
+          <td class="camposDesc" align="left"><%=select("usersinventario","inventarioselemento_id", Inventarioselemento.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Usuario Uso</td>
+          <td class="camposDesc" align="left"><%=select("usersinventario","user_id", User.find(:all,:order=>'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Dependencia</td>
+          <td class="camposDesc" align="left"><%=select("usersinventario","dependencia_id", Dependencia.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+    <tr>
+          <td width="33%" height="20" class="campos" align="left">Serial</td>
+          <td class="camposDesc" align="left"><%= f.text_field :serial,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Estado</td>
+          <td class="camposDesc" align="left"><%= f.text_field :estado,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Fecha Asignacion Activo</td>
+          <td class="camposDesc" align="left"><%= calendar_date_select "usersinventario", "fecha_asignacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+        </tr>
+        <% unless @usersinventario.new_record? %>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Fecha Creacion</td>
+          <td class="camposDesc" align="left"><%= @usersinventario.created_at.strftime("%Y-%m-%d %X")%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Fecha Ultima Actualizacion</td>
+          <td class="camposDesc" align="left"><%= @usersinventario.updated_at.strftime("%Y-%m-%d %X")%></td>
+        </tr>
+        <% end %>
+      </table>
+<br/>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="70%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+  </div>
+<% end %>

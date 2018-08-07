@@ -1,0 +1,72 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">RETEFUENTE</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@empleado, @contratosretefuente] do |form| %>
+  <% if permiso("contratosretefuente","C").to_s == "S" %>
+   <% if !@contratosretefuente.id %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+	<%= render :partial => "/contratosretefuentes/contratosretefuentes_form" %>
+      </tr>
+   <% end %>
+      <% end %>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" height="30" class="oce-first">Periodo de Liquidacion</td>
+    <td width="40%" height="30" class="oce-first">Valor Retencion</td>
+    <td width="20%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% for contratosretefuente in @empleado.contratosretefuentes.find(:all, :order => 'periodosliquidacion_id DESC') %>
+   <% if contratosretefuente.id != @contratosretefuente.id %>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="contratosretefuente_<%= contratosretefuente.id%>">
+     <td width="40%" height="20" class="camposDesc">Periodo <%=contratosretefuente.periodosliquidacion.fecha_inicial rescue nil%> - <%=contratosretefuente.periodosliquidacion.fecha_final rescue nil%></td>
+     <td width="40%" class="camposDesc">$ <%=number_to_currency(contratosretefuente.valor_retencion,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+      <td width="20%" class="camposDesc">
+        <% if permiso("contratosretefuente","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_empleado_contratosretefuente_path(@empleado, contratosretefuente),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("contratosretefuente","E").to_s == "S" %>&nbsp;|
+        <%= link_to_remote('Borrar',{:url => empleado_contratosretefuente_path(@empleado, contratosretefuente),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+      </td>
+ </tr>
+</table>
+ <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div class="col_enc">EDITAR RETEFUENTE</div></td>
+        </tr>
+      </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="contratosretefuente_<%=@contratosretefuente.id%>">
+     <%= render :partial => "/contratosretefuentes/contratosretefuentes_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+<% end %>
+    <%= hidden_field :empleado, :id %>
+<% end %>
+<br/>
+<% if flash[:contratosretefuente] %>
+<div id="contratosretefuente">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:contratosretefuente] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('contratosretefuente');", 5000)
+</script>
+<% end %>
+</div>

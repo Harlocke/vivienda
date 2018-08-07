@@ -1,0 +1,84 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ASIGNACION DE AUXILIARES DE CAMPO</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesasignacion] do |form| %>
+<% if permiso("titulacionesasignacion","C").to_s == "S" %>
+   <% if !@titulacionesasignacion.id %>
+	<%#= render :partial => "/titulacionesasignaciones/titulacionesasignaciones_form" %>
+   <% end %>
+<% end %>
+  <% if @titulacion.titulacionesasignaciones.exists? %>
+<table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="35%" height="30" align="left" class="oce-first">Auxiliar de Campo</td>
+    <td width="28%" align="left" class="oce-first">Fase</td>
+    <td width="12%" align="left" class="oce-first"><div align="center">Fecha Asignacion</div></td>
+    <td width="10%" align="left" class="oce-first"><div align="center">Fecha Fin</div></td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<% for titulacionesasignacion in @titulacion.titulacionesasignaciones.find(:all, :order => 'created_at DESC') %>
+     <% if titulacionesasignacion.id != @titulacionesasignacion.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesasignacion_<%= titulacionesasignacion.id%>">
+     <td align="left" height="25" class="camposDesc"><%=titulacionesasignacion.user.nombre rescue nil%>
+      <% if titulacionesasignacion.userprog_id.to_s != "" %>
+          <br/><em><strong>Programado por: </strong> <%=User.find(titulacionesasignacion.userprog_id).username rescue nil%></em>
+      <% end  %>
+     </td>
+     <td align="left" class="camposDesc"><%=titulacionesasignacion.tipo rescue nil%></td>
+     <td align="left" class="camposDesc"><div align="center"><%=titulacionesasignacion.fecha_asignacion.strftime("%Y-%m-%d") rescue nil%></div></td>
+     <td align="left" class="camposDesc"><div align="center"><%=titulacionesasignacion.fecha_fin.strftime("%Y-%m-%d") rescue nil%></div></td>
+     <td align="right" class="camposDesc"><div align="center">
+        <% if permiso("titulacionesasignacion1","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => titulacion_titulacionesasignacion_path(@titulacion, titulacionesasignacion),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+         <% if titulacionesasignacion.validadesactiva == '1' and permiso("asigtemporal","C").to_s == "S" and titulacionesasignacion.fecha_fin.to_s == ""%>
+            <%= link_to_remote('',{:url => cierra_titulacion_titulacionesasignacion_path(@titulacion, titulacionesasignacion),
+                      :method => :get}, :class=>"aplazalink", :title =>"Cerrar Asignación Reconocimiento Edificaciones")%>
+         <%  end  %>
+         <% if titulacionesasignacion.validadesactiva == '2' and permiso("asigdemanda","C").to_s == "S" and titulacionesasignacion.fecha_fin.to_s == "" %>
+            <%= link_to_remote('',{:url => cierra_titulacion_titulacionesasignacion_path(@titulacion, titulacionesasignacion),
+                      :method => :get}, :class=>"aplazalink", :title =>"Cerrar Asignación Procesos Juridicos")%>
+          <%  end  %>
+          <% if titulacionesasignacion.validadesactiva == '3' and permiso("asigsantaelena","C").to_s == "S" and titulacionesasignacion.fecha_fin.to_s == "" %>
+            <%= link_to_remote('',{:url => cierra_titulacion_titulacionesasignacion_path(@titulacion, titulacionesasignacion),
+                      :method => :get}, :class=>"aplazalink", :title =>"Cerrar Asignación Procesos Santa Elena")%>
+          <%  end  %>
+          <% if titulacionesasignacion.validadesactiva == '4' and permiso("asigfiscal","C").to_s == "S" and titulacionesasignacion.fecha_fin.to_s == "" %>
+            <%= link_to_remote('',{:url => cierra_titulacion_titulacionesasignacion_path(@titulacion, titulacionesasignacion),
+                      :method => :get}, :class=>"aplazalink", :title =>"Cerrar Asignación Proceso Fiscal")%>
+          <%  end  %></div>
+        </td>
+   </tr>
+     <% end %>
+   <% end %>
+</table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesasignacion] %>
+<div id="titulacionesasignacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesasignacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesasignacion');", 5000)
+</script>
+<% end %>
+</div>
+

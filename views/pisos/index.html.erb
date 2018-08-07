@@ -1,0 +1,22 @@
+<h1>Listing pisos</h1>
+
+<table>
+  <tr>
+    <th>Bloque</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @pisos.each do |piso| %>
+  <tr>
+    <td><%=h piso.bloque_id %></td>
+    <td><%=h piso.descripcion %></td>
+    <td><%= link_to 'Show', piso %></td>
+    <td><%= link_to 'Edit', edit_piso_path(piso) %></td>
+    <td><%= link_to 'Destroy', piso, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New piso', new_piso_path %>

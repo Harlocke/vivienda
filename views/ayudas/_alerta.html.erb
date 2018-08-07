@@ -1,0 +1,41 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30" width="85%"><div class="col_enc">INFORMACION ALERTAS REGISTRADAS</div></td>
+    <td height="30"><div align="center">
+        <div class="uiButton"><img class="img" src="/images/info1.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= link_to 'Solicitar Alerta', new_agendasalerta_path(:persona_id => @ayuda.persona_id, :ayuda_id=>@ayuda.id), :Onclick => "return GB_showCenter('Informacion Detallada', this.href, 400, 900)"%>
+          </span></div></div>
+    <tr>
+    <td height="10"></td>
+    <td height="10"></td>
+  </tr>
+</table>
+<% @agendasalertas = Agendasalerta.find(:all, :conditions=>["persona_id = #{@ayuda.persona_id}"], :order=>"created_at desc") 
+  if @agendasalertas.count.to_i > 0
+%>
+  <div align="center">
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="25%"  height="30" class="oce-first">Fecha - Responsable</td>
+        <td width="55%" class="oce-first">Descripcion Alerta</td>
+        <td width="20%" class="oce-first">Estado</td>
+      </tr>
+    <% @agendasalertas.each do |a| %>
+      <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" align="left"><%=a.created_at.strftime("%Y-%m-%d %X").to_s rescue nil%> - <%=a.user.username.to_s rescue nil%></td>
+        <td class="camposDesc" align="left"><%=a.descripcion rescue nil%></td>
+        <td class="camposDesc" align="left"><%=a.estado rescue nil%><%=a.desact rescue nil%></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+<% else %>
+  <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+    <tr>
+      <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+      <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+   </tr>
+  </table>
+<% end %>
+
+<br/>

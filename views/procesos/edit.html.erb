@@ -1,0 +1,16 @@
+<h1>Editing proceso</h1>
+
+<% form_for(@proceso) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @proceso %> |
+<%= link_to 'Back', procesos_path %>

@@ -1,0 +1,97 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@queja, @quejasobservacion] do |form| %>
+   <% if !@quejasobservacion.id %>
+      <% if permiso("quejasobservacion","C").to_s == "S" %>
+	<%= render :partial => "/quejasobservaciones/quejasobservaciones_form" %>
+      <% end %>
+<% end %>
+<% if @queja.quejasobservaciones.exists? %>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="15%" height="30" class="oce-first">Fecha</td>
+        <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+        <td width="65%" class="oce-first">Observaciones</td>
+        <td width="5%" height="30" align="left" class="oce-first"></td>
+      </tr>
+    <% for quejasobservacion in @queja.quejasobservaciones.find(:all, :order => 'created_at DESC') %>
+       <% if quejasobservacion.id != @quejasobservacion.id %>
+            <tr valign="middle" id="quejasobservacion_<%=quejasobservacion.id%>" class="<%=cycle('even1', 'odd1')%>">
+              <td align="left">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                     <td class="camposDesc" align="left"><%=quejasobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+                  </tr>
+                  <tr>
+                     <td class="camposDesc" align="left"><a title="<%=quejasobservacion.user.nombre rescue nil%>"><%=quejasobservacion.user.username rescue nil%></a></td>
+                  </tr>
+                </table>
+              </td>
+              <td class="camposDesc" align="left"><%=quejasobservacion.dtipoatencion%></td>
+              <td class="camposDesc" align="left"><%=quejasobservacion.observacion%></td>
+              <td class="camposDesc" align="left"><%= link_to "Acta", {:controller => "quejasobservaciones", :action => "atencion", :id=>quejasobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+              <%= link_to 'Soporte',{:controller=>"quejassoportes", :action=>"new", :quejasobservacion_id=>quejasobservacion.id},:class=>"imagenlink" %>
+                <% if @queja.correspondenciarespuesta.to_s == "" and permiso("queja","C").to_s == "S" and @queja.correspondenciasrecibida_id.to_i > 0 %>
+                     <%= link_to 'Respuesta',{:controller=>"quejas", :action=>"radicarrespuesta", :id=>@queja.id, :quejasobservacion_id=>quejasobservacion.id},:confirm=>"Seguro que desea radicar la respuesta?",:class=>"rubrolink" %>
+                <% end %>
+              </td>
+            </tr>
+            <% if quejasobservacion.quejassoportes.exists? %>
+               <tr>
+                 <td colspan="4">
+                      <div align="center">
+                        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="30%" height="20" class="oce-first">Creación</td>
+                            <td width="60%" height="20" class="oce-first">Descripcion y Nombre del documento</td>
+                            <td width="10%" height="20" class="oce-first"></td>
+                          </tr>
+                          <% quejasobservacion.quejassoportes.each do |quejassoporte| %>
+                          <tr  class="<%=cycle('even1', 'odd1')%>">
+                            <td width="30%" class="camposDesc"><%=quejassoporte.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=quejassoporte.user.nombre rescue nil%>"><%=quejassoporte.user.username rescue nil%></a></td>
+                            <td width="60%" class="camposDesc"><%=quejassoporte.descripcion rescue nil%><br/><%=quejassoporte.queja_file_name rescue nil%></td>
+                            <td width="10%" class="camposDesc"><%= link_to "Ver",quejassoporte.queja.url(:original, false),
+                                                 { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                            </td>
+                          </tr>
+                          <% end %>
+                        </table>
+                      </div>
+                 </td>
+               </tr>
+            <% end %>
+        <% end %>
+    <% end %>
+    </table>
+<% else %>
+    <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+      </tr>
+    </table>
+<% end %>
+<%= hidden_field :queja, :id %>
+<% end %>
+<br/>
+<% if flash[:quejasobservacion] %>
+    <div id="quejasobservacion">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+         <tr>
+           <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+           <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:quejasobservacion] %></td>
+         </tr>
+      </table>
+    </div>
+    <script type="text/javascript">
+      setTimeout("new Effect.Fade('quejasobservacion');", 5000)
+    </script>
+<% end %>
+</div>

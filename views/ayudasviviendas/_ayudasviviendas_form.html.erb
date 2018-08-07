@@ -1,0 +1,410 @@
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="55%" class="campos">Propietario</td>
+      <td width="45%" class="campos">Comuna - Barrio</td>
+    </tr>
+    <tr>
+      <td><%= text_field_with_auto_complete :ayudasvivienda, :propietario_autobuscar,
+            { :class => "campo",:size => 70,:maxlength => 150,:placeholder=>"Lista desplegable - Digite el dato",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" },{ :url => listar_propietarios_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+            &nbsp;<%= link_to "",new2_propietarios_path, :title => "Crear propietario", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%>
+       <%= error_message_on :ayudasvivienda, :propietario_autobuscar, :css_class =>"cerror"%></td>
+      <td><%= text_field_with_auto_complete :ayudasvivienda, :comuna_descripcion2,
+            { :class => "campo",:size => 60 ,:maxlength => 150,:placeholder=>"Lista desplegable - Digite el dato",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" },{ :url => listar_comunas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+       <%= error_message_on :ayudasvivienda, :comuna_descripcion2, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="50%" class="campos">Nombre de Vivienda</td>
+      <td width="20%" class="campos">Nro Vivienda</td>
+      <td width="15%" class="campos">Vivienda Activo</td>
+      <td width="15%" class="campos">Fecha Asociación</td>
+    </tr>
+    <tr>
+      <td><%= text_field :ayudasvivienda, :nombre_de_vivienda, { :class => "campo", :size => 70,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :ayudasvivienda, :nombre_de_vivienda, :css_class =>"cerror"%></td>
+     <td><%= text_field :ayudasvivienda, :num_vivienda, { :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+         <%= error_message_on :ayudasvivienda, :num_vivienda, :css_class =>"cerror"%></td>
+    <td><%= select(:ayudasvivienda, :vivienda_activo,select_sino,{ :include_blank => true },
+                  { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :vivienda_activo, :css_class =>"cerror"%></td>
+    <td><%= calendar_date_select "ayudasvivienda", "fecha_asociacion", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_asociacion, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="15%" class="campos">Agencia</td>
+      <td width="15%" class="campos">Auto Albergue</td>
+      <td width="15%" class="campos">Comparte Vivienda?</td>
+      <td width="55%" class="campos">Comparte Vivienda Con?</td>
+    </tr>
+    <tr>
+      <td><%= select(:ayudasvivienda, :agencia,select_sino,{ :include_blank => true },
+                  { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :agencia, :css_class =>"cerror"%></td>
+      <td><%= select(:ayudasvivienda, :autoalbergue,select_sino,{ :include_blank => true },
+                  { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :autoalbergue, :css_class =>"cerror"%></td>
+      <td><%= select(:ayudasvivienda, :comparte_vivienda,select_sino,{ :include_blank => true },
+                  { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :comparte_vivienda, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :comparte_vivienda_con, { :class => "campo", :size => 80,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :ayudasvivienda, :comparte_vivienda_con, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="20%" class="campos">Aumento</td>
+      <td width="20%" class="campos">Fecha Aumentó</td>
+      <td width="15%" class="campos">Motivo Aumento</td>
+      <td width="25d%" class="campos">Nro Matricula</td>
+      <td width="20%" class="campos">Procentaje del Predial</td>
+    </tr>
+    <tr>
+      <td><%= select(:ayudasvivienda, :aumento, select_sino,{ :include_blank => true },
+                  { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :aumento, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_aumento", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_aumento, :css_class =>"cerror"%></td>
+      <td><%= select(:ayudasvivienda, :motivo_aumento, select_motivoaumento,{ :include_blank => true },
+                  { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :motivo_aumento, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :nro_matricula_inmobiliaria, { :class => "campo", :size => 30,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :ayudasvivienda, :nro_matricula_inmobiliaria, :css_class =>"cerror"%></td>
+    <td><%= select(:ayudasvivienda, :porcentaje_predial, select_porcentaje,{ :include_blank => true },
+                  { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :porcentaje_predial, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="35%" class="campos">Dirección</td>
+      <td width="20%" class="campos">Nro Teléfono</td>
+      <td width="25%" class="campos">Estado de atención</td>
+      <td width="20%" class="campos">Viabilidad Técnica</td>
+    </tr>
+    <tr>
+      <td><%= text_field :ayudasvivienda, :direccion_nueva_vivienda, { :class => "campo", :size => 50,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :ayudasvivienda, :direccion_nueva_vivienda, :css_class =>"cerror"%></td>
+     <td><%= text_field :ayudasvivienda, :telefono_nueva_vivienda, { :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+         <%= error_message_on :ayudasvivienda, :telefono_nueva_vivienda, :css_class =>"cerror"%></td>
+    <td><%= select(:ayudasvivienda, :estado_de_atencion_p,select_estadoatencion,{ :include_blank => true },
+                  { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :estado_de_atencion_p, :css_class =>"cerror"%></td>
+    <td><%= select(:ayudasvivienda, :viabilidad_tecnica, select_viabilidad,{ :include_blank => true },
+                  { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :viabilidad_tecnica, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+
+
+
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="20%" class="campos">Vivienda Ocupada en visita Tec</td>
+      <td width="20%" class="campos">Concepto ZR</td>
+      <td width="20%" class="campos">Fecha Ocupación vivienda</td>
+      <td width="20%" class="campos">Fecha Solicitud ZR</td>
+      <td width="20%" class="campos">Fecha Respuesta ZR</td>
+    </tr>
+    <tr>
+      <td><%= select(:ayudasvivienda, :vivienda_ocupada, select_sinonoaplica,{ :include_blank => true },
+                    { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :ayudasvivienda, :vivienda_ocupada, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_concepto_zr", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_concepto_zr, :css_class =>"cerror"%></td>
+     <td><%= calendar_date_select "ayudasvivienda", "fecha_vivienda_ocupada", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_vivienda_ocupada, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_solicitud_zr", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_solicitud_zr, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_respuesta_zr", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_respuesta_zr, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      
+      <td width="20%" class="campos">Fecha Entrega Papeleria</td>
+      <td width="20%" class="campos">Valor Subsidio</td>
+      <td width="20%" class="campos">Fecha Viabilidad Tec.</td>
+      <td width="20%" class="campos">Viabilidad Jurídica</td>
+      <td width="20%" class="campos">Fecha Viabilidad Juridica</td>
+    </tr>
+    <tr>
+      
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_entrega_de_papeleria", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_entrega_de_papeleria, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :cnt_subsidio_de_arriendo, { :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :cnt_subsidio_de_arriendo, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_viabilidad_tecnica", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_viabilidad_tecnica, :css_class =>"cerror"%></td>
+      <td><%= select(:ayudasvivienda, :viabilidad_juridica, select_viabilidad,{ :include_blank => true },
+                    { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :ayudasvivienda, :viabilidad_juridica, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_viabilidad_juridica", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_viabilidad_juridica, :css_class =>"cerror"%></td>
+     </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="15%" class="campos">Fecha Inicio Contrato</td>
+      <td width="15%" class="campos">Fecha Fin Certificado</td>
+      <td width="70%" class="campos">Observaciones</td>
+    </tr>
+    <tr valign="top">
+      
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_contrato_actual", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_contrato_actual, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_fin_certificado", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_fin_certificado, :css_class =>"cerror"%></td>
+      <td><%=text_area(:ayudasvivienda, :observacion, :cols => 110, :rows => 3, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :observacion, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">OFERTA DE LA VIVIENDA</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="12%" class="campos">Fecha Oferta</td>
+      <td width="38%" class="campos">Oferta 1</td>
+      <td width="12%" class="campos">Fecha Oferta</td>
+      <td width="38%" class="campos">Oferta 2</td>
+    </tr>
+    <tr valign="top">
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_oferta_1", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_oferta_1, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :oferta_1, { :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :oferta_1, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_oferta_2", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_oferta_2, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :oferta_2, { :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :oferta_2, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="12%" class="campos">Fecha Oferta</td>
+      <td width="38%" class="campos">Oferta 3</td>
+      <td width="12%" class="campos">Fecha Oferta</td>
+      <td width="38%" class="campos">Oferta 4</td>
+    </tr>
+    <tr valign="top">
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_oferta_3", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_oferta_3, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :oferta_3, { :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :oferta_3, :css_class =>"cerror"%></td>
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_oferta_4", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_oferta_4, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :oferta_4, { :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :oferta_4, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+   <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="12%" class="campos">Fecha Oferta</td>
+      <td width="45%" class="campos">Oferta 5</td>
+      <td width="43%" class="campos">Cantidad de Oferta</td>
+    </tr>
+    <tr valign="top">
+      <td><%= calendar_date_select "ayudasvivienda", "fecha_oferta_3", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+          <%= error_message_on :ayudasvivienda, :fecha_oferta_3, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :oferta_3, { :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :oferta_3, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :cantidad_de_ofertas, { :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :cantidad_de_ofertas, :css_class =>"cerror"%></td>
+    </tr>
+  </table><br/>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">VENTA DE LA VIVIENDA</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="23%" class="campos">Vivienda Disponible para la Venta</td>
+      <td width="23%" class="campos">Cumple Requisitos para la Venta</td>
+      <td width="54%" class="campos">Información sobre la Vivienda en Venta</td>
+    </tr>
+    <tr valign="top">
+      <td><%= select(:ayudasvivienda, :vivienda_disponible_ofrecer, select_sino,{ :include_blank => true },
+                  { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :vivienda_disponible_ofrecer, :css_class =>"cerror"%></td>
+      <td><%= select(:ayudasvivienda, :cumple_requisitos_venta, select_sino,{ :include_blank => true },
+                  { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :ayudasvivienda, :cumple_requisitos_venta, :css_class =>"cerror"%></td>
+      <td><%= text_field :ayudasvivienda, :informacion_vivienda_venta, { :class => "campo", :size => 75,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :informacion_vivienda_venta, :css_class =>"cerror"%></td>
+    </tr>
+  </table><br/>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">SERVICIOS PUBLICOS</div></td>
+    </tr>
+  </table>
+   <table width="100%" border="0" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td width="100%" class="campos">Dirección de los Servicios Publicos</td>
+    </tr>
+    <tr valign="top">
+      <td><%= text_field :ayudasvivienda, :direccion_servicios_publ, { :class => "campo", :size => 90,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :direccion_servicios_publ, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="22%" class="campos">Servicios con que Cuenta</td>
+    <td width="18%" class="campos">Numero Contrato</td>
+    <td width="60%" class="campos">Observación</td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :energia,{},'SI','NO'%> Energia</td>
+    <td><%= text_field :ayudasvivienda, :nro_energia, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_energia, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_energia, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_energia, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :energia_prepago,{},'SI','NO'%> Energia Prepago</td>
+    <td><%= text_field :ayudasvivienda, :nro_energia_prepago, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_energia_prepago, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_energia_prepago, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_energia_prepago, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :agua ,{},'SI','NO'%> Agua</td>
+    <td><%= text_field :ayudasvivienda, :nro_agua, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_agua, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_agua, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_agua, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos" ><%= check_box :ayudasvivienda, :agua_comunitaria,{},'SI','NO'%> Agua Comunitaria</td>
+    <td><%= text_field :ayudasvivienda, :nro_agua_comunitaria, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_agua_comunitaria, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_agua_comunitaria, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_agua_comunitaria, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :agua_vereda,{},'SI','NO'%> Agua Vereda</td>
+    <td><%= text_field :ayudasvivienda, :nro_agua_vereda, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_agua_vereda, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_agua_vereda, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_agua_vereda, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :gas,{},'SI','NO'%> Gas</td>
+    <td><%= text_field :ayudasvivienda, :nro_gas, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_gas, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_gas, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_gas, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :television,{},'SI','NO'%> Telefonía</td>
+    <td><%= text_field :ayudasvivienda, :nro_television, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_television, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_television, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_television, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :telefonia,{},'SI','NO'%> Internet</td>
+    <td><%= text_field :ayudasvivienda, :nro_telefonia, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_telefonia, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_telefonia, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_telefonia, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos"><%= check_box :ayudasvivienda, :internet,{},'SI','NO'%> Televisión</td>
+    <td><%= text_field :ayudasvivienda, :nro_internet, { :class => "campo", :size => 18,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :ayudasvivienda, :nro_internet, :css_class =>"cerror"%></td>
+    <td><%=text_area(:ayudasvivienda, :obs_internet, :cols => 95, :rows => 2, :class => 'campo', :maxlength => 3900,:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :ayudasvivienda, :obs_internet, :css_class =>"cerror"%></td>
+  </tr>
+</table><br/>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :ayudasvivienda, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

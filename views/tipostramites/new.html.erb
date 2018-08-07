@@ -1,0 +1,23 @@
+<h1>New tipostramite</h1>
+
+<% form_for(@tipostramite) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :tiempo %><br />
+    <%= f.text_field :tiempo %>
+  </p>
+  <p>
+    <%= f.label :responsable %><br />
+    <%= f.text_field :responsable %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', tipostramites_path %>

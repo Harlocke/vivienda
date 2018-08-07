@@ -1,0 +1,2 @@
+module ProyfactnotasimagenesHelper
+end

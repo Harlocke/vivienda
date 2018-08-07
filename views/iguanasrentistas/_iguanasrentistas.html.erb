@@ -1,0 +1,62 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ARRENDATARIOS VINCULADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@iguana, @iguanasrentista] do |form| %>
+<% if permiso("iguanasrentista","C").to_s == "S" %>
+     <% if !@iguanasrentista.id %>
+          <%= render :partial => "/iguanasrentistas/iguanasrentistas_form" %>
+     <% end %>
+<% end %>
+  <% if @iguana.iguanasrentistas.exists? %>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="30" align="left" class="oce-first">Arrendatario Vinculada</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @iguana.iguanasrentistas.each do |iguanasrentista| %>
+     <% if iguanasrentista.id != @iguanasrentista.id %>
+  <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="iguanasrentista_<%= iguanasrentista.id%>">
+     <td width="90%" height="30" align="left" class="camposDesc"><%=iguanasrentista.persona.autobuscar rescue nil%></td>
+      <td width="10%" align="right" class="camposDesc">
+        <% if permiso("iguanasrentista","E").to_s == "S" %>
+        <%= link_to_remote('Borrar',{:url => iguana_iguanasrentista_path(@iguana, iguanasrentista), :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+        </td>
+ </tr>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :iguana, :id %>
+<% end %>
+<br/>
+<% if flash[:iguanasrentista] %>
+<div id="iguanasrentista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:iguanasrentista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('iguanasrentista');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,2 @@
+page.replace_html :personastramites_form, :partial => "/personastramites/personastramites"
+

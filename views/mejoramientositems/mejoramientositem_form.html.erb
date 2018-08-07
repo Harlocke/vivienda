@@ -1,0 +1,69 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">MEJORAMIENTOS ITEMS</div></td>
+              <td width="3%"><div align="right">
+              <% if permiso("mejoramientositem","C").to_s == "S" %>
+               <%= link_to image_tag('nuevo.png',
+                                { :border=>0, :title => "Nuevo"}),new_mejoramientositem_path %>
+              <% end %>
+               <%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),mejoramientositems_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <% form_for(@mejoramientositem) do |f| %>
+    <table width="60%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="30%" height="20" class="campos" align="left">Descripcion </td>
+        <td width="70%" class="camposDesc" align="left">
+<%=text_area(:mejoramientositem, :descripcion, :cols => 90, :rows => 5, :class => 'campo',:maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :mejoramientositem, :descripcion, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Unidad </td>
+        <td class="camposDesc" align="left"><%= f.text_field :unidad,{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :mejoramientositem, :unidad, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Valor </td>
+        <td class="camposDesc" align="left"><%= f.text_field :valor,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :mejoramientositem, :valor, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Actividad </td>
+        <td class="camposDesc" align="left">
+          <%=f.select("capitulo_id", Capitulo.find(:all, :order=>"descactividad").collect {|p| [ p.descactividad, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :mejoramientositem, :capitulo_id, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="60%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="60%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+           </div></td>
+      </tr>
+    </table>
+  <% end %>
+</div>
+<br/>
+

@@ -1,0 +1,82 @@
+<strong>CONSOLIDADO CORRESPONDENCIAS RECIBIDAS</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td><strong>NRO RADICADO </strong></td>
+    <td><strong>FECHA ELABORACION DOC. </strong></td>
+    <td><strong>NUMERO EXTERNO</strong></td>
+    <td><strong>REMITENTE IDENTIFICACION </strong></td>
+    <td><strong>REMITENTE EMPRESA </strong></td>
+    <td><strong>ASUNTO </strong></td>
+    <td><strong>DEPENDENCIA </strong></td>
+    <td><strong>ANEXOS</strong></td>
+    <td><strong>CLASE </strong></td>
+    <td><strong>OBSERVACIONES</strong></td>
+    <td><strong>RADICADO RESPUESTA</strong></td>
+    <td><strong>FECHA LIMITE</strong></td>
+    <td><strong>USUARIO REGISTRO</strong></td>
+    <td><strong>FECHA REGISTRO</strong></td>
+    <td><strong>ENTREGADO A </strong></td>
+    <td><strong>FECHA ENTREGA</strong></td>
+    <td><strong>DEPENDENCIA TRASLADO</strong></td>
+    <td><strong>RESPONSABLE RESPUESTA</strong></td>
+    <td><strong>RADICADO RESPUESTA</strong></td>
+  </tr>
+<%
+  for correspondenciasrecibida in @correspondenciasrecibidas
+%>
+  <tr valign="middle">
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.nro_radicado%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.fecha_elaboracion%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.numero_externo%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.persona.autobuscar rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.correspondenciasremitente.identificacion rescue nil%> - <%=correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.asunto%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.dependencia.descripcion rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.anexos%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.observacion%></td>
+    <td width="5%" class="camposDesc">
+      <% if Correspondenciasradicado.exists?(["correspondenciasrecibida_id = ? ", correspondenciasrecibida.id]) == true
+           @correspondenciasradicados = Correspondenciasradicado.find_all_by_correspondenciasrecibida_id(correspondenciasrecibida.id)
+           @correspondenciasradicados.each do |correspondenciasradicado|
+      %>
+              <%=correspondenciasradicado.correspondenciasenviada.nro_radicado rescue nil%> - Fecha : <%=correspondenciasradicado.correspondenciasenviada.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%> -
+          <% end %>
+      <% end %>
+    </td>
+    <td width="5%" class="camposDesc">'<%=correspondenciasrecibida.fecha_limite.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=correspondenciasrecibida.user.nombre rescue nil%></td>
+    <td width="5%" class="camposDesc">'<%=correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="5%" class="camposDesc"><%=User.find(correspondenciasrecibida.userrecibida_id).nombre rescue nil%></td>
+    <td width="5%" class="camposDesc">'<%=correspondenciasrecibida.fecharecibida.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="5%" class="camposDesc">
+      <% if Correspondenciasdependencia.exists?(["correspondenciasrecibida_id = ? ", correspondenciasrecibida.id]) == true
+           @correspondenciasdependencias = Correspondenciasdependencia.find_all_by_correspondenciasrecibida_id(correspondenciasrecibida.id)
+           @correspondenciasdependencias.each do |correspondenciasdependencia|
+      %>
+              <%=correspondenciasdependencia.dependencia.descripcion rescue nil%> -
+          <% end %>
+      <% end %>
+    </td>
+    <td width="5%" class="camposDesc">
+      <% if Correspondenciasrecibidasuser.exists?(["correspondenciasrecibida_id = ? ", correspondenciasrecibida.id]) == true
+           @correspondenciasrecibidasusers = Correspondenciasrecibidasuser.find_all_by_correspondenciasrecibida_id(correspondenciasrecibida.id)
+           @correspondenciasrecibidasusers.each do |correspondenciasrecibidasuser|
+      %>
+              <%=correspondenciasrecibidasuser.user.nombre rescue nil%> -
+          <% end %>
+      <% end %>
+    </td>
+    <td width="5%" class="camposDesc">
+      <% if Correspondenciasradicado.exists?(["correspondenciasrecibida_id = ? ", correspondenciasrecibida.id]) == true
+           @correspondenciasradicados = Correspondenciasradicado.find_all_by_correspondenciasrecibida_id(correspondenciasrecibida.id)
+           @correspondenciasradicados.each do |correspondenciasradicado|
+      %>
+          <%=correspondenciasradicado.correspondenciasenviada.nro_radicado rescue nil%> - Fecha : <%=correspondenciasradicado.correspondenciasenviada.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%>
+        <% end %>
+     <% end %>
+    </td>
+  </tr>
+<%   end %>
+</table>

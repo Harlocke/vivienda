@@ -1,0 +1,65 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciaenviadamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">REGISTROS MASIVOS DE CORRESPONDENCIAS ENVIADAS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="70%" border="0" align="center" cellpadding="1" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#FF0000">
+        <td height="30" colspan="2"><div align="left"><strong>RECOMENDACIONES PARA CARGUE DE INFORMACI&Oacute;N</strong></div></td>
+      </tr>
+      <tr>
+        <td width="120"><div align="center"><strong>1.</strong></div></td>
+        <td width="746">El archivo debe ser con extensión CSV y separado con (;) </td>
+      </tr>
+      <tr>
+        <td><div align="center"><strong>2.</strong></div></td>
+        <td>El orden de los campos es:</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Campo 1 : </strong>Identificacion</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<% form_for :dump, :url=>{:controller=>"correspondenciasenviadas", :action=>"csv_import"}, :html => { :multipart => true } do |f| -%>
+ <table width="90%" align="center">
+   <tr>
+     <td width="40%">
+      <label for="dump_file">
+        Seleccione el archivo a cargar :
+      </label>
+     </td>
+     <td width="60%" >
+       <%= f.file_field :file -%>
+     </td>
+   </tr>
+   <tr>
+     <td colspan='2'>
+       <div align="center"><%= submit_tag 'Cargar' -%></div></td>
+   </tr>
+</table>
+<% end -%>
+<% if flash[:notice] %>
+<div id="notice2">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:notice] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('notice2');", 5000)
+</script>
+<% end %>

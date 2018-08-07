@@ -1,0 +1,607 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;FICHA SEGUIMIENTO DE PROYECTOS (<%=@proyectosficha.proyecto.descripcion rescue nil%>)</div></td>
+              <td width="3%"><div align="right">
+          <%= link_to image_tag('atras.png',
+	                                           { :border=>0, :title => "Ver Proyectos"}),proyectos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/capacitaciones.png" border="0" title="Informacion Basica"/></a></li>
+        <li><a href="#tab2"><img src="/images/imagenes.png" border="0" title="Imagenes"/></a></li>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<% form_for :proyectosficha, :url => { :action => "update2", :id => @proyectosficha.id } do |f| %>
+  <%= f.error_messages %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORMACIÓN GENERAL</div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="12%" class="campos">Vigencia</td>
+        <td width="11%" class="campos">Nro Soluciones</td>
+        <td width="45%" class="campos">Ubicacion</td>
+        <td width="32%" class="campos">Responsable Diseños</td>
+      </tr>
+      <tr>
+         <td><%= select(:proyectosficha,
+                :vigencia, { "2009" => "2009",
+                             "2010" => "2010",
+                             "2011" => "2011",
+                             "2012" => "2012",
+                             "2013" => "2013",
+                             "2014" => "2014"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        <td><%= f.text_field :nro_viviendas,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :nro_viviendas, :css_class =>"cerror"%></td>
+        <td><%=select("proyectosficha", "comuna_id", Comuna.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:370px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        <td><%= f.text_field :responsable_disenos,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :responsable_disenos, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="51%" class="campos">Gerencia</td>
+        <td width="17%" class="campos">Vlr Contrato Gerencia</td>
+        <td width="32%" class="campos">Entidad Fiduciaria</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :gerente,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :gerente, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :vlr_gerencia,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :vlr_gerencia, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :entidad_financiera,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :entidad_financiera, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="35%" class="campos">Constructor</td>
+        <td width="15%" class="campos">Vlr Cont. Constructor</td>
+        <td width="35%" class="campos">Interventor</td>
+        <td width="15%" class="campos">Vlr Cont. Interventor</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :constructor,{ :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :constructor, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :vlr_constructor,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :vlr_constructor, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :interventor,{ :class => "campo", :size => 55,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :interventor, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :vlr_interventor,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :vlr_interventor, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="20%" class="campos">Presupuesto Inicial</td>
+        <td width="20%" class="campos">Costo Total</td>
+        <td width="60%" class="campos">Déficit sin cobertura</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :presupuesto_inicial,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :presupuesto_inicial, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :costo_total,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :costo_total, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :deficit_cobertura,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :deficit_cobertura, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc">EJECUCION DEL PROYECTO</div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="50%" class="campos">Etapa del Proyecto</td>
+        <td width="25%" class="campos">Acta vecindad Registro Fotográfico</td>
+        <td width="25%" class="campos">Acta inventario espacio público</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :etapa_proyecto,{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :etapa_proyecto, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :acta_vecindad,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_vecindad, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :acta_espacio,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_espacio, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="18%" class="campos">Porcentaje Programacion</td>
+        <td width="18%" class="campos">Porcentaje Ejecucion</td>
+        <td width="32%" class="campos">Actas de Obras pagadas</td>
+        <td width="17%" class="campos">Empleos Calificados</td>
+        <td width="19%" class="campos">Empleos No Calificados</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :por_avance_pro,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :por_avance_pro, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :por_avance_eje,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :por_avance_eje, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :actas_pagadas,{ :class => "campo", :size => 45,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :actas_pagadas, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :empleos_calificados,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :empleos_calificados, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :empleos_nocalificados,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :empleos_nocalificados, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="25%" class="campos">Culminacion Asquisicion Predios</td>
+        <td width="15%" class="campos">Fecha Inicio Obra</td>
+        <td width="30%" class="campos">Adiciones Contrato Construccion</td>
+        <td width="30%" class="campos">Adiciones Contrato Interventoria</td>
+      </tr>
+      <tr>
+        <td><%= calendar_date_select "proyectosficha", "fecha_fin_predio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_fin_predio, :css_class =>"cerror"%></td>
+        <td><%= calendar_date_select "proyectosficha", "fecha_inicio_obra", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_inicio_obra, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :adicion_construccion,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :adicion_construccion, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :adicion_interventoria,{ :class => "campo", :size =>40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :adicion_interventoria, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="50%" class="campos">Información de Polizas en Isvimed</td>
+        <td width="50%" class="campos">Fecha terminación Obra Contrato</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :polizas,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :polizas, :css_class =>"cerror"%></td>
+        <td><%= calendar_date_select "proyectosficha", "fecha_fin_obra", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_fin_obra, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc">SUBSIDIOS FAMILIARES DE VIVIENDA Y ASIGNACION DE VIVIENDA</div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="25%" class="campos">Nro Subsidios Nacionales Asignados</td>
+        <td width="25%" class="campos">Nro Subsidios Caja de Compensacion</td>
+        <td width="25%" class="campos">Asignacion Subsidios Municipales</td>
+        <td width="25%" class="campos">Sorteo Ubicacion de las Viviendas</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :subsidios_nacionales,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :subsidios_nacionales, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :subsidios_caja,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :subsidios_caja, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :subsidios_municipales,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :subsidios_municipales, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :sorteo,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :sorteo, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc">TERMINACION Y LIQUIDACION DEL PROYECTO</div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="20%" class="campos">Acta final interventoria</td>
+        <td width="20%" class="campos">Paz y salvo espacio publico</td>
+        <td width="22%" class="campos">Acta ejecucion de obras civiles</td>
+        <td width="20%" class="campos">Certificacion del Retie</td>
+        <td width="18%" class="campos">Recibo Redes Energia</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :acta_final_interventoria,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_final_interventoria, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :paz_salvo,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :paz_salvo, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :acta_ejecucion,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_ejecucion, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :certificacion_retie,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :certificacion_retie, :css_class =>"cerror"%></td>
+<td><%= f.text_field :recibo_energia,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :recibo_energia, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="24%" class="campos">Recibo Acueducto y Alcantarillado</td>
+        <td width="14%" class="campos">Acta Liq. Obra</td>
+        <td width="14%" class="campos">Planos record</td>
+        <td width="16%" class="campos">Acta Liq. Interventoria</td>
+        <td width="16%" class="campos">VoBo Poligonal Amarre</td>
+        <td width="16%" class="campos">Fecha recibo DAP</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :recibo_acueducto,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :recibo_acueducto, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :acta_liqobra,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_liqobra, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :planos_record,{ :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :planos_record, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :acta_liqinter,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :acta_liqinter, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :vobo_poligonal,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :vobo_poligonal, :css_class =>"cerror"%></td>
+        <td><%= calendar_date_select "proyectosficha", "fecha_dap", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_dap, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc">ACTIVIDADES DE ADAPTACION FAMILIAR Y COMUNITARIA AL HÁBITAT</div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="35%" class="campos">Sensibilización para la adaptación al hábitat</td>
+        <td width="35%" class="campos">Entrega de manuales de Mantenimiento</td>
+        <td width="30%" class="campos">Conformacion de Copropiedades</td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :sensibilizacion,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :sensibilizacion, :css_class =>"cerror"%></td>
+        <td><%= f.text_field :manuales,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :manuales, :css_class =>"cerror"%></td>
+       <td><%= f.text_field :copropiedades,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :copropiedades, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="12%" class="campos">Vigencia</td>
+        <td width="13%" class="campos">Nro Soluciones</td>
+        <td width="43%" class="campos">Ubicacion</td>
+        <td width="32%" class="campos">Responsable Diseños</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+<br/>
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="49%" align="right" class="campos">VALOR TOTAL ESTIMADO DEL PROYECTO </td>
+          <td width="2%">&nbsp;</td>
+          <td width="49%"><%= f.text_field :valor_proyecto,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :valor_proyecto, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">NUMERO DE LOCALES COMERCIALES </td>
+          <td>&nbsp;</td>
+          <td><%= f.text_field :nro_locales,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :nro_locales, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">INSTRUMENTO DE GESTI&Oacute;N DEL SUELO </td>
+          <td>&nbsp;</td>
+          <td><%= select(:proyectosficha,
+                :instrumento_gestion, { "MACROPROYECTO" => "1",
+                           "PLAN PARCIAL" => "2",
+                           "REGULARIZACION URBANISTICA" => "3",
+                           "PLANES DE SOLUCIONES DE VIVIENDA" => "4"},
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :proyectosficha, :instrumento_gestion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">TERMINACI&Oacute;N ESTUDIOS Y DISE&Ntilde;OS </td>
+          <td>&nbsp;</td>
+          <td><%= calendar_date_select "proyectosficha", "fecha_fin_estudios", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :nro_viviendas, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">FECHA DE ENTREGA A LAS FAMILIAS </td>
+          <td>&nbsp;</td>
+          <td><%= calendar_date_select "proyectosficha", "fecha_entrega", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_entrega, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">FECHA DE INAUGURACION </td>
+          <td>&nbsp;</td>
+          <td><%= calendar_date_select "proyectosficha", "fecha_inauguracion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_inauguracion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">PORCENTAJE DE EMPLEOS GENERADOS EN LA ZONA </td>
+          <td>&nbsp;</td>
+          <td><%= f.text_field :porcentaje_empleos,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :porcentaje_empleos, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">OBSERVACIONES PENDIENTES TEMAS CRITICOS </td>
+          <td>&nbsp;</td>
+          <td> <%= text_area :proyectosficha, :observaciones_general, { :class => "campoMultiLinea", :cols=>"80", :rows=>"5",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="3" class="campos">
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORMACIÓN JURIDICA</div></td>
+  </tr>
+</table>
+          </td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">NUMERO DE PREDIOS A ADQUIRIR PARA LA EJECUCION DEL PROYECTO </td>
+          <td>&nbsp;</td>
+          <td>    <%= f.text_field :nro_predios_adquirir,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :nro_predios_adquirir, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">NUMERO DE PREDIOS CON DIFICULTADES DE ADQUISICION </td>
+          <td>&nbsp;</td>
+          <td><%= f.text_field :nro_predios_dificiles,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :nro_predios_dificiles, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">NUMERO DE VIVIENDAS ESCRITURADAS </td>
+          <td>&nbsp;</td>
+          <td><%= f.text_field :nro_viviendas_esc,{ :class => "campo", :size => 25,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :nro_viviendas_esc, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">FECHA DE INICIO DE LICITACI&Oacute;N O CELEBRACI&Oacute;N DE CONTRATO DE FIDUCIA MERCANTIL </td>
+          <td>&nbsp;</td>
+          <td><%= calendar_date_select "proyectosficha", "fecha_inicio_licitacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_inicio_licitacion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">FECHA DE ADJUDICACI&Oacute;N </td>
+          <td>&nbsp;</td>
+          <td> <%= calendar_date_select "proyectosficha", "fecha_adjudicacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :proyectosficha, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr valign="middle">
+          <td align="right" class="campos">OBSERVACIONES PENDIENTES TEMAS CRITICOS </td>
+          <td>&nbsp;</td>
+          <td> <%= text_area :proyectosficha, :observaciones, { :class => "campoMultiLinea", :cols=>"80", :rows=>"5",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :proyectosficha, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+      <% unless @proyectosficha.new_record? %>
+      Ultima Actualización: <%=User.find(@proyectosficha.user_id).username rescue nil%> - <%=@proyectosficha.updated_at.strftime("%Y-%m-%d %X")%>
+    <% end %></td>
+    <td  height="30"><div align="right">
+        <% if permiso("proyectosficha","A").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% end %>
+        <%= link_to 'Mostrar', {:controller =>"proyectosfichas", :action=>"show" , :id => @proyectosficha.id},
+        {:popup => ['new_window','height=700,width=840,scrollbars=yes'], :class=>"verlink"}%>
+        <%= link_to 'Visualizar', {:controller =>"proyectosfichas", :action=>"visualizar" , :id => @proyectosficha.id},
+        {:popup => ['new_window','height=700,width=840,scrollbars=yes'], :class=>"verlink"}%>
+        </div></td>
+  </tr>
+</table>
+        
+<% end %>
+</fieldset>
+</div>
+<div class="panel" id="tab2">
+  <fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<% form_for :proyectosficha, :url => { :action => "update2", :id => @proyectosficha.id } do |f| %>
+    <% if permiso("proyectosfichasimagen","C").to_s == "S" %>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div align="right">
+              <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', proy_proyectosfichasimagenes_path(@proyectosficha.id)%></span></div>
+      </div></td>
+        </tr>
+      </table>
+    <%  end %>
+    <% proyectosfichasimagen = Proyectosfichasimagen.find_all_by_proyectosficha_id(@proyectosficha.id) %>
+    <table width="100%" border="0" align="center" cellspacing="1" cellpadding="1">
+      <tr>
+        <td class="oce-first" width="10%">Fecha</td>
+        <td class="oce-first" width="35%">Descripcion</td>
+        <td class="oce-first" width="40%">Nombre Archivo</td>
+        <td class="oce-first" width="15%">&nbsp;</td>
+      </tr>
+    </table>
+    <% proyectosfichasimagen.each do |proyectosfichasimagen| %>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" >
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td width="10%" class="camposDesc"><%=proyectosfichasimagen.created_at%></td>
+        <td width="35%" class="camposDesc"><%=proyectosfichasimagen.descripcion %></td>
+        <td width="40%" class="camposDesc"><%=proyectosfichasimagen.proyectosficha_file_name %></td>
+        <td width="15%"><div align="center">
+             <%= link_to "Ver", proyectosfichasimagen.proyectosficha.url(:original, false),
+                         { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+            <% if permiso("proyectosfichasimagen","E").to_s == "S" %>&nbsp;|
+       <%= link_to 'Borrar', proy_proyectosfichasimagen_path(@proyectosficha, proyectosfichasimagen),
+                :confirm => 'Esta Seguro de Eliminar?', :method => :delete, :class=>"borrarlink"%>
+       <%end%>
+      </div></td>
+      </tr>
+    </table>
+    <% end %>
+<% end %>
+    </fieldset>
+</div>
+

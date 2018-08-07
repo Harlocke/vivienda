@@ -1,0 +1,23 @@
+<p>
+  <b>Empleado:</b>
+  <%=h @empleadosgrupo.empleado_id %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%=h @empleadosgrupo.nombre %>
+</p>
+
+<p>
+  <b>Parentesco:</b>
+  <%=h @empleadosgrupo.parentesco %>
+</p>
+
+<p>
+  <b>Fecha nacimiento:</b>
+  <%=h @empleadosgrupo.fecha_nacimiento %>
+</p>
+
+
+<%= link_to 'Edit', edit_empleadosgrupo_path(@empleadosgrupo) %> |
+<%= link_to 'Back', empleadosgrupos_path %>

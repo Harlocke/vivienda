@@ -1,0 +1,42 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+            <td width="15%" align="left" class="campos">Identificacion</td>
+            <td width="35%" align="left" class="campos">Nombre</td>
+            <td width="35%" align="left" class="campos">Direccion</td>
+            <td width="15%" align="left" class="campos">Telefono</td>
+          </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%= text_field :titulacionesvecino, :identificacion,{ :class => "campo", :size => "15",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :titulacionesvecino, :identificacion, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= text_field :titulacionesvecino, :nombre,{ :class => "campo", :size => "45",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :titulacionesvecino, :nombre, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= text_field :titulacionesvecino, :direccion,{ :class => "campo", :size => "45",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :titulacionesvecino, :direccion, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= text_field :titulacionesvecino, :telefono,{ :class => "campo", :size => "15",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :titulacionesvecino, :telefono, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :titulacionesvecino, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

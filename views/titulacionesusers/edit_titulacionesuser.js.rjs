@@ -1,0 +1,2 @@
+page.replace_html :titulacionesusers_form, :partial => "/titulacionesusers/titulacionesusers"
+

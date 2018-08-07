@@ -1,0 +1,233 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>>
+    <br/>
+<% if @mejoramiento.just_fecha.to_s == "" %>
+    <div align="center" style="font-family: Tahoma; font-size: 24px;"><strong>DOCUMENTO NO VALIDO</strong></div>
+    <br/>
+<% end %>
+    <div align="center" style="font-family: Tahoma; font-size: 14px;"><strong>ACTA DE CAMBIOS DE OBRAS</strong></div><br/>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;">AUNAR ESFUERZOS TÉCNICOS, ADMINISTRATIVOS Y FINANCIEROS PARA REALIZAR LA SUPERVISIÓN TÉCNICA DE LAS EJECUCIONES DEL SUBSIDIO DE MEJORAMIENTO DE VIVIENDA EN LOS MUNICIPIOS DE MEDELLÍN, SAN RAFAEL, SAN FRANCISCO, SAN LUIS Y GRANADA ANTIOQUIA TANTO EN EL ÁREA URBANA COMO RURAL Y ACOMPAÑAMIENTO A LA EJECUCIÓN DE LOS CONVENIOS</div>
+    <br/><div align="center">
+<table width="80%" border="1" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <td colspan="2" class="campos"><strong>CONVENIO: </strong> <%=@mejoramiento.convenio.nro_convenio rescue nil%></td>
+    <td colspan="2" class="campos"><strong>RESOLUCI&Oacute;N: </strong> <%=@mejoramiento.resolucion.nro_resolucion rescue nil%></td>
+  </tr>
+  <% @contrato = Contrato.find(:first, :conditions => ["nro_contrato = '#{@mejoramiento.convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@mejoramiento.convenio.vigencia}'"]) %>
+  <tr class="odd1">
+    <td width="33%" class="campos"><strong>VALOR CONVENIO</strong></td>
+    <td width="33%"  class="campos" colspan="2"><strong>FECHA INICIO CONVENIO</strong></td>
+    <td width="33%" class="campos"><strong>FECHA DE TERMINACION CONVENIO</strong></td>
+  </tr>
+  <tr>
+    <td class="campos">$ <%=camponumerico(@mejoramiento.convenio.valor_diagnostico) rescue nil%>&nbsp;</td>
+    <td class="campos" colspan="2"><%=@contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+    <td class="campos"><%=@contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" colspan="4"><div align="justify"><strong>OBJETO CONVENIO : </strong> <br/><%=@contrato.objeto rescue nil %>&nbsp;</div></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos"><strong>VALOR RESOLUCION</strong></td>
+    <td class="campos" colspan="2"><strong>FECHA INICIO RESOLUCION</strong></td>
+    <td class="campos"><strong>FECHA DE TERMINACION RESOLUCION</strong></td>
+  </tr>
+  <tr>
+    <td class="campos">$ <%=camponumerico(@mejoramiento.valor_resolucion) rescue nil%>&nbsp;</td>
+    <td class="campos" colspan="2"><%=@mejoramiento.resolucion.fecha.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+    <td class="campos"><%=@mejoramiento.resolucion.fecha.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" colspan="4"><div align="justify"><strong>OBJETO RESOLUCION : </strong><br/> <%=@mejoramiento.resolucion.resuelve rescue nil%>&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td class="campos" colspan="4"><div align="justify"><strong>OPERADOR : </strong><br/><%=@mejoramiento.convenio.ejecutor rescue nil%>&nbsp;</div></td>
+  </tr>  
+  <tr class="odd1">
+    <td class="campos"><strong>BENEFICIARIO</strong></td>
+    <td class="campos" colspan="2"><strong>CEDULA</strong></td>
+    <td class="campos"><strong>DIRECCION</strong></td>
+  </tr>
+  <tr>
+    <td class="campos"><%=@mejoramiento.persona.nombres rescue nil%>&nbsp;</td>
+    <td class="campos" colspan="2"><%=@mejoramiento.persona.identificacion rescue nil%>&nbsp;</td>
+    <td class="campos"><%=@mejoramiento.persona.direccion rescue nil%>&nbsp;</td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos"><strong>VALOR SUBSIDIO</strong></td>
+    <td class="campos" colspan="2"><strong>VALOR EJECUTADO</strong></td>
+    <td class="campos"><strong>% EJECUTADO</strong></td>
+  </tr>
+  <tr>
+    <td class="campos">$ <%=camponumerico(@mejoramiento.valor_resolucion) rescue nil%>&nbsp;</td>
+    <td class="campos" colspan="2">$ <%=camponumerico(@mejoramiento.vlrejecutado + @mejoramiento.vlrejecutadoextra) rescue 0%></td>
+    <td class="campos"><%=camponumerico(@mejoramiento.vlrejecutadoporc + @mejoramiento.vlrejecutadoextraporc) rescue 0%> %</td>
+  </tr>
+</table>
+</div>
+<br/>
+<% if @mejoramiento.just_fecha.to_s == "" %>
+    <div align="center" style="font-family: Tahoma; font-size: 24px;"><strong>DOCUMENTO NO VALIDO</strong></div>
+    <br/>
+<% end %>
+<div align="justify" style="font-family: Tahoma; font-size: 14px;">
+El día <%=namedate(Time.now)%>, se reunieron los señores: El <strong>Dr(a). <%=@mejoramiento.convenio.representante_legal rescue nil%></strong>,
+por parte del operador <strong><%=@mejoramiento.convenio.ejecutor rescue nil%></strong>, el profesional <strong><%=@mejoramiento.convenio.coordinador rescue nil%></strong>,
+por parte de la Universidad de Medellín y el interventor del proyecto <strong><%=Sifi.find(25).valor rescue nil%></strong>,
+por parte del <strong>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</strong>, para determinar las obras adicionales y extras que se ejecutarán en las obras del mejoramiento, que se deben realizar en los mejoramientos, como parte fundamental de las labores del convenio.
+<br/><br/>
+Al respecto y con base en las visitas realizadas y en el <strong>ACTA DE APROBACIÓN DE PRECIOS NO CONVENIDOS</strong> del convenio y resolución, Obra Extra, se estimó la obra extra y adicional a ejecutar, y se valoró la obra contractual que no se ejecutará de manera que se cubran los costos de estas actividades adicionales y extras sin que se afecte el valor del subsidio.
+</div>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 14px;"><strong>JUSTIFICACIÓN: (<%=@mejoramiento.just_fecha.strftime("%Y-%m-%d") rescue nil%>) </strong><%=@mejoramiento.justificacion rescue nil%></div>
+<br/>
+<% if @mejoramiento.mejoramientoselementos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0"  class="sample">
+      <tr class="odd1">
+        <td colspan="5" class="campos"><div align="center">PRESUPUESTO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="70%"  class="campos">ITEM</td>
+        <td width="5%"  class="campos"><div align="center">UNIDAD</div></td>
+        <td width="5%"  class="campos"><div align="center">CANT</div></td>
+        <td width="8%"  class="campos"><div align="center">VALOR<br/>UNITARIO</div></td>
+        <td width="11%"  class="campos"><div align="center">VALOR<br/>TOTAL</div></td>
+      </tr>
+    <% @valoracum = 0
+       @valornormal = 0
+       @valoradmin = 0
+       for mejoramientoselemento in @mejoramiento.mejoramientoselementos.find(:all, :order =>"mejoramientositem_id asc") #each do |mejoramientoselemento|
+         if mejoramientoselemento.mejoramientositem_id.to_i !=  10043
+          @valoracum = @valoracum.to_i + Mejorainformeselemento.sum('valor_total',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i
+          #@valoracum = @valoracum.to_i + (Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_i * mejoramientoselemento.valor_unitario.to_i)
+            if mejoramientoselemento.cantidad.to_f > 0.0
+             @valornormal = @valornormal.to_i + mejoramientoselemento.valor_total.to_i
+            end
+         end
+         if Mejorainformeselemento.sum('cantidad',:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"]).to_f == 0.0
+           if mejoramientoselemento.cantidad.to_f > 0.0
+      %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientoselemento_<%= mejoramientoselemento.id%>">
+         <td height="20" class="camposDesc"><div align="justify"><%=mejoramientoselemento.mejoramientositem.consecutivo rescue nil%> -<%=mejoramientoselemento.mejoramientositem.descripcion rescue nil%>
+           <% @mejorainformeselementos = Mejorainformeselemento.find(:all,:conditions => ["mejoramientoselemento_id = #{mejoramientoselemento.id}"])
+              @mejorainformeselementos.each do |mejorainformeselemento| %>
+            <% if mejorainformeselemento.observacion.to_s != "" %>
+           <br/>
+           <strong>***** OBSERVACIONES:</strong> <%=mejorainformeselemento.observacion.to_s%>
+            <% end
+              if mejorainformeselemento.mejorainformescriterios.exists?
+                mejorainformeselemento.mejorainformescriterios.each do |mejorainformescriterio| %>
+           <br/>
+           <strong>***** CRITERIOS:</strong> <%=mejorainformescriterio.capituloscriterio.descripcion rescue nil%>
+          <%   end
+             end
+            end %></div></td>
+         <td class="camposDesc"><div align="center"><%=mejoramientoselemento.mejoramientositem.unidad rescue nil%></div></td>
+         <td class="camposDesc"><div align="center"><%=mejoramientoselemento.cantidad rescue nil%></div></td>
+         <td class="camposDesc"><div align="right">$ <%=number_to_currency(mejoramientoselemento.valor_unitario,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+         <td class="camposDesc"><div align="right">
+             <%  if mejoramientoselemento.mejoramientositem_id.to_i ==  10043 %>
+             $ 0
+             <%  else %>
+             $ <%=number_to_currency(mejoramientoselemento.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%>
+             <%  end %></div></td>
+     </tr>
+     <% end
+        end %>
+       <% end %>
+    <% end %>
+      <tr valign="middle">
+        <td height="20" align="left">&nbsp;</td>
+        <td colspan="3" class="campos"><div align="right">Total&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@valornormal) rescue 0%>&nbsp;&nbsp;</div></td>
+      </tr>
+    </table>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 14px;"><strong>BALANCE DE EJECUCIÓN DEL SUBSIDIO</strong></div>
+<br/>
+<div align="center">
+    <table width="60%" border="1" cellspacing="0" cellpadding="0"  class="sample">
+      <tr class="odd1">
+        <td width="60%" class="campos"><div align="center">CONCEPTO</div></td>
+        <td width="25%" class="campos"><div align="center">VALOR</div></td>
+        <td width="15%" class="campos"><div align="center">PORCENTAJE</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="left">VALOR DEL SUBSIDIO</div></td>
+        <td class="odd1 campos"><div align="right">$ <%=camponumerico(@mejoramiento.valor_resolucion) rescue nil%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">100%&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="left">OBRA CONTRACTUAL EJECUTADA</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutado) rescue nil%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutadoporc) rescue 0%> %&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="left">OBRA EXTRA EJECUTADA</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutadoextra) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutadoextraporc) rescue 0%> %&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="left">TOTAL EJECUTADO</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutado + @mejoramiento.vlrejecutadoextra) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.vlrejecutadoporc + @mejoramiento.vlrejecutadoextraporc) rescue 0%> %&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="left">TOTAL NO EJECUTADO</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@mejoramiento.valor_resolucion - (@mejoramiento.vlrejecutado + @mejoramiento.vlrejecutadoextra)) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(100 - (@mejoramiento.vlrejecutadoporc + @mejoramiento.vlrejecutadoextraporc)) rescue 0%> %&nbsp;&nbsp;</div></td>
+      </tr>      
+    </table>
+    </div>
+<br/><br/>
+<% if @mejoramiento.just_fecha.to_s == "" %>
+<div align="center" style="font-family: Tahoma; font-size: 24px;"><strong>DOCUMENTO NO VALIDO</strong></div>
+<% else %>
+     <div align="justify" style="font-family: Tahoma; font-size: 14px;">Para constancia se firma en la fecha señalada, por quienes en ella participan,</div>
+     <br/>
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="40" class="campos">&nbsp;</td>
+        <td width="50%" height="40" class="campos">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos"><%=@mejoramiento.convenio.representante_legal rescue nil%></td>
+        <td height="0" class="campos"><%=@mejoramiento.convenio.coordinador rescue nil%></td>
+      </tr>
+      <tr>
+        <td height="0" class="camposDesc">Representante Legal Operador<br/><%=@mejoramiento.convenio.ejecutor rescue nil%></td>
+        <td height="0" class="camposDesc">Coordinador de Campo<br/>UNIVERSIDAD DE MEDELLIN</td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="50" class="campos">&nbsp;</td>
+        <td width="50%" class="campos">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos"><%=@mejoramiento.convenio.interventor rescue nil%></td>
+        <td height="0" class="campos">GISELA LONDOÑO</td>
+      </tr>
+      <tr>
+        <td height="0" class="camposDesc">Ingeniero Auxiliar<br/>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</td>
+        <td height="0" class="camposDesc">Interventora<br/>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+</td>
+</tr>
+</table>
+</div>

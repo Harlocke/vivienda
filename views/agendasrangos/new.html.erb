@@ -1,0 +1,27 @@
+<h1>New agendasrango</h1>
+
+<% form_for(@agendasrango) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :agendasproceso %><br />
+    <%= f.text_field :agendasproceso %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicio %><br />
+    <%= f.date_select :fecha_inicio %>
+  </p>
+  <p>
+    <%= f.label :fecha_fin %><br />
+    <%= f.date_select :fecha_fin %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', agendasrangos_path %>

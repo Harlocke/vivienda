@@ -1,0 +1,20 @@
+<h1>Listing ocupaciones</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @ocupaciones.each do |ocupacion| %>
+  <tr>
+    <td><%=h ocupacion.descripcion %></td>
+    <td><%= link_to 'Show', ocupacion %></td>
+    <td><%= link_to 'Edit', edit_ocupacion_path(ocupacion) %></td>
+    <td><%= link_to 'Destroy', ocupacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ocupacion', new_ocupacion_path %>

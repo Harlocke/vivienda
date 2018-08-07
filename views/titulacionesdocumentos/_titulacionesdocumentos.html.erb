@@ -1,0 +1,200 @@
+</form>
+<% remote_form_for [@titulacion, @titulacionesdocumento] do |form| %>
+<% if !@titulacionesdocumento.id %>
+<% end %>
+<% if is_asigdemanda(@titulacion.id).to_s == "S" %>
+    <% @titulacionesdoctipos = Titulacionesdoctipo.find(:all, :conditions=>["id in (10,11)"], :order=>"id")
+       @titulacionesdoctipos.each do |titulacionesdoctipo|%>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="85%" colspan="2" height="20" class="oce-first"><%=titulacionesdoctipo.documento rescue nil%></td>
+            <td width="15%" height="20" >
+               <div align="center">
+               <% if @titulacion.titulacionespersonas.exists?%>
+               <%= link_to 'Adjuntar...',{:controller=>"titulacionesdocumentos", :action=>"new", :titulacion_id=>@titulacion.id, :titulacionesdoctipo_id=>titulacionesdoctipo.id},:class=>"imagenlink" %>
+               <% end%>
+            </div></td>
+          </tr>
+      <% for titulacionesdocumento in @titulacion.titulacionesdocumentos.find(:all,:conditions=>["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"], :order => 'created_at DESC') %>
+      <% if titulacionesdocumento.id != @titulacionesdocumento.id %>
+          <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> titulacionesdocumento_<%= titulacionesdocumento.id%>">
+            <td width="25%" height="30" class="camposDesc">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td rowspan="2"><% if titulacionesdocumento.estado.to_s == 'APROBADO' %>
+                                            <img src="/images/verde.png"/>
+                                        <% elsif  titulacionesdocumento.estado.to_s == 'RECHAZADO' %>
+                                            <img src="/images/rojo.png"/>
+                                        <% else %>
+                                            <img src="/images/amarillo.png"/>
+                                        <% end %></td>
+                         <td class="camposDesc" align="left"><%=titulacionesdocumento.created_at.strftime("%Y-%m-%d %X")%></td>
+                      </tr>
+                      <tr>
+                         <td class="camposDesc" align="left"><a title="<%=titulacionesdocumento.user.nombre rescue nil%>"><%=titulacionesdocumento.user.username rescue nil%></a></td>
+                      </tr>
+                    </table></td>
+            <td width="60%" class="camposDesc"><%=titulacionesdocumento.titudocumento_file_name rescue nil%>
+              <% if titulacionesdocumento.persona_id.to_i > 0 %>
+              <div style="font-size: 11px; font-family: Tahoma; color:red" align="left">Documento asociado a : <%=titulacionesdocumento.persona.autobuscar rescue nil%></div><%end%>
+            <% if titulacionesdocumento.estado.to_s == "RECHAZADO" %>
+              <div class="camposNotas">Observación: <%=titulacionesdocumento.observaciones rescue nil%> (Registrada por: <%=User.find(titulacionesdocumento.user_estado).username rescue nil%>)</div>
+            <% end %>
+            </td>
+            <td width="15%" class="camposDesc"><div align="center">
+              <%= link_to "Ver",titulacionesdocumento.titudocumento.url(:original, false),
+                                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+               <% if permiso("titulacionesdocjuridico","E").to_s == "S" %>
+               <%= link_to_remote('Borrar',{:url => titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                                          :method => :delete, :confirm => "¿Seguro?",
+                                        :before => "$(this).up('.titulacionesdocumento_#{titulacionesdocumento.id}').remove()"},
+                                        :class=>"borrarlink")%>
+                <% end %>
+                <% if permiso("titulacionesdocjuridico","C").to_s == "S" %><br/>
+              <%= link_to_remote('Aprobar',{:url => aprobar_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                            :method => :get}, :class=>"aplazalink", :title =>"Aprobar Documento")%>
+              <%= link_to_remote('Rechazar',{:url => edit_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                    :method => :get},:class=>"modlink", :title =>"Rechazar Documento")%>
+              <% end %></div>
+            </td>
+          </tr>
+      <% else %>
+         <%= render :partial => "titulacionesdocumentos_form" %>
+          <table>
+       <% end %>
+      <% end %>
+    </table>
+    <% end %>
+<% end %>
+<% if is_asigreconocimiento(@titulacion.id).to_s == "S" %>
+    <% @titulacionesdoctipos = Titulacionesdoctipo.find(:all,:conditions=>["id in (1,2,3,4,5,6,7,8,9)"], :order=>"id")
+       @titulacionesdoctipos.each do |titulacionesdoctipo|%>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="85%" colspan="2" height="20" class="oce-first">Reconocimiento - <%=titulacionesdoctipo.documento rescue nil%></td>
+            <td width="15%" height="20" >
+               <div align="center">
+               <% if @titulacion.titulacionespersonas.exists?%>
+               <%= link_to 'Adjuntar...',{:controller=>"titulacionesdocumentos", :action=>"new", :titulacion_id=>@titulacion.id, :titulacionesdoctipo_id=>titulacionesdoctipo.id},:class=>"imagenlink" %>
+               <% end%>
+            </div></td>
+          </tr>
+      <% for titulacionesdocumento in @titulacion.titulacionesdocumentos.find(:all,:conditions=>["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"], :order => 'created_at DESC') %>
+      <% if titulacionesdocumento.id != @titulacionesdocumento.id %>
+          <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> titulacionesdocumento_<%= titulacionesdocumento.id%>">
+            <td width="25%" height="30" class="camposDesc">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td rowspan="2"><% if titulacionesdocumento.estado.to_s == 'APROBADO' %>
+                                            <img src="/images/verde.png"/>
+                                        <% elsif  titulacionesdocumento.estado.to_s == 'RECHAZADO' %>
+                                            <img src="/images/rojo.png"/>
+                                        <% else %>
+                                            <img src="/images/amarillo.png"/>
+                                        <% end %></td>
+                         <td class="camposDesc" align="left"><%=titulacionesdocumento.created_at.strftime("%Y-%m-%d %X")%></td>
+                      </tr>
+                      <tr>
+                         <td class="camposDesc" align="left"><a title="<%=titulacionesdocumento.user.nombre rescue nil%>"><%=titulacionesdocumento.user.username rescue nil%></a></td>
+                      </tr>
+                    </table></td>
+            <td width="60%" class="camposDesc"><%=titulacionesdocumento.titudocumento_file_name rescue nil%>
+            <% if titulacionesdocumento.persona_id.to_i > 0 %>
+            <div style="font-size: 11px; font-family: Tahoma; color:red" align="left">Documento asociado a : <%=titulacionesdocumento.persona.autobuscar rescue nil%></div><%end%>
+            <% if titulacionesdocumento.estado.to_s == "RECHAZADO" %>
+              <div class="camposNotas">Observación: <%=titulacionesdocumento.observaciones rescue nil%> (Registrada por: <%=User.find(titulacionesdocumento.user_estado).username rescue nil%>)</div>
+            <% end %>
+            </td>
+            <td width="15%" class="camposDesc"><div align="center">
+              <%= link_to "Ver",titulacionesdocumento.titudocumento.url(:original, false),
+                                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                <% if permiso("titulacionesdocreconocimiento","E").to_s == "S" %>
+               <%= link_to_remote('Borrar',{:url => titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                                          :method => :delete, :confirm => "¿Seguro?",
+                                        :before => "$(this).up('.titulacionesdocumento_#{titulacionesdocumento.id}').remove()"},
+                                        :class=>"borrarlink")%>
+                <% end %>
+                <% if permiso("titulacionesdocreconocimiento","C").to_s == "S" %>
+                <br/>
+                <%= link_to_remote('Aprobar',{:url => aprobar_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                              :method => :get}, :class=>"aplazalink", :title =>"Aprobar Documento")%>
+                <%= link_to_remote('Rechazar',{:url => edit_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                      :method => :get},:class=>"modlink", :title =>"Rechazar Documento")%>
+              <% end %></div>
+            </td>
+          </tr>
+      <% else %>
+         <%= render :partial => "titulacionesdocumentos_form" %>
+          <table>
+       <% end %>
+      <% end %>
+    </table>
+    <% end %>
+<% end %>
+<% if is_asigsantaelena(@titulacion.id).to_s == "S" %>
+<%# logger.error("Fabian el mejor..."+@titulacion.variablesimagenes.to_s) %>
+    <% @titulacionesdoctipos = Titulacionesdoctipo.find_by_sql(["select * from titulacionesdoctipos where comunes = 'SI' #{@titulacion.variablesimagenes.to_s}"])
+       @titulacionesdoctipos.each do |titulacionesdoctipo|%>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="85%" colspan="2" height="20" class="oce-first">Santa Elena - <%=titulacionesdoctipo.documento rescue nil%></td>
+            <td width="15%" height="20" >
+               <div align="center">
+               <% if @titulacion.titulacionespersonas.exists?%>
+                 <%= link_to 'Adjuntar...',{:controller=>"titulacionesdocumentos", :action=>"new", :titulacion_id=>@titulacion.id, :titulacionesdoctipo_id=>titulacionesdoctipo.id},:class=>"imagenlink" %>
+               <% end %>
+            </div></td>
+          </tr>
+      <% for titulacionesdocumento in @titulacion.titulacionesdocumentos.find(:all,:conditions=>["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"], :order => 'created_at DESC') %>
+      <% if titulacionesdocumento.id != @titulacionesdocumento.id %>
+          <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> titulacionesdocumento_<%= titulacionesdocumento.id%>">
+            <td width="25%" height="30" class="camposDesc">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td rowspan="2"><% if titulacionesdocumento.estado.to_s == 'APROBADO' %>
+                                            <img src="/images/verde.png"/>
+                                        <% elsif  titulacionesdocumento.estado.to_s == 'RECHAZADO' %>
+                                            <img src="/images/rojo.png"/>
+                                        <% else %>
+                                            <img src="/images/amarillo.png"/>
+                                        <% end %></td>
+                         <td class="camposDesc" align="left"><%=titulacionesdocumento.created_at.strftime("%Y-%m-%d %X")%></td>
+                      </tr>
+                      <tr>
+                         <td class="camposDesc" align="left"><a title="<%=titulacionesdocumento.user.nombre rescue nil%>"><%=titulacionesdocumento.user.username rescue nil%></a></td>
+                      </tr>
+                    </table></td>
+            <td width="60%" class="camposDesc"><%=titulacionesdocumento.titudocumento_file_name rescue nil%>
+            <% if titulacionesdocumento.persona_id.to_i > 0 %><br/><em><%=titulacionesdocumento.persona.autobuscar rescue nil%></em><%end%>
+            <% if titulacionesdocumento.estado.to_s == "RECHAZADO" %>
+              <div class="camposNotas">Observación: <%=titulacionesdocumento.observaciones rescue nil%> (Registrada por: <%=User.find(titulacionesdocumento.user_estado).username rescue nil%>)</div>
+            <% end %>
+            </td>
+            <td width="15%" class="camposDesc"><div align="center">
+              <%= link_to "Ver",titulacionesdocumento.titudocumento.url(:original, false),
+                                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+          <% if permiso("titulacionesdocreconocimiento","E").to_s == "S" %>
+               <%= link_to_remote('Borrar',{:url => titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                                          :method => :delete, :confirm => "¿Seguro?",
+                                        :before => "$(this).up('.titulacionesdocumento_#{titulacionesdocumento.id}').remove()"},
+                                        :class=>"borrarlink")%>
+            <%end%>
+            <% if permiso("titulacionesdocreconocimiento","C").to_s == "S" %><br/>
+                <%= link_to_remote('Aprobar',{:url => aprobar_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                              :method => :get}, :class=>"aplazalink", :title =>"Aprobar Documento")%>
+                <%= link_to_remote('Rechazar',{:url => edit_titulacion_titulacionesdocumento_path(@titulacion, titulacionesdocumento),
+                      :method => :get},:class=>"modlink", :title =>"Rechazar Documento")%>
+              <% end %></div>
+            </td>
+          </tr>
+      <% else %>
+         <%= render :partial => "titulacionesdocumentos_form" %>
+          <table>
+       <% end %>
+      <% end %>
+    </table>
+    <% end %>
+<% end %>
+     <%= hidden_field :titulacion, :id %>
+  <% end %>
+

@@ -1,0 +1,2 @@
+module EmpleadoscapacitacionesHelper
+end

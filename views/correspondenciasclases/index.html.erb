@@ -1,0 +1,22 @@
+<h1>Listing correspondenciasclases</h1>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @correspondenciasclases.each do |correspondenciasclase| %>
+  <tr>
+    <td><%=h correspondenciasclase.codigo %></td>
+    <td><%=h correspondenciasclase.descripcion %></td>
+    <td><%= link_to 'Show', correspondenciasclase %></td>
+    <td><%= link_to 'Edit', edit_correspondenciasclase_path(correspondenciasclase) %></td>
+    <td><%= link_to 'Destroy', correspondenciasclase, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New correspondenciasclase', new_correspondenciasclase_path %>

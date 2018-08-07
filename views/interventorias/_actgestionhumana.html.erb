@@ -1,0 +1,76 @@
+<div align="center">
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">OBLIGACION DEL CONTRATO</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="3%" class="oce-first">&nbsp;</td>
+        <td width="91%" height="30" class="oce-first">Actividad</td>
+        <td width="5%" class="oce-first">&nbsp;</td>
+      </tr>
+   <% for interactividad in @interventoria.interactividades.find(:all,:conditions=>["actividad like '%%PAGOS%%DE%%SEGURIDAD%%SOCIAL%%'"]) %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDescN"><div align="center"><%=h interactividad.consecutivo %>.</div></td>
+        <td class="camposDesc"><div align="justify"><strong><%=h interactividad.actividad %></strong></div>
+          <div align="justify"><%=replaceenter(interactividad.desarrollo) rescue nil %></div>
+         <%  if interactividad.interactimagenes.exists? %>
+              <div align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="90%" height="20" class="oce-first">Soporte Digital - Descripcion y Nombre del documento</td>
+                    <td width="10%" height="20" class="oce-first"></td>
+                  </tr>
+                  <% interactividad.interactimagenes.each do |interactimagen| %>
+                  <tr>
+                    <td class="camposDesc"><%=interactimagen.descripcion rescue nil%> - <%=interactimagen.interactividad_file_name rescue nil%></td>
+                    <td class="camposDesc"><%= link_to "Ver",interactimagen.interactividad.url(:original, false),
+                                         { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                    </td>
+                  </tr>
+                  <% end %>
+                </table>
+              </div>
+          <% end %>
+          <% if interactividad.interactobservaciones.exists? %>
+              <div align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="95%" height="20" class="oce-first">Observaciones registradas</td>
+                    <td width="5%" height="20" class="oce-first"></td>
+                  </tr>
+                  <% interactividad.interactobservaciones.each do |interactobservacion| %>
+                  <tr valign="middle" class="interactobservacion_<%=interactobservacion.id%>">
+                    <td class="camposDesc"><div align="justify"><%=interactobservacion.obs rescue nil%></div></td>
+                    <td class="camposDesc"><div align="center">
+                       <%=link_to_remote(image_tag("borrar.png"), {
+                          :url => interactobservacion_path(interactobservacion),
+                          :method => :delete,
+                          :confirm => "Seguro?",
+                          :before => "$(this).up('.interactobservacion_#{interactobservacion.id}').remove()" },
+                          :title=>"Borrar Observación")%></div>
+                    </td>
+                  </tr>
+                  <% end %>
+                </table>
+              </div>
+          <% end %>
+          <br/>
+        </td>
+        <td class="camposDesc"><div align="center"><%= link_to image_tag("editar.png"), {:controller=>"interactobservaciones", :action=>"new", :i=>interactividad.id}, :title=>"Registrar Observación"%>
+          <% if interactividad.interobsant.to_s == 'S' %>
+               <%= link_to image_tag('rojo1.png'), {:controller=>"interactobservaciones", :action=>"verificar", :estudiosactividad_id=>interactividad.estudiosactividad_id},:title=>"Actividad con observaciones anteriores",:Onclick => "return GB_showCenter('Observaciones', this.href, 400, 600)"%><br/><br/>
+          <% end %></div></td>
+      </tr>
+    <% end %>
+    </table><br/>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+      <tr>
+         <td height="50" width="45%"><div align="center"><div class="uiButton"><img class="img" src="/images/connect.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%=link_to 'Aprobar informe', {:controller=>"interventorias", :action=>"aprobargh", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%></span></div></div></td>
+         <td width="10%">&nbsp;</td>
+         <td width="45%"><div align="center"><div class="uiButton"><img class="img" src="/images/delete.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%=link_to 'Rechazar informe', {:controller=>"interventorias", :action=>"rechazargh", :id=>@interventoria.id}, :confirm=>"Esta seguro???" %></span></div></div></td>
+      </tr>
+    </table>
+    <br/>
+</div>

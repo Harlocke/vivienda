@@ -1,0 +1,231 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/crucesminambientemin.png" width="64" height="64"/></td>
+          <td width="97%"><div class="col_enc">&nbsp;&nbsp;SOLICITUDES - <%=User.find(is_admin).nombre rescue nil%></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<%= link_to image_tag("pendientes.png", :title => "Cruces Ministerio Pendientes", :style=>"#{@user.d_etapa('1')} padding:4px;"),cruces_path(:etapa=>"1")%>
+<%= link_to image_tag("en_tramite.png", :title => "Cruces Ministerio En tramite", :style=>"#{@user.d_etapa('2')} padding:4px;"),cruces_path(:etapa=>"2")%>
+<%= link_to image_tag("terminada.png", :title => "Cruces Ministerio Terminadas", :style=>"#{@user.d_etapa('3')} padding:4px;"),cruces_path(:etapa=>"3")%>
+------
+<%= link_to image_tag("pendientes.png", :title => "ZR Pendientes", :style=>"#{@user.d_etapa('4')} padding:4px;"),cruces_path(:etapa=>"4")%>
+<%= link_to image_tag("en_tramite.png", :title => "ZR En tramite", :style=>"#{@user.d_etapa('5')} padding:4px;"),cruces_path(:etapa=>"5")%>
+<%= link_to image_tag("terminada.png", :title => "ZR Terminadas", :style=>"#{@user.d_etapa('6')} padding:4px;"),cruces_path(:etapa=>"6")%>
+
+<% if @user.etapa.to_s == '1' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">CRUCES PENDIENTES (<%= @crucessolicitudes.count.to_i%>) </div></td>
+        </tr>
+      </table>
+      <div align="center">
+        <% if @crucessolicitudes.count.to_i > 0%>
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="15%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="55%" class="oce-first">Solicitante</td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Solicitud</div></td>
+            <td width="15%" class="oce-first"><div align="center">Cantidad</div></td>
+          </tr>
+        <% @crucessolicitudes.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.created_at.strftime("%d-%m-%y %X") %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+          </tr>
+        <% end %>
+        </table>
+          <div align="center" class="camposDesc"><%= link_to 'Iniciar Tramite', generar_crucessolicitudes_path(:clase=>"CRUCE"), :class=>"verlink", :confirm=>"Esta Seguro que desea iniciar el proceso?" %></div>          
+      <% else %>
+        <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+          <tr>
+            <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+            <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+         </tr>
+        </table>      
+      <% end%>
+      </div>
+    </fieldset>
+<% elsif @user.etapa.to_s == '2' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">CRUCES EN TRAMITE (<%= @crucessolicitudese.count.to_i%>) </div></td>
+        </tr>
+      </table>
+      <div align="center" class="camposDesc">
+      <% if @crucessolicitudese.count.to_i > 0%>
+        <%= link_to 'Generar Excel', excel_crucessolicitudes_path(:clase=>"CRUCE"), :class=>"verlink"%> - <%= link_to 'Cargar SIFI', import_cruces_path, :class=>"verlink"%> -<%= link_to 'Terminar', terminar_crucessolicitudes_path(:clase =>"CRUCE"), :class=>"verlink", :confirm=>"Esta Seguro que desea terminar el proceso?"%>
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="10%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="40%" class="oce-first">Solicitante</td>
+            <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Atención</div></td>
+            <td width="30%" class="oce-first">Atendido por</td>
+          </tr>
+        <% @crucessolicitudese.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.updated_at.strftime("%d-%m-%y %X") %></div></td>
+            <td class="camposDesc"><%=User.find(crucessolicitud.user_atencion).nombre rescue nil %></td>
+          </tr>
+        <% end %>
+        </table>
+      <% else %>
+        <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+          <tr>
+            <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+            <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+         </tr>
+        </table>      
+      <% end%>
+      </div>
+    </fieldset>
+<% elsif @user.etapa.to_s == '3' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">CRUCES TERMINADAS (<%= @crucessolicitudest.count.to_i%>) </div></td>
+        </tr>
+      </table>    
+      <div align="center">
+        <div align="center" class="camposDesc"><%= link_to 'Ver todos', vertodos_crucessolicitudes_path(:clase =>'CRUCE'), :class=>"verlink"%></div>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="10%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="40%" class="oce-first">Solicitante</td>
+            <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Atención</div></td>
+            <td width="30%" class="oce-first">Atendido por</td>
+          </tr>
+        <% @crucessolicitudest.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.updated_at.strftime("%d-%m-%Y %X") %></div></td>
+            <td class="camposDesc"><%=User.find(crucessolicitud.user_atencion).nombre rescue nil %></td>
+          </tr>
+        <% end %>
+        </table>
+        <div align="center" class="camposDesc"><%= link_to 'Ver todos', vertodos_crucessolicitudes_path(:clase=>"CRUCE"), :class=>"verlink"%></div>
+      </div>
+    </fieldset>
+<% elsif @user.etapa.to_s == '4' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">ZR PENDIENTES (<%= @crucessolicitudes.count.to_i%>) </div></td>
+        </tr>
+      </table>
+      <div align="center">
+        <% if @crucessolicitudes.count.to_i > 0%>
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="15%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="55%" class="oce-first">Solicitante</td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Solicitud</div></td>
+            <td width="15%" class="oce-first"><div align="center">Cantidad</div></td>
+          </tr>
+        <% @crucessolicitudes.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.created_at.strftime("%d-%m-%y %X") %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+          </tr>
+        <% end %>
+        </table>
+          <div align="center" class="camposDesc"><%= link_to 'Iniciar Tramite', generar_crucessolicitudes_path(:clase=>"ZR"), :class=>"verlink", :confirm=>"Esta Seguro que desea iniciar el proceso?" %></div>          
+      <% else %>
+        <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+          <tr>
+            <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+            <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+         </tr>
+        </table>      
+      <% end%>
+      </div>
+    </fieldset>
+<% elsif @user.etapa.to_s == '5' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+        <td height="30" align="left"><div class="col_enc">ZR EN TRAMITE (<%= @crucessolicitudese.count.to_i%>)  - <%= link_to 'Cargar ZR en el SIFI', new_crucesimagen_path, :class=>"verlink"%></div></td>
+        </tr>
+      </table>
+      <div align="center" class="camposDesc">
+      <% if @crucessolicitudese.count.to_i > 0%>
+        <%= link_to 'Generar Excel', excel_crucessolicitudes_path(:clase=>"ZR"), :class=>"verlink"%>  -<%= link_to 'Terminar', terminar_crucessolicitudes_path(:clase =>"ZR"), :class=>"verlink", :confirm=>"Esta Seguro que desea terminar el proceso?"%>
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="10%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="40%" class="oce-first">Solicitante</td>
+            <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Atención</div></td>
+            <td width="30%" class="oce-first">Atendido por</td>
+          </tr>
+        <% @crucessolicitudese.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.updated_at.strftime("%d-%m-%y %X") %></div></td>
+            <td class="camposDesc"><%=User.find(crucessolicitud.user_atencion).nombre rescue nil %></td>
+          </tr>
+        <% end %>
+        </table>
+      <% else %>
+        <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+          <tr>
+            <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+            <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+         </tr>
+        </table>      
+      <% end%>
+      </div>
+    </fieldset>
+<% elsif @user.etapa.to_s == '6' %>
+    <fieldset>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">ZR TERMINADAS (<%= @crucessolicitudest.count.to_i%>) </div></td>
+        </tr>
+      </table>    
+      <div align="center">
+        <div align="center" class="camposDesc"><%= link_to 'Ver todos', vertodos_crucessolicitudes_path(:clase =>'ZR'), :class=>"verlink"%></div>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+          <tr>
+            <td width="10%" height="20" class="oce-first"><div align="center">Consecutivo</div></td>
+            <td width="40%" class="oce-first">Solicitante</td>
+            <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+            <td width="15%" class="oce-first"><div align="center">Fecha Atención</div></td>
+            <td width="30%" class="oce-first">Atendido por</td>
+          </tr>
+        <% @crucessolicitudest.each do |crucessolicitud| %>
+          <tr class="<%=cycle('even1', 'odd1')%> postS_<%=crucessolicitud.id%>">
+            <td class="camposDesc" height="20"><div align="center"><%=h crucessolicitud.consecutivo %></div></td>
+            <td class="camposDesc"><%=h crucessolicitud.user.nombre %></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.cantidad %></div></td>
+            <td class="camposDesc"><div align="center"><%=h crucessolicitud.updated_at.strftime("%d-%m-%Y %X") %></div></td>
+            <td class="camposDesc"><%=User.find(crucessolicitud.user_atencion).nombre rescue nil %></td>
+          </tr>
+        <% end %>
+        </table>
+        <div align="center" class="camposDesc"><%= link_to 'Ver todos', vertodos_crucessolicitudes_path(:clase=>"ZR"), :class=>"verlink"%></div>
+      </div>
+    </fieldset>
+<% end %>
+<br/><br/>

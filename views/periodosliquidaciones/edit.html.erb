@@ -1,0 +1,28 @@
+<h1>Editing periodosliquidacion</h1>
+
+<% form_for(@periodosliquidacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :codigo %><br />
+    <%= f.text_field :codigo %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicial %><br />
+    <%= f.date_select :fecha_inicial %>
+  </p>
+  <p>
+    <%= f.label :fecha_final %><br />
+    <%= f.date_select :fecha_final %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @periodosliquidacion %> |
+<%= link_to 'Back', periodosliquidaciones_path %>

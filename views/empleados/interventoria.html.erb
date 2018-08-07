@@ -1,0 +1,67 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMES - <%=@empleado.nombres rescue nil%></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+<% @empleado.contratos.each do |contrato|
+   @objetos = Objeto.find_by_sql("select distinct to_number(to_char(fecha,'MM')) mes, to_char(fecha,'YYYY') ano, to_char(fecha,'MM') mesc
+                                 from   fechascontables
+                                 where  fecha between to_date('#{contrato.fecha_inicio.strftime("%d-%m-%Y") rescue nil}','dd-mm-yyyy') and to_date('#{contrato.fecha_final.strftime("%d-%m-%Y") rescue nil}','dd-mm-yyyy')
+                                 order by to_number(to_char(fecha,'MM')), to_char(fecha,'YYYY')")
+%>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="70%" height="30" class="oce-first">Contrato</td>
+    <td width="30%" class="oce-first"><div align="center">Periodos</div></td>
+  </tr>
+   <tr valign="middle">
+     <td class="camposDesc"><div align="justify">
+           <strong>Contrato número:</strong> <%=contrato.nro_contrato%> de <%=contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=contrato.fecha_firma.strftime("%Y") rescue nil%><br/>
+           <strong>Tipo de Contrato:</strong> CONTRATO DE <%=contrato.tiposcontrato.descripcion rescue nil%><br/>
+           <strong>Objeto del Contrato:</strong><%=contrato.objeto%><br/>
+           <strong>Valor total del Contrato:</strong> $ <%=number_to_currency(contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if contrato.valor_contrato.to_i >= 1000000000%>
+                 <%=numero_a_palabras(contrato.valor_contrato.to_i)%>
+              <% else %>
+                 <%=contrato.valor_contrato.to_i.to_words.upcase%>
+              <% end %> PESOS M/L)<br/>
+          <strong>Valor mensual:</strong> $ <%=number_to_currency(contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)<br/>
+          <strong>Duración del Contrato:</strong><% if contrato.plazo_mes.to_i > 0 %>
+                   <%=contrato.plazo_mes%> meses -
+                <% end %>
+                <% if contrato.plazo_dias.to_i > 0 %>
+                   <%=contrato.plazo_dias%> dias
+                 <% end %> ** <strong>Fecha Inicio:</strong> <%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+           </div></td>
+     <td class="camposDesc"><div align="center">
+        <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+          <tr valign="middle">
+            <td width="30%" height="20" class="oce-first"><div align="center">Año</div></td>
+            <td width="40%" class="oce-first">Mes</td>
+            <td width="30%" class="oce-first"></td>
+          </tr>
+         <% @objetos.each do |objeto| %>
+           <tr valign="middle">
+             <td class="camposDesc"><div align="center"><%=objeto.ano%></div></td>
+             <td class="camposDesc"><div align="left"><%=descmesmin(objeto.mes) rescue nil%></div></td>
+             <td class="camposDesc"><div align="center">
+                 <%= link_to 'Informe', {:controller=>"interventorias", :action=>"validar", :contrato_id=>contrato.id, :ano=>objeto.ano, :mes=>objeto.mes}, :class=>"rubrolink"%>
+               </div></td>
+           </tr>
+         <% end %>
+        </table>
+       </div></td>
+   </tr>
+</table>
+
+<br/>
+<% end %>
+

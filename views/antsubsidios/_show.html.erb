@@ -1,0 +1,29 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">SUBSIDIOS ANTERIORES</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="25%" height="20" class="oce-first">Elimina Usuario - Fecha</td>
+    <td width="25%" height="20" class="oce-first">Tipo Subsidio</td>
+    <td width="12%" class="oce-first">Valor Asignado</td>
+    <td width="13%" class="oce-first">Nro Resolucion</td>
+    <td width="20%" class="oce-first">Estado</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @persona.antsubsidios.each do |antsubsidio| %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+   <tr  valign="middle" id="antsubsidio_<%=antsubsidio.id%>">
+    <td width="25%" class="camposDesc"><%=antsubsidio.user.username rescue nil%> - <%=antsubsidio.created_at.strftime("%Y-%m-%d %X")%></td>
+    <td width="25%" height="20" class="camposDesc"><%=antsubsidio.tipos_subsidio.descripcion rescue nil%></td>
+    <td width="12%" class="camposDesc">$ <%=number_to_currency(antsubsidio.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="13%" class="camposDesc"><%=antsubsidio.resolucion%></td>
+    <td width="20%" class="camposDesc"><%=antsubsidio.estadoantsubsidio%></td>
+    <td width="5%" class="camposDesc">
+      <%= link_to "Ver", {:controller => "antsubsidios", :action => "visualizar", :id=>antsubsidio.id}, :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"%>
+    </td>
+ </tr>
+</table>
+<% end %>

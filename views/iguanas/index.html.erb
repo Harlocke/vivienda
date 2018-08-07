@@ -1,0 +1,200 @@
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%"><img src="/images/iguanamin.png" width="64" height="64"/></td>
+    <td width="87%"><div class="col_enc">&nbsp;&nbsp;INFORMACION ADQUISICION / OBRA PUBLICA / INFRAESTRUCTURA DE TRANSPORTE</div></td>
+    <td width="10%"><div align="right"> 
+        <% if permiso("obrapublica","C").to_s == "S" %>
+          <%= link_to image_tag('database_add.png',{ :border=>0, :title => "Nuevo registro Obra Publica"}),new_iguana_path(:tipo => 'OBRAPUBLICA') %>
+        <% end %>
+        <% if permiso("sanluis","C").to_s == "S" %>
+          <%= link_to image_tag('database_add.png',{:border=>0, :title =>"Nuevo registro San Luis"}),new_iguana_path(:tipo => 'SANLUIS') %>
+        <% end %>
+        <% if permiso("cablepicacho","C").to_s == "S" %>
+          <%= link_to image_tag('database_add.png',{:border=>0, :title =>"Nuevo registro Cable Picacho"}),new_iguana_path(:tipo => 'CABLEPICACHO') %>
+        <% end %>
+        <% if permiso("iguana","C").to_s == "S" %>
+          <%= link_to image_tag('database_add.png', { :border=>0, :title => "Nuevo registro Adquisicion"}),new_iguana_path(:tipo => 'ADQUISICION') %>
+        <% end %></div></td>
+  </tr>
+</table>
+<br/>
+<div align="center">
+  <% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+      <table width="75%" border="0" cellpadding="0" cellspacing="0">
+        <tr class="odd1">
+          <td width="30%" height="20" class="campos"><div align="left">Proyecto</div></td>
+          <td width="70%" class="camposDesc"><div align="left">
+            <%= select("ubicacion",:proyecto,select_iguanaproyectos, { :include_blank => true },
+                          { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            </div></td>
+        </tr>
+        <tr>
+          <td height="20" class="campos"><div align="left">Tipo de Proyecto</div></td>
+          <td class="camposDesc"><div align="left">
+            <%= select("ubicacion",:tipo,select_clase, { :include_blank => true },
+                          { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            </div></td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos"><div align="left">Identificación</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+                                                       :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                                                       :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr>
+          <td height="20" class="campos"><div align="left">Matricula Inmueble</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :inmueble, params[:inmueble],{ :class => "campo", :size => 20,
+                                                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos"><div align="left">Matricula Ficticia</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :ficticia, params[:ficticia],{ :class => "campo", :size => 20,
+                                                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr>
+          <td height="20" class="campos"><div align="left">Nro de Plano</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :nro_registro, params[:nro_registro],{ :class => "campo", :size => 20,
+                                                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos"><div align="left">Encuesta y/o Ficha socioeconomica</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :encuesta, params[:encuesta],{ :class => "campo", :size => 20,
+                                                              :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr >
+          <td height="20" class="campos"><div align="left">Cobama</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :cobama, params[:cobama],{ :class => "campo", :size => 20,
+                                                              :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr >
+          <td height="20" class="campos" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>        
+        <tr >
+          <td height="20" class="campos"><div align="left"></div></td>
+          <td class="camposDesc"><div align="left">
+            <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+              <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %></span></div>
+            <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+              <%= submit_tag "Buscar", :name => 'format', :value => 'xls' %></span></div>
+            <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+              <%= link_to 'Notas', {:controller => "iguanasestados", :action => "index"} %></span></div>        
+          </div>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<% if @iguanas.count.to_i > 0 %>
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="40%" height="30" class="oce-first"><div align="left">Proyecto</div></td>
+        <td width="40%" class="oce-first"><div align="left">Personas</div></td>
+        <td width="15%" class="oce-first"><div align="left">Estado</div></td>
+        <td width="5%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @iguanas.each do |iguana| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td height="20" class="camposDesc"><div align="left"><%=h iguana.proyecto %>
+          <br/><strong>Tipo reasentamiento: </strong><%=iguana.sector %>
+          <br/><strong>Cobama: </strong><%=iguana.cobama %> - <strong>Matricula: </strong><%=iguana.matricula %>
+        </div></td>
+        <td class="camposDesc"><div align="left">
+          <% if iguana.iguanaspersonas.exists? %>
+            <% iguana.iguanaspersonas.each do |a| %>
+              <small><%=a.persona.identificacion %> - <%=a.persona.nombres rescue nil%></small><br/>
+            <% end %>
+          <% else %> 
+              <strong><small>NO HAY INFORMACION ASOCIADA....</small></strong>
+          <% end %>
+        </div></td>
+        <td class="camposDesc"><div align="left"><%=iguana.iguanasestado.descripcion rescue nil%></div></td>        
+        <td class="camposDesc"><div align="center"><%= link_to 'Ver', edit_iguana_path(:id=>iguana.id, :etapa=>"1"),:class=>"editarlink"%></div></td>
+      </tr>
+    <% end %>
+    </table>
+    <br/>
+    <table width="90%" border="0" cellpadding="0" cellspacing="0">
+      <tr><td width="100%" class="camposDesc"><div align="center"><%= will_paginate @iguanas, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td></tr>
+      <tr><td width="100%" class="camposDesc"><div align="center"><strong>Total Registros:</strong> <%= @iguanas.total_entries %></div></td></tr>
+    </table>
+    <br/>
+<% end %>
+
+
+<!-- Buscador de INFORME DE PAGOS -->
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORME DE PAGOS</div></td>
+  </tr>
+</table>
+<% form_tag informespago_iguanas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="27%" class="campos odd1">Seleccion el Proyecto para ver el informe de Pagos</td>
+    <td width="27%"><%= select("ubicacion","proyecto", select_iguanapagos,
+                        { :include_blank => true },
+                        { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </span></td>
+     </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Informe de Pagos" %>
+      </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>
+
+
+<!-- Buscador de CONSOLIDADO POR PROYECTO -->
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CONSOLIDADO POR PROYECTO</div></td>
+  </tr>
+</table>
+<% form_tag consolidado_iguanas_path, :method => 'get' do %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="27%"  class="campos odd1">Seleccione el proyecto</td>
+    <td class="camposDesc"><%= select("ubicacion","proyecto",select_iguanaproyectos,
+                              { :include_blank => true },
+                              { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+      </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'format', :value => 'xls' %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>

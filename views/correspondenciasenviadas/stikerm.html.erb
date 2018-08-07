@@ -1,0 +1,21 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always; margin: 5px 0px 0px 32px;  }
+-->
+</style>
+<%  i = 0;
+    @correspondenciasenviadas.each do |correspondenciasenviada|
+      i = 0;
+      while i< @cantidad.to_i
+        i=i+1
+%>
+    <div class="camposDesc17">RADICADO: S <strong><%=h correspondenciasenviada.nro_radicado %></strong><br/>
+    Fecha : <%=h correspondenciasenviada.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+    Anexos: <%=h correspondenciasenviada.anexos%><br/>
+    ISVIMED - <%=h correspondenciasenviada.dependencia.descripcion_stiker rescue nil %><br/>
+    <div class="camposbarras"><%=correspondenciasenviada.nro_radicado%>-<%=correspondenciasenviada.created_at%>-<%=h correspondenciasenviada.dependencia_id rescue nil%></div></div>
+    <H1 class="SaltoDePagina"> </H1>
+<%
+     end
+   end
+%>

@@ -1,0 +1,74 @@
+<style type="text/css">
+<!--
+ .campos {font-size: 13px;
+	font-weight: bold;
+	font-family: Tahoma;}
+ .campos1 {font-size: 14px;
+	font-weight: bold;
+	font-family: Tahoma;}
+ .camposdes {font-size: 12px;
+	font-family: Tahoma;}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align ="center">
+  <table width="500" height="85"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+    <td class="campos1">&nbsp;</td>
+  </tr>
+</table>
+<table width="681" border="1" cellpadding="0" cellspacing="0">
+<%
+  cant = 0
+  cant2 = 2
+  espacio = 23
+  espacio1 = 20
+    #archivos = Archivo.find_all_by_persona_id(temporal.persona_id)
+     @archivos.each do |archivo|
+        if cant2 == 2
+          espacio1 = 23
+          espacio = 23
+        end
+        if cant2 == 0
+          cant2 = 4
+          espacio = 20
+          espacio1 = 20
+        end
+        cant2 = cant2 -1
+        if cant == 2
+          cant = 0
+        end
+        cant = cant + 1
+%>
+    <%  if cant == 1 %>
+  <tr>
+    <td valign="top">
+      <% elsif cant == 2 %>
+        <td valign="top">
+      <% end %>
+      <table width="400" height="75"  border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="<%=espacio1%>" class="campos1">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="20" class="campos1"><div align="center"><%=espacio.to_i%>.<%=espacio1.to_i%> <%=archivo.persona.nombres rescue nil%></div></td>
+      </tr>
+      <tr>
+        <td height="10" class="campos1"><div align="center"><%=archivo.persona.identificacion rescue nil%></div></td>
+      </tr>
+      <tr>
+        <td height="5" class="campos1"><div align="center"><%=archivo.caja%> / <%=archivo.carpeta%></div></td>
+      </tr>
+      <tr>
+        <td height="<%=espacio%>" class="campos1">&nbsp;</td>
+      </tr>
+    </table>
+<%  if cant == 1 %>
+        </td>
+      <% elsif cant == 2 %>
+       </td>
+      </tr>
+    <% end %>
+<% end %>
+</table>
+  </div>

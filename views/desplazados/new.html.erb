@@ -1,0 +1,71 @@
+<h1>New desplazado</h1>
+
+<% form_for(@desplazado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.label :catastro_medellin %><br />
+    <%= f.text_field :catastro_medellin %>
+  </p>
+  <p>
+    <%= f.label :lista_espera %><br />
+    <%= f.text_field :lista_espera %>
+  </p>
+  <p>
+    <%= f.label :auto_092 %><br />
+    <%= f.text_field :auto_092 %>
+  </p>
+  <p>
+    <%= f.label :municipio_desplazamiento %><br />
+    <%= f.text_field :municipio_desplazamiento %>
+  </p>
+  <p>
+    <%= f.label :municipio_aspiracion %><br />
+    <%= f.text_field :municipio_aspiracion %>
+  </p>
+  <p>
+    <%= f.label :cogestor %><br />
+    <%= f.text_field :cogestor %>
+  </p>
+  <p>
+    <%= f.label :comuna %><br />
+    <%= f.text_field :comuna %>
+  </p>
+  <p>
+    <%= f.label :gerencia_desplazados %><br />
+    <%= f.text_field :gerencia_desplazados %>
+  </p>
+  <p>
+    <%= f.label :presento_reajuste %><br />
+    <%= f.text_field :presento_reajuste %>
+  </p>
+  <p>
+    <%= f.label :carta_medellin %><br />
+    <%= f.text_field :carta_medellin %>
+  </p>
+  <p>
+    <%= f.label :colilla_banco %><br />
+    <%= f.text_field :colilla_banco %>
+  </p>
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.label :hora %><br />
+    <%= f.text_field :hora %>
+  </p>
+  <p>
+    <%= f.label :entero %><br />
+    <%= f.text_field :entero %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', desplazados_path %>

@@ -1,0 +1,22 @@
+<h1>Listing crucesimagenes</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>User</th>
+  </tr>
+
+<% @crucesimagenes.each do |crucesimagen| %>
+  <tr>
+    <td><%=h crucesimagen.persona %></td>
+    <td><%=h crucesimagen.user %></td>
+    <td><%= link_to 'Show', crucesimagen %></td>
+    <td><%= link_to 'Edit', edit_crucesimagen_path(crucesimagen) %></td>
+    <td><%= link_to 'Destroy', crucesimagen, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New crucesimagen', new_crucesimagen_path %>

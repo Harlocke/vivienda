@@ -1,0 +1,25 @@
+<table width="95%" border="0" cellspacing="0" cellpadding="0">
+  <tr class="odd1">
+    <td width="30%" align="left" class="campos">Tipo Atencion *</td>
+    <td width="70%" align="left" class="campos">Observaci&oacute;n *</td>
+  </tr>
+  <tr valign="top">
+      <td ><%= select(:viviendasusadasnota,:tipo_atencion, select_tipo_atencion,{ :include_blank => true },
+                  { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :viviendasusadasnota, :tipo_atencion, :css_class =>"cerror"%></td>
+    <td class="camposDesc" align="left" ><%=text_area(:viviendasusadasnota, :descripcion, :cols => 115, :rows => 3, :class => 'campo',:maxlength => 4000, :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+    <%= error_message_on :viviendasusadasnota, :descripcion, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="95%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :viviendasusadasobservacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

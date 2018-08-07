@@ -1,0 +1,316 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<% if @formato.to_s == 'xls' %>
+    <h3>INFORMACION COMPLETA TITULACIONES</h3>
+    <table border="1">
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+        <td colspan="24"><strong>Informacion predio</strong></td>
+        <td colspan="11"><strong>Beneficiarios</strong></td>
+        <td><strong>----</strong></td>
+        <td colspan="3"><strong>Demandas</strong></td>
+        <td><strong>Observaciones Domiciliarias</strong></td>
+        <td colspan="3"><strong>Verificacion cargue de resolucion</strong></td>
+      </tr>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+        <td><strong>ID</strong></td>
+        <td><strong>Cobama</strong></td>
+        <td><strong>Caja</strong></td>
+        <td><strong>Carpeta</strong></td>
+        <td><strong>Barrio </strong></td>
+        <td><strong>Juridico Asignado </strong></td>
+        <td><strong>Tipo de Proceso </strong></td>
+        <td><strong>Procedimiento </strong></td>
+        <td><strong>Manzana </strong></td>
+        <td><strong>Lote </strong></td>
+        <td><strong>Direccion </strong></td>
+        <td><strong>Unidades Habit.</strong></td>
+        <td><strong>Acta de Entrega</strong></td>
+        <td><strong>Area </strong></td>
+        <td><strong>Expediente </strong></td>
+        <td><strong>Fecha Expediente </strong></td>
+        <td><strong>Estado Visita</strong></td>
+        <td><strong>Nombre usuario con estado Fallido</strong></td>
+        <td><strong>Observacion Estado Fallido</strong></td>
+        <td><strong>Escritura de Loteo</strong></td>
+        <td><strong>Estado del Proceso</strong></td>
+        <td><strong>Certificado Uso Suelo </strong></td>
+        <td><strong>Diagnostico Final</strong></td>
+        <td><strong>Estado curaduria</strong></td>
+        <td><strong>Diagnostico Final</strong></td>
+        <td><strong>Identificacion</strong></td>
+        <td><strong>Nombre</strong></td>
+        <td><strong>Telefono</strong></td>
+        <td><strong>Matricula</strong></td>
+        <td><strong>Direccion</strong></td>
+        <td><strong>Certificado Cruce</strong></td>
+        <td><strong>Firma Poder?</strong></td>
+        <td><strong>Firma Conciliación</strong></td>
+        <td><strong>Firma Amparo de Pobreza</strong></td>
+        <td><strong>Ultima Observacion</strong></td>
+        <td><strong>Operador</strong></td>
+        <td><strong>Radicado</strong></td>
+        <td><strong>Estado</strong></td>
+        <td><strong>Observaciones Demanda</strong></td>
+        <td><strong>Observaciones - Fecha</strong></td>
+        <td><strong>Fecha del documento</strong></td>
+        <td><strong>Descripion del archivo</strong></td>
+        <td><strong>Nombre del archivo</strong></td>
+      </tr>
+    <% @titulaciones.each do |titulacion|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+         <td><div align="left"><%=titulacion.id%></div></td>
+         <td><div align="left">&nbsp;<%=titulacion.cobama.to_s%></div></td>
+         <td><div align="left"><%=titulacion.gestion_caja rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.gestion_carpeta rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.comuna.descripcion2 rescue nil%></div></td>
+         <td><div align="left"><%=User.find(titulacion.user_juridico).nombre rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.tipoproceso%></div></td>
+         <td><div align="left"><%=titulacion.procedimiento rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.manzana%></div></td>
+         <td><div align="left"><%=titulacion.lote%></div></td>
+         <td><div align="left"><%=titulacion.direccion%></div></td>
+         <td><div align="left"><%=titulacion.unidades%></div></td>
+         <td><div align="left"><%=titulacion.acta_entrega%></div></td>
+         <td><div align="left"><%=titulacion.area%></div></td>
+         <td><div align="left"><%=titulacion.expediente%></div></td>
+         <td><div align="left"><%=titulacion.fecha_expediente%></div></td>
+         <td colspan="3">
+             <% if titulacion.titulacionesfallidos.exists? %>
+               <table border="1">
+              <% titulacion.titulacionesfallidos.each do |titulacionesfallido| %>
+                 <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+                  <td><div align="left"><%=titulacionesfallido.estado_visita%></div></td>
+                  <td><div align="left"><%=titulacionesfallido.nombre_fallido%></div></td>
+                  <td><div align="left"><%=titulacionesfallido.observacion_fallido rescue nil%></div></td>
+                 </tr>
+               <% end %>
+               </table>
+             <% end %>
+         </td>
+         <td><div align="left"><%=titulacion.escritura_lote%></div></td>
+         <td><div align="left"><%=titulacion.estado%></div></td>
+         <td><div align="left"><%=titulacion.certificado_uso_suelo%></div></td>
+         <td><div align="left"><%=titulacion.final_diagnostico rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.estado_curaduria rescue nil%></div></td>
+         <td><div align="left"><%=titulacion.final_diagnostico rescue nil%></div></td>
+         <td colspan="9">
+             <% if titulacion.titulacionespersonas.exists? %>
+               <table border="1">
+              <% titulacion.titulacionespersonas.each do |titulacionespersona| %>
+                 <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+                   <td><div align="left"><%=titulacionespersona.persona.identificacion rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.persona.nombres rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.persona.telefonos rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.matricula rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.direccion rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.certificado_cruce rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.poder rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.conciliacion rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionespersona.amparo_pobreza rescue nil%></div></td>
+                   <td><div align="left">
+                   <% if titulacionespersona.titulacionespersonasnotas.exists?
+                        @titulacionesnota = Titulacionespersonasnota.find(:last, :conditions=>["titulacionespersona_id = #{titulacionespersona.id}"])%>
+                         <%=@titulacionesnota.observaciones rescue nil%>
+                   <% end %>
+                   </div></td>
+                 </tr>
+               <% end %>
+               </table>
+             <% end %>
+         </td>
+         <td><div align="left"><%=titulacion.operador%></div></td>
+         <td colspan="3">
+           <% if titulacion.titulacionesdemandas.exists? %>
+               <table border="1">
+              <% titulacion.titulacionesdemandas.each do |titulacionesdemanda| %>
+                 <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+                   <td><div align="left">&nbsp;<%=titulacionesdemanda.radicado.to_s rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionesdemanda.estado.to_s rescue nil%></div></td>
+                   <td><div align="left"><%=titulacionesdemanda.observaciones.to_s rescue nil%></div></td>
+                 </tr>
+               <% end %>
+               </table>
+             <% end %>
+         </td>
+         <td>
+           <% if titulacion.titulacionesobservaciones.exists? %>
+               <table border="1">
+              <% for titulacionesobservacion in titulacion.titulacionesobservaciones.find(:all, :order => 'created_at DESC')  %>
+                 <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+                   <td><div align="left"><%=titulacionesobservacion.created_at.strftime("%Y-%m-%d %X") rescue nil%> - (<%=titulacionesobservacion.user.username rescue nil%>) : <%=titulacionesobservacion.dtipoatencion.to_s rescue nil%>: <%=titulacionesobservacion.observacion.to_s rescue nil%></div></td>
+                 </tr>
+               <% end %>
+               </table>
+             <% end %>
+         </td>
+          <% if titulacion.titulacionesimagenes.exists?(["descripcion like '%%RESOL%%'"]) %>
+              <% titulacionesimagen = titulacion.titulacionesimagenes.find(:first,:conditions=>["descripcion like '%%RESOL%%'"])  %>
+               <td><div align="left"><%=titulacionesimagen.fecha_doc.strftime("%Y-%m-%d") rescue nil%></div></td>
+               <td><div align="left"><%=titulacionesimagen.descripcion rescue nil%></div></td>
+               <td><div align="left"><%=titulacionesimagen.titulacion_file_name rescue nil%></div></td>
+           <% end %>
+      </tr>
+    <% end %>
+    </table>
+<% elsif @formato.to_s == 'Asignaciones' %>
+      <h3>INFORMACION ASIGNACIONES</h3>
+    <table border="1">
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+        <td colspan="10"><strong>Informacion predio</strong></td>
+        <td colspan="6"><strong>Observaciones</strong></td>
+        <td><strong>---</strong></td>
+        <td colspan="8"><strong>VISITA DE SOCIALIZACION</strong></td>
+        <td colspan="7"><strong>VISITA DE LEVANTAMIENTO</strong></td>
+        <td><strong>---</strong></td>
+        <td colspan="4"><strong>Asignacion Activa 1</strong></td>
+        <td colspan="4"><strong>Asignacion Activa 2</strong></td>
+        <td colspan="4"><strong>Asignacion Activa 3</strong></td>
+        <td colspan="4"><strong>Asignacion Activa 4</strong></td>
+      </tr>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+        <td><strong>ID</strong></td>
+        <td><strong>Cobama</strong></td>
+        <td><strong>Barrio </strong></td>
+        <td><strong>Tipo de Proceso </strong></td>
+        <td><strong>Procedimiento </strong></td>
+        <td><strong>Manzana </strong></td>
+        <td><strong>Lote </strong></td>
+        <td><strong>Direccion </strong></td>
+        <td><strong>Unidades Habit.</strong></td>
+        <td><strong>Area </strong></td>
+        <td><strong>Fecha</strong></td>
+        <td><strong>Usuario</strong></td>
+        <td><strong>Tipo</strong></td>
+        <td><strong>Observacion</strong></td>
+        <td><strong>Fecha Asignacion</strong></td>
+        <td><strong>Fecha Socializacion</strong></td>
+        <td><strong>---</strong></td>
+        <td><strong>Usuario</strong></td>
+        <td><strong>Fecha Creacion</strong></td>
+        <td><strong>Tipo Atención</strong></td>
+        <td><strong>Estado de la visita</strong></td>
+        <td><strong>Fecha Agendada</strong></td>
+        <td><strong>Motivo</strong></td>
+        <td><strong>Observaci&oacute;n</strong></td>
+        <td><strong>Unidades</strong></td>
+        <td><strong>Usuario</strong></td>
+        <td><strong>Fecha Creacion</strong></td>
+        <td><strong>Tipo Atención</strong></td>
+        <td><strong>Situacion del levantamiento</strong></td>
+        <td><strong>Fecha levantamiento</strong></td>
+        <td><strong>Motivo visita fallida</strong></td>
+        <td><strong>Observaci&oacute;n</strong></td>
+        <td><strong>---</strong></td>
+        <td><strong>Usuario Asignado</strong></td>
+        <td><strong>Fecha Asignacion</strong></td>
+        <td><strong>Tipo Asignacion</strong></td>
+        <td><strong>Usuario Asigna</strong></td>
+        <td><strong>Usuario Asignado</strong></td>
+        <td><strong>Fecha Asignacion</strong></td>
+        <td><strong>Tipo Asignacion</strong></td>
+        <td><strong>Usuario Asigna</strong></td>
+        <td><strong>Usuario Asignado</strong></td>
+        <td><strong>Fecha Asignacion</strong></td>
+        <td><strong>Tipo Asignacion</strong></td>
+        <td><strong>Usuario Asigna</strong></td>
+        <td><strong>Usuario Asignado</strong></td>
+        <td><strong>Fecha Asignacion</strong></td>
+        <td><strong>Tipo Asignacion</strong></td>
+        <td><strong>Usuario Asigna</strong></td>
+      </tr>
+    <% @titulaciones.each do |titulacion|
+        socializacion = Titulacionesvisita.find(:last, :conditions=>["titulacion_id = #{titulacion.id} and clase = 'VISITA DE SOCIALIZACION'"])
+        legalizacion  = Titulacionesvisita.find(:last, :conditions=>["titulacion_id = #{titulacion.id} and clase = 'VISITA DE LEVANTAMIENTO'"])%>
+      <% if titulacion.titulacionesobservaciones.exists? %>
+        <% for titulacionesobservacion in titulacion.titulacionesobservaciones.find(:all, :order => 'created_at DESC')  %>
+        <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+           <td><div align="left"><%=titulacionesobservacion.titulacion.id%></div></td>
+           <td><div align="left">&nbsp;<%=titulacionesobservacion.titulacion.cobama.to_s%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.comuna.descripcion2 rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.tipoproceso%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.procedimiento rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.manzana%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.lote%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.direccion%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.unidades%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.titulacion.area%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.user.username rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.dtipoatencion.to_s rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.observacion.to_s rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.fecha_asignacion.strftime("%Y-%m-%d") rescue nil%></div></td>
+           <td><div align="left"><%=titulacionesobservacion.fecha_socializacion.strftime("%Y-%m-%d") rescue nil%></div></td>
+           <td><strong>---</strong></td>
+           <td><div align="left"><%=User.find(socializacion.user_id).nombre rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.dtipoatencion rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_estado rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_fecha_agenda rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_motivo rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_observaciones rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.unidades rescue nil%></div></td>
+           <td><div align="left"><%=User.find(legalizacion.user_id).nombre rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.dtipoatencion rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_situacion rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_fecha rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_motivo rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_observaciones rescue nil%></div></td>
+           <td><strong>---</strong></td>
+           <% if titulacion.titulacionesasignaciones.exists?(["fecha_fin is null"]) %>
+              <% for titulacionesasignacion in titulacion.titulacionesasignaciones.find(:all,:conditions=>["fecha_fin is null"], :order => 'created_at DESC')  %>
+                 <td><div align="left"><%=titulacionesasignacion.user.nombre rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.fecha_asignacion rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.tipo rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.userprognombre rescue nil%></div></td>
+              <% end %>
+           <% end %>
+        </tr>
+      <% end %>
+     <% else %>
+        <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+           <td><div align="left"><%=titulacion.id%></div></td>
+           <td><div align="left">&nbsp;<%=titulacion.cobama.to_s%></div></td>
+           <td><div align="left"><%=titulacion.comuna.descripcion2 rescue nil%></div></td>
+           <td><div align="left"><%=titulacion.tipoproceso%></div></td>
+           <td><div align="left"><%=titulacion.procedimiento rescue nil%></div></td>
+           <td><div align="left"><%=titulacion.manzana%></div></td>
+           <td><div align="left"><%=titulacion.lote%></div></td>
+           <td><div align="left"><%=titulacion.direccion%></div></td>
+           <td><div align="left"><%=titulacion.unidades%></div></td>
+           <td><div align="left"><%=titulacion.area%></div></td>
+           <td><div align="left"></div></td>
+           <td><div align="left"></div></td>
+           <td><div align="left"></div></td>
+           <td><div align="left"></div></td>
+           <td><div align="left"></div></td>
+           <td><div align="left"></div></td>
+           <td><strong>---</strong></td>
+           <td><div align="left"><%=User.find(socializacion.user_id).nombre rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.dtipoatencion rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_estado rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_fecha_agenda rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_motivo rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.soc_observaciones rescue nil%></div></td>
+           <td><div align="left"><%=socializacion.unidades rescue nil%></div></td>
+           <td><div align="left"><%=User.find(legalizacion.user_id).nombre rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.dtipoatencion rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_situacion rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_fecha rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_motivo rescue nil%></div></td>
+           <td><div align="left"><%=legalizacion.lev_observaciones rescue nil%></div></td>
+           <td><strong>---</strong></td>
+           <% if titulacion.titulacionesasignaciones.exists?(["fecha_fin is null"]) %>
+              <% for titulacionesasignacion in titulacion.titulacionesasignaciones.find(:all,:conditions=>["fecha_fin is null"], :order => 'created_at DESC')  %>
+                 <td><div align="left"><%=titulacionesasignacion.user.nombre rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.fecha_asignacion rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.tipo rescue nil%></div></td>
+                 <td><div align="left"><%=titulacionesasignacion.userprognombre rescue nil%></div></td>
+              <% end %>
+           <% end %>
+        </tr>
+     <% end %>
+     <% end %>
+    </table>
+<% end %>

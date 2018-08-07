@@ -1,0 +1,289 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                    <img src="/images/empleadosmin.png" width="64" height="64"/></img>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CONTRATISTA</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png', { :border=>0, :title => "Buscar"}),datos_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<fieldset>
+<% form_for(@dato) do |f| %>
+<div align="center">
+<table width="900" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="100%">
+<table width="100%" border="0" cellspacing="2" cellpadding="0"  id="one-column-emphasis">
+  <tr>
+    <td width="60%" align="left" class="campos" height="30">Nombre completo del trabajador* </td>
+    <td width="40%"><%= f.text_field :nombre,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :nombre, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Número de identificación del trabajador* </td>
+    <td><%= f.text_field :identificacion,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :identificacion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Número telefónico </td>
+    <td><%= f.text_field :telefono,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :telefono, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Número celular </td>
+    <td><%= f.text_field :celular,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :celular, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Dirección de residencia </td>
+    <td><%= f.text_field :direccion,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :direccion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Comuna donde habita el trabajador* </td>
+    <td><%= select(:dato,
+                :comuna, [["Aranjuez","4.Aranjuez"],
+["Barbosa","Barbosa"],
+["Belen","16. Belen"],
+["Bello","Bello"],
+["Buenos Aires","9. buenos Aires"],
+["Caldas","Caldas"],
+["Castilla","5. Castilla"],
+["Copacabana","Copacabana"],
+["Corregimiento de Altavista","Corregimiento de Altavista"],
+["Corregimiento de San Cristobal","Corregimiento de San Cristobal"],
+["Corregimiento de Santa Elena","Corregimiento de Santa Elena"],
+["Corregimiento San Antonio de Prado","Corregimiento San Antonio de Prado"],
+["Doce de Octubre","6. Doce de Octubre"],
+["Envigado","Envigado"],
+["Fuera del Area Metropolitana","Fuera del Area Metropolitana"],
+["Girardota","Girardota"],
+["Guayabal","15. Guayabal"],
+["Itagüí","Itagüí"],
+["La America","12. La America"],
+["La candelaria","10.La candelaria"],
+["La Estrella","La Estrella"],
+["Laureles","11. Laureles"],
+["Manrique","3. Manrique"],
+["Poblado","14. Poblado"],
+["Popular","1. Popular"],
+["Robledo","7. Robledo"],
+["Sabaneta","Sabaneta"],
+["San Javier","13. San Javier"],
+["Santa Cruz","2,Santa Cruz"],
+["Villa Hermosa","8.Villa Hermosa"]
+                ],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :comuna, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Correo Electrónico del trabajador </td>
+    <td><%= f.text_field :email,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :email, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Fecha de nacimiento* </td>
+    <td>
+      <%= f.date_select :fecha_nacimiento,{ :class => "campo", :start_year=>1950} %>
+    <%= error_message_on :dato, :fecha_nacimiento, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Sexo del trabajador* </td>
+    <td><%= select(:dato,
+                :genero, [["MASCULINO","MASCULINO"],["FEMENINO","FEMENINO"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :genero, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Estado Civil * </td>
+    <td><%= select(:dato,
+                :estado_civil, [["CASADO O UNION MARITAL","CASADO O UNION MARITAL"],
+["SOLTERO","SOLTERO"],
+["DIVORCIADO","DIVORCIADO"],
+["VIUDO","VIUDO"],
+["UNION LIBRE","UNION LIBRE"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :estado_civil, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Posee Vehiculo? </td>
+    <td><%= select(:dato,
+                :vehiculo, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :vehiculo, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Placa Vehiculo? </td>
+    <td><%= f.text_field :placa,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :placa, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Nivel Educativo* </td>
+    <td><%= select(:dato,
+                :nivel_educativo, [["Ninguno","Ninguno"],
+["Primaria","Primaria"],
+["Secundaria","Secundaria"],
+["Técnico","Técnico"],
+["Tecnológico","Tecnológico"],
+["Universitario","Universitario"],
+["Especialización","Especialización"],
+["Maestria","Maestria"],
+["Doctorado","Doctorado"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :nivel_educativo, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Mencione la profesión u ocupación del tarbajador </td>
+    <td><%= f.text_field :profesion,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :profesion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">¿A qué grupo poblacional pertenece su trabajador?* </td>
+    <td><%= select(:dato,
+                :grupo_poblacional, [["Desplazados","Desplazados"],
+["Nefritudes","Nefritudes"],
+["Indígenas","Indígenas"],
+["Discapacitados","Discapacitados"],
+["LGTB","LGTB"],
+["Ninguno","Ninguno"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :grupo_poblacional, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Tipo de Contrato* </td>
+    <td><%= select(:dato,
+                :tipo_contrato, [["A termino fijo","A termino fijo"],
+["A termino indefinido","A termino indefinido"],
+["De obra o labor","De obra o labor"],
+["Prestación de Servicios","Prestación de Servicios"],
+["De aprendizaje","De aprendizaje"],
+["Ocasional de trabajo","Ocasional de trabajo"],
+["No aplica","No aplica"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :tipo_contrato, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Indique el régimen de afiliación a salud que tiene el trabajador * </td>
+    <td><%= select(:dato,
+                :regimen, [["Regimen Contributivo","Regimen Contributivo"],
+["Regimen Subsidiado","Regimen Subsidiado"],
+["Beneficiario","Beneficiario"],
+["No se encuenta afiliado","No se encuenta afiliado"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :regimen, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Especifique la EPS a la cual está afiliado </td>
+    <td><%= f.text_field :eps,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :eps, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">¿A cuál de los siguientes fondos cotiza el trabajador?* </td>
+    <td><%= select(:dato,
+                :fondo, [["Fondo Privado","Fondo Privado"],
+["ISS (Colpensiones)","ISS (Colpensiones)"],
+["Régimenes especiales (FFMM, Ecopetrol, otros)","Régimenes especiales (FFMM, Ecopetrol, otros)"],
+["Fondo Subsidiado (Prosperar)","Fondo Subsidiado (Prosperar)"],
+["No se encuentra afiliado","No se encuentra afiliado"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :fondo, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">¿Está afiliado por una empresa o individualmente a una Aseguradora de Riesgos Laborales (ARL) (por accidentes de trabajo, enfermedad profesional etc)?*</td>
+    <td><%= select(:dato,
+                :tipoafiliacion, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :tipoafiliacion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Indique el honorario mensual que se le paga </td>
+    <td><%= f.text_field :honorarios,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :honorarios, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Fecha de inicio del contrato*:  </td>
+    <td><%= calendar_date_select "dato", "fechainicio", :year_range => 60.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :dato, :fechainicio, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Fecha de finalización del contrato*: </td>
+    <td><%= calendar_date_select "dato", "fechafinal", :year_range => 60.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :dato, :fechafinal, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Dependencia* </td>
+    <td><%= f.text_field :dependencia,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :dependencia, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Número del contrato que genera el empleo* </td>
+    <td><%= f.text_field :nro_contrato,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :nro_contrato, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Programa o proyecto* </td>
+    <td><%= select(:dato,
+                :linea, [["Asignacion de subsidios a la poblacion desplazada para Plan Retorno","120103-Medellin protege los derechos humanos"],
+["Mejoramiento y legalizacion de vivienda de interes social en el municipio de Medellin","120104-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["PP13-08 Comuna 8 Mejoramiento de Vivienda","130147-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["PP13-13 Intervencion de laderas y estructuras de viviendas inestables habitadas por las familias de la Comuna 13","130148-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["PP13-80 Comuna 80 Mejoramiento de vivienda","130149-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["PP13 - 01 Compra de vivienda usada Comuna 1","130248-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["PP13 - 02 Intervencion integral de vivienda en la Comuna 2","130254-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["Titulacion de predios de ciudadanos en el Municipio de Medellin","120105-Mejoramiento Integral del habitat para la vida, la equidad y la cohesion social"],
+["Asignacion de subsidios y promocion para la adquisicion de vivienda nueva en Medellin","120106-Nuevas viviendas para la vida"],
+["Asignacion de subsidios para arrendamiento temporal y atencion al modelo de vivienda compartida","120108-Acceso a bienes y servicios habitacionales alternativos para la equidad"],
+["Asignacion de subsidios para vivienda Usada en Medellin","120107-Acceso a bienes y servicios habitacionales alternativos para la equidad"],
+["Acompañamiento social a los hogares beneficiarios de los bienes y servicios del ISVIMED","120109-Convivencia y transformacion del conflicto del habitat para la vida y la equidad – vecinos y amigos"],
+["Fortalecimiento al Sistema Habitacional de Medellin","120110-Fortalecimiento del sistema municipal habitacional"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :linea, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">¿Es adición? </td>
+    <td><%= select(:dato,
+                :adicion, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:350px", :class => "campo"})%>
+    <%= error_message_on :dato, :adicion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td align="left" class="campos" height="30">Observación </td>
+    <td><%= f.text_field :observacion,{ :class => "campo", :size => 70,:onChange=>"javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+    <%= error_message_on :dato, :observacion, :css_class =>"cerror"%></td>
+  </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+  </tr>
+</table>
+    </td>
+</tr>
+</table>
+</div>
+<% end %>
+</fieldset>

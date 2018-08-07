@@ -1,0 +1,27 @@
+<h1>New archivospazysalvo</h1>
+
+<% form_for(@archivospazysalvo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :certificado %><br />
+    <%= f.text_field :certificado %>
+  </p>
+  <p>
+    <%= f.label :userautoriza %><br />
+    <%= f.text_field :userautoriza %>
+  </p>
+  <p>
+    <%= f.label :userpazysalvo %><br />
+    <%= f.text_field :userpazysalvo %>
+  </p>
+  <p>
+    <%= f.label :anno %><br />
+    <%= f.text_field :anno %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', archivospazysalvos_path %>

@@ -1,0 +1,57 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@ayuda, @ayudasobservacion] do |form| %>
+        <% if !@ayudasobservacion.id %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+      <div align="center">
+	<%= render :partial => "/ayudasobservaciones/ayudasobservaciones_form" %>
+        </div>
+      </tr>
+<% end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="5%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for ayudasobservacion in @ayuda.ayudasobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if ayudasobservacion.id != @ayudasobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="ayudasobservacion_<%=ayudasobservacion.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=ayudasobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=ayudasobservacion.user.nombre rescue nil%>"><%=ayudasobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="15%" class="camposDesc" align="left"><%=ayudasobservacion.dtipoatencion%></td>
+          <td width="65%" class="camposDesc" align="left"><%=ayudasobservacion.observacion%></td>
+          <td width="5%" class="camposDesc" align="left"><%= link_to "Acta", {:controller => "ayudasobservaciones", :action => "atencion", :id=>ayudasobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+            <%= hidden_field :ayuda, :id %>
+<% end %>
+<% if flash[:ayudasobservacion] %>
+<div id="ayudasobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%" align="right"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:ayudasobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('ayudasobservacion');", 5000)
+</script>
+<% end %>

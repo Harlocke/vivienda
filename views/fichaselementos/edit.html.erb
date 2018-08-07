@@ -1,0 +1,16 @@
+<h1>Editing fichaselemento</h1>
+
+<% form_for(@fichaselemento) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @fichaselemento %> |
+<%= link_to 'Back', fichaselementos_path %>

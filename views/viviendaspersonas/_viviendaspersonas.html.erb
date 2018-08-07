@@ -1,0 +1,91 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN VIVIENDA - MODALIDAD VIVIENDA NUEVA</div></td>
+  </tr>
+</table>
+<br/>
+<% @persona.viviendaspersonas.each do |viviendaspersona| %>
+    <% if viviendaspersona.id != @viviendaspersona.id %>
+<tr class="<%=cycle('even1', 'odd1')%>" id="viviendaspersona_<%=viviendaspersona.id%>" style="display:none;">
+<div id="demo1<%=is_admin.to_s%>" >
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="21%" height="25" class="oce-first">Proyecto</td>
+    <td width="22%" class="oce-first"><div align="left">Bloque</div></td>
+    <td width="15%" class="oce-first">Direccion</td>
+    <td width="7%" class="oce-first"><div align="center">Piso</div></td>
+    <td width="5%" class="oce-first"><div align="center">Apto</div></td>
+    <td width="30%" class="oce-first">Escritura Vivienda</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" height="40"><%=viviendaspersona.vivienda.proyecto.descripcion rescue nil%></td>
+    <td class="camposDesc"><div align="left"><%=viviendaspersona.vivienda.bloque.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><%=viviendaspersona.vivienda.bloque.direccion rescue nil%></td>
+    <td class="camposDesc"><div align="center"><%=viviendaspersona.vivienda.piso.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=viviendaspersona.vivienda.apto.descripcion rescue nil%></div></td>
+    <td class="camposDesc"> 
+  <% if viviendaspersona.vivienda.inv_consecutivo.to_i > 0 and viviendaspersona.vivienda.inv_esc_entrega.to_s != 'SI' %>
+          Lista para entregar - Caja <%=viviendaspersona.vivienda.inv_caja.to_s%> - Consecutivo <%=viviendaspersona.vivienda.inv_consecutivo.to_s%>
+          <% if permiso("entregaescritura","A").to_s == "S" %><br/>
+              <%= link_to_remote('Marcar Entrega',{:url => edit_persona_viviendaspersona_path(@persona, viviendaspersona),:method => :get}, :class=>"recibidolink", :title =>"Marcar Entrega")%> -
+              <%= link_to 'Acta Escritura', {:controller=>"viviendasreportes", :action=>"entregaescritura", :id=>viviendaspersona.id}, :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"imprimirlink"%> - 
+              <%= link_to 'Acta Certificado', {:controller=>"viviendasreportes", :action=>"entregacertificado", :id=>viviendaspersona.id}, :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"imprimirlink"%>
+          <% end %>
+          <br/>
+          <% if @persona.creditos.exists? %>
+            <p class="camposDesc">ESTE USUARIO TIENE CREDITO</p>
+          <% end %>
+  <% else  %>
+        <% if viviendaspersona.vivienda.inv_consecutivo.to_s == "" %>
+          <p class="camposDesc">AUN NO ESTA LISTA!!!!</p>
+        <% else %>
+          Entregada el <%=viviendaspersona.vivienda.inv_esc_fecha.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(viviendaspersona.vivienda.inv_user).username rescue nil%>          
+        <% end %>
+  <% end %>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+          <% if permiso("viviendasdesvinculaespecial","C").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/vehi_limpiar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Desvincular FF', {:controller=>"viviendas", :action=>"desvinculacion", :id=>viviendaspersona.id}, :confirm=>"Esta Seguro de realizar la desvinculación?"%></span></div>
+            <% end %>
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_vivienda_path(:id=>viviendaspersona.vivienda_id,:etapa=>'1')%></span></div>
+        <div class="uiButton"><img class="img" src="/images/printer.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Solicitudes', viviendasreportes_path, :popup => ['new_window','height=520,width=830,scrollbars=yes']%></span></div>
+        <div class="uiButton"><img class="img" src="/images/ver2.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Entregas', viviendasreportes_path, :popup => ['new_window','height=520,width=830,scrollbars=yes']%></span></div></div></td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN VIVIENDA - MODALIDAD MEJORAMIENTO</div></td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN VIVIENDA - MODALIDAD LEGALIZACION</div></td>
+  </tr>
+</table>
+<BR/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN VIVIENDA - MODALIDAD TITULACION</div></td>
+  </tr>
+</table>
+    </tr>
+    <% else %>
+        <tr class="<%=cycle('even1', 'odd1')%>" id="viviendaspersona_<%=@viviendaspersona.id%>">
+	  <%= render :partial => "viviendas_personas_form" %>
+	</tr>
+
+     <% end %>
+<% end %>
+</fieldset>

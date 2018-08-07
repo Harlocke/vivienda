@@ -1,0 +1,173 @@
+<style type="text/css">
+<!--
+H3.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc" ALIGN="center">INFORME FINAL DE INTERVENTORIA</div></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contratista: </strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.empleado.autobuscar rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="20%"  class="campos"><strong>Contrato número:</strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contrato.nro_contrato%> de <%=@interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(@interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=@interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Tipo de Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Objeto del Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify"><%=@interventoria.contrato.objeto%></div></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Valor total del Contrato:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                 <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i)%>
+              <% else %>
+                 <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase%>
+              <% end %> PESOS M/L)</td>
+          </tr>
+          <tr class="odd1">
+            <td  class="campos"><strong>Valor mensual:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Duración del Contrato:</strong></td>
+            <td class="camposDesc"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_dias%> dias
+                <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+            </td>
+          </tr>
+
+          <tr class="odd1">
+            <td  class="campos"><strong>Nro Compromiso:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_compromiso rescue nil%></td>
+          </tr>
+          <tr>
+            <td  class="campos"><strong>Nro Disponibilidad:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_disponibilidad rescue nil%></td>
+          </tr>
+        </table>
+        <br/>
+        <div align="center">
+      <table width="50%" border="0" cellspacing="2" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td colspan="2" class="campos"><div align="left">BALANCE FINANCIERO FINAL</div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="50%" class="campos">Periodo</td>
+          <td width="50%" class="campos"><div align="center">Valor</div></td>
+        </tr>
+        <% vlr = 0
+           @inter = Interventoria.find(:all, :conditions=>["contrato_id = #{@interventoria.contrato_id}"], :order=>"mes,anno")
+           @inter.each do |inter|
+             vlr = vlr + inter.total.to_i
+        %>
+        <tr>
+          <td class="campos"><div align="left"><strong><%=inter.anno rescue nil%> - <%=descmesmin(inter.mes) rescue nil%></strong></div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(inter.total) rescue 0%>&nbsp;&nbsp;</div></td>
+        </tr>
+        <% end %>
+        <tr class="odd1">
+          <td colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+        <tr>
+          <td class="campos"><div align="left"><strong>VALOR TOTAL PAGADO</strong></div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(vlr) rescue 0%>&nbsp;&nbsp;</div></td>
+        </tr>
+        <tr>
+          <td class="campos"><div align="left"><strong>VALOR CONTRATO</strong></div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.contrato.valor_contrato) rescue 0%>&nbsp;&nbsp;</div></td>
+        </tr>
+        <tr>
+          <td class="campos"><div align="left"><strong>DIFERENCIA</strong></div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.contrato.valor_contrato - vlr.to_i) rescue 0%>&nbsp;&nbsp;</div></td>
+        </tr>
+      </table>
+        </div>
+    </td>
+  </tr>
+</table><br/>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+          <td height="30"><div class="col_enc" ALIGN="left">RELACION DE ACTIVIDADES</div></td>
+      </tr>
+    </table>
+<% @estudiosactividades.each do |estudiosactividad| %>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td colspan="2" class="oce-first"><div align="justify"><strong>ACTIVIDAD: <%=h estudiosactividad.observaciones %></strong></div></td>
+      </tr>
+  <% 
+  #interactividades = Interactividad.all(:include => :interventoria, :conditions => { :modulos => { :tipo => nil }, :interactividades => {:estudiosactividad_id => is_admin}}, :order=>"modulos.mensaje")
+  interactividades = Interactividad.all(:include => :interventoria, :conditions => { :interactividades => {:estudiosactividad_id => estudiosactividad.id}}, :order=>"interventorias.mes, interventorias.anno")
+  interactividades.each do |interactividad|%>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td width="15%" class="camposDesc"><div align="left"><strong><%=interactividad.interventoria.anno rescue nil%> - <%=descmesmin(interactividad.interventoria.mes) rescue nil%></strong></div></td>
+        <td width="85%" class="camposDesc"><div align="justify"><%=replaceenter(interactividad.desarrollo) rescue nil %></div>
+         <%  if interactividad.interactimagenes.exists? %>
+              <div align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="90%" height="20" class="oce-first">Soporte Digital - Descripcion y Nombre del documento</td>
+                    <td width="10%" height="20" class="oce-first"></td>
+                  </tr>
+                  <% interactividad.interactimagenes.each do |interactimagen| %>
+                  <tr>
+                    <td class="camposDesc"><%=interactimagen.descripcion rescue nil%> - <%=interactimagen.interactividad_file_name rescue nil%></td>
+                    <td class="camposDesc"><%= link_to "Ver",interactimagen.interactividad.url(:original, false),
+                                         { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                    </td>
+                  </tr>
+                  <% end %>
+                </table>
+              </div>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+    </table>
+<% end %>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>  
+    <br/><br/><br/>
+      Atentamente,<br/><br/><br/><br/>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="0" class="campos">_____________________________________________________</td>
+        <td width="50%" height="0" class="campos">_____________________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos">SUPERVISOR</td>
+        <td height="0" class="campos">CONTRATISTA</td>
+      </tr>
+      <tr valign="top">
+        <td height="0" class="campos"><%=@interventoria.nombreinterventor%></td>
+        <td height="0" class="campos"><%=@interventoria.contrato.empleado.nombres rescue nil%><br/>
+                                   C.C. <%=@interventoria.contrato.empleado.identificacion rescue nil%><br/>
+        Direccion: <%=@interventoria.contrato.empleado.direccion rescue nil%><br/>
+        Telefono: <%=@interventoria.contrato.empleado.telefono rescue nil%></td>
+      </tr>
+    </table><br/>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+    </td>
+  </tr>
+</table>
+</div>

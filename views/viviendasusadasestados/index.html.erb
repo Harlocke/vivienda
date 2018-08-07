@@ -1,0 +1,20 @@
+<h1>Listing viviendasusadasestados</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @viviendasusadasestados.each do |viviendasusadasestado| %>
+  <tr>
+    <td><%=h viviendasusadasestado.descripcion %></td>
+    <td><%= link_to 'Show', viviendasusadasestado %></td>
+    <td><%= link_to 'Edit', edit_viviendasusadasestado_path(viviendasusadasestado) %></td>
+    <td><%= link_to 'Destroy', viviendasusadasestado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New viviendasusadasestado', new_viviendasusadasestado_path %>

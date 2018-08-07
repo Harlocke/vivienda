@@ -1,0 +1,37 @@
+<strong>VIVIENDAS SIN ETAPAS ACTIVAS</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Proyecto</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Direccion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Bloque</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Piso</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Apto</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Entregado</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Identificacion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Primer Nombre</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Segundo Nombre</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Primer Apellido</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Segundo Apellido</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Tenencia</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Tipo de Poblacion</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Telefonos</strong></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><strong>Direccion</strong></td>
+  </tr>
+<% for viviendastramite in @viviendastramites %>
+  <tr valign="middle">
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.proyecto%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.direccion%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.bloque%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.piso%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.apto%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.entregado%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.identificacion%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.nombre%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.tenencia%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.familiar%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.telefonos%></div></td>
+    <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=viviendastramite.direccion_persona%></div></td>
+  </tr>
+<%   end %>
+</table>

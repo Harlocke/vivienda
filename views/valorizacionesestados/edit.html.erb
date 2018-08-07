@@ -1,0 +1,16 @@
+<h1>Editing valorizacionesestado</h1>
+
+<% form_for(@valorizacionesestado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @valorizacionesestado %> |
+<%= link_to 'Back', valorizacionesestados_path %>

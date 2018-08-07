@@ -1,0 +1,96 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION ARCHIVO</div></td>
+  </tr>
+</table>
+<% @empleado.archivosempleados.each do |archivosempleado| %>
+  <div align="center">
+     <table width="90%" border="0" cellspacing="2" cellpadding="0">
+       <% if archivosempleado.archivo.tipo.to_s != "S" %>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Caja</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.caja rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Carpeta</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.carpeta rescue nil%></td>
+        </tr>
+       <% end %>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Convenio - Contrato</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.convenio rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Unidad de Conservacion</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.unidad_conservacion rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Nro de Folios</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.nro_folios rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Serie - Subserie Documental</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.archivosserie.codigo_final rescue nil%> <%=archivosempleado.archivo.archivosserie.subserie rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Ubicación</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.dtipo rescue nil%></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos" align="left">Ult. Actualizacion</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.updated_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=archivosempleado.archivo.user.nombre rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Creacion</td>
+          <td class="camposDesc" align="left"><%=archivosempleado.archivo.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(archivosempleado.archivo.usercrea).nombre rescue nil%></td>
+        </tr>
+        <% if archivosempleado.archivo_id.to_s != "" %>
+          <% if Archivosprestamo.exists?(["archivo_id = #{archivosempleado.archivo_id} and fecha_devolucion is null"])
+               archivosprestamos = Archivosprestamo.find(:all, :conditions=>["archivo_id = #{archivosempleado.archivo_id} and fecha_devolucion is null"])
+               archivosprestamos.each do |archivosprestamo|
+          %>
+          <tr class="odd1">
+            <td width="33%" height="20" class="campos" align="left">Expediente Prestado a</td>
+            <td class="camposDesc" align="left"><%=User.find(archivosprestamo.userprestamo).nombre rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td width="33%" height="20" class="campos" align="left">Fecha vence prestamo</td>
+            <td class="camposDesc" align="left"><%=archivosprestamo.fecha_vence.strftime("%Y-%m-%d %X") rescue nil%></td>
+          </tr>
+             <% end %>
+          <% else
+              if archivosempleado.archivo.tipo == "U"%>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente NO se encuentra Disponible para prestamo debido a que se encuentra en la Unidad de Tramites</div></td>
+                  </tr>
+              <% elsif archivosempleado.archivo.tipo.to_s == "S" %>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente NO se encuentra habilitado para prestamos, solo puede consultarse digital</div></td>
+                  </tr>
+              <% else %>
+                  <tr class="odd1">
+                    <td height="20" colspan="2"><div align="center" class="campos">El Expediente se encuentra "Disponible para prestamo"</div></td>
+                  </tr>
+              <% end %>
+          <% end %>
+        <% end %>
+     </table>
+<% if permiso("archivo","C").to_s == "S" %>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_archivo_path(archivosempleado.archivo_id) %></span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+  </div>
+<% end %>
+<br/>
+</fieldset>

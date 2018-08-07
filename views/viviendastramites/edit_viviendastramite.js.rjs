@@ -1,0 +1,2 @@
+page.replace_html :viviendastramites_form, :partial => "/viviendastramites/viviendastramites"
+

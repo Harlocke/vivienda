@@ -1,0 +1,28 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INFORME CONSOLIDADO PROYECTO - CORVIDE (SANEAMIENTO TOTAL : <%=@corvides.count rescue 0%>)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @corvides.each do |corvide|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=corvide.transferencia rescue nil%></div></td>
+     <td><div align="left"><%=corvide.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<h3>INFORME CONSOLIDADO PROYECTO - CORVIDE (CANCELACIONES TOTAL : <%=@corvidess.count rescue 0%>)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @corvidess.each do |corvide|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=corvide.transferencia rescue nil%></div></td>
+     <td><div align="left"><%=corvide.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,42 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong>INFORMACION PROYECTO</strong></td>
+    <td colspan="2"><strong>ETAPA ACTIVA ACTUAL</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Bloque</strong></td>
+    <td ><strong>Apto</strong></td>
+    <td ><strong>Etapa</strong></td>
+    <td ><strong>Actividad</strong></td>
+  </tr>
+<% for viviendastramite in @viviendastramites %>
+ <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=viviendastramite.proyecto rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.bloque rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.apto rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.etapa rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.tramite rescue nil%></div></td>
+  </tr>
+<%   end %>
+</table>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Etapa</strong></td>
+    <td ><strong>Actividad</strong></td>
+    <td ><strong>Cantidad</strong></td>
+  </tr>
+<% for objeto in @objetos %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=objeto.proyecto rescue nil%></div></td>
+    <td ><div align="left"><%=objeto.etapa rescue nil%></div></td>
+    <td ><div align="left"><%=objeto.tramite rescue nil%></div></td>
+    <td ><div align="left"><%=objeto.cant rescue nil%></div></td>
+  </tr>
+<%   end %>
+</table>
+

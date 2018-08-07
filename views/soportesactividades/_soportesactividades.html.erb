@@ -1,0 +1,79 @@
+<div align="left"><table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ACTIVIDADES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@soporte, @soportesactividad] do |form| %>
+   <% if !@soportesactividad.id %>
+	<%= render :partial => "/soportesactividades/soportesactividades_form" %>
+   <% end %>
+<% if @soporte.soportesactividades.exists? %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="20%%" height="30" class="oce-first">Usuario</td>
+    <td width="45%" height="30" class="oce-first">Observacion</td>
+    <td width="5%" height="30" class="oce-first">Ok</td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% @soporte.soportesactividades.each do |soportesactividad| %>
+   <% if soportesactividad.id != @soportesactividad.id %>
+  <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="soportesactividad_<%=soportesactividad.id%>">
+     <td width="15%" height="30" class="camposDesc"><%=soportesactividad.created_at.strftime("%Y-%m-%d %X")%></td>
+     <td width="20%" height="30" class="camposDesc"><%=soportesactividad.user.nombre rescue nil%></td>
+     <td width="45%" height="30" class="camposDesc"><%=soportesactividad.observacion%></td>
+     <td width="5%" height="30" class="camposDesc"><%=soportesactividad.estadosolicitud%></td>
+      <td width="15%" class="camposDesc">
+        <% if permiso("soportesactividad","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_soporte_soportesactividad_path(@soporte, soportesactividad),
+	   :method => :get}, :class=>"editarlink")%>
+        <%end%>
+        <% if permiso("soportesactividad","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => soporte_soportesactividad_path(@soporte, soportesactividad),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      <%end%>
+</td>
+ </tr>
+</table>
+<% else %>
+<br/>
+      <table width="70%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR ACTIVIDAD</div></td>
+  </tr>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="soportesactividad_<%=@soportesactividad.id%>">
+     <%= render :partial => "soportesactividades_form" %>
+    </tr>
+  </table>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay actividades asociadas a este requerimiento.</td>
+     </tr>
+</table>
+<% end %>
+           <%= hidden_field :soporte, :id %>
+<% end %>
+<br/>
+<% if flash[:soporteactividad] %>
+<div id="soporteactividad">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:soporteactividad] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('soporteactividad');", 5000)
+</script>
+<% end %>

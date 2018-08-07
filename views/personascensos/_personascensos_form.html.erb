@@ -1,0 +1,172 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="20%" align="left" class="campos">Tipo de tenencia</td>
+    <td width="20%" align="left" class="campos">Habita la vivienda</td>
+    <td width="20%" align="left" class="campos">Unipersonal</td>
+    <td width="40%" align="left" class="campos">Arrendatarios y/o ocupantes</td>
+  </tr>
+  <tr valign="top">
+    <td align="left" class="campos"><%= text_field :personascenso, :tipotenencia,{ :class => "campo", :size => 25,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :tipotenencia, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :habita_vivienda,{ :class => "campo", :size => 15,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :habita_vivienda, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :unipersonal,{ :class => "campo", :size => 15,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :unipersonal, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_area(:personascenso, :arrendatarios, :cols => 80, :rows => 4, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+    <%= error_message_on :personascenso, :arrendatarios, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="15%" align="left" class="campos">Cobama</td>
+    <td width="15%" align="left" class="campos">Matricula edu</td>
+    <td width="15%" align="left" class="campos">Ficha Socieconomia</td>
+     <td width="15%" align="left" class="campos">Nro de hogares</td>
+     <td width="40%" align="left" class="campos">Faltantes</td>
+  </tr>
+  <tr>
+    <td align="left" class="campos"><%= text_field :personascenso, :cobama,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :cobama, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :matricula_edu,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :matricula_edu, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :ficha,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :ficha, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :nro_hogares,{ :class => "campo", :size => 10,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :nro_hogares, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :faltantes,{ :class => "campo", :size => 70,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :faltantes, :css_class =>"cerror"%></td>   
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="55%" align="left" class="campos">Sub / avaluo</td>
+    <td width="20%" align="left" class="campos">Avaluo</td>
+    <td width="25%" align="left" class="campos">Ptl</td>
+    <td width="25%" align="left" class="campos">Pt</td>
+    <td width="25%" align="left" class="campos">Pae</td>
+    <td width="25%" align="left" class="campos">Total</td>
+  </tr>
+  <tr>
+    <td align="left" class="campos"><%= text_field :personascenso, :sub_avaluo,{ :class => "campo", :size => 50,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :sub_avaluo, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :avaluo,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :avaluo, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :ptl,{ :class => "campo", :size => 10,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :ptl, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :pt,{ :class => "campo", :size => 10,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :pt, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :pae,{ :class => "campo", :size => 10,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :pae, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :total,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :total, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="25%" align="left" class="campos">Aceptacion de oferta de compra</td>
+    <td width="25%" align="left" class="campos">Opcion isvimed</td>
+    <td width="25%" align="left" class="campos">Social edu</td>
+    <td width="25%" align="left" class="campos">Notificacion de oferta de compra</td>
+  </tr>
+  <tr>
+    <td align="left" class="campos"><%= text_field :personascenso, :aceptacion_ofec,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :aceptacion_ofec, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :opcion_isvimed,{ :class => "campo", :size => 30,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :opcion_isvimed, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :social_edu,{ :class => "campo", :size => 30,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :social_edu, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :notificacion_ofec,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :notificacion_ofec, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="15%" align="left" class="campos">Predio</td>
+    <td width="15%" align="left" class="campos">Aceptacion de oferta de compra</td>
+    <td width="15%" align="left" class="campos">Caso especiales</td>
+  </tr>
+  <tr>
+    <td align="left" class="campos"><%= text_field :personascenso, :predio,{ :class => "campo", :size => 40,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :predio, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :acepta_ofe,{ :class => "campo", :size => 20,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :acepta_ofe, :css_class =>"cerror"%></td>
+    <td align="left" class="campos"><%= text_field :personascenso, :caso_especial,{ :class => "campo", :size => 40,
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }%>
+    <%= error_message_on :personascenso, :caso_especial, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :personascenso, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

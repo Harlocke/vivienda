@@ -1,0 +1,117 @@
+<div class="page-header">
+  <h3>INFORMACION SEGUIMIENTO <%=@model.to_s rescue nil%></h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="18"><strong>Información Titulación</strong></td>
+    <% if @model.to_s == "FALLIDOS" %>
+    <td colspan="3"><strong>Fallidos</strong></td>
+    <% elsif @model.to_s == "PERSONAS" %>
+    <td colspan="8"><strong>Personas</strong></td>
+    <% elsif @model.to_s == "ASIGNACIONES" %>
+    <td colspan="2"><strong>Asignaciones</strong></td>
+    <% elsif @model.to_s == "DEMANDAS" %>
+    <td colspan="11"><strong>Demandas</strong></td>
+    <% end %>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Cobama</strong></td>
+    <td><strong>Barrio </strong></td>
+    <td><strong>Juridico Asignado </strong></td>
+    <td><strong>Tipo de Proceso </strong></td>
+    <td><strong>Manzana </strong></td>
+    <td><strong>Lote </strong></td>
+    <td><strong>Direccion </strong></td>
+    <td><strong>Unidades Habit.</strong></td>
+    <td><strong>Acta Entrega</strong></td>
+    <td><strong>Area </strong></td>
+    <td><strong>Expediente </strong></td>
+    <td><strong>Fecha Expediente </strong></td>
+    <td><strong>Estado del Proceso</strong></td>
+    <td><strong>Certificado Uso Suelo </strong></td>
+    <td><strong>Operador</strong></td>
+    <td><strong>Gestion Caja</strong></td>
+    <td><strong>Gestion Carpeta</strong></td>
+    <% if @model.to_s == "FALLIDOS" %>
+    <td><strong>Estado Visita</strong></td>
+    <td><strong>Nombre usuario con estado Fallido</strong></td>
+    <td><strong>Observacion Estado Fallido</strong></td>
+    <% elsif @model.to_s == "PERSONAS" %>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Matricula</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Certificado Cruce</strong></td>
+    <td><strong>Firma Poder?</strong></td>
+    <td><strong>Firma Conciliación</strong></td>
+    <td><strong>Firma Amparo de Pobreza</strong></td>
+    <% elsif @model.to_s == "ASIGNACIONES" %>
+    <td><strong>Usuario Asignado</strong></td>
+    <td><strong>Fecha Asignación</strong></td>
+    <% elsif @model.to_s == "DEMANDAS" %>
+    <td><strong>Tipo de proceso</strong></td>
+    <td><strong>Radicado</strong></td>
+    <td><strong>Fecha radicado</strong></td>
+    <td><strong>Juzgado</strong></td>
+    <td><strong>Estado Demanda</strong></td>
+    <td><strong>Notificado</strong></td>
+    <td><strong>Inspeccion Judifical</strong></td>
+    <td><strong>Sentencia</strong></td>
+    <td><strong>Demanda Elaborada</strong></td>
+    <td><strong>Abogado Asignado</strong></td>
+    <td><strong>Observaciones</strong></td>
+    <% end %>
+  </tr>
+<% @titulaciones.each do |titulacion|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=titulacion.id rescue nil%></div></td>
+     <td><div align="left">'<%=titulacion.cobama.to_s rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.barrio rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.juridico rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.tipoproceso rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.manzana rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.lote rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.direccion rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.unidades rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.acta_entrega rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.area rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.expediente rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.fecha_expediente rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.estado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.certificado_uso_suelo rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.operador rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.gestion_caja rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.gestion_carpeta rescue nil%></div></td>
+     <% if @model.to_s == "FALLIDOS" %>
+     <td><div align="left"><%=titulacion.estado_visita rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.nombre_fallido rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.observacion_fallido rescue nil%></div></td>
+     <% elsif @model.to_s == "PERSONAS" %>
+     <td><div align="left"><%=titulacion.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.nombres rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.matricula rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.direccion_p rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.certificado_cruce rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.poder rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.conciliacion rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.amparo_pobreza rescue nil%></div></td>
+     <% elsif @model.to_s == "ASIGNACIONES" %>
+     <td><div align="left"><%=titulacion.usuario_asignado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.fecha_asignacion rescue nil%></div></td>
+     <% elsif @model.to_s == "DEMANDAS" %>
+     <td><div align="left"><%=titulacion.tipoproceso rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.radicado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.fecha_radicado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.estado_demanda rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.notificado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.inspeccion rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.sentencia rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.juzgado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.elaborado rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.demandajuridico rescue nil%></div></td>
+     <td><div align="left"><%=titulacion.observaciones rescue nil%></div></td>
+     <% end %>
+  </tr>
+<% end %>
+</table>

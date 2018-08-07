@@ -1,0 +1,1 @@
+page.replace_html :viviendasusadaspersonas_form, :partial => "viviendasusadaspersonas", :object => @viviendasusadaspersona

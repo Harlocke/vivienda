@@ -1,0 +1,158 @@
+<div class="page-header">
+  <h3>PROCESO : <%=@calidadproceso.descripcion%></h3>
+</div>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='PROCEDIMIENTO'"])  %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Procedimientos</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+<% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='PROCEDIMIENTO'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id)
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+   <div class="alert alert-success">No hay información de Procedimientos</div>
+<% end %>
+<br/>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='FORMATO'"]) %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Formatos</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+<% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='FORMATO'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id)
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+<div class="alert alert-success">No hay información de Formatos</div>
+<% end %>
+
+<br/>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='MANUAL'"]) %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Manual</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+<% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='MANUAL'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id)
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+   <div class="alert alert-success">No hay información de Manual</div>
+<% end %>
+
+<br/>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='PLAN'"]) %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Plan</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+<% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='PLAN'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id) 
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+   <div class="alert alert-success">No hay información de Plan</div>
+<% end %>
+
+<br/>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='AUDITORIA'"]) %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Auditorias</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+<% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='AUDITORIA'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id)
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+   <div class="alert alert-success">No hay información de Auditorias</div>
+<% end %>
+
+<br/>
+<% if Calidaddocumento.exists?(["calidadproceso_id = #{@calidadproceso.id} and tipodocumento='INSTRUCTIVO'"]) %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="70%"><strong>Instructivos</strong></td>
+    <td width="30%"><strong>Archivos</strong></td>
+  </tr>
+  <% @calidaddocumentos = Calidaddocumento.find(:all, :conditions=>"calidadproceso_id = #{@calidadproceso.id} and tipodocumento='INSTRUCTIVO'")
+    for calidaddocumento in @calidaddocumentos%>
+   <tr valign="middle">
+     <td valign="middle"><strong><%=calidaddocumento.codigo rescue nil%> - <%=calidaddocumento.nombre%> - <%=calidaddocumento.version%></strong></td>
+     <td>
+       <% @calidaddocumentosimagenes = Calidaddocumentosimagen.find_all_by_calidaddocumento_id(calidaddocumento.id)
+          for calidaddocumentosimagen in @calidaddocumentosimagenes
+       %>
+          <%= link_to calidaddocumentosimagen.descripcion, calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"btn btn-mini btn-primary"}%>
+       <% end %>
+     </td>
+   </tr>
+   <% end %>
+</table>
+<% else %>
+   <div class="alert alert-success">No hay información de Instructivos</div>
+<% end %>
+
+<br/>

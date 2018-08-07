@@ -1,0 +1,38 @@
+<table width="98%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="20%" class="campos">Nro Acta *</td>
+    <td width="20%" class="campos">Fecha Inicial *</td>
+    <td width="20%" class="campos">Fecha Final </td>
+    <td width="30%" class="campos">Salario Mensual *</td>
+    <td width="30%" class="campos">Tipo de Vinculacion *</td>
+    <td width="30%" class="campos">Nivel *</td>
+  </tr>
+  <tr>
+    <td class="camposDesc" valign="top"><%= text_field :contratosvinculado, :nro_acto,{ :class => "campo", :size => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contratosvinculado, :nro_acto, :css_class =>"cerror"%></td>
+    <td class="camposDesc" valign="top"><%= calendar_date_select "contratosvinculado", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    <%= error_message_on :contratosvinculado, :fecha_inicio, :css_class =>"cerror"%></td>
+    <td class="camposDesc" valign="top"><%= calendar_date_select "contratosvinculado", "fecha_final", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+    <td class="camposDesc" valign="top"><%= text_field :contratosvinculado, :salario,{ :class => "campo", :size => 15,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",
+          :onBlur => "this.style.border='1px solid #bbb'" }  %>
+    <%= error_message_on :contratosvinculado, :salario, :css_class =>"cerror"%></td>
+    <td><%= select(:contratosvinculado, :tipo_vinculacion, select_tipovinculacion, { :include_blank => true },
+                { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contratosvinculado, :tipo_vinculacion, :css_class =>"cerror"%></td>
+    <td><%= select(:contratosvinculado, :nivel, select_nivel, { :include_blank => true },
+                { :style=>"width:110px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :contratosvinculado, :nivel, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="95%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :contratosvinculado, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+    </div></td>
+  </tr>
+</table>

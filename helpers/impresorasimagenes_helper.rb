@@ -1,0 +1,2 @@
+module ImpresorasimagenesHelper
+end

@@ -1,0 +1,85 @@
+</form>
+<%= stylesheet_link_tag 'scaffold'%>
+<% remote_form_for [@estudiosprevio, @estudiosmodificacion] do |form| %>
+   <% if !@estudiosmodificacion.id %>
+	<%= render :partial => "/estudiosmodificaciones/estudiosmodificaciones_form" %>
+   <% end %>
+<%
+   if @estudiosprevio.estudiosmodificaciones.exists?
+%>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" align="left" class="oce-first">Fecha Registro</td>
+    <td width="65%" class="oce-first" width="15%">Datos</td>
+    <td width="15%" align="left" class="oce-first"></td>
+  </tr>
+<% for estudiosmodificacion in @estudiosprevio.estudiosmodificaciones.find(:all, :order => 'created_at DESC') %>
+   <% if estudiosmodificacion.id != @estudiosmodificacion.id %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="estudiosmodificacion_<%=estudiosmodificacion.id%>">
+      <td width="15%" align="left" class="camposDesc"><%=estudiosmodificacion.created_at.strftime("%Y-%m-%d %X")%><br/><%=estudiosmodificacion.user.username rescue nil%></td>
+      <td width="15%" class="camposDesc"><%=estudiosmodificacion.dtipomodificacion %>
+        <% if estudiosmodificacion.valor %>
+              <br/><strong>Valor: </strong>$ <%=camponumerico(estudiosmodificacion.valor)%>
+        <% end %>
+        <% if estudiosmodificacion.plazo_mes or estudiosmodificacion.plazo_dias %>
+              <br/><strong>Plazo mes: </strong><%=estudiosmodificacion.plazo_mes rescue nil%> - <strong>Plazo dias: </strong><%=estudiosmodificacion.plazo_dias rescue nil%> - 
+        <% end %>
+        <% if estudiosmodificacion.observaciones %>
+              <br/><strong>Observaciones : </strong><%=estudiosmodificacion.observaciones rescue nil%>
+        <% end %>
+        <% if estudiosmodificacion.estudiosmrubros.exists? %>
+          <br/><strong>RUBROS</strong>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="70%" class="oce-first">Rubro</td>
+                <td width="15%" class="oce-first">Valor</td>
+              </tr>
+          <%  estudiosmodificacion.estudiosmrubros.each do |estudiosmrubro| %>
+             <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="estudiosmrubro_<%=estudiosmrubro.id%>">
+               <td class="camposDesc"><%=estudiosmrubro.rubro.descripcion rescue nil%></td>
+               <td class="camposDesc"> <%=camponumerico(estudiosmrubro.valor) rescue 0%></td>
+             </tr>
+          <% end  %>
+            </table>
+        <% end  %>
+      </td>
+       <td width="12%" align="right" class="camposDesc">
+         <%# if estudiosmodificacion.user_id == is_admin%>
+             <%= link_to_remote('Editar',{:url=>edit_estudiosprevio_estudiosmodificacion_path(@estudiosprevio,estudiosmodificacion),:method => :get},:class=>"editarlink")%>
+             <% if estudiosmodificacion.estado.to_s == 'PENDIENTE'%>
+                |&nbsp;<%= link_to_remote('Borrar',{:url => estudiosprevio_estudiosmodificacion_path(@estudiosprevio, estudiosmodificacion),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+             <% end %>
+             <% if estudiosmodificacion.valor.to_i > 0 %>
+                <%= link_to "Rubros", {:controller => "estudiosmodificaciones", :action => "ver", :id=>estudiosmodificacion.id}, :class=>"rubrolink"%>
+                <% if estudiosmodificacion.estado.to_s == 'PENDIENTE'%>
+                  <% if estudiosmodificacion.estudiosmrubros.exists? %>
+                    <%= link_to "Solicitar", {:controller => "estudiosmodificaciones", :action => "solicitarcompromiso", :id=>estudiosmodificacion.id}, :confirm=>"Seguro?", :class=>"emaillink"%>
+                  <% end %>
+                <% elsif estudiosmodificacion.estado.to_s == 'SOLICITADO'%>
+                  <%= link_to "Crear Mod. SIFI", {:controller => "estudiosmodificaciones", :action => "crearmodificacion", :id=>estudiosmodificacion.id}, :confirm=>"Recuerde que debe estar primero solicitado el Compromiso?", :class=>"emaillink"%>
+                <% end %>
+             <% elsif estudiosmodificacion.valor.to_i == 0 and estudiosmodificacion.estado.to_s == 'PENDIENTE' %>
+                  <%= link_to "Crear Mod. SIFI", {:controller => "estudiosmodificaciones", :action => "crearmodificacion", :id=>estudiosmodificacion.id}, :confirm=>"Recuerde que debe estar primero solicitado el Compromiso?", :class=>"emaillink"%>
+             <% end %>
+
+
+         <%# end %>
+      </td>
+   </tr>
+  <% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "estudiosmodificaciones_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+  <tr>
+    <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+    <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+  </tr>
+</table>
+<% end %>
+    <%= hidden_field :estudiosprevio, :id %>
+<% end %>

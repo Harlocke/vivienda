@@ -1,0 +1,333 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION CRUCES MINAMBIENTE</div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td><div align="right">
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to "Ver informe completo del cruce", {:controller=>"cruces", :action =>"certificacioncruce", :id=>@persona.id},
+                     { :popup => ['new_window','height=450,width=850,scrollbars=yes']}%></span></div></div></td>
+  </tr>
+</table>
+<br/>
+<%
+  last_id = Cruce.maximum('id',:conditions=>["persona_id = #{@persona.id} and benevivienda_id is null"])
+  if last_id
+    @cruce = Cruce.find(last_id)
+    if Crucesdato.exists?(["cruce_id = ?", last_id]) == false
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">CRUCE JEFE DE HOGAR CON IDENTIFICACION <%=@persona.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Fecha de la ultima solicitud de cruce <strong><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></strong></div></td>
+          </tr>
+        </table>
+      </div>
+<%  else
+      cruzado1 = ""
+      cruzado2 = ""
+      cruzado3 = ""
+      cruzado4 = ""
+      cruzado5 = ""
+      cruzado6 = ""
+      cruzado7 = ""
+      cruzado8 = ""
+      @crucesdatos = Crucesdato.find_by_sql("select distinct tipo_entidad from crucesdatos where cruce_id = #{last_id}")
+      @crucesdatos.each do |crucesdato|
+        if crucesdato.tipo_entidad == '1'
+          cruzado1 = "X"
+        elsif crucesdato.tipo_entidad == '2'
+          cruzado2 = "X"
+        elsif crucesdato.tipo_entidad == '3'
+          cruzado3 = "X"
+        elsif crucesdato.tipo_entidad == '4'
+          cruzado4 = "X"
+        elsif crucesdato.tipo_entidad == '5'
+          cruzado5 = "X"
+        elsif crucesdato.tipo_entidad == '6'
+          cruzado6 = "X"
+        elsif crucesdato.tipo_entidad == '7'
+          cruzado7 = "X"
+        elsif crucesdato.tipo_entidad == '8'
+          cruzado8 = "X"
+        end
+      end
+%>
+      <div align="center">
+      <table width="95%" id="one-column-emphasis">
+        <tr>
+          <td colspan="11" height="20" class="oce-first"><div align="center">CRUCE JEFE DE HOGAR CON IDENTIFICACION <%=@persona.identificacion%></div></td>
+        </tr>
+        <tr>
+          <td width="10%" height="20" class="oce-first"><div align="center">Fecha Cruce</div></td>
+          <td width="10%" height="20" class="oce-first"><div align="center">Identificacion</div></td>
+          <td width="9%" class="oce-first"><div align="center">Afiliado</div></td>
+          <td width="10%" class="oce-first"><div align="center">Beneficiarios</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catant</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catbog</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catcali</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catmed</div></td>
+          <td width="9%" class="oce-first"><div align="center">Igac</div></td>
+          <td width="10%" class="oce-first"><div align="center">Nuevo Hogar</div></td>
+          <td width="6%" class="oce-first"><div align="center"></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></td>
+          <td class="camposDesc"><%=@cruce.identificacion%></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado1.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado2.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado3.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado4.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado5.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado6.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado7.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado8.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+           <td class="camposDesc"><div align="center">
+              <%= link_to "Ver", {:controller=>"cruces", :action =>"informecruce", :id=>@cruce.id},
+                     { :popup => ['new_window','height=450,width=850,scrollbars=yes'], :class=>"verlink"}%>
+            </div></td>
+        </tr>
+      </table>
+      </div>
+
+<%  end
+  else
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">CRUCE JEFE DE HOGAR CON IDENTIFICACION <%=@persona.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Nunca se ha solicitad cruce</div></td>
+          </tr>
+        </table>
+      </div>
+<%
+  end
+%>
+<br/>
+<%
+  @beneviviendas = Benevivienda.find(:all, :conditions=>["persona_id = #{@persona.id} and identificacion is not null"])
+  @beneviviendas.each do |benevivienda|
+  last_id = Cruce.maximum('id',:conditions=>["benevivienda_id = #{benevivienda.id}"])
+  if last_id
+    @cruce = Cruce.find(last_id)
+    if Crucesdato.exists?(["cruce_id = ?", last_id]) == false
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">CRUCE BENEFICIARIO CON IDENTIFICACION <%=benevivienda.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Fecha de la ultima solicitud de cruce <strong><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></strong></div></td>
+          </tr>
+        </table>
+      </div>
+<%  else
+      cruzado1 = ""
+      cruzado2 = ""
+      cruzado3 = ""
+      cruzado4 = ""
+      cruzado5 = ""
+      cruzado6 = ""
+      cruzado7 = ""
+      cruzado8 = ""
+      @crucesdatos = Crucesdato.find_by_sql("select distinct tipo_entidad from crucesdatos where cruce_id = #{last_id}")
+      @crucesdatos.each do |crucesdato|
+        if crucesdato.tipo_entidad == '1'
+          cruzado1 = "X"
+        elsif crucesdato.tipo_entidad == '2'
+          cruzado2 = "X"
+        elsif crucesdato.tipo_entidad == '3'
+          cruzado3 = "X"
+        elsif crucesdato.tipo_entidad == '4'
+          cruzado4 = "X"
+        elsif crucesdato.tipo_entidad == '5'
+          cruzado5 = "X"
+        elsif crucesdato.tipo_entidad == '6'
+          cruzado6 = "X"
+        elsif crucesdato.tipo_entidad == '7'
+          cruzado7 = "X"
+        elsif crucesdato.tipo_entidad == '8'
+          cruzado8 = "X"
+        end
+      end
+%>
+      <div align="center">
+      <table width="95%" id="one-column-emphasis">
+        <tr>
+          <td colspan="11" height="20" class="oce-first"><div align="center">CRUCE BENEFICIARIO CON IDENTIFICACION <%=benevivienda.identificacion%></div></td>
+        </tr>
+        <tr>
+          <td width="10%" height="20" class="oce-first"><div align="center">Fecha Cruce</div></td>
+          <td width="10%" height="20" class="oce-first"><div align="center">Identificacion</div></td>
+          <td width="9%" class="oce-first"><div align="center">Afiliado</div></td>
+          <td width="10%" class="oce-first"><div align="center">Beneficiarios</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catant</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catbog</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catcali</div></td>
+          <td width="9%" class="oce-first"><div align="center">Catmed</div></td>
+          <td width="9%" class="oce-first"><div align="center">Igac</div></td>
+          <td width="10%" class="oce-first"><div align="center">Nuevo Hogar</div></td>
+          <td width="6%" class="oce-first"><div align="center"></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@cruce.fecha_cruce.strftime("%Y-%m-%d")%></td>
+          <td class="camposDesc"><%=@cruce.identificacion%></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado1.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado2.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado3.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado4.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado5.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado6.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado7.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+          <td class="camposDesc"><div align="center">
+              <% if cruzado8.to_s != "" %>
+                 <img src="/images/rojo1.png" title="*** Cruce con esta entidad"/>
+              <% end %>
+            </div></td>
+           <td class="camposDesc"><div align="center">
+              <%= link_to "Ver", {:controller=>"cruces", :action =>"informecruce", :id=>@cruce.id},
+                     { :popup => ['new_window','height=450,width=850,scrollbars=yes'], :class=>"verlink"}%>
+            </div></td>
+        </tr>
+      </table>
+      </div>
+
+<%  end
+  else
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">CRUCE BENEFICIARIO CON IDENTIFICACION <%=benevivienda.identificacion%></div></td>
+          </tr>
+          <tr>
+            <td height="20" class="camposDesc" ><div align="center">**** No presenta cruce. Nunca se ha solicitad cruce</div></td>
+          </tr>
+        </table>
+      </div>
+<%
+  end
+%>
+<br/>
+<%
+  end
+%>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION CRUCES ZR</div></td>
+  </tr>
+</table>
+<br/>
+<%
+    if Crucesimagen.exists?(["persona_id = #{@persona.id}"]) == false
+%>
+      <div align="center">
+        <table width="95%" id="one-column-emphasis">
+          <tr>
+            <td height="20" class="oce-first"><div align="center">No hay informacion de ZR cargados</div></td>
+          </tr>
+        </table>
+      </div>
+<%  else %>
+      <div align="center">
+      <table width="70%" id="one-column-emphasis">
+        <tr>
+          <td colspan="3" height="20" class="oce-first"><div align="center">INFORMACION DE ZR CARGADOS</div></td>
+        </tr>
+        <tr>
+          <td width="20%" height="20" class="oce-first"><div align="center">Fecha Cruce</div></td>
+          <td width="55%" height="20" class="oce-first"><div align="center">Nombre</div></td>
+          <td width="25%" class="oce-first"><div align="center">Archivo</div></td>
+        </tr>
+<%        
+      @crucesdatos = Crucesimagen.find_all_by_persona_id(@persona.id)
+      @crucesdatos.each do |crucesdato|
+%>
+        <tr>
+          <td class="camposDesc"><%=crucesdato.created_at.strftime("%Y-%m-%d %X")%></td>
+          <td class="camposDesc"><%=crucesdato.persona.autobuscar rescue nil%></td>
+           <td class="camposDesc"><div align="center">
+              <%= link_to crucesdato.cruce_file_name, crucesdato.cruce.url(:original, false),
+                     { :popup => ['new_window','height=450,width=850,scrollbars=yes'], :class=>"verlink"}%>
+            </div></td>
+        </tr>
+<%    end%>
+      </table>
+      </div>
+
+<%  end %>
+</fieldset>
+
+
+

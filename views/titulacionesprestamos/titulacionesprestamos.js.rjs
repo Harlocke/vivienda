@@ -1,0 +1,1 @@
+page.replace_html :titulacionesprestamos_form, :partial => "titulacionesprestamos", :object => @titulacionesprestamo

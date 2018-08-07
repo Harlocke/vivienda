@@ -1,0 +1,168 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+       <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow;"><div align="center"><img src="http://190.0.34.154:3013/images/logocartas.jpg"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow;"><strong><div align="center"><%#=@calidadversion.descripcion rescue nil%></div></strong></td>
+          <td width="20%" style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 14px; font-family: Arial Narrow;"><strong></strong> <%#=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table>
+     <div align="center" style="font-size: 16px; font-family: Arial Narrow;">
+           <strong>FORMULARIO DE SOLICITUD PARA EL TRÁMITE DE REPARTO NOTARIAL<br/>(Resolución No. 7769 del 21 de Julio de 2016 -  Resolución No. 781 del 9 de septiembre de 2016)</strong>
+     </div>
+      <br/>
+        <div align="justify" style="font-size: 16px; font-family: Arial Narrow;">
+        <strong>FECHA:</strong> <%=namedate(@reparto.created_at) rescue nil%>
+        </div>        
+        <br/>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+             <tr class="odd1">
+              <td colspan="3" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ENTIDAD (ES) OBLIGADA (S) AL REPARTO</strong></td>
+            </tr>
+            <tr class="odd1">
+              <td width="60%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ENTIDAD</strong></td>
+              <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NIT</strong></td>
+              <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NATURALEZA JURÍDICA</strong></td>
+            </tr>        
+            <tr >
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad1_nombre rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad1_nit rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad1_naturaleza rescue nil%></td>
+            </tr>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad2_nombre rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad2_nit rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=@reparto.entidad2_naturaleza rescue nil%></td>
+            </tr>
+          </table>
+          <br/> 
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="100%">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE (S) Y APELLIDO (S) OTRO (S) COMPARECIENTE (S)</strong></td>
+                  </tr>
+                </table>
+                <% for repartosinmueble in @reparto.repartosinmuebles.find(:all,:conditions=>["vivienda_id is not null"], :order => 'created_at DESC') %>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="60%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE COMPARECIENTE</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>C.C o NIT</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>MATRICULA</strong></td>
+                  </tr>        
+                  <tr >
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.persona.nombres rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.persona.identificacion rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.vivienda.nro_matricula rescue nil%></div></td>
+                  </tr>
+                  <tr class="odd1">
+                    <td height="25" width="60%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>DIRECCION</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>CIRCULO REGISTRAL</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TOTAL UNIDADES</strong></td>
+                  </tr>             
+                  <tr>
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.vivienda.direccionproyecto rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.vivienda.esc_registrada_of rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center">1</div></td>
+                  </tr>
+                </table>
+                <% end %>  
+                <% for repartosinmueble in @reparto.repartosinmuebles.find(:all,:conditions=>["corvide_id is not null"], :order => 'created_at DESC') %>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="60%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE COMPARECIENTE</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>C.C o NIT</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>MATRICULA</strong></td>
+                  </tr>        
+                  <tr >
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.persona.nombres rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.persona.identificacion rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.corvide.matricula rescue nil%></div></td>
+                  </tr>
+                  <tr class="odd1">
+                    <td height="25" width="60%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>DIRECCION</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>CIRCULO REGISTRAL</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TOTAL UNIDADES</strong></td>
+                  </tr>             
+                  <tr>
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.corvide.direccion rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=@reparto.zona rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center">1</div></td>
+                  </tr>
+                </table>
+                <% end %> 
+                <% for repartosinmueble in @reparto.repartosinmuebles.find(:all,:conditions=>["corvide_id is null and vivienda_id is null"], :order => 'created_at DESC') %>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                  <tr class="odd1">
+                    <td width="60%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>NOMBRE COMPARECIENTE</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>C.C o NIT</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>MATRICULA</strong></td>
+                  </tr>        
+                  <tr >
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.persona.nombres rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.persona.identificacion rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=repartosinmueble.matricula rescue nil%></div></td>
+                  </tr>
+                  <tr class="odd1">
+                    <td height="25" width="60%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>DIRECCION</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>CIRCULO REGISTRAL</strong></td>
+                    <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TOTAL UNIDADES</strong></td>
+                  </tr>             
+                  <tr>
+                    <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosinmueble.direccion rescue nil%></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center"><%=@reparto.zona rescue nil%></div></td>
+                    <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><div align="center">1</div></td>
+                  </tr>
+                </table>
+                <% end %>                 
+              </td>
+            </tr>
+          </table>
+          <br/> 
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+             <tr class="odd1">
+              <td colspan="3" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ACTO (S) O NEGOCIO (S) JURÍDICO (S)</strong></td>
+            </tr>
+            <tr class="odd1">
+              <td width="30%" height="25" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>TIPO</strong></td>
+              <td width="50%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>ACTO</strong></td>
+              <td width="20%" style="border:1px solid #000000; font-size: 14px; font-family: Arial Narrow;"><strong>VALOR</strong></td>
+            </tr>
+            <% for repartosacto in @reparto.repartosactos.find(:all, :order => 'created_at DESC') %>
+            <tr>
+              <td height="25" style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;">
+                  <% if repartosacto.valor.to_i == 0%>ACTO SIN CUANTIA<% else %>ACTO JURIDICO<% end %></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;"><%=repartosacto.tiposacto.descripcion rescue nil%></td>
+              <td style="border:1px solid #000000; font-size: 12px; font-family: Arial Narrow;">$ <%=camponumerico(repartosacto.valor) rescue nil%></td>
+            </tr>
+            <% end %>
+          </table><br/><br/><br/><br/><br/>
+          <div align="justify" style="font-size: 16px; font-family: Arial Narrow;">
+          ____________________________________________________<br/>
+          <strong>SOLICITANTE: <%=User.find(@reparto.user_solicita).nombre rescue nil%><br/>
+          EMAIl: <%=User.find(@reparto.user_solicita).email rescue nil%>
+          </strong>
+          </div>  
+        <div style="font-size: 12px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+        <br/>
+    </td>
+  </tr>
+</table>
+</div>

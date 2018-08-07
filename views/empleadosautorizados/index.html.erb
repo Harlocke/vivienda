@@ -1,0 +1,22 @@
+<h1>Listing empleadosautorizados</h1>
+
+<table>
+  <tr>
+    <th>Empledo</th>
+    <th>User</th>
+  </tr>
+
+<% @empleadosautorizados.each do |empleadosautorizado| %>
+  <tr>
+    <td><%=h empleadosautorizado.empledo_id %></td>
+    <td><%=h empleadosautorizado.user_id %></td>
+    <td><%= link_to 'Show', empleadosautorizado %></td>
+    <td><%= link_to 'Edit', edit_empleadosautorizado_path(empleadosautorizado) %></td>
+    <td><%= link_to 'Destroy', empleadosautorizado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New empleadosautorizado', new_empleadosautorizado_path %>

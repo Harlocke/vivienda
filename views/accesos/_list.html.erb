@@ -1,0 +1,19 @@
+  <div align="center">
+<table width="70%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr>
+    <td class="oce-first" width="10%">id</td>
+    <td class="oce-first" width="20%">IP</td>
+    <td class="oce-first" width="50%">Observacion</td>
+    <td class="oce-first" width="20%">CreatedAt</td>
+  </tr>
+<% @accesos = Acceso.find(:all, :order=>"created_at desc")
+  for acceso in @accesos%>
+  <tr postS_<%=acceso.id%>>
+    <td class="camposDesc"><%=h acceso.id %></td>
+    <td class="camposDesc"><%=h acceso.ip %></td>
+    <td class="camposDesc"><%=h acceso.observacion %></td>
+    <td class="camposDesc"><%=h acceso.created_at.strftime("%Y-%m-%d %X") %></td>
+  </tr>
+<% end %>
+</table>
+</div>

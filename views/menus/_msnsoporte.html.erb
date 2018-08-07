@@ -1,0 +1,30 @@
+<%
+  existenmensaje = Mensajesenvio.exists?(['user_id = ? and estado = ?',is_admin,"A"])
+  if existenmensaje
+%>
+    <table width="75%" height="100%" border="0"  align="center"cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="100%"><div class="col_enc">DASHBOARD - MENSAJES</div></td>
+      </tr>
+    </table>
+    <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="10%" height="20" class="oce-first">Fecha</td>
+        <td width="80%" height="20" class="oce-first">Descripcion</td>
+        <td width="10%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @mensajesenvios.each do |mensajesenvio| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mensajesenvio_<%=mensajesenvio.id%>">
+        <td height="30" class="camposDesc"><div align="center"><strong><%=h mensajesenvio.created_at.strftime("%Y-%m-%d %X") %></strong></div></td>
+        <td class="camposDesc"><%=h mensajesenvio.descripcion %></td>
+        <td class="camposDesc"><div align="center">
+          <% if mensajesenvio.estado == "I"%>
+             <%= image_tag("connect.png", :size => "16x16") %>
+          <% else %>
+             <%= link_to image_tag('application_edit.png',{ :border=>0, :title => "Actualizar"}), edit_mensajesenvio_path(mensajesenvio) %>
+          <% end %>
+          </div></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

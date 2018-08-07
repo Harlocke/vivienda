@@ -1,0 +1,1 @@
+page.replace_html :calidaddocumentos_form, :partial => "calidaddocumentos", :object => @calidaddocumento

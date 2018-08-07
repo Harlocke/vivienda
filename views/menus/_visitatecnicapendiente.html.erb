@@ -1,0 +1,30 @@
+<% if @existependvisita %>
+  <div style="font-size:12px; font-family: Tahoma; display:table;"><strong><a href="javascript:void(0);" onclick="SINO('demo44<%=is_admin.to_s%>')"><img src="/images/viviendasusada1.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo44<%=is_admin.to_s%>')"><div style="display:table-cell; vertical-align:middle;"><p>VER VISITAS TECNICAS PENDIENTES (<%=@viviendasusadaspendientes.count rescue 0%>) &nbsp;
+    <%= link_to image_tag("excel.png"), informevisita_viviendasusadas_path, :title =>"Informe visitas tecnicas"%>
+</p></div></a> </strong>        
+  </div>         
+  <div id="demo44<%=is_admin.to_s%>" style="display:none;">
+    <table width="85%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="5%" height="30" class="oce-first"><div align="center">ID</div></td>
+        <td width="15%" class="oce-first"><div align="left">Sector</div></td>
+        <td width="35%" class="oce-first"><div align="left">Barrio - Proyecto</div></td>
+        <td width="20%" class="oce-first"><div align="left">Estado</div></td>
+        <td width="15%" class="oce-first"><div align="left">Fecha Solicitud</div></td>
+        <td width="10%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @viviendasusadaspendientes.each do |viviendasusada| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td height="25" class="camposDesc"><div align="center"><%=h viviendasusada.id %></div></td>
+        <td class="camposDesc"><div align="left"><%=h viviendasusada.tipospoblacion.descripcion rescue nil%></div></td>
+        <td class="camposDesc"><div align="left"><%=h viviendasusada.sector %><br/><strong>Proyecto: </strong> <%=h viviendasusada.proyecto %></div></td>
+        <td class="camposDesc"><div align="left"><%=h viviendasusada.viviendasusadasestado.descripcion rescue nil %></div></td>
+        <td class="camposDesc"><div align="left"><%=h viviendasusada.fechasol_visitatecnica.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+        <td class="camposDesc"><div align="center"><%= link_to 'Ver', edit_viviendasusada_path(:id=>viviendasusada, :etapa=>'1'), :class=>"verlink"%>&nbsp;
+           <%= link_to '', cambioestado_viviendasusadas_path(:id=>viviendasusada, :estado=>'REALIZADA'), :class=>"recibidolink", :title =>"Marcar terminacion del proceso"%>
+        </div></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+<%end%>

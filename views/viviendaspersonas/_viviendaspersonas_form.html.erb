@@ -1,0 +1,22 @@
+<div class="tabla">
+  <div class="fila">
+     <div class="col1000_Encabezado">&nbsp;</div>
+    <div class="col1000"><span class="campos">Persona Id:&nbsp;&nbsp;</span>
+      <%= text_field :viviendaspersona, :id,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+      <span class="campos">&nbsp;&nbsp;&nbsp;&nbsp;Persona Id:&nbsp;&nbsp;</span>
+      <%= text_field :viviendaspersona, :persona_id,{ :class => "campo", :size => 80,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    </div>
+    <div class="col1000"><span class="campos">Vivienda Id :&nbsp;&nbsp;</span>
+      <%= text_field :viviendaspersona, :vivienda_id,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    </div>
+    <div class="col1000_Encabezado">&nbsp;</div>
+  </div>
+  <div class="fila">
+  <%= hidden_field :viviendaspersona, :id %><%= submit_tag "Guardar", :class=> "button"%></div>
+</div>

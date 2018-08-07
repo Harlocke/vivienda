@@ -1,0 +1,1 @@
+page.replace_html :soportesactividades_form, :partial => "soportesactividades", :object => @soportesactividad

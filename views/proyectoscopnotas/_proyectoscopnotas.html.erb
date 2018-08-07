@@ -1,0 +1,52 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES COPROPIEDAD</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@proyectoscopropiedad, @proyectoscopnota] do |form| %>
+<%   if !@proyectoscopnota.id %>
+           <%= render :partial => "/proyectoscopnotas/proyectoscopnotas_form" %>
+<%   end %>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="13%" height="30" class="oce-first">Fecha</td>
+    <td width="12%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="60%" class="oce-first">Observaciones</td>
+    <td width="15%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for proyectoscopnota in @proyectoscopropiedad.proyectoscopnotas.find(:all, :order => 'created_at DESC') %>
+   <% if proyectoscopnota.id != @proyectoscopnota.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="proyectoscopnota_<%=proyectoscopnota.id%>">
+          <td align="left" class="camposDesc"><%=proyectoscopnota.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+            <a title="<%=proyectoscopnota.user.nombre rescue nil%>"><%=proyectoscopnota.user.username rescue nil%></a></td>
+          <td class="camposDesc" align="left"><%=proyectoscopnota.dtipoatencion rescue nil%></td>
+          <td class="camposDesc"><div align="justify"><%=proyectoscopnota.observacion rescue nil%></div>
+          </td>
+          <td width="12%" align="right" class="camposDesc">
+             <%# if permiso("proyectoscopnota","E").to_s == "S" %>
+                 |&nbsp;<%= link_to_remote('Borrar',{:url => proyectoscopropiedad_proyectoscopnota_path(@proyectoscopropiedad, proyectoscopnota),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+           <%# end %>
+          </td>
+        </tr>
+  <% end %>
+<% end %>
+</table>
+  <%= hidden_field :proyectoscopropiedad, :id %>
+<% end %>
+</div>
+<br/>
+<% if flash[:proyectoscopnota] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:proyectoscopnota] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('proyectoscopnota');", 5000)
+</script>
+<% end %>

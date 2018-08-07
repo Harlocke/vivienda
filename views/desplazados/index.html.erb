@@ -1,0 +1,48 @@
+<h1>Listing desplazados</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Catastro medellin</th>
+    <th>Lista espera</th>
+    <th>Auto 092</th>
+    <th>Municipio desplazamiento</th>
+    <th>Municipio aspiracion</th>
+    <th>Cogestor</th>
+    <th>Comuna</th>
+    <th>Gerencia desplazados</th>
+    <th>Presento reajuste</th>
+    <th>Carta medellin</th>
+    <th>Colilla banco</th>
+    <th>Fecha</th>
+    <th>Hora</th>
+    <th>Entero</th>
+  </tr>
+
+<% @desplazados.each do |desplazado| %>
+  <tr>
+    <td><%=h desplazado.persona_id %></td>
+    <td><%=h desplazado.catastro_medellin %></td>
+    <td><%=h desplazado.lista_espera %></td>
+    <td><%=h desplazado.auto_092 %></td>
+    <td><%=h desplazado.municipio_desplazamiento %></td>
+    <td><%=h desplazado.municipio_aspiracion %></td>
+    <td><%=h desplazado.cogestor %></td>
+    <td><%=h desplazado.comuna %></td>
+    <td><%=h desplazado.gerencia_desplazados %></td>
+    <td><%=h desplazado.presento_reajuste %></td>
+    <td><%=h desplazado.carta_medellin %></td>
+    <td><%=h desplazado.colilla_banco %></td>
+    <td><%=h desplazado.fecha %></td>
+    <td><%=h desplazado.hora %></td>
+    <td><%=h desplazado.entero %></td>
+    <td><%= link_to 'Show', desplazado %></td>
+    <td><%= link_to 'Edit', edit_desplazado_path(desplazado) %></td>
+    <td><%= link_to 'Destroy', desplazado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New desplazado', new_desplazado_path %>

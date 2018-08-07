@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>CONSOLIDADO LOCALES COMERCIALES</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="4%" ><div align="center"><strong>Proyecto</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Matricula Inmobiliaria</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Dirección</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Propietario</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Nit</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Fecha</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Notaria</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Acta de Entrega</strong></div></td>
+    <td width="4%" ><div align="center"><strong>Escritura</strong></div></td>
+  </tr>
+   <% @localescomerciales.each do |localescomercial|%>
+      <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+        <td ><%=h localescomercial.proyecto rescue nil %></td>
+        <td ><%=h localescomercial.matricula_inmob rescue nil %></td>
+        <td ><%=h localescomercial.direccion rescue nil %></td>
+        <td ><%=h localescomercial.propietario rescue nil %></td>
+        <td ><%=h localescomercial.nit rescue nil %></td>
+        <td ><%=h localescomercial.fecha rescue nil %></td>
+        <td ><%=h localescomercial.notaria rescue nil %></td>
+        <td ><%=h localescomercial.acta_entrega rescue nil %></td>
+        <td ><%=h localescomercial.escritura rescue nil %></td>
+       </tr>
+  <% end %>
+</table>
+<br/>
+<h3>PROYECTOS</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @localesproys.each do |localesproy|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%= localesproy.proyecto rescue nil%></div></td>
+     <td><div align="left"><%= localesproy.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>
+
+

@@ -1,0 +1,91 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">NOVEDADES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@ayuda, @ayudasnovedad] do |form| %>
+  <% if permiso("ayudasnovedad","C").to_s == "S" %>
+        <% if !@ayudasnovedad.id %>
+	<%= render :partial => "/ayudasnovedades/ayudasnovedades_form" %>
+    <% end %>
+ <% end %>
+<% if @ayuda.ayudasnovedades.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="15%" height="30" align="left" class="oce-first">Referencia</td>
+    <td width="18%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="10%" height="30" align="left" class="oce-first">Tipo Novedad</td>
+    <td width="15%" height="30" align="left" class="oce-first">Tipo Derivacion</td>
+    <td width="15%" height="30" align="left" class="oce-first">Fecha Ingreso</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for ayudasnovedad in @ayuda.ayudasnovedades.find(:all, :order => 'created_at DESC') %>
+   <% if ayudasnovedad.id != @ayudasnovedad.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+   <tr  valign="middle" id="ayudasnovedad_<%=ayudasnovedad.id%>">
+     <td width="15%" height="30" align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=ayudasnovedad.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=ayudasnovedad.user.nombre rescue nil%>"><%=ayudasnovedad.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+     </td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasnovedad.referencia%></td>
+     <td width="18%" height="30" align="left" class="camposDesc"><%=ayudasnovedad.estado%></td>
+     <td width="10%" height="30" align="left" class="camposDesc"><%=ayudasnovedad.tipo_de_novedad%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasnovedad.tipo_de_derivacion%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasnovedad.fecha_de_ingreso%></td>
+    <td width="12%" class="camposDesc">
+    <% if permiso("ayudasnovedad","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_ayuda_ayudasnovedad_path(@ayuda, ayudasnovedad),
+		:method => :get}, :class=>"editarlink")%>
+    <%  end %>
+    <% if permiso("ayudasnovedad","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => ayuda_ayudasnovedad_path(@ayuda, ayudasnovedad),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%  end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR AYUDAS NOVEDADES</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="ayudasnovedad_<%=@ayudasnovedad.id%>">
+     <%= render :partial => "ayudasnovedades_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :ayuda, :id %>
+<% end %>
+<br/>
+<% if flash[:ayudasnovedad] %>
+<div id="ayudasnovedad">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:ayudasnovedad] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('ayudasnovedad');", 5000)
+</script>
+<% end %>

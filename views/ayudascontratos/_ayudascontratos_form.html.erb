@@ -1,0 +1,99 @@
+<table width="95%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Disponible para Ofrecer</td>
+          <td width="25%" class="campos">Valor del Subsidio de Arriendo</td>
+          <td width="25%" class="campos">Fecha Primer contrato</td>
+          <td width="25%" class="campos">Fecha contrato Actual</td>
+        </tr>
+        <tr>
+          <td><%= select( "ayudascontrato", "vivienda_disponible", select_sino,
+                { :include_blank => true }, { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudascontrato, :vivienda_disponible , :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudascontrato, :valor_arriendo , { :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudascontrato, :valor_arriendo , :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayudascontrato", "fecha_primer_contrato", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_primer_contrato, :css_class =>"cerror"%></td>
+            <td><%= calendar_date_select "ayudascontrato", "fecha_contrato_actual", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_contrato_actual, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          
+          <td width="25%" class="campos">Terminacion contrato Actual</td>
+          <td width="25%" class="campos">Elaboración Compromiso</td>
+          <td width="25%" class="campos">Canon</td>
+          <td width="25%" class="campos">Paz y Salvo</td>
+        </tr>
+        <tr>
+          <td><%= calendar_date_select "ayudascontrato", "fecha_termina_contrato", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_termina_contrato, :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayudascontrato", "fecha_compromiso", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_compromiso, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudascontrato, :canon , { :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :ayudascontrato, :canon , :css_class =>"cerror"%></td>
+          <td><%= select( "ayudascontrato", "paz_salvo", select_sino,
+                { :include_blank => true },{ :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudascontrato, :paz_salvo , :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Fecha paz y salvo</td>
+          <td width="20%" class="campos">Acta de entrega</td>
+          <td width="20%" class="campos">Fecha Acta de entrega</td>
+          <td width="20%" class="campos">Acta de cancelación</td>
+          <td width="20%" class="campos">Fecha acta de cancelación</td>
+        </tr>
+        <tr>
+         <td><%= calendar_date_select "ayudascontrato", "fecha_paz_salvo", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_paz_salvo, :css_class =>"cerror"%></td>
+          <td><%= select( "ayudascontrato", "acta_entrega", select_sino,
+                { :include_blank => true },{ :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudascontrato, :acta_entrega , :css_class =>"cerror"%></td>
+          <td><%= calendar_date_select "ayudascontrato", "fecha_acta_entrega", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_acta_entrega, :css_class =>"cerror"%></td>
+          <td><%= select( "ayudascontrato", "acta_cancelacion", select_sino,
+                { :include_blank => true },{ :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudascontrato, :acta_cancelacion , :css_class =>"cerror"%></td>
+           <td><%= calendar_date_select "ayudascontrato", "fecha_acta_cancela", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 10, :time => false%>
+              <%= error_message_on :ayudascontrato, :fecha_acta_cancela, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="50%" class="campos">Motivo de cancelación</td>
+        </tr>
+        <tr>
+          <td><%= select( "ayudascontrato", "motivo_cancelacion", select_motivo_cancelacion,
+                { :include_blank => true },{ :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudascontrato, :motivo_cancelacion , :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30">
+            <div align="right">
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :ayudascontrato, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

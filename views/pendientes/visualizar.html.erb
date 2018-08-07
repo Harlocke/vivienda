@@ -1,0 +1,73 @@
+<style type="text/css">
+<!--
+H3.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%><br/><br/>
+     <div class="col_enc" ALIGN="left">INFORME DE SEGUIMIENTO</div><br/><br/>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+       <tr class="odd1">
+          <td class="campos"><div align="center">FECHA ASIGNACIÓN</div></td>
+          <td class="campos"><div align="center">FECHA DE VENCIMIENTO</div></td>
+          <td class="campos"><div align="center">FECHA DE SOLUCIÓN</div></td>
+          <td class="campos"><div align="center">ESTADO</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><div align="center"><%= @pendiente.fecha_asignacion rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%= @pendiente.fecha_vence rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%= @pendiente.fecha_solucion rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%= @pendiente.estado rescue nil%></div></td>
+        </tr>
+        </table>
+        <br/>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="25%" class="campos"><div align="left">DEPENDENCIA</div></td>
+          <td width="75%" class="campos"><div align="left">TAREA / ACTIVIDAD</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><div align="left">
+                         <%=@pendiente.asignadoa %></div></td>
+          <td class="camposDesc"><div align="left"><%= @pendiente.tarea rescue nil%></div></td>
+        </tr>
+      </table>
+      </br>
+         <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+           <tr class="odd1">
+              <td class="campos"><div align="left">OBSERVACIÓN</div></td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><div align="left">&nbsp;<%= @pendiente.observaciones rescue nil%></div></td>
+            </tr>
+          </table>
+       <br/>
+     </td>
+    </tr>
+  </table>
+<% if @pendiente.pendientesnotas.exists? %>
+<br/>  <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+    <tr>
+      <td height="30"><div class="col_enc" ALIGN="center">REPORTES POR LA SUBDIRECCIÓN</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td width="15%" class="campos"><div align="left">FECHA DE REGISTRO</div></td>
+        <td width="85%" class="campos"><div align="left">OBSERVACION</div></td>
+      </tr>
+      <% @pendiente.pendientesnotas.each do |pendientesnota|%>
+        <tr>
+          <td class="camposDesc"><div align="left"><%= pendientesnota.created_at.strftime("%Y-%m-%d") rescue nil%></div></td>
+          <td class="camposDesc"><div align="left"><%= pendientesnota.observacion rescue nil%></div></td>
+        </tr>
+      <% end %>
+  </table>
+<% else %>
+<strong>NO hay seguimiento a esta actividad</strong>
+<% end %>
+</div><br/>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>

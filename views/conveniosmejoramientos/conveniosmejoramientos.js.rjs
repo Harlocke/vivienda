@@ -1,0 +1,1 @@
+page.replace_html :conveniosmejoramientos_form, :partial => "conveniosmejoramientos", :object => @conveniosmejoramiento

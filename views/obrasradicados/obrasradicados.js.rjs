@@ -1,0 +1,1 @@
+page.replace_html :obrasradicados_form, :partial => "obrasradicados", :object => @obrasradicado

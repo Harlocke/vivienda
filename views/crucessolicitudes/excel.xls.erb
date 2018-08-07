@@ -1,0 +1,71 @@
+#encoding: utf-8
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+
+<ss:Styles>
+  <ss:Style ss:ID='header'><ss:Font ss:Bold='1' ss:Color='#F5F6CE'/><ss:Interior ss:Color="#045FB4" ss:Pattern="Solid"/><ss:Alignment ss:Horizontal='Center'/></ss:Style>
+  <ss:Style ss:ID='row'><ss:Alignment ss:Horizontal='Left' ss:Vertical='Center'/></ss:Style> 
+</ss:Styles>
+
+  <ss:Worksheet ss:Name="Hoja1">
+<% if @clase.to_s == 'CRUCE'%>
+    <ss:Table>
+        <ss:Column ss:Width="100"/>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>Cedula</Data></Cell>
+      </ss:Row>
+      <% for p in @crucessolicitudes %>
+      <ss:Row ss:StyleID='row'>
+        <Cell><Data ss:Type='String'><%=p.identificacion rescue nil%></Data></Cell>        
+      </ss:Row>
+      <% end %>
+    </ss:Table>
+<% elsif @clase.to_s == 'ZR'%>
+    <ss:Table>
+      <ss:Column ss:Width="100"/>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>Solicitante</Data></Cell>
+        <Cell><Data ss:Type='String'>Matricula</Data></Cell>
+        <Cell><Data ss:Type='String'>Direccion</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced1</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom1</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced2</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom2</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced3</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom3</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced4</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom4</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced5</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom5</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced6</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom6</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced7</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom7</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced8</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom8</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced9</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom9</Data></Cell>
+        <Cell><Data ss:Type='String'>Ced10</Data></Cell>
+        <Cell><Data ss:Type='String'>Nom10</Data></Cell>
+      </ss:Row>
+      <% for p in @crucessolicitudes %>
+      <ss:Row ss:StyleID='row'>
+        <Cell><Data ss:Type='String'><%=p.user.nombre rescue nil%></Data></Cell>
+        <Cell><Data ss:Type='String'><%=p.matricula rescue nil%></Data></Cell>
+        <Cell><Data ss:Type='String'><%=p.direccion rescue nil%></Data></Cell>
+        <% Crucessolicitud.find(:all, :conditions=>["consecutivo = '#{p.consecutivo}'"], :order=>"benevivienda_id desc").each do |a| %>         
+          <Cell><Data ss:Type='String'><%=a.identificacion rescue nil%></Data></Cell>
+          <Cell><Data ss:Type='String'><%=a.nombre rescue nil%></Data></Cell>
+        <% end %>    
+      </ss:Row>
+      <% end %>
+    </ss:Table>
+<% end %>
+  </ss:Worksheet>
+
+</Workbook>
+

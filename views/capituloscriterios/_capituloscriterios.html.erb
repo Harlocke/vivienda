@@ -1,0 +1,61 @@
+</form>
+<%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CRITERIOS DE NO ACEPTACION</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@capitulo, @capituloscriterio] do |form| %>
+<%   if !@capituloscriterio.id %>
+           <%= render :partial => "/capituloscriterios/capituloscriterios_form" %>
+<%   end %>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="88%" height="30" align="left" class="oce-first">Descripcion</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for capituloscriterio in @capitulo.capituloscriterios.find(:all, :order => 'created_at DESC') %>
+   <% if capituloscriterio.id != @capituloscriterio.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="capituloscriterio_<%=capituloscriterio.id%>">
+     <td width="88%" align="left" class="camposDesc"><%=capituloscriterio.descripcion%></td>
+     <td width="12%" align="right" class="camposDesc">
+           <%= link_to_remote('Editar',{:url=>edit_capitulo_capituloscriterio_path(@capitulo,capituloscriterio),:method => :get},:class=>"editarlink")%>
+           |&nbsp;<%= link_to_remote('Borrar',{:url => capitulo_capituloscriterio_path(@capitulo, capituloscriterio),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR ACTIVIDAD</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="capituloscriterio_<%=@capituloscriterio.id%>">
+     <%= render :partial => "capituloscriterios_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+            <%= hidden_field :capitulo, :id %>
+<% end %>
+</div>
+<br/>
+<% if flash[:capituloscriterio] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:capituloscriterio] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('capituloscriterio');", 5000)
+</script>
+<% end %>

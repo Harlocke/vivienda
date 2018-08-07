@@ -1,0 +1,24 @@
+<h1>Listing listasverificaciones</h1>
+
+<table>
+  <tr>
+    <th>Proceso</th>
+    <th>Codigo</th>
+    <th>Documento</th>
+  </tr>
+
+<% @listasverificaciones.each do |listasverificacion| %>
+  <tr>
+    <td><%=h listasverificacion.proceso %></td>
+    <td><%=h listasverificacion.codigo %></td>
+    <td><%=h listasverificacion.documento %></td>
+    <td><%= link_to 'Show', listasverificacion %></td>
+    <td><%= link_to 'Edit', edit_listasverificacion_path(listasverificacion) %></td>
+    <td><%= link_to 'Destroy', listasverificacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New listasverificacion', new_listasverificacion_path %>

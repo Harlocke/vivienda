@@ -1,0 +1,24 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciaenviadamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CARGUE MASIVO DE IMAGENES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td height="30" class="oce-first">Error</td>
+  </tr>
+<% @objetos.each do |objeto| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><%=h objeto.descripcion rescue nil%></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,23 @@
+<p>
+  <b>Codigo:</b>
+  <%=h @periodosliquidacion.codigo %>
+</p>
+
+<p>
+  <b>Fecha inicial:</b>
+  <%=h @periodosliquidacion.fecha_inicial %>
+</p>
+
+<p>
+  <b>Fecha final:</b>
+  <%=h @periodosliquidacion.fecha_final %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%=h @periodosliquidacion.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_periodosliquidacion_path(@periodosliquidacion) %> |
+<%= link_to 'Back', periodosliquidaciones_path %>

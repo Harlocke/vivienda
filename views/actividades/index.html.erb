@@ -1,0 +1,84 @@
+<%= stylesheet_link_tag 'scaffold' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="100%"><div class="col_enc">&nbsp;&nbsp;REQUERIMIENTO DE : <%=@requerimiento.persona.identificacion%> - <%=@requerimiento.persona.primer_nombre%> <%=@requerimiento.persona.segundo_nombre%> <%=@requerimiento.persona.primer_apellido%> <%=@requerimiento.persona.segundo_apellido%></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+  <tr>
+    <td class="campos">Nro Solicitud</td>
+    <td class="camposDesc"><%=@requerimiento.id%></td>
+  </tr>
+  <tr>
+    <td class="campos">Fecha</td>
+    <td class="camposDesc"><%=@requerimiento.fecha%></td>
+  </tr>
+  <tr>
+    <td width="14%" class="campos" >Descripcion</td>
+    <td width="86%" class="camposDesc"><%=@requerimiento.descripcion%></td>
+  </tr>
+  <tr>
+    <td width="14%" class="campos" >Dependencia</td>
+    <td width="86%" class="camposDesc"><%=@requerimiento.dependencia.descripcion%></td>
+  </tr>
+<tr>
+    <td width="14%"></td>
+    <td width="86%"></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;ACTIVIDADES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('database_add.png',
+	                                           { :border=>0, :title => "Nuevo"}), new_requerimiento_actividad_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  id="one-column-emphasis">
+  <tr>
+    <td width="8%" height="30" class="oce-first">Fecha</td>
+    <td width="55%" class="oce-first">Descripcion</td>
+    <td width="16%" class="oce-first">Estado</td>
+    <td width="16%" class="oce-first">Usuario</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @actividades.each do |actividad| %>
+  <tr valign="middle">
+    <td class="camposDesc" height="30" ><%=h actividad.fecha %></td>
+    <td class="camposDesc"><%=h actividad.descripcion %></td>
+    <td class="camposDesc"><%=h actividad.estado %></td>
+    <td class="camposDesc"><%=h actividad.user.nombre rescue nil %></td>
+    <td class="camposDesc">
+<% if permiso("actividad","A").to_s == "S" %>
+    <%= link_to image_tag('application_edit.png',{ :border=>0, :title => "Actualizar"}), edit_requerimiento_actividad_path(@requerimiento, actividad) %>
+<% end %>
+<% if permiso("actividad","E").to_s == "S" %>
+    <%= link_to image_tag('delete.png',
+                    { :border=>0,
+                      :title => "Borrar"}),
+                      requerimiento_actividad_path(@requerimiento, actividad),
+                      :confirm => 'Esta Seguro de Eliminar?',
+                      :method => :delete %>
+<% end %>
+    </td>
+  </tr>
+<% end %>
+  <tr>
+    <td width="8%"></td>
+    <td width="55%" ></td>
+    <td width="16%"></td>
+    <td width="12%" ></td>
+  </tr>
+</table>

@@ -1,0 +1,2 @@
+module CorrespondenciasclasesHelper
+end

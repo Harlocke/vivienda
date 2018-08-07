@@ -1,0 +1,79 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Resoluciones</h3>
+</div>
+<table border="1">
+   <tr valign="middle" bgcolor="#00FF00">
+    <td width="20%"><strong>Identificacion Beneficiario</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+    <td width="50%"><strong><div align="right">Tipo de Resolucion</div></strong></td>
+    <td width="50%"><strong><div align="right">Año</div></strong></td>
+    <td width="50%"><strong><div align="right">Nro Resolucion</div></strong></td>
+    <td width="50%"><strong><div align="right">Fecha Resolucion</div></strong></td>
+    <td width="50%"><strong><div align="right">Responsable</div></strong></td>
+    <td width="50%"><strong><div align="right">Existe Vivienda Nueva</div></strong></td>
+    <td width="50%"><strong><div align="right">Entregado Vivienda Nueva</div></strong></td>
+    <td width="50%"><strong><div align="right">Entregado Vivienda Usada</div></strong></td>
+    <td width="50%"><strong><div align="right">Existe Obra Publica</div></strong></td>
+    <td width="50%"><strong><div align="right">Existe Reasentamiento</div></strong></td>
+    <td width="50%"><strong><div align="right">Reasentado Proyecto</div></strong></td>
+    <td width="50%"><strong><div align="right">Reasentado?</div></strong></td>
+    <td width="50%"><strong><div align="right">Fecha Reasentado</div></strong></td>
+  </tr>
+<% @resolucionespersonas.each do |resolucionespersona| %>
+   <tr valign="middle">
+     <td><div align="left"><%=resolucionespersona.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.persona.telefonos rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.resolucion.resolucionesclase.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.resolucion.anno rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.resolucion.nro_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.resolucion.fecha rescue nil%></div></td>
+     <td><div align="left"><%=resolucionespersona.resolucion.user.nombre rescue nil%></div></td>
+<% if Viviendaspersona.exists?(["persona_id = ?", resolucionespersona.persona_id]) == true
+      @proyectos = Proyecto.find_by_sql("select p.descripcion, decode(v.entregado,'S','SI','NO') estado
+                                         from   proyectos p, viviendas v, viviendaspersonas vp
+                                         where  vp.persona_id = #{resolucionespersona.persona_id}
+                                         and    vp.vivienda_id  = v.id
+                                         and    v.proyecto_id   = p.id")
+      @proyectos.each do |proyecto|
+%>
+       <td><div align="left"><%=proyecto.descripcion rescue nil%></div></td>
+       <td><div align="left"><%=proyecto.estado rescue nil%></div></td>
+<%    end
+   else
+%>
+       <td><div align="left"></div></td>
+       <td><div align="left"></div></td>
+<% end %>
+       <% if Viviendasusada.exists?(["entregada = 'SI' and id in (select viviendasusada_id from viviendasusadaspersonas where persona_id = #{resolucionespersona.persona_id})"]) == true %>
+          <td><div align="left">SI</div></td>
+       <% else %>
+          <td><div align="left"></div></td>
+       <% end %>
+       <% if Obraspublica.exists?(["persona_id = ?", resolucionespersona.persona_id]) == true %>
+          <td><div align="left">SI</div></td>
+       <% else %>
+          <td><div align="left"></div></td>
+       <% end %>
+       <% if Iguanaspersona.exists?(["persona_id = ?", resolucionespersona.persona_id]) == true %>
+          <td><div align="left">SI</div></td>
+       <% else %>
+          <td><div align="left"></div></td>
+       <% end %>
+       <% @iguanas = Iguana.find_by_sql("select proyecto, decode(reasentado,null,'NO TIENE',reasentado) rease,
+                                                decode(fecha_reasentamiento,null,'NO TIENE',fecha_reasentamiento) fchrease
+                                         from   iguanas
+                                         where  id in (select iguana_id
+                                                       from   iguanaspersonas
+                                                       where  persona_id = #{resolucionespersona.persona_id})")
+         @iguanas.each do |iguana|
+       %>
+          <td><div align="left"><%=iguana.proyecto%></div></td>
+          <td><div align="left"><%=iguana.rease%></div></td>
+          <td><div align="left"><%=iguana.fchrease%></div></td>
+       <% end %>
+  </tr>
+<% end %>
+</table>

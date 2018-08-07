@@ -1,0 +1,281 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="s0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/inmobiliariomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION INMOBILIARIA ( ID : <%=@inmobiliario.id%> )</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),busqueda_inmobiliarios_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/inmobiliariopeq.png" border="0" title="Información Predio"/></a></li>
+<% unless @inmobiliario.new_record? %>
+        <li><a href="#tab2"><img src="/images/imagenes.png" border="0" title="Informacion Digitalizada"/></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+       <fieldset>
+<% form_for(@inmobiliario) do |f| %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td width="80%" height="30"><div class="col_enc">INFORMACIÓN INMUEBLE</div></td>
+        <% unless @persona.new_record? %>
+        <td style="background-color:#98DB34;" class="camposDesc"><div align="center"><% if Crucessolicitud.exists?(["persona_id = #{@persona.id} and estado is null and clase = 'CRUCE'"])%>Cruce en tramite...<%else%><%=link_to 'Solicitar CRUCE', solicitarcruce_personas_path(:id=>@persona.id, :clase =>'CRUCE'), :class=>"verlink", :title=>"Este link genera la solicitud de cruce de todo este grupo familiar...", :confirm=>"Atención: Seguro que desea solicitar el cruce de esta familia?"%><%end%></div></td>
+        <td style="background-color:#F5A9A9" class="camposDesc"><div align="center"><% if Crucessolicitud.exists?(["persona_id = #{@persona.id} and estado is null and clase = 'ZR'"])%>ZR en tramite...<%else%><%=link_to 'Solicitar ZR', solicitarcruce_personas_path(:id=>@persona.id, :clase =>'ZR'), :class=>"verlink", :title=>"Este link genera la solicitud de ZR de todo este grupo familiar...", :confirm=>"Atención: Seguro que desea solicitar el ZR de esta familia?"%><%end%></div></td>
+        <% end %>
+      </tr>
+    </table>
+
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN INMUEBLE</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="47%" align="left" class="campos">Sector</td>
+          <td width="53%" align="left" class="campos">Direccion</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc"><%=select("inmobiliario", "comuna_id", Comuna.find(:all, :order=>"barrio").collect {|p| [ p.barrio.to_s + ' - ('+p.comuna.to_s+')', p.id ] }, { :include_blank => true },
+      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= f.error_message_on :comuna_id, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= f.text_field :direccion,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr>
+            <td width="11%" align="left" class="campos">Nivel</td>
+            <td width="11%" align="left" class="campos">Piso</td>
+            <td width="11%" align="left" class="campos">Alcoba</td>
+            <td width="11%" align="left" class="campos">Cocina</td>
+            <td width="11%" align="left" class="campos">Ba&ntilde;os</td>
+            <td width="11%" align="left" class="campos">Sala</td>
+            <td width="11%" align="left" class="campos">Comedor</td>
+            <td width="11%" align="left" class="campos">Patio</td>
+            <td width="11%" align="left" class="campos">Balcon</td>
+          </tr>
+          <tr>
+            <td align="left" class="camposDesc"><%= f.text_field :nivel,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :piso,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :alcoba,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" lass="camposDesc"><%= f.text_field :cocina,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :bano,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :sala,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :comedor,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :patio,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :balcon,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="11%" align="left" class="campos">Estrato</td>
+            <td width="20%" align="left" class="campos">Precio</td>
+            <td width="69%" align="left" class="campos">Otros</td>
+          </tr>
+          <tr valign="top">
+            <td align="left" class="camposDesc"><%= f.text_field :estrato,{ :class => "campo", :size =>10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+            <td align="left" class="camposDesc"><%= f.text_field :precio,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+            <td align="left" class="camposDesc"><%= text_area(:inmobiliario, :otros, :cols => 100, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="15%" align="left" class="campos">Disponible</td>
+            <td width="15%" align="left" class="campos">Fecha Disponible</td>
+            <td width="25%" align="left" class="campos">Concepto Riesgo </td>
+            <td width="20%" align="left" class="campos">Documentacion Completa</td>
+            <td width="25%" align="left" class="campos">Estudio de Titulos</td>
+          </tr>
+          <tr valign="top">
+            <td align="left" class="camposDesc"><%= select(:inmobiliario, :disponible, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+            <td align="left" class="camposDesc"><%= calendar_date_select "inmobiliario", "fecha_disponible", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+            <td align="left" class="camposDesc"><%= select(:inmobiliario, :concepto_riesgo, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            &nbsp;<%= select(:inmobiliario, :resultado_concepto, { "POSITIVO" => "POSITIVO",
+                           "NEGATIVO" => "NEGATIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              </td>
+            <td align="left" class="camposDesc"><%= select(:inmobiliario, :documentacion_completa, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+           <td align="left" class="camposDesc"><%= select(:inmobiliario, :titulos, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+                    &nbsp;<%= select(:inmobiliario, :titulos_resultado, { "POSITIVO" => "POSITIVO",
+                           "NEGATIVO" => "NEGATIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="20%" align="left" class="campos">Identificacion Vendedor</td>
+            <td width="57%" align="left" class="campos">Nombre Vendedor</td>
+            <td width="23%" align="left" class="campos">Telefono Vendedor</td>
+          </tr>
+          <tr valign="top">
+            <td align="left" class="camposDesc"><%= f.text_field :identificacion,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :nombre,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td align="left" class="camposDesc"><%= f.text_field :telefonos,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="62%" align="left" class="campos">Observaciones</td>
+            <td width="62%" align="left" class="campos">Documentos</td>
+          </tr>
+          <tr valign="top">
+            <td align="left" class="camposDesc"><%= text_area(:inmobiliario, :observaciones, :cols => 85, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+            <td class="camposDesc">
+                  <%= f.check_box :compraventa,{},'SI','NO'%> Escritura<br/>
+                  <%= f.check_box :rph,{},'SI','NO'%> RPH<br/>
+                  <%= f.check_box :impuesto_predial,{},'SI','NO'%> Impuesto predial<br/>
+                  <%= f.check_box :servicios_publicos,{},'SI','NO'%> Servicios publicos<br/>
+                  <%= f.check_box :ficha_catastral,{},'SI','NO'%> Ficha catastral<br/>
+                  <%= f.check_box :fotocopia_cedula,{},'SI','NO'%> Fotocopia cedula<br/>
+                  <%= f.check_box :otrosdoc,{},'SI','NO'%> Otros Documentos<br/>
+            </td>
+          </tr>
+        </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="20%" align="left" class="campos">Concepto Visita Tecnico</td>
+            <td width="80%" align="left" class="campos">Observaciones visita tecnico</td>
+          </tr>
+          <tr valign="top">
+            <td align="left" class="camposDesc"><%= select(:inmobiliario, :concepto_tecnico, { "POSITIVO" => "POSITIVO",
+                           "NEGATIVO" => "NEGATIVO"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+            <td align="left" class="camposDesc"><%= text_area(:inmobiliario, :tecnico_observacion, :cols => 85, :rows => 3, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          </tr>
+        </table>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+          <tr>
+            <td width="100%" class="campos">Beneficiario Asociado </td>
+          </tr>
+          <tr>
+            <td><%= text_field_with_auto_complete :inmobiliario, :persona_autobuscar,
+                    { :class => "campo",
+                        :size => 100,
+                        :maxlength => 150,
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'" },
+                    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+                  <%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%></td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+</table>
+</div>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td class="camposNotas" align="left">
+      <% unless @inmobiliario.new_record? %>
+      Ultima Actualización: <%=User.find(@inmobiliario.user_actualiza).username rescue nil%> - <%=@inmobiliario.updated_at.strftime("%Y-%m-%d %X")%>
+    <% end %></td>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+       </div></td>
+  </tr>
+</table>
+<% end %>
+</fieldset>
+</div>
+<% unless @inmobiliario.new_record? %>
+    <div class="panel" id="tab2">
+      <fieldset>
+         <div id="inmobiliariosimagenes_form">
+           <%= render :partial => "/inmobiliariosimagenes/inmobiliariosimagenes" %>
+         </div>
+      </fieldset>
+    </div>
+<% end %>

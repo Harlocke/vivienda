@@ -1,0 +1,52 @@
+<%=  javascript_include_tag :defaults %>
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% @titulaciones.each do |titulacion|
+  if titulacion.titulacionespersonas.exists?
+    titulacion.titulacionespersonas.each do |titulacionespersona|
+%>
+<div align="center">
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="justify" style="font-size: 14px; font-family: Arial,Helvetica,sans-serif;"><br/><br/>
+      <br/><br/><br/>
+      <strong>Señor<br/>
+      JUEZ CIVIL MUNICIPAL – REPARTO<br/>
+      E.S.D.</strong><br/><br/>
+      REF: OTORGAMIENTO DE PODER<br/><br/>
+      <strong><%=titulacionespersona.persona.nombres rescue nil%></strong>, mayor de edad y domiciliado(a) en el municipio de Medellín, Antioquia,
+      identificado(a) con el número de cedula de ciudadanía cuyo número aparecen al pie de nuestra correspondiente firma, actuando en nombre
+      propio, por medio del presente escrito conferimos poder especial amplio y suficiente al doctor <strong>WILLIAM ESTEBAN GRISALES CARDONA</strong>,
+      abogado titulado y en ejercicio, domiciliado en la ciudad de Medellín, identificado como aparece al pie de su firma, para que nos
+      represente en <strong>PROCESO ESPECIAL DE PERTENENCIA</strong> promovido por nosotros y en contra de _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _ _ _ _ _ e indeterminados.<br/><br/>
+      Mi apoderado queda con todas las facultades inherentes para el ejercicio del presente poder, en especial las de recibir,
+      desistir, transigir, conciliar, sustituir, renunciar, reasumir, interponer recursos y en general todas aquellas conductas
+      tendientes a la defensa de nuestros intereses.<br/><br/>
+      Sírvase, por lo tanto, Señor Juez, reconocerle personería jurídica a nuestro apoderado en los términos y para los fines del presente mandato.<br/><br/>
+      Atentamente,<br/><br/><br/><br/>
+      <strong><%=titulacionespersona.persona.nombres rescue nil%></strong><br/>
+      <strong>C.C. N° <%=titulacionespersona.persona.identificacion rescue nil%></strong><br/><br/><br/><br/>
+      Acepto:<br/><br/><br/><br/>
+      <strong>WILLIAM ESTEBAN GRISALES CARDONA<br/>
+      C.C. Nº. 71.733.166 de Medellín, Antioquia<br/>
+      T.P. Nº. 82.785 del C.S.J.<br/></strong><br/>
+      <div align="justify" style="font-size: 11px; font-family: Arial,Helvetica,sans-serif;">
+      <strong>BARRIO: <%=titulacion.comuna.descripcion2 rescue nil%> - COBAMA: <%=titulacion.cobama rescue nil%></strong><br/>
+      <strong>MANZANA: <%=titulacion.manzana rescue nil%> LOTE: <%=titulacion.lote rescue nil%></strong>
+      </div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+  <H1 class=SaltoDePagina>.</H1>
+<%   end  #Titulacionespersonas
+    end
+  end %>

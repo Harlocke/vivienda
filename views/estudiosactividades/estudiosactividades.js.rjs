@@ -1,0 +1,1 @@
+page.replace_html :estudiosactividades_form, :partial => "estudiosactividades", :object => @estudiosactividad

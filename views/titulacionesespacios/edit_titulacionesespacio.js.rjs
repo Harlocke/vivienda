@@ -1,0 +1,2 @@
+page.replace_html :titulacionesespacios_form, :partial => "/titulacionesespacios/titulacionesespacios"
+

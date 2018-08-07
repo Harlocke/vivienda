@@ -1,0 +1,56 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<%= render :partial => "form" %>
+
+<table width="577" border="0" align="center">
+      <tr>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('page_gear.png',
+	                { :border=>0,
+			  :title => "<< Moravia >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('folder_bug.png',
+	                { :border=>0,
+			  :title => "<< Iguana >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('folder_database.png',
+	                { :border=>0,
+			  :title => "<< Desplazados >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('umbrella.png',
+	                { :border=>0,
+			  :title => "<< Desastres >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('transmit_blue.png',
+	                { :border=>0,
+			  :title => "<< Mejoramiento >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('user_suit.png',
+	                { :border=>0,
+			  :title => "<< Feria 2009 >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+        <td><% if @persona.moravias.count > 0 %>
+                         <%= link_to image_tag('group_edit.png',
+	                { :border=>0,
+			  :title => "<< Feria 2010 >>"}),
+			  persona_moravias_path(@persona),
+                         { :Onclick => "return GB_showCenter('Moravia', this.href, 500, 900)"} %>
+        <% end %></td>
+      </tr>
+</table>

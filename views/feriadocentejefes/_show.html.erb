@@ -1,0 +1,192 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION FERIA DOCENTE</div></td>
+  </tr>
+</table>
+<% @persona.feriadocentejefes.each do |feriadocentejefe| %>
+    <% if feriadocentejefe.id != @feriadocentejefe.id %>
+   <tr class="<%=cycle('even1', 'odd1')%>" id="feriadocentejefe_<%=feriadocentejefe.id%>">
+<div align="center">
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Nro Formulario</td>
+          <td width="13%" class="campos">Documento</td>
+          <td width="15%" class="campos">Identificacion</td>
+          <td width="36%" class="campos">Nombre</td>
+          <td width="19%" class="campos">Fecha Nacimiento </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feriadocentejefe.nroformulario %></td>
+          <td class="camposDesc"><%=feriadocentejefe.documento %></td>
+          <td class="camposDesc"><%=feriadocentejefe.identificacion %></td>
+          <td class="camposDesc"><%=feriadocentejefe.primernombre %>&nbsp;<%=feriadocentejefe.segundonombre %>&nbsp;<%=feriadocentejefe.primerapellido %>&nbsp;<%=feriadocentejefe.segundoapellido %></td>
+          <td class="camposDesc"><%=feriadocentejefe.fecha_nacimiento %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%" class="campos">Parentesco</td>
+          <td width="23%" class="campos">Estado Civil </td>
+          <td width="15%" class="campos">Ocupacion</td>
+          <td width="24%" class="campos">Condici&oacute;n Especial </td>
+          <td width="17%" class="campos">Ingresos Mensuales</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feriadocentejefe.parentesco %></td>
+          <td class="camposDesc"><%=feriadocentejefe.estadocivil %></td>
+          <td class="camposDesc"><%=feriadocentejefe.ocupacion %></td>
+          <td class="camposDesc"><%=feriadocentejefe.condicionespecial %></td>
+          <td class="camposDesc"><%=feriadocentejefe.ingresos_mensuales %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="26%" class="campos">Direcci&oacute;n</td>
+          <td width="21%" class="campos">Barrio</td>
+          <td width="21%" class="campos">Ciudad</td>
+          <td width="15%" class="campos">Telefono 1 </td>
+          <td width="15%" class="campos">Telefono 2 </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feriadocentejefe.direccion %></td>
+          <td class="camposDesc"><%=feriadocentejefe.barrio %></td>
+          <td class="camposDesc"><%=feriadocentejefe.ciudad %></td>
+          <td class="camposDesc"><%=feriadocentejefe.telefonos1 %></td>
+          <td class="camposDesc"><%=feriadocentejefe.telefonos2 %></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="16%" class="campos">Celular</td>
+          <td width="15%" class="campos">Antiguedad A&ntilde;os </td>
+          <td width="17%" class="campos">Antiguedad Meses </td>
+          <td width="7%" class="campos">JAL</td>
+          <td width="11%" class="campos">Valor Ahorro </td>
+          <td width="6%" class="campos">Sisben</td>
+          <td width="6%" class="campos">OPV</td>
+          <td width="16%" class="campos">Cual OPV </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feriadocentejefe.celular %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.antiguedad_annos %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.antiguedad_meses %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.jal %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.valor_ahorro %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.sisben %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.opv %></td>
+          <td class="camposDesc"><%=h feriadocentejefe.opv_cual %></td>
+        </tr>
+      </table>
+</td>
+  </tr>
+</table>
+</div>
+<br/>
+<%  if feriadocentejefe.feriadocentebeneficiarios.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">BENEFICIARIOS</div></td>
+  </tr>
+</table>
+<div align="center">
+  <% varconta = 0 %>
+<% feriadocentejefe.feriadocentebeneficiarios.each do |feriadocentebeneficiario| %>
+  <%   varconta = varconta + 1;   %>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30" class="campos"><div align="center"><%= varconta %></div></td>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="11%" class="campos">Documento</td>
+          <td width="13%" class="campos">Identificacion</td>
+          <td width="39%" class="campos">Nombre</td>
+          <td width="16%" class="campos">Fecha Nacimiento </td>
+          <td width="21%" class="campos">Parentesco</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.documento %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.identificacion %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.primernombre %>&nbsp;<%=h feriadocentebeneficiario.segundonombre %>&nbsp; <%=h feriadocentebeneficiario.primerapellido %>&nbsp;<%=h feriadocentebeneficiario.segundoapellido %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.fecha_nacimiento %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.parentesco %></td>
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="25%" class="campos">Estado Civil </td>
+          <td width="23%" class="campos">Ocupacion</td>
+          <td width="31%" class="campos">Condici&oacute;n Especial </td>
+          <td width="21%" class="campos">Ingresos Mensuales</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.estadocivil %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.ocupacion %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.condicionespecial %></td>
+          <td class="camposDesc"><%=h feriadocentebeneficiario.ingresos_mensuales %></td>
+        </tr>
+      </table>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<% end %>
+</div>
+<br/>
+<% end %>
+<%  if feriadocentejefe.feriadocenterechazados.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CAUSALES DE RECHAZO</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+        </tr>
+        <% feriadocentejefe.feriadocenterechazados.each do |feriadocenterechazado| %>
+        <tr>
+          <td class="camposDesc">* <%=h feriadocenterechazado.causarechazo %></td>
+        </tr>
+<% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>
+<%  if feriadocentejefe.feriadocentecalificaciones.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CALIFICACION</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+          <td class="oce-first"><div align="center">Puntaje</div></td>
+        </tr>
+ <% feriadocentejefe.feriadocentecalificaciones.each do |feriadocentecalificacion| %>
+        <tr>
+          <td width="88%" class="camposDesc"><%=h feriadocentecalificacion.calificacion %></td>
+          <td width="12%" class="camposDesc"><div align="center"><%=h feriadocentecalificacion.puntaje %></div></td>
+        </tr>
+<% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>
+<% end %>
+<% end %>

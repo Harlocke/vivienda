@@ -1,0 +1,34 @@
+<h1>Listing planes</h1>
+
+<table>
+  <tr>
+    <th>Cuota</th>
+    <th>Fecha vence</th>
+    <th>Inicial</th>
+    <th>Cuota</th>
+    <th>Amortiza</th>
+    <th>Corriente</th>
+    <th>Final</th>
+    <th>Mora</th>
+  </tr>
+
+<% @planes.each do |plan| %>
+  <tr>
+    <td><%=h plan.cuota %></td>
+    <td><%=h plan.fecha_vence %></td>
+    <td><%=h plan.inicial %></td>
+    <td><%=h plan.cuota %></td>
+    <td><%=h plan.amortiza %></td>
+    <td><%=h plan.corriente %></td>
+    <td><%=h plan.final %></td>
+    <td><%=h plan.mora %></td>
+    <td><%= link_to 'Show', plan %></td>
+    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+    <td><%= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New plan', new_plan_path %>

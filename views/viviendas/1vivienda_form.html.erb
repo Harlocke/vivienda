@@ -1,0 +1,709 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<% 
+nom = ""
+telefonos = ""
+@vivienda.viviendaspersonas.each do |viviendaspersona|
+  nom = viviendaspersona.persona.identificacion.to_s  + " - " + viviendaspersona.persona.nombres.to_s
+  telefonos = viviendaspersona.persona.telefonos rescue nil
+%>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%">
+            <% if Usersproyecto.exists?(["user_id = #{is_admin}"]) %>
+                 <img src="/images/gerenciadosmin.png" width="64" height="64"/>
+             <% else %>
+                 <img src="/images/gerenciadosmin.png" width="64" height="64"/>
+             <% end %>
+            </td>
+          <td width="94%"><div class="col_enc">INFORMACIÓN VIVIENDA ( <%=viviendaspersona.persona.identificacion%> - <%=viviendaspersona.persona.primer_nombre%> <%=viviendaspersona.persona.segundo_nombre%> <%=viviendaspersona.persona.primer_apellido%> <%=viviendaspersona.persona.segundo_apellido%>)</div></td>
+          <td width="3%"><div align="right">
+             <% if Usersproyecto.exists?(["user_id = #{is_admin}"]) %>
+                 <%= link_to image_tag('atras.png',{ :border=>0, :title => "Regresar"}),busqueda_viviendaspersonas_path%>
+             <% else %>
+                 <%= link_to image_tag('atras.png',{ :border=>0, :title => "Regresar"}),edit_persona_path(viviendaspersona.persona_id) %>
+             <% end %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% end %>
+<%= link_to image_tag("viviendasusada1.png", :title => "Informacion Proyecto", :style=>"#{@vivienda.d_etapa('1')} padding:4px;"),edit_vivienda_path(:id=>@vivienda.id,:etapa=>"1")%>
+<%= link_to image_tag("censo.png", :title => "Censo - Posventas", :style=>"#{@vivienda.d_etapa('2')} padding:4px;"),edit_vivienda_path(:id=>@vivienda.id,:etapa=>"2")%>
+<%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@vivienda.d_etapa('3')} padding:4px;"),edit_vivienda_path(:id=>@vivienda.id,:etapa=>"3")%>
+<%= link_to image_tag("tramites.png", :title => "Etapas", :style=>"#{@vivienda.d_etapa('4')} padding:4px;"),edit_vivienda_path(:id=>@vivienda.id,:etapa=>"4")%>
+<%= link_to image_tag("imagenes.png", :title => "Informacion Digitalizada", :style=>"#{@vivienda.d_etapa('6')} padding:4px;"),edit_vivienda_path(:id=>@vivienda.id,:etapa=>"6")%>
+<% if @vivienda.etapa.to_s == '1' %>
+    <% form_for(@vivienda) do |f| %>
+      <%= f.error_messages %>
+    <fieldset>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">INFORMACION PERSONA</div></td>
+      </tr>
+    </table>
+    <div align="center">
+        <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="40%" align="center"><div align="left"><span class="campos">Nombre</span></div></td>
+              <td width="60%" align="center"><div align="left"><span class="campos">Telefonos</span></div></td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><div align="left"><%=nom%></div></td>
+              <td class="camposDesc"><div align="left"><%=telefonos%></div></td>
+            </tr>
+          </table>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">INFORMACION DE PROYECTO DE VIVIENDA</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="300" valign="top">
+            <table width="100%" border="0" cellspacing="0" align="center" cellpadding="0">
+            <tr>
+              <td width="36%" align="center"><div align="left"><span class="campos">Proyecto</span></div></td>
+              <td align="center"><div align="left"><span class="camposDesc"><%=@vivienda.proyecto.descripcion rescue nil%></span></div></td>
+            </tr>
+            <tr>
+              <td align="center"><div align="left"><span class="campos">Bloque</span></div></td>
+              <td align="center"><div align="left"><span class="camposDesc"><%=@vivienda.bloque.descripcion rescue nil%></span></div></td>
+            </tr>
+            <tr>
+              <td align="center"><div align="left"><span class="campos">Piso</span></div></td>
+              <td align="center"><div align="left"><span class="camposDesc"><%=@vivienda.piso.descripcion rescue nil%></span></div></td>
+            </tr>
+            <tr>
+              <td align="center"><div align="left"><span class="campos">Apartamento</span></div></td>
+              <td align="center"><div align="left"><span class="camposDesc"><%=@vivienda.apto.descripcion rescue nil%></span></div></td>
+            </tr>
+            <tr>
+                <td width="34%" align="left"><span class="campos">Valor Vivienda</span></td>
+                <td align="left"><span class="camposDesc"><%= f.text_field :valor_vivienda,{ :class => "campo", :size => 20,
+    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+    :onFocus => "this.style.border='1px solid #f00'",
+    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                </tr>
+            <tr>
+                <td align="left"><span class="campos">Carpeta</span></td>
+                <td align="left"><span class="camposDesc">Si <%= f.radio_button("carpeta", "S") %> No <%= f.radio_button("carpeta", "N") %></span></td>
+             </tr>
+            <tr>
+                <td align="left"><span class="campos">Fonade</span></td>
+                <td align="left"><span class="camposDesc">Si <%= f.radio_button("fonade", "S") %> No <%= f.radio_button("fonade", "N") %></span></td>
+              </tr>
+               <tr>
+                <td align="left"><span class="campos">Vinculado Fiduciaria </span></td>
+                <td align="left"><span class="camposDesc">Si <%= f.radio_button("vinculado", "S") %> No <%= f.radio_button("vinculado", "N") %></span></td>
+              </tr>
+              <tr>
+                <td align="left"><span class="campos">Gratuita </span></td>
+                <td align="left"><span class="camposDesc">Si <%= f.radio_button("gratuita", "SI") %> No <%= f.radio_button("gratuita", "NO") %></span></td>
+              </tr>
+            </table></td>
+          <td width="10">&nbsp;</td>
+          <td width="500"><% @vivienda.viviendaspersonas.each do |viviendaspersona| %>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="60%"><fieldset>
+                  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+                   <tr>
+                      <td height="30" align="left"><div class="col_enc">FORMA FINANCIACION</div></td>
+                    </tr>
+                  </table>
+                  <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                    <tr class="odd1">
+                      <td width="45%" align="left" class="campos">Tipo de Subsidio</td>
+                      <td width="20%" align="left" class="campos">Valor</td>
+                      <td width="20%" align="left" class="campos">Resolucion</td>
+                      <td width="15%" align="left" class="campos">Fecha</td>
+                    </tr>
+                    <%
+                      valsubsidios = 0
+                      #subsidio = Subsidio.find(:all, :conditions=>["tipos_subsidio_id in (1,6,7,3) and persona_id = #{viviendaspersona.persona_id}"])
+                      subsidio = Subsidio.find(:all, :conditions=>["tipos_subsidio_id in (select id from tipos_subsidios where vivienda_nueva = 'SI') and persona_id = #{viviendaspersona.persona_id}"])
+                      #subsidio = Subsidio.find_all_by_persona_id(viviendaspersona.persona_id)
+                      subsidio.each do |sub|
+                        valsubsidios = valsubsidios + sub.valor.to_i
+                    %>
+                    <tr >
+                      <td align="left" class="camposDesc"><%=sub.tipos_subsidio.descripcion rescue nil%></td>
+                      <td align="left" class="camposDesc">$ <%=number_to_currency(sub.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                      <td align="left" class="camposDesc"><%=sub.resolucion%></td>
+                      <td align="left" class="camposDesc"><%=sub.fecha_asig.slice!(0..10) rescue nil%></td>
+                    </tr>
+                    <%  end %>
+                    <tr>
+                      <td align="left" class="campos">TOTAL SUBSIDIOS</td>
+                      <td align="left" class="campos">$ <%=number_to_currency(valsubsidios,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                      <td align="left" class="camposDesc"></td>
+                      <td align="left" class="camposDesc"></td>
+                    </tr>
+                  </table>
+                </fieldset></td>
+              </tr>
+            </table>
+          <% end %></td>
+        </tr>
+      </table>
+    </div>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">INFORMACION APORTE FAMILIAR</div></td>
+      </tr>
+    </table>
+    <div align="center">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="57%" valign="top"><table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                          <tr class="odd1">
+                            <td width="60%" align="left"><span class="campos">Ahorro Programado, Cesantias /Contado </span></td>
+                            <td width="20%" align="left"><span class="campos">Ahorro Trasladado </span></td>
+                            <td width="20%" align="left"><span class="campos">Pago Escrituras </span></td>
+                          </tr>
+                          <tr>
+                            <td align="left"><span class="camposDesc"><%= f.text_field :valor_ahorro_prog,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                            <td align="left"><span class="camposDesc"><%= f.text_field :valor_ahorro_tras,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                            <td align="left"><span class="camposDesc"><%= f.text_field :consig_escrituras,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                          </tr>
+                        </table>
+                          <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                            <tr class="odd1">
+                              <td width="67%" align="left"><span class="campos">Inmueble o Mejora </span></td>
+                              <td width="33%" align="left"><span class="campos">Aporte Familiar / Donacion</span></td>
+                            </tr>
+                            <tr>
+                              <td align="left"><span class="camposDesc">Avaluo &nbsp;<%=@vivienda.valor_avaluo%> &nbsp;&nbsp;Aportado &nbsp;<%= f.text_field :valor_aportado,{ :class => "campo", :size => 10,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                              <td align="left"><span class="camposDesc"><%= f.text_field :valor_donacion,{ :class => "campo", :size => 15,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                            </tr>
+                          </table>
+                        <br>
+                          <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                            <tr>
+                              <td width="67%" align="left" class="campos">SALDO CIERRE FINANCIERO</td>
+                              <td width="33%" align="left" class="campos">$ <%=number_to_currency(@vivienda.saldocierrevivienda,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                            </tr>
+                          </table>
+                        
+                        </td>
+                        <td width="1%">&nbsp;</td>
+                        <td width="42%"><% @vivienda.viviendaspersonas.each do |viviendaspersona| %>        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="40%" valign="top">
+                  <fieldset>
+                  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+                    <tr>
+                      <td height="30" align="left"><div class="col_enc">INFORMACION CREDITOS</div></td>
+                    </tr>
+                  </table>
+                  <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                    <tr class="odd1">
+                      <td width="59%" align="left"><span class="campos">Entidad Bancaria</span></td>
+                      <td width="31%" align="left"><span class="campos">Valor</span></td>
+                    </tr>
+                    <%
+     valcreditos = 0
+      credito  = Credito.find_all_by_persona_id(viviendaspersona.persona_id)
+      credito.each do |cre|
+        valcreditos = valcreditos + cre.valor.to_i
+      %>
+                    <tr>
+                      <td align="left" class="camposDesc"><%=cre.entidad.descripcion rescue nil%></td>
+                      <td align="left" class="camposDesc">$ <%=number_to_currency(cre.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                    <%  end %>
+                    <tr>
+                      <td align="left" class="campos">TOTAL CREDITOS</td>
+                      <td align="left" class="campos">$ <%=number_to_currency(valcreditos,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                  </table>
+                </fieldset></td>
+              </tr>
+            </table>
+            <% end %></td>
+                      </tr>
+                    </table>
+    </div>
+          <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+            <tr>
+              <td height="30" align="left"><div class="col_enc">REGLAMENTO DE PROPIEDAD HORIZONTAL</div></td>
+            </tr>
+          </table>
+          <div align="center">
+          <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="10%" align="left" class="campos">Nro Escritura</td>
+              <td width="15%" align="left" class="campos">Fecha Expedicion</td>
+              <td width="15%" align="left" class="campos">Notaria Origen </td>
+              <td width="15%" align="left" class="campos">Nro Aclaracion </td>
+              <td width="25%" align="left" class="campos">Fecha Expedici&oacute;n Aclaracion</td>
+              <td width="20%" align="left" class="campos">Notaria Origen Aclaraci&oacute;n</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.nro_escritura rescue nil%></td>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.fecha_expedicion rescue nil%></td>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.notaria_origen rescue nil%></td>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.nro_aclaracion rescue nil%></td>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.fecha_expaclaracion rescue nil%></td>
+              <td align="left" class="camposDesc"><%=@vivienda.bloque.notaria_aclaracion rescue nil%></td>
+            </tr>
+          </table>
+          </div>
+          <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+            <tr>
+              <td height="30" align="left"><div class="col_enc">INFORMACIÓN PARA EL ACTA DE ENTREGA</div></td>
+            </tr>
+          </table>
+          <div align="center">
+          <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="15%" align="left" class="campos">Fecha Sorteo</td>
+              <td width="15%" align="left" class="campos">Fecha CAVIS</td>
+              <td width="15%" align="left" class="campos">Fecha Poder </td>
+              <td width="55%" align="left" class="campos">Numero de la Notaria donde se otorga el Poder a la Fiducia</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc"><%= calendar_date_select "vivienda", "fecha_sorteo", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+              <td align="left" class="camposDesc"><%= calendar_date_select "vivienda", "fecha_cavis", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+              <td align="left" class="camposDesc"><%= calendar_date_select "vivienda", "fecha_poder", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+              <td align="left" class="camposDesc"><%= f.text_field :notaria_poder,{ :class => "campo", :size => 40,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+            </tr>
+          </table>
+          </div>
+            </fieldset>
+        </td>
+      </tr>
+    <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    <fieldset>
+          <table width="100%" border="0" cellpadding="2" align="center"  cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">INFORMACION JURIDICA</div></td>
+      </tr>
+    </table>
+            <div align="center">
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="20%" align="left"><span class="campos">Nro Escritura Publica </span></td>
+              <td width="20%" align="left"><span class="campos">Fecha Expedicion </span></td>
+              <td width="20%" align="left"><span class="campos">Fecha Vencimiento </span></td>
+              <td width="22%" align="left"><span class="campos">Notaria Origen</span></td>
+              <td width="12%" align="left"><span class="campos">Registrada</span></td>
+              <td width="22%" align="left"><span class="campos">Oficina Registro </span></td>
+            </tr>
+            <tr>
+              <td align="left"><span class="camposDesc"><%= f.text_field :esc_nro_escritura,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc">
+                  <%= calendar_date_select "vivienda", "esc_expedicion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+              <td align="left"><span class="camposDesc"><%=@vivienda.fecha_vencimiento.strftime("%Y-%m-%d") rescue nil%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :esc_notaria_origen,{ :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc">Si <%= f.radio_button("esc_registrada", "S") %> No <%= f.radio_button("esc_registrada", "N") %></span></td>
+              <td align="left"><span class="camposDesc">
+              <%= f.select(:esc_registrada_of, select_zona,{ :include_blank => true },
+                          { :style=>"width:110px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></span></td>
+            </tr>
+          </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="15%" align="left"><span class="campos">Fecha Registro </span></td>
+              <td width="20%" align="left" class="campos">Nro Matricula</td>
+              <td width="20%" align="left" class="campos">Valor Avaluo</td>
+              <td width="20%" align="left" class="campos">Valor Venta</td>
+              <td width="20%" align="left"><span class="campos">Gravamenes</span></td>
+            </tr>
+            <tr valign="top">
+              <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "esc_registro", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :nro_matricula,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :valor_avaluo,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :valor_venta,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc"><%= text_area(:vivienda, :esc_gravamenes, :cols => 50, :rows => 2, :class => 'campo',
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();") %></span></td>
+            </tr>
+          </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr>
+              <td width="23%" align="left" class="campos odd1">Limitaciones</td>
+              <td width="77%" rowspan="2" align="left"><table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                <tr class="odd1">
+                  <td width="35%" align="left" class="campos">Nro Escritura Aclaracion / Adicion</td>
+                  <td width="26%" align="left" class="campos">Fecha Aclaracion / Adicion</td>
+                  <td width="39%" align="left" class="campos">Fecha Vencimiento Aclaracion / Adicion</td>
+                </tr>
+                <tr valign="top">
+                  <td align="left"><span class="camposDesc"><%= f.text_field :escritura_aclaratoria,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                  <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "aclaratoria_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+                  <td align="left"><span class="camposDesc"><%=@vivienda.fecha_vencimientoaclaracion.strftime("%Y-%m-%d") rescue nil%></span></td>
+                </tr>
+              </table>
+                <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+                  <tr class="odd1">
+                    <td width="31%" align="left" class="campos">Notaria Aclaracion / Adicion</td>
+                    <td width="23%" align="left" class="campos">Afectacion Vivienda</td>
+                    <td width="23%" align="left" class="campos">Derecho de Preferencia</td>
+                    <td width="23%" align="left" class="campos">Prohibición de Transferencia</td>
+                  </tr>
+                  <tr valign="top">
+                    <td align="left"><span class="camposDesc"><%= f.text_field :aclaratoria_notaria,{ :class => "campo", :size => 24,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+                    <td align="left"><span class="camposDesc">Si <%= f.radio_button("afecta_vivienda", "SI") %> No <%= f.radio_button("afecta_vivienda", "NO") %></span></td>
+                    <td align="left"><span class="camposDesc">Si <%= f.radio_button("derecho_preferencia", "SI") %> No <%= f.radio_button("derecho_preferencia", "NO") %></span></td>
+                    <td align="left"><span class="camposDesc">Si <%= f.radio_button("prohibicion_transferencia", "SI") %> No <%= f.radio_button("prohibicion_transferencia", "NO") %></span></td>
+                  </tr>
+              </table></td>
+            </tr>
+            <tr valign="top">
+              <td align="left"><span class="camposDesc"><%= text_area(:vivienda, :esc_limitaciones, :cols => 40, :rows => 5, :class => 'campo',
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();") %></span></td>
+            </tr>
+          </table>
+            </div>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">GASTOS ESCRITURACION</div></td>
+      </tr>
+    </table>
+            <div align="center">
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="30%" align="left"><span class="campos">Fecha Preliquidacion Rentas y Registro</span></td>
+        <td width="20%" align="left"><span class="campos">Valor Registro Preliq</span></td>
+        <td width="20%" align="left"><span class="campos">Valor Rentas Preliq.</span></td>
+        <td width="25%" align="left"><span class="campos">Vencimiento Rentas </span></td>
+      </tr>
+      <tr>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_prefinanciera", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :valor_prerregistro,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :valor_prerentas,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "vencimiento_rentas", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="13%" align="left"><span class="campos">Valor Rentas </span></td>
+        <td width="15%" align="left"><span class="campos">Fecha Pago Rentas </span></td>
+        <td width="19%" align="left"><span class="campos">Nro Liquidacion Rentas</span></td>
+        <td width="15%" align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_valor_rentas,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "liq_rentas_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_rentas_nro,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left">&nbsp;</td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="18%" align="left"><span class="campos">Valor Registro </span></td>
+        <td width="18%" align="left"><span class="campos">Valor Certificado</span></td>
+        <td width="18%" align="left"><span class="campos">Valor Total Registro</span></td>
+        <td width="15%" align="left"><span class="campos">Fecha Pago Registro </span></td>
+        <td width="17%" align="left"><span class="campos">Nro Radicado Registro </span></td>
+      </tr>
+      <tr>
+        <td align="left" class="camposDesc"><%= f.text_field :lic_registro,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+        <td align="left" class="camposDesc"><%= f.text_field :lic_certificado,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_valor_registro,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "liq_registro_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_registro_nro,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="16%" align="left"><span class="campos">Valor Notaria </span></td>
+        <td width="19%" align="left"><span class="campos">Factura Venta Notaria </span></td>
+        <td width="16%" align="left"><span class="campos">Fecha Cuenta Notaria</span></td>
+        <td width="19%" align="left"><span class="campos">Fecha Recibo Cuenta Notaria</span></td>
+        <td width="19%" align="left"><span class="campos">Concepto Notaria</span></td>
+      </tr>
+      <tr>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_valor_notaria,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_notaria_nro,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_cobnotaria", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_recnotaria", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :concepto_notaria,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="40%" align="left" class="campos">Fecha Entrega de Factura notaria a Financiera</td>
+              <td width="40%" align="left" class="campos">Estado de la Factura</td>
+              <td width="20%" align="left">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_entregafin", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+              <td align="left" class="camposDesc"><%= select(:vivienda, :estado_factura,
+                     [ ["CANCELADO" , "CANCELADO"],["PENDIENTE", "PENDIENTE"], ["NO AUTORIZADO","NO AUTORIZADO"]],
+                            { :include_blank => true },
+                          { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              </td>
+              <td align="left">&nbsp;</td>
+            </tr>
+    </table>
+            </div>
+
+          <table width="100%" border="0" cellpadding="2" align="center"  cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">GASTOS ESCRITURACION ACLARACION / ADICION</div></td>
+      </tr>
+    </table>
+    <div align="center">
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="16%" align="left"><span class="campos">Valor Notaria </span></td>
+        <td width="19%" align="left"><span class="campos">Factura Venta Notaria </span></td>
+        <td width="16%" align="left"><span class="campos">Fecha Cuenta Notaria</span></td>
+        <td width="19%" align="left"><span class="campos">Fecha Recibo Cuenta Notaria</span></td>
+        <td width="19%" align="left"><span class="campos">Concepto Notaria</span></td>
+      </tr>
+      <tr>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_valor_notaria2,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_notaria_nro2,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_cobnotaria2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_recnotaria2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :concepto_notaria2,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="60%" align="left"><span class="campos">Fecha Entrega de Factura notaria a Financiera</span></td>
+              <td width="20%" align="left">&nbsp;</td>
+              <td width="20%" align="left">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc"><%= calendar_date_select "vivienda", "fecha_entregafin2", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left">&nbsp;</td>
+            </tr>
+    </table>
+            </div>
+      </fieldset>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td class="camposNotas" align="left">
+          Ultima Actualización: <%=User.find(@vivienda.user_actualiza).username rescue nil%> - <%=@vivienda.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+        </td>
+        <td  height="30"><div align="right">
+            <% if permiso("vivienda","A").to_s == "S" %>
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% end %>
+            <%= link_to "Acta de Entrega", {:controller => "viviendas", :action => "atencion", :id=>@vivienda.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <%= link_to "Cierre Financiero", {:controller => "viviendas", :action => "cierre", :id=>@vivienda.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+    </div></td>
+      </tr>
+    </table>
+    <% end %>
+    <% if @vivienda.antviviendaspersonas.exists? %>
+      <fieldset id ="el02">
+        <%= render :partial => "/antviviendaspersonas/show" %>
+      </fieldset>
+    <% end %>
+<% elsif @vivienda.etapa.to_s == '2' %>
+
+
+      <fieldset>
+<% form_for(@vivienda) do |f| %>
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30" align="left"><div class="col_enc">INFORMACION CENSO</div></td>
+  </tr>
+</table>
+      <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr class="odd1">
+          <td width="10%" align="left"><span class="campos">Entregado</span></td>
+          <td width="15%" align="left"><span class="campos">Fecha Entrega </span></td>
+          <td width="17%" align="left"><span class="campos">Vivienda habitada ? </span></td>
+          <td width="21%" align="left"><span class="campos">Habitada por? </span></td>
+          <td width="13%" align="left"><span class="campos">Nro Habitantes</span></td>
+          <td width="12%" align="left"><span class="campos">Menores 16 a&ntilde;os</span></td>
+          <td width="12%" align="left"><span class="campos">Mayores 65 a&ntilde;os </span></td>
+        </tr>
+        <tr>
+          <td align="left"><span class="camposDesc">Si <%= f.radio_button("entregado", "S") %> No <%= f.radio_button("entregado", "N") %></span></td>
+          <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "fecha_entrega", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+          <td align="left"><span class="camposDesc">Si <%= f.radio_button("censo_habitado", "S") %> No <%= f.radio_button("censo_habitado", "N") %></span></td>
+          <td align="left"><span class="camposDesc">Beneficiario <%= f.radio_button("censo_habitado_por", "B") %> Inquilino <%= f.radio_button("censo_habitado_por", "I") %></span></td>
+          <td align="left"><span class="camposDesc"><%= f.text_field :censo_nro_habitante,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+          <td align="left"><span class="camposDesc"><%= f.text_field :censo_menores_16,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+          <td align="left"><span class="camposDesc"><%= f.text_field :censo_mayores_65,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        </tr>
+      </table>
+        <% if permiso("censo","A").to_s == "S" %>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2">
+            <tr>
+              <td  height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+            </tr>
+          </table>
+        <% end %>
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr><td height="30"><div align="right"></div></td></tr>
+</table>
+<% end %>
+<% form_for(@vivienda) do |f| %>
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30" align="left"><div class="col_enc">INFORMACION ENTREGA ESCRITURA - VERIFICACION DE DOCUMENTOS</div></td>
+  </tr>
+</table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" align="left"><span class="campos">Consecutivo</span></td>
+          <td width="15%" align="left"><span class="campos">Entregada ?</span></td>
+          <td width="15%" align="left"><span class="campos">Fecha Entrega </span></td>
+          <td width="10%" align="left"><span class="campos">Caja</span></td>
+          <td width="45%" align="left"><span class="campos">Entregada por</span></td>
+        </tr>
+        <tr>
+          <td align="left"><span class="camposDesc"><%= f.text_field :inv_consecutivo,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+          <td align="left"><span class="camposDesc">Si <%= f.radio_button("inv_esc_entrega", "SI") %> No <%= f.radio_button("inv_esc_entrega", "NO") %></span></td>
+          <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "inv_esc_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+          <td align="left"><span class="camposDesc"><%= f.text_field :inv_caja,{ :class => "campo", :size => 10,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+          <td align="left"><span class="camposDesc"><%=User.find(@vivienda.inv_user).nombre rescue nil%></span></td>
+        </tr>
+      </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="30%" align="left" class="campos odd1">Acta de Entrega</td>
+          <td width="28%" align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_actaentrega", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_actaentrega", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_actaentrega", "NO APLICA") %></td>
+          <td width="42%" align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos odd1">Fonade</td>
+          <td align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_fonave", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_fonave", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_fonave", "NO APLICA") %></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos odd1">Certificado de Habitabilidad</td>
+          <td align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_certhab", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_certhab", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_certhab", "NO APLICA") %></td>
+          <td rowspan="2" align="left" class="campos odd1">
+            <% if @vivienda.fecha_recepcion %>
+            Fecha Recepcion escritura :  - <%=@vivienda.fecha_recepcion.strftime("%Y-%m-%d %X")%> <br/>
+                                 Usuario: <%=User.find(@vivienda.user_recepcion).nombre rescue nil%>
+            <% else %>
+               <%= link_to 'Marcar Recepción de Escritura', {:controller=>"viviendas", :action=>"marcarrecibido", :id=>@vivienda.id}, :class=>"imprimirlink"%>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td align="left" class="campos odd1">CAP</td>
+          <td align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_cap", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_cap", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_cap", "NO APLICA") %></td>
+        </tr>
+        <tr>
+          <td align="left" class="campos odd1">Certificado de Libertad</td>
+          <td align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_certlib", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_certlib", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_certlib", "NO APLICA") %></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos odd1">Escritura Monto Ejecutivo</td>
+          <td align="left" class="camposDesc">&nbsp;&nbsp;Si <%= f.radio_button("doc_escejecutivo", "SI") %> &nbsp;&nbsp;No <%= f.radio_button("doc_escejecutivo", "NO") %> &nbsp;&nbsp;No Aplica <%= f.radio_button("doc_escejecutivo", "NO APLICA") %></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<% if permiso("entregaescritura","C").to_s == "S" %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div align="right">
+     <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+    </div></td>
+  </tr>
+</table>
+<% end %>
+<% end %>
+<div id="viviendasposventas_form"><%= render :partial => "/viviendasposventas/viviendasposventas" %></div>
+</fieldset>
+</div>
+<% elsif @vivienda.etapa.to_s == '3' %>
+    <fieldset><div id="observaviviendas_form"><%= render :partial => "/observaviviendas/observaviviendas" %></div></fieldset>
+    <% if @vivienda.antobservaviviendas.exists? %>
+      <fieldset id ="el02"><%= render :partial => "/antobservaviviendas/show" %></fieldset>
+    <% end %>
+<% elsif @vivienda.etapa.to_s == '4' %>
+    <fieldset><div id="viviendastramites_form"><%= render :partial => "/viviendastramites/viviendastramites" %></div></fieldset>
+    <% if @vivienda.antviviendastramites.exists? %><fieldset id ="el02"><%= render :partial => "/antviviendastramites/show" %></fieldset><% end %>
+<% elsif @vivienda.etapa.to_s == '6' %>
+    <fieldset><div id="viviendasimagenes_form"><%= render :partial => "/viviendasimagenes/viviendasimagenes" %></div></fieldset>
+<% end %>
+<br/><br/>

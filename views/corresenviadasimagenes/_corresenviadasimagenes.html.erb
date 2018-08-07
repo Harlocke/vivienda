@@ -1,0 +1,61 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td width="80%" height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+    <td><div align="center">
+    <% if permiso("corresenviadasimagen","C").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_correspondenciasenviada_corresenviadasimagen_path(@correspondenciasenviada.id) %></span></div> <% end %></div>
+    </td>
+  </tr>
+</table>
+<br>
+<div align="center">
+<% remote_form_for [@correspondenciasenviada, @corresenviadasimagen] do |form| %>
+<% if !@corresenviadasimagen.id %>
+<% end %>
+<% if @correspondenciasenviada.corresenviadasimagenes.exists? %>
+<table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first" align="left">Fecha</td>
+    <td width="40%" class="oce-first" align="left">Descripcion</td>
+    <td width="35%" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="10%" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+  <% @correspondenciasenviada.corresenviadasimagenes.each do |corresenviadasimagen| %>
+    <% if corresenviadasimagen.id != @corresenviadasimagen.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="corresenviadasimagen_<%= corresenviadasimagen.id%>">
+     <td height="30" class="camposDesc" align="left"><%=corresenviadasimagen.created_at.strftime("%Y-%m-%d %X")%> - <%=corresrecibidasimagen.user.username rescue nil%></td>
+     <td class="camposDesc" align="left"><%=corresenviadasimagen.descripcion%></td>
+     <td class="camposDesc" align="left"><%=corresenviadasimagen.enviada_file_name%></td>
+     <td class="camposDesc"><div align="center">
+      <% if @correspondenciasenviada.confidencial.to_s != 'SI' %>
+        <%= link_to "Ver", corresenviadasimagen.enviada.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+      <% end %>
+       <% if permiso("corresenviadasimagen","E").to_s == "S" %>
+         <% if @correspondenciasenviada.confidencial.to_s == 'SI' %>
+         <%= link_to "Ver", corresenviadasimagen.enviada.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+         <% end %>
+         <%= link_to_remote('Borrar',{:url => correspondenciasenviada_corresenviadasimagen_path(@correspondenciasenviada, corresenviadasimagen),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %></div>
+     </td>
+ </tr>
+<% else %>
+      <tr class="<%=cycle('even1', 'odd1')%>" id="corresenviadasimagen_<%=@corresenviadasimagen.id%>">
+          <%= render :partial => "corresenviadasimagenes_form" %>
+      </tr>
+     <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :correspondenciasenviada, :id %>
+<% end %>
+</div>

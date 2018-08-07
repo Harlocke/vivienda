@@ -1,0 +1,90 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@comite, @comitesobservacion] do |form| %>
+<%   if permiso("comitesespecial","C").to_s == "S"
+       if !@comitesobservacion.id %>
+           <%= render :partial => "/comitesobservaciones/comitesobservaciones_form" %>
+<%     end
+     else
+       if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true
+         if !@comitesobservacion.id %>
+              <%= render :partial => "/comitesobservaciones/comitesobservaciones_form" %>
+<%       end
+       end
+     end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="18%" height="30" class="oce-first">Fecha</td>
+    <td width="70%" class="oce-first">Observaciones</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for comitesobservacion in @comite.comitesobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if comitesobservacion.id != @comitesobservacion.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="comitesobservacion_<%=comitesobservacion.id%>">
+          <td align="left" width="18%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=comitesobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=comitesobservacion.user.nombre rescue nil%>"><%=comitesobservacion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="70%" class="camposDesc" align="left"><%=comitesobservacion.observaciones%></td>
+          <td width="12%" align="right" class="camposDesc">
+            <%   if permiso("comitesobservacion","A").to_s == "S"
+                   if permiso("comitesespecial","C").to_s == "S" %>
+                       <%= link_to_remote('Editar',{:url => edit_comite_comitesobservacion_path(@comite, comitesobservacion),:method => :get}, :class=>"editarlink")%>
+            <%     else
+                     if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+                       <%= link_to_remote('Editar',{:url => edit_comite_comitesobservacion_path(@comite, comitesobservacion),:method => :get}, :class=>"editarlink")%>
+            <%       end
+                   end
+                 end %>
+            <%   if permiso("comitesobservacion","E").to_s == "S"
+                   if permiso("comitesespecial","C").to_s == "S" %>
+                       |&nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesobservacion_path(@comite, comitesobservacion),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <%     else
+                     if Comitesresponsable.exists?(["comite_id = #{@comite.id} and user_id = #{is_admin}"]) == true %>
+                       |&nbsp;<%= link_to_remote('Borrar',{:url => comite_comitesobservacion_path(@comite, comitesobservacion),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <%       end
+                   end
+                 end %>
+        </td>
+        </tr>
+      </table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR OBSERVACION</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="comitesobservacion_<%=@comitesobservacion.id%>">
+     <%= render :partial => "comitesobservaciones_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+            <%= hidden_field :comite, :id %>
+<% end %>
+<br/>
+<% if flash[:comitesobservacion] %>
+<div id="comitesobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%" align="right"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:comitesobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('comitesobservacion');", 5000)
+</script>
+<% end %>

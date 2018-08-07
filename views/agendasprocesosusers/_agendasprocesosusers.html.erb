@@ -1,0 +1,52 @@
+
+<table width="85%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">USUARIOS ASOCIADOS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@agendasproceso, @agendasprocesosuser] do |form| %>
+  <%# if permiso("agendasprocesosuser","C").to_s == "S" %>
+    <% if !@agendasprocesosuser.id %>
+      <%= render :partial => "/agendasprocesosusers/agendasprocesosusers_form" %>
+    <% end %>
+ <%# end %>
+<% if @agendasproceso.agendasprocesosusers.exists? %>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+	<tr valign="middle">
+		<td width="80%" height="30" class="oce-first">Usuario Asignado</span></td>
+		<td width="20%" class="oce-first">&nbsp;</td>
+	 </tr>
+<% for agendasprocesosuser in @agendasproceso.agendasprocesosusers.find(:all, :order => 'created_at  DESC') %>
+   <% if agendasprocesosuser.id != @agendasprocesosuser.id %>
+      <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="agendasprocesosuser_<%=agendasprocesosuser.id%>">
+        <td  class="camposDesc"><%=agendasprocesosuser.user.nombre rescue nil%> </td>
+        <td  class="camposDesc">
+          <div align="center">
+                <%# if permiso("agendasprocesosuser","A").to_s == "S" %>
+                  <%= link_to_remote('Editar',{:url => edit_agendasproceso_agendasprocesosuser_path(@agendasproceso, agendasprocesosuser),
+                            :method => :get}, :class=>"editarlink")%>
+                <%# end %>
+                <%# if permiso("agendasprocesosuser","E").to_s == "S" %>
+                   &nbsp;<%= link_to_remote('Borrar',{:url => agendasproceso_agendasprocesosuser_path(@agendasproceso, agendasprocesosuser),
+                            :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+                <%# end %>
+          </div></td>
+     </tr>
+  <% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "agendasprocesosusers_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :agendasproceso, :id %>
+<% end %>
+<br/>

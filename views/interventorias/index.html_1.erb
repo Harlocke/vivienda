@@ -1,0 +1,334 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><%=image_tag('informemin.png')%></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMES DE INTERVENTORIA - <%=@empleado.nombres rescue nil%></div></td>
+            </tr>
+          </table></td>
+      </tr>
+    </table><br/>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+       <tr valign="top">
+         <td width="10%" class="camposDesc"><div align="center"><img src='/images/nogenerado.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/blanco1.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/info1.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/amarillo1.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/rojo1.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/verde1.png'/></div></td>
+         <td width="13%" class="camposDesc"><div align="center"><img src='/images/asistente.png'/></div></td>
+         <td width="10%" class="camposDesc"><div align="center"><img src='/images/connect.png'/></div></td>
+       </tr>
+       <tr valign="top">
+         <td class="camposDesc"><div align="center">Periodo no generado</div></td>
+         <td class="camposDesc"><div align="center">Informe con actividades listas y pendiente de envio a revision</div></td>
+         <td class="camposDesc"><div align="center">Informe con actividades pendientes</div></td>
+         <td class="camposDesc"><div align="center">Informe enviado para revisión del Interventor</div></td>
+         <td class="camposDesc"><div align="center">Informe rechazado y pendiente de revisar</div></td>
+         <td class="camposDesc"><div align="center">Informe Aprobado por interventor y en revisión de Gestion Humana</div></td>
+         <td class="camposDesc"><div align="center">Informe Aprobado por interventor y gestion Humana</div></td>
+         <td class="camposDesc"><div align="center">Informe Contabilizado</div></td>
+       </tr>
+    </table>
+<%
+       fcinicio = '01-01-2016'
+       @objetos = Objeto.find_by_sql("select distinct to_number(to_char(fecha,'MM')) mes, to_char(fecha,'YYYY') ano, to_char(fecha,'MM') mesc
+                                      from   fechascontables
+                                      where  fecha between to_date('#{fcinicio}','dd-mm-yyyy') and trunc(sysdate)
+                                      order by to_number(to_char(fecha,'MM')), to_char(fecha,'YYYY')")
+%>
+<% if @message %><br/>
+      <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+         <%=@message.to_s rescue nil%><br/><br/>
+      </div><br/>
+<% else %><br/>
+    <% for contrato in @empleado.contratos.find(:all, :conditions=>["to_char(fecha_inicio,'YYYY') = '2016' and to_char(decode(fecha_masmodi,null,fecha_final,fecha_masmodi),'YYYYMM') >= to_char(trunc(sysdate),'YYYYMM')"], :order => 'created_at DESC')
+       fcinicio = contrato.fecha_inicio.strftime("%d-%m-%Y") rescue nil
+       if contrato.fechafinalreal < Time.now
+          fchfinal = contrato.fechafinalreal.strftime("%d-%m-%Y") rescue nil
+       else
+          fchfinal = Time.now
+       end
+       @objetosnuevos = Objeto.find_by_sql("select distinct to_number(to_char(fecha,'MM')) mes, to_char(fecha,'YYYY') ano, to_char(fecha,'MM') mesc
+                                      from   fechascontables
+                                      where  fecha between to_date('#{fcinicio}','dd-mm-yyyy') and to_date('#{fchfinal}','dd-mm-yyyy')
+                                      order by to_number(to_char(fecha,'MM')), to_char(fecha,'YYYY')")
+       @validacioninforme = Objeto.find_by_sql("select fnc_validainformes(#{contrato.id}) dato from dual") rescue nil
+    %>
+    <table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">CUENTA DE COBRO</div></td>
+      </tr>
+    </table>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+       <tr valign="top">
+         <td width="60%" class="camposDesc"><div align="justify">
+               <strong>Contrato número:</strong> <%=contrato.nro_contrato%> de <%=contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=contrato.fecha_firma.strftime("%Y") rescue nil%><br/>
+               <strong>Tipo de Contrato:</strong> CONTRATO DE <%=contrato.tiposcontrato.descripcion rescue nil%><br/>
+               <strong>Objeto del Contrato:</strong><%=contrato.objeto%><br/>
+               <strong>Valor total del Contrato:</strong> $ <%=number_to_currency(contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                  <% if contrato.valor_contrato.to_i >= 1000000000%>
+                     <%=numero_a_palabras(contrato.valor_contrato.to_i)%>
+                  <% else %>
+                     <%=contrato.valor_contrato.to_i.to_words.upcase%>
+                  <% end %> PESOS M/L)<br/>
+                  <strong>Valor mensual:</strong> $ <%=number_to_currency(contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                     <%=contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)<br/>
+                  <strong>Duración del Contrato:</strong><% if contrato.plazo_mes.to_i > 0 %>
+                       <%=contrato.plazo_mes%> meses -
+                    <% end %>
+                    <% if contrato.plazo_dias.to_i > 0 %>
+                       <%=contrato.plazo_dias%> dias
+                     <% end %> ** <strong>Fecha Inicio:</strong> <%=contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=contrato.fechafinalreal.strftime("%Y-%m-%d") rescue nil%>
+                     <br/>
+                    </div>
+                     <div align="center" style="color:red; width:80%; height:30px; background-color: #FFFFCC; vertical-align:middle; display: table-cell;" class="camposDescN11">
+                       <strong>Pulse <%= link_to "Aqui", {:controller => "empleados", :action => "certificado", :id=>contrato.empleado_id},  :popup => ['new_window','height=600,width=830,scrollbars=yes']%> si requiere generar la certificación de sus contratos</strong>
+                     </div>
+                     <br/>
+                      <table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr class="odd1">
+                          <td width="80%" height="20" class="camposDesc"><strong>SOPORTE MEDICINA PREPAGADA</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'SOPORTE MEDICINA PREPAGADA'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td width="20%" class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'SOPORTE MEDICINA PREPAGADA'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr>
+                          <td height="20" class="camposDesc"><strong>PLAN COMPLEMENTARIO</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'PLAN COMPLEMENTARIO'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'PLAN COMPLEMENTARIO'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr class="odd1">
+                          <td height="20" class="camposDesc"><strong>CREDITO DE VIVIENDA</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'CREDITO DE VIVIENDA'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'CREDITO DE VIVIENDA'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr>
+                          <td height="20" class="camposDesc"><strong>REGISTRO CIVIL HIJOS</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'REGISTRO CIVIL HIJOS'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'REGISTRO CIVIL HIJOS'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr class="odd1">
+                          <td height="20" class="camposDesc"><strong>CERTIFICADO ESCOLARIDAD HIJOS</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'CERTIFICADO ESCOLARIDAD HIJOS'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'CERTIFICADO ESCOLARIDAD HIJOS'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr>
+                          <td height="20" class="camposDesc"><strong>CERTIFICADO DE DEPENDENCIA DE PADRES</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'CERTIFICADO DE DEPENDENCIA DE PADRES'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'CERTIFICADO DE DEPENDENCIA DE PADRES'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr class="odd1">
+                          <td height="20" class="camposDesc"><strong>RUT</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'RUT'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'RUT'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                        <tr class="odd1">
+                          <td height="20" class="camposDesc"><strong>FORMATO DETERMINACION CATEGORIA TRIBUTARIA</strong>
+                          <% for contratosimagen in contrato.contratosimagenes.find(:all,:conditions=>["descripcion = 'FORMATO DETERMINACION CATEGORIA TRIBUTARIA'"], :order => 'created_at DESC') %>
+                             <br/><%= link_to contratosimagen.contrato_file_name, contratosimagen.contrato.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                          <% end %>
+                          </td>
+                          <td class="camposDesc"><div align="center"><%= link_to 'Adjuntar...',{:controller=>"contratosimagenes", :action=>"new", :contrato_id=>contrato.id, :descripcion=>'FORMATO DETERMINACION CATEGORIA TRIBUTARIA'},:class=>"imagenlink"%></div></td>
+                        </tr>
+                      </table><br/>
+                       <% if @validacioninforme %>
+                          <div align="left" style="color:red; width:100%; background-color: #FFFFCC;" class="camposDescN12"><br/>
+                             <div class="camposDescN16">&nbsp;&nbsp;ATENCIÓN, se han detectado las siguientes inconsistencias.</div><br/>
+                             <% @validacioninforme.each do |validacioninforme| %><%=validacioninforme.dato.to_s%><% end %>
+                             <br/>
+                          </div>
+                     <% end %>
+         </td>
+         <td width="40%" class="camposDesc"><div align="center">
+            <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+              <tr valign="middle">
+                <td width="20%" height="20" class="oce-first"><div align="center"></div></td>
+                <td width="40%" class="oce-first"><div align="left">Año - Mes</div></td>
+                <td width="40%" class="oce-first"></td>
+              </tr>
+             <% @objetosnuevos.each do |objeto| %>
+              <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                 <td class="camposDesc"><div align="center"><%=contrato.existeinterventoria(objeto.ano, objeto.mes) rescue nil%></div></td>
+                 <td class="camposDesc"><div align="left"><%=objeto.ano%> - <%=descmesmin(objeto.mes) rescue nil%> </div></td>
+                 <td class="camposDesc"><div align="center">
+                     <%= link_to 'Informe', {:controller=>"interventorias", :action=>"validar", :contrato_id=>contrato.id, :ano=>objeto.ano, :mes=>objeto.mes}, :class=>"rubrolink"%>
+                     <% if contrato.existeinterventoriainforme(objeto.ano, objeto.mes).to_s == 'APROBADOGH' %>
+                         <%= link_to 'Imprimir', {:controller=>"interventorias", :action=>"visualizar", :contrato_id=>contrato.id, :ano=>objeto.ano, :mes=>objeto.mes},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :confirm=>"Recuerde que para esta cuenta de cobro se debe anexar los soportes del pago de la seguridad social... Solo por este periodo...", :class=>"imprimirlink"%>
+                         <% if objeto.ano.to_s == contrato.fechafinalreal.strftime("%Y").to_s and objeto.mesc.to_s == contrato.fechafinalreal.strftime("%m").to_s %>
+                            <%= link_to 'Informe Final', {:controller=>"interventorias", :action=>"visualizarfinal", :contrato_id=>contrato.id, :ano=>objeto.ano, :mes=>objeto.mes},  :popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"imprimirlink"%>
+                         <% end %>
+                     <% elsif contrato.existeinterventoriainforme(objeto.ano, objeto.mes).to_s == 'PENDIENTE' or contrato.existeinterventoriainforme(objeto.ano, objeto.mes).to_s == 'PREPARAFINAL' %>
+                        <%= link_to 'Eliminar', {:controller=>"interventorias", :action=>"borrar", :contrato_id=>contrato.id, :ano=>objeto.ano, :mes=>objeto.mes}, :confirm=>"Atención:<br/><br/>Recuerde que este proceso elimina todas las actividades creadas y desarrolladas junto con los soportes y observaciones de este periodo, Esta Seguro?", :class=>"borrarlink"%>
+                     <% end %>
+                   </div></td>
+               </tr>
+             <% end %>
+            </table>
+           </div></td>
+       </tr>
+    </table>
+    <br/>
+    <% end %>
+<% end %>
+<% if @messageinterventor %>
+    <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr><td height="30"><div class="col_enc">REVISIÓN CUENTAS DE COBRO (<%=@interventorias.count.to_i%>)</div></td></tr>
+    </table>
+    <% if @interventorias.count.to_i > 0 %>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="15%" height="20" class="oce-first">Fecha</td>
+            <td width="40%" height="20" class="oce-first" colspan="2">Contratista</td>
+            <td width="18%" height="20" class="oce-first"><div align="center">Contrato</div></td>
+            <td width="12%" class="oce-first"><div align="center">Periodo</div></td>
+            <td width="15%" class="oce-first"><div align="center"></div></td>
+          </tr>
+        <% @interventorias.each do |interventoria|%>
+          <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+             <td width="15%" class="camposDesc"><div align="justify"><%=interventoria.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+             <td width="10%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.identificacion rescue nil%></div></td>
+             <td width="30%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.nombres rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.contrato.nro_contrato%> de <%=interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.anno%> - <%=descmesmin(interventoria.mes) rescue nil%></div></td>
+             <td class="camposDesc"><div align="center">
+               <% if interventoria.mes.to_s == interventoria.contrato.fechafinalreal.strftime("%m").to_s %>
+                  <%= link_to 'Ver informe final', {:controller=>"interventorias", :action=>"visualizarfinal", :contrato_id=>interventoria.contrato.id,
+                    :ano=>interventoria.anno, :mes=>interventoria.mes},  :popup => ['new_window','height=600,width=830,scrollbars=yes'],:class=>"verlink"%><br/>
+               <% end %>
+               <%= link_to 'Informe', {:controller=>"interventorias", :action=>"revisioninter", :id=>interventoria.id}, :class=>"rubrolink"%>
+               </div></td>
+           </tr>
+        <% end %>
+        </table>
+    <% else %>
+        <div align="center" style="color:red;" class="campos"><img src="/images/connect.png"/> No hay cuentas de cobro pendientes de revisión</div>
+    <% end %>
+<% end %>
+<% if permiso("interventoriagh","C").to_s == "S" %>
+    <br/>
+    <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr><td height="30"><div class="col_enc">REVISIÓN GESTION HUMANA (<%=@interventoriasgh.count.to_i rescue 0%>)</div></td></tr>
+    </table>
+      <% if @interventoriasgh.count.to_i > 0 %>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="15%" height="20" class="oce-first">Fecha</td>
+            <td width="45%" height="20" class="oce-first" colspan="2">Contratista</td>
+            <td width="18%" height="20" class="oce-first"><div align="center">Contrato</div></td>
+            <td width="12%" class="oce-first"><div align="center">Periodo</div></td>
+            <td width="10%" class="oce-first"><div align="center"></div></td>
+          </tr>
+        <% @interventoriasgh.each do |interventoria|%>
+          <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+             <td width="15%" class="camposDesc"><div align="justify"><%=interventoria.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+             <td width="10%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.identificacion rescue nil%></div></td>
+             <td width="35%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.nombres rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.contrato.nro_contrato%> de <%=interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.anno%> - <%=descmesmin(interventoria.mes) rescue nil%></div></td>
+             <td class="camposDesc"><div align="center">
+                 <% if interventoria.mes.to_s == '12' and interventoria.estado.to_s == 'REVISIONFINALGH' %>
+                    <%= link_to 'Informe Final', {:controller=>"interventorias", :action=>"revisionfinal", :id=>interventoria.id}, :class=>"rubrolink"%>
+                 <% else %>
+                    <%= link_to 'Informe', {:controller=>"interventorias", :action=>"revisioninter", :id=>interventoria.id}, :class=>"rubrolink"%>
+                 <% end %></div></td>
+           </tr>
+        <% end %>
+        </table>
+    <% else %>
+      <div align="center" style="color:red;" class="campos"><img src="/images/connect.png"/> No hay cuentas de cobro pendientes de revisión</div>
+    <% end %>
+<% end %>
+<% if permiso("interventoriacont","C").to_s == "S" %>
+    <br/>
+    <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr><td height="30"><div class="col_enc">CONTABILIDAD (<%=@interventoriascont.count.to_i rescue 0%>)</div></td></tr>
+    </table>
+      <% if @interventoriascont.count.to_i > 0 %>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="15%" height="20" class="oce-first">Fecha</td>
+            <td width="45%" height="20" class="oce-first" colspan="2">Contratista</td>
+            <td width="18%" height="20" class="oce-first"><div align="center">Contrato</div></td>
+            <td width="12%" class="oce-first"><div align="center">Periodo</div></td>
+            <td width="10%" class="oce-first"><div align="center"></div></td>
+          </tr>
+        <% @interventoriascont.each do |interventoria|%>
+          <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+             <td width="15%" class="camposDesc"><div align="justify"><%=interventoria.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+             <td width="10%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.identificacion rescue nil%></div></td>
+             <td width="35%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.nombres rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.contrato.nro_contrato%> de <%=interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%=interventoria.anno%> - <%=descmesmin(interventoria.mes) rescue nil%></div></td>
+             <td class="camposDesc"><div align="center"><%= link_to 'Informe', {:controller=>"interventorias", :action=>"revisioninter", :id=>interventoria.id}, :class=>"rubrolink"%></div></td>
+           </tr>
+        <% end %>
+        </table>
+    <% else %>
+        <div align="center" style="color:red;" class="campos"><img src="/images/connect.png"/> No hay cuentas de cobro pendientes de contabilizar</div><br/>
+    <% end %>
+<% end %>
+<% if @messageinterventor %>
+    <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr><td height="30"><div class="col_enc">CUENTAS DE COBRO REVISADAS</div></td></tr>
+      <tr>
+        <td>
+           <% @objetos.each do |objeto| %>
+              <div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=objeto.ano%>_<%=objeto.mes%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=objeto.ano%>_<%=objeto.mes%>')"><%=objeto.ano%> - <%=descmesmin(objeto.mes)%></a> </strong></div>
+              <div id="demo1<%=objeto.ano%>_<%=objeto.mes%>" style="display:none;">
+                <% @interventorias = Interventoria.find(:all, :conditions=>["anno = '#{objeto.ano}' and mes = '#{objeto.mes}' and estado = 'APROBADOGH' and interventorempleado_id = #{@empleado.id}"], :order=>"updated_at asc") %>
+                <% if @interventorias.count.to_i > 0 %>
+                    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+                      <tr valign="middle">
+                        <td width="15%" height="20" class="oce-first">Fecha</td>
+                        <td width="45%" height="20" class="oce-first" colspan="2">Contratista</td>
+                        <td width="18%" height="20" class="oce-first"><div align="center">Contrato</div></td>
+                        <td width="12%" class="oce-first"><div align="center">Periodo</div></td>
+                        <td width="10%" class="oce-first"><div align="center"></div></td>
+                      </tr>
+                    <% @interventorias.each do |interventoria|%>
+                      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+                         <td width="15%" class="camposDesc"><div align="justify"><%=interventoria.updated_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+                         <td width="10%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.identificacion rescue nil%></div></td>
+                         <td width="35%" class="camposDesc"><div align="justify"><%=interventoria.contrato.empleado.nombres rescue nil%></div></td>
+                         <td class="camposDesc"><div align="center"><%=interventoria.contrato.nro_contrato%> de <%=interventoria.contrato.fecha_firma.strftime("%d") rescue nil%> de <%=descmesmin(interventoria.contrato.fecha_firma.strftime("%m")) rescue nil%> de <%=interventoria.contrato.fecha_firma.strftime("%Y") rescue nil%></div></td>
+                         <td class="camposDesc"><div align="center"><%=interventoria.anno%> - <%=descmesmin(interventoria.mes) rescue nil%></div></td>
+                         <td class="camposDesc"><div align="center"><%= link_to 'Informe', {:controller=>"interventorias", :action=>"verificacionfinal", :id=>interventoria.id}, :class=>"rubrolink"%>
+                           </div></td>
+                       </tr>
+                    <% end %>
+                    </table>
+                <% else %>
+                    <div align="center" style="color:red;" class="campos"><img src="/images/connect.png"/> No hay cuentas de cobro</div>
+                <% end %>
+              </div>
+           <% end %>
+        </td>
+      </tr>
+    </table>
+<% end %>
+<% if permiso("interventoriabuscador","C").to_s == "S" %>
+<%= render 'buscar' %>
+<% end %>

@@ -1,0 +1,81 @@
+<strong>INFORMACION RESOLUCIONES</strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Tipo de Resolucion</strong></td>
+    <td><strong>Modalidad</strong></td>
+    <td><strong>Anno</strong></td>
+    <td><strong>Nro Resolucion</strong></td>
+    <td><strong>Fecha Resolucion</strong></td>
+    <td><strong>Responsable</strong></td>
+    <td><strong>Objeto de la Resolucion</strong></td>
+    <td colspan="2"><strong>Beneficiario(s)</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Barrio</strong></td>
+    <td><strong>Comuna</strong></td>
+    <td><strong>Telefonos</strong></td>
+    <td><strong>Grupo Etnico</strong></td>
+    <td><strong>Tipo de Poblacion</strong></td>
+    <td><strong>Proyectos</strong></td>
+    <td><strong>Subsidio Municipal en Dinero</strong></td>
+    <td><strong>Subsidio Municipal en Especie</strong></td>
+    <td><strong>Subsidio Mejoras</strong></td>
+    <td colspan="2"><strong>Empleado - Contratista</strong></td>
+  </tr>
+<%  for dataresolucion in @resoluciones %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td valign="top"><div align="left"><%=dataresolucion.resolucionesclase.descripcion rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=dataresolucion.modalidad rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=dataresolucion.anno rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=dataresolucion.nro_resolucion rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=dataresolucion.fecha rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=User.find(dataresolucion.user_id).nombre rescue nil%></div></td>
+     <td valign="top"><div align="left"><%=dataresolucion.resuelve rescue nil%></div></td>
+     <td valign="top" colspan="9"><div align="left">
+<%    if dataresolucion.resolucionespersonas.exists? == true %>
+       <table border="1">
+<%      @resolucionespersonas = Resolucionespersona.find_all_by_resolucion_id(dataresolucion.id);
+        for resolucionespersona in @resolucionespersonas %>
+           <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+            <td><div align="left"><%=resolucionespersona.persona.identificacion rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.nombres rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.direccion rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.zona rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.comuna.descripcion2 rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.telefonos rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.grupo_etnico rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.persona.familiar.descripcion rescue nil%></div></td>
+            <td><div align="left">
+               <% if Viviendaspersona.exists?(["persona_id = #{resolucionespersona.persona_id}"]) == true
+                   @viviendaspersona = Viviendaspersona.find(:first, :conditions=>["persona_id = #{resolucionespersona.persona_id}"])
+                   @vivienda = Vivienda.find(@viviendaspersona.vivienda_id)%>    
+                  <%=@vivienda.proyecto.descripcion rescue nil%>
+               <% else %>    
+                  SIN PROYECTO
+               <% end %>
+            </div></td>
+            <td><div align="left"><%=resolucionespersona.subsidio_especie rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.subsidio_dinero rescue nil%></div></td>
+            <td><div align="left"><%=resolucionespersona.subsidio_mejoras rescue nil%></div></td>
+           </tr>
+<%      end %>
+       </table>
+<%    end %>
+    </div></td>
+    <td valign="top" colspan="2"><div align="left">
+<%    if dataresolucion.resolucionescontratistas.exists? == true %>
+       <table border="1">
+<%      @resolucionescontratistas = Resolucionescontratista.find_all_by_resolucion_id(dataresolucion.id);
+        for resolucionescontratista in @resolucionescontratistas %>
+           <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+            <td><div align="left"><%=resolucionescontratista.empleado.identificacion rescue nil%></div></td>
+            <td><div align="left"><%=resolucionescontratista.empleado.nombres rescue nil%></div></td>
+           </tr>
+<%      end %>
+       </table>
+<%    end %>
+    </div></td>
+ </tr>
+<% end %>
+</table>
+

@@ -1,0 +1,2 @@
+page.replace_html :valorizacionespersonas_form, :partial => "/valorizacionespersonas/valorizacionespersonas"
+

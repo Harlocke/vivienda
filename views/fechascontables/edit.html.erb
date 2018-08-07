@@ -1,0 +1,16 @@
+<h1>Editing fechascontable</h1>
+
+<% form_for(@fechascontable) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @fechascontable %> |
+<%= link_to 'Back', fechascontables_path %>

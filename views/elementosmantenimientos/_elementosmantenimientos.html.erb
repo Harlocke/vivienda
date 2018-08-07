@@ -1,0 +1,109 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">MANTENIMIENTOS - REVISIONES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@elemento, @elementosmantenimiento] do |form| %>
+  <% if permiso("elementosmantenimiento","C").to_s == "S" %>
+     <% if !@elementosmantenimiento.id %>
+      	<%= render :partial => "/elementosmantenimientos/elementosmantenimientos_form" %>
+     <% end %>
+  <% end %>
+<% if @elemento.elementosmantenimientos.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" class="oce-first">Fecha</td>
+    <td width="10%" height="30" class="oce-first">Tipo</td>
+    <td width="55%" class="oce-first">Descripcion del Mantenimiento</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% for elementosmantenimiento in @elemento.elementosmantenimientos.find(:all, :order => 'created_at DESC') %>
+<% if elementosmantenimiento.id != @elementosmantenimiento.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="elementosmantenimiento_<%=elementosmantenimiento.id%>">
+    <td width="20%" class="camposDesc"><%=elementosmantenimiento.fecha_mantenimiento.strftime("%Y-%m-%d")%> - <%=elementosmantenimiento.user.username rescue nil%></td>
+    <td width="10%" height="30" class="camposDesc"><%=elementosmantenimiento.tipo%></td>
+    <td width="55%" class="camposDesc"><%=elementosmantenimiento.descripcion%>
+      <% if elementosmantenimiento.usb %><br/> Revisión puertos USB : <strong><%=elementosmantenimiento.usb rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.cooler %><br/> Funcionamiento Cooler : <strong><%=elementosmantenimiento.cooler rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.red %><br/> Tarjetas de Red : <strong><%=elementosmantenimiento.red rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.disco %><br/> Almacenamiento Disco Duro : <strong><%=elementosmantenimiento.disco rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.ram %><br/> Memoria RAM : <strong><%=elementosmantenimiento.ram rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.dvd %><br/> Unidad DVD : <strong><%=elementosmantenimiento.dvd rescue nil%></strong><%end%>
+      <% if elementosmantenimiento.vga %><br/> Puertos VGA : <strong><%=elementosmantenimiento.vga rescue nil%></strong><%end%>
+    </td>
+    <td width="15%" class="camposDesc">
+      <div align="center">
+        <%= link_to "Informe", {:controller => "elementosmantenimientos", :action => "visualizar", :id=>elementosmantenimiento.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+        <%= link_to 'Imagen',  img_elementosimagenes_path(elementosmantenimiento.id), :class=>"imagenlink"%>
+      </div></td>
+ </tr>
+</table>
+<% if elementosmantenimiento.elementosimagenes.exists? %>
+<div align="center">
+  <table width="80%" border="0" align="center" cellpadding="1" cellspacing="1">
+    <tr>
+      <td width="10%" valign="middle" class="oce-first"><div align="center">Imagenes</div></td>
+      <td width="90%">
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td class="oce-first" width="10%" align="center">Fecha</td>
+            <td class="oce-first" width="45%" align="center">Descripcion</td>
+            <td class="oce-first" width="40%" align="center">Nombre Archivo</td>
+            <td class="oce-first" width="5%" align="center"></td>
+          </tr>
+        <% elementosmantenimiento.elementosimagenes.each do |elementosimagen| %>
+          <tr class="<%=cycle('even1', 'odd1')%>">
+            <td class="camposDesc" align="left"><%=elementosimagen.created_at.strftime("%Y-%m-%d") rescue nil%></td>
+            <td class="camposDesc" align="left"><%=elementosimagen.descripcion%></td>
+            <td class="camposDesc" align="left"><%=elementosimagen.elemento_file_name%></td>
+            <td class="camposDesc" align="left"><%= link_to "Ver", elementosimagen.elemento.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%></td>
+          </tr>
+        <% end %>
+          </table>
+      </td>
+    </tr>
+  </table>
+</div>
+<% end %>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR MANTENIMIENTO</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="elementosmantenimiento_<%=@elementosmantenimiento.id%>">
+      <%= render :partial => "elementosmantenimientos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :elemento, :id %>
+<% end %>
+<br/>
+<% if flash[:elementosmantenimiento] %>
+<div id="elementosmantenimiento">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:elementosmantenimiento] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('elementosmantenimiento');", 5000)
+</script>
+<% end %>
+
+
+

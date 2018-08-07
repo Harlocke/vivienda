@@ -1,0 +1,1 @@
+page.replace_html :ayudasorientaciones_form, :partial => "/ayudasorientaciones/ayudasorientaciones"

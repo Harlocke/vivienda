@@ -1,0 +1,176 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORME CONSOLIDADO DE AVANCE</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <th height="25" width="80%" align="left" class="oce-first">Beneficiario</th>
+      <th width="20%" align="left" class="oce-first">Estado</th>
+    </tr>
+    <tr class="odd1">
+      <td height="25" class="camposDesc"><%=@licitacion.persona.autobuscar rescue nil%></td>
+      <td class="camposDesc"><%=@licitacion.estado rescue nil%></td>
+    </tr>
+  </table>
+<br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <th colspan="4" height="20" class="oce-first">APU</th>
+    <th colspan="2" class="oce-first">Ejecución</th>
+  </tr>
+  <tr class="odd1">
+    <th width="50%" class="oce-first">Descripcion APU</th>
+    <th width="5%" class="oce-first"><div align="center">Cantidad</div></th>
+    <th width="10%" class="oce-first"><div align="center">Vlr Unitario</div></th>
+    <th width="10%" class="oce-first"><div align="center">Vlr Total</div></th>
+    <th width="5%" class="oce-first"><div align="center">Cant</div></th>
+    <th width="12%" class="oce-first"><div align="center">Subtotal</div></th>
+  </tr>
+<% for licitacionesenlace in @licitacion.licitacionesenlaces.find(:all) %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="licitacionesenlace_<%=licitacionesenlace.id%>">
+    <td class="camposDesc"><div align="left"><%=Gruposactividad.find(licitacionesenlace.analisisprecio.gruposactividad_id).codigo rescue nil %> - <%=licitacionesenlace.analisisprecio.descripcion rescue nil %>
+      <%  @grupo = Grupo.find(licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+     <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+     <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%></div>
+    </td>
+    <td class="camposDesc"><div align="center"><%=licitacionesenlace.cantidad rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(licitacionesenlace.valorunitario) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(licitacionesenlace.valortotal) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(Licitacionesinformesdetalle.sum("cantidad", :conditions=>["licitacionesenlace_id = #{licitacionesenlace.id}"])) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacionesenlace_id = #{licitacionesenlace.id}"])) rescue nil %></div></td>
+   </tr>
+<% end %>
+</table>
+<br/>
+<div align="center">
+    <table width="60%" border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td colspan="3" class="oce-first"><div align="CENTER">RESUMEN FINANCIERO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="50%" class="campos"><div align="center"></div></td>
+        <td width="25%" class="campos"><div align="center">DE DIAGNOSTICO</div></td>
+        <td width="25%" class="campos"><div align="center">DE EJECUCION</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Total&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(@licitacion.licitacionesenlaces.sum("valortotal")) rescue 0%>&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{@licitacion.id}"])) rescue nil %>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Porcentaje Ejecución&nbsp;&nbsp;</div></td>
+        <td colspan="2" class="campos"><div align="center"><%=number_to_currency(@licitacion.porcentajeavance,{:precision => 2, :unit=>"", :delimiter =>"."}) %> %</div></td>
+      </tr>
+    <% if @licitacion.licitacionespagos.exists? %>
+      <tr class="odd1">
+        <td colspan="3" class="oce-first"><div align="CENTER">RELACION DE PAGOS</div></td>
+      </tr>
+    <% @valorpagos = 0
+       @licitacion.licitacionespagos.each do |licitacionespago|
+         @valorpagos = @valorpagos + licitacionespago.valor.to_i
+    %>
+      <tr valign="middle">
+        <td class="campos"><div align="right">Pago <%=licitacionespago.porcentaje rescue nil%> % - <%=licitacionespago.fecha_pago.strftime("%Y-%m-%d") rescue nil%></div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(licitacionespago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+      <tr class="odd1">
+        <td class="campos"><div align="right">TOTAL PAGOS&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency(@valorpagos,{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+      <tr class="odd1">
+        <td class="campos"><div align="right">DIFERENCIA&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right">&nbsp;&nbsp;</div></td>
+        <td class="odd1 campos"><div align="right"><%=number_to_currency((@licitacion.valor_resolucion.to_i - @valorpagos),{:precision => 0, :unit=>"", :delimiter =>"."})%>&nbsp;&nbsp;</div></td>
+      </tr>
+    <% end %>
+    </table>
+    </div>
+<br/><div align="left" class="col_enc">FOTOGRAFÍA</div>
+<% if @licitacion.licitacionesenlaces.exists? %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="61%" height="25" class="oce-first"><div align="center">ITEM</div></td>
+          <td width="13%" class="oce-first"><div align="center">INICIO</div></td>
+          <td width="13%" class="oce-first"><div align="center">PROCESOS</div></td>
+          <td width="13%" class="oce-first"><div align="center">FINAL</div></td>
+        </tr>
+<% for licitacionesenlace in @licitacion.licitacionesenlaces.find(:all, :order =>"analisisprecio_id asc") #each do |licitacionesenlace| %>
+   <% if licitacionesenlace.licenlacesimagenes.exists?  %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><div align="justify"><%=Gruposactividad.find(licitacionesenlace.analisisprecio.gruposactividad_id).codigo rescue nil %> - <%=licitacionesenlace.analisisprecio.descripcion rescue nil %>
+            <%  @grupo = Grupo.find(licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+           <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+           <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%></div>
+          </td>
+          <td height="100" class="camposDesc"><div align="center">
+          <% for mejoraante in licitacionesenlace.licenlacesimagenes.find(:all, :conditions=>["descripcion = 'INICIO'"]) %>
+          <div class="mejora_<%=mejoraante.id%>">
+            <div style="background:url(/system/licenlaces/<%=mejoraante.id%>/original/<%=mejoraante.licenlace_file_name%>); background-size:100px 100px; background-repeat:no-repeat; height:100px"></div>
+              <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoraante.licenlace.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"licenlacesimagenes", :action=>"destroy2", :id=>mejoraante.id, :licitacion_id=>@licitacion.id}%>
+            </div>
+        <% end %>
+            </div></td>
+          <td height="100" class="camposDesc"><div align="center">
+      <% for mejoradura in licitacionesenlace.licenlacesimagenes.find(:all, :conditions=>["descripcion = 'PROCESOS'"]) %>
+          <div class="mejora_<%=mejoradura.id%>">
+            <div style="background:url(/system/licenlaces/<%=mejoradura.id%>/original/<%=mejoradura.licenlace_file_name%>); background-size:100px 100px; background-repeat:no-repeat; height:100px"></div>
+            <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoradura.licenlace.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"licenlacesimagenes", :action=>"destroy2", :id=>mejoradura.id, :licitacion_id=>@licitacion.id}%>
+          </div>
+        <% end %>
+            </div></td>
+          <td height="100" class="camposDesc"><div align="center">
+      <% for mejoradesp in licitacionesenlace.licenlacesimagenes.find(:all, :conditions=>["descripcion = 'FINAL'"]) %>
+          <div class="mejora_<%=mejoradesp.id%>">
+             <div style="background:url(/system/licenlaces/<%=mejoradesp.id%>/original/<%=mejoradesp.licenlace_file_name%>); background-size:100px 100px; background-repeat:no-repeat; height:100px"></div>
+              <%= link_to image_tag('images.png', { :border => 0, :title => "Ver Imagen"}),
+                        mejoradesp.licenlace.url(:original, false), { :popup => ['window1','height=450,width=600,scrollbars=yes']}%>
+            <%= link_to image_tag('delete.png', { :border => 0, :title => "Eliminar Imagen", :confirm => "¿Seguro?"}),{:controller=>"licenlacesimagenes", :action=>"destroy2", :id=>mejoradesp.id, :licitacion_id=>@licitacion.id}%>
+            </div>
+        <% end %>
+            </div></td>
+        </tr>
+   <% end %>
+        <% end %>
+      </table>
+<% end %>
+<br/>
+<% if @licitacion.licitacionesobservaciones.exists? %>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+     <tr class="odd1">
+      <td colspan="3" class="oce-first"><div align="CENTER">OBSERVACIONES</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="15%" height="20" class="oce-first">FECHA</td>
+      <td width="85%" class="oce-first">OBSERVACIONES</td>
+    </tr>
+  <% for licitacionesobservacion in @licitacion.licitacionesobservaciones.find(:all, :order => 'created_at DESC') %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+      <td  class="camposDesc" align="left"><%=licitacionesobservacion.created_at.strftime("%Y-%m-%d %X")%><br/>
+         <a title="<%=licitacionesobservacion.user.nombre rescue nil%>"><%=licitacionesobservacion.user.username rescue nil%></a>
+      </td>
+      <td class="camposDesc" align="left"><div align="justify"><%=licitacionesobservacion.observaciones rescue nil%></div></td>
+    </tr>
+  <% end %>
+  </table>
+<br/>
+<% end %>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</div>

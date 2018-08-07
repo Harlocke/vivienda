@@ -1,0 +1,72 @@
+<h1>Listing feriadocentejefes</h1>
+
+<table>
+  <tr>
+    <th>Nroformulario</th>
+    <th>Documento</th>
+    <th>Identificacion</th>
+    <th>Primernombre</th>
+    <th>Segundonombre</th>
+    <th>Primerapellido</th>
+    <th>Segundoapellido</th>
+    <th>Fecha nacimiento</th>
+    <th>Institucion educativa</th>
+    <th>Parentesco</th>
+    <th>Estadocivil</th>
+    <th>Ocupacion</th>
+    <th>Condicionespecial</th>
+    <th>Ingresos mensuales</th>
+    <th>Direccion</th>
+    <th>Barrio</th>
+    <th>Ciudad</th>
+    <th>Telefonos1</th>
+    <th>Telefonos2</th>
+    <th>Celular</th>
+    <th>Antiguedad annos</th>
+    <th>Antiguedad meses</th>
+    <th>Jal</th>
+    <th>Valor ahorro</th>
+    <th>Sisben</th>
+    <th>Opv</th>
+    <th>Opv cual</th>
+  </tr>
+
+<% @feriadocentejefes.each do |feriadocentejefe| %>
+  <tr>
+    <td><%=h feriadocentejefe.nroformulario %></td>
+    <td><%=h feriadocentejefe.documento %></td>
+    <td><%=h feriadocentejefe.identificacion %></td>
+    <td><%=h feriadocentejefe.primernombre %></td>
+    <td><%=h feriadocentejefe.segundonombre %></td>
+    <td><%=h feriadocentejefe.primerapellido %></td>
+    <td><%=h feriadocentejefe.segundoapellido %></td>
+    <td><%=h feriadocentejefe.fecha_nacimiento %></td>
+    <td><%=h feriadocentejefe.institucion_educativa %></td>
+    <td><%=h feriadocentejefe.parentesco %></td>
+    <td><%=h feriadocentejefe.estadocivil %></td>
+    <td><%=h feriadocentejefe.ocupacion %></td>
+    <td><%=h feriadocentejefe.condicionespecial %></td>
+    <td><%=h feriadocentejefe.ingresos_mensuales %></td>
+    <td><%=h feriadocentejefe.direccion %></td>
+    <td><%=h feriadocentejefe.barrio %></td>
+    <td><%=h feriadocentejefe.ciudad %></td>
+    <td><%=h feriadocentejefe.telefonos1 %></td>
+    <td><%=h feriadocentejefe.telefonos2 %></td>
+    <td><%=h feriadocentejefe.celular %></td>
+    <td><%=h feriadocentejefe.antiguedad_annos %></td>
+    <td><%=h feriadocentejefe.antiguedad_meses %></td>
+    <td><%=h feriadocentejefe.jal %></td>
+    <td><%=h feriadocentejefe.valor_ahorro %></td>
+    <td><%=h feriadocentejefe.sisben %></td>
+    <td><%=h feriadocentejefe.opv %></td>
+    <td><%=h feriadocentejefe.opv_cual %></td>
+    <td><%= link_to 'Show', feriadocentejefe %></td>
+    <td><%= link_to 'Edit', edit_feriadocentejefe_path(feriadocentejefe) %></td>
+    <td><%= link_to 'Destroy', feriadocentejefe, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feriadocentejefe', new_feriadocentejefe_path %>

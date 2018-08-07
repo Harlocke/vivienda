@@ -1,0 +1,22 @@
+<h1>Listing agendasusers</h1>
+
+<table>
+  <tr>
+    <th>Agenda</th>
+    <th>User</th>
+  </tr>
+
+<% @agendasusers.each do |agendasuser| %>
+  <tr>
+    <td><%=h agendasuser.agenda %></td>
+    <td><%=h agendasuser.user %></td>
+    <td><%= link_to 'Show', agendasuser %></td>
+    <td><%= link_to 'Edit', edit_agendasuser_path(agendasuser) %></td>
+    <td><%= link_to 'Destroy', agendasuser, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New agendasuser', new_agendasuser_path %>

@@ -1,0 +1,31 @@
+<h1>New interventoriasfecha</h1>
+
+<% form_for(@interventoriasfecha) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :anno %><br />
+    <%= f.text_field :anno %>
+  </p>
+  <p>
+    <%= f.label :mes %><br />
+    <%= f.text_field :mes %>
+  </p>
+  <p>
+    <%= f.label :fecha_inicial %><br />
+    <%= f.date_select :fecha_inicial %>
+  </p>
+  <p>
+    <%= f.label :fecha_final %><br />
+    <%= f.date_select :fecha_final %>
+  </p>
+  <p>
+    <%= f.label :fecha_limite %><br />
+    <%= f.date_select :fecha_limite %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', interventoriasfechas_path %>

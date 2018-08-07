@@ -1,0 +1,34 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="97%"><div class="col_enc">DOCUMENTOS ASOCIADOS AL INMUEBLE</div></td>
+              <td width="3%"><div align="right">
+
+<%= link_to image_tag('database_add.png',
+	                            { :border=>0, :title => "Nuevo"}),new_inmobiliario_inmobiliariosimagen_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="400" height="30" class="oce-first">Descripcion</td>
+    <td width="10" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% @inmobiliariosimagenes.each do |inmobiliariosimagen| %>
+  <tr valign="middle">
+    <td width="400" height="30" class="camposDesc"><%=inmobiliariosimagen.descripcion %></td>
+    <td width="400" height="30" class="camposDesc"><%=inmobiliariosimagen.foto_file_name%></td>
+    <td width="10" class="camposDesc"><%= link_to image_tag('application_get.png',
+                    { :border=>0,
+		      :title => "Bajar Documento"}),
+                      inmobiliariosimagen.inmobiliario.url(:original, false) %></td>
+  </tr>
+<% end %>
+</table>

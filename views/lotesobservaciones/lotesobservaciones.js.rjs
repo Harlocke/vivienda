@@ -1,0 +1,1 @@
+page.replace_html :lotesobservaciones_form, :partial => "lotesobservaciones", :object => @lotesobservacion

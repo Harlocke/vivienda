@@ -1,0 +1,1 @@
+page.replace_html :fiduciasdocumentos_form, :partial => "/fiduciasdocumentos/fiduciasdocumentos"

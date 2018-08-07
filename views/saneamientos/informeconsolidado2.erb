@@ -1,0 +1,17 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INVENTARIO CONSOLIDADO DE INMUEBLES</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Comuna - Barrio</strong></td>
+    <td><strong>Clasificación del proceso</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% @saneamientos.each do |saneamiento|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=saneamiento.comuna.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=saneamiento.encargo_tramite rescue nil%></div></td>
+     <td><div align="center"><%=saneamiento.cant rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>
+

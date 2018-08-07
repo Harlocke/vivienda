@@ -1,0 +1,116 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<br/>
+<div align="center">
+    <table width="600" height="40"  align="center">
+      <tr><td><table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr><td width="3%"><img src="/images/pqrsmin.png" width="64" height="64"/></td>
+      <td width="97%"><div class="col_enc">Formulario para solicitudes y PQRS</div></td>
+      </tr></table></td></tr>
+    </table>
+    <% form_for :queja, :url => { :action => "create2" } do |f| %>
+        <table width="600" border="0" cellpadding="0" cellspacing="2">
+          <tr class="odd1">
+            <td width="40%" height="30" class="campos">Tipo PQRS *<br/>
+              <div style="font-size: 10px; color:red;">Despliegue y seleccione una de las opciones</div>
+            </td>
+            <td width="60%" >
+              <%= select(:queja, :tipopqrs, select_quejainicial,{ :include_blank => true },
+                          { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :queja, :tipopqrs, :css_class =>"cerror"%>
+            </td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Identificaci&oacute;n *</td>
+            <td><%= f.text_field :identificacion ,{ :class => "campo", :size => 50,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= error_message_on :queja, :identificacion, :css_class =>"cerror"%>
+              </td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30">Primer Nombre *</td>
+            <td><%= f.text_field :primer_nombre,{ :class => "campo",:size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= f.error_message_on :primer_nombre, :css_class =>"cerror"%>
+            </td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Segundo Nombre</td>
+            <td><%= f.text_field :segundo_nombre,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>  </td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30">Primer Apellido *</td>
+            <td><%= f.text_field :primer_apellido,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+             <%= f.error_message_on :primer_apellido, :css_class =>"cerror"%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Segundo Apellido</td>
+            <td><%= f.text_field :segundo_apellido,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30">Telefono Fijo *</td>
+            <td><%= f.text_field :telefono,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= f.error_message_on :telefono, :css_class =>"cerror"%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Celular *</td>
+            <td><%= f.text_field :celular,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= f.error_message_on :celular, :css_class =>"cerror"%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30">Dirección *</td>
+            <td><%= f.text_field :direccion,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Correo Electronico *</td>
+            <td><%= f.text_field :email,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+              <%= f.error_message_on :email, :css_class =>"cerror"%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" height="30">Comuna</td>
+            <td><%=select("queja", "comuna_id", select_comuna.collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true },
+                    { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+              <%= f.error_message_on :comuna_id, :css_class =>"cerror"%></td>
+          </tr>
+          <tr>
+            <td class="campos" height="30">Motivo de la pregunta, queja, reclamo o sugerencia *</td>
+            <td class="camposDesc" align="left" >
+                <%=text_area(:queja, :descripcion, :cols => 55, :rows => 10, :class => 'campo', :maxlength => 3900,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                <%= error_message_on :queja, :descripcion, :css_class =>"cerror"%></td>
+          </tr>
+        </table>
+        <table width="600" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+        </table>
+        <table width="600" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <td><div align="right">
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<%= submit_tag "Enviar información", :disable_with => "Enviando..."%></div>
+               </div></td>
+          </tr>
+        </table>
+    <% end %>
+</div>
+<br/>

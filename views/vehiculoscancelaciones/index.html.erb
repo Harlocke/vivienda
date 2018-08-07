@@ -1,0 +1,32 @@
+<h1>Listing vehiculoscancelaciones</h1>
+
+<table>
+  <tr>
+    <th>Fecha</th>
+    <th>Hora inicio</th>
+    <th>Hora fin</th>
+    <th>Vehiculo</th>
+    <th>User</th>
+    <th>Destino</th>
+    <th>Observacion</th>
+  </tr>
+
+<% @vehiculoscancelaciones.each do |vehiculoscancelacion| %>
+  <tr>
+    <td><%=h vehiculoscancelacion.fecha %></td>
+    <td><%=h vehiculoscancelacion.hora_inicio %></td>
+    <td><%=h vehiculoscancelacion.hora_fin %></td>
+    <td><%=h vehiculoscancelacion.vehiculo_id %></td>
+    <td><%=h vehiculoscancelacion.user_id %></td>
+    <td><%=h vehiculoscancelacion.destino %></td>
+    <td><%=h vehiculoscancelacion.observacion %></td>
+    <td><%= link_to 'Show', vehiculoscancelacion %></td>
+    <td><%= link_to 'Edit', edit_vehiculoscancelacion_path(vehiculoscancelacion) %></td>
+    <td><%= link_to 'Destroy', vehiculoscancelacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New vehiculoscancelacion', new_vehiculoscancelacion_path %>

@@ -1,0 +1,89 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/resolucionmin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;INFORMACION CARGUE SUBSIDIOS NACIONALES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="80%" border="0" align="center" cellpadding="1" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr style="color: white;" bgcolor="#FF0000">
+        <td height="30"><div align="left"><strong>RECOMENDACIONES PARA CARGUE DE INFORMACI&Oacute;N</strong></div></td>
+      </tr>
+      <tr><td class="camposDesc">El archivo debe ser con extensión CSV y separado con (;) </td></tr>
+      <tr><td class="camposDesc">El orden de los campos es:</td></tr>
+      <tr><td class="camposDesc">
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="50%" class="camposDesc">
+                        <strong>Campo 1 : </strong>Cedula<br/>
+                        <strong>Campo 2 : </strong>Nombres<br/>
+                        <strong>Campo 3 : </strong>Apellidos<br/>
+                        <strong>Campo 4 : </strong>Caja<br/>
+                        <strong>Campo 5 : </strong>Bolsa<br/>
+                        <strong>Campo 6 : </strong>Resol<br/>
+                        <strong>Campo 7 : </strong>Fecha<br/>
+                        <strong>Campo 8 : </strong>Año<br/>
+                        <strong>Campo 9 : </strong>Valor Asignación (Solo numeros)<br/>
+                        <strong>Campo 10 : </strong>Valor Movilización 20% (Solo numeros)<br/>
+                        <strong>Campo 11 : </strong>Proyecto Postulación<br/>
+                        <strong>Campo 12 : </strong>Proyecto Isvimed<br/>
+                        <strong>Campo 13 : </strong>N° del Encargo Fiduciario<br/>
+                        <strong>Campo 14 : </strong>Estado SFV<br/>
+                        <strong>Campo 15 : </strong>Estado Escrituración<br/>
+                        <strong>Campo 16 : </strong>Etapa Escrituración<br/></td>
+              <td width="50%" class="camposDesc">
+                        <strong>Campo 17 : </strong>Seguimiento Jurídica <br/>
+                        <strong>Campo 18 : </strong>Enviado a Cobro o Legalización<br/>
+                        <strong>Campo 19 : </strong>Fecha de Envío<br/>
+                        <strong>Campo 20 : </strong>Observaciones<br/>
+                        <strong>Campo 21 : </strong>Resolución de Renuncia o Revocatoria<br/>
+                        <strong>Campo 22 : </strong>Anexo 10A<br/>
+                        <strong>Campo 23 : </strong>Enviado a Restitución<br/>
+                        <strong>Campo 24 : </strong>CAP<br/>
+                        <strong>Campo 25 : </strong>Vigencia del Subsidio<br/>
+                        <strong>Campo 26 : </strong>Municipio Res<br/>
+                        <strong>Campo 27 : </strong>Modalidad<br/>
+                        <strong>Campo 28 : </strong>SP<br/>
+                        <strong>Campo 29 : </strong>Fecha de Pago 100% <br/>
+                        <strong>Campo 30 : </strong>Pagado En<br/>
+                        <strong>Campo 31 : </strong>Fecha de Movilización 20%<br/>
+                        <strong>Campo 32 : </strong>Nro. Autorización FNV<br/></td>
+            </tr>
+          </table></td></tr>
+      <tr style="color: white;" bgcolor="#FF0000">
+        <td class="camposDesc"><div align="left"><strong>TENGA EN CUENTA LAS SIGUIENTES RECOMENDACIONES ANTES DE REALIZAR EL CARGUE<br/>
+              1. Con base en este orden es que el sistema ejecuta el proceso automatico<br/>
+              2. Este proceso no tiene reversión.<br/>
+              3. El nombre del archivo no puede ser compuesto<br/>
+              4. Los campos del archivo no deben tener tildes ni la letra (Ñ)<br/>
+              5. Los campos numericos no pueden tener separadores de mi ni ningun otro simbolo</strong></div></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<% form_tag 'subtemporales/cargar', :id => 'subir', :multipart => true do %>
+ <table width="80%" align="center">
+   <tr>
+     <td width="30%" class="campos">
+      <label for="dump_file">
+        Seleccione el archivo a cargar :<br/>
+      </label>
+       <%= file_field_tag "file", :size=>"50"%>
+     </td>
+     <td width="10%" ><div align="center"><%= submit_tag "Cargar", :disable_with => "Cargando....", :confirm=>"Esta seguro?"%></div>
+     </td>
+   </tr>
+   <tr>
+     <td colspan='2'>
+       </td>
+   </tr>
+</table>
+<% end %>

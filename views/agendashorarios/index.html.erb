@@ -1,0 +1,70 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/agendascitasmin.png" width="64" height="64"/></td>
+          <td width="85%"><div class="col_enc">&nbsp;AGENDAS - HORARIOS</div></td>
+          <td width="15%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Ayudas"}),edit_agendasproceso_path(:id =>@agendasfecha.agendasproceso_id) %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table><br/>
+<div align="center">
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="25%" height="25" class="oce-first">Fecha de Asignacion</td>
+    <td width="10%" class="oce-first"><div align="center">Hora Inicio</div></td>
+    <td width="10%" class="oce-first"><div align="center">Hora Fin</div></td>
+    <td width="10%" class="oce-first"><div align="center">Intervalo</div></td>
+    <td width="25%" class="oce-first"><div align="center">Nro de personas por Intervalo</div></td>
+    <td width="20%" class="oce-first"><div align="center">Estado</div></td>
+   </tr>
+    <tr  valign="middle">
+      <td height="25" class="camposDesc"><%=@agendasfecha.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+      <td  class="camposDesc"><div align="center"><%=@agendasfecha.hora_inicio rescue nil%></div></td> 
+      <td  class="camposDesc"><div align="center"><%=@agendasfecha.hora_fin rescue nil%></div></td>
+      <td  class="camposDesc"><div align="center"><%=@agendasfecha.intervalo rescue nil%></div></td> 
+      <td  class="camposDesc"><div align="center"><%=@agendasfecha.cantidad rescue nil%></div></td>
+      <td  class="camposDesc"><div align="center"><%=@agendasfecha.estado rescue nil%> </div></td>
+   </tr>
+</table>  
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" i>
+  <tr valign="middle">
+    <td width="12%" height="25" class="oce-first"><div align="left">Hora</div></td>
+    <td width="5%" class="oce-first"><div align="center">Cantidad</div></td>
+    <td width="15%" class="oce-first"><div align="center">Estado</div></td>
+    <td width="58%" class="oce-first"><div align="left">Usuario</div></td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @agendashorarios.each do |agendashorario| 
+     agendas = Agenda.find(:all, :conditions=>["agendashorario = #{agendashorario.id}"], :order=>"created_at asc")%>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><div align="left"><%=h agendashorario.horario rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=h agendashorario.cantidad%></div></td>
+    <td class="camposDesc"><div align="center"><%=h agendashorario.estado%></div></td>
+    <td class="camposDesc"><div align="left">
+          <% if agendas.count.to_i > 0 %>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <% for agenda in agendas %>
+                <tr valign="middle">
+                  <td class="camposDesc" align="left"><%=agenda.persona.autobuscar rescue nil%> (<%=agenda.estado rescue nil%>)</td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
+    </div></td>
+    <td class="camposDesc"><div align="center">
+        <% if agendas.count.to_i == 0 %>
+          <% if agendashorario.estado.to_s == 'ACTIVO' %>
+          <%= link_to image_tag('connect2.png', :title => "Inactivar horario"), bact_agendashorarios_path(:id=>agendashorario.id)%>
+          <% else %>
+          <%= link_to image_tag('link_delete.png', :title => "Activar Horario"), act_agendashorarios_path(:id=>agendashorario.id)%>
+          <% end %>
+        <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+</div>

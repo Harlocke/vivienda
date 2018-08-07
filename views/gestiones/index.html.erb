@@ -1,0 +1,22 @@
+<h1>Listing gestiones</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Valor</th>
+  </tr>
+
+<% @gestiones.each do |gestion| %>
+  <tr>
+    <td><%=h gestion.descripcion %></td>
+    <td><%=h gestion.valor %></td>
+    <td><%= link_to 'Show', gestion %></td>
+    <td><%= link_to 'Edit', edit_gestion_path(gestion) %></td>
+    <td><%= link_to 'Destroy', gestion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New gestion', new_gestion_path %>

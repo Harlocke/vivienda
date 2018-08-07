@@ -1,0 +1,199 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/insumomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INSUMOS </div></td>
+              <td width="3%">
+                 <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),precioselementos_path %>
+              </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/users.png" border="0" title="Analisis"/></a></li>
+  <% unless @precioselemento.new_record? %>
+        <li><a href="#tab2"><img src="/images/modulos.png" border="0" title="Elementos"/></a></li>
+  <% end %>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset>
+<% form_for(@precioselemento) do |f| %>
+  <div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">ANALISIS</div></td>
+  </tr>
+</table>
+  <table width="760" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td>
+ <table width="100%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+    <th width="25%" height="20" class="campos"><div align="left">Id :</div></th>
+    <td width="75%"><div align="left"><%= @precioselemento.id%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Clasificación : *</div></th>
+    <td ><div align="left">
+          <%= select(:precioselemento, :grupo, [["ABRASIVOS","ABRASIVOS"],
+                      ["ACEROS Y METALES","ACEROS Y METALES"],
+                      ["ADHESIVOS","ADHESIVOS"],
+                      ["ADITIVOS","ADITIVOS"],
+                      ["AGREGADOS","AGREGADOS"],
+                      ["AISLANTES E IMPERMEABILIZANTES","AISLANTES E IMPERMEABILIZANTES"],
+                      ["ALQUILER DE EQUIPOS","ALQUILER DE EQUIPOS"],
+                      ["APARATOS SANITARIOS Y ACCESORIOS","APARATOS SANITARIOS Y ACCESORIOS"],
+                      ["ASFALTOS","ASFALTOS"],
+                      ["CARPINTERIA","CARPINTERIA"],
+                      ["CEMENTOS","CEMENTOS"],
+                      ["COMBUSTIBLES Y LUBRICANTES","COMBUSTIBLES Y LUBRICANTES"],
+                      ["CONCRETOS","CONCRETOS"],
+                      ["CONSTRUCCIONES LIVIANAS","CONSTRUCCIONES LIVIANAS"],
+                      ["CUBIERTAS Y CANALES","CUBIERTAS Y CANALES"],
+                      ["ELECTRODOMESTICOS Y GASODOMESTICOS","ELECTRODOMESTICOS Y GASODOMESTICOS"],
+                      ["ENCHAPES Y RECUBRIMIENTOS","ENCHAPES Y RECUBRIMIENTOS"],
+                      ["ENSAYOS DE LABORATORIO","ENSAYOS DE LABORATORIO"],
+                      ["FERRETERIA","FERRETERIA"],
+                      ["FORMALETAS Y ANDAMIOS","FORMALETAS Y ANDAMIOS"],
+                      ["GEOTEXTILES","GEOTEXTILES"],
+                      ["GRIFERIA","GRIFERIA"],
+                      ["INSTALACIONES DE GAS","INSTALACIONES DE GAS"],
+                      ["INSTALACIONES ELECTRICAS","INSTALACIONES ELECTRICAS"],
+                      ["INSTALACIONES ESPECIALES","INSTALACIONES ESPECIALES"],
+                      ["LADRILLOS Y TEJAS DE ARCILLA","LADRILLOS Y TEJAS DE ARCILLA"],
+                      ["MADERAS","MADERAS"],
+                      ["MANO DE OBRA POR ACTIVIDAD","MANO DE OBRA POR ACTIVIDAD"],
+                      ["MANO DE OBRA POR OCUPACION","MANO DE OBRA POR OCUPACION"],
+                      ["MUEBLES Y DECORACION","MUEBLES Y DECORACION"],
+                      ["PISOS","PISOS"],
+                      ["PLASTICOS Y MALLAS PLASTICAS","PLASTICOS Y MALLAS PLASTICAS"],
+                      ["PREFABRICADOS Y BLOQUES","PREFABRICADOS Y BLOQUES"],
+                      ["PUERTAS","PUERTAS"],
+                      ["REJILLAS","REJILLAS"],
+                      ["SEGURIDAD Y PROTECCION","SEGURIDAD Y PROTECCION"],
+                      ["SELLOS Y JUNTAS","SELLOS Y JUNTAS"],
+                      ["SEÑALIZACION","SEÑALIZACION"],
+                      ["SOLDADURA","SOLDADURA"],
+                      ["TRANSPORTE EXTERNO","TRANSPORTE EXTERNO"],
+                      ["TUBERIAS DE CONCRETO Y ACCESORIOS","TUBERIAS DE CONCRETO Y ACCESORIOS"],
+                      ["TUBERIAS METALICAS Y ACCESORIOS","TUBERIAS METALICAS Y ACCESORIOS"],
+                      ["TUBERIAS PVC ACUEDUCTO Y ACCESORIOS","TUBERIAS PVC ACUEDUCTO Y ACCESORIOS"],
+                      ["TUBERIAS PVC ELECTRICA Y ACCESORIOS","TUBERIAS PVC ELECTRICA Y ACCESORIOS"],
+                      ["TUBERIAS PVC SANITARIA Y ACCESORIOS","TUBERIAS PVC SANITARIA Y ACCESORIOS"],
+                      ["VARIOS","VARIOS"],
+                      ["VENTANAS Y VIDRIOS","VENTANAS Y VIDRIOS"],
+                      ["YESOS Y PINTURAS","YESOS Y PINTURAS"]],
+                        { :include_blank => true },
+                      { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      <%= f.error_message_on :clasificacion, :css_class =>"cerror"%>
+      </div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Codigo : *</div></th>
+    <td ><div align="left"><%= f.text_field :codigo ,{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+          <%= f.error_message_on :codigo, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Descripcion : *</div></th>
+    <td ><div align="left"><%= text_area(:precioselemento, :descripcion, :cols => 100, :rows => 4, :class => 'campo',
+                            :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= f.error_message_on :descripcion, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Unidad de Medida : *</div></th>
+    <td ><div align="left">
+    <%= select(:precioselemento, :unidadmedida, [["cca","cca"],
+                ["cuñ","cuñ"],["cuñet","cuñet"],["día","día"],["g","g"],
+                ["g/4","g/4"],["gal","gal"],["gl","gl"],["gr","gr"],
+                ["h","h"],["k","k"],["kg","kg"],["l","l"],
+                ["lb","lb"],["m","m"],["m2","m2"],["m3","m3"],
+                ["mes","mes"],["ml","ml"],["paq","paq"],["pul","pul"],
+                ["rl","rl"],["sac","sac"],["sal","sal"],["ton","ton"],
+                ["un","un"],["und","und"],["vje","vje"]],
+                        { :include_blank => true },
+                      { :style=>"width:130px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      <%= f.error_message_on :unidadmedida, :css_class =>"cerror"%></div>
+    </td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Valor : *</div></th>
+    <td ><div align="left"><%= f.text_field :valor ,{ :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+          <%= f.error_message_on :valor, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Volumen Produccion : *</div></th>
+    <td ><div align="left"><%= f.text_field :volumen ,{ :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+          <%= f.error_message_on :valor, :css_class =>"cerror"%></div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Rendimiento : *</div></th>
+    <td ><div align="left"><%= f.text_field :rendimiento ,{ :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+          <%= f.error_message_on :valor, :css_class =>"cerror"%></div></td>
+  </tr>
+<tr>
+    <th height="20" class="campos"><div align="left">Fecha Verificación : *</div></th>
+    <td class="campos"><div align="left">
+        <%= calendar_date_select "precioselemento", "fecha_verificacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      <%= f.error_message_on :fecha_verificacion, :css_class =>"cerror"%></div></td>
+  </tr>
+<% unless @precioselemento.new_record? %>
+    <tr>
+      <th height="20" class="campos" align="left">Ult. Actualización :</th>
+      <td align="left" class="camposDesc"><%= @precioselemento.updated_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(@precioselemento.user_actualiza).nombre rescue nil%></td>
+    </tr>
+    <tr>
+      <th height="20" class="campos" align="left">Creación :</th>
+      <td align="left" class="camposDesc"><%= @precioselemento.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=@precioselemento.user.nombre rescue nil%></td>
+    </tr>
+<% end %>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+  </div></td>
+    </tr>
+  </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+<% end %>
+</fieldset>
+</div>
+  <div class="panel" id="tab2">
+    <fieldset>
+  <% unless @precioselemento.new_record? %>
+     <div id="precioselementoshijos_form">
+        <%= render :partial => "/precioselementoshijos/precioselementoshijos"%>
+     </div>
+  <% end %>
+    </fieldset>
+  </div>
+
+</div>
+<br/>
+<br/>
+
+
+
+

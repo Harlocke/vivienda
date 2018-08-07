@@ -1,0 +1,16 @@
+<h1>Editing proyectostipo</h1>
+
+<% form_for(@proyectostipo) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @proyectostipo %> |
+<%= link_to 'Back', proyectostipos_path %>

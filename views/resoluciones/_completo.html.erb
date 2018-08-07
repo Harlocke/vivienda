@@ -1,0 +1,112 @@
+<% form_for(@resolucion) do |f|
+    if Resolucionespersona.exists?(["resolucion_id = ?", @resolucion.id]) == true
+      @resolucionexiste = "S"
+    end
+%>
+  <div align="left">
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr><td height="30"><div class="col_enc">DATOS GENERALES</div></td></tr><tr><td height="10"></td></tr>
+    </table>
+  </div>
+  <table width="100%" align="center">
+    <tr class="odd1">
+      <td width="20%" height="30" class="campos" align="left">Nro Resolucion *</td>
+      <td width="80%" align="left" class="camposDesc">
+        <% if @resolucion.nro_resolucion %>
+           <%=@resolucion.nro_resolucion%> - <%=@resolucion.anno%>
+           <%= error_message_on :resolucion, :nro_resolucion, :css_class =>"cerror"%>
+        <% end %>
+        <h class="cerror">* Ultima Resolución ... <%=help_lastresol.to_s%></h>
+      <%= error_message_on :resolucion, :anno, :css_class =>"cerror"%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="30" align="left">Fecha Resolucion *</td>
+      <td align="left" class="camposDesc">
+        <% if @resolucionexiste %>
+           <%=@resolucion.fecha%>
+        <% else %>
+           <%= calendar_date_select "resolucion", "fecha", :year_range => [2009, 2020], :class=> "campo", :size => 10, :time => false%>
+        <% end %>
+      <%= error_message_on :resolucion, :fecha, :css_class =>"cerror"%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="30" align="left">Clase de Resolucion *</td>
+      <td align="left" class="camposDesc">
+        <% if @resolucionexiste %>
+           <%=@resolucion.resolucionesclase.descripcion rescue nil%>
+        <% else %>
+           <%=select("resolucion", "resolucionesclase_id", select_resolucionesclase.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+           { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <% end %>
+      <%= error_message_on :resolucion, :resolucionesclase_id, :css_class =>"cerror"%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="30" align="left">Modalidad del Subsidio </td>
+      <td align="left" class="camposDesc"><%= select(:resolucion, :modalidad,select_resol_modalidad,{ :include_blank => true },
+                        { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+    <tr class="odd1">
+      <td class="campos" height="30" align="left">Objeto *</td>
+      <td align="left" class="camposDesc">
+        <% if @resolucionexiste %>
+           <%=@resolucion.resuelve%>
+        <% else %>
+            <%= text_area(:resolucion, :resuelve, :cols => 110, :rows => 7, :class => 'campo',
+                          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %>
+        <% end %>
+      <%= error_message_on :resolucion, :resuelve, :css_class =>"cerror"%></td>
+    </tr>
+    <tr>
+      <td class="campos" height="30" align="left">Observaciones</td>
+      <td align="left" class="camposDesc">
+            <%= text_area(:resolucion, :observaciones, :cols => 110, :rows => 4, :class => 'campo',
+                          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %>
+      <%= error_message_on :resolucion, :observaciones, :css_class =>"cerror"%></td>
+    </tr>
+   <tr class="odd1">
+      <td class="campos" height="30" align="left">Dependencia Solicitante *</td>
+      <td align="left" class="camposDesc"> <%=select("resolucion", "dependencia_id", select_dependencia.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+        { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr>
+      <td class="campos" height="30" align="left">Responsable *</td>
+      <td align="left" class="camposDesc"> <%=select("resolucion", "user_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+        { :style=>"width:350px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+  <% unless @resolucion.new_record? %>
+    <tr class="odd1">
+      <td align="left" height="30" class="campos">Creación</td>
+      <td align="left" class="camposDesc">
+        <%= @resolucion.created_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@resolucion.user_reg).nombre rescue nil%>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" height="30" class="campos">Ult. Actualización</td>
+      <td align="left" class="camposDesc">
+        <%= @resolucion.updated_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@resolucion.user_regact).nombre rescue nil%>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  <% if permiso("resolucion","A").to_s == "S" %>
+    <table width="100%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+            <% unless @resolucion.new_record? %>
+            <% if !@resolucionexiste %>
+            <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+            <%= link_to 'Cargar', import_temporales_path, :popup => ['new_window','height=600,width=830,scrollbars=yes'] %>
+              </span></div>
+            <% end %><% end %></div></td>
+      </tr>
+    </table>
+  <% end %>
+<% end %>

@@ -1,0 +1,126 @@
+<table width="850" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="35%" align="left" class="campos">Proyecto *</td>
+        <td width="35%" align="left" class="campos">Propietario Identificacion *</td>
+        <td width="35%" align="left" class="campos">Propietario Nombre *</td>
+      </tr>
+      <tr valign="top">
+        <td><%= select(:arrendamientoscontrato, :proyecto, [["CONECTIVIDADES","CONECTIVIDADES"],["JARDIN INFANTIL LORETO","JARDIN INFANTIL LORETO"],["PUENTE MADRE LAURA","PUENTE MADRE LAURA"],["LA ISLA","LA ISLA"]],
+                 { :include_blank => true }, { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :proyecto, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :prop_identificacion,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :prop_identificacion, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :prop_nombre,{ :class => "campo", :size => 60,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :prop_nombre, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" align="left" class="campos">Propietario Telefonos *</td>
+        <td width="40%" align="left" class="campos">Propietario Direccion *</td>
+        <td width="40%" align="left" class="campos">Propietario Email *</td>
+      </tr>
+      <tr valign="top">
+        <td><%= text_field :arrendamientoscontrato, :prop_telefonos,{ :class => "campo", :size => 30,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :prop_telefonos, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :prop_direccion,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :prop_direccion, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :prop_email,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :prop_email, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" align="left" class="campos">Zona de Riesgo *</td>
+        <td colspan="2" align="left" class="campos">Visita Tecnica Vivienda de Arrendamiento *</td>
+      </tr>
+      <tr valign="top">
+        <td><%= select(:arrendamientoscontrato, :zona_riesgo, [["APTO","APTO"],["NO APTO","NO APTO"]],
+                 { :include_blank => true }, { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :zona_riesgo, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%= select(:arrendamientoscontrato, :visita_tecnica, [["APTO","APTO"],["NO APTO","NO APTO"]],
+                 { :include_blank => true }, { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :visita_tecnica, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%=text_area(:arrendamientoscontrato, :visita_tecobs, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 3900,
+           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :arrendamientoscontrato, :visita_tecobs, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td colspan="2" align="left" class="campos">Viabilidad Juridica *</td>
+        <td width="20%" align="left" class="campos">Notificacion de Contrato *</td>
+      </tr>
+      <tr valign="top">
+        <td class="camposDesc"><%= select(:arrendamientoscontrato, :viabilidad_juridica, [["APTO","APTO"],["NO APTO","NO APTO"]],
+                 { :include_blank => true }, { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :viabilidad_juridica, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%=text_area(:arrendamientoscontrato, :viabilidad_jurobs, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 3900,
+           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :arrendamientoscontrato, :viabilidad_jurobs, :css_class =>"cerror"%></td>
+        <td><%= select(:arrendamientoscontrato, :notificacion_contrato, [["SI","SI"],["NO","NO"]],
+                 { :include_blank => true }, { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :notificacion_contrato, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td colspan="2" align="left" class="campos">Firma de Carta de Compromiso *</td>
+        <td width="20%" align="left" class="campos">Cannon de Arredamiento *</td>
+      </tr>
+      <tr valign="top">
+        <td class="camposDesc"><%= select(:arrendamientoscontrato, :firma_compromiso, [["SI","SI"],["NO","NO"]],
+                 { :include_blank => true }, { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :arrendamientoscontrato, :firma_compromiso, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%=text_area(:arrendamientoscontrato, :firma_compobs, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 3900,
+           :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :arrendamientoscontrato, :firma_compobs, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :cannon,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :cannon, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="15%" align="left" class="campos">Tiempo Meses *</td>
+        <td width="20%" align="left" class="campos">Fecha Inicio *</td>
+        <td width="20%" align="left" class="campos">Fecha Final *</td>
+        <td width="20%" align="left" class="campos">Valor Total *</td>
+        <td width="25%" align="left" class="campos">Nro resolucion*</td>
+      </tr>
+      <tr valign="top">
+        <td><%= text_field :arrendamientoscontrato, :tiempo,{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :tiempo, :css_class =>"cerror"%></td>
+        <td><%= calendar_date_select "arrendamientoscontrato", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :arrendamientoscontrato, :fecha_inicio, :css_class =>"cerror"%></td>
+        <td><%= calendar_date_select "arrendamientoscontrato", "fecha_fin", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :arrendamientoscontrato, :fecha_fin, :css_class =>"cerror"%></td>
+        <td><%= text_field :arrendamientoscontrato, :vlr_total,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= error_message_on :arrendamientoscontrato, :vlr_total, :css_class =>"cerror"%></td>
+        <td><%=select("arrendamientoscontrato", "resolucion_id", Resolucion.find(:all,:conditions=>["id in (select resolucion_id from resolucionespersonas where persona_id = 1)"] ).collect {|p| [ p.nro_resolucion.to_s, p.id ] }, { :include_blank => true },
+                { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :arrendamientoscontrato, :resolucion_id, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<table width="100%"  align="center" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :arrendamientoscontrato, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+  </tr>
+</table>

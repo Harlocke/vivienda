@@ -1,0 +1,81 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">PLAN RETORNO</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @personasretorno] do |form| %>
+  <% if permiso("personasretorno","C").to_s == "S" %>
+        <% if !@personasretorno.id %>
+	<%= render :partial => "/personasretornos/personasretornos_form" %>
+    <% end %>
+<% end %>
+<% if @persona.personasretornos.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">SIPOD</td>
+    <td width="35%" class="oce-first">Concepto de Seguridad</td>
+    <td width="40%" class="oce-first">Ejecutor/proyecto</td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @persona.personasretornos.each do |personasretorno| %>
+<% if personasretorno.id != @personasretorno.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="personasretorno_<%=personasretorno.id%>">
+    <td width="10%" height="30" class="camposDesc"><%=personasretorno.sipod rescue nil%></td>
+    <td width="35%" class="camposDesc"><%=personasretorno.concepto_seguridad%></td>
+    <td width="40%" class="camposDesc"><%=personasretorno.ejecutor%></td>
+    <td width="15%" class="camposDesc"><div align="center">
+    <% if permiso("personasretorno","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_persona_personasretorno_path(@persona, personasretorno),
+		:method => :get}, :class=>"editarlink")%>
+    <%  end %>
+    <% if permiso("personasretorno","E").to_s == "S" %>
+       |&nbsp;<%= link_to_remote('Borrar',{:url => persona_personasretorno_path(@persona, personasretorno),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%  end %>
+    <%= link_to "Ver", {:controller => "personasretornos", :action => "visualizar", :id=>personasretorno.id}, :popup => ['new_window','height=500,width=800,scrollbars=yes'], :class=>"verlink"%>
+    </div></td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="personasretorno_<%=@personasretorno.id%>">
+      <%= render :partial => "personasretornos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:personasretorno] %>
+<div id="personasretorno">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:personasretorno] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personasretorno');", 5000)
+</script>
+<% end %>
+</fieldset>
+
+

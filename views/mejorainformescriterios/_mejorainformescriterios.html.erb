@@ -1,0 +1,47 @@
+</form>
+<div align="center">
+<% remote_form_for [@mejorainformeselemento, @mejorainformescriterio] do |form| %>
+       <% if !@mejorainformescriterio.id %>
+            <%= render :partial => "/mejorainformescriterios/mejorainformescriterios_form" %>
+       <% end %>
+  <% if @mejorainformeselemento.mejorainformescriterios.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" align="left" class="oce-first">Criterio</td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+<% @mejorainformeselemento.mejorainformescriterios.each do |mejorainformescriterio| %>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejorainformescriterio_<%= mejorainformescriterio.id%>">
+     <td width="90%" class="camposDesc"><%=mejorainformescriterio.capituloscriterio.descripcion rescue nil%></td>
+     <td width="10%" class="camposDesc"><div align="center">
+        <%= link_to_remote('Borrar',{:url => mejorainformeselemento_mejorainformescriterio_path(@mejorainformeselemento, mejorainformescriterio),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+     </div></td>
+    </tr>
+   <% end %>
+</table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :mejorainformeselemento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejorainformescriterio] %>
+<div id="mejorainformescriterio">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejorainformescriterio] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejorainformescriterio');", 5000)
+</script>
+<% end %>
+</div>
+

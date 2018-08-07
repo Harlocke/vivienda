@@ -1,0 +1,44 @@
+<h1>Editing catastrosinterseccion</h1>
+
+<% form_for(@catastrosinterseccion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :catastro %><br />
+    <%= f.text_field :catastro %>
+  </p>
+  <p>
+    <%= f.label :cbml %><br />
+    <%= f.text_field :cbml %>
+  </p>
+  <p>
+    <%= f.label :componente %><br />
+    <%= f.text_field :componente %>
+  </p>
+  <p>
+    <%= f.label :afectacion %><br />
+    <%= f.text_field :afectacion %>
+  </p>
+  <p>
+    <%= f.label :categorias %><br />
+    <%= f.text_field :categorias %>
+  </p>
+  <p>
+    <%= f.label :shape %><br />
+    <%= f.text_field :shape %>
+  </p>
+  <p>
+    <%= f.label :superficie_afec %><br />
+    <%= f.text_field :superficie_afec %>
+  </p>
+  <p>
+    <%= f.label :porc_afectacion %><br />
+    <%= f.text_field :porc_afectacion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @catastrosinterseccion %> |
+<%= link_to 'Back', catastrosintersecciones_path %>

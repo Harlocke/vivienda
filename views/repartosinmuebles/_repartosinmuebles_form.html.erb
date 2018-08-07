@@ -1,0 +1,67 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<% if permiso("repartoautorizacion","C").to_s == "S" %>      
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="80%" class="campos">Identificacion del jefe de hogar :</td>
+        <td width="20%" class="campos">Matricula</td>
+        </tr>
+        <tr>
+        <td class="campos"><%= text_field_with_auto_complete :repartosinmueble, :persona_autobuscar,
+              { :class => "campo",
+              :size => 90,
+              :maxlength => 50,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" },
+    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+        &nbsp;<%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%>
+        <%= error_message_on :repartosinmueble, :persona_autobuscar, :css_class =>"cerror"%></td>          
+        <td align="left" class="camposDesc"><%= text_field :repartosinmueble, :matricula,{ :class => "campo", :size => "15",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :repartosacto, :matricula, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="80%" class="campos">Dirección</td>
+        <td width="20%" class="campos"></td>
+        </tr>
+        <tr>
+        <td class="campos"><%= text_field :repartosinmueble, :direccion,{ :class => "campo", :size => "80",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :repartosacto, :direccion, :css_class =>"cerror"%></td>          
+  <td  height="30"><div align="center">
+      <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :repartosinmueble, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+  </div></td>
+    </tr>
+  </table>  
+
+<% else %>      
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="80%" class="campos">Identificacion del jefe de hogar :</td>
+        <td width="20%" class="campos"></td>
+        </tr>
+        <tr>
+        <td class="campos"><%= text_field_with_auto_complete :repartosinmueble, :persona_autobuscar,
+              { :class => "campo",
+              :size => 90,
+              :maxlength => 50,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" },
+    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+        &nbsp;<%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=650,width=1000,scrollbars=yes'], :class=>"nuevoplink"%>
+        <%= error_message_on :repartosinmueble, :persona_autobuscar, :css_class =>"cerror"%></td>          
+  <td  height="30"><div align="center">
+      <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :repartosinmueble, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+  </div></td>
+    </tr>
+  </table>
+<% end %>          
+    </td>
+  </tr>
+</table>
+<br/>

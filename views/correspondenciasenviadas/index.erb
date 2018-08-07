@@ -1,0 +1,48 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Correspondencias Enviadas</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Nro Radicado </strong></td>
+    <td><strong>Fecha Elaboracion Doc. </strong></td>
+    <td><strong>Lugar destino</strong></td>
+    <td><strong>Destinatario Identificacion </strong></td>
+    <td><strong>Destinatario Identificacion Bene </strong></td>
+    <td><strong>Destinatario Empresa </strong></td>
+    <td><strong>Asunto </strong></td>
+    <td><strong>Dependencia </strong></td>
+    <td><strong>Usuario Firma</strong></td>
+    <td><strong>Usuario Elabora</strong></td>
+    <td><strong>Anexos</strong></td>
+    <td><strong>Devolucion</strong></td>
+    <td><strong>Reenvio</strong></td>
+    <td><strong>Guia Correo</strong></td>
+    <td><strong>Observaciones</strong></td>
+    <td><strong>Causal Devolución</strong></td>
+    <td><strong>Id Radicado</strong></td>
+    <td><strong>Creación</strong></td>
+  </tr>
+<% @correspondenciasenviadas.each do |correspondenciasenviada| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=correspondenciasenviada.nro_radicado rescue nil%></td>
+    <td><%=correspondenciasenviada.fecha_elaboracion rescue nil%></td>
+    <td><%=correspondenciasenviada.lugar_destino rescue nil%></td>
+    <td><%=correspondenciasenviada.persona.autobuscar rescue nil%></td>
+    <td><%=correspondenciasenviada.benevivienda.autobuscar rescue nil%></td>
+    <td><%=correspondenciasenviada.correspondenciasremitente.autobuscar rescue nil%></td>
+    <td><%=correspondenciasenviada.asunto rescue nil%></td>
+    <td><%=Dependencia.find(correspondenciasenviada.dependencia_id).descripcion rescue nil%></td>
+    <td><%=User.find(correspondenciasenviada.userdependencia_id).nombre rescue nil%></td>
+    <td><%=User.find(correspondenciasenviada.userelabora_id).nombre rescue nil%></td>
+    <td><%=correspondenciasenviada.anexos rescue nil%></td>
+    <td><%=correspondenciasenviada.devolucion rescue nil%></td>
+    <td><%=correspondenciasenviada.reenvio rescue nil%></td>
+    <td><%=correspondenciasenviada.guiacorreo rescue nil%></td>
+    <td><%=correspondenciasenviada.causal_devolucion rescue nil%></td>
+    <td><%=correspondenciasenviada.observacion rescue nil%></td>
+    <td><%=correspondenciasenviada.id rescue nil%></td>
+    <td><%=User.find(correspondenciasenviada.user_id).nombre rescue nil%> - <%=correspondenciasenviada.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+<% end %>
+</table>

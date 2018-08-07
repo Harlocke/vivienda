@@ -1,0 +1,21 @@
+<h3>Mejoramientos Elementos</h3>
+<table border="1">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="10%"><strong>Id</strong></td>
+    <td width="1000"><strong>Descripcion</strong></td>
+    <td width="10%"><strong><div align="center">Unidad</div></strong></td>
+    <td width="10%"><strong>Valor</strong></td>
+    <td width="10%"><strong>Actividad ID</strong></td>
+    <td width="10%"><strong>Actividad Descripcion</strong></td>
+  </tr>
+<% @mejoramientositems.each do |mejoramientositem| %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+    <td><%=mejoramientositem.id rescue nil%></td>
+    <td><%=mejoramientositem.descripcion rescue nil%></td>
+    <td><div align="center"><%=mejoramientositem.unidad rescue nil%></div></td>
+    <td><%=mejoramientositem.valor rescue nil%></td>
+    <td><%=mejoramientositem.capitulo_id rescue nil%></td>
+    <td><%=mejoramientositem.capitulo.desccapitulo rescue nil%></td>
+  </tr>
+<% end %>
+</table>

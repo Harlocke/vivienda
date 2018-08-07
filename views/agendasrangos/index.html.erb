@@ -1,0 +1,26 @@
+<h1>Listing agendasrangos</h1>
+
+<table>
+  <tr>
+    <th>Agendasproceso</th>
+    <th>User</th>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+  </tr>
+
+<% @agendasrangos.each do |agendasrango| %>
+  <tr>
+    <td><%=h agendasrango.agendasproceso %></td>
+    <td><%=h agendasrango.user %></td>
+    <td><%=h agendasrango.fecha_inicio %></td>
+    <td><%=h agendasrango.fecha_fin %></td>
+    <td><%= link_to 'Show', agendasrango %></td>
+    <td><%= link_to 'Edit', edit_agendasrango_path(agendasrango) %></td>
+    <td><%= link_to 'Destroy', agendasrango, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New agendasrango', new_agendasrango_path %>

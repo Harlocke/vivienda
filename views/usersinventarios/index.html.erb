@@ -1,0 +1,32 @@
+<h1>Listing usersinventarios</h1>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Inventarioselemento</th>
+    <th>Cantidad</th>
+    <th>Dependencia</th>
+    <th>User</th>
+    <th>Serial</th>
+    <th>Estado</th>
+  </tr>
+
+<% @usersinventarios.each do |usersinventario| %>
+  <tr>
+    <td><%=h usersinventario.codigo %></td>
+    <td><%=h usersinventario.inventarioselemento_id %></td>
+    <td><%=h usersinventario.cantidad %></td>
+    <td><%=h usersinventario.dependencia_id %></td>
+    <td><%=h usersinventario.user_id %></td>
+    <td><%=h usersinventario.serial %></td>
+    <td><%=h usersinventario.estado %></td>
+    <td><%= link_to 'Show', usersinventario %></td>
+    <td><%= link_to 'Edit', edit_usersinventario_path(usersinventario) %></td>
+    <td><%= link_to 'Destroy', usersinventario, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New usersinventario', new_usersinventario_path %>

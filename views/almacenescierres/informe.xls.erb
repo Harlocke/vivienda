@@ -1,0 +1,128 @@
+#encoding: utf-8
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+
+<ss:Styles>
+  <ss:Style ss:ID='header'><ss:Font ss:Bold='1' ss:Color='#F5F6CE'/><ss:Interior ss:Color="#045FB4" ss:Pattern="Solid"/><ss:Alignment ss:Horizontal='Center'/></ss:Style>
+  <ss:Style ss:ID='row'><ss:Alignment ss:Horizontal='Left' ss:Vertical='Center'/></ss:Style> 
+</ss:Styles>
+
+  <ss:Worksheet ss:Name="Consolidado">
+    <ss:Table>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>CLASE</Data></Cell>
+        <Cell><Data ss:Type='String'>SALDO FINAL</Data></Cell>
+        <Cell><Data ss:Type='String'>VALOR TOTAL FINAL</Data></Cell>
+      </ss:Row>
+      <% @objs.each do |obj| %>
+      <ss:Row ss:StyleID='row'>
+        <Cell><Data ss:Type="String"><%=obj.nombre rescue nil %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=Almacenescierre.sum('disponible', :conditions=>["anno = #{@anno} and mes = #{@mes} and disponible > 0 and producto_id in (select id from productos where tipo = '#{obj.tipo}')"]) rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=Almacenescierre.sum('valor_total', :conditions=>["anno = #{@anno} and mes = #{@mes} and disponible > 0 and producto_id in (select id from productos where tipo = '#{obj.tipo}')"]) rescue nil%></Data></Cell>
+      </ss:Row>
+      <% end %>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>TOTAL</Data></Cell>
+        <Cell><Data ss:Type='String'>.</Data></Cell>
+        <Cell><Data ss:Type='Number'><%=Almacenescierre.sum('valor_total', :conditions=>["anno = #{@anno} and mes = #{@mes}"]) rescue nil%></Data></Cell>
+      </ss:Row>      
+    </ss:Table>
+  </ss:Worksheet>  
+  <% @objs.each do |obj| 
+      @almacenes1cierres = Almacenescierre.all(:include => :producto, :conditions => { :productos => { :tipo => obj.tipo }, :almacenescierres => {:anno => @anno, :mes => @mes, :tipo =>@tipo}}, :order=>"productos.descripcion")
+  %>
+  <ss:Worksheet ss:Name="<%=obj.nombre%>">
+    <ss:Table>
+        <ss:Column ss:Width="400"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>        
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>INFORME <%=@tipo%> <%=obj.nombre rescue nil %></Data></Cell>
+      </ss:Row>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>Descripcion</Data></Cell>
+        <Cell><Data ss:Type='String'>Inicial</Data></Cell>
+        <Cell><Data ss:Type='String'>Entradas</Data></Cell>
+        <Cell><Data ss:Type='String'>Vlr. Entrada</Data></Cell>
+        <Cell><Data ss:Type='String'>Salidas</Data></Cell>
+        <Cell><Data ss:Type='String'>Vlr. Salida</Data></Cell>
+        <Cell><Data ss:Type='String'>Saldo Final</Data></Cell>
+        <Cell><Data ss:Type='String'>Vlr Unitario</Data></Cell>
+        <Cell><Data ss:Type='String'>Vlr Total</Data></Cell>
+      </ss:Row>
+      <%  d1 = 0 
+        d2 = 0
+        d3 = 0
+        d4 = 0
+        d5 = 0
+        d6 = 0
+        d7 = 0
+        d8 = 01
+        @almacenes1cierres.each do |almacenescierre|
+          d1 = d1 + almacenescierre.disponible_antes
+          d2 = d2 + almacenescierre.entradas
+          d3 = d3 + almacenescierre.entradas * almacenescierre.valor_promedio
+          d4 = d4 + almacenescierre.salidas
+          d5 = d5 + almacenescierre.salidas * almacenescierre.valor_promedio
+          d6 = d6 + almacenescierre.disponible
+          d7 = d7 + almacenescierre.valor_promedio
+          d8 = d8 + almacenescierre.valor_total
+        if almacenescierre.disponible.to_i > 0 or (almacenescierre.disponible.to_i == 0 and almacenescierre.salidas.to_i > 0) 
+          if almacenescierre.entradas.to_i > 0
+            clase1 = "campos"
+          else
+            clase1 = "camposDesc"
+          end 
+          if almacenescierre.salidas.to_i > 0
+            clase2 = "campos"
+          else
+            clase2 = "camposDesc"
+          end
+          if almacenescierre.disponible.to_i > 0
+            clase3 = "campos"
+          else
+            clase3 = "camposDesc"
+          end
+          %>
+      <ss:Row ss:StyleID='row'>
+        <Cell><Data ss:Type="String"><%=almacenescierre.producto.descripcion rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.disponible_antes rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.entradas rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.entradas * almacenescierre.valor_promedio rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.salidas rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.salidas * almacenescierre.valor_promedio rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.disponible rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.valor_promedio rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=almacenescierre.valor_total rescue nil%></Data></Cell>
+      </ss:Row>
+    <%   end
+       end %>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type="String">SUBTOTAL <%=@tipo%> <%=obj.nombre rescue nil %></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d1 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d2 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d3 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d4 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d5 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d6 rescue nil%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=d7 rescue nil%></Data></Cell>            
+        <Cell><Data ss:Type="String"><%=d8 rescue nil%></Data></Cell>            
+      </ss:Row>
+    </ss:Table>
+  </ss:Worksheet>  
+    <% end %>
+</Workbook>

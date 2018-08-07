@@ -1,0 +1,2 @@
+module InteractimagenesHelper
+end

@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Estado por Operador Convenio / Resolucion</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio</div></strong></td>
+    <td colspan="3"><strong><div align="center">Resolucion</div></strong></td>
+    <td colspan="9"><strong><div align="center">Estados Mejoramiento</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Nro Total de Mejoramientos</strong></td>
+    <td width="20%"><strong>DIAGNOSTICO</strong></td>
+    <td width="20%"><strong>SIN RESOLUCION</strong></td>
+    <td width="20%"><strong>RENUNCIA</strong></td>
+    <td width="20%"><strong>SIN INICIAR</strong></td>
+    <td width="20%"><strong>EN EJECUCION</strong></td>
+    <td width="20%"><strong>TERMINADO</strong></td>
+    <td width="20%"><strong>RECIBIDO ISV</strong></td>
+    <td width="20%"><strong>RECIBIDO UDEM</strong></td>
+    <td width="20%"><strong>RECIBIDO EN CIERRE FINANCIERO</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|
+   convenio = Convenio.find(mejoramiento.convenio_id)
+   resolucion = Resolucion.find(mejoramiento.resolucion_id) %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=convenio.nro_convenio rescue nil%></td>
+    <td><%=convenio.vigencia rescue nil%></td>
+    <td><%=convenio.ejecutor rescue nil%></td>
+    <td><%=resolucion.nro_resolucion rescue nil%> - <%=resolucion.anno rescue nil%></td>
+    <td><%=resolucion.fecha rescue nil%></td>
+    <td><%=mejoramiento.cantidad rescue nil%></td>
+    <td><%=mejoramiento.estado1 rescue nil%></td>
+    <td><%=mejoramiento.estado2 rescue nil%></td>
+    <td><%=mejoramiento.estado3 rescue nil%></td>
+    <td><%=mejoramiento.estado4 rescue nil%></td>
+    <td><%=mejoramiento.estado5 rescue nil%></td>
+    <td><%=mejoramiento.estado6 rescue nil%></td>
+    <td><%=mejoramiento.estado7 rescue nil%></td>
+    <td><%=mejoramiento.estado8 rescue nil%></td>
+    <td><%=mejoramiento.estado9 rescue nil%></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,2 @@
+page.replace_html :mejoramientospagos_form, :partial => "/mejoramientospagos/mejoramientospagos"
+

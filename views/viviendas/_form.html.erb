@@ -1,0 +1,26 @@
+<div class="tabla">
+  <div class="fila">
+     <div class="col1000_Encabezado">&nbsp;</div>
+    <div class="col1000"><span class="campos">Consecutivo Viv :&nbsp;&nbsp;</span>
+      <%= text_field :vivienda, :consecutivo_viv,{ :class => "campo", :size => 15,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+      <span class="campos">&nbsp;&nbsp;&nbsp;&nbsp;Proyecto :&nbsp;&nbsp;</span>
+      <%= text_field :vivienda, :proyecto,{ :class => "campo", :size => 80,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    </div>
+    <div class="col1000"><span class="campos">Direccion :&nbsp;&nbsp;</span>
+      <%= text_field :vivienda, :direccion,{ :class => "campo", :size => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+      <span class="campos">&nbsp;&nbsp;&nbsp;&nbsp;bloque :&nbsp;&nbsp;</span>
+      <%= text_field :vivienda, :bloque,{ :class => "campo",:size => 30,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+    </div>
+    <div class="col1000_Encabezado">&nbsp;</div>
+  </div>
+  <div class="fila">
+  <%= hidden_field :vivienda, :id %><%= submit_tag "Guardar", :class=> "button"%></div>
+</div>

@@ -1,0 +1,86 @@
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">LISTA DE VERIFICACION
+      <%= link_to "Informe", {:controller => "conveniosresollistas", :action => "informe", :id=>@conveniosresolintencion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@conveniosresolintencion, @conveniosresollista] do |form| %>
+       <% if !@conveniosresollista.id %>
+       <% end %>
+  <% if @conveniosresolintencion.conveniosresollistas.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="80%" height="30" align="left" class="oce-first">Documentacion</td>
+    <td width="5%" class="oce-first"><div align="center">SI</div></td>
+    <td width="5%" class="oce-first"><div align="center">NO</div></td>
+    <td width="10%" class="oce-first"><div align="center">NO APLICA</div></td>
+  </tr>
+<% @conveniosresolintencion.conveniosresollistas.each do |conveniosresollista| %>
+<%  if conveniosresollista.id != @conveniosresollista.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosresollista_<%= conveniosresollista.id%>">
+     <td height="20" class="camposDesc"><div align="justify"><%=conveniosresollista.listaspago.descripcion rescue nil%></div></td>
+     <td class="camposDesc"><div align="center">
+          <% if conveniosresollista.estado.to_s == 'SI' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+            <% if @conveniosresolintencion.generada.to_s == "" %>
+              <%= link_to_remote('SI',{:url => si_conveniosresolintencion_conveniosresollista_path(@conveniosresolintencion, conveniosresollista),:method => :get}, :class=>"modlink")%>
+           <% end %>
+          <% end %>
+        </div>
+     </td>
+     <td class="camposDesc"><div align="center">
+          <% if conveniosresollista.estado.to_s == 'NO' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+             <% if @conveniosresolintencion.generada.to_s == "" %>
+                <%= link_to_remote('NO',{:url => no_conveniosresolintencion_conveniosresollista_path(@conveniosresolintencion, conveniosresollista),:method => :get}, :class=>"modlink")%>
+             <% end %>
+          <% end %>
+        </div>
+     </td>
+     <td class="camposDesc"><div align="center">
+         <% if conveniosresollista.estado.to_s == 'NO APLICA' %>
+           <img src="/images/connect.png"/>
+          <% else %>
+           <% if @conveniosresolintencion.generada.to_s == "" %>
+              <%= link_to_remote('NO APLICA',{:url => na_conveniosresolintencion_conveniosresollista_path(@conveniosresolintencion, conveniosresollista),:method => :get}, :class=>"modlink")%>
+           <% end %>
+          <% end %>
+        </div>
+     </td>
+ </tr>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="conveniosresollista_<%=@conveniosresollista.id%>">
+            <%= render :partial => "conveniosresollistas_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<% end %>
+</table>
+<%= hidden_field :conveniosresolintencion, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosresollista] %>
+<div id="conveniosresollista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:conveniosresollista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosresollista');", 5000)
+</script>
+<% end %>
+</div>
+<br/>

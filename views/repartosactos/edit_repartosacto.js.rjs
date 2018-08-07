@@ -1,0 +1,2 @@
+page.replace_html :repartosactos_form, :partial => "/repartosactos/repartosactos"
+

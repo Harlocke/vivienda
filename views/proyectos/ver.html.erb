@@ -1,0 +1,158 @@
+<table width="750" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr><td><img src="../../images/frame.png"/></td></tr>
+</table>
+<br/>
+<div align="center" class="camposDescN16">INFORME PROYECTO - <%=@proyecto.descripcion rescue nil%></div>
+<br/>
+<div align="center">
+  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="center">INFORMACIÓN PROYECTO</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" align="left" class="campos">Sub Etapa</td>
+      <td width="33%" align="left" class="campos">Estado Proyecto</td>
+      <td width="33%" align="left" class="campos">Abogado</td>
+    </tr>
+     <tr >
+       <td class="camposDesc"><%=@proyecto.sub_etapa rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.etapa_proyecto rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.userabogado.nombre rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">Capital</td>
+      <td width="25%" align="left" class="campos">Interes</td>
+      <td width="25%" align="left" class="campos">Valor Banco Agrario</td>
+      <td width="25%" align="left" class="campos">Valor Fovimed</td>
+    </tr>
+     <tr >
+       <td class="camposDesc"><%=@proyecto.capital rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.interes rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.banco_agrario rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.fovimed rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td width="25%" align="left" class="campos">Valor Isvimed</td>
+      <td width="25%" align="left" class="campos">Nro de Subsidios Legalizados</td>
+      <td width="25%" align="left" class="campos">Nro de Subsidios en Proceso</td>
+      <td width="25%" align="left" class="campos">Nro de Subsidios con Problemas</td>
+    </tr>
+     <tr >
+       <td class="camposDesc"><%=@proyecto.isvimed rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.subsidios_legalizados rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.subsidios_enproceso rescue nil%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyecto.subsidios_problemas rescue nil%>&nbsp;</td>
+     </tr>
+  </table>
+<br/>
+<% if @proyecto.bloques.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="center">BLOQUES</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="50%" align="left" class="campos">Bloque</td>
+        <td width="50%" align="left" class="campos">Dirección</td>
+      </tr>
+    <% @proyecto.bloques.each do |bloque| %>
+       <tr  valign="middle"  id="bloque_<%= bloque.id%>">
+         <td class="camposDesc"><%=bloque.descripcion rescue nil %>&nbsp;</td>
+         <td class="camposDesc"><%=bloque.direccion rescue nil %>&nbsp;</td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">BLOQUES</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay información</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<% if @proyecto.proyectoscopropiedades.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="center">COPROPIEDADES</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="70%" height="30" class="campos" ><strong><div align="justify">Nombre Copropiedad</div></strong></td>
+        <td width="15%" class="campos" ><strong><div align="justify">Bloques</div></strong></td>
+        <td width="15%" class="campos" ><strong><div align="center">Nro Aptos totales</div></strong></td>
+      </tr>
+    <% @proyecto.proyectoscopropiedades.each do |proyectoscopropiedad| %>
+       <tr  valign="middle"  id="proyectoscopropiedad_<%= proyectoscopropiedad.id%>">
+         <td class="camposDesc"><div align="justify"><%=proyectoscopropiedad.nombre rescue nil%></div></td>
+         <td class="camposDesc"><div align="justify">
+             <% for proyectoscopbloque in proyectoscopropiedad.proyectoscopbloques.find(:all, :order => 'id ASC') %>
+                Bloque <%=proyectoscopbloque.bloque.descripcion rescue nil%><br/>
+             <% end %>
+           </div></td>
+         <td class="camposDesc"><div align="center"><%=Apto.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{proyectoscopropiedad.id}))"]) rescue nil%></div></td>         
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">COPROPIEDADES</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay información</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <td align="left" class="campos" ><div align="center">DOCUMENTACION PROYECTO HABITACIONAL</div></td>
+  </tr>
+</table>
+<div align="center">
+  <% @proyectostipos = Proyectostipo.find(:all, :conditions=>["clase = 'HABITACIONALES'"])
+     @proyectostipos.each do |proyectostipo|%>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr  >
+      <td width="30%" valign="middle" align="left" class="camposDesc odd1"><strong><%=proyectostipo.documento rescue nil%></strong></td>
+    <td>
+   <% if @proyecto.proyectosdocumentos.exists?(["proyectostipo_id = #{proyectostipo.id}"])  %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1" >    
+          <td width="20%" class="oce-first">Fecha Documento</td>
+          <td width="80%" class="oce-first">Documento</td>
+        </tr>
+        <% for proyectosdocumento in @proyecto.proyectosdocumentos.find(:all,:conditions=>["proyectostipo_id = #{proyectostipo.id}"], :order => 'created_at DESC') %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> proyectosdocumento_<%=proyectosdocumento.id%>">
+          <td align="left" class="camposDesc"><%=proyectosdocumento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=proyectosdocumento.user.username rescue nil%></td>
+          <td align="left" class="camposDesc"><div align="left"><%= link_to proyectosdocumento.prodocumento_file_name.capitalize,
+                                    proyectosdocumento.prodocumento.url(:original, false),
+                                   { :title=>"#{proyectosdocumento.prodocumento_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%></div>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+      <% else %>
+        <div align="center" class="camposDesc">NO hay documentos cargados .........</div>
+      <% end %>
+    </td>
+    </tr>
+  </table>
+  <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>      
+  <% end %>
+</div>
+
+
+
+<br/>
+</div>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Información ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>

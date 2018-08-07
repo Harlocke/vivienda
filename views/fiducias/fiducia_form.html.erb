@@ -1,0 +1,35 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/fiduciamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION FIDUCIA <% unless @fiducia.new_record? %>(<%= @fiducia.nombre rescue nil %>) <% end -%></div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar Predios"}),fiducias_path %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% unless @fiducia.new_record? %>
+  <%= link_to image_tag("credito.png", :title => "Información Fiducia", :style=>"#{@fiducia.d_etapa('1')} padding:4px;"),edit_fiducia_path(:id=>@fiducia.id,:etapa=>"1")%>
+  <%= link_to image_tag("contratos.png", :title => "Fondos", :style=>"#{@fiducia.d_etapa('2')} padding:4px;"),edit_fiducia_path(:id=>@fiducia.id,:etapa=>"2")%>
+  <%= link_to image_tag("pagos.png", :title => "Pagos", :style=>"#{@fiducia.d_etapa('3')} padding:4px;"),edit_fiducia_path(:id=>@fiducia.id,:etapa=>"3")%>
+  <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@fiducia.d_etapa('4')} padding:4px;"),edit_fiducia_path(:id=>@fiducia.id,:etapa=>"4")%>
+  <%= link_to image_tag("imagenes.png", :title => "Documentacion Digital", :style=>"#{@fiducia.d_etapa('5')} padding:4px;"),edit_fiducia_path(:id=>@fiducia.id,:etapa=>"5")%>
+<% end %>
+<% if @fiducia.etapa.to_s == '1' %>
+    <fieldset>
+        <%= render 'form'%>
+    </fieldset>
+<% elsif @fiducia.etapa.to_s == '2' %>
+     <fieldset><div id="fiduciascontratos_form"><%= render :partial => "/fiduciascontratos/fiduciascontratos" %></div></fieldset>
+<% elsif @fiducia.etapa.to_s == '3' %>
+     <fieldset><div id="fiduciaspagos_form"><%= render :partial => "/fiduciaspagos/fiduciaspagos" %></div></fieldset>
+<% elsif @fiducia.etapa.to_s == '4' %>
+     <fieldset><div id="fiduciasnotas_form"><%= render :partial => "/fiduciasnotas/fiduciasnotas" %></div></fieldset>
+<% elsif @fiducia.etapa.to_s == '5' %>
+     <fieldset><div id="fiduciasdocumentos_form"><%= render :partial => "/fiduciasdocumentos/fiduciasdocumentos" %></div></fieldset>
+<% end %>
+<br/><br/>

@@ -1,0 +1,1 @@
+page.replace_html :proyectoscopcomites_form, :partial => "/proyectoscopcomites/proyectoscopcomites"

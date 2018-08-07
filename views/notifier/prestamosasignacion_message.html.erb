@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+<img src="http://190.0.34.154:3013/images/frame.png"/>
+<div align="justify" style="font-size: 15px; font-family: Verdana, Geneva, sans-serif;">
+  <br/><br/>
+  Medellin, <%=Time.now().strftime("%Y-%m-%d")%><br/><br/>
+  <strong>Señor(a): <%=@user.nombre rescue nil%><br/><br/></strong>
+  Cordialmente se le informa que el Archivo de Gestion de Titulacion ha tramitado exitosamente su solicitud de
+  prestamos de los siguientes documentos:
+</div><br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr valign="middle">
+    <td width="5%" height="30" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">ID</div></strong></td>
+    <td width="10%"  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Comuna</div></strong></td>
+    <td width="20%"  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Barrio</div></strong></td>
+    <td width="7%"  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Manzana</div></strong></td>
+    <td width="8%"  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong><div align="center">Lote</div></strong></td>
+  </tr>
+  <% @asigprestamos.each do |asigprestamo|%>
+  <tr>
+    <td height="20"  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=h asigprestamo.titulacion.id %></div></td>
+    <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=h asigprestamo.titulacion.cobama rescue nil%></div></td>
+    <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=h asigprestamo.titulacion.comuna.descripcion2 rescue nil %></div></td>
+    <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=h asigprestamo.titulacion.manzana rescue nil%></div></td>
+    <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=h asigprestamo.titulacion.lote rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/><br/>
+<div style="font-size: 11px; font-family: Tahoma;"><strong>S I F I - Sistema de Informacion ISVIMED</strong></div>
+<br/>
+<strong style="font-size: 11px; font-family: Tahoma;"><%=Time.now.strftime("%Y-%m-%d %X")%></strong>
+<br/>
+<div style="font-size: 10px; font-family: Tahoma;">
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<%
+ afavorde = ""
+ afavorde1 = ""
+ cantidad = 0
+ #valorpagar = 0
+ #porcentaje = 0
+ iguanaspersonas = Iguanaspersona.find_all_by_iguana_id(@iguanaspago.iguana_id)
+ cantidad   = iguanaspersonas.count
+ porcentaje = (100/cantidad).to_s
+ valorpagar      = (@iguanaspago.valor.to_i / cantidad).to_f
+ iguanaspersonas.each do |iguanaspersona|
+   afavorde1 = iguanaspersona.persona.nombres rescue nil
+   afavorde  = iguanaspersona.persona.identificacion rescue nil
+   dir = iguanaspersona.persona.direccion rescue nil
+   tel = iguanaspersona.persona.telefonos rescue nil
+%>
+<div align="center">
+<%=image_tag("frame.png")%>
+<br/>
+<br/>
+<br/>
+<table width="750"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><table width="100%" height="0"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="100%" height="20" class="camposDesc16"><div align="left">Doctor</div></td>
+    </tr>
+  <tr>
+    <td height="20" class="camposDescN16"><div align="left">JOSE ALVEIRO GIRALDO</div></td>
+    </tr>
+  <tr>
+    <td height="20" class="camposDesc16"><div align="left">Subdirector Administrativo y Financiero </div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16"><div align="left">Asunto: Solicitud Orden de Pago </div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">Cordialmente le solicito expedir orden de pago </div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+    </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="25%" height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;FECHA</div></td>
+        <td width="75%" class="camposDesc16"><div align="left">&nbsp;<%=@iguanaspago.fecha_solicitud.strftime("%d")%> DE <%=@descmes%> DEL <%=@iguanaspago.fecha_solicitud.strftime("%Y")%></div></td>
+        </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;BENEFICIARIO</div></td>
+        <td class="camposDesc16">
+          <div align="left">&nbsp;<%=afavorde1%></div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;NIT / RUT / C.C</div></td>
+        <td class="camposDesc16"><div align="left">&nbsp;<%=afavorde%></div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;CONCEPTO</div></td>
+        <td class="camposDesc16"><div align="left">&nbsp;ADQUISICIÓN DE INMUEBLE, REASENTAMIENTO A FAMILIAS AFECTADAS POR LA CONEXIÓN VIAL ABURRA - RIO CAUCA</div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;VALOR</div></td>
+        <td class="camposDesc16"><div align="left">&nbsp;VALOR DE LA <%=@iguanaspago.tipopago%>, CORRESPONDIENTE AL VALOR DE <%=@iguanaspago.valor.to_i.to_words.upcase%> PESOS M/L ($ <%=number_to_currency(@iguanaspago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%>)</div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;No. COMPROMISO &nbsp;&nbsp;PRESUPUESTAL</div></td>
+        <td class="camposDesc16"><div align="left">&nbsp;</div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;No. CONTRATO U &nbsp;&nbsp;ORDEN DE COMPRA &nbsp;&nbsp;Y/O SERVICIO</div></td>
+        <td class="camposDesc16"><div align="left">&nbsp;RESOLUCI&Oacute;N No <%=@iguanaspago.iguana.nro_resol_compra rescue nil%>
+            <% if @iguanaspago.iguana.fecha_resol_compra %>
+DEL <%=@iguanaspago.iguana.fecha_resol_compra.strftime("%d") rescue nil%> DE <%=descmes(@iguanaspago.iguana.fecha_resol_compra.strftime("%m").to_i) rescue nil%> DE <%=@iguanaspago.iguana.fecha_resol_compra.strftime("%Y") rescue nil%>
+<% end %>
+</div></td>
+      </tr>
+      <tr>
+        <td height="40" class="camposDescN16"><div align="left">&nbsp;&nbsp;DEPENDENCIA</div></td>
+        <td class="camposDescN16"><div align="left">&nbsp;SUBDIRECCION ADMINISTRATIVA Y FINANCIERA</div></td>
+      </tr>
+    </table>
+      </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="90%" height="68"  border="0" cellpadding="0" cellspacing="0" class="sample">
+      <tr valign="middle">
+        <td width="40%" height="68" class="camposDescN16">ORDENADOR DEL GASTO</td>
+        <td width="60%" height="68" class="camposDescN16"><div align="center"><br>
+              <br>
+          <%=Sifi.find(17).valor rescue nil%> </div></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<BR/>
+<table width="750" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;
+    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="5%" rowspan="2"class="camposDesc">Elabor&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(is_admin).nombre%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Revis&oacute;</td>
+          <td width="25%"class="camposDesc"><%=User.find(@iguanaspago.iguana.juridico_asignado).nombre rescue nil%></td>
+          <td width="5%" rowspan="2"class="camposDesc">Aprob&oacute;</td>
+          <td width="25%"class="camposDesc">MONICA GIRALDO M.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">Auxiliar Administrativo</td>
+          <td class="camposDesc">Abogado(a)</td>
+          <td class="camposDesc">Coordinador Reasentamiento</td>
+        </tr>
+      </table>
+    </td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</div>
+  <H1 class=SaltoDePagina> </H1>
+  <div align="center">
+<table width="750" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="../../images/frame.png"/></td>
+      </tr>
+    </table>
+<br/>
+<br/>
+<br/>
+<table width="750"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" height="0"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="560" height="50" class="camposDesc16"><div align="center">CUENTA DE COBRO </div></td>
+    </tr>
+  <tr>
+    <td height="30" class="camposDescN16"><div align="center">EL INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN<br>
+      -ISVIMED-<br>
+      NIT 900.014.480-8<br>
+      <br>
+      DEBE A : </div></td>
+    </tr>
+  <tr>
+    <td height="30" class="camposDesc16"><div align="center"><%=afavorde1%></div></td>
+  </tr>
+  <tr>
+    <td height="50" class="camposDesc16"><div align="center">C.C. <%=afavorde%></div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16"><div align="center"> <%=@iguanaspago.valor.to_i.to_words.upcase%> PESOS M/L <br>
+      ($ <%=number_to_currency(@iguanaspago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%>)</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16"><div align="left">&nbsp;</div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">
+    <div align="justify">Pago del <span class="camposDescN16">( <%=porcentaje%> %)</span> del valor de la <span class="camposDescN16"><%=@iguanaspago.tipopago%></span>,
+          correspondiente al valor de <span class="camposDescN16"><%=valorpagar.to_i.to_words.upcase%> PESOS M/L ($ <%=number_to_currency(valorpagar,{:precision => 0, :unit=>"", :delimiter =>"."})%>)</span>,
+          por concepto de la venta de la vivienda al Municipio de Medellín, inmueble ubicado según ficha predial en la <span class="camposDescN16"><%=@iguanaspago.iguana.direccion rescue nil%></span>, sector
+          <span class="camposDescN16"><%=@iguanaspago.iguana.sector rescue nil%></span> del Municipio de Medellín, Cobama <span class="camposDescN16"><%=@iguanaspago.iguana.cobama rescue nil%></span>, con matricula
+          ficticia <span class="camposDescN16"><%=@iguanaspago.iguana.matricula rescue nil%></span>, conforme al avaluo practicado por <%=@iguanaspago.iguana.entidad_avaluadora rescue nil%> y segun
+          la Resolución de Oferta de Compra No <span class="camposDescN16"><%=@iguanaspago.iguana.nro_resol_compra rescue nil%></span>
+          <% if @iguanaspago.iguana.fecha_resol_compra %>
+          del <span class="camposDescN16"><%=@iguanaspago.iguana.fecha_resol_compra.strftime("%d") rescue nil%> de
+          <%=descmes(@iguanaspago.iguana.fecha_resol_compra.strftime("%m").to_i) rescue nil%> de
+          <%=@iguanaspago.iguana.fecha_resol_compra.strftime("%Y") rescue nil%></span>
+          <% end %>
+        </div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">
+      <div align="justify">Valor total a pagar por <span class="camposDescN16"><%=@iguanaspago.tipopago%></span>,
+           <span class="camposDescN16"><%=valorpagar.to_i.to_words.upcase%> PESOS M/L ($ <%=number_to_currency(valorpagar,{:precision => 0, :unit=>"", :delimiter =>"."})%>)</span></div></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">Atentamente,</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDescN16"><%=afavorde1%></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">C.C. <%=afavorde%></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">Direcci&oacute;n : <%=dir%></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">Telefono: <%=tel%></td>
+  </tr>
+  <tr>
+    <td height="0" class="camposDesc16">&nbsp;</td>
+    </tr>
+    </table></td>
+  </tr>
+</table>
+  </div>
+  <H1 class=SaltoDePagina> </H1>
+<%  end %>

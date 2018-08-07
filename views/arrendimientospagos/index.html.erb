@@ -1,0 +1,38 @@
+<h1>Listing arrendimientospagos</h1>
+
+<table>
+  <tr>
+    <th>Personasarrendamiento</th>
+    <th>User</th>
+    <th>User actualiza</th>
+    <th>Clase</th>
+    <th>Entidad</th>
+    <th>Valor</th>
+    <th>Fecha inicio</th>
+    <th>Fecha fin</th>
+    <th>Nro dias</th>
+    <th>Pagado</th>
+  </tr>
+
+<% @arrendimientospagos.each do |arrendimientospago| %>
+  <tr>
+    <td><%=h arrendimientospago.personasarrendamiento_id %></td>
+    <td><%=h arrendimientospago.user_id %></td>
+    <td><%=h arrendimientospago.user_actualiza %></td>
+    <td><%=h arrendimientospago.clase %></td>
+    <td><%=h arrendimientospago.entidad %></td>
+    <td><%=h arrendimientospago.valor %></td>
+    <td><%=h arrendimientospago.fecha_inicio %></td>
+    <td><%=h arrendimientospago.fecha_fin %></td>
+    <td><%=h arrendimientospago.nro_dias %></td>
+    <td><%=h arrendimientospago.pagado %></td>
+    <td><%= link_to 'Show', arrendimientospago %></td>
+    <td><%= link_to 'Edit', edit_arrendimientospago_path(arrendimientospago) %></td>
+    <td><%= link_to 'Destroy', arrendimientospago, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New arrendimientospago', new_arrendimientospago_path %>

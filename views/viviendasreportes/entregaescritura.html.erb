@@ -1,0 +1,430 @@
+<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+</link><style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% if is_admin == 10002%>
+  <% for viviendasreporte in @viviendasreportes
+       if Viviendaspersona.exists?(["persona_id = ?", viviendasreporte.persona_id]) == true
+         viviendaspersona = Viviendaspersona.find_by_persona_id(viviendasreporte.persona_id) %>
+          <div align="center">
+          <%=image_tag("frame.png")%>
+          <table width="800" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><div align="center"><table width="90%" height="0" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">Nota: La escritura se entrega protocolizada e inscrita en la oficina de Instrumentos Publicos</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos13"><div align="center">CONSTANCIA DE ENTREGA DE ESCRITURAS</div></td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">Medellín, <%=descmes(viviendasreporte.created_at.strftime("%m").to_i) rescue nil%> <%=viviendasreporte.created_at.strftime("%d") rescue nil%> DE <%=viviendasreporte.created_at.strftime("%Y") rescue nil%></td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">NOMBRE: &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.persona.nombres rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">C.C. &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.persona.identificacion rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos13"><div align="center">INFORMACION DE LA VIVIENDA</div></td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROYECTO: &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.vivienda.proyecto.descripcion rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLOQUE: &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.vivienda.bloque.descripcion rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PISO: &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.vivienda.piso.descripcion rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APARTAMENTO: &nbsp;&nbsp;<span class="campos13"><%=viviendaspersona.vivienda.apto.descripcion rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos13"><div align="center">INFORMACION DE LAS ESCRITURAS</div></td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Escritura Nro. <span class="campos13"><%=viviendaspersona.vivienda.esc_nro_escritura rescue nil%></span>  del  <span class="campos13"><%=viviendaspersona.vivienda.esc_expedicion rescue nil%></span>
+                    <% if viviendaspersona.vivienda.escritura_aclaratoria %>
+                        -  Escritura Aclaracion Nro. <span class="campos13"><%=viviendaspersona.vivienda.escritura_aclaratoria rescue nil%></span>  del  <span class="campos13"><%=viviendaspersona.vivienda.aclaratoria_fecha rescue nil%></span>
+                    <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matricula Inmobiliaria nro. <span class="campos13"><%=viviendaspersona.vivienda.nro_matricula rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notaria:  <span class="campos13"><%=viviendaspersona.vivienda.esc_notaria_origen rescue nil%></span>
+                    <% if viviendaspersona.vivienda.escritura_aclaratoria %>
+                        -  Notaria Aclaración: <span class="campos13"><%=viviendaspersona.vivienda.aclaratoria_notaria rescue nil%></span>
+                    <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                   <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">Recibi a Satisfacción copia de las escrituras debidamente registradas de la vivienda que se describe y del acta de entrega firmada por las partes</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="campos12">Para Constancia se firma el dia <span class="campos13"><%=viviendasreporte.created_at.strftime("%d") rescue nil%></span> del mes de <span class="campos13"><%=descmes(viviendasreporte.created_at.strftime("%m").to_i) rescue nil%></span> de <span class="campos13"><%=viviendasreporte.created_at.strftime("%Y")  rescue nil%></span></td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="camposDesc">
+                      <table width="100%" height="0" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="15%" height="30" class="campos12">Firma</td>
+                          <td align="left" class="camposDesc">_______________________________________________</td>
+                          <td rowspan="4">
+                                <table width="150" height="90" border="1" cellspacing="0" cellpadding="0">
+                                <tr valign="bottom">
+                                  <td class="camposDesc"><div align="center"><br/><br/><br/><br/><br/>Huella</div></td>
+                                </tr>
+                                </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="30" class="campos12">C.C.</td>
+                          <td align="left" class="camposDesc">_______________________________________________</td>
+                        </tr>
+                        <tr>
+                          <td height="30" class="campos12">Telefonos: </td>
+                          <td align="left" class="camposDesc">_______________________________________________</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                    <td align="left" class="camposDesc">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="camposDesc"><div align="left">S I F I - Sistema de Informacion ISVIMED - <%=viviendasreporte.created_at.strftime("%Y-%m-%d %X")  rescue nil%> - <%=User.find(is_admin).nombre rescue nil%>
+                        <% if Archivo.exists?(["archivosserie_id = 10004 and id in (select archivo_id from archivospersonas where persona_id = #{viviendaspersona.persona_id})"])
+                            dato = Archivo.find(:first, :conditions=>["archivosserie_id = 10004 and id in (select archivo_id from archivospersonas where persona_id = #{viviendaspersona.persona_id})"]) %>
+                            --- CAJA: <strong><%=dato.caja.to_s%></strong> - CARPETA: <strong><%=dato.carpeta.to_s%></strong>
+                        <% end%> 
+                    </div></td>
+                  </tr>
+                </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+          </div>
+          <H1 class=SaltoDePagina> </H1>
+       <% end %> 
+    <%  end %>
+<% else %>
+    <div align="center">
+    <%=image_tag("frame.png")%>
+    <table width="800" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><div align="center"><table width="90%" height="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">Nota: La escritura se entrega protocolizada e inscrita en la oficina de Instrumentos Publicos</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos13"><div align="center">CONSTANCIA DE ENTREGA DE ESCRITURAS</div></td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">Medellín, <%=descmes(Time.now.strftime("%m").to_i)%> <%=Time.now.strftime("%d")%> DE <%=Time.now.strftime("%Y")%></td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">NOMBRE: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.persona.nombres rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">C.C. &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.persona.identificacion rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos13"><div align="center">INFORMACION DE LA VIVIENDA</div></td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROYECTO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.proyecto.descripcion rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BLOQUE: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.bloque.descripcion rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PISO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.piso.descripcion rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APARTAMENTO: &nbsp;&nbsp;<span class="campos13"><%=@viviendaspersona.vivienda.apto.descripcion rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos13"><div align="center">INFORMACION DE LAS ESCRITURAS</div></td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Escritura Nro. <span class="campos13"><%=@viviendaspersona.vivienda.esc_nro_escritura rescue nil%></span>  del  <span class="campos13"><%=@viviendaspersona.vivienda.esc_expedicion rescue nil%></span>
+              <% if @viviendaspersona.vivienda.escritura_aclaratoria %>
+                  -  Escritura Aclaracion Nro. <span class="campos13"><%=@viviendaspersona.vivienda.escritura_aclaratoria rescue nil%></span>  del  <span class="campos13"><%=@viviendaspersona.vivienda.aclaratoria_fecha rescue nil%></span>
+              <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Matricula Inmobiliaria nro. <span class="campos13"><%=@viviendaspersona.vivienda.nro_matricula rescue nil%></span></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notaria:  <span class="campos13"><%=@viviendaspersona.vivienda.esc_notaria_origen rescue nil%></span>
+              <% if @viviendaspersona.vivienda.escritura_aclaratoria %>
+                  -  Notaria Aclaración: <span class="campos13"><%=@viviendaspersona.vivienda.aclaratoria_notaria rescue nil%></span>
+              <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+             <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">Recibi a Satisfacción copia de las escrituras debidamente registradas de la vivienda que se describe y del acta de entrega firmada por las partes</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="campos12">Para Constancia se firma el dia <span class="campos13"><%=Time.now.strftime("%d")%></span> del mes de <span class="campos13"><%=descmes(Time.now.strftime("%m").to_i)%></span> de <span class="campos13"><%=Time.now.strftime("%Y")%></span></td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="camposDesc">
+                <table width="100%" height="0" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="15%" height="30" class="campos12">Firma</td>
+                    <td align="left" class="camposDesc">_______________________________________________</td>
+                    <td rowspan="4">
+                          <table width="150" height="90" border="1" cellspacing="0" cellpadding="0">
+                          <tr valign="bottom">
+                            <td class="camposDesc"><div align="center"><br/><br/><br/><br/><br/>Huella</div></td>
+                          </tr>
+                          </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="30" class="campos12">C.C.</td>
+                    <td align="left" class="camposDesc">_______________________________________________</td>
+                  </tr>
+                  <tr>
+                    <td height="30" class="campos12">Telefonos: </td>
+                    <td align="left" class="camposDesc">_______________________________________________</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="left" class="camposDesc">&nbsp;</td>
+              <td align="left" class="camposDesc">&nbsp;</td>
+            </tr>
+          </table>
+           <table width="100%"  border="0" cellspacing="0" cellpadding="0" >
+          <tr>
+            <td width="80%" class="camposDesc"><div align="left">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%> - <%=User.find(is_admin).nombre rescue nil%></div></td>
+            <td width="20%" class="camposDesc"><div align="right"><a href="javascript:window.print()" class="imprimirlink">Imprimir</a>&nbsp;&nbsp;</div></td>
+          </tr>
+      </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+    </div>
+<% end %>
+

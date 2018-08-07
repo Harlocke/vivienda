@@ -1,0 +1,38 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/indicadoresmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;SMO - SISTEMA DE MEDICIÓN ORGANIZACIONAL</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),indicadores_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="8%" height="30" class="oce-first">Consecutivo</td>
+    <td width="50%" height="30" class="oce-first">Nombre del Indicador</td>
+    <td width="34%" height="30" class="oce-first">Dependencia</td>
+    <td width="8%" height="30" class="oce-first"></td>
+  </tr>
+<% @indicadores.each do |indicador| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc" align="center"><%=indicador.estadoactg%> <%=indicador.consecutivo %></td>
+    <td class="camposDesc" align="left"><%=h indicador.nombreindicador %></td>
+    <td class="camposDesc" align="left"><%=indicador.dependencia.descripcion rescue nil %></td>
+    <td class="camposDesc"><div align="center">
+        <%= link_to 'Editar', edit_indicador_path(:id=>indicador, :etapa=>'1'),:class=>"editarlink"%>
+        <%= link_to "Informe", {:controller => "indicadores", :action => "visualizar", :id=>indicador.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+        </div>
+    </td>
+  </tr>
+<% end %>
+</table>
+<br/><br/>
+
+

@@ -1,0 +1,23 @@
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always; margin: 0px 0px 0px 10px;  }
+-->
+</style>
+<%  i = 0;
+    @correspondenciasrecibidas.each do |correspondenciasrecibida|
+      i = 0;
+      while i< @cantidad.to_i
+        i=i+1
+%>
+    <div class="camposDesc16">RADICADO: E <strong><%=h correspondenciasrecibida.nro_radicado %></strong> <br/>
+    Fecha : <%=h correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") %><br/>
+    ISVIMED - <%=h correspondenciasrecibida.dependencia.descripcion_stiker rescue nil %><br/>
+    PENDIENTE VERIFICACION ANEXOS
+    <div class="camposbarras"><%=correspondenciasrecibida.nro_radicado%>-<%=correspondenciasrecibida.created_at%>-<%=correspondenciasrecibida.dependencia_id %></div></div>
+<%    if i < @cantidad.to_i %>
+<H1 class="SaltoDePagina"> </H1>
+<%
+      end
+     end
+   end
+%>

@@ -1,0 +1,58 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr><td  height="30"><div class="col_enc">PROGRAMACION POR RANGO DE FECHAS</div></td></tr>
+</table>
+<% remote_form_for [@agendasproceso, @agendasrango] do |form| %>
+  <%# if permiso("agendasrango","C").to_s == "S" %>
+     <% if !@agendasrango.id %>
+        <%= render :partial => "/agendasrangos/agendasrangos_form" %>
+     <% end %>
+  <%# end %>
+<div align="center">
+<% if @agendasproceso.agendasrangos.exists? %>
+<table width="50%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" class="oce-first">Fecha Inicio</td>
+    <td width="40%" class="oce-first">Fecha Fin</td>
+    <td width="20%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @agendasproceso.agendasrangos.each do |agendasrango| %>
+<% if agendasrango.id != @agendasrango.id %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="agendasrango_<%=agendasrango.id%>">
+      <td class="camposDesc"><%=agendasrango.fecha_inicio.strftime("%Y-%m-%d %X")%></td>
+      <td class="camposDesc"><%=agendasrango.fecha_fin.strftime("%Y-%m-%d %X")%></td>
+      <td class="camposDesc">
+        <div align="center">
+          <%# if permiso("agendasrango","E").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => agendasproceso_agendasrango_path(@agendasproceso, agendasrango),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <%# end %>
+        </div></td>
+    </tr>
+<% else %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "agendasrangos_form" %>
+     <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+<% end %>
+<% end %>
+</table>
+<% else %>
+<div id="portafolioscontrato">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+<%= hidden_field :agendasproceso, :id %>
+<% end %>
+<br/>
+<% if flash[:agendasrango] %>
+<div id="agendasrango">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:agendasrango] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('agendasrango');", 5000)
+</script>
+</div>
+<% end %>

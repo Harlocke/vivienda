@@ -1,0 +1,57 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/titulacionmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PENDIENTE DE ENTREGA</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="left">
+<% @users.each do |user|
+     @titulacionesprestamos = Titulacionesprestamo.all(:include => :titulacion, :conditions => { :titulacionesprestamos => {:userprestamo => user.id,:fecha_devolucion => nil }}, :order=>"titulaciones.cobama")
+     #@titulacionesprestamos = Titulacionesprestamo.find(:all, :conditions =>[" userprestamo = #{user.id} and fecha_devolucion is null"], :order => ["cobama ASC"])
+%>
+<div style="font-size:15px; font-family: Tahoma;"><strong>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0);" onclick="SINO('demo1<%=user.id%>')"> <img src="/images/vermas.png"/> <%=user.nombre%> (<%=@titulacionesprestamos.count%>)</a></strong></div>
+<div id="demo1<%=user.id%>" style="display:none;">
+<br/>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="15%" class="oce-first">Cobama</td>
+        <td width="50%" height="30" class="oce-first">Identificacion Usuario</td>
+        <td width="6%" height="30" class="oce-first">Caja</td>
+        <td width="9%" class="oce-first">Carpeta</td>
+        <td width="10%" class="oce-first">Fecha Vence</td>
+        <td width="10%" class="oce-first"></td>
+      </tr>
+    <%
+       @titulacionesprestamos.each do |titulacionesprestamo|
+    %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%> post1S_<%=titulacionesprestamo.id%>">
+        <td class="camposDesc"><%=titulacionesprestamo.titulacion.cobama rescue nil%></td>
+        <td class="camposDesc"><%=titulacionesprestamo.titulacion.prestadoa rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=titulacionesprestamo.archivo.caja rescue nil%></div></td>
+        <td class="camposDesc"><div align="center"><%=titulacionesprestamo.archivo.carpeta rescue nil%></div></td>
+        <td class="camposDesc"><%=titulacionesprestamo.fecha_vence%></td>
+        <td class="camposDesc"><div align="center"><%= link_to '', {:controller => "titulacionesprestamos", :action =>"aplazamasivo",:id=> titulacionesprestamo.id}, :class=>"aplazalink", :title =>"Marcar Aplazamiento Individual"%>
+                               &nbsp;<%= link_to_remote image_tag('link_recibido.png', { :border => 0, :title => "Marcar Devolucion"}),
+                                       :url => titulacionesprestamo_url(:id => titulacionesprestamo, :id2 => 2), :method => :delete,
+                                       :confirm => "¿Seguro?", :before => "$(this).up('.post1S_#{titulacionesprestamo.id}').remove()" %>
+                               &nbsp;<%= link_to '',{:controller => "titulacionesprestamos", :action =>"aplazamasivom",:id=> titulacionesprestamo.userprestamo},:confirm=>"Esta seguro que desea aplazar masivamente la información de #{User.find(titulacionesprestamo.userprestamo).nombre rescue nil}?", :class=>"aplazalink", :title =>"Marcar Aplazamiento Masivo"%>
+
+
+
+
+          </div></td>
+      </tr>
+    <%    end %>
+    </table>
+<br/>
+</div>
+<% end %>
+</div>

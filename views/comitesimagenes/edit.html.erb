@@ -1,0 +1,7 @@
+<h1>Editing enviadosimagen</h1>
+
+<% form_for(@comitesimagen) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= f.submit 'Update' %>
+<% end %>

@@ -1,0 +1,132 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/personasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACIÓN PERSONA ( <%=@persona.identificacion%> - <%=@persona.primer_nombre%> <%=@persona.segundo_nombre%> <%=@persona.primer_apellido%> <%=@persona.segundo_apellido%>)</div></td>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('atras.png',
+	               { :border=>0, :title => "Regresar"}),edit_persona_path(@persona.id) %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DESPLAZADO</div></td>
+  </tr>
+</table>
+
+<% form_for(@desplazado) do |f| %>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="center">
+     <table width="65%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Catastro Medellin :</td>
+          <td width="13%" class="camposDesc"><%= f.text_field :catastro_medellin,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Lista espera : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :lista_espera,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Auto 092 : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :auto_092,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Municipio desplazamiento : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :municipio_desplazamiento,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Municipio aspiracion : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :municipio_aspiracion,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Cogestor : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :cogestor,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Comuna : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :comuna,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Gerencia desplazados : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :gerencia_desplazados,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Presento reajuste : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :presento_reajuste,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Carta medellin : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :carta_medellin,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Colilla banco : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :colilla_banco,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Fecha : </td>
+          <td width="13%" class="camposDesc">
+            <%= f.calendar_date_select "fecha", :year_range =>[1930,2011], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Hora : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :hora,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+        <tr>
+          <td width="17%" class="campos">Como se Entero : </td>
+          <td width="13%" class="camposDesc"><%= f.text_field :entero,{ :class => "campo", :size => 60,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }  %></td>
+        </tr>
+      </table>
+        <BR/>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      </div>
+      </td>
+        </tr>
+      </table>
+<% end %>

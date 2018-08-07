@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h3>AUTORIZACIONES</h3>
+</div>
+<table border="1">
+  <tr valign="middle" bgcolor="#00FF00">
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Nro Radicado Entrada</strong></td>
+    <td><strong>Fecha Entrada</strong></td>
+    <td><strong>Motivo</strong></td>
+    <td><strong>Tipo Solicitud</strong></td>
+    <td><strong>Respuesta</strong></td>
+    <td><strong>Nro Radicado Salida</strong></td>
+    <td><strong>Fecha Salida</strong></td>
+    <td><strong>Observacion</strong></td>
+    <td><strong>Usuario Registro</strong></td>
+    <td><strong>Fecha Creacion</strong></td>
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Bloque</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Piso</strong></td>
+    <td><strong>Apto</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Fecha Entrega</strong></td>
+    <td><strong>Fecha Escrituracion</strong></td>
+  </tr>
+<% for personassesion in @personassesiones %>
+  <tr valign="middle">
+    <td><div align="left"><%=personassesion.persona.identificacion%></div></td>
+     <td><div align="left"><%=personassesion.persona.nombres%></div></td>
+     <td><div align="left"><%=personassesion.radicado_entrada%></div></td>
+     <td><div align="left"><%=personassesion.radient_fecha%></div></td>
+     <td><div align="left"><%=personassesion.motivo%></div></td>
+     <td><div align="left"><%=personassesion.tipo%></div></td>
+     <td><div align="left"><%=personassesion.respuesta%></div></td>
+     <td><div align="left"><%=personassesion.radicado_salida%></div></td>
+     <td><div align="left"><%=personassesion.radisal_fecha%></div></td>
+     <td><div align="left"><%=personassesion.observacion%></div></td>
+     <td><div align="left"><%=personassesion.user.nombre rescue nil%></div></td>
+     <td><div align="left"><%=personassesion.created_at%></div></td>
+<%   if Vivienda.exists?(["id = (select vivienda_id from viviendaspersonas where persona_id = ?)",personassesion.persona_id])
+       @viviendas = Vivienda.find(:all, :conditions => ["id in (select vivienda_id from viviendaspersonas where persona_id = ?)",personassesion.persona_id])
+       @viviendas.each do |vivienda| %>
+         <td><div align="left"><%=vivienda.proyecto.descripcion rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.bloque.descripcion rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.bloque.direccion rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.piso.descripcion rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.apto.descripcion rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.entregado rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.fecha_entrega rescue nil%></div></td>
+         <td><div align="left"><%=vivienda.esc_expedicion rescue nil%></div></td>
+<%     end
+     else %>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+     <td><div align="left">&nbsp;</div></td>
+<%   end %>
+  </tr>
+<% end %>
+</table>
+
+
+
+
+

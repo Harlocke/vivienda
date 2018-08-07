@@ -1,0 +1,86 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">ASIGNACION USUARIOS </div></td>
+  </tr>
+</table>
+<% remote_form_for [@correspondenciasrecibida, @correspondenciasrecibidasuser] do |form| %>
+  <% if permiso("correspondenciasrecibidasuser","C").to_s == "S"
+     if !@correspondenciasrecibidasuser.id %>
+	<%= render :partial => "/correspondenciasrecibidasusers/correspondenciasrecibidasusers_form" %>
+    <% end %>
+  <% end %>
+<% if @correspondenciasrecibida.correspondenciasrecibidasusers.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha Asignacion</td>
+    <td width="30%" class="oce-first">Usuario Asignado</td>
+    <td width="15%" class="oce-first">Fecha Recepcion</td>
+    <td width="30%" class="oce-first">Usuario Recibe</td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% for correspondenciasrecibidasuser in @correspondenciasrecibida.correspondenciasrecibidasusers.find(:all, :order => 'created_at DESC') %>
+   <% if correspondenciasrecibidasuser.id != @correspondenciasrecibidasuser.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="correspondenciasrecibidasuser_<%=correspondenciasrecibidasuser.id%>">
+    <td width="15%" height="30" class="camposDesc"><%=correspondenciasrecibidasuser.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="30%" class="camposDesc"><%=correspondenciasrecibidasuser.user.nombre rescue nil%></td>
+    <td width="15%" height="30" class="camposDesc"><%=correspondenciasrecibidasuser.fecharecibida.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="30%" class="camposDesc"><%=User.find(correspondenciasrecibidasuser.userrecibido).nombre rescue nil%></td>
+    <td width="10%" class="camposDesc">
+      <% if correspondenciasrecibidasuser.userrecibido.to_s == "" %>
+     <% if permiso("correspondenciasrecibidasuser","A").to_s == "S" %>
+     <%= link_to_remote('Editar',{:url => edit_correspondenciasrecibida_correspondenciasrecibidasuser_path(@correspondenciasrecibida, correspondenciasrecibidasuser),
+		:method => :get}, :class=>"editarlink")%>
+      <% end %>
+     <% if permiso("correspondenciasrecibidasuser","E").to_s == "S" %>
+     |&nbsp;<%= link_to_remote('Borrar',{:url => correspondenciasrecibida_correspondenciasrecibidasuser_path(@correspondenciasrecibida, correspondenciasrecibidasuser),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+     <% end %>
+     |&nbsp;
+    <%= link_to_remote('Recibido',{:url => recibido_correspondenciasrecibida_correspondenciasrecibidasuser_path(@correspondenciasrecibida, correspondenciasrecibidasuser),
+		:method => :get}, :class=>"aplazalink", :title =>"Marcar Aplazamiento")%>
+     <% end %>
+         </td>
+ </tr>
+</table>
+  <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR DEPENDENCIAS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="correspondenciasrecibidasuser_<%=@correspondenciasrecibidasuser.id%>">
+     <%= render :partial => "correspondenciasrecibidasusers_form" %>
+    </tr>
+    </fieldset>
+  <% end %>
+<% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :correspondenciasrecibida, :id %>
+<% end %>
+<br/>
+<% if flash[:correspondenciasrecibidasuser] %>
+<div id="correspondenciasrecibidasuser">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:correspondenciasrecibidasuser] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('correspondenciasrecibidasuser');", 5000)
+</script>
+<% end %>
+</fieldset>

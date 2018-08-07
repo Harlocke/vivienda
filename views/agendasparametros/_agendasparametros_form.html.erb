@@ -1,0 +1,37 @@
+<table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+  <tr class="odd1">
+      <td width="16%" class="campos">Dia</td>
+      <td width="16%" class="campos">Hora Inicio</td>
+      <td width="16%" class="campos">Hora Fin</td>      
+      <td width="16%" class="campos">Intervalo</td>
+      <td width="20%" class="campos">Nro de personas por Intervalo</td>
+    </tr>
+    <tr valign="top">
+      <td><% if @agendasparametro.id %>
+      <%=@agendasparametro.dia rescue nil%>
+      <% else %>
+      <%= select(:agendasparametro,:dia, select_dia,{ :include_blank => true },{ :style=>"width:100px", :class => "campo" })%>
+      <%= error_message_on :agendasparametro, :dia, :css_class =>"cerror"%>
+        <% end %>
+      </td>
+      <td><%= select(:agendasparametro,:hora_inicio, select_agendahora,{ :include_blank => true },{ :style=>"width:100px", :class => "campo" })%>
+      <%= error_message_on :agendasparametro, :hora_inicio, :css_class =>"cerror"%></td>
+      <td><%= select(:agendasparametro,:hora_fin, select_agendahora,{ :include_blank => true },{ :style=>"width:100px", :class => "campo" })%>
+      <%= error_message_on :agendasparametro, :hora_fin, :css_class =>"cerror"%></td>      
+      <td><%= select(:agendasparametro,:intervalo, select_agendaintervalo,{ :include_blank => true },{ :style=>"width:100px", :class => "campo" })%>
+      <%= error_message_on :agendasparametro, :intervalo, :css_class =>"cerror"%></td>
+      <td><%= select(:agendasparametro,:cantidad, select_agendapersonal,{ :include_blank => true },{ :style=>"width:100px", :class => "campo" })%>
+      <%= error_message_on :agendasparametro, :cantidad, :css_class =>"cerror"%></td>
+    </tr>
+  </table>
+  <table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :agendasparametro, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+    </tr>
+  </table>

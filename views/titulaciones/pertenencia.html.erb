@@ -1,0 +1,96 @@
+<%=  javascript_include_tag :defaults %>
+<style type="text/css">
+<!--
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% @titulaciones.each do |titulacion|
+  if titulacion.titulacionespersonas.exists?
+    nombres     = ""
+    direcciones = ""
+    titulacion.titulacionespersonas.each do |titulacionespersona|
+      if nombres == ""
+        nombres = titulacionespersona.persona.nombres rescue nil
+      else
+        nombres = nombres.to_s + ', ' + titulacionespersona.persona.nombres.to_s rescue nil
+      end
+      if direcciones == ""
+        if titulacionespersona.direccion.to_s != ""
+          direcciones = titulacionespersona.direccion.to_s rescue nil
+        end
+      else
+        if titulacionespersona.direccion.to_s != ""
+          direcciones = direcciones.to_s + ', ' +titulacionespersona.direccion.to_s rescue nil
+        end
+      end
+    end
+    if direcciones == ""
+      if titulacion.direccion.to_s != ""
+        direcciones = titulacion.direccion.to_s
+      else
+        direcciones = "SIN DIRECCION"
+      end
+    end
+%>
+<div align="center">
+<table width="650" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <div align="justify" style="font-size: 11px; font-family: Arial,Helvetica,sans-serif;"><br/><br/>
+      <br/><br/><br/>
+      Medellin,<br/><br/>
+      Señor (a)<br/>
+      <strong><%=nombres%></strong><br/>
+      <%=direcciones%><br/>
+      Barrio <strong><%=titulacion.comuna.descripcion2 rescue nil%></strong><br/><br/>
+      <strong>ASUNTO: CITACIÓN JORNADA DE COOPERACIÓN PROCESO ESPECIAL DE PERTENENCIA.</strong><br/><br/>
+      Con el objetivo de continuar con el proceso consagrado en la ley 1561 de 2012, el <strong>Instituto Social de
+      Vivienda y Hábitat de Medellín (ISVIMED)</strong>, adelantará una jornada de cooperación entre diferentes entidades
+      como: Personería de Medellín y la Notaria Tercera del Circulo de Medellín, con el fin de suplir los
+      requisitos exigidos para el proceso especial de pertenencia que se adelantan con los poseedores del
+      barrio <strong><%=titulacion.comuna.descripcion2 rescue nil%></strong> del Municipio de Medellín; para dicha jornada deberán presentarse con la siguiente documentación:<br/><br/>
+    <%  titulacion.titulacionespersonas.each do |titulacionespersona| %>
+        <strong><%=titulacionespersona.persona.nombres.to_s rescue nil%></strong>: FIRMA PODER
+        <% if titulacionespersona.titulacionespersonasnotas.exists?
+            @titulacionesnota = Titulacionespersonasnota.find(:last, :conditions=>["titulacionespersona_id = #{titulacionespersona.id}"])%>
+             , <%=@titulacionesnota.observaciones rescue nil%>
+        <%  end %><br/>
+    <%  end%><br/>
+      <strong>OBSERVACIÓN:</strong> Las personas que tienen como requisito declarar la sociedad patrimonial, deben asistir ambos compañeros permanentes. Para aquellas personas cuyo requisito sea los testigos, la declaración de testigos es: traer los datos de mínimo 2 vecinos con nombre, número de la cedula, dirección y teléfono que lo conozcan y den fe del tiempo de permanencia en el inmueble (posesión).<br/><br/>
+      <%=@observacion%><br/><br/>
+      <strong>NOTA: Para aquellas personas que no han registrado el matrimonio, por favor llevar el original de la partida de matrimonio debidamente autenticada ante la Curia.<br/><br/>
+      NO OLVIDE PRESENTARSE CON LOS DOCUMENTOS ANTES MENCIONADOS, DOCUMENTO DE IDENTIDAD ORIGINAL Y ESTA CITACIÓN.</strong><br/><br/>
+      Atentamente,<br/>
+      <table width="100%" height="0" border="0" cellspacing="0" cellpadding="0" style="border-width: 0px;
+	border-spacing: 0px;
+	border-style: outset;
+	border-color: gray;
+	border-collapse: collapse;">
+        <tr valig="button">
+          <td width="45%"><img src="../../images/drestrepo.png" width="50%" height="50%"></td>
+          <td width="10%">&nbsp;</td>
+          <td width="45%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="0" style="font-size: 11px; font-family: Arial;"><strong><%=Sifi.find(17).valor rescue nil%></strong></td>
+          <td height="0" >&nbsp;</td>
+          <td height="0" style="font-size: 11px; font-family: Arial;"><strong>BARRIO: <%=titulacion.comuna.descripcion2 rescue nil%> - COBAMA: <%=titulacion.cobama rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td height="0" style="font-size: 11px; font-family: Arial;">Director</td>
+          <td height="0" >&nbsp;</td>
+          <td height="0" style="font-size: 11px; font-family: Arial;"><strong>MANZANA: <%=titulacion.manzana rescue nil%> LOTE: <%=titulacion.lote rescue nil%></strong></td>
+        </tr>
+      </table><br/>
+      <div align="justify" style="font-size: 10px; font-family: Arial;">Revisó: BEATRIZ SANCHEZ (Profesional Especializado)</div>
+      </div>
+      <div align="justify" style="font-size: 10px; font-family: Arial;">
+        <strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></strong>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+  <H1 class=SaltoDePagina>.</H1>
+<%   end  #Titulacionespersonas
+  end %>

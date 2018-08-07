@@ -1,0 +1,101 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">AUTORIZACIONES VENTA/ARRIENDO</div></td>
+  </tr>
+</table>
+<% remote_form_for [@persona, @personassesion] do |form| %>
+  <% if permiso("personassesion","C").to_s == "S" %>
+        <% if !@personassesion.id %>
+	<%= render :partial => "/personassesiones/personassesiones_form" %>
+    <% end %>
+ <% end %>
+<% if @persona.personassesiones.exists? %>
+<% for personassesion in @persona.personassesiones.find(:all, :order => 'created_at DESC') %>
+   <% if personassesion.id != @personassesion.id %>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2" id="personassesion_<%=personassesion.id%>">
+        <tr>
+          <td width="15%" class="oce-first"><span class="campos">Fecha</span></td>
+          <td width="20%" class="oce-first"><span class="campos">Radicado Entrada</span></td>
+          <td width="25%" class="oce-first"><span class="campos">Motivo</span></td>
+          <td width="20%" class="oce-first"><span class="campos">Tipo Autorizacion</span></td>
+          <td width="20%" class="oce-first"><span class="campos">Respuesta</span></td>
+        </tr>
+        <tr>
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=personassesion.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=personassesion.user.nombre rescue nil%>"><%=personassesion.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td class="camposDesc"><%=personassesion.radicado_entrada%>&nbsp;-&nbsp;<%=personassesion.radient_fecha%></td>
+          <td class="camposDesc"><%=personassesion.motivo%></td>
+          <td class="camposDesc"><%=personassesion.tipo%></td>
+          <td class="camposDesc"><%=personassesion.respuesta%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="65%" class="oce-first"><span class="campos">Observaciones</span></td>
+          <td width="20%" class="oce-first"><span class="campos">Radicado Respuesta</span></td>
+          <td width="15%"></td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=personassesion.observacion%></td>
+          <td class="camposDesc"><%=personassesion.radicado_salida%>&nbsp;-&nbsp;<%=personassesion.radisal_fecha%></td>
+          <td  class="camposDesc"><% if permiso("personassesion","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_persona_personassesion_path(@persona, personassesion),
+		:method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if permiso("personassesion","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => persona_personassesion_path(@persona, personassesion),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<% else %>
+<fieldset>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div class="col_enc">EDITAR AUTORIZACIONES</div></td>
+      </tr>
+    </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="personassesion_<%=@personassesion.id%>">
+     <%= render :partial => "personassesiones_form" %>
+    </tr>
+</fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:personassesion] %>
+<div id="personassesion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:personassesion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personassesion');", 5000)
+</script>
+<% end %>

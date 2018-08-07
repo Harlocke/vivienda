@@ -1,0 +1,220 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td  height="30"><div class="col_enc">INFORME DE SEGUIMIENTO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="17%" class="campos">Cobama</td>
+          <td width="33%" class="campos">Barrio </td>
+          <td width="50%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.cobama%></td>
+          <td class="camposDesc"><%=@titulacion.comuna.descripcion2 rescue nil%></td>
+          <td class="camposDesc"><%=User.find(@titulacion.user_juridico).nombre rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Tipo de Proceso </td>
+          <td width="15%" class="campos">Procedimiento</td>
+          <td width="5%" class="campos">Manzana </td>
+          <td width="5%" class="campos">Lote </td>
+          <td width="45%" class="campos">Direccion </td>
+          <td width="15%" class="campos">Unidades Habit.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.tipoproceso%></td>
+          <td class="camposDesc"><%=@titulacion.procedimiento%></td>
+          <td class="camposDesc"><%=@titulacion.manzana%></td>
+          <td class="camposDesc"><%=@titulacion.lote%></td>
+          <td class="camposDesc"><%=@titulacion.direccion%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Acta Entrega</td>
+          <td width="15%" class="campos">Area </td>
+          <td width="55%" class="campos">Expediente </td>
+          <td width="15%" class="campos">Fecha Expediente </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=@titulacion.acta_entrega%></td>
+          <td class="camposDesc"><%=@titulacion.area%></td>
+          <td class="camposDesc"><%=@titulacion.expediente%></td>
+          <td class="camposDesc"><%=@titulacion.fecha_expediente%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1"><td class="campos">Escritura de Loteo</td></tr>
+        <tr valign="top"><td class="camposDesc"><%=@titulacion.escritura_lote%>&nbsp;</td></tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Estado del Proceso</td>
+          <td width="20%" class="campos">Certificado Uso Suelo </td>
+          <td width="30%" class="campos">Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.estado%></td>
+          <td class="camposDesc"><%=@titulacion.certificado_uso_suelo%></td>
+          <td class="camposDesc"><%=@titulacion.operador%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td  height="30"><div class="col_enc">Información Juridica</div></td>
+        </tr>
+      </table>
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Estudio de Titulos</td>
+          <td width="12%" class="campos">Nro Ficha</td>
+          <td width="73%" class="campos">Tradicion</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=@titulacion.fiscal_estudiotitulos%>&nbsp;</td>
+           <td class="camposDesc"><%=@titulacion.fiscal_nroficha%></td>
+           <td class="camposDesc"><div align="justify"><%=@titulacion.fiscal_tradicion%></div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Nro Matricula Reloteo</td>
+          <td width="20%" class="campos">Nro Matricula Mayor Extensión</td>
+          <td width="20%" class="campos">Oficinas Instrumentos publicos</td>
+          <td width="30%" class="campos">Resolucion</td>
+          <td width="10%" class="campos">Registrada</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=@titulacion.fiscal_matriculareloteo%></td>
+           <td class="camposDesc"><%=@titulacion.fiscal_matriculamayore%></td>
+           <td class="camposDesc"><%=@titulacion.fiscal_oficinazona%></td>
+           <td class="camposDesc"><%=@titulacion.fiscal_nroresol%> - Fecha: <%=@titulacion.fiscal_fecharesol%></td>
+           <td class="camposDesc"><%=@titulacion.fiscal_registrada%>&nbsp;</td>
+        </tr>
+      </table>
+
+
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PERSONAS VINCULADAS</div></td>
+  </tr>
+</table>
+<% if @titulacion.titulacionespersonas.exists? %>
+   <% for titulacionespersona in @titulacion.titulacionespersonas.find(:all,:conditions=>["matricula = '#{@matricula}'"], :order => 'created_at DESC') %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr valign="middle">
+        <td width="35%" height="30" align="left" class="oce-first">Persona Vinculada</td>
+        <td width="10%" height="30" align="left" class="oce-first">Nro Matricula</td>
+        <td width="20%" height="30" align="left" class="oce-first">Direccion</td>
+        <td width="10%" height="30" align="left" class="oce-first">Cruce</td>
+        <td width="5%" height="30" align="left" class="oce-first">Poder</td>
+        <td width="10%" height="30" align="left" class="oce-first">Conciliacion</td>
+        <td width="10%" height="30" align="left" class="oce-first">Amparo de Pobreza</td>
+      </tr>
+       <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+         <td height="30" align="left" class="camposDesc">
+          <% if cruzadoper(titulacionespersona.persona_id).to_s == 'S' %>
+             <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Jefe de Hogar presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                                  {:controller=>"cruces", :action=>"mostrar", :persona_id =>titulacionespersona.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+          <% end %>
+          <%=titulacionespersona.persona.autobuscar rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.matricula rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.direccion rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.certificado_cruce rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.poder rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.conciliacion rescue nil%></td>
+         <td align="left" class="camposDesc"><%=titulacionespersona.amparo_pobreza rescue nil%></td>
+       </tr>
+       <% if titulacionespersona.persona.beneviviendas.exists? %>
+       <tr>
+         <td colspan="7">
+          <div align="center">
+            <table width="95%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="left" height="20" class="oce-first">Beneficiario </td>
+              </tr>
+              <% titulacionespersona.persona.beneviviendas.each do |benevivienda| %>
+              <tr class="<%=cycle('even1', 'odd1')%>">
+                 <td align="left" class="camposDesc">
+                  <% if cruzadoben(benevivienda.id).to_s == 'S' %>
+                     <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Beneficiario presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                              {:controller=>"cruces", :action=>"mostrar", :persona_id =>benevivienda.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+                  <% end %><%=benevivienda.identificacion rescue nil%> - <%=benevivienda.primer_nombre rescue nil%> <%=benevivienda.segundo_nombre rescue nil%> <%=benevivienda.primer_apellido rescue nil%> <%=benevivienda.segundo_apellido rescue nil%></td>
+              </tr>
+              <% end %>
+            </table>
+          </div>
+         </td>
+       </tr>
+        <% end %>
+        <% if titulacionespersona.persona.resolucionespersonas.exists? %>
+        <tr>
+          <td colspan="7">
+            <div align="center">
+            <table width="90%" border="1" cellspacing="0" cellpadding="0" class="sample">
+              <tr>
+                  <td width="10%" align="left" height="20" class="oce-first">Nro Resol.</td>
+                  <td width="10%" align="left" height="20" class="oce-first">Fecha</td>
+                  <td width="15%" align="left" height="20" class="oce-first">Clase</td>
+                  <td width="65%" align="left" height="20" class="oce-first">Objeto</td>
+              </tr>
+               <% titulacionespersona.persona.resolucionespersonas.each do |resolucionespersona| %>
+              <tr class="<%=cycle('even1', 'odd1')%>">
+                  <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.nro_resolucion  rescue nil%></td>
+                  <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.fecha rescue nil%></td>
+                  <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.resolucionesclase.descripcion rescue nil%></td>
+                  <td align="left" class="camposDesc"><div align="justify"><%=resolucionespersona.resolucion.resuelve rescue nil%></div></td>
+              </tr>
+               <% end %>
+            </table>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+        <% if titulacionespersona.titulacionespersonasnotas.exists? %>
+        <tr>
+          <td colspan="7">
+            <div align="center">
+            <table width="90%" border="1" cellspacing="0" cellpadding="0" class="sample">
+              <tr>
+                <td width="20%" align="left" height="20" class="oce-first">Fecha - Usuario</td>
+                <td width="80%" align="left" height="20" class="oce-first">Observacion </td>
+              </tr>
+               <% titulacionespersona.titulacionespersonasnotas.each do |titulacionespersonasnota| %>
+              <tr class="<%=cycle('even1', 'odd1')%>">
+                <td align="left" class="camposDesc"><%=titulacionespersonasnota.created_at.strftime("%Y-%m-%d %X")%><br/>
+                  <a title="<%=titulacionespersonasnota.user.nombre rescue nil%>"><%=titulacionespersonasnota.user.username rescue nil%></a></td>
+                <td align="left" class="camposDesc"><div align="justify"><%=titulacionespersonasnota.observaciones rescue nil%></div></td>
+              </tr>
+               <% end %>
+            </table>
+            </div>
+          </td>
+        </tr>
+       <% end %>
+     </table>
+     <br/>
+    <% end %>
+<% else %>
+    <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td height="0"class="campos">NO hay informacion relacionada</td></tr>
+    </table>
+<% end %>
+<br/>
+      <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>

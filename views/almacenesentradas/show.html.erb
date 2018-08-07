@@ -1,0 +1,28 @@
+<p>
+  <b>Empleado:</b>
+  <%=h @almacenesentrada.empleado_id %>
+</p>
+
+<p>
+  <b>Nro factura:</b>
+  <%=h @almacenesentrada.nro_factura %>
+</p>
+
+<p>
+  <b>Nro remision:</b>
+  <%=h @almacenesentrada.nro_remision %>
+</p>
+
+<p>
+  <b>Producto:</b>
+  <%=h @almacenesentrada.producto_id %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%=h @almacenesentrada.cantidad %>
+</p>
+
+
+<%= link_to 'Edit', edit_almacenesentrada_path(@almacenesentrada) %> |
+<%= link_to 'Back', almacenesentradas_path %>

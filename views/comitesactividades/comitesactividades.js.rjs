@@ -1,0 +1,1 @@
+page.replace_html :comitesactividades_form, :partial => "comitesactividades", :object => @comitesactividad

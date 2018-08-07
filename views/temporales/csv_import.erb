@@ -1,0 +1,79 @@
+<%=  javascript_include_tag :defaults %>
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/resolucionmin.png" width="64" height="64"/></td>
+              <td width="97%"><div class="col_enc">&nbsp;&nbsp;INFORMACION RESOLUCIONES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Nro resolucion</td>
+    <td width="10%" height="30" class="oce-first">Año</td>
+    <td width="15%" height="30" class="oce-first">Identificacion</td>
+    <td width="10%" height="30" class="oce-first">Persona</td>
+    <td width="10%" height="30" class="oce-first">Resolucion</td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% permiso = "S"
+   @temporales.each do |temporal|  %>
+  <tr valign="middle">
+    <td width="10%" class="camposDesc"><%=h temporal.nro_resolucion %></td>
+    <td width="10%" class="camposDesc"><%=h temporal.anno %></td>
+    <td width="15%" class="camposDesc"><%=h temporal.identificacion %></td>
+    <td width="10%" class="camposDesc"><div align="center">
+     <% if temporal.persona_id.nil? == false %>
+         <%= image_tag("tick.png", :size => "16x16") %>
+      <% else
+         permiso = "N" %>
+         <%= image_tag("delete.png", :size => "16x16") %>
+      <% end %></div></td>
+    <td width="10%" class="camposDesc"><div align="center">
+     <% if temporal.resolucion_id.nil? == false  %>
+         <%= image_tag("tick.png", :size => "16x16") %>
+      <% else
+      permiso = "N" %>
+         <%= image_tag("delete.png", :size => "16x16") %>
+      <% end %></div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="70%" border="0" cellpadding="0" cellspacing="0" align="center" >
+  <tr>
+    <td colspan="2"><div align="left"><strong>Atenci&oacute;n</strong></div></td>
+  </tr>
+  <% if permiso.to_s == "S" and cantidad > 0 %>
+  <tr>
+    <td width="10%"><div align="center"><%= image_tag("tick.png", :size => "16x16") %></div></td>
+    <td width="90%">&nbsp;&nbsp;El archivo cumple con la validacion de informacion.... Total Registros <%=@temporales.count.to_s%></td>
+  </tr>
+    <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+<tr bgcolor="#FF0000">
+        <td height="30" colspan="2"><div align="left"><strong>Nota:  Este proceso no tiene reversión, tome las precausiones del caso. </strong></div></td>
+      </tr>
+    <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+      <tr>
+    <td colspan="2"><div align="center"><% form_tag cargar_temporales_path, :method => 'get' do %>
+  <%= image_submit_tag '/images/iniciarcarga.gif', :name => nil%>
+<% end %></div></td>
+  </tr>
+  <% else %>
+  <tr>
+    <td><div align="center"><%= image_tag("delete.png", :size => "16x16") %></div></td>
+    <td><strong>&nbsp;&nbsp;Existen inconsistencias en el Archivo. Verifique!!!</strong></td>
+  </tr>
+  <% end %>
+</table>
+<br/>

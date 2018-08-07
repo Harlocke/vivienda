@@ -1,0 +1,31 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mpresupuestomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORME DE AVANCE O CIERRE DE OBRA - <%=@licitacionesinforme.created_at.strftime("%Y-%m-%d %X")%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),{:controller=>"licitaciones", :action=>"edit", :id=>@licitacionesinforme.licitacion_id}%>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <table width="90%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td height="25" width="80%" align="left" class="oce-first">Beneficiario</td>
+      <td width="20%" align="left" class="oce-first">Estado</td>
+    </tr>
+    <tr class="odd1">
+      <td height="25" class="camposDesc"><%=@licitacionesinforme.licitacion.persona.autobuscar rescue nil%></td>
+      <td class="camposDesc"><%=@licitacionesinforme.licitacion.estado rescue nil%></td>
+    </tr>
+  </table>
+  <br/>
+       <div id="licitacionesinformesdetalles_form">
+          <%= render :partial => "/licitacionesinformesdetalles/licitacionesinformesdetalles" %>
+       </div>
+</div>
+<br/>

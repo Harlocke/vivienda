@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+<div align="center">
+<table width="700" height="65" border="0" align="center" cellpadding="0" cellspacing="0" background="http://190.0.34.154:3013/images/frame.png">
+    <tr>
+      <td><div align="right"><strong>SOLICITUD DE CONTRATO</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></td>
+    </tr>
+</table>
+<br/>
+<table width="700" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr valign="middle">
+    <td width="30%" height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Contratista</strong> </td>
+    <td width="70%"  style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.empleado.autobuscar rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Objeto</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.objeto%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Valor Mes</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Valor Dia</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_dia,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro Dias</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.dias%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro Meses</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.meses%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Valor Total</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_total,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Fecha Inicio</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.fecha_inicio%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Fecha Fin </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.fecha_fin%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Interventor </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.userinterventor rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Modalidad </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.modalidad.descripcion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Tipo de Contrato</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.tiposcontrato.descripcion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro CDP 1</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp%>&nbsp;&nbsp;Fecha CDP &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro CDP 2</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp2%>&nbsp;&nbsp;Fecha CDP &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp2%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp2,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro CDP 3</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp3%>&nbsp;&nbsp;Fecha CDP &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp3%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp3,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Nro CDP 4</strong> </td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.nro_cdp4%>&nbsp;&nbsp;Fecha CDP &nbsp;&nbsp;<%=@estudiosprevio.fecha_cdp4%>&nbsp;&nbsp;Valor CDP &nbsp;&nbsp;$ <%=number_to_currency(@estudiosprevio.valor_cdp4,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Poliza </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.poliza%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Secop </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.secop%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;RUBRO PRESUPUESTAL</strong></td>
+    <td valign="top" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;
+      <% if @estudiosprevio.estudiospreviosrubros.exists? %>
+          <% @estudiosprevio.estudiospreviosrubros.each do |estudiospreviosrubro| %>
+            *  <%=estudiospreviosrubro.rubro.descripcion rescue nil %> - $ <%=number_to_currency(estudiospreviosrubro.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%><br/>
+          <% end %>
+      <% else %>
+         No hay rubros registradas
+      <% end %>
+    </td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;"><strong>&nbsp;&nbsp;Observaciones </strong></td>
+    <td style="border:1px solid #000000; font-family: Tahoma; font-size: 11px;">&nbsp;&nbsp;<%=@estudiosprevio.observaciones%></td>
+  </tr>
+</table>
+</div>
+<br/><div style="font-size: 11px;">
+<strong>S I F I - Sistema de Informacion ISVIMED</strong><br/>
+<strong><%=Time.now.strftime("%Y-%m-%d %X")%></strong><br/><br/>
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

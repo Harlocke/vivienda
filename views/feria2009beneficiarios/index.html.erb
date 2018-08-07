@@ -1,0 +1,46 @@
+<h1>Listing feria2009beneficiarios</h1>
+
+<table>
+  <tr>
+    <th>Nroformulario</th>
+    <th>Documento</th>
+    <th>Identificacion</th>
+    <th>Primernombre</th>
+    <th>Segundonombre</th>
+    <th>Primerapellido</th>
+    <th>Segundoapellido</th>
+    <th>Fecha nacimiento</th>
+    <th>Parentesco</th>
+    <th>Estadocivil</th>
+    <th>Ocupacion</th>
+    <th>Condicionespecial</th>
+    <th>Condicionfamiliar</th>
+    <th>Ingresos mensuales</th>
+  </tr>
+
+<% @feria2009beneficiarios.each do |feria2009beneficiario| %>
+  <tr>
+    <td><%=h feria2009beneficiario.nroformulario %></td>
+    <td><%=h feria2009beneficiario.documento %></td>
+    <td><%=h feria2009beneficiario.identificacion %></td>
+    <td><%=h feria2009beneficiario.primernombre %></td>
+    <td><%=h feria2009beneficiario.segundonombre %></td>
+    <td><%=h feria2009beneficiario.primerapellido %></td>
+    <td><%=h feria2009beneficiario.segundoapellido %></td>
+    <td><%=h feria2009beneficiario.fecha_nacimiento %></td>
+    <td><%=h feria2009beneficiario.parentesco %></td>
+    <td><%=h feria2009beneficiario.estadocivil %></td>
+    <td><%=h feria2009beneficiario.ocupacion %></td>
+    <td><%=h feria2009beneficiario.condicionespecial %></td>
+    <td><%=h feria2009beneficiario.condicionfamiliar %></td>
+    <td><%=h feria2009beneficiario.ingresos_mensuales %></td>
+    <td><%= link_to 'Show', feria2009beneficiario %></td>
+    <td><%= link_to 'Edit', edit_feria2009beneficiario_path(feria2009beneficiario) %></td>
+    <td><%= link_to 'Destroy', feria2009beneficiario, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2009beneficiario', new_feria2009beneficiario_path %>

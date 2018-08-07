@@ -1,0 +1,1 @@
+page.replace_html :viviendasrenuncias_form, :partial => "/viviendasrenuncias/viviendasrenuncias"

@@ -1,0 +1,86 @@
+<div align="center">
+<% if @interventoria.acceso.to_s == 'S' %>
+  <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16">
+    <% if @interventoria.estado.to_s == 'PREPARAFINAL' or @interventoria.estado.to_s == 'RECHAZADOFINALGH' %>
+
+    <% else %>
+      <% if @interventoria.interactividades.count(:all, :conditions=>["desarrollo is null"]) > 0 %><br/>
+         Usted tiene <%=@interventoria.interactividades.count%> obligaciones registradas, de las cuales tienes (<%=@interventoria.interactividades.count(:all, :conditions=>["desarrollo is null"])%>) sin evaluar.<br/><br/>
+      <% elsif @interventoria.estado.to_s == 'RECHAZADO' %>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+           El informe ha sido rechazado por el interventor, por favor verifique y complemente las actividades.<br/><br/>
+        </div>
+      <% elsif @interventoria.estado.to_s == 'RECHAZADOGH' %>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+           El informe ha sido rechazado por gestion humana, por favor verifique y complemente las actividades.<br/><br/>
+        </div>
+      <% else %><br/>
+         Usted tiene <%=@interventoria.interactividades.count%> obligaciones registradas y todas estan debidamente registradas<br/><br/>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">OBLIGACION DEL CONTRATO</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="3%" class="oce-first">&nbsp;</td>
+        <td width="91%" height="30" class="oce-first">Actividad</td>
+        <td width="5%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% for interactividad in @interventoria.interactividades.find(:all,:conditions=>["actividad like '%%PAGO%%DE%%SEGURIDAD%%SOCIAL%%'"]) %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDescN"><div align="center"><%=h interactividad.consecutivo %>.
+          <% if interactividad.desarrollo.to_s != "" %>
+            <img src="/images/connect.png" title="Actividad desarrollada"/>
+          <% end %>
+          </div></td>
+        <td class="camposDesc"><div align="justify"><strong><%=h interactividad.actividad %></strong>
+          <% if interactividad.interactobservaciones.exists? %>
+              <% interactividad.interactobservaciones.each do |interactobservacion| %>
+            <div align="justify" style="color:red;"><strong><%=interactobservacion.obs rescue nil%></strong></div>
+              <% end %>
+          <% end %>
+          </div><div align="justify"><%=replaceenter(interactividad.desarrollo) rescue nil %></div>
+         <%  if interactividad.interactimagenes.exists? %>
+              <div align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="90%" height="20" class="oce-first">Soporte Digital - Descripcion y Nombre del documento</td>
+                    <td width="10%" height="20" class="oce-first"></td>
+                  </tr>
+                  <% interactividad.interactimagenes.each do |interactimagen| %>
+                  <tr>
+                    <td class="camposDesc"><%=interactimagen.descripcion rescue nil%> - <%=interactimagen.interactividad_file_name rescue nil%></td>
+                    <td class="camposDesc"><%= link_to "Ver",interactimagen.interactividad.url(:original, false),
+                                         { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+                    </td>
+                  </tr>
+                  <% end %>
+                </table>
+              </div>
+          <% end %>
+          <br/>
+        </td>
+        <td class="camposDesc"><div align="center">
+              <% if @interventoria.acceso.to_s == 'S' %>
+                <% if @interventoria.estado.to_s == 'RECHAZADO' or @interventoria.estado.to_s == 'RECHAZADOFINALGH' %>
+                    <% if interactividad.interactobservaciones.exists? %>
+                      <%= link_to image_tag("editar.png"),  edit_interactividad_path(interactividad), :title=>"Registrar avance"%>
+                    <% end %>
+                <% elsif @interventoria.estado.to_s == 'APROBADO' %>
+                <% else %>
+                <%= link_to image_tag("editar.png"),  edit_interactividad_path(interactividad), :title=>"Registrar avance"%>
+                <% end %>
+              <% end %>
+              <% if interactividad.interactobservaciones.exists? %>
+                <img src="/images/info1.png" title="Actividad con observaciones"/>
+              <% end %>
+          </div></td>
+      </tr>
+    <% end %>
+    </table>
+</div>

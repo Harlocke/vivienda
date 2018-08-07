@@ -1,0 +1,181 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">MEJORAMIENTO</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td class="campos" colspan="4">Objeto Resolucion</td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc" colspan="4"><%=@conveniosresolintencion.resolucion.resuelve rescue nil%></td>
+        </tr>
+      </table>
+      <% if @conveniosresolintencion.conveniosresolucion.convenio_id != 116  %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td width="25%" align="left" class="campos">Coordinador UDEM</td>
+          <td width="25%" align="left" class="campos">Profesional UDEM</td>
+          <td width="25%" align="left" class="campos">Tecnologo UDEM</td>
+          <td width="25%" align="left" class="campos">Coordinador ISVIMED</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=User.find(@conveniosresolintencion.conveniosresolucion.user_coordinador).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@conveniosresolintencion.conveniosresolucion.user_profesional).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@conveniosresolintencion.conveniosresolucion.user_tecnologo).nombre rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=User.find(@conveniosresolintencion.conveniosresolucion.user_interventor).nombre rescue nil rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td width="33%" align="left" class="campos">Coordinador Operador</td>
+          <td width="33%" align="left" class="campos">Ingeniero Operador</td>
+          <td width="33%" align="left" class="campos">Profesional Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.responsable1 rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.responsable2 rescue nil rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.responsable3 rescue nil rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+      <% end  %>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr class="odd1">
+        <td width="15%" class="campos">Nro Convenio</td>
+        <td width="15%" class="campos">Vigencia</td>
+        <td width="15%" class="campos">Nro Soluciones</td>
+        <td width="20%" class="campos">Tipo Solucion</td>
+        <td width="35%" class="campos">Ubicacion</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.nro_convenio rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.vigencia rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.nro_viviendas rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.tipo_solucion rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.comuna.comuna rescue nil%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr class="odd1">
+        <td width="42%" class="campos">Responsable Diagnostico</td>
+        <td width="18%" class="campos">Valor Diagnostico</td>
+        <td width="40%" class="campos">Operador</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.responsable_diagnostico rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.valor_diagnostico rescue nil%></td>
+        <td class="camposDesc"><%=@conveniosresolintencion.conveniosresolucion.convenio.ejecutor rescue nil%></td>
+      </tr>
+    </table>
+    <br/>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="70%" height="50" class="campos odd1">Concepto de Visto Bueno </td>
+        <td width="30%"><div class="col_enc" align="center">
+          <% if @conveniosresolintencion.conveniosresollistas.exists?(["estado = 'NO'"]) %>
+            NEGATIVO
+          <% else %>
+            POSITIVO
+          <% end %></div>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td width="90%" height="30" align="left" class="campos">DOCUMENTACION</td>
+        <td width="10%" height="30" align="left" class="campos"><div align="center">ESTADO</div></td>
+      </tr>
+    <% @conveniosresolintencion.conveniosresollistas.each do |mejoramientoslista| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+         <td class="camposDesc"><div align="justify"><%=mejoramientoslista.listaspago.descripcion rescue nil%></div></td>
+         <td align="left" class="camposDesc"><div align="center"><strong><%=mejoramientoslista.estado rescue nil%></strong></div></td>
+        </tr>
+     <% end %>
+    </table>
+    <br/>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td width="30%" height="30" class="campos">Beneficiario</td>
+        <td width="10%" class="campos">Cedula</td>
+        <td width="5%" class="campos"><div align="center">Estado Mejo.</div></td>
+        <td width="8%" class="campos"><div align="center">Vlr Subsidio</div></td>
+        <td width="8%" class="campos"><div align="center">Pagos</div></td>
+        <td width="8%" class="campos"><div align="center">Vlr Cobrado</div></td>
+        <td width="8%" class="campos"><div align="center">% Ejecucion</div></td>
+        <td width="8%" class="campos"><div align="center">Vlr Aprobado</div></td>
+        <td width="5%" class="campos"><div align="center">Estado</div></td>
+      </tr>
+    <% @conveniosresolintencion.conveniosresolmejoramientos.each do |conveniosresolmejoramiento| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+         <td  height="20" class="camposDesc"><div align="justify"><%=conveniosresolmejoramiento.mejoramiento.persona.nombres rescue nil%>
+           <% if conveniosresolmejoramiento.observacion %>
+             <br/><strong>NO OK : <%=conveniosresolmejoramiento.observacion rescue nil%></strong>
+           <% end %></div></td>
+         <td class="camposDesc"><div align="center"><%=conveniosresolmejoramiento.mejoramiento.persona.identificacion rescue nil%></div></td>
+         <td class="camposDesc"><div align="center"><%=conveniosresolmejoramiento.mejoramiento.mejoramientosestado.descripcion rescue nil%></div></td>
+         <td class="camposDesc"><div align="right">$<%=camponumerico(conveniosresolmejoramiento.mejoramiento.valor_resolucion) rescue 0%></div></td>
+         <td class="camposDesc"><div align="right">$<%=camponumerico(conveniosresolmejoramiento.mejoramiento.mejoramientospagos.sum("valor")) rescue 0%></div></td>
+         <td class="camposDesc"><div align="right">$<%=camponumerico(conveniosresolmejoramiento.valor_cobrado) rescue 0%></div></td>
+         <td class="camposDesc"><div align="right"><%=conveniosresolmejoramiento.mejoramiento.porcentajeeje rescue 0%>%</div></td>
+         <td class="camposDesc"><div align="right">$<%=camponumerico(conveniosresolmejoramiento.valor) rescue 0%></div></td>
+         <td class="camposDesc"><div align="center"><%=conveniosresolmejoramiento.destado rescue nil%></div></td>
+       </tr>
+     <%end%>
+       <tr class="odd1">
+         <td  height="30" class="camposDesc" colspan="7"><strong>T O T A L</strong></td>
+         <td class="camposDesc" colspan="2"><strong><div align="center">$ <%=camponumerico(@conveniosresolintencion.conveniosresolmejoramientos.sum("valor")) rescue nil%></div></strong></td>
+       </tr>
+    </table>
+    <br/>
+   <% if @conveniosresolintencion.conveniosresolucion.convenio_id == 116  %>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="50%" height="50" class="campos"></td>
+        <td width="50%" height="50" class="campos"></td>
+      </tr>
+      <tr class="odd1">
+        <td height="0" class="campos">JUAN PABLO GOMEZ</td>
+        <td height="0" class="campos"><%=Sifi.find(28).valor.to_s rescue nil%></td>
+      </tr>
+      <tr>
+        <td width="50%" height="50" class="campos"></td>
+        <td width="50%" height="50" class="campos"></td>
+      </tr>
+      <tr class="odd1">
+        <td height="0" class="campos">CONTRATISTA ISVIMED</td>
+        <td height="0" class="campos"><%=Sifi.find(29).valor.to_s rescue nil%></td>
+      </tr>
+    </table>
+   <% else  %>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="50%" height="50" class="campos"></td>
+        <td width="50%" height="50" class="campos"><img src="../../images/<%=User.find(@conveniosresolintencion.conveniosresolucion.user_coordinador).identificacion%>.jpg"/></td>
+      </tr>
+      <tr class="odd1">
+        <td height="0" class="campos">JUAN DE DIOS HINCAPIÉ VARGAS<br/>COORDINADOR GENERAL</td>
+        <td height="0" class="campos"><%=User.find(@conveniosresolintencion.conveniosresolucion.user_coordinador).nombre rescue nil%><br/>COORDINADOR DE CAMPO</td>
+      </tr>
+      <tr>
+        <td width="50%" height="50" class="campos"></td>
+        <td width="50%" height="50" class="campos"></td>
+      </tr>
+      <tr class="odd1">
+        <td height="0" class="campos">ASESOR JURIDICO UDEM</td>
+        <td height="0" class="campos">ASESOR ADMINISTRATIVO UDEM</td>
+      </tr>
+    </table>
+   <% end  %>
+    <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+    </table>
+</td>
+</tr>
+</table>
+</div>

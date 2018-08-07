@@ -1,0 +1,32 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ASOCIACION DE USUARIOS A MENSAJES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<% remote_form_for [@mensaje, @mensajesuser] do |form| %>
+<% if !@mensajesuser.id %>
+	<%= render :partial => "/mensajesusers/mensajesusers_form" %>
+<% end %>
+<br/>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="50%" height="30" class="oce-first">Usuario</td>
+    <td width="35%" height="30" class="oce-first">Email</td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+<% @mensaje.mensajesusers.each do |mensajesuser| %>
+   <% if mensajesuser.id != @mensajesuser.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mensajesuser_<%=mensajesuser.id%>">
+     <td height="30" class="camposDesc"><%=mensajesuser.user.nombre%></td>
+     <td height="30" class="camposDesc"><%=mensajesuser.user.email%></td>
+      <td class="camposDesc">
+        <%= link_to_remote('Borrar',{:url => mensaje_mensajesuser_path(@mensaje, mensajesuser),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%></td>
+    </tr>
+   <% end %>
+<% end %>
+</table>   
+            <%= hidden_field :mensaje, :id %>
+<% end %>

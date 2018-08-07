@@ -1,0 +1,63 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PRESUPUESTOS ASOCIADOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@seguimiento, @seguimientoslicitacion] do |form| %>
+      <% if !@seguimientoslicitacion.id %>
+        <%= render :partial => "/seguimientoslicitaciones/seguimientoslicitaciones_form" %>
+      <% end %>
+<% if @seguimiento.seguimientoslicitaciones.exists? %>
+<div align="center">
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="5%" height="30" class="oce-first">Codigo</th>
+    <th width="30%" class="oce-first">Descripcion</th>
+    <th width="15%" class="oce-first"><div align="center">Subtotal</div></th>
+    <th width="15%" class="oce-first"><div align="center">AIU</div></th>
+    <th width="15%" class="oce-first"><div align="center">Valor Total</div></th>
+    <th width="15%" class="oce-first"><div align="center">Valor Pagado</div></th>
+    <th width="5%" class="oce-first">.</th>
+  </tr>
+<% @pagado = 0
+   for seguimientoslicitacion in @seguimiento.seguimientoslicitaciones.find(:all)
+    @pagado = @pagado + Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{seguimientoslicitacion.licitacion.id}"]) %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientoslicitacion_<%=seguimientoslicitacion.id%>">
+    <td height="20" class="camposDesc"><div align="left"><%=seguimientoslicitacion.licitacion.id rescue nil %></div></td>
+    <td class="camposDesc"><div align="left"><%=seguimientoslicitacion.licitacion.descripcion rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.subtotal) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.valoraiu) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.valor) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{seguimientoslicitacion.licitacion.id}"])) rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+      <%= link_to_remote('',{:url =>seguimiento_seguimientoslicitacion_path(@seguimiento, seguimientoslicitacion),
+                      :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+      </div>
+      </td>
+   </tr>
+<% end %>
+<tr valign="middle">
+    <th height="30" class="oce-first" colspan="2"><div align="right">Totales</div></th>
+    <td class="oce-first"><div align="right"><strong>$ <%=camponumerico(@seguimiento.seguimientoslicitaciones.sum("subtotal"))%></strong></div></td>
+    <td class="oce-first"><div align="right"><strong>$ <%=camponumerico(@seguimiento.seguimientoslicitaciones.sum("valoraiu"))%></strong></div></td>
+    <td class="oce-first"><div align="right"><strong>$ <%=camponumerico(@seguimiento.seguimientoslicitaciones.sum("valor"))%></strong></div></td>
+    <td class="oce-first"><div align="right"><strong>$ <%=camponumerico(@pagado)%></strong></div></td>
+    <td class="oce-first"></td>
+  </tr>
+</table>
+<% else %>
+   <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay informacion para esta clasificacion.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :seguimiento, :id %>
+<% end %>
+  </div>
+<br/>

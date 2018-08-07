@@ -1,0 +1,20 @@
+<h1>Listing poblacionesespeciales</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @poblacionesespeciales.each do |poblacionesespecial| %>
+  <tr>
+    <td><%=h poblacionesespecial.descripcion %></td>
+    <td><%= link_to 'Show', poblacionesespecial %></td>
+    <td><%= link_to 'Edit', edit_poblacionesespecial_path(poblacionesespecial) %></td>
+    <td><%= link_to 'Destroy', poblacionesespecial, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New poblacionesespecial', new_poblacionesespecial_path %>

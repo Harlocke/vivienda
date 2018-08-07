@@ -1,0 +1,69 @@
+<table width="100%" height="40">
+<tr>
+  <td>
+    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="3%"><img src="/images/vinculadosmin.png" width="64" height="64"/></td>
+        <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION TALENTO HUMANO</div></td>
+        <td width="3%"><div align="right">
+          <% if permiso("empleado","C").to_s == "S" %>
+            <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),new_empleado_path(:tipo=>"V")%>
+          <% end %></div></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table><br/>
+<div align="center">
+  <% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+      <table width="60%" height="40" border="0" cellpadding="0" cellspacing="0">
+         <tr>
+           <td width="35%">Digite el nombre a buscar :</td>
+           <td width="65%"><%= text_field_tag :search, params[:search],{ :class => "campo2",  :size => "40", :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= image_submit_tag '/images/find.png', :width => '18', :name => nil %></td>
+         </tr>
+      </table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Identificacion</div></td>
+    <td width="35%" class="oce-first"><div align="left">Nombre</div></td>
+    <td width="40%" class="oce-first"><div align="left">Cargo</div></td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @empleados.each do |empleado| 
+   campo = ""
+   if empleado.estadoinf.to_s == 'ACTIVO'
+     campo = "campos"
+   else
+     campo = "camposDesc"
+   end
+   %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="20" class="<%=campo%>"><div align="center"><%=h empleado.identificacion %></div></td>
+    <td class="<%=campo%>"><div align="left"><%=h empleado.nombres %></div></td>
+    <td class="<%=campo%>"><div align="left"><%=h empleado.cargo %></div></td>
+    <td class="<%=campo%>"><div align="center">
+        <%= link_to 'Editar', edit_empleado_path(:id=>empleado, :etapa=>'1'), :class=>"editarlink"%>
+        <% if permiso("empleado","E").to_s == "S" %>
+           &nbsp;|&nbsp;<%= link_to 'Borrar', empleado_path(empleado),:confirm => 'Esta Seguro de Eliminar?',:method => :delete, :class=>"borrarlink"%>
+        <%  end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center"><%= will_paginate @empleados, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center">Total Registros: <%= @empleados.total_entries %></div></td>
+   </tr>
+</table>
+<br/>

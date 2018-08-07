@@ -1,0 +1,58 @@
+<p>
+  <b>Nro cuota:</b>
+  <%=h @planpago.nro_cuota %>
+</p>
+
+<p>
+  <b>Saldo inicial:</b>
+  <%=h @planpago.saldo_inicial %>
+</p>
+
+<p>
+  <b>Cuota plan amort:</b>
+  <%=h @planpago.cuota_plan_amort %>
+</p>
+
+<p>
+  <b>Amortizacion:</b>
+  <%=h @planpago.amortizacion %>
+</p>
+
+<p>
+  <b>Intereses:</b>
+  <%=h @planpago.intereses %>
+</p>
+
+<p>
+  <b>Saldo final:</b>
+  <%=h @planpago.saldo_final %>
+</p>
+
+<p>
+  <b>Valor seguro:</b>
+  <%=h @planpago.valor_seguro %>
+</p>
+
+<p>
+  <b>Cuota seg:</b>
+  <%=h @planpago.cuota_seg %>
+</p>
+
+<p>
+  <b>Fecha:</b>
+  <%=h @planpago.fecha %>
+</p>
+
+<p>
+  <b>Interes nominal ano:</b>
+  <%=h @planpago.interes_nominal_ano %>
+</p>
+
+<p>
+  <b>Crecimiento cuota:</b>
+  <%=h @planpago.crecimiento_cuota %>
+</p>
+
+
+<%= link_to 'Edit', edit_planpago_path(@planpago) %> |
+<%= link_to 'Back', planpagos_path %>

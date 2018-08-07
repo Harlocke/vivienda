@@ -1,0 +1,1 @@
+page.replace_html :licitacionesinformes_form, :partial => "licitacionesinformes", :object => @licitacionesinforme

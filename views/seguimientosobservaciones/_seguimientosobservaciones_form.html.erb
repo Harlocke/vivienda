@@ -1,0 +1,22 @@
+<div align="center"><table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="top">
+    <td><%=text_area(:seguimientosobservacion, :observaciones, :cols => 150, :rows => 4, :class => 'campo', :maxlength => 3900,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+  <%= error_message_on :seguimientosobservacion, :observaciones, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+    <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="60%"><div align="right">
+      &nbsp;&nbsp;<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :seguimientosobservacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+<br/>

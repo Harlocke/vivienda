@@ -1,0 +1,106 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">REPORTES</div></td>
+  </tr>
+</table>
+<% remote_form_for [@impresora, @impresorasreporte] do |form| %>
+  <%# if permiso("impresorasreporte","C").to_s == "S" %>
+     <% if !@impresorasreporte.id %>
+      	<%= render :partial => "/impresorasreportes/impresorasreportes_form" %>
+     <% end %>
+  <%# end %>
+<% if @impresora.impresorasreportes.exists? %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" class="oce-first">Fecha Solictud</td>
+    <td width="15%" height="30" class="oce-first">Fecha Atención</td>
+    <td width="55%" class="oce-first">Observación </td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<% @impresora.impresorasreportes.each do |impresorasreporte| %>
+<% if impresorasreporte.id != @impresorasreporte.id %>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="impresorasreporte_<%=impresorasreporte.id%>">
+    <td width="15%" class="camposDesc"><%=impresorasreporte.fecha_solicitud.strftime("%Y-%m-%d %X")%></td>
+    <td width="15%" class="camposDesc"><%=impresorasreporte.fecha_atencion.strftime("%Y-%m-%d %X")%></td>
+    <td width="55%" class="camposDesc"><div align="justify"><%=impresorasreporte.observacion rescue nil%></div></td>
+    <td width="15%" class="camposDesc">
+      <div align="center">
+            <%# if permiso("impresorasreporte","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_impresora_impresorasreporte_path(@impresora, impresorasreporte),
+                        :method => :get}, :class=>"editarlink")%>
+            <%# end %>
+            <%# if permiso("impresorasreporte","E").to_s == "S" %>
+               |&nbsp;<%= link_to_remote('Borrar',{:url => impresora_impresorasreporte_path(@impresora, impresorasreporte),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>  <%= link_to "Acta", {:controller => "impresorasreportes", :action => "acta", :id=>impresorasreporte.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <%# end %>
+      </div></td>
+ </tr>
+</table>
+<% if impresorasreporte.impresorasimagenes.exists? %>
+<div align="center">
+  <table width="80%" border="0" align="center" cellpadding="1" cellspacing="1">
+    <tr>
+      <td width="10%" valign="middle" class="oce-first"><div align="center">Imagenes</div></td>
+      <td width="90%">
+        <table width="100%" border="0" cellspacing="1" cellpadding="1">
+          <tr>
+            <td class="oce-first" width="10%" align="center">Fecha</td>
+            <td class="oce-first" width="45%" align="center">Descripcion</td>
+            <td class="oce-first" width="40%" align="center">Nombre Archivo</td>
+            <td class="oce-first" width="5%" align="center"></td>
+          </tr>
+        <% impresorasreporte.impresorasimagenes.each do |impresorasimagen| %>
+          <tr class="<%=cycle('even1', 'odd1')%>">
+            <td class="camposDesc" align="left"><%=impresorasimagen.created_at.strftime("%Y-%m-%d") rescue nil%></td>
+            <td class="camposDesc" align="left"><%=impresorasimagen.descripcion%></td>
+            <td class="camposDesc" align="left"><%=impresorasimagen.impresora_file_name%></td>
+            <td class="camposDesc" align="left"><%= link_to "Ver", impresorasimagen.impresora.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%></td>
+          </tr>
+        <% end %>
+          </table>
+      </td>
+    </tr>
+  </table>
+</div>
+<% end %>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR CARACTERISTICAS</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="impresorasreporte_<%=@impresorasreporte.id%>">
+      <%= render :partial => "impresorasreportes_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :impresora, :id %>
+<% end %>
+<br/>
+<% if flash[:impresorasreporte] %>
+<div id="impresorasreporte">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:impresorasreporte] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('impresorasreporte');", 5000)
+</script>
+<% end %>
+
+

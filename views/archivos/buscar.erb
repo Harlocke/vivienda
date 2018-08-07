@@ -1,0 +1,102 @@
+<strong>INFORMACION ARCHIVO</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td width="50%" colspan="23" style="font-size: 11px; font-family: Tahoma;"><strong>Informacion Archivo</strong></td>
+    <td width="50%" colspan="2" style="font-size: 11px; font-family: Tahoma;"><strong>Persona</strong></td>
+    <td width="50%" colspan="2" style="font-size: 11px; font-family: Tahoma;"><strong>Contratista</strong></td>
+  </tr>
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>ID</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Barrio</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Caja</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Carpeta</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Manzana</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Lote</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;" colspan="2"><strong>Consecutivos</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;" colspan="2"><strong>Resoluciones</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Inicial</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Final</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Unidad de Conservacion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Nro Folios</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Soporte</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Frecuencia Consulta</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Ubicacion</strong></td>
+    <td width="80%" style="font-size: 11px; font-family: Tahoma;"><strong>Serie y Subserie documental</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Creado por</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Creacion</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Actualizado por</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Ult. Actualizacion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Documentos Digitales</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Identificacion</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Nombre</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Identificacion</strong></td>
+    <td width="50%" style="font-size: 11px; font-family: Tahoma;"><strong>Nombre - Razon social</strong></td>
+  </tr>
+<% for archivo in @archivos %>
+  <tr valign="middle">
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.id rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.barrio  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.caja  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.carpeta  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.manzana  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.lote  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.conse_inicial  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.conse_final  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.resol_inicial  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.resol_final  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.fecha_inicial  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.fecha_final  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.unidad_conservacion  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.nro_folios  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.soporte  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.frecuencia_consulta  rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.dtipo rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=Archivosserie.find(archivo.archivosserie_id).subserie rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=User.find(archivo.usercrea).nombre rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivo.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=User.find(archivo.user_id).nombre rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left">
+      <%  if archivo.created_at.to_s == archivo.updated_at.to_s  %>
+         --
+      <%  else %>
+         <%=archivo.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+      <%  end  %></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="center">
+        <% if archivo.archivosimagenes.exists?%>
+         SI
+        <% else %>
+         NO
+        <% end %>
+       </div></td>
+     <td valign="top" colspan=2" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left">
+<%    if archivo.archivospersonas.exists? == true %>
+       <table border="1">
+<%      @archivospersonas = Archivospersona.find_all_by_archivo_id(archivo.id);
+        for archivospersona in @archivospersonas%>
+           <tr>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivospersona.persona.identificacion rescue nil%></div></td>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivospersona.persona.nombres rescue nil%></div></td>
+           </tr>
+<%      end %>
+       </table>
+<%    end %>
+    </div></td>
+    <td valign="top" colspan=2" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left">
+<%    if archivo.archivosempleados.exists? == true %>
+       <table border="1">
+<%      @archivosempleados = Archivosempleado.find_all_by_archivo_id(archivo.id)
+        for archivosempleado in @archivosempleados %>
+           <tr>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosempleado.empleado.identificacion rescue nil%></div></td>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=archivosempleado.empleado.nombres rescue nil%></div></td>
+           </tr>
+<%      end %>
+       </table>
+<%    end %>
+    </div></td>
+ </tr>
+<% end %>
+</table>
+
+

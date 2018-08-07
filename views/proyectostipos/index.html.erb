@@ -1,0 +1,20 @@
+<h1>Listing proyectostipos</h1>
+
+<table>
+  <tr>
+    <th>Documento</th>
+  </tr>
+
+<% @proyectostipos.each do |proyectostipo| %>
+  <tr>
+    <td><%=h proyectostipo.documento %></td>
+    <td><%= link_to 'Show', proyectostipo %></td>
+    <td><%= link_to 'Edit', edit_proyectostipo_path(proyectostipo) %></td>
+    <td><%= link_to 'Destroy', proyectostipo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New proyectostipo', new_proyectostipo_path %>

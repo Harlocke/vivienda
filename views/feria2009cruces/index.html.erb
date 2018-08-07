@@ -1,0 +1,24 @@
+<h1>Listing feria2009cruces</h1>
+
+<table>
+  <tr>
+    <th>Feria2009jefe</th>
+    <th>Nroformulario</th>
+    <th>Baseinformacion</th>
+  </tr>
+
+<% @feria2009cruces.each do |feria2009cruce| %>
+  <tr>
+    <td><%=h feria2009cruce.feria2009jefe_id %></td>
+    <td><%=h feria2009cruce.nroformulario %></td>
+    <td><%=h feria2009cruce.baseinformacion %></td>
+    <td><%= link_to 'Show', feria2009cruce %></td>
+    <td><%= link_to 'Edit', edit_feria2009cruce_path(feria2009cruce) %></td>
+    <td><%= link_to 'Destroy', feria2009cruce, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2009cruce', new_feria2009cruce_path %>

@@ -1,0 +1,142 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciarecibidamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CORRESPONDENCIA RECIBIDA</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="33%" height="20" class="campos"><div align="right">Nro Radicado &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.nro_radicado%></div></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos"><div align="right">Fecha Radicado &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.fecha_elaboracion%></div></td>
+  </tr>
+  <tr class="odd1">
+    <td width="33%" height="20" class="campos"><div align="right">Numero Externo&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.numero_externo%></div></td>
+  </tr>
+  <tr>
+    <td height="20" class="campos"><div align="right">Remitente Identificacion &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.persona.identificacion rescue nil%> <%=@correspondenciasrecibida.persona.nombres rescue nil%></div></td>
+  </tr>
+  <tr class="odd1">
+    <td width="33%" height="20" class="campos"><div align="right">Remitente Empresa &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.correspondenciasremitente.identificacion rescue nil%> - <%=@correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%>
+    </div></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos"><div align="right">Asunto &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.asunto%></div></td>
+  </tr>
+  <tr class="odd1">
+    <td width="33%" height="20" class="campos"><div align="right">Dependencia &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.dependencia.descripcion rescue nil%>
+      </div></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos"><div align="right">Anexos&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.anexos%>
+    </div></td>
+  </tr>
+  <tr class="odd1">
+    <td width="33%" height="20" class="campos"><div align="right">Clase &nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></div></td>
+  </tr>
+  <tr>
+    <td width="33%" height="20" class="campos"><div align="right">Observaciones&nbsp;&nbsp;</div></td>
+    <td class="camposDesc"><div align="left"><%=@correspondenciasrecibida.observacion%></div></td>
+  </tr>
+<% if Correspondenciasradicado.exists?(["correspondenciasrecibida_id = ? ", @correspondenciasrecibida.id]) == true
+     @correspondenciasradicados = Correspondenciasradicado.find_all_by_correspondenciasrecibida_id(@correspondenciasrecibida.id)
+     @correspondenciasradicados.each do |correspondenciasradicado|
+%>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="right">Radicado Respuesta&nbsp;&nbsp;</div></td>
+          <td class="camposNotas"><div align="left"><%=correspondenciasradicado.correspondenciasenviada.nro_radicado rescue nil%> - Fecha : <%=correspondenciasradicado.correspondenciasenviada.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%></div></td>
+        </tr>
+    <% end %>
+  <% end %>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="right">Fecha Limite&nbsp;&nbsp;</div></td>
+          <td class="camposNotas"><div align="left"><%=@correspondenciasrecibida.fecha_limite%></div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="right">Fecha Registro en el Sistema&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%= @correspondenciasrecibida.fecha_recibido.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+        </tr>
+    </table>
+<table width="90%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<% if @correspondenciasrecibida.corresrecibidasimagenes.exists? %>
+<table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="45%" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="5%" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+  <% @correspondenciasrecibida.corresrecibidasimagenes.each do |corresrecibidasimagen| %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+     <td class="camposDesc" align="left"><%=corresrecibidasimagen.descripcion%></td>
+     <td class="camposDesc" align="left"><%=corresrecibidasimagen.recibida_file_name%></td>
+     <td class="camposDesc" align="right">
+      <%= link_to "Ver", corresrecibidasimagen.recibida.url(:original, false),
+                     { :popup => ['imagenes','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+     </td>
+ </tr>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+     </tr>
+</table>
+  <% end %>
+<% if @correspondenciasrecibida.correspondenciasrecibidasusers.exists? %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">USUARIOS ASIGNADOS</div></td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="30%" class="oce-first" align="left">Fecha Registro Asignacion</td>
+    <td width="70%" class="oce-first" align="left">Usuario</td>
+  </tr>
+  <% @correspondenciasrecibida.correspondenciasrecibidasusers.each do |correspondenciasrecibidasuser| %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td width="15%" class="camposDesc"><%=correspondenciasrecibidasuser.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td width="40%" class="camposDesc"><%=correspondenciasrecibidasuser.user.nombre rescue nil%></td>
+   </tr>
+  <% end %>
+</table>
+<% else %>
+<br/>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay usuario asignado.</td>
+     </tr>
+</table>
+  <% end %>
+</div>
+<br/>
+<br/>

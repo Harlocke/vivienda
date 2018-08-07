@@ -1,0 +1,76 @@
+<h1>Editing empleadobitacora</h1>
+
+<% form_for(@empleadobitacora) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :empleado %><br />
+    <%= f.text_field :empleado %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :dependencia %><br />
+    <%= f.text_field :dependencia %>
+  </p>
+  <p>
+    <%= f.label :profesion %><br />
+    <%= f.text_field :profesion %>
+  </p>
+  <p>
+    <%= f.label :userinterventor_id %><br />
+    <%= f.text_field :userinterventor_id %>
+  </p>
+  <p>
+    <%= f.label :tipo %><br />
+    <%= f.text_field :tipo %>
+  </p>
+  <p>
+    <%= f.label :eps %><br />
+    <%= f.text_field :eps %>
+  </p>
+  <p>
+    <%= f.label :pension %><br />
+    <%= f.text_field :pension %>
+  </p>
+  <p>
+    <%= f.label :arl %><br />
+    <%= f.text_field :arl %>
+  </p>
+  <p>
+    <%= f.label :caja_compensacion %><br />
+    <%= f.text_field :caja_compensacion %>
+  </p>
+  <p>
+    <%= f.label :cargo %><br />
+    <%= f.text_field :cargo %>
+  </p>
+  <p>
+    <%= f.label :nro_cuenta %><br />
+    <%= f.text_field :nro_cuenta %>
+  </p>
+  <p>
+    <%= f.label :entidad %><br />
+    <%= f.text_field :entidad %>
+  </p>
+  <p>
+    <%= f.label :tipo_cuenta %><br />
+    <%= f.text_field :tipo_cuenta %>
+  </p>
+  <p>
+    <%= f.label :nivel_educativo %><br />
+    <%= f.text_field :nivel_educativo %>
+  </p>
+  <p>
+    <%= f.label :profesion %><br />
+    <%= f.text_field :profesion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @empleadobitacora %> |
+<%= link_to 'Back', empleadobitacoras_path %>

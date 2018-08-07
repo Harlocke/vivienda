@@ -1,0 +1,48 @@
+<h1>Listing catastros</h1>
+
+<table>
+  <tr>
+    <th>Codcomuna</th>
+    <th>Codbarrio</th>
+    <th>Manzana</th>
+    <th>Usopredial</th>
+    <th>Estrato</th>
+    <th>Cedcat</th>
+    <th>Cbml</th>
+    <th>Matricula</th>
+    <th>Direccion</th>
+    <th>Arealote</th>
+    <th>Codigopropietario</th>
+    <th>Documento</th>
+    <th>Nombre</th>
+    <th>Apellidos</th>
+    <th>Telefonoprop</th>
+  </tr>
+
+<% @catastros.each do |catastro| %>
+  <tr>
+    <td><%=h catastro.codcomuna %></td>
+    <td><%=h catastro.codbarrio %></td>
+    <td><%=h catastro.manzana %></td>
+    <td><%=h catastro.usopredial %></td>
+    <td><%=h catastro.estrato %></td>
+    <td><%=h catastro.cedcat %></td>
+    <td><%=h catastro.cbml %></td>
+    <td><%=h catastro.matricula %></td>
+    <td><%=h catastro.direccion %></td>
+    <td><%=h catastro.arealote %></td>
+    <td><%=h catastro.codigopropietario %></td>
+    <td><%=h catastro.documento %></td>
+    <td><%=h catastro.nombre %></td>
+    <td><%=h catastro.apellidos %></td>
+    <td><%=h catastro.telefonoprop %></td>
+    <td><%= link_to 'Show', catastro %></td>
+    <td><%= link_to 'Edit', edit_catastro_path(catastro) %></td>
+    <td><%= link_to 'Destroy', catastro, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New catastro', new_catastro_path %>

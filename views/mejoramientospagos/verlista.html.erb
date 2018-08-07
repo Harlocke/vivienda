@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CHEQUEO PARA PAGO - <%=@mejoramientospago.mejoramiento.persona.autobuscar rescue nil%> - <%=@mejoramientospago.mejoramiento.convenio.ejecutor rescue nil%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),{:controller=>"mejoramientos", :action=>"edit", :id=>@mejoramientospago.mejoramiento_id}%>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="10%" height="30" align="left" class="oce-first">Porcentaje</td>
+    <td width="10%" height="30" align="left" class="oce-first">Fecha Pago</td>
+    <td width="10%" height="30" align="left" class="oce-first">Nro Factura</td>
+    <td width="10%" height="30" align="left" class="oce-first">Valor</td>
+    <td width="45%" height="30" align="left" class="oce-first">Descripción</td>
+  </tr>
+   <tr  valign="middle" class="<%=cycle('even', 'odd')%>">
+     <td height="30" align="left" class="camposDesc"><%=@mejoramientospago.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=@mejoramientospago.user.username rescue nil%></td>
+     <td align="left" class="camposDesc"><%=@mejoramientospago.conveniosforma.porcentaje rescue nil%> % <br/>
+                                                                 <%=@mejoramientospago.conveniosforma.clase rescue nil%></td>
+     <td align="left" class="camposDesc"><%=@mejoramientospago.fecha_pago.strftime("%Y-%m-%d") rescue nil%></td>
+     <td align="left" class="camposDesc"><%=@mejoramientospago.nro_factura rescue nil%></td>
+     <td align="left" class="camposDesc">$ <%=number_to_currency(@mejoramientospago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+     <td align="left" class="camposDesc"><%=@mejoramientospago.descripcion rescue nil%></td>
+ </tr>
+</table>
+<div id="mejoramientospagoslistas_form">
+   <%= render :partial => "/mejoramientospagoslistas/mejoramientospagoslistas" %>
+</div>
+

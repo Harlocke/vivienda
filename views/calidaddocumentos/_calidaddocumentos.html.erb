@@ -1,0 +1,136 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">DOCUMENTOS (<%=@calidadproceso.descripcion rescue nil%>)</div></td>
+  </tr>
+</table>
+<% remote_form_for [@calidadproceso, @calidaddocumento] do |form| %>
+    <% if !@calidaddocumento.id %>
+	<%= render :partial => "/calidaddocumentos/calidaddocumentos_form" %>
+    <% end %>
+<% @calidadtiposdocumentos = Calidadtiposdocumento.find(:all, :order=>"orden")
+   @calidadtiposdocumentos.each do |calidadtiposdocumento|%>
+      <% if @calidadproceso.calidaddocumentos.exists?(["calidadtiposdocumento_id = #{calidadtiposdocumento.id}"]) %>
+      <div class="col_enc"><%=calidadtiposdocumento.descripcion%></div><br/><br/>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="3%" height="20" class="oce-first">.</td>
+          <td width="27%" class="oce-first">Fecha</td>
+          <td width="10%" class="oce-first">Codigo</td>
+          <td width="50%" class="oce-first">Nombre</td>
+          <td width="10%" class="oce-first"></td>
+        </tr>
+      </table>
+      <% for calidaddocumento in @calidadproceso.calidaddocumentos.find(:all, :conditions=>["calidadtiposdocumento_id = #{calidadtiposdocumento.id}"], :order => 'codigo desc') %>
+         <% if calidaddocumento.id != @calidaddocumento.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+         <tr valign="middle" id="calidaddocumento_<%=calidaddocumento.id%>" class="odd1">
+           <td width="3%" class="camposDesc"><div align="center">
+              <% if calidaddocumento.activo == "INACTIVO"%>
+                  <img src="/images/rojo1.png" title="Documento Inactivo"/>
+                <% elsif calidaddocumento.activo == "ACTIVO"%>
+                  <img src="/images/verde1.png" title="Documento Activo"/>
+                <% end %></div>
+            </td>
+            <td width="27%" class="camposDesc">
+              <a title="Creacion"><%=calidaddocumento.created_at.strftime("%Y-%m-%d %X")%>&nbsp;<%=User.find(calidaddocumento.user_id).username rescue nil%></a><br/>
+              <a title="Ultima Actualizacion"><%=calidaddocumento.updated_at.strftime("%Y-%m-%d %X")%>&nbsp;<%=User.find(calidaddocumento.user_actualiza).username rescue nil%></a>
+            </td>
+            <td width="10%" class="camposDesc"><strong><%=calidaddocumento.codigo rescue nil%></strong></td>
+            <td width="45%" class="camposDesc"><strong><%=calidaddocumento.nombre%></strong>
+                       <% if calidaddocumento.version %><br/>Versión (<%=calidaddocumento.version%>) <% end %>
+                       <% if calidaddocumento.subcategoria %><br/>Subcategoria: (<%=calidaddocumento.subcategoria rescue nil%>) <% end %>
+                       <% if calidaddocumento.subcategoria2 %><br/>Subcategoria2: (<%=calidaddocumento.subcategoria2 rescue nil%>) <% end %>
+            </td>
+            <td width="20%" class="camposDesc"><div align="center">
+            <% if permiso("calidaddocumento","A").to_s == "S" %>
+              <%= link_to_remote('Editar',{:url => edit_calidadproceso_calidaddocumento_path(@calidadproceso, calidaddocumento),
+                        :method => :get},:class=>"editarlink")%>
+            <%  end %>
+            <% if permiso("calidaddocumento","E").to_s == "S" %>
+              &nbsp;<%= link_to_remote('Borrar',{:url => calidadproceso_calidaddocumento_path(@calidadproceso, calidaddocumento),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+              <%= link_to 'Cambios', new_nota_calidaddocnota_path(calidaddocumento.id), :class=>"imagennotas"%>
+            <%  end %><%= link_to 'Archivos', ima_calidaddocumentosimagenes_path(calidaddocumento.id),:class=>"imagenlink"%>
+              </div>
+            </td>
+         </tr>
+              <% if calidaddocumento.calidaddocnotas.exists? %>
+                  <tr>
+                    <td colspan="5">
+                <div style="font-size:12px; font-family: Tahoma;"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=calidaddocumento.id.to_s%>')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=calidaddocumento.id.to_s%>')">Cambios (<%=calidaddocumento.calidaddocnotas.count rescue 0%>) </a> </strong>        
+                    </div>         
+                  <div id="demo1<%=calidaddocumento.id.to_s%>" style="display:none;" align="center"><br/>
+                          <table width="90%" border="0" cellspacing="0" cellpadding="0" id="one-column-emphasis">
+                            <tr>
+                              <td width="20%" align="left" height="20" class="oce-first">Fecha Cambio - Usuario</td>
+                              <td width="80%" align="left" height="20" class="oce-first">Observacion Naturaleza del Cambio </td>
+                            </tr>
+                             <% calidaddocumento.calidaddocnotas.each do |calidaddocnota| %>
+                            <tr>
+                              <td align="left" class="camposDesc"><%=calidaddocnota.created_at.strftime("%Y-%m-%d %X")%><br/>
+                                <a title="<%=calidaddocnota.user.nombre rescue nil%>"><%=calidaddocnota.user.username rescue nil%></a></td>
+                              <td align="left" class="camposDesc"><%=calidaddocnota.observaciones rescue nil%></td>
+                            </tr>
+                             <% end %>
+                          </table>
+                      </div>
+                    </td>
+                  </tr>
+              <% end %>
+          <% if calidaddocumento.calidaddocumentosimagenes.exists? %>
+              <tr>
+                <td colspan="5">
+                  <div align="center">
+                      <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="20%" align="left" height="20" class="oce-first">Fecha Documento</td>
+                          <td width="70%" align="left" height="20" class="oce-first">Documento </td>
+                          <td width="10%" align="left" height="20" class="oce-first"></td>
+                        </tr>
+                         <% calidaddocumento.calidaddocumentosimagenes.each do |calidaddocumentosimagen| %>
+                        <tr>
+                          <td align="left" class="camposDesc"><%=calidaddocumentosimagen.created_at.strftime("%Y-%m-%d %X")%></td>
+                          <td align="left" class="camposDesc"><em><%=calidaddocumentosimagen.calidaddocumento_file_name%></em></td>
+                          <td align="left" class="camposDesc"><%= link_to image_tag('download2.png', :border=>0,
+                                            :title => "Descargar: #{calidaddocumentosimagen.calidaddocumento_file_name}"),
+                                            calidaddocumentosimagen.calidaddocumento.url(:original, false),
+                                           { :title=>"#{calidaddocumentosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%></td>
+                        </tr>
+                         <% end %>
+                      </table>
+                  </div>
+                </td>
+              </tr>
+          <% end %>
+      </table>
+      <% else %>
+            <fieldset>
+            <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div class="col_enc">EDITAR</div></td>
+        </tr>
+      </table>
+           <%= render :partial => "calidaddocumentos_form" %>
+          </fieldset>
+      <% end %>
+      <% end %>
+      <br/>
+      <% end #End existe%>
+<% end #end documentos%>
+
+<%= hidden_field :calidadproceso, :id %>
+<% end %>
+<br/>
+<% if flash[:calidaddocumento] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:calidaddocumento] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('credito');", 5000)
+</script>
+<% end %>

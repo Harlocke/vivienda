@@ -1,0 +1,26 @@
+<h1>Listing feriadocentecalificaciones</h1>
+
+<table>
+  <tr>
+    <th>Feriadocentejefe</th>
+    <th>Nroformulario</th>
+    <th>Calificacion</th>
+    <th>Puntaje</th>
+  </tr>
+
+<% @feriadocentecalificaciones.each do |feriadocentecalificacion| %>
+  <tr>
+    <td><%=h feriadocentecalificacion.feriadocentejefe_id %></td>
+    <td><%=h feriadocentecalificacion.nroformulario %></td>
+    <td><%=h feriadocentecalificacion.calificacion %></td>
+    <td><%=h feriadocentecalificacion.puntaje %></td>
+    <td><%= link_to 'Show', feriadocentecalificacion %></td>
+    <td><%= link_to 'Edit', edit_feriadocentecalificacion_path(feriadocentecalificacion) %></td>
+    <td><%= link_to 'Destroy', feriadocentecalificacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feriadocentecalificacion', new_feriadocentecalificacion_path %>

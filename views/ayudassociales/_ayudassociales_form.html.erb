@@ -1,0 +1,495 @@
+<table width="95%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Esta Caracterizado?</td>
+          <td width="20%" class="campos">Responsable caracterizacion</td>
+          <td width="22%" class="campos">Fecha caracterización</td>
+          <td width="18%" class="campos">Telefono fijo</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayudassocial, :cf_1909, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1909, :css_class =>"cerror"%></td>
+          <td><%=select("ayudassocial", "cf_1910", User.find(:all,:conditions=>["activo = 'S' and gestion_id in (select id from gestiones where descripcion = 'ARRENDAMIENTO TEMPORAL') "], :order => 'nombre').collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+           { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <%= error_message_on :ayudassocial, :cf_1910, :css_class =>"cerror"%>
+          </td>
+          <td><%= calendar_date_select "ayudassocial", "cf_1911", :year_range => select_rangocalendar, :class=> "campo", :placeholder=>"AAAA-MM-DD", :size => 15, :time => false%>
+              <%= error_message_on :ayudassocial, :cf_1911, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1912, { :class => "campo", :size => 24,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1912, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="18%" class="campos">Telefono movil</td>
+          <td width="20%" class="campos">Email</td>
+          <td width="20%" class="campos">Estado civil</td>
+          <td width="22%" class="campos">Tipologia familiar</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1913, { :class => "campo", :size => 18,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1913, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1914, { :class => "campo", :size => 50,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1914, :css_class =>"cerror"%></td>
+          <td><%=select("ayudassocial", "cf_1915", EstadosCivil.find(:all, :order=>"descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+          { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+          <td><%= select(:ayudassocial, :cf_1916, select_tipologia_familiar,{ :include_blank => true },
+                        { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1916, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="38%" class="campos">TF. Otra cual?</td>
+          <td width="24%" class="campos">Actividad que sabe desempeñar</td>
+          <td width="38%" class="campos">A. Otra cual?</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1917, { :class => "campo", :size => 50,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1917, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1918, select_actividad_desempena,{ :include_blank => true },
+                        { :style=>"width:180px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1918, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1919, { :class => "campo", :size => 57,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1919, :css_class =>"cerror"%></td>
+          
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Condicion especial</td>
+          <td width="20%" class="campos">Etnia</td>
+          <td width="30%" class="campos">Sector preferido para solucion definitiva</td>
+          <td width="30%" class="campos">Modalidad de vivienda preferencia</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayudassocial,:cf_1920, select_tipo_discapacidad, { :include_blank => true },
+                    { :style=>"width:130px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1920, :css_class =>"cerror"%></td>
+          
+          <td><%= select(:ayudassocial, :cf_1921,select_grupoetnico, { :include_blank => true },
+                    { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1921, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1922, select_sector_solucion,{ :include_blank => true },
+                        { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1922, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1923, select_modalidad_vivienda,{ :include_blank => true },
+                        { :style=>"width:260px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1923, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="40%" class="campos">Barrio solucion definitiva</td>
+          <td width="40%" class="campos">Comuna solucion definitiva</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1924, { :class => "campo", :size => 76,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1924, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1925, { :class => "campo", :size => 76,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1925, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">SUBSIDIOS Y OTROS</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="10%" class="campos">Ahorro P-C</td>
+          <td width="20%" class="campos">Ahorro P-C donde?</td>
+          <td width="20%" class="campos">Ahorro P-C cuanto?</td>
+          <td width="20%" class="campos">Subsidios vivienda</td>
+          <td width="30%" class="campos">Tipo de Subsidio Vivienda</td>
+        </tr>
+        <tr>
+          <td><%= select(:ayudassocial, :cf_1926, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1926, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1927, { :class => "campo", :size => 40,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1927, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1928, { :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1928, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1929, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1929, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1930, { :class => "campo", :size => 50,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1930, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" class="campos">Entidad subsidio vivienda</td>
+          <td width="15%" class="campos">Otras viviendas</td>
+          <td width="25%" class="campos">Otras viviendas ubicacion</td>
+          <td width="15%" class="campos">Subsidio solicitado</td>
+        </tr>
+        <tr>
+           <td><%= text_field :ayudassocial, :cf_1931, { :class => "campo", :size => 45,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1931, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1932, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1932, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1933, { :class => "campo", :size => 45,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1933, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1934, select_sino,{ :include_blank => true },
+                        { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1934, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">VIVIENDA EVACUADA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="50%" class="campos">Entidad subsidio vivienda</td>
+          <td width="50%" class="campos">Dirección</td>
+        </tr>
+        <tr>
+          <td><%= text_field_with_auto_complete :ayudassocial, :comuna_descripcion2, { :class => "campo",:size => 80,:maxlength => 150,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'", :placeholder=>"Lista desplegable - Digite el dato" },{:url => listar_comunas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+          <%= error_message_on :comuna_descripcion2, :css_class =>"cerror"%></td>
+        <td><%= text_field :ayudassocial, :cf_1938, { :class => "campo", :size => 75,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1938, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="16%" class="campos">Manzana</td>
+          <td width="16%" class="campos">Vereda</td>
+          <td width="16%" class="campos">Lote</td>
+          <td width="16%" class="campos">Numero de rancho</td>
+          <td width="18%" class="campos">Permanencia en sector</td>
+          <td width="18%" class="campos">Permanencia en medellin</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1939, { :class => "campo", :size => 18,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1939, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1940, { :class => "campo", :size => 18,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1940, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1941, { :class => "campo", :size => 18,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1941, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1942, { :class => "campo", :size => 18,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1942, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1943, select_annosayuda,{ :include_blank => true },
+                        { :style=>"width:153px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1943, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1944, select_annosayuda,{ :include_blank => true },
+                        { :style=>"width:153px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1944, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Lugar de procedencia</td>
+          <td width="20%" class="campos">Numero de familias en vivienda</td>
+          <td width="20%" class="campos">Residencia - negocio</td>
+          <td width="20%" class="campos">Tipo negocio</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1945, { :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1945, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1946, { :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1946, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1947, { :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1947, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1948, { :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1948, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="40%" class="campos">Tiempo R-N</td>
+          <td width="15%" class="campos">Cnt Tiempo</td>
+          <td width="15%" class="campos">Descargue catastro</td>
+          <td width="30%" class="campos">Descargue servicios publicos</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1949, { :class => "campo", :size => 50,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1949, :css_class =>"cerror"%></td>
+           <td><%= select(:ayudassocial, :cf_1950, select_sino,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1950, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1951, select_sino,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1951, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1952, select_sino,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1952, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">VALORACIÓN ECONOMICA</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Miembros del hogar que aportan</td>
+          <td width="20%" class="campos">Otro distinto</td>
+          <td width="20%" class="campos">Trabajan y no aportan</td>
+          <td width="20%" class="campos">Solventa las necesidades básicas</td>
+        </tr>
+        <tr>
+           <td><%= select(:ayudassocial, :cf_1953, select_miembros_aportan,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1953, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1954, select_miembros_aportan,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1954, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1955, select_miembros_aportan,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1955, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1956, select_sino,{ :include_blank => true },
+                    { :style=>"width:50px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1956, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">Ingresos mensuales</td>
+          <td width="20%" class="campos">Egresos mensuales</td>
+          <td width="20%" class="campos">INGRESOS salarios (formal)</td>
+          <td width="20%" class="campos">INGRESOS Ingresos (informal)</td>
+        </tr>
+        <tr>
+           <td><%= select(:ayudassocial, :cf_1957, select_rango_salario,{ :include_blank => true },
+                    { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1957, :css_class =>"cerror"%></td>
+          <td><%= select(:ayudassocial, :cf_1958, select_rango_salario,{ :include_blank => true },
+                    { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%= error_message_on :ayudassocial, :cf_1958, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1959, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1959, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1960, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1960, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">INGRESOS subsidios</td>
+          <td width="20%" class="campos">INGRESOS Pensión</td>
+          <td width="20%" class="campos">INGRESOS Ayuda</td>
+          <td width="20%" class="campos">INGRESOS Otro</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1961, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1961, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1962, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1962, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1963, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1963, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1964, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1964, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">EGRESOS Arriendo</td>
+          <td width="20%" class="campos">EGRESOS Alimentación</td>
+          <td width="20%" class="campos">EGRESOS Educación</td>
+          <td width="20%" class="campos">EGRESOS Deudas</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1965, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1965, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1966, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1966, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1967, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1967, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1968, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1968, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="20%" class="campos">EGRESOS Servicios Públicos</td>
+          <td width="20%" class="campos">EGRESOS Salud</td>
+          <td width="20%" class="campos">EGRESOS Vestido</td>
+          <td width="20%" class="campos">EGRESOS Transporte</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1969, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1969, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1970, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1970, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1971, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1971, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1972, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1972, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="35%" class="campos">Total ingresos</td>
+          <td width="35%" class="campos">Total egresos</td>
+          <td width="30%" class="campos">EGRESOS Otros</td>
+        </tr>
+        <tr>
+          <td><%= text_field :ayudassocial, :cf_1973, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1973, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1974, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1974, :css_class =>"cerror"%></td>
+          <td><%= text_field :ayudassocial, :cf_1975, { :class => "campo", :size => 30,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :ayudassocial, :cf_1975, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">OBSERVACIÓN DE LA CARACTERIZACIÓN</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="50%" class="campos">Observacion de la caracterizacion</td>
+          <td width="50%" class="campos">Notas adicionales C</td>  
+        </tr>
+        <tr>
+          <td><%=text_area(:ayudassocial, :cf_1976, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 3900,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayudassocial, :cf_1976, :css_class =>"cerror"%></td>
+          <td><%=text_area(:ayudassocial, :cf_1977, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 3900,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+              <%= error_message_on :ayudassocial, :cf_1977, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+         <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30">
+            <div align="right">
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :ayudassocial, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+

@@ -1,0 +1,16 @@
+<h1>Editing feria2014beneficiario</h1>
+
+<% form_for(@feria2014beneficiario) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feria2014beneficiario %> |
+<%= link_to 'Back', feria2014beneficiarios_path %>

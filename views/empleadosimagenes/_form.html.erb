@@ -1,0 +1,49 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                   <% if @empleado.tipo == 'C' %>
+                    <img src="/images/empleadosmin.png" width="64" height="64"/></img>
+                  <% elsif  @empleado.tipo == 'V' %>
+                    <img src="/images/vinculadosmin.png" width="64" height="64"/></img>
+                  <% end %>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;
+                  <% if @empleado.tipo == 'C' %>
+                    INFORMACION CONTRATISTA
+                  <% elsif  @empleado.tipo == 'V' %>
+                    INFORMACION TALENTO HUMANO
+                  <% end %>
+                   ( <%=@empleado.identificacion rescue nil%> - <%=@empleado.nombres%>)</div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar', interventorias_path %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="80%" height="40" align="center" >
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;DOCUMENTOS DIGITALES</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="70%" align="center">
+  <tr>
+    <td class="campos" height="30%">Descripcion : *</td>
+    <td class="camposDesc"><%=@empleadosimagen.empleadostipo.descripcion rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30%">Archivo :</td>
+     <td><%= f.file_field :empleado, { :class => "campo",
+              :size => 80,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+     <%= f.error_message_on :empleado, :css_class =>"cerror"%></td>
+  </tr>
+</table>

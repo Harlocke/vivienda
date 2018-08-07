@@ -1,0 +1,69 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACION - <%=@antsubsidio.tipos_subsidio.descripcion rescue nil%></div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right"></div></td>
+        <td valign="middle"></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Valor Asignado: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.valor%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Valor Utilizado:&nbsp;&nbsp; </div></td>
+        <td valign="middle"><%= @antsubsidio.valor_utilizado%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Bolsa:&nbsp;&nbsp; </div></td>
+        <td valign="middle"><%= @antsubsidio.bolsa%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Nro Resolucion &oacute; Asignacion:&nbsp;&nbsp; </div></td>
+        <td valign="middle"><%= @antsubsidio.resolucion%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Fecha Asignacion: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.fecha_asig%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Entidad Otorga: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.entidadotorga%></td>
+      </tr>
+
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Caja que lo Administra:&nbsp;&nbsp; </div></td>
+        <td valign="middle"><%= @antsubsidio.entidadadmin%></td>
+      </tr>
+<tr>
+  <td width="20%" height="25" valign="middle" class="campos"><div align="right">Estado:&nbsp;&nbsp;</div></td>
+        <td width="30%" valign="middle"><%= @antsubsidio.estadoantsubsidio%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Tipo de Cobro: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.tipocobro%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Fecha envio: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.fecha_cobro%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Solicitud de Pago (SP):&nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.solicitud_pago%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Fecha Pago:&nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.fecha_pago%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Modalidad:&nbsp;&nbsp; </div></td>
+        <td valign="middle"><%= @antsubsidio.modalidad%></td>
+      </tr>
+      <tr>
+        <td height="25" valign="middle" class="campos"><div align="right">Vigencia Subsidio: &nbsp;&nbsp;</div></td>
+        <td valign="middle"><%= @antsubsidio.fecha_vigencia%></td>
+      </tr>
+    </table>

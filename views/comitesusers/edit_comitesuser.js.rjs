@@ -1,0 +1,2 @@
+page.replace_html :comitesusers_form, :partial => "/comitesusers/comitesusers"
+

@@ -1,0 +1,325 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<%=image_tag("frame.png")%>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">SEGUIMIENTO <%=@seguimiento.id%></div></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="16%" class="campos">Nro Contrato </td>
+      <td width="14%" class="campos">Fecha Firma </td>
+      <td width="70%" class="campos">Objeto</td>
+    </tr>
+    <tr>
+      <td class="camposDesc" valign="top"><%=@seguimiento.contrato.nro_contrato%></td>
+      <td class="camposDesc" valign="top"><%=@seguimiento.contrato.fecha_firma.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.objeto%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="15%" class="campos">Valor</td>
+      <td width="10%" class="campos">Plazo Mes</td>
+      <td width="10%" class="campos">Plazo Dias</td>
+      <td width="15%" class="campos">Fecha Inicio </td>
+      <td width="15%" class="campos">Fecha Final </td>
+      <td width="20%" class="campos">Estado del Contrato</td>
+      <td width="15%" class="campos">Fecha Liquidacion</td>
+    </tr>
+    <tr>
+      <td class="camposDesc">$ <%=number_to_currency(@seguimiento.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.plazo_mes%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.plazo_dias%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.destado%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_liquidacion.strftime("%Y-%m-%d") rescue nil%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="35%" class="campos">Interventor Asignado </td>
+      <td width="10%" class="campos">Gaceta</td>
+      <td width="10%" class="campos">Secop</td>
+      <td width="15%" class="campos">Camara Comercio</td>
+      <td width="30%" class="campos">Tipo de Contrato</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=Empleado.find(@seguimiento.contrato.interventorempleado_id).nombre rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicaciongazeta%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicacionsecop%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpublicacioncc%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.tiposcontrato.descripcion rescue nil%></td>
+    </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+      <td width="10%" class="campos">Garantia</td>
+      <td width="30%" class="campos">Descripcion Garantia</td>
+      <td width="12%" class="campos">Fecha Aprobacion</td>
+      <td width="12%" class="campos">Nro Compromiso</td>
+      <td width="12%" class="campos">Fecha Compromiso</td>
+      <td width="12%" class="campos">Nro Disponibilidad</td>
+      <td width="12%" class="campos">Fecha Disponibilidad</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=@seguimiento.contrato.dpoliza%> </td>
+      <td class="camposDesc"><%=@seguimiento.contrato.descgarantia%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_garantia.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.nro_compromiso%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_compromiso.strftime("%Y-%m-%d") rescue nil%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.nro_disponibilidad%></td>
+      <td class="camposDesc"><%=@seguimiento.contrato.fecha_disponibilidad.strftime("%Y-%m-%d") rescue nil%></td>
+    </tr>
+    </table>
+<br/>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PRESUPUESTOS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <th width="5%" class="campos">Codigo</th>
+    <th width="35%" class="campos">Descripcion</th>
+    <th width="15%" class="campos"><div align="center">Subtotal</div></th>
+    <th width="15%" class="campos"><div align="center">AIU</div></th>
+    <th width="15%" class="campos"><div align="center">Valor Total</div></th>
+    <th width="15%" class="campos"><div align="center">Valor Pagado</div></th>
+  </tr>
+<% @pagado = 0
+   for seguimientoslicitacion in @seguimiento.seguimientoslicitaciones.find(:all)
+    @pagado = @pagado + Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{seguimientoslicitacion.licitacion.id}"]) %>
+   <tr  valign="middle" id="seguimientoslicitacion_<%=seguimientoslicitacion.id%>">
+    <td class="camposDesc"><div align="left"><%=seguimientoslicitacion.licitacion.id rescue nil %></div></td>
+    <td class="camposDesc"><div align="left"><%=seguimientoslicitacion.licitacion.descripcion rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.subtotal) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.valoraiu) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(seguimientoslicitacion.valor) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right">$ <%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{seguimientoslicitacion.licitacion.id}"])) rescue nil%></div></td>
+   </tr>
+    <% if seguimientoslicitacion.licitacion.licitacionesimagenes.exists? %>
+   <tr><td colspan="6">
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <th width="40%" class="campos">Descripcion de documento digital</th>
+        <th width="40%" class="campos">Nombre del Archivo</th>
+      </tr>
+      <% for seguimientosimagen in seguimientoslicitacion.licitacion.licitacionesimagenes.find(:all, :conditions =>['licitacion_content_type not like ?', '%image%'],:order => 'created_at DESC') %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="licitacionesimagen_<%= seguimientosimagen.id%>">
+         <td  class="camposDesc"><%=seguimientosimagen.descripcion%></td>
+         <td  class="camposDesc"><%=seguimientosimagen.licitacion_file_name%></td>
+       </tr>
+      <% end %>
+    </table>
+       <div align="center">
+    <table width="90%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+    <% i = 0 %>
+    <% for seguimientosimagen in seguimientoslicitacion.licitacion.licitacionesimagenes.find(:all, :conditions =>['licitacion_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+        <% i = i + 1
+           if i <= 3
+        %>
+        <td width="0%">
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+           <tr  valign="middle">
+             <td width="100%" class="camposDesc"><div align="center">
+                <%= link_to image_tag(seguimientosimagen.licitacion.url(:original, false), :size =>"250x250", :border=>0,
+                                      :title => "Ver Documento"),
+                                      seguimientosimagen.licitacion.url(:original, false),
+                                     { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                 <br/><%=seguimientosimagen.descripcion%></div>
+               </td>
+           </tr>
+          </table>
+        </td>
+        <% else
+           i = 1
+        %>
+        </tr>
+    </table>
+      <br/>
+    <table width="90%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td width="50%">
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+           <tr  valign="middle">
+             <td width="100%" class="camposDesc"><div align="center">
+                <%= link_to image_tag(seguimientosimagen.licitacion.url(:original, false), :size =>"250x250", :border=>0,
+                                      :title => "Ver Documento"),
+                                      seguimientosimagen.licitacion.url(:original, false),
+                                     { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                 <br/><%=seguimientosimagen.descripcion%></div>
+               </td>
+           </tr>
+          </table>
+        </td>
+        <% end  %>
+      <% end %>
+      </tr>
+    </table>
+      </div>
+    </td></tr>
+   <% end %>
+    <% if seguimientoslicitacion.licitacion.licitacionesobservaciones.exists? %>
+   <tr><td colspan="6">
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+      <tr class="odd1">
+        <th width="25%" class="campos"><div align="center">Fecha</div></th>
+        <th width="75%" class="campos">Observaciones</th>
+      </tr>
+    <% for licitacionesobservacion in seguimientoslicitacion.licitacion.licitacionesobservaciones.find(:all, :order => 'created_at DESC') %>
+      <tr valign="middle" id="licitacionesobservacion_<%=licitacionesobservacion.id%>">
+        <td class="camposDesc"><%=licitacionesobservacion.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=licitacionesobservacion.user.nombre rescue nil%>"><%=licitacionesobservacion.user.username rescue nil%></a>          </td>
+        <td class="camposDesc" ><%=licitacionesobservacion.observaciones%></td>
+      </tr>
+    <% end %>
+    </table>
+    </td></tr>
+   <% end %>
+<% end %>
+</table>
+<% if @seguimiento.seguimientosobservaciones.exists? %>
+<br/>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+      <th width="25%" class="campos"><div align="center">Fecha</div></th>
+      <th width="75%" class="campos">Observaciones</th>
+    </tr>
+  <% for seguimientosobservacion in @seguimiento.seguimientosobservaciones.find(:all, :order => 'created_at DESC') %>
+    <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>">
+      <td class="camposDesc"><%=seguimientosobservacion.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=seguimientosobservacion.user.nombre rescue nil%>"><%=seguimientosobservacion.user.username rescue nil%></a>          </td>
+      <td class="camposDesc"><%=seguimientosobservacion.observaciones%></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+<% if @seguimiento.seguimientosimagenes.exists? %>
+<br/>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITAL</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+ <tr class="odd1">
+    <th width="40%" height="20" class="campos">Descripcion</th>
+    <th width="40%" height="20" class="campos">Nombre del Archivo</th>
+  </tr>
+  <% for seguimientosimagen in @seguimiento.seguimientosimagenes.find(:all, :conditions =>['seguimiento_content_type not like ?', '%image%'],:order => 'created_at DESC') %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientosimagen_<%= seguimientosimagen.id%>">
+     <td  class="camposDesc"><%=seguimientosimagen.descripcion%></td>
+     <td  class="camposDesc"><%=seguimientosimagen.seguimiento_file_name%></td>
+   </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+<div align="center">
+<table width="90%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<% i = 0 %>
+<% for seguimientosimagen in @seguimiento.seguimientosimagenes.find(:all, :conditions =>['seguimiento_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+  <% i = i + 1
+     if i <= 3
+  %>
+  <td width="0%">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+     <tr  valign="middle">
+       <td width="100%" class="camposDesc"><div align="center">
+          <%= link_to image_tag(seguimientosimagen.seguimiento.url(:original, false), :size =>"250x250", :border=>0,
+                                :title => "Ver Documento"),
+                                seguimientosimagen.seguimiento.url(:original, false),
+                               { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+           <br/><%=seguimientosimagen.descripcion%>
+         </div>
+         </td>
+     </tr>
+    </table>
+  </td>
+  <% else
+     i = 1
+  %>
+  </tr>
+</table>
+<br/>
+<table width="90%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td width="50%">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+     <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="seguimientosimagen_<%= seguimientosimagen.id%>">
+       <td width="100%"><div align="center">
+          <%= link_to image_tag(seguimientosimagen.seguimiento.url(:original, false), :size =>"250x250", :border=>0,
+                                :title => "Ver Documento"),
+                                seguimientosimagen.seguimiento.url(:original, false),
+                               { :title=>"#{seguimientosimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+           <br/><%=seguimientosimagen.descripcion%>
+         </div>
+         </td>
+     </tr>
+    </table>
+  </td>
+  <% end  %>
+<% end %>
+</tr>
+</table>
+</div>
+<% end %>
+<br/>
+<div align="center">
+  <table width="60%" border="0" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="CENTER">RESUMEN FINANCIERO</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="30%" class="campos"><div align="center"></div></td>
+      <td width="35%" class="campos"><div align="center">VALOR CONTRATO</div></td>
+      <td width="35%" class="campos"><div align="center">VALOR TOTAL EJECUTADO</div></td>
+    </tr>
+    <tr valign="middle">
+      <td class="campos"><div align="right">Total&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@seguimiento.contrato.valor_contrato) rescue 0%>&nbsp;&nbsp;</div></td>
+      <td class="odd1 campos"><div align="right"><%=camponumerico(@pagado) rescue nil %>&nbsp;&nbsp;</div></td>
+    </tr>
+    <tr valign="middle">
+      <td class="campos"><div align="right">Porcentaje Ejecución&nbsp;&nbsp;</div></td>
+      <td colspan="2" class="campos"><div align="center"><%=number_to_currency((@pagado.to_f/@seguimiento.contrato.valor_contrato.to_f)*100,{:precision => 2, :unit=>"", :delimiter =>"."}) rescue nil%> %</div></td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+<br/><br/>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="50%">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td class="camposDesc">_________________________________________</td>
+  </tr>
+  <tr>
+     <td class="camposDesc"><div align="left"><%=User.find(is_admin).nombre%></div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table><br/>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+

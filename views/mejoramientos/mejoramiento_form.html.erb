@@ -1,0 +1,430 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">MEJORAMIENTOS - <%=@mejoramiento.persona.autobuscar rescue nil%> - <%=@mejoramiento.convenio.ejecutor rescue nil%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),mejoramientos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% user = select_user %> 
+<% unless @mejoramiento.new_record? %>
+  <%= link_to image_tag("solucionhabitacional.png", :title => "Información Registro", :style=>"#{@mejoramiento.d_etapa('1')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"1")%>        
+  <%= link_to image_tag("feriadocente.png", :title => "Creacion Presupuesto", :style=>"#{@mejoramiento.d_etapa('3')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"3")%>        
+  <%= link_to image_tag("ficha.png", :title => "Informes de Avances", :style=>"#{@mejoramiento.d_etapa('2')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"2")%>        
+  <%= link_to image_tag("imagenes.png", :title => "Imagenes", :style=>"#{@mejoramiento.d_etapa('4')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"4")%>        
+  <%= link_to image_tag("subsidio.png", :title => "Pagos", :style=>"#{@mejoramiento.d_etapa('6')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"6")%>        
+  <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@mejoramiento.d_etapa('5')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"5")%>        
+  <%= link_to image_tag("datosbasicos.png", :title => "Personal laborando", :style=>"#{@mejoramiento.d_etapa('7')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"7")%>        
+  <%= link_to image_tag("elementoscar.png", :title => "Lista de Chequeo", :style=>"#{@mejoramiento.d_etapa('8')} padding:4px;"),edit_mejoramiento_path(:id=>@mejoramiento.id,:etapa=>"8")%>        
+<% end %>
+<% if @mejoramiento.etapa.to_s == '1' %>
+    <fieldset>
+    <% form_for(@mejoramiento) do |f| %>
+    <div align="center">
+    <%  if @mejoramiento.vlrtotaleje.to_i > @mejoramiento.valor_resolucion.to_i %>
+      <div align="left" class="cruzado camposDesc">&nbsp;&nbsp;*** Este mejoramiento supera en la ejecución el valor del Subsidio, Verifique....</div>
+    <%  end %>  
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">INFORMACION GENERAL DEL BENEFICIARIO Y DEL MEJORAMIENTO</div></td>
+      </tr>
+    </table>     
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="80%" align="left" class="campos">Usuario Vinculado</td>
+          <td width="20%" align="left" class="campos"><div align="center">Valor Subsidio</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@mejoramiento.persona.autobuscar rescue nil%></td>
+          <td class="camposDesc"><div align="center"><%=camponumerico(@mejoramiento.valor_resolucion) rescue nil%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="2"><strong>Direccion:</strong> <%=@mejoramiento.persona.direccion rescue nil%><br/>
+              <strong>Telefono:</strong> <%=@mejoramiento.persona.telefons rescue nil%><br/>
+              <% if @mejoramiento.persona.beneviviendas.exists? %>
+              <strong>Beneficiarios: </strong><br/>
+                 <% @mejoramiento.persona.beneviviendas.each do |benevivienda| %>
+                   <%=benevivienda.autobuscar rescue nil%><br/>
+                 <% end %>
+            <% end %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" align="left" class="campos">Tipo de Mejoramiento</td>
+          <td width="15%" align="left" class="campos">Año Cumplimiento</td>
+          <td width="15%" align="left" class="campos">Estado</td>
+          <td width="50%" align="left" class="campos">Coordinador</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+                  <%= f.select(:tipomejoramiento, [["LOCATIVO","LOCATIVO"],
+                            ["REPOSICION","REPOSICION"],["ESTRUCTURAL","ESTRUCTURAL"],["VIVIENDA SALUDABLE","VIVIENDA SALUDABLE"],["SIN BARRERAS","SIN BARRERAS"]],
+                        { :include_blank => true },
+                      { :style=>"width:180px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :mejoramiento, :tipomejoramiento, :css_class =>"cerror"%>
+          </td>
+          <td class="camposDesc"><% if permiso("mejoramientosespecial","C").to_s == "S" %>
+                   <%= f.text_field :anno ,{ :class => "campo", :size => 10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <% else %>
+              <%=@mejoramiento.anno rescue nil%>
+            <% end %>
+          <%= error_message_on :mejoramiento, :anno, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc">
+           <% if permiso("mejoramientosespecial","C").to_s == "S" or @mejoramiento.user_coordinador == is_admin %>
+              <%=select("mejoramiento", "mejoramientosestado_id", Mejoramientosestado.find(:all,:order=>'consecutivo').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:190px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <% else %>
+              <%=@mejoramiento.mejoramientosestado.descripcion rescue nil%>
+            <% end %>
+            <%= error_message_on :mejoramiento, :mejoramientosestado_id, :css_class =>"cerror"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <% if permiso("mejoramientosespecial","C").to_s == "S" %>
+              <%=select("mejoramiento", "user_coordinador", user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+              { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <% else %>
+              <%=User.find(@mejoramiento.user_coordinador).nombre rescue nil%>
+            <% end %>
+            <%= error_message_on :mejoramiento, :user_coordinador, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="50%" align="left" class="campos">Profesional</td>
+          <td width="50%" align="left" class="campos">Tecnologo</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+            <% if permiso("mejoramientosespecial","C").to_s == "S" %>
+            <%=select("mejoramiento", "user_profesional", user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <% else %>
+              <%=User.find(@mejoramiento.user_profesional).nombre rescue nil%>
+            <% end %>
+            <%= error_message_on :mejoramiento, :user_profesional, :css_class =>"cerror"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <% if permiso("mejoramientosespecial","C").to_s == "S" %>
+            <%=select("mejoramiento", "user_tecnologo", user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <% else %>
+              <%=User.find(@mejoramiento.user_tecnologo).nombre rescue nil%>
+            <% end %>
+            <%= error_message_on :mejoramiento, :user_tecnologo, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="50%" align="left" class="campos">Coordinador ISVIMED</td>
+          <td width="50%" align="left" class="campos">Coordinador Operador 1</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+            <% if permiso("mejoramientosespecial","C").to_s == "S" %>
+            <%=select("mejoramiento", "user_interventor", user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <% else %>
+              <%=User.find(@mejoramiento.user_interventor).nombre rescue nil%>
+            <% end %>
+            <%= error_message_on :mejoramiento, :user_interventor, :css_class =>"cerror"%>
+          </td>
+          <td><%= f.text_field :responsable1 ,{ :class => "campo", :size => 70,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :mejoramiento, :responsable1, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="33%" align="left" class="campos">Ingeniero Operador 2</td>
+          <td width="33%" align="left" class="campos">Profesional Operador 3</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :responsable2 ,{ :class => "campo", :size => 70,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :mejoramiento, :responsable2, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :responsable3 ,{ :class => "campo", :size => 70,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :mejoramiento, :responsable3, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="80%"><span class="campos">Comuna - Barrio *</span></td>
+          <td width="20%"><span class="campos">CBML</span></td>
+        </tr>
+        <tr>
+          <td><%=select("mejoramiento", "comuna_id", select_comuna.collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true },
+            { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+           <%= f.error_message_on :comuna_id, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :cobama,{ :class => "campo", :size => 25,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :mejoramiento, :cobama, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="50%" class="campos">Justificación Acta de Cambios de Obra (<%=@mejoramiento.just_fecha.strftime("%Y-%m-%d") rescue nil%>)</td>
+          <td width="50%" class="campos">Justificación Recibo final y liquidación del subsidio (<%=@mejoramiento.just_recibo_fecha.strftime("%Y-%m-%d") rescue nil%>)</td>
+        </tr>
+        <% if permiso("mejoramientosespecial","C").to_s == "S" or @mejoramiento.user_coordinador == is_admin %>
+        <tr>
+          <td><%= text_area :mejoramiento, :justificacion, { :class => "campoMultiLinea", :cols=>"70", :rows=>"4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+           <%= error_message_on :mejoramiento, :justificacion, :css_class =>"cerror"%></td>
+          <td><%= text_area :mejoramiento, :justificacion_recibo, { :class => "campoMultiLinea", :cols=>"70", :rows=>"4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+           <%= error_message_on :mejoramiento, :justificacion_recibo, :css_class =>"cerror"%></td>
+        </tr>
+        <% else %>
+        <tr>
+          <td class="camposDesc"><%=@mejoramiento.justificacion rescue nil%>&nbsp;</td>
+          <td class="camposDesc"><%=@mejoramiento.justificacion_recibo rescue nil%>&nbsp;</td>
+        </tr>
+        <% end %>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="50%" class="campos">Justificación Acta de terminacion de Obra (<%=@mejoramiento.just_terminacion_fecha.strftime("%Y-%m-%d") rescue nil%>)</td>
+          <td width="50%" class="campos">Incrementos</td>
+        </tr>
+        <% if permiso("mejoramientosespecial","C").to_s == "S" or @mejoramiento.user_coordinador == is_admin %>
+        <tr valign="top">
+          <td><%= text_area :mejoramiento, :justificacion_terminacion, { :class => "campoMultiLinea", :cols=>"70", :rows=>"4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+           <%= error_message_on :mejoramiento, :justificacion_terminacion, :css_class =>"cerror"%></td>
+          <td>
+            <table width="100%" border="0" cellspacing="2" cellpadding="0">
+              <tr>
+                <td width="80%" class="campos">Transporte a cabecera - Corregimientos</td>
+                <td width="20%" class="campos"><%= select(:mejoramiento,:incremento_corregimiento, select_sino,{ :include_blank => true },
+                                               { :style=>"width:60px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              </tr>
+              <tr>
+                <td class="campos">Transporte a veredas sobre el valor de la cabecera</td>
+                <td class="campos"><%= select(:mejoramiento,:incremento_adicional, select_sino,{ :include_blank => true },
+                                               { :style=>"width:60px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              </tr>
+              <tr>
+                <td class="campos">Mano de obra no calificada 10%</td>
+                <td class="campos"><%= select(:mejoramiento,:especial, select_sino,{ :include_blank => true },
+                                               { :style=>"width:60px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              </tr>
+              <tr>
+                <td class="campos">Incluye Diagnostico ?</td>
+                <td class="campos"><%= select(:mejoramiento,:incluye_diagnostico, select_sino,{ :include_blank => true },
+                                               { :style=>"width:60px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              </tr>
+              <tr>
+                <td class="campos">Forma de Calculo</td>
+                <td class="campos"><%= select(:mejoramiento,:calculo, select_calculo,{ :include_blank => true },
+                                               { :style=>"width:180px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <% else %>
+        <tr>
+          <td class="camposDesc"><%=@mejoramiento.justificacion_terminacion rescue nil%>&nbsp;</td>
+        </tr>
+        <% end %>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">
+            <% unless @mejoramiento.new_record? %>
+            Ultima Actualización: <%=User.find(@mejoramiento.user_actualiza).username rescue nil%> - <%=@mejoramiento.updated_at.strftime("%Y-%m-%d %X")%>
+          <% end %></td>
+          <td  height="30"><div align="right">
+          <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+          <% end %>
+               </div></td>
+        </tr>
+      </table>
+    <br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+        <tr>
+          <td height="30"><div class="col_enc">CONCEPTOS</div></td>
+        </tr>
+      </table>  
+       <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="15%" align="left" class="odd1 campos">Conceptos</td>
+          <td width="85%" align="left">
+             <div id="mejoramientosconceptos_form">
+                <%= render :partial => "/mejoramientosconceptos/mejoramientosconceptos" %>
+             </div>
+          </td>
+        </tr>
+      </table>
+    <br/>
+    <% if @mejoramiento.convenio_id %>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td height="30"><div class="col_enc">CONVENIO</div></td></tr>
+        </table>
+        <div align="center">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr class="odd1">
+            <td width="15%" class="campos">Nro Convenio</td>
+            <td width="15%" class="campos">Vigencia</td>
+            <td width="15%" class="campos">Nro Soluciones</td>
+            <td width="20%" class="campos">Tipo Solucion</td>
+            <td width="35%" class="campos">Ubicacion</td>
+          </tr>
+          <tr>
+            <td class="camposDesc"><%=@mejoramiento.convenio.nro_convenio rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.vigencia rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.nro_viviendas rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.tipo_solucion rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.comuna.comuna rescue nil%></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr class="odd1">
+            <td width="42%" class="campos">Responsable Diagnostico</td>
+            <td width="18%" class="campos">Valor Diagnostico</td>
+            <td width="40%" class="campos">Operador</td>
+          </tr>
+          <tr>
+            <td class="camposDesc"><%=@mejoramiento.convenio.responsable_diagnostico rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.valor_diagnostico rescue nil%></td>
+            <td class="camposDesc"><%=@mejoramiento.convenio.ejecutor rescue nil%></td>
+          </tr>
+        </table>
+        <%   if Contrato.exists?(["nro_contrato = '#{@mejoramiento.convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@mejoramiento.convenio.vigencia}'"]) == true
+               @contrato = Contrato.find(:first, :conditions => ["nro_contrato = '#{@mejoramiento.convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@mejoramiento.convenio.vigencia}'"])
+        %>
+            <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr valign="middle">
+                <td width="10%" height="30" align="left" class="oce-first">Fecha firma</td>
+                <td width="10%" height="30" align="left" class="oce-first">Fecha inicio</td>
+                <td width="10%" height="30" align="left" class="oce-first">Fecha fin</td>
+                <td width="20%" height="30" align="left" class="oce-first">Contratista</td>
+                <td width="50%" height="30" align="left" class="oce-first">Objeto</td>
+              </tr>
+               <tr valign="top">
+                 <td class="camposDesc"><%=@contrato.fecha_firma.strftime("%Y-%m-%d") rescue nil%></td>
+                 <td class="camposDesc"><%=@contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></td>
+                 <td class="camposDesc"><%=@contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%></td>
+                 <td class="camposDesc"><%=@contrato.empleado.nombre rescue nil %></td>
+                 <td class="camposDesc"><%=@contrato.objeto rescue nil %></td>
+             </tr>
+            </table>
+                <br/>
+        <%   end %>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+        </table>
+      </div>
+    <% end %>
+    <% if @mejoramiento.resolucion_id %>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr><td height="30"><div class="col_enc">RESOLUCION</div></td></tr>
+      </table>
+      <div align="center">
+        <table width="100%" align="center" id="one-column-emphasis">
+          <tr class="odd1">
+            <td width="30%" class="campos" align="left">Nro Resolucion</td>
+            <td width="70%" align="left" class="camposDesc"><%=@mejoramiento.resolucion.nro_resolucion rescue nil%> -
+              <%=@mejoramiento.resolucion.anno rescue nil%></td>
+          </tr>
+          <tr>
+            <td class="campos" align="left">Fecha Resolucion</td>
+            <td align="left" class="camposDesc"><%=@mejoramiento.resolucion.fecha rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" align="left">Clase de Resolucion</td>
+            <td align="left" class="camposDesc"><%=@mejoramiento.resolucion.resolucionesclase.descripcion rescue nil%></td>
+          </tr>
+          <tr>
+            <td class="campos" align="left">Modalidad del Subsidio </td>
+            <td align="left" class="camposDesc"><%=@mejoramiento.resolucion.modalidad rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" align="left">Objeto</td>
+            <td align="left" class="camposDesc"> <%=@mejoramiento.resolucion.resuelve rescue nil%></td>
+          </tr>
+          <tr>
+            <td class="campos" align="left">Observaciones</td>
+            <td align="left" class="camposDesc"><%=@mejoramiento.resolucion.observaciones rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td class="campos" align="left">Dependencia Solicitante</td>
+            <td align="left" class="camposDesc"><%=@mejoramiento.resolucion.dependencia.descripcion rescue nil%></td>
+          </tr>
+          <tr>
+            <td class="campos" align="left">Valor Subsidio</td>
+            <td align="left" class="camposDesc"><%=number_to_currency(@mejoramiento.valor_resolucion,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          </tr>
+        </table>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+        </table>
+      </div>
+      <br/>
+    <% end %>
+  <% end %>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '2' %>
+  <fieldset> 
+     <div id="mejoramientosinterventorias_form"><%= render :partial => "/mejoramientosinterventorias/mejoramientosinterventorias"%></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '3' %>
+  <fieldset> 
+     <div id="mejoramientoselementos_form"><%= render :partial => "/mejoramientoselementos/mejoramientoselementos" %></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '4' %>
+  <fieldset> 
+     <div id="mejoramientosimagenes_form"><%= render :partial => "/mejoramientosimagenes/mejoramientosimagenes" %></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '5' %>
+  <fieldset> 
+    <div id="mejoramientosnotas_form"><%= render :partial => "/mejoramientosnotas/mejoramientosnotas" %></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '6' %>
+  <fieldset> 
+    <div id="mejoramientospagos_form"><%= render :partial => "/mejoramientospagos/mejoramientospagos" %></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '7' %>
+  <fieldset> 
+    <div id="mejoramientosobras_form"><%= render :partial => "/mejoramientosobras/mejoramientosobras" %></div>
+  </fieldset>
+<% elsif @mejoramiento.etapa.to_s == '8' %>
+  <fieldset> 
+    <div id="mejoramientoslistas_form"><%= render :partial => "/mejoramientoslistas/mejoramientoslistas" %></div>
+  </fieldset>
+<% end %>
+<br/><br/>

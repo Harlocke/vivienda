@@ -1,0 +1,2 @@
+module TiposactosHelper
+end

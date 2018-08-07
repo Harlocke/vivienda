@@ -1,0 +1,188 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td colspan="3"><strong>USUARIO</strong></td>
+    <td colspan="7"><strong>ETAPA ACTIVA ACTUAL</strong></td>
+    <td colspan="16"><strong>INFORMACION JURIDICA</strong></td>
+    <td colspan="21"><strong>GASTOS ESCRITURACION</strong></td>
+  </tr>
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Bloque</strong></td>
+    <td><strong>Piso</strong></td>
+    <td><strong>Apto</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Credito?</strong></td>
+    <td><strong>Etapa</strong></td>
+    <td><strong>Devolucion ?</strong></td>
+    <td><strong>Fecha Inicio</strong></td>
+    <td><strong>Estado Verde</strong></td>
+    <td><strong>Estado Amarillo</strong></td>
+    <td><strong>Estado Rojo</strong></td>
+    <td><strong>Observaciones</strong></td>
+    <td><strong>Nro Escritura Publica </strong></td>
+    <td><strong>Fecha Expedicion </strong></td>
+    <td><strong>Fecha Vencimiento </strong></td>
+    <td><strong>VENCIMIENTO</strong></td>
+    <td><strong>Notaria Origen</strong></td>
+    <td><strong>Registrada</strong></td>
+    <td><strong>Oficina Registro </strong></td>
+    <td><strong>Fecha Registro </strong></td>
+    <td><strong>Nro Matricula</strong></td>
+    <td><strong>Valor Avaluo</strong></td>
+    <td><strong>Valor Venta</strong></td>
+    <td><strong>Gravamenes</strong></td>
+    <td><strong>Limitaciones</strong></td>
+    <td><strong>Nro Escritura Aclaracion</strong></td>
+    <td><strong>Fecha Aclaracion</strong></td>
+    <td><strong>Notaria Aclaracion</strong></td>
+    <td><strong>Valor Rentas Preliq.</strong></td>
+    <td><strong>Valor Rentas </strong></td>
+    <td><strong>Fecha Pago Rentas </strong></td>
+    <td><strong>Vencimiento Rentas </strong></td>
+    <td><strong>Nro Liquidacion Rentas</strong></td>
+    <td><strong>Valor Registro Preliq</strong></td>
+    <td><strong>Valor Total Registro</strong></td>
+    <td><strong>Valor Registro </strong></td>
+    <td><strong>Valor Certificado</strong></td>
+    <td><strong>Fecha Pago Registro </strong></td>
+    <td><strong>Nro Radicado Registro </strong></td>
+    <td><strong>Valor Notaria </strong></td>
+    <td><strong>Factura Venta Notaria </strong></td>
+    <td><strong>Fecha Cuenta Notaria</strong></td>
+    <td><strong>Fecha Recibo Cuenta Notaria</strong></td>
+    <td><strong>Concepto Notaria</strong></td>
+    <td><strong>Fecha Entrega Financiera</strong></td>
+    <td><strong>Fecha Preliquidacion Rentas y Registro</strong></td>
+    <td><strong>Fecha Presentacion Registro Financiera</strong></td>
+    <td><strong>Fecha Solicitud pago Fiducia</strong></td>
+    <td><strong>Fecha Desembolso Fiduciaria</strong></td>
+  </tr>
+<%
+  for viviendastramite in @viviendastramites
+%>
+  <tr valign="middle">
+<%
+    ingreso = ""
+    cadena = ""
+    bandrojo =""
+    bandverde =""
+    bandamarillo =""
+    if viviendastramite.fecha_inicio.to_s != ""
+      cantidad = Festivo.count(:conditions =>['fecha between ? and ?', viviendastramite.fecha_inicio, Time.now])
+      segundos = (Time.now - viviendastramite.fecha_inicio).to_i
+      minutos  = (segundos/60).to_i #es el nÃºmero total de minutos
+      horas    = (minutos/60).to_i #nÃºmero total de horas
+      dias     = (horas/24).to_i # nÃºmero total de dÃ­as
+      dias = (dias + 1) - cantidad
+      if (dias <= viviendastramite.viviendastipostramite.tiempo )
+        bandverde = "X"
+      elsif (dias > viviendastramite.viviendastipostramite.tiempo and dias <= (viviendastramite.viviendastipostramite.tiempo+2) )
+        bandamarillo = "X"
+      else
+        bandrojo = "X"
+      end
+    end
+    vivienda = Vivienda.find(viviendastramite.vivienda_id)
+%>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.proyecto.descripcion rescue nil%></td>
+    <td width="5%" height="30" class="camposDesc"><%=''%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.bloque.descripcion rescue nil%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.piso.descripcion rescue nil%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.apto.descripcion rescue nil%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.descentregado%></td>
+<%
+      @viviendaspersonas = Viviendaspersona.find_all_by_vivienda_id(viviendastramite.vivienda.id);
+      contador = 0
+      cadenaidentificacion = ""
+      cadena = ""
+      cred = ""
+      for viviendaspersona in @viviendaspersonas
+        persona  = Persona.find(viviendaspersona.persona_id);
+        if contador == 0
+          cadenaidentificacion = persona.identificacion
+          contador = contador  +  1
+        end
+        cadena = cadena + ' - ' + persona.autobuscar
+        if persona.creditos.exists?
+          cred = 'SI'
+        end
+      end
+%>
+    <td width="5%" height="30" class="camposDesc"><%=cadenaidentificacion%></td>
+    <td width="5%" height="30" class="camposDesc"><%=cadena%></td>
+    <td width="5%" height="30" class="camposDesc"><%=cred%></td>
+    <td width="5%" height="30" class="camposDesc"><%=viviendastramite.viviendastipostramite.descripcion rescue nil%></td>
+    <td width="5%" height="30" class="camposDesc"><%=viviendastramite.devolucion%></td>
+    <td width="5%" height="30" class="camposDesc"><%=viviendastramite.fecha_inicio%></td>
+    <td width="5%" height="30" class="camposDesc"><%=bandverde%></td>
+    <td width="5%" height="30" class="camposDesc"><%=bandamarillo%></td>
+    <td width="5%" height="30" class="camposDesc"><%=bandrojo%></td>
+    <td width="5%" height="30" class="camposDesc"><%=viviendastramite.observaciones%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_nro_escritura%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_expedicion%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_vencimiento%></td>
+    <td width="5%" height="30" class="camposDesc">
+<%
+      if vivienda.fecha_vencimiento
+        festivos = Festivo.find_by_sql("select to_date('#{vivienda.fecha_vencimiento}','dd/mm/yyyy') - trunc(sysdate) resta from dual")
+        dias = 0
+        festivos.each do |festivo|
+          dias = festivo.resta
+        end
+        if dias.to_i > 0
+          valorsdsdsd = ' Dias para vencimiento ' + dias.to_s
+        else
+          valorsdsdsd = ' Dias vencidos ' + dias.to_s
+        end
+%>
+        <%=valorsdsdsd%>
+<%
+      else
+%>
+        --
+<%
+      end
+%>
+      </td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_notaria_origen%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_registrada%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_registrada_of%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_registro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.nro_matricula%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.valor_avaluo%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.valor_venta%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_gravamenes%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.esc_limitaciones%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.escritura_aclaratoria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.aclaratoria_fecha%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.aclaratoria_notaria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.valor_prerentas%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_valor_rentas%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_rentas_fecha%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.vencimiento_rentas%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_rentas_nro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.valor_prerregistro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_valor_registro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.lic_registro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.lic_certificado%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_registro_fecha%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_registro_nro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_valor_notaria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_notaria_nro%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_cobnotaria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_recnotaria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.concepto_notaria%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_entregafin%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_prefinanciera%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.fecha_preregistrofinan%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_fiducia_sol_fecha%></td>
+    <td width="5%" height="30" class="camposDesc"><%=vivienda.liq_fiducia_dese_fecha%></td>
+  </tr>
+<%   end %>
+</table>

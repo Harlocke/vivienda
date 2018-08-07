@@ -1,0 +1,1 @@
+page.replace_html :mejoramientosimagenes_form, :partial => "/mejoramientosimagenes/mejoramientosimagenes"

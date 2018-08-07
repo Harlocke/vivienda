@@ -1,0 +1,63 @@
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">FECHAS HABILITADAS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@agendasproceso, @agendasfecha] do |form| %>
+  <%# if permiso("agendasfecha","C").to_s == "S" %>
+        <% if !@agendasfecha.id %>
+  <%#= render :partial => "/agendasfechas/agendasfechas_form" %>
+    <% end %>
+ <%# end %>
+<% if @agendasproceso.agendasfechas.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+	<tr valign="middle">
+		<td width="15%" height="30" class="oce-first">Fecha de Asignacion</td>
+		<td width="10%" class="oce-first"><div align="center">Hora Inicio</div></td>
+		<td width="10%" class="oce-first"><div align="center">Hora Fin</div></td>
+		<td width="10%" class="oce-first"><div align="center">Intervalo</div></td>
+		<td width="25%" class="oce-first"><div align="center">Nro de personas por Intervalo</div></td>
+		<td width="10%" class="oce-first"><div align="center">Estado</div></td>
+		<td width="20%" class="oce-first">&nbsp;</td>
+	 </tr>
+<% for agendasfecha in @agendasproceso.agendasfechas.find(:all, :order => 'fecha DESC') %>
+   <% if agendasfecha.id != @agendasfecha.id %>
+      <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="agendasfecha_<%=agendasfecha.id%>">
+        <td  width="15%" class="camposDesc"><%=agendasfecha.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        <td  width="10%" class="camposDesc"><div align="center"><%=agendasfecha.hora_inicio rescue nil%></div></td> 
+        <td  width="10%" class="camposDesc"><div align="center"><%=agendasfecha.hora_fin rescue nil%></div></td>
+        <td  width="10%" class="camposDesc"><div align="center"><%=agendasfecha.intervalo rescue nil%></div></td> 
+        <td  width="25%" class="camposDesc"><div align="center"><%=agendasfecha.cantidad rescue nil%></div></td>
+        <td  width="10%" class="camposDesc"><div align="center"><%=agendasfecha.estado rescue nil%> </div></td>
+        <td  width="20%" class="camposDesc">
+          <div align="center">
+                <%# if permiso("agendasfecha","A").to_s == "S" %>
+                  <%= link_to_remote('Editar',{:url => edit_agendasproceso_agendasfecha_path(@agendasproceso, agendasfecha),
+                            :method => :get}, :class=>"editarlink")%>
+                <%# end %>
+                <%# if permiso("agendasfecha","E").to_s == "S" %>
+                   &nbsp;<%= link_to_remote('Borrar',{:url => agendasproceso_agendasfecha_path(@agendasproceso, agendasfecha),
+                            :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+                <%# end %>
+                <%= link_to 'Horario', agendashorarios_path(:id=>agendasfecha.id), :class=>"verlink"%>
+          </div></td>
+     </tr>
+  <% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "agendasfechas_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :agendasproceso, :id %>
+<% end %>
+<br/>

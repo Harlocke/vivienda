@@ -1,0 +1,33 @@
+<div align="center"><table width="70%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="80%" height="20" class="campos"><div align="left">Documento</div></td>
+    <td width="20%" height="20" class="campos"></td>
+  </tr>
+  <tr valign="middle">
+    <td height="20" class="campos"><div align="left">
+       <% if @archivosseriesdoc.id %>
+        <%=select("archivosseriesdoc", "archivosdocumento_id", Archivosdocumento.find(:all,:order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <% else %>
+        <%=select("archivosseriesdoc", "archivosdocumento_id", Archivosdocumento.find(:all, :conditions => ["id not in (select archivosdocumento_id from archivosseriesdocs where archivosserie_id = #{@archivosserie.id})"], :order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <% end %>
+      <%= error_message_on :archivosseriesdoc, :archivosdocumento_id, :css_class =>"cerror"%></div></td>
+    <td><div align="right">
+      <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :archivosseriesdoc, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="70%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    
+  </tr>
+</table>
+</div>
+<br/>

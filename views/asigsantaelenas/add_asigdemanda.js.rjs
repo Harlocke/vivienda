@@ -1,0 +1,1 @@
+page.replace_html 'asigsantaelena_list', :partial => 'list'

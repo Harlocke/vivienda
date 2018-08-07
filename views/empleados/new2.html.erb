@@ -1,0 +1,140 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                  <img src="/images/empleadosmin.png" width="64" height="64"/></img>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;
+                    INFORMACION CONTRATISTA</div></td>
+              <td width="3%"><div align="right"></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% form_for :empleado, :url => { :action => "create2" } do |f| %>
+<div align="center">
+ <table width="550" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td height="30">
+      <fieldset>
+ <div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">DATOS BASICOS</div></td>
+  </tr>
+</table>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="10%"><span class="campos">Documento</span></td>
+        <td width="20%"><span class="campos">Identificaci&oacute;n *</span></td>
+        <td width="10%"><span class="campos">Digito</span></td>
+        <td width="60%"><span class="campos">Primer Nombre / Razon Social *</span></td>
+      </tr>
+      <tr>
+        <td><select id="empleado_documento_id" name="empleado[documento_id]" class ="campo" style="width:70px">
+          <option selected></option>
+          <%= options_from_collection_for_select(@documentos, "id", "descripcion", @empleado.documento_id ) %>
+        </select></td>
+        <td>            <%= f.text_field :identificacion ,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :identificacion, :css_class =>"cerror"%>
+        </td>
+        <td>            <%= f.text_field :verificacion ,{ :class => "campo", :size => 5,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :verificacion, :css_class =>"cerror"%>
+        </td>
+        <td><%= f.text_field :primer_nombre,{ :class => "campo",:size => 90,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :primer_nombre, :css_class =>"cerror"%>
+        </td>
+      </tr>
+</table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="15%"><span class="campos">Segundo Nombre</span></td>
+        <td width="15%"><span class="campos">Primer Apellido</span></td>
+        <td width="15%"><span class="campos">Segundo Apellido</span></td>
+        <td width="45%"><span class="campos">Direccion</span></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :segundo_nombre ,{ :class => "campo", :size => 25,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :segundo_nombre, :css_class =>"cerror"%>
+        </td>
+        <td><%= f.text_field :primer_apellido,{ :class => "campo", :size => 25,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :primer_apellido, :css_class =>"cerror"%>
+        </td>
+        <td><%= f.text_field :segundo_apellido,{ :class => "campo",:size => 25,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :segundo_apellido, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :direccion,{ :class => "campo", :size => 60,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+      </tr>
+</table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="20%"><span class="campos">Telefono</span></td>
+          <td width="80%"><span class="campos">Correo Electronico</span></td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :telefono,{ :class => "campo", :size => 25,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          <td><%= f.text_field :email,{ :class => "campo", :size => 70,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :email, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      <%#*#Ciclo%>
+</fieldset>
+   </td>
+  </tr>
+</table>
+      </div>
+<% end %>
+
+<% if flash[:notice] %>
+<div id="notice">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:notice] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('notice');", 5000)
+</script>
+<% end %>

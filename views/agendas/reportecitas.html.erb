@@ -1,0 +1,28 @@
+<table border="1">
+  <tr valign="middle">
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Identificacion</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Nombre</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Proceso</th>    
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Fecha</th>    
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Hora Cita</th>    
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Estado</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">----</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Atendido por</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Fecha-hora Inicio Atencion</th>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">Fecha-hora Inicio Terminacion</th>
+  </tr>
+<% @agendas.each do |agenda| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.persona.identificacion rescue nil %></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.persona.nombres rescue nil %></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.lugaragenda rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.fechaagenda rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.horaagenda rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.estado rescue nil%></td>
+    <th style="font-size: 10px; font-family: tahoma; vertical-align:middle;" bgcolor="#00CCFF">----</th>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.datouseratencion rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.fch_inicio_atencion.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td style="font-size: 10px; font-family: tahoma; vertical-align:middle;"><%=h agenda.fch_fin_atencion.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+<% end %>
+</table>

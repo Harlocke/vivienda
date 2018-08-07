@@ -1,0 +1,70 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/arrendamientotemporalmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">ARRENDAMIENTO TEMPORAL</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_ayudas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="100%" height="30" align="left" class="campos">Usuario Vinculado</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@personasarrendamiento.persona.autobuscar rescue nil%></td>
+  </tr>
+  <% unless @personasarrendamiento.new_record?
+       if @personasarrendamiento.persona_id %>
+  <tr>
+    <td class="camposDesc" colspan="2"><strong>Direccion:</strong> <%=@personasarrendamiento.persona.direccion rescue nil%><br/>
+        <strong>Telefono:</strong> <%=@personasarrendamiento.persona.telefons rescue nil%><br/>
+        <% if @personasarrendamiento.persona.beneviviendas.exists? %>
+        <strong>Beneficiarios: </strong><br/>
+           <% @personasarrendamiento.persona.beneviviendas.each do |benevivienda| %>
+             <%=benevivienda.autobuscar rescue nil%><br/>
+           <% end %>
+      <% end %></td>
+  </tr>
+  <%   end
+     end%>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr class="odd1">
+    <td width="20%" height="30" class="campos">Fecha</td>
+    <td width="18%" class="campos">Inicia proceso de arrendamiento temporal</td>
+    <td width="17%" class="campos">Se ofrece vivienda del banco inmobiliario</td>
+    <td width="10%" class="campos">Fecha</td>
+    <td width="35%" class="campos">Observación</td>
+  </tr>
+   <tr  valign="middle">
+    <td class="camposDesc" align="left" >
+        <%=@personasarrendamiento.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=@personasarrendamiento.user.nombre rescue nil%>"><%=@personasarrendamiento.user.username rescue nil%></a><br/>
+        <%=@personasarrendamiento.updated_at.strftime("%Y-%m-%d %X")%> - <a title="<%=User.find(@personasarrendamiento.user_actualiza).nombre rescue nil%>"><%=User.find(@personasarrendamiento.user_actualiza).username rescue nil%></a>
+    </td>
+    <td class="camposDesc" align="left"><%=@personasarrendamiento.iniciaproceso%></td>
+    <td class="camposDesc" align="left"><%=@personasarrendamiento.ofrecebanco%></td>
+    <td class="camposDesc" align="left"><%=@personasarrendamiento.fecha.strftime("%Y-%m-%d")%></td>
+    <td class="camposDesc" align="left"><%=@personasarrendamiento.observaciones%></td>
+ </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">SOPORTES DE LA NOTIFICACIÓN</div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CONTRATOS DE ARRENDAMIENTO</div></td>
+  </tr>
+</table>
+      <div id="arrendamientoscontratos_form">
+          <%= render :partial => "/arrendamientoscontratos/arrendamientoscontratos" %>
+       </div>

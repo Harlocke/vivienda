@@ -1,0 +1,63 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/messagemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">DASHBOARD - MENSAJES</div></td>
+              <td width="3%"><div align="right">
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo11')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo11')">SOPORTES </a> </strong>
+  <div id="demo11" style="display:none;"><br/>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="93%" height="20" class="oce-first">Descripcion</td>
+        <td width="7%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @mensajesenvios.each do |mensajesenvio| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" >
+        <td height="20" class="camposDesc"><div align="justify"><strong><%=h mensajesenvio.created_at.strftime("%Y-%m-%d %X") %> </strong>- <%=h mensajesenvio.descripcion%><br/>
+          <strong>REQ: </strong><%=h mensajesenvio.soporte.descripcion rescue nil%></div></td>
+        <td class="camposDesc"><div align="center">
+          <% if mensajesenvio.estado == "I"%>
+            <strong><%=h mensajesenvio.calificacion rescue 0 %></strong>
+          <% else %>
+             <%= link_to image_tag('application_edit.png',{ :border=>0, :title => "Actualizar"}), edit_mensajesenvio_path(mensajesenvio) %>
+          <% end %>
+          </div></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+<div style="font-size:13px; font-family: Tahoma;"><strong><a href="javascript:void(0);" onclick="SINO('demo12')"><img src="/images/1nuevo.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo12')">CARPETAS </a> </strong>
+  <div id="demo12" style="display:none;">  <br/>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="93%" height="20" class="oce-first">Descripcion</td>
+        <td width="7%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @mensajesenviosc.each do |mensajesenvio| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" >
+        <td height="20" class="camposDesc"><div align="justify"><strong><%=h mensajesenvio.created_at.strftime("%Y-%m-%d %X") %> </strong> - <%=h mensajesenvio.descripcion%></div></td>
+        <td class="camposDesc"><div align="center">
+          <% if mensajesenvio.estado == "V"%>
+            <%= image_tag("connect.png",:size => "16x16")%>
+          <% else %>
+              <%= link_to_remote image_tag('connect2.png', { :border => 0, :title => "Verificado"}),
+              :url => mensajesenvio_url(:id => mensajesenvio), :method => :delete,
+              :before => "$(this).up('.post1S_#{mensajesenvio.id}').remove()"%>
+          <% end %>
+          </div></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+
+<br/>

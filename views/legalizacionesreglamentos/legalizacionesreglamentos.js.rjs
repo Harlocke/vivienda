@@ -1,0 +1,1 @@
+page.replace_html :legalizacionesreglamentos_form, :partial => "legalizacionesreglamentos", :object => @legalizacionesreglamento

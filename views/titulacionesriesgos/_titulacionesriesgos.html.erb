@@ -1,0 +1,58 @@
+</form>
+<div align="left">
+<% remote_form_for [@titulacion, @titulacionesriesgo] do |form| %>
+   <% if !@titulacionesriesgo.id %>
+	<%= render :partial => "/titulacionesriesgos/titulacionesriesgos_form" %>
+   <% end %>
+  <% if @titulacion.titulacionesriesgos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="30%" class="oce-first">Creacion</td>
+    <td width="60%" align="left" class="oce-first">Datos Asociado</td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+    <% @titulacion.titulacionesriesgos.each do |titulacionesriesgo| %>
+     <% if titulacionesriesgo.id != @titulacionesriesgo.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesriesgo_<%= titulacionesriesgo.id%>">
+     <td class="camposDesc"><%=titulacionesriesgo.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+     <%=titulacionesriesgo.user.username rescue nil%></td>
+     <td class="camposDesc"><%=titulacionesriesgo.potdato.descripcion rescue nil%><br/>
+       <strong>Grado de Afectación: </strong><%=titulacionesriesgo.tipo rescue nil%></td>
+     <td class="camposDesc"><div align="center">
+       <%= link_to_remote('Borrar',{:url => titulacion_titulacionesriesgo_path(@titulacion, titulacionesriesgo),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%></div>
+     </td>
+   </tr>
+<% else %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "titulacionesriesgos_form" %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+</table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesriesgo] %>
+<div id="titulacionesriesgo">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesriesgo] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesriesgo');", 5000)
+</script>
+<% end %>
+</div>
+

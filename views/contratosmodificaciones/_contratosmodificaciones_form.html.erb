@@ -1,0 +1,63 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="80%" class="campos">Dependencia </td>
+    <td width="20%" class="campos">Tarea / Actividad</td>
+  </tr>
+  <tr valign="top">
+    <td>
+    <%#*<td><%= collection_select(:contratosmodificacion, :dependencia_id, @dependencias, :id, :descripcion,%>
+<%#*{ :selected => @contratosmodificacion.dependencia_id },%>
+<%#*{:multiple => true, :role => 'contratosmodificacion[dependencia_id][]' }) %>
+      <%#= collection_select ('contratosmodificacion', 'dependencia_ids', Dependencia.all, 'id', 'descripcion',
+        {:selected => contratosmodificacion.dependencias.map(&:id)},
+        {:multiple => true}) %>
+      <%=select(:contratosmodificacion, :dependencia_id, Dependencia.find(:all, :order => 'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+    <%= error_message_on :contratosmodificacion, :dependencia_id, :css_class =>"cerror"%></td>
+    <td><%= text_area(:contratosmodificacion, :tarea, :cols => 95, :rows => 5, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :contratosmodificacion, :tarea, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="15%" class="campos">Fecha Vence </td>
+    <td width="15%" class="campos">Estado</td>
+    <td width="55%" class="campos">Observaciones</td>
+    <td width="15%" class="campos">Fecha Solucion</td>
+  </tr>
+  <tr valign="top">
+<td><%= calendar_date_select "contratosmodificacion", "fecha_limite", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+       <%= error_message_on :contratosmodificacion, :fecha_limite, :css_class =>"cerror"%></td>
+    <td><%= select(:contratosmodificacion,
+                :estado, { "FINALIZADO" => "FINALIZADO",
+                           "PENDIENTE" => "PENDIENTE",
+                           "EN TRAMITE" => "EN TRAMITE"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+<%= error_message_on :contratosmodificacion,:estado, :css_class =>"cerror"%></td>
+<td class="camposDesc" align="left" ><%= text_area(:contratosmodificacion, :observaciones, :cols => 80, :rows => 3, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :contratosmodificacion, :observaciones, :css_class =>"cerror"%></td>
+<td><%= calendar_date_select "contratosmodificacion", "fecha_solucion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+       <%= error_message_on :contratosmodificacion, :fecha_solucion, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :contratosmodificacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

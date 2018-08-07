@@ -1,0 +1,1 @@
+page.replace_html :personasarrendamientos_form, :partial => "/personasarrendamientos/personasarrendamientos"

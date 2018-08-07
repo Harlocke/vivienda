@@ -1,0 +1,57 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Seguimiento por Operador Convenio / Resolucion y Persona</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio</div></strong></td>
+    <td colspan="2"><strong><div align="center">Resolucion</div></strong></td>
+    <td colspan="4"><strong><div align="center">Informacion Personal</div></strong></td>
+    <td colspan="8"><strong><div align="center">Elementos de Validacion</div></strong></td>
+    <td colspan="2"><strong><div align="center">Universidad</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="20%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Cobama</strong></td>
+    <td width="20%"><strong>Matricula Inmobiliaria</strong></td>
+    <td width="20%"><strong>General</strong></td>
+    <td width="20%"><strong>Conceptos</strong></td>
+    <td width="20%"><strong>Items</strong></td>
+    <td width="20%"><strong>Informes</strong></td>
+    <td width="20%"><strong>Imagenes</strong></td>
+    <td width="20%"><strong>Pagos</strong></td>
+    <td width="20%"><strong>Pagos Factura</strong></td>
+    <td width="20%"><strong>Personal</strong></td>
+    <td width="20%"><strong>Responsable</strong></td>
+    <td width="20%"><strong>Estado</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=mejoramiento.nro_convenio rescue nil%></td>
+    <td><%=mejoramiento.vigencia rescue nil%></td>
+    <td><%=mejoramiento.ejecutor rescue nil%></td>
+    <td><%=mejoramiento.nro_resolucion rescue nil%></td>
+    <td><%=mejoramiento.fecha rescue nil%></td>
+    <td><%=mejoramiento.identificacion rescue nil%></td>
+    <td><%=mejoramiento.nombres rescue nil%></td>
+    <td><%=mejoramiento.cobama rescue nil%></td>
+    <td><%=mejoramiento.matricula_inm rescue nil%></td>
+    <td><div align="center"><%=mejoramiento.general rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.concepto rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.items rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.informes rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.imagenes rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.pagos rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.penpagos rescue nil%></div></td>
+    <td><div align="center"><%=mejoramiento.personal rescue nil%></div></td>
+    <td><%=mejoramiento.responsable rescue nil%></td>
+    <td><%=mejoramiento.estado rescue nil%></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,16 @@
+<h1>Editing sisben</h1>
+
+<% form_for(@sisben) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @sisben %> |
+<%= link_to 'Back', sisbenes_path %>

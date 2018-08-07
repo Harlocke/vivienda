@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+<img src="http://190.0.34.154:3013/images/frame.png"/>
+<br/>
+<br/>
+<div style="color:red; font-size:13px; font-family: Tahoma;"><strong><%= @dependencia.descripcion %></strong></div>
+<br/>
+<br/>
+<div style="font-size:12px; font-family: Tahoma;">El SIFI le informa sobre la documentación que esta pendiente por vencer o que ya se encuentra vencida</div>
+<br/>
+<br/>
+<div  style="font-size: 11px; font-family: Tahoma;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+   <tr valign="middle">
+      <td width="20%" height="30" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Clase de Documento</strong></td>
+      <td width="5%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Nro Radicado</strong></td>
+      <td width="20%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Asunto</strong></td>
+      <td width="5%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Fecha<br/>Limite</strong></td>
+      <td width="25%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Empresa Remitente</strong></td>
+      <td width="25%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Usuario</strong></td>
+      <td width="25%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Asignado a</strong></td>
+    </tr>
+  <% @correspondenciasrecibidas.each do |correspondenciasrecibida| %>
+    <tr valign="middle">
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.nro_radicado rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.asunto rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.fecha_limite rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.persona.autobuscar rescue nil%></td>
+      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=correspondenciasrecibida.usuarioasignado rescue nil%></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+<br/>
+<br/>
+<div style="font-size: 11px; font-family: Tahoma;"><strong>S I F I - Sistema de Informacion ISVIMED</strong></div>
+<br/>
+<strong style="font-size: 11px; font-family: Tahoma;"><%=Time.now.strftime("%Y-%m-%d %X")%></strong>
+<br/>
+<div style="font-size: 10px; font-family: Tahoma;">
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

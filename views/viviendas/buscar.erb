@@ -1,0 +1,248 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION VIVIENDA NUEVA</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="15"><strong>Informacion Vivienda</strong></td>
+    <td colspan="9"><strong>Informacion Beneficiario</strong></td>
+    <td colspan="5"><strong>Credito</strong></td>
+    <td colspan="7"><strong>Subsidio Nacional</strong></td>
+    <td colspan="2"><strong>Aporte Viva</strong></td>
+    <td colspan="2"><strong>Municipal en Dinero</strong></td>
+    <td colspan="2"><strong>Municipal en Especie</strong></td>
+    <td colspan="2"><strong>Reconocimiento Mejoras</strong></td>
+    <td colspan="2"><strong>Subsidio Ajustado</strong></td>
+    <td colspan="2"><strong>Subsidio Caja</strong></td>
+    <td colspan="17"><strong>Escrituracion</strong></td>
+    <td colspan="6"><strong>Aclaracion Escritura</strong></td>
+    <td colspan="4"><strong>Fechas</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Bloque</strong></td>
+    <td><strong>Piso</strong></td>
+    <td><strong>Apto</strong></td>
+    <td><strong>Estado Inmueble</strong></td>
+    <td><strong>Valor Vivienda</strong></td>
+    <td><strong>Valor Ahorro Programado</strong></td>
+    <td><strong>Valor Ahorro Trasladado</strong></td>
+    <td><strong>Valor Credito</strong></td>
+    <td><strong>Valor Donacion</strong></td>
+    <td><strong>Valor Pago Escrituras</strong></td>
+    <td><strong>CIERRE TOTAL</strong></td>
+    <td><strong>Entregado</strong></td>
+    <td><strong>Fecha Entrega</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Primer Nombre</strong></td>
+    <td><strong>Segundo Nombre</strong></td>
+    <td><strong>Primer Apellido</strong></td>
+    <td><strong>Segundo Apellido</strong></td>
+    <td><strong>Tenencia</strong></td>
+    <td><strong>Tipo de Poblacion</strong></td>
+    <td><strong>Telefonos</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Nombre Entidad</strong></td>
+    <td><strong>Valor</strong></td>
+    <td><strong>Estado</strong></td>
+    <td><strong>Fecha Credito</strong></td>
+    <td><strong>Fecha Vencimiento</strong></td>
+    <td><strong>Caja</strong></td>
+    <td><strong>Bolsa</strong></td>
+    <td><strong>Estado SFV</strong></td>
+    <td><strong>Valor</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Fecha</strong></td>
+    <td><strong>Vigencia del Subsidio</strong></td>
+    <td><strong>Valor Viva</strong></td>
+    <td><strong>Resolucion Viva</strong></td>
+    <td><strong>Valor Mpal Dinero</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Valor Mpal Especie</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Valor Mejoras</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Valor Ajustado</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Valor Caja</strong></td>
+    <td><strong>Resolucion</strong></td>
+    <td><strong>Nro Escritura Publica</strong></td>
+    <td><strong>Fecha Expedicion</strong></td>
+    <td><strong>Fecha Vencimiento</strong></td>
+    <td><strong>Notaria Origen</strong></td>
+    <td><strong>Registrada</strong></td>
+    <td><strong>Oficina Registro</strong></td>
+    <td><strong>Fecha Registro</strong></td>
+    <td><strong>Nro Matricula</strong></td>
+    <td><strong>Valor Avaluo</strong></td>
+    <td><strong>Valor Venta</strong></td>
+    <td><strong>Gravamenes</strong></td>
+    <td><strong>Limitaciones</strong></td>
+    <td><strong>Nro Escritura Aclaracion / Adicion</strong></td>
+    <td><strong>Fecha Aclaracion / Adicion</strong></td>
+    <td><strong>Fecha Vencimiento Aclaracion / Adicion</strong></td>
+    <td><strong>Notaria Aclaracion / Adicion</strong></td>
+    <td><strong>Afectacion Vivienda</strong></td>
+    <td><strong>Valor Notaria</strong></td>
+    <td><strong>Factura Venta Notaria</strong></td>
+    <td><strong>Fecha Cuenta Notaria</strong></td>
+    <td><strong>Fecha Recibo Cuenta Notaria</strong></td>
+    <td><strong>Concepto Notaria</strong></td>
+    <td><strong>Fecha Entrega de Factura notaria a Financiera</strong></td> 
+    <td><strong>Fecha Sorteo</td>
+    <td><strong>Fecha CAVIS</td>
+    <td><strong>Fecha Poder </td>
+    <td><strong>Numero de la Notaria donde se otorga el Poder a la Fiducia</td>
+  </tr>
+<% for vivienda in @viviendas
+      estadocredito = ""
+      subsidionac_entidadadmin = ""
+      subsidionac_bolsa = ""
+      subsidionac_estadosubsidio = ""
+      subsidionac_valor = 0
+      subsidionac_resolucion = ""
+      subsidionac_fecha_asig = ""
+      subsidionac_fecha_vigencia = ""
+      subsidioviva_valor = 0
+      subsidioviva_resolucion = ""
+      subsidiodin_valor = 0
+      subsidiodin_resolucion = ""
+      subsidiomundin_valor = 0
+      subsidiomundin_resolucion = ""
+      subsidiomej_valor = 0
+      subsidiomej_resolucion = ""
+      subsidioajus_valor = 0
+      subsidioajus_resolucion = ""
+      subsidiocaja_valor = 0
+      subsidiocaja_resolucion = ""
+      valorcredito  = Vivienda.valorcredito(vivienda.id)
+      valorcredito  = Vivienda.valorcredito(vivienda.id)
+      valorsubsidio = Vivienda.valorsubsidio(vivienda.id, vivienda.consig_escrituras.to_i)
+      saldo         = valorcredito.to_i + valorsubsidio.to_i + vivienda.valor_donacion.to_i + vivienda.valor_ahorro_tras.to_i + vivienda.otros_aportes.to_i
+      cierretotal   = vivienda.valor_vivienda.to_i - saldo.to_i
+      if Viviendaspersona.exists?(["vivienda_id = #{vivienda.id}"])
+        @viviendaspersona = Viviendaspersona.find(:first, :conditions=>["vivienda_id = #{vivienda.id}"])
+        if Credito.exists?(["persona_id = #{@viviendaspersona.persona_id}"])
+          @credito       = Credito.find(:first, :conditions=>["persona_id = #{@viviendaspersona.persona_id}"])
+          if @credito.fecha_vencimiento.to_s != ""
+             if @credito.fecha_vencimiento < Time.now
+               estadocredito = 'VENCIDO'
+             else
+               estadocredito = 'VIGENTE'
+             end
+          end
+        end
+        @subsidios = Subsidio.find(:all, :conditions=>["persona_id = #{@viviendaspersona.persona_id}"])
+        @subsidios.each do |subsidio|
+          if subsidio.tipos_subsidio_id.to_i == 1
+            subsidiodin_valor = subsidio.valor rescue nil
+            subsidiodin_resolucion = subsidio.resolucion rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 2
+            subsidioviva_valor = subsidio.valor rescue nil
+            subsidioviva_resolucion = subsidio.resolucion rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 3
+            subsidiomej_valor = subsidio.valor rescue nil
+            subsidiomej_resolucion = subsidio.resolucion rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 4
+            subsidionac_entidadadmin = subsidio.entidadadmin rescue nil
+            subsidionac_bolsa = subsidio.bolsa rescue nil
+            subsidionac_estadosubsidio = subsidio.estadosubsidio rescue nil
+            subsidionac_valor = subsidio.valor rescue nil
+            subsidionac_resolucion = subsidio.resolucion rescue nil
+            subsidionac_fecha_asig = subsidio.fecha_asig rescue nil
+            subsidionac_fecha_vigencia = subsidio.fecha_vigencia rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 5
+            subsidioajus_valor = subsidio.valor rescue nil
+            subsidioajus_resolucion = subsidio.resolucion rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 6
+            subsidiomundin_valor = subsidio.valor rescue nil
+            subsidiomundin_resolucion = subsidio.resolucion rescue nil
+          elsif subsidio.tipos_subsidio_id.to_i == 7
+            subsidiocaja_valor = subsidio.valor rescue nil
+            subsidiocaja_resolucion = subsidio.resolucion rescue nil
+          end
+        end
+      else
+        @viviendaspersona = Viviendaspersona.find(:first, :conditions=>["vivienda_id = -1"])
+      end
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+      <td><div align="left"><%=vivienda.proyecto.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.bloque.direccion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.bloque.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.piso.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.apto.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.estadovivienda%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_vivienda) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_ahorro_prog) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_ahorro_tras) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(valorcredito) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_donacion) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.consig_escrituras) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(cierretotal) rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.descentregado%></div></td>
+      <td><div align="left"><%=vivienda.fecha_entrega%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.identificacion rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.primer_nombre rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.segundo_nombre rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.primer_apellido rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.segundo_apellido rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.tenencia rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.familiar.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.telefonos rescue nil%></div></td>
+      <td><div align="left"><%=@viviendaspersona.persona.direccion rescue nil%></div></td>
+      <td><div align="left"><%=@credito.entidad.descripcion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(@credito.valor) rescue nil%></div></td>
+      <td><div align="left"><%=estadocredito%></div></td>
+      <td><div align="left"><%=@credito.fecha_credito rescue nil%></div></td>
+      <td><div align="left"><%=@credito.fecha_vencimiento rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_entidadadmin rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_bolsa rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_estadosubsidio rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidionac_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_fecha_asig rescue nil%></div></td>
+      <td><div align="left"><%=subsidionac_fecha_vigencia rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidioviva_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidioviva_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidiodin_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidiodin_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidiomundin_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidiomundin_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidiomej_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidiomej_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidioajus_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidioajus_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(subsidiocaja_valor) rescue nil%></div></td>
+      <td><div align="left"><%=subsidiocaja_resolucion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_nro_escritura rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_expedicion rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_vencimiento.strftime("%Y-%m-%d") rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_notaria_origen rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_registrada rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_registrada_of rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_registro rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.nro_matricula rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_avaluo) rescue nil%></div></td>
+      <td><div align="left"><%=camponumerico(vivienda.valor_venta) rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_gravamenes rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.escritura_aclaratoria rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.aclaratoria_fecha rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_vencimientoaclaracion.strftime("%Y-%m-%d") rescue nil%></strong></td>
+      <td><div align="left"><%=vivienda.aclaratoria_notaria rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.afecta_vivienda rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.esc_limitaciones rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.liq_valor_notaria2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.liq_notaria_nro2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_cobnotaria2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_recnotaria2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.concepto_notaria2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_entregafin2 rescue nil%></div></td>
+      <td><div align="left"><%=vivienda.fecha_sorteo.strftime("%Y-%m-%d") rescue nil%></strong></td>
+      <td><div align="left"><%=vivienda.fecha_cavis.strftime("%Y-%m-%d") rescue nil%></strong></td>
+      <td><div align="left"><%=vivienda.fecha_poder.strftime("%Y-%m-%d") rescue nil%></strong></td>
+      <td><div align="left"><%=vivienda.notaria_poder rescue nil%></div></td>
+  </tr>
+<%end%>
+</table>

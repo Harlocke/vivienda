@@ -1,0 +1,16 @@
+<h1>Editing viviendasusadasestado</h1>
+
+<% form_for(@viviendasusadasestado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @viviendasusadasestado %> |
+<%= link_to 'Back', viviendasusadasestados_path %>

@@ -1,0 +1,16 @@
+<h1>Editing caja</h1>
+
+<% form_for(@caja) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @caja %> |
+<%= link_to 'Back', cajas_path %>

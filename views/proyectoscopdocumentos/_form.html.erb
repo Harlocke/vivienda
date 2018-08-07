@@ -1,0 +1,22 @@
+<div align="center">
+<table width="70%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="30%" class="campos" align="left">Descripción del Archivo</td>
+        <td width="70%" class="campos" align="left"><%=@proyectoscopdocumento.proyectostipo.documento rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos" align="left">Archivo a Cargar</td>
+        <td class="camposDesc" align="left"><%= f.file_field :copropiedad, {
+              :size => 100,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+     <%= f.error_message_on :copropiedad, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+</div>

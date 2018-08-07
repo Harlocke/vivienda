@@ -1,0 +1,44 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td  colspan="2"><strong>USUARIO</strong></td>
+    <td  colspan="5"><strong>ESCRITURACION</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Direccion</strong></td>
+    <td ><strong>Bloque</strong></td>
+    <td ><strong>Piso</strong></td>
+    <td ><strong>Apto</strong></td>
+    <td ><strong>Entregado</strong></td>
+    <td ><strong>Usuario Identificacion</strong></td>
+    <td ><strong>Usuario Nombre</strong></td>
+    <td ><strong>Consecutivo</strong></td>
+    <td ><strong>Caja</strong></td>
+    <td ><strong>Entregado</strong></td>
+    <td ><strong>Fecha Entrega</strong></td>
+    <td ><strong>Usuario Entrega</strong></td>
+  </tr>
+<%
+  for vivienda in @viviendas
+    @viviendaspersona = Viviendaspersona.find(:first, :conditions=>["vivienda_id = #{vivienda.id}"])
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=vivienda.proyecto.descripcion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.bloque.direccion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.bloque.descripcion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.piso.descripcion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.apto.descripcion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.descentregado rescue nil%></div></td>
+    <td ><div align="left"><%=@viviendaspersona.persona.identificacion rescue nil%></div></td>
+    <td ><div align="left"><%=@viviendaspersona.persona.nombres rescue nil%></div></td>
+    <td ><%=vivienda.inv_consecutivo%></td>
+    <td ><%=vivienda.inv_caja%></td>
+    <td ><%=vivienda.inv_esc_entrega%></td>
+    <td ><%=vivienda.inv_esc_fecha%></td>
+    <td ><%=User.find(vivienda.inv_user).nombre rescue nil%></td>
+  </tr>
+<%   end %>
+</table>  

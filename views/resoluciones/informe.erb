@@ -1,0 +1,62 @@
+<h3>INFORMACION POR TIPO DE RESOLUCION</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Tipo de Resolucion</strong></td>
+    <td><div align="center"><strong>Año</strong></div></td>
+    <td><div align="center"><strong>Nro Total de Resoluciones</strong></div></td>
+    <td><strong>Nro Total de Personas</strong></td>
+    <td><strong>Total Subsidio en Especie</strong></td>
+    <td><strong>Total Subsidio en Dinero</strong></td>
+    <td><strong>Total Subsidio Mejoras</strong></td>
+    <td><strong>Total Creditos</strong></td>
+    <td><strong>Total Titulacion</strong></td>
+    <td><strong>Total Arrendamiento</strong></td>
+  </tr>
+<% @cresoluciones.each do |resolucion| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=resolucion.descripcion rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.anno rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.nroresol rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.nropersonas  rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.especie) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.dinero) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.mejoras) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.credito) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.tit) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.arr) rescue nil%></div></td>
+ </tr>
+<% end %>
+</table>
+<br/>
+<h3>INFORMACION DETALLADA DE LAS RESOLUCIONES</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Tipo de Resolucion</strong></td>
+    <td><div align="center"><strong>Modalidad</strong></div></td>
+    <td><div align="center"><strong>Año</strong></div></td>
+    <td><div align="center"><strong>Nro Resolucion</strong></div></td>
+    <td><strong>Nro Total de Personas</strong></td>
+    <td><strong>Total Subsidio en Especie</strong></td>
+    <td><strong>Total Subsidio en Dinero</strong></td>
+    <td><strong>Total Subsidio Mejoras</strong></td>
+    <td><strong>Total Creditos</strong></td>
+    <td><strong>Total Titulacion</strong></td>
+    <td><strong>Total Arrendamiento</strong></td>
+  </tr>
+<% @resoluciones.each do |resolucion| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=resolucion.descripcion rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.modalidad rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.anno rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.nro_resolucion rescue nil%></div></td>
+     <td><div align="center"><%=resolucion.nropersonas  rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.especie) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.dinero) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.mejoras) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.credito) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.tit) rescue nil%></div></td>
+     <td><div align="right"><%=camponumerico(resolucion.arr) rescue nil%></div></td>
+ </tr>
+<% end %>
+</table>
+

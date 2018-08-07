@@ -1,0 +1,49 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">INFORME DIAGNOSTICO</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="1">
+        <tr class="odd1">
+          <td width="50%" class="campos">Beneficiario</td>
+        </tr>
+        <tr class="odd1">
+          <td class="camposDesc"><%=@persona.autobuscar rescue nil%>&nbsp;</td>
+        </tr>
+      </table>
+    <br/>
+<% if @persona.personaslistas.exists? %>
+<table width="100%" border="1" cellspacing="0" cellpadding="0" style="border:1px solid #CCCCCC; font-family: Tahoma; font-size: 11px;">
+  <tr valign="middle">
+    <td width="45%" height="30" align="left" class="oce-first">Proceso - Documentacion</td>
+    <td width="5%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="5%" height="30" align="left" class="oce-first">Folio</td>
+    <td width="45%" height="30" align="left" class="oce-first">Observacion</td>
+  </tr>
+<% @persona.personaslistas.each do |personaslista| %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+     <td width="45%" height="30" class="camposDesc"><div align="justify"><strong><%=personaslista.listasverificacion.proceso rescue nil%></strong><br/>
+                 <%=personaslista.listasverificacion.codigo rescue nil%> - <%=personaslista.listasverificacion.documento rescue nil%></div></td>
+     <td width="5%" height="30" align="left" class="camposDesc"><div align="center"><strong><%=personaslista.estado rescue nil%></strong></div></td>
+     <td width="5%" height="30" align="left" class="camposDesc"><div align="center"><strong><%=personaslista.folios rescue nil%></strong></div></td>
+     <td width="40%" height="30" align="left" class="camposDesc">
+        <% if personaslista.user_actualiza %>
+        <%=personaslista.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(personaslista.user_actualiza).username rescue nil%><br/>
+        <% end %>
+        <%=personaslista.observacion rescue nil%></td>
+    </tr>
+ <% end %>
+ <% end %>
+</table>
+    <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+    </table>
+</td>
+</tr>
+</table>
+</div>

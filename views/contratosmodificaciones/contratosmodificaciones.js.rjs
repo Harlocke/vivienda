@@ -1,0 +1,1 @@
+page.replace_html :contratosmodificaciones_form, :partial => "contratosmodificaciones", :object => @contratosmodificacion

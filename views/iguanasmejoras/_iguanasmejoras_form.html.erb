@@ -1,0 +1,264 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1">
+          <td width="22%" class="campos">Encuesta *</td>
+          <td width="22%" class="campos">Direccion *</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= text_field :iguanasmejora, :encuesta,{ :class => "campo", :size => 27,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :iguanasmejora, :encuesta, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= text_field :iguanasmejora, :direccion,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :iguanasmejora, :direccion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="campos odd1"><div align="center">8.</div></td>
+          <td class="campos odd1">Opcion de Vivienda </td>
+          <td colspan="2" class="campos">
+            <%= select(:iguanasmejora,:opcion_vivienda, {
+                "CANTARES" => "CANTARES",
+                "AURORA" => "AURORA",
+                "CHAGUALON" => "CHAGUALON",
+                "HUERTA" => "HUERTA",
+                "MONTANA" => "MONTANA",
+                "NAZARET" => "NAZARET",
+                "TIROL" => "TIROL",
+                "CASCADA" => "CASCADA",
+                "VIVIENDA USADA" => "VIVIENDA USADA",
+                "VIVIENDA NUEVA" => "VIVIENDA NUEVA",
+                "NEGOCIACION DIRECTA" => "NEGOCIACION DIRECTA",
+                "SIN DEFINIR OPCION" => "SIN DEFINIR OPCION",
+                "ALAMOS I"=>"ALAMOS I",
+                "ALAMOS II"=>"ALAMOS II",
+                "HERRADURA III"=>"HERRADURA III",
+                "HUERTA III"=>"HUERTA III"},
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="campos odd1"><div align="center">Estado Vivienda</div></td>
+          <td colspan="2"class="campos">
+        <%= select(:iguanasmejora,:estado_vivienda, {
+                  "SOLICITUD AVALUO" => "SOLICITUD AVALUO",
+                  "ASIGNACION DE SUBSIDIO" => "ASIGNACION DE SUBSIDIO",
+                  "ESCRITURACION" => "ESCRITURACION",
+                  "PAGOS" => "PAGOS",
+                  "SOLICITUD CERTIFICADO DE RIESGO" => "SOLICITUD CERTIFICADO DE RIESGO",
+                  "REMISION BANCO INMOBILIARIO" => "REMISION BANCO INMOBILIARIO",
+                  "SIN DEFINIR OPCION" => "SIN DEFINIR OPCION",
+                  "CIERRE FINANCIERO" => "CIERRE FINANCIERO",
+                  "POSTULACION" => "POSTULACION",
+                  "REGISTRADA" => "REGISTRADA"},
+                        { :include_blank => true },
+                      { :style=>"width:230px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+ <tr>
+          <td height="19" colspan="7" class="campos"><table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr>
+              <td width="20%" rowspan="3" align="left" class="campos"><div align="center"></div></td>
+              <td width="25%" height="19" class="camposDesc"><span class="campos odd1">Cruce con Ministerio</td>
+              <td width="14%" class="camposDesc"><%= select(:iguanasmejora,
+                :cruzado, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              <td width="28%" class="campos odd1">Fecha Cruce</td>
+              <td width="13%" class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_cruzado", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+            <tr>
+              <td height="19" class="campos odd1">Reasentado</td>
+              <td class="camposDesc"><%= select(:iguanasmejora,
+                :reasentado, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+              <td class="campos odd1">Fecha Reasentado</td>
+              <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_reasentamiento", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              </tr>
+            <tr>
+              <td align="left" class="campos odd1">Fecha Inicio Arrendamiento</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_inicio_arre", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td align="left" class="campos odd1">Fecha Finalizacion Arrendamiento </td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_fin_arre", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td height="19" colspan="7" class="campos">
+		  <fieldset>
+		  <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr>
+              <td width="12%" rowspan="4" align="left" class="campos"><div align="center">SI LA <br>
+                  OPCION <br>
+                ES VIVIENDA USADA</div></td>
+              <td width="30%" align="left" class="campos odd1">&nbsp;Fecha Solicitud Certificado Riesgo </td>
+              <td width="14%" align="left"><%= calendar_date_select "iguanasmejora", "fecha_sol_riesgo", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td width="30%" align="left" class="campos odd1">&nbsp;Fecha Recibido Certificado Riesgo </td>
+              <td width="14%" align="left"><%= calendar_date_select "iguanasmejora", "fecha_rec_riesgo", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+            <tr>
+              <td align="left" class="campos odd1">&nbsp;Fecha Solicitud Avaluo </td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_solre_avaluo", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td align="left" class="campos odd1">&nbsp;Fecha Recibido Avaluo</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_rec_avaluo", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+            <tr>
+              <td align="left" class="campos odd1">&nbsp;Fecha Remision Banco Inmobiliario</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_rem_banco", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td align="left" class="campos odd1">&nbsp;Fecha Devolucion  Banco Inmobiliario</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_dev_banco", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+            <tr>
+              <td align="left" class="campos odd1">&nbsp;Fecha Remision Asignacion Subsidio </td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_rem_subsidio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td align="left" class="campos odd1">&nbsp;Fecha Devolucion Asignacion Subsidio</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_dev_subsidio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            </tr>
+          </table>
+		  </fieldset></td>
+        </tr>
+        <tr>
+          <td height="19" colspan="7" class="campos">
+		  <fieldset>
+		  <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr>
+              <td width="40%" rowspan="2" align="left" class="campos"><div align="center">SI LA OPCION ES VIVIENDA NUEVA </div></td>
+              <td width="26%" align="left" class="campos odd1">&nbsp;Fecha Remisi&oacute;n Financiera</td>
+              <td width="34%" align="left"><%= calendar_date_select "iguanasmejora", "fecha_rem_financiera", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              </tr>
+            <tr>
+              <td align="left" class="campos odd1">&nbsp;Fecha Remisi&oacute;n Juridica</td>
+              <td align="left"><%= calendar_date_select "iguanasmejora", "fecha_rem_juridica", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              </tr>
+          </table>
+		  </fieldset></td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">9.</div></td>
+          <td height="19" class="campos odd1">Fecha Estimada Liberacion </td>
+          <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_estimada", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">10.</div></td>
+          <td height="19" class="campos odd1">Tratamiento</td>
+          <td colspan="3" class="camposDesc"><%= select(:iguanasmejora,
+                :tratamiento, {"NEGOCIACION DIRECTA" => "N",
+                           "POSEEDOR" => "P",
+                         "RENTISTA" => "R",
+                         "UNIPERSONAL" => "U"},
+                        { :include_blank => true },
+                      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">11.</div></td>
+          <td class="campos odd1">Deshabilitado</td>
+          <td class="campos"><%= select(:iguanasmejora,
+                :deshabilitado, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">12.</div></td>
+          <td class="campos odd1">Demolido</td>
+          <td class="campos"><%= select(:iguanasmejora,
+                :demolido, { "SI" => "S",
+                           "NO" => "N",
+                           "NO APLICA" => "NA"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">13.</div></td>
+          <td height="19" class="campos odd1">Fecha Acta Entrega</td>
+          <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_entrega", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">14.</div></td>
+          <td height="19" class="campos odd1">Descargue Catastro</td>
+          <td class="camposDesc"><%= select(:iguanasmejora,
+                :solicitud_desccatastro, { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">15.</div></td>
+          <td height="19" class="campos odd1">Fecha Radicado Catastro</td>
+          <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_radicadocatastro", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td class="campos odd1">Nro Radicado</td>
+          <td colspan="3" class="camposDesc"><%= text_field :iguanasmejora,:radicado_nro,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :iguanasmejora, :radicado_nro, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">16.</div></td>
+          <td height="19" class="campos odd1">Descargue EPM</td>
+          <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_epm", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td class="campos odd1">Nro Radicado</td>
+          <td colspan="3" class="camposDesc"><%= text_field :iguanasmejora, :epm_radicado_nro,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="campos odd1"><div align="center">17.</div></td>
+          <td height="19" class="campos odd1">Descargue EEVV</td>
+          <td class="camposDesc"><%= calendar_date_select "iguanasmejora", "fecha_eevv", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+          <td class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;
+          <span class="uiButtonText"><%= hidden_field :iguanasmejora, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>

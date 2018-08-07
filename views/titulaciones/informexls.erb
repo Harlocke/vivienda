@@ -1,0 +1,82 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>INFORMACION ASIGNACIONES</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="13"><strong>Informacion predio</strong></td>
+    <td colspan="2"><strong>Asignacion</strong></td>
+    <td colspan="4"><strong>Beneficiarios</strong></td>
+    <td colspan="3"><strong>Informacion Visitas</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Cobama</strong></td>
+    <td><strong>Barrio</strong></td>
+    <td><strong>Juridico Asignado </strong></td>
+    <td><strong>Tipo de Proceso </strong></td>
+    <td><strong>Manzana </strong></td>
+    <td><strong>Lote </strong></td>
+    <td><strong>Direccion </strong></td>
+    <td><strong>Unidades Habit.</strong></td>
+    <td><strong>Acta de Entrega</strong></td>
+    <td><strong>Area </strong></td>
+    <td><strong>Expediente </strong></td>
+    <td><strong>Fecha Expediente </strong></td>
+    <td><strong>Fecha Asignacion</strong></td>
+    <td><strong>Tipo Asignacion</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Persona Vinculada</strong></td>
+    <td><strong>Nro Matricula</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Estado Visita</strong></td>
+    <td><strong>Nombre usuario</strong></td>
+    <td><strong>Observacion</strong></td>
+  </tr>
+<% @titulacionesasignaciones.each do |titulacionesasignacion|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=titulacionesasignacion.titulacion.id rescue nil%></div></td>
+     <td><div align="left">&nbsp;<%=titulacionesasignacion.titulacion.cobama.to_s rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.comuna.descripcion2 rescue nil%></div></td>
+     <td><div align="left"><%=User.find(titulacionesasignacion.titulacion.user_juridico).nombre rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.tipoproceso rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.manzana rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.lote rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.direccion rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.unidades rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.acta_entrega rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.area rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.expediente rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.titulacion.fecha_expediente rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.fecha_asignacion rescue nil%></div></td>
+     <td><div align="left"><%=titulacionesasignacion.tipo rescue nil%></div></td>
+     <td colspan="4">
+       <% if titulacionesasignacion.titulacion.titulacionespersonas.exists? %>
+        <% titulacionesasignacion.titulacion.titulacionespersonas.each do |titulacionespersona| %>
+       <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
+       <tr>
+         <td><div align="left"><%=titulacionespersona.persona.identificacion rescue nil%></div></td>
+         <td><div align="left"><%=titulacionespersona.persona.nombres rescue nil%></div></td>
+         <td><div align="left"><%=titulacionespersona.matricula rescue nil%></div></td>
+         <td><div align="left"><%=titulacionespersona.direccion rescue nil%></div></td>
+       </tr>
+       </table>
+       <% end
+         end%>
+     </td>
+     <td colspan="3">
+       <% if titulacionesasignacion.titulacion.titulacionesfallidos.exists? %>
+        <% titulacionesasignacion.titulacion.titulacionesfallidos.each do |titulacionesfallido| %>
+       <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
+       <tr>
+         <td><div align="left"><%=titulacionesfallido.estado_visita rescue nil%></div></td>
+         <td><div align="left"><%=titulacionesfallido.nombre_fallido rescue nil%></div></td>
+         <td><div align="left"><%=replaceenter(titulacionesfallido.observacion_fallido) rescue nil%></div></td>
+       </tr>
+       </table>
+       <% end
+         end%>
+     </td>
+  </tr>
+<% end %>
+</table>

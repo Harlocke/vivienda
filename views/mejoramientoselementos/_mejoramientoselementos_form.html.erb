@@ -1,0 +1,48 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="85%" class="campos" align="left">Item</td>
+        <% unless @mejoramientoselemento.new_record? %>
+          <td width="10%" class="campos" align="left">Unidad</td>
+        <% end %>
+        <td width="5%" class="campos" align="left">Cantidad *</td>
+        </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left">
+          <% unless @mejoramientoselemento.new_record? %>
+          <div align="justify"><%=@mejoramientoselemento.mejoramientositem.descripcion rescue nil%></div>
+          <% else %>
+            <%=select("mejoramientoselemento", "mejoramientositem_id", Mejoramientositem.find(:all, :conditions => ["id not in (select mejoramientositem_id from mejoramientoselementos where mejoramiento_id = #{@mejoramiento.id})
+                                                                                                                     and id in (select mejoramientositem_id from conveniosmejoramientos where convenio_id = #{@mejoramiento.convenio_id})"], :order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+           { :style=>"width:760px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <% end %></td>
+        <% unless @mejoramientoselemento.new_record? %>
+          <td class="camposDesc" align="left"><%=@mejoramientoselemento.mejoramientositem.unidad rescue nil%></td>
+        <% end %>
+        <td class="camposDesc" align="left"><%= text_field :mejoramientoselemento, :cantidad,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :mejoramientoselemento, :cantidad, :css_class =>"cerror"%></td>
+        </tr>
+        <% unless @mejoramientoselemento.new_record? %>
+        <tr valign="top">
+          <td class="odd1 campos" colspan="3" align="left">Sustentacion:<br/>
+            <%= text_area(:mejoramientoselemento, :observaciones, :cols => 150, :rows => 4, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          </td>
+        </tr>
+        <% end %>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :mejoramientoselemento, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+    </table>
+    </td>
+  </tr>
+</table>

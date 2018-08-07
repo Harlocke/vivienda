@@ -1,0 +1,62 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/grupomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">GRUPOS</div></td>
+              <td width="3%"> <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),indexanalisis_analisisprecios_path %></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+<% form_tag request.path, :method => 'get' do %>
+  <% content_tag :label do %>
+<table width="60%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="30%">Digite el dato a buscar :</td>
+     <td width="70%"><%= text_field_tag :search, params[:search],{ :class => "campo2",  :size => "50",
+  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= image_submit_tag '/images/find.png', :width => '18', :name => nil %></td>
+   </tr>
+</table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="10%" height="30" class="oce-first">Codigo Grupo</th>
+    <th width="35%" class="oce-first">Descripcion Grupo</th>
+    <th width="15%" class="oce-first">Codigo SubGrupo</th>
+    <th width="35%" class="oce-first">Descripcion SubGrupo</th>
+    <th width="5%" class="oce-first">&nbsp;</th>
+  </tr>
+<% @grupos.each do |grupo| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h grupo.codigogrupo %></td>
+    <td class="camposDesc"><%=h grupo.grupo %></td>
+    <td class="camposDesc"><%=h grupo.codigosubgrupo %></td>
+    <td class="camposDesc"><%=h grupo.subgrupo %></td>
+    <td class="camposDesc"><div align="center">
+        <%= link_to 'Editar', edit_grupo_path(grupo), :class=>"editarlink"%></div>
+    </td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center"><%= will_paginate @grupos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center">Total Registros: <%= @grupos.total_entries %></div></td>
+   </tr>
+</table>
+<br/>

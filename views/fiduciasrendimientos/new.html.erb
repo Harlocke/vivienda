@@ -1,0 +1,31 @@
+<h1>New fiduciasrendimiento</h1>
+
+<% form_for(@fiduciasrendimiento) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.label :valor %><br />
+    <%= f.text_field :valor %>
+  </p>
+  <p>
+    <%= f.label :valor_comisiones %><br />
+    <%= f.text_field :valor_comisiones %>
+  </p>
+  <p>
+    <%= f.label :fiducia %><br />
+    <%= f.text_field :fiducia %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', fiduciasrendimientos_path %>

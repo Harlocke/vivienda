@@ -1,0 +1,22 @@
+<h1>Listing viviendastipostramites</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Tiempo</th>
+  </tr>
+
+<% @viviendastipostramites.each do |viviendastipostramite| %>
+  <tr>
+    <td><%=h viviendastipostramite.descripcion %></td>
+    <td><%=h viviendastipostramite.tiempo %></td>
+    <td><%= link_to 'Show', viviendastipostramite %></td>
+    <td><%= link_to 'Edit', edit_viviendastipostramite_path(viviendastipostramite) %></td>
+    <td><%= link_to 'Destroy', viviendastipostramite, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New viviendastipostramite', new_viviendastipostramite_path %>

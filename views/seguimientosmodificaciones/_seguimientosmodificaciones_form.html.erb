@@ -1,0 +1,35 @@
+<div align="center">
+<table class="table table-bordered table-striped">
+  <tr>
+    <th width="40%">Tipo *</th>
+    <th width="20%">Valor *</th>
+    <th width="20%">Plazo Mes *</th>
+    <th width="20%">Plazo Dias *</th>
+  </tr>
+  <tr valign="top">
+    <td><%= select(:seguimientosmodificacion, :tipo_modificacion, { "PLAZO" => "P",
+                                "PLAZO - VALOR" => "PV",
+                                "PLAZO - CLAUSULAS" => "PC",
+                                "PLAZO - VALOR - CLAUSULAS" => "PVC",
+                                "VALOR" => "V",
+                                "VALOR - CLAUSULAS" => "VC",
+                                "CLAUSULAS" => "C"
+                             },
+                        { :include_blank => true },
+                      { :style=>"width:300px"})%>
+        <%= error_message_on :seguimientosmodificacion, :tipo_modificacion, :css_class =>"cerror"%></td>
+    <td><%= text_field "seguimientosmodificacion", :valor,{ :class => "span2"}%>
+        <%= error_message_on :seguimientosmodificacion, :valor, :css_class =>"cerror"%></td>
+    <td><%= text_field "seguimientosmodificacion", :plazo_mes,{ :class => "span2"}%>
+        <%= error_message_on :seguimientosmodificacion, :plazo_mes, :css_class =>"cerror"%></td>
+    <td><%= text_field "seguimientosmodificacion", :plazo_dias,{ :class => "span2"}%>
+        <%= error_message_on :seguimientosmodificacion, :plazo_dias, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td colspan="5" height="30"><div align="right">
+        <%= hidden_field :seguimientosmodificacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando...", :class=>"btn btn-primary"%>
+      </div>
+      </td>
+  </tr>
+</table>
+    </div>

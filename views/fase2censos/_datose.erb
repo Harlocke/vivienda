@@ -1,0 +1,394 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INFORME <%=@nameinforme rescue nil%> - FASE 2 CENSO</h3>
+<table width="25000px" border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+      <td><strong>Código Estado (id_estado)</strong></td>
+      <td><strong>Identificación de Estado (estado)</strong></td>
+      <td><strong>Número de Formulario (noform)</strong></td>
+      <td><strong>Fecha visita (p1)</strong></td>
+      <td><strong>Dirección o instalación de energía de la vivienda (p2)</strong></td>
+      <td><strong>Fotografía 01 (p3)</strong></td>
+      <td><strong>Comuna o corregimiento</strong></td>
+      <td><strong>Barrio</strong></td>
+      <td><strong>Teléfono fijo (p6)</strong></td>
+      <td><strong>Teléfono celular (p6_1)</strong></td>
+      <td><strong>Manzana (p7)</strong></td>
+      <td><strong>Lote (p8)</strong></td>
+      <td><strong>Área total del lote - en M2. Aproximadamente (p9)</strong></td>
+      <td><strong>Área construida - en M2 Aproximadamente (p10)</strong></td>
+      <td><strong>Número de Matricula Inmobiliaria (p11)</strong></td>
+      <td><strong>Matrícula Inmobiliaria (p11_1)</strong></td>
+      <td><strong>Número de Código catastral (p12)</strong></td>
+      <td><strong>Código catastral (p12_1)</strong></td>
+      <td><strong>Estrato socioeconómico (p13)</strong></td>
+      <td><strong>Tipo de Tenencia de la vivienda (p14)</strong></td>
+      <td><strong>Tipología de la vivienda (p16)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° comedor independiente (p22)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: comedor independiente? (p23)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: comedor independiente? (p24)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° sala comedor (p25)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala comedor? (p26)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala comedor? (p27)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° sala independiente (p28)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala independiente? (p29)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala independiente? (p30)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° garajes (p31)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: garajes? (p32)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: garajes? (p33)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° cuartos compartidos para dormir (p34)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos compartidos para dormi? (p35)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos compartidos para dormi? (p36)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° cuartos Para dormir -independientemente del hogar- y otros usos (p37)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos Para dormir -independientemente del hogar- y otros usos? (p38)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos Para dormir -independientemente del hogar- y otros usos? (p39)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° Cuartos para otros usos (p40)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: N° Cuartos exclusivos para dormir (p40_1)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos para otros usos? (p41)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos exclusivos para dormir? (p41_1)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos para otros usos? (p42)</strong></td>
+      <td><strong>Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos exclusivos para dormir? (p42_1)</strong></td>
+      <td><strong>Fotografía02 de Comedor Independiente (p43)</strong></td>
+      <td><strong>Fotografía03 de Sala - Comedor (p44)</strong></td>
+      <td><strong>Fotografía04 de Sala Independiente (p45)</strong></td>
+      <td><strong>Fotografía05 de Garaje (p46)</strong></td>
+      <td><strong>Fotografía06 Cuartos compartir para dormir (p47)</strong></td>
+      <td><strong>Fotografía07 Para dormir y otros usos (p48)</strong></td>
+      <td><strong>Fotografía08 Cuartos otros usos (p49)</strong></td>
+      <td><strong>Fotografía08_1 Cuartos exclusivos para dormir (p49_1)</strong></td>
+      <td><strong>¿Hay en esta vivienda algún tipo de negocio? (p50)</strong></td>
+      <td><strong>Fotografía 9 del negocio y vivienda (p51)</strong></td>
+      <td><strong>Y el negocio es (p52)</strong></td>
+      <td><strong>¿Y cuál es la actividad económica de ese negocio? (p53)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Registro de Cámara de Comercio (p54)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: RUT (p55)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: NIT (p56)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Declaración de rentas de los 2 últimos años (p57)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Declaración industria y comercio (p58)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Libros de contabilidad (p59)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Estados financieros (p60)</strong></td>
+      <td><strong>Tiene el negocio alguno de los siguientes documentos: Ninguno (p61)</strong></td>
+      <td><strong>¿Qué área de la vivienda en M2-aproximadamente- ocupa el negocio? (p62)</strong></td>
+      <td><strong>¿Este hogar percibe alguna Renta o alquiler por ese negocio o por alquiler de parte de la vivienda? (p63)</strong></td>
+      <td><strong>¿Posee?: Columnas (p78)</strong></td>
+      <td><strong>Y ¿Cuál es el estado de los siguientes elementos estructurales?: Columnas (p79)</strong></td>
+      <td><strong>¿Posee?: Vigas de Amarre (p80)</strong></td>
+      <td><strong>Y ¿Cuál es el estado de los siguientes elementos estructurales?: Vigas de Amarre (p81)</strong></td>
+      <td><strong>¿Posee?: Losas en Concreto (p82)</strong></td>
+      <td><strong>Y ¿Cuál es el estado de los siguientes elementos estructurales?: Losas en Concreto (p83)</strong></td>
+      <td><strong>Fotografía 10: Columnas (p84)</strong></td>
+      <td><strong>Fotografía 11: Vigas de Amarre (p85)</strong></td>
+      <td><strong>Fotografía 12: Losas en Concreto (p86)</strong></td>
+      <td><strong>¿Cuál es el Material predominante de las paredes exteriores? (p87)</strong></td>
+      <td><strong>Estado actual de fachada o paredes exteriores (p88)</strong></td>
+      <td><strong>¿Requiere intervención: fachada o paredes exteriores? (p89)</strong></td>
+      <td><strong>Fotografía 13: Fachada, enfatice en las que requiere Intervención (p90)</strong></td>
+      <td><strong>En relación con su techo o losa: (p91)</strong></td>
+      <td><strong>¿Cuál es el Material predominante de los techos o cubiertas? (p92)</strong></td>
+      <td><strong>Otros ¿Cuál? (p92_2)</strong></td>
+      <td><strong>¿Estado actual de los Techos? (p93)</strong></td>
+      <td><strong>¿Requieren Intervención: Techos? (p94)</strong></td>
+      <td><strong>Fotografía 14: Techos, enfatice en los que hay que intervenir (p95)</strong></td>
+      <td><strong>Fotografía 15: Techos, enfatice en los que hay que intervenir (p96)</strong></td>
+      <td><strong>¿Cuál es el Material predominante de los pisos? (p97)</strong></td>
+      <td><strong>¿Cuál es el estado actual de los pisos? (p98)</strong></td>
+      <td><strong>¿Requieren Intervención: pisos? (p99)</strong></td>
+      <td><strong>Fotografía 16: Pisos, enfatice en los que hay que intervenir (p100)</strong></td>
+      <td><strong>Fotografía 17: Pisos, enfatice en los que hay que intervenir (p101)</strong></td>
+      <td><strong>¿En dónde preparan los alimentos las personas de este hogar? (p102)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la cocina en: Mesón de la cocina (p103)</strong></td>
+      <td><strong>¿Requiere intervención: Mesón de la cocina? (p104)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la cocina en: Enchapes de cocina (p105)</strong></td>
+      <td><strong>¿Requiere intervención: Enchapes de cocina? (p106)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la cocina en: Estructura de cubierta-Muebles (p107)</strong></td>
+      <td><strong>¿Requiere intervención: Estructura de cubierta-Muebles? (p108)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la cocina en: Fogón o parrilla (p109)</strong></td>
+      <td><strong>¿Requiere intervención: Fogón o parrilla? (p110)</strong></td>
+      <td><strong>Fotografía 18: de la cocina y demás partes, enfatice en las que hay que Intervenir: Mesón de la cocina (p111)</strong></td>
+      <td><strong>Fotografía 19: de la cocina y demás partes, enfatice en las que hay que Intervenir: Enchapes de cocina (p112)</strong></td>
+      <td><strong>Fotografía 20: de la cocina y demás partes, enfatice en las que hay que Intervenir: Estructura de cubierta-Muebles (p113)</strong></td>
+      <td><strong>Fotografía 21: de la cocina y demás partes, enfatice en las que hay que Intervenir: Fogón o parrilla (p114)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la vivienda en: Enchapes de Baños (p115)</strong></td>
+      <td><strong>¿Requieren Intervención: Enchapes de Baños? (p116)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la vivienda en: Revoque de los muros (p117)</strong></td>
+      <td><strong>¿Requieren Intervención: Revoque de los muros? (p118)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la vivienda en: Estuco de los muros (p119)</strong></td>
+      <td><strong>¿Requieren Intervención: Estuco de los muros? (p120)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la vivienda en: Pintura de los muros (p121)</strong></td>
+      <td><strong>¿Requieren Intervención: Pintura de los muros? (p122)</strong></td>
+      <td><strong>¿Cuál es el estado y funcionamiento de la vivienda en: Muros mampostería (p123)</strong></td>
+      <td><strong>¿Requieren Intervención: Muros mampostería? (p124)</strong></td>
+      <td><strong>Fotografía 22: de los implementos y demás áreas, enfatice en las que requieren intervención: Enchapes de Baños (p125)</strong></td>
+      <td><strong>Fotografía 23: de los implementos y demás áreas, enfatice en las que requieren intervención: Revoque de los muros (p126)</strong></td>
+      <td><strong>Fotografía 24: de los implementos y demás áreas, enfatice en las que requieren intervención: Estuco de los muros (p127)</strong></td>
+      <td><strong>Fotografía 25: de los implementos y demás áreas, enfatice en las que requieren intervención: Pintura de los muros (p128)</strong></td>
+      <td><strong>Fotografía 26: de los implementos y demás áreas, enfatice en las que requieren intervención: Muros mampostería (p129)</strong></td>
+      <td><strong>¿Qué tipo de instalaciones eléctricas tiene el hogar? (p130)</strong></td>
+      <td><strong>Requiere intervención: instalaciones eléctricas? (p131)</strong></td>
+      <td><strong>Fotografía 27: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p132)</strong></td>
+      <td><strong>Fotografía 28: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p133)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Energía (p134)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Energía (p135)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Energía (p136)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Acueducto (p137)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Acueducto (p138)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Acueducto (p139)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Alcantarillado (p140)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Alcantarillado (p141)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Alcantarillado (p142)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Teléfono (línea fija) (p143)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Teléfono (línea fija) (p144)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Teléfono (línea fija) (p145)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Gas natural (red) (p146)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Gas natural (red) (p147)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Gas natural (red) (p148)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Aseo (recolección) (p149)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Aseo (recolección) (p150)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Aseo (recolección) (p151)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Gas en pipeta (p152)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Gas en pipeta (p153)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Gas en pipeta (p154)</strong></td>
+      <td><strong>La unidad de vivienda cuenta con servicios públicos de: Conexión a internet (p155)</strong></td>
+      <td><strong>Estado de servicios públicos en la vivienda de: Conexión a internet (p156)</strong></td>
+      <td><strong>La unidad de vivienda requiere intervención en servicios públicos de: Conexión a internet (p157)</strong></td>
+      <td><strong>Fotografía 29: del servicio, enfatice en los que requiere intervención: Energía (p158)</strong></td>
+      <td><strong>Fotografía 30: del servicio, enfatice en los que requiere intervención: Acueducto (p159)</strong></td>
+      <td><strong>Fotografía 31: del servicio, enfatice en los que requiere intervención: Alcantarillado (p160)</strong></td>
+      <td><strong>¿Cuál es el estado de la vivienda en: Canoas y ruanas (p161)</strong></td>
+      <td><strong>¿Requieren Intervención: Canoas y ruanas? (p162)</strong></td>
+      <td><strong>¿Cuál es el estado de la vivienda en: Lagrimales (p163)</strong></td>
+      <td><strong>¿Requieren Intervención: Lagrimales? (p164)</strong></td>
+      <td><strong>¿Cuál es el estado de la vivienda en: Impermeabilización de losas y cubiertas (p165)</strong></td>
+      <td><strong>¿Requieren Intervención: Impermeabilización de losas y cubiertas? (p166)</strong></td>
+      <td><strong>Fotografía 32: de las áreas, enfatice en las que requieren intervención: Canoas y ruanas (p167)</strong></td>
+      <td><strong>Fotografía 33: de las áreas, enfatice en las que requieren intervención: Impermeabilización de losas y cubiertas (p168)</strong></td>
+      <td><strong>¿Con qué tipo de servicio sanitario cuenta el hogar y cuál es su estado actual? (p169)</strong></td>
+      <td><strong>¿Y cuál es su estado actual: servicio sanitario? (p170)</strong></td>
+      <td><strong>Requieren Intervención: servicio sanitario? (p171)</strong></td>
+      <td><strong>Fotografía 34: de los servicios sanitarios, enfatice en los que hay que intervenir (p172)</strong></td>
+      <td><strong>Fotografía 35: de los servicios sanitarios, enfatice en los que hay que intervenir (p173)</strong></td>
+      <td><strong>¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavamanos (p174)</strong></td>
+      <td><strong>Y cuál es su estado: Lavamanos? (p175)</strong></td>
+      <td><strong>¿¿Requieren intervención: Lavamanos? (p176)</strong></td>
+      <td><strong>¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Duchas (p177)</strong></td>
+      <td><strong>Y cuál es su estado: Duchas? (p178)</strong></td>
+      <td><strong>¿¿Requieren intervención: Duchas? (p179)</strong></td>
+      <td><strong>¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavadero de Ropa (p180)</strong></td>
+      <td><strong>Y cuál es su estado: Lavadero de Ropa? (p181)</strong></td>
+      <td><strong>¿¿Requieren intervención: Lavadero de Ropa? (p182)</strong></td>
+      <td><strong>Fotografía 36: de los implementos o áreas, enfatice en los que requiere intervención: Lavamanos (p183)</strong></td>
+      <td><strong>Fotografía 37: de los implementos o áreas, enfatice en los que requiere intervención: Duchas (p184)</strong></td>
+      <td><strong>Fotografía 38: de los implementos o áreas, enfatice en los que requiere intervención: Lavadero de Ropa (p185)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Inundaciones (p186)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Avalancha (p187)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Deslizamiento (p188)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Hundimiento del Terreno (p189)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Falla Geológica (p190)</strong></td>
+      <td><strong>Esta vivienda, en el último año, se ha visto afectada por: Afectaciones de lotes y/o viviendas vecinas (p191)</strong></td>
+      <td><strong>¿Esta vivienda a sido atendida a través del Programa municipal 'Medellín Solidaria'? (p192)</strong></td>
+      <td><strong>¿Esta vivienda ha sido visitada por el DAGRD? (p193)</strong></td>
+      <td><strong>¿Qué tipo de ficha DAGRD tiene? (p194)</strong></td>
+      <td><strong>Visita atendida por: (p199)</strong></td>
+      <td><strong>Visita realizada por: (p200)</strong></td>
+      <td><strong>Observaciones (p201)</strong></td>
+      <td><strong>Estiquer (p202)</strong></td>
+      <td><strong>Quién realizó la Encuesta (empadronador)</strong></td>
+      <td><strong>Nombre del Supervisor (supervisor)</strong></td>
+      <td><strong>Nombre del Coordinador en trabajo de Campo (coordinador)</strong></td>
+  </tr>
+<% @fase2censos.each do |fase2censo|%>
+ <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+      <td><div align="left"><%=fase2censo.id_estado rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.estado rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.noform rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p2 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p3 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.sifi_comuna rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.sifi_desc rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p6 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p6_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p7 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p8 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p9 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p10 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p11 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p11_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p12 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p12_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p13 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p14 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p16 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p22 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p23 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p24 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p25 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p26 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p27 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p28 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p29 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p30 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p31 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p32 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p33 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p34 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p35 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p36 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p37 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p38 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p39 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p40 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p40_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p41 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p41_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p42 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p42_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p43 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p44 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p45 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p46 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p47 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p48 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p49 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p49_1 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p50 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p51 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p52 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p53 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p54 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p55 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p56 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p57 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p58 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p59 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p60 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p61 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p62 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p63 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p78 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p79 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p80 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p81 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p82 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p83 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p84 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p85 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p86 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p87 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p88 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p89 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p90 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p91 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p92 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p92_2 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p93 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p94 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p95 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p96 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p97 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p98 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p99 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p100 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p101 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p102 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p103 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p104 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p105 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p106 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p107 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p108 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p109 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p110 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p111 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p112 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p113 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p114 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p115 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p116 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p117 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p118 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p119 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p120 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p121 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p122 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p123 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p124 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p125 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p126 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p127 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p128 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p129 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p130 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p131 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p132 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p133 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p134 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p135 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p136 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p137 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p138 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p139 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p140 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p141 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p142 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p143 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p144 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p145 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p146 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p147 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p148 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p149 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p150 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p151 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p152 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p153 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p154 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p155 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p156 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p157 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p158 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p159 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p160 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p161 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p162 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p163 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p164 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p165 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p166 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p167 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p168 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p169 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p170 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p171 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p172 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p173 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p174 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p175 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p176 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p177 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p178 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p179 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p180 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p181 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p182 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p183 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p184 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p185 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p186 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p187 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p188 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p189 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p190 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p191 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p192 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p193 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p194 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p199 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p200 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p201 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.p202 rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.empadronador rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.supervisor rescue nil%></div></td>
+      <td><div align="left"><%=fase2censo.coordinador rescue nil%></div></td>
+  </tr>
+<% end %>
+</table>

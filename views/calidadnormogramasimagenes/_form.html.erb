@@ -1,0 +1,18 @@
+
+  <table class="table table-bordered table-striped">
+  <tr>
+    <th>Descripcion *</th>
+    <td><%= f.text_field :descripcion,{ :class => "span4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+    <%= f.error_message_on :descripcion, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <th>Archivo </th>
+     <td><%= f.file_field :calidadnormograma, { :class => "campo",
+              :size => 46,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+     <%= f.error_message_on :calidadnormograma, :css_class =>"cerror"%></td>
+  </tr>
+</table>

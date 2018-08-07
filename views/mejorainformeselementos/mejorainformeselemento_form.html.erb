@@ -1,0 +1,109 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/mibmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">EVALUACION DE ACTIVIDAD DE INTERVENTORIA - <%=@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria.created_at.strftime("%Y-%m-%d %X")%></div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),{:controller=>"mejoramientosinformes", :action=>"edit", :id=>@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria_id}%>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <table width="90%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td height="25" width="50%" align="left" class="oce-first">Beneficiario</td>
+      <td width="15%" align="left" class="oce-first">CBML</td>
+      <td width="15%" align="left" class="oce-first">Tipo de Mejoramiento</td>
+      <td width="20%" align="left" class="oce-first">Estado</td>
+    </tr>
+    <tr class="odd1">
+      <td height="25" class="camposDesc"><%=@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria.mejoramiento.persona.autobuscar rescue nil%></td>
+      <td class="camposDesc"><%=@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria.mejoramiento.cobama rescue nil%></td>
+      <td class="camposDesc"><%=@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria.mejoramiento.tipomejoramiento rescue nil%></td>
+      <td class="camposDesc"><%=@mejorainformeselemento.mejoramientosinforme.mejoramientosinterventoria.mejoramiento.mejoramientosestado.descripcion rescue nil%></td>
+    </tr>
+  </table>
+  <br/>
+</div>
+<div align="center">
+<% form_for(@mejorainformeselemento) do |f| %>
+<table width="90%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">ACTIVIDAD A EVALUAR</div></td>
+  </tr>
+</table>
+<table width="70%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr class="odd1">
+    <td width="20%" class="campos">Item: </td>
+    <td width="80%" class="camposDesc"><div align="justify"><%=@mejorainformeselemento.mejoramientoselemento.mejoramientositem.descripcion rescue nil%>
+      ($ <%=number_to_currency(@mejorainformeselemento.mejoramientoselemento.valor_unitario,{:precision => 2, :unit=>"", :delimiter =>"."}) rescue nil%>)</div></td>
+  </tr>
+  <tr>
+    <td class="campos">Unidad:</td>
+    <td class="camposDesc"><%=@mejorainformeselemento.mejoramientoselemento.mejoramientositem.unidad rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Cantidad Total:  </td>
+    <td class="camposDesc"><%=@mejorainformeselemento.mejoramientoselemento.cantidad rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="campos">Cantidad: </td>
+    <td class="camposDesc"><%= f.text_field :cantidad,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <strong><%= error_message_on :mejorainformeselemento, :cantidad, :css_class =>"cerror"%></strong></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos">Estado: </td>
+    <td class="camposDesc"><%= f.select(:estado, [["APROBADO","APROBADO"],
+                              ["REPROBADO","REPROBADO"]],
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :mejorainformeselemento, :estado, :css_class =>"cerror"%></td>
+  </tr>
+  <tr>
+    <td class="campos">Observaciones: </td>
+    <td class="camposDesc"><%=text_area(:mejorainformeselemento, :observacion, :cols => 90, :rows => 5, :class => 'campo',:maxlength => 4000,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+  </tr>
+</table>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="70%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+           </div></td>
+      </tr>
+    </table>
+  <br/>
+<table width="70%" height="100%" border="0" cellpadding="0" cellspacing="0">
+ <tr class="odd1">
+    <td width="20%" class="campos">Documentos Digitales: </td>
+    <td width="80%" class="camposDesc">
+      <div id="mejorainformesimagenes_form">
+         <%= render :partial => "/mejorainformesimagenes/mejorainformesimagenes" %>
+      </div>
+    </td>
+  </tr>
+  <% if @mejorainformeselemento.estado == 'REPROBADO' %>
+  <tr>
+    <td colspan="2" class="camposDesc"><strong>Problemas Detectados:</strong><br/>
+       <div id="mejorainformescriterios_form">
+          <%= render :partial => "/mejorainformescriterios/mejorainformescriterios" %>
+       </div></td>
+  </tr>
+  <%end%>
+</table>
+  <% end %>
+</div>
+<br/>

@@ -1,0 +1,36 @@
+<%@vehiculossolicitudes = Vehiculossolicitud.find(:all, :conditions=>["estado = 'PENDIENTE'"], :order=>"created_at desc") %>
+<div style="width:100%; height:40px; vertical-align:middle;" title="Solicitudes"><a href="javascript:void(0);" onclick="SINO('demo_informe2')"><div class="col_enc"><img src="/images/1nuevo.png"/> SOLICITUDES (<%=@vehiculossolicitudes.count rescue 0%>)
+    <%= link_to image_tag('/images/search.png'),vehiculossolicitudes_path %>
+    </div></a></div>
+<div id="demo_informe2" style="display:none;" align="center">
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="12%" height="30" class="oce-first">Creacion</td>
+        <td width="30%" align="left" class="oce-first">Información Solicitante</td>
+        <td width="28%" align="left" class="oce-first">Destino</td>
+        <td width="15%" align="left" class="oce-first">Fecha - Hora</td>
+        <td width="5%" height="30" align="left" class="oce-first"></td>
+      </tr>
+    <% @vehiculossolicitudes.each do |vehiculossolicitud| %>
+      <tr  class="<%=cycle('even1', 'odd1')%> post1S_<%=vehiculossolicitud.id%>">
+        <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+        <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %><br/>
+          <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %> - <strong>Telefono Contacto: </strong><%=h vehiculossolicitud.telefono %></td>
+        <td class="camposDesc"><%=h vehiculossolicitud.destino rescue nil %></td>
+        <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %><br/>
+          <strong>Hora Inicio: </strong><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%><br/>
+          <strong>Hora Final: </strong><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil%>
+        </td>
+        <td class="camposDesc"><div align="center">
+          <%= link_to_remote image_tag('verde1.png', { :border => 0, :title => "ACEPTADO"}),
+                                       :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 2), :method => :delete,
+                                       :confirm => "¿Seguro?", :before => "$(this).up('.post1S_#{vehiculossolicitud.id}').remove()" %>
+          <%= link_to_remote image_tag('rojo1.png', { :border => 0, :title => "RECHAZADO"}),
+                                       :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 3), :method => :delete,
+                                       :confirm => "¿Seguro?", :before => "$(this).up('.post1S_#{vehiculossolicitud.id}').remove()" %></div>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+</div>
+

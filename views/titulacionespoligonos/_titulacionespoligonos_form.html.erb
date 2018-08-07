@@ -1,0 +1,56 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="60%" align="left" class="campos">Categoria del Suelo *</td>
+    <td width="40%" align="left" class="campos">Poligono *</td>
+  </tr>
+  <tr valign="top">
+    <td class="camposDesc" align="left" >
+      <%= select(:titulacionespoligono,:pot_categoria, [["AREAS PARA LOCALIZACION DE EQUIPAMIENTOS ","AREAS PARA LOCALIZACION DE EQUIPAMIENTOS "],
+                    ["SUBURBANO","SUBURBANO"],["SUBURBANO - VIVIENDA CAMPESTRE","SUBURBANO - VIVIENDA CAMPESTRE"],
+                    ["SUBURBANO - CENTRO POBLADO ","SUBURBANO - CENTRO POBLADO "],["SUELO PROTECCION ","SUELO PROTECCION "]],
+                { :include_blank => true },{ :style=>"width:320px", :class => "campo" })%>
+          <%= error_message_on :titulacionespoligono, :pot_categoria, :css_class =>"cerror"%>
+    </td>
+    <td class="camposDesc" align="left" >
+          <%=select("titulacionespoligono", "potdato_id", Potdato.find(:all,:conditions=>["clase='POLIGONO'"] ).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+            { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+       <%= error_message_on :titulacionespoligono, :potdato_id, :css_class =>"cerror"%>
+    </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="60%" align="left" class="campos">Tratamiento *</td>
+    <td width="40%" colspan="2" align="left" class="campos">Usos del Suelo *</td>
+  </tr>
+  <tr valign="top">
+    <td class="camposDesc" align="left" >
+        <%= select(:titulacionespoligono,:pot_tratamiento, [["AREA PARA LA PRESERVACION DE  INFRAESTRUCTURA (API)","AREA PARA LA PRESERVACION DE  INFRAESTRUCTURA (API)"],
+                   ["CONSOLIDACION SUBURBANA NIVEL 1","CONSOLIDACION SUBURBANA NIVEL 1"],["CONSOLIDACION SUBURBANA NIVEL 2","CONSOLIDACION SUBURBANA NIVEL 2"],
+                   ["CONSOLIDACION SUBURBANA NIVEL 3","CONSOLIDACION SUBURBANA NIVEL 3"],["CONSOLIDACION SUBURBANA NIVEL 4","CONSOLIDACION SUBURBANA NIVEL 4"],
+                   ["CONSERVACION POR ALTO RIESGO NO MITIGABLE","CONSERVACION POR ALTO RIESGO NO MITIGABLE"],["CONSERVACION","CONSERVACION"],
+                   ["GENERACION DE ACTIVIDADES RURALES SOSTENIBLES (GARS)","GENERACION DE ACTIVIDADES RURALES SOSTENIBLES (GARS)"],
+                   ["RESTAURACION DE ACTIVIDADES RURALES (RAR)","RESTAURACION DE ACTIVIDADES RURALES (RAR)"]],
+              { :include_blank => true },
+              { :style=>"width:360px", :class => "campo" })%>
+        <%= error_message_on :titulacionespoligono, :pot_tratamiento, :css_class =>"cerror"%>
+    </td>
+    <td width="20%" class="camposDesc" align="left" >
+          <%= check_box :titulacionespoligono, :suelo_mixto,{},'SI','NO'%> Mixto Urbano Rural <br/>
+          <%= check_box :titulacionespoligono, :suelo_productor,{},'SI','NO'%> Forestal Productor <br/>
+          <%= check_box :titulacionespoligono, :suelo_agricola,{},'SI','NO'%> Agricola
+    </td>
+    <td width="20%" class="camposDesc" align="left" >
+        <%= check_box :titulacionespoligono, :suelo_protector,{},'SI','NO'%> Forestal Protector <br/>
+        <%= check_box :titulacionespoligono, :suelo_agroforestal,{},'SI','NO'%> Agroforestal<br/>
+		<%= check_box :titulacionespoligono, :suelo_agropecuario,{},'SI','NO'%> Agropecuario
+        <%= error_message_on :titulacionespoligono, :usos, :css_class =>"cerror"%>
+    </td>
+    </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+  <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :titulacionespoligono, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+</table>

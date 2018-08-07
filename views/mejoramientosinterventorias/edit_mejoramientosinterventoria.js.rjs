@@ -1,0 +1,1 @@
+page.replace_html :mejoramientosinterventorias_form, :partial => "/mejoramientosinterventorias/mejoramientosinterventorias"

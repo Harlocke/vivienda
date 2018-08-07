@@ -1,0 +1,85 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 3}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<% @vehiculos.each do |vehiculo| %>
+<%=  javascript_include_tag :defaults %>
+<div align="center">
+<table width="949" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td rowspan="4" width="20%" style="font-size: 16px; font-family: Arial Narrow; line-height: 150%; "><div align="center"><img src="../../images/feriaisvimed.png"/></div></td>
+          <td rowspan="4" width="60%" style="font-size: 20px; font-family: Arial Narrow; line-height: 150%; "><strong><div align="center">PLANILLA DE CONTROL SERVICIO DE TRANSPORTE</div></strong></td>
+          <td width="20%" style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>CÓDIGO:</strong> <%=@calidadversion.codigo rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>VERSIÓN:</strong> <%=@calidadversion.version rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>FECHA:</strong> <%=@calidadversion.fecha rescue nil%></td>
+        </tr>
+        <tr>
+          <td style="font-size: 12px; font-family: Arial Narrow; line-height: 150%; "><strong>PÁGINA:</strong> <%=@calidadversion.pagina rescue nil%></td>
+        </tr>
+      </table><br/>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+        <tr>
+          <td height="0" style="font-size: 14px; font-family: Arial Narrow;"><div align="center"><strong>FECHA</strong></div></td>
+          <td height="0" style="font-size: 14px; font-family: Arial Narrow;"><div align="center"><strong>VEHICULO / PLACA:</strong></div></td>
+          <td height="0" style="font-size: 14px; font-family: Arial Narrow;"><div align="center"><strong>NOMBRE DEL CONDUCTOR</strong></div></td>
+          <td height="0" style="font-size: 14px; font-family: Arial Narrow;"><div align="center"><strong>NÚMERO DEL CELULAR</strong></div></td>
+        </tr>
+        <tr>
+          <td height="0" style="font-size: 13px; font-family: Arial Narrow;"><div align="center"><%=namedate(@fecha) rescue nil%></div></td>
+          <td height="0" style="font-size: 13px; font-family: Arial Narrow;"><div align="center"><%=vehiculo.placa rescue nil%></div></td>
+          <td height="0" style="font-size: 13px; font-family: Arial Narrow;"><div align="center"><%=vehiculo.nombrec(@fecha) rescue nil%></div></td>
+          <td height="0" style="font-size: 13px; font-family: Arial Narrow;"><div align="center"><%=vehiculo.celular rescue nil%></div></td>
+        </tr>
+    </table>
+      </td>
+  </tr>
+</table>
+</div>
+<br/>
+<div align="center">
+<table width="949" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr>
+    <td width="8%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong><div align="center">Horario</div></strong></td>
+    <td width="51%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong>Responsable del servicio - Detalle</strong></td>
+    <td width="5%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong><div align="center">Hora Salida</div></strong></td>
+    <td width="6%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong><div align="center">Hora llegada</div></strong></td>
+    <td width="25%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong><div align="center">Firma persona transportada<br/>(Funcionario y/o contratista)</div></strong></td>
+    <td width="5%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong><div align="center">Nro Personas</div></strong></td>
+  </tr>
+<% @vehiculosprogramaciones = Vehiculosprogramacion.find(:all,:conditions=>["vehiculo_id = #{vehiculo.id} and fecha = '#{@fecha.to_date}'"], :order=>"vehiculoshorario_id")
+   @vehiculosprogramaciones.each do |vehiculosprogramacion|%>
+  <tr>
+    <td height="25" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><div align="center"><%=vehiculosprogramacion.vehiculoshorario.descripcion rescue nil%></div></td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;">
+      <% if vehiculosprogramacion.user_id.to_s != "" %>
+        <% if vehiculosprogramacion.programainicial.to_s == "" %>
+          <%=vehiculosprogramacion.responsablenombre rescue nil%> (<%=vehiculosprogramacion.responsabledependencia rescue nil%> ) -Destino: <%=vehiculosprogramacion.destino rescue nil%>
+        <% else %>
+            RESERVADO
+        <% end %>
+     <% end %></td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;">&nbsp;</td>
+    <td style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;">&nbsp;</td>
+  </tr>
+<% end  %>
+</table><br/>
+<table width="500" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr>
+    <td width="80%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"><strong>Nro de Horas Adicionales </strong></td>
+    <td width="20%" style="border:1px solid #000000; font-size: 11px; font-family: Arial Narrow;"></td>
+  </tr>
+</table>
+<div style="font-size: 9px; font-family: Arial Narrow;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+</div>
+<H1 class=SaltoDePagina></H1>
+<% end  %>

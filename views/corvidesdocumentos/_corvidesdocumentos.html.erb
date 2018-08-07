@@ -1,0 +1,68 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACIÓN DIGITALIZADA</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<% if permiso("corvidesdocumento","C").to_s == "S" %> 
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+<%= link_to 'Cargar Información', new_corvide_corvidesdocumento_path(@corvide.id) %>
+              </span></div>
+    </div></td>
+      </tr>
+    </table>
+<br/>
+<% end %> 
+<div align="center">
+<% remote_form_for [@corvide, @corvidesdocumento] do |form| %>
+<% if !@corvidesdocumento.id %>
+<% end %>
+<% if @corvide.corvidesdocumentos.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="30%" height="30" class="oce-first" align="left">Descripción</td>
+    <td width="35%" height="30" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="20%" height="20" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+</table>
+  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% for corvidesdocumento in @corvide.corvidesdocumentos.find(:all, :order => 'created_at DESC') %>
+    <% if corvidesdocumento.id != @corvidesdocumento.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="corvidesdocumento_<%=corvidesdocumento.id%>">
+     <td align="left" class="camposDesc"><%=corvidesdocumento.created_at.strftime("%Y-%m-%d %X")%><br/>
+            <a title="<%=corvidesdocumento.user.nombre rescue nil%>"><%=corvidesdocumento.user.username rescue nil%></a></td>
+     <td class="camposDesc" ><%=corvidesdocumento.descripcion%></td>
+     <td class="camposDesc" ><%=corvidesdocumento.corvdocumento_file_name%></td>
+     <td class="camposDesc" >
+      <%= link_to "Ver", corvidesdocumento.corvdocumento.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+       <% if permiso("corvidesdocumento","E").to_s == "S" %>
+            &nbsp;|&nbsp;<%= link_to_remote('Borrar',{:url => corvide_corvidesdocumento_path(@corvide, corvidesdocumento),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %>
+     </td>
+ </tr>
+<% else %>
+      <tr class="<%=cycle('even1', 'odd1')%>" id="corvidesdocumento_<%=@corvidesdocumento.id%>">
+          <%= render :partial => "corvidesdocumentos_form" %>
+      </tr>
+     <% end %>
+  <% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :corvide, :id %>
+<% end %>
+</div>

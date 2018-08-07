@@ -1,0 +1,1 @@
+page.replace_html :elementosmantenimientos_form, :partial => "/elementosmantenimientos/elementosmantenimientos"

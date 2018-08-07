@@ -1,0 +1,48 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/simuladormin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;SIMULADOR</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Parametros Simulador"}),busqueda_planpagos_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" class="oce-first"><div align="center">No.</div></td>
+    <td width="15%" class="oce-first"><div align="center">Saldo Inicial</div></td>
+    <td width="10%" class="oce-first"><div align="center">Cuota Plan Amort.</div></td>
+    <td width="10%" class="oce-first"><div align="center">Amortización</div></td>
+    <td width="10%" class="oce-first"><div align="center">Intereses</div></td>
+    <td width="15%" class="oce-first"><div align="center">Saldo Final</div></td>
+    <td width="10%" class="oce-first"><div align="center">Valor Seguro</div></td>
+    <td width="10%" class="oce-first"><div align="center">Cuota + Seg.</div></td>
+    <td width="10%" class="oce-first"><div align="center">Fecha</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% @planpagos.each do |planpago| %>
+  <tr valign="middle">
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.nro_cuota%></div></td>
+    <td width="15%" class="camposDesc"><div align="center"><%=planpago.saldo_inicial%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.cuota_plan_amort%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.amortizacion%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.intereses%></div></td>
+    <td width="15%" class="camposDesc"><div align="center"><%=planpago.saldo_final%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.valor_seguro%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.cuota_seg%></div></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=planpago.fecha%></div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>

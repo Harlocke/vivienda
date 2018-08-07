@@ -1,0 +1,83 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PERSONAS ASOCIADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@convenio, @conveniospersona] do |form| %>
+<% if permiso("conveniospersona","C").to_s == "S" %>
+       <% if !@conveniospersona.id %>
+            <%= render :partial => "/conveniospersonas/conveniospersonas_form" %>
+       <% end %>
+<% end %>
+  <% if @convenio.conveniospersonas.exists? %>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" height="30" align="left" class="oce-first">Persona Vinculada</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @convenio.conveniospersonas.each do |conveniospersona| %>
+     <% if conveniospersona.id != @conveniospersona.id %>
+  <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniospersona_<%= conveniospersona.id%>">
+     <td width="90%" height="20" align="left" class="camposDesc"><%=conveniospersona.persona.autobuscar rescue nil%></td>
+     <td width="10%" align="right" class="camposDesc"><div align="center">
+        <% if permiso("conveniospersona","E").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => convenio_conveniospersona_path(@convenio, conveniospersona),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %></div>
+        </td>
+   </tr>
+    <% if conveniospersona.persona.resolucionespersonas.exists? %>
+      <tr>
+        <td colspan="2">
+          <div align="center">
+              <table width="50%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="50%" align="left" height="20" class="oce-first">Nro Resolucion </td>
+                    <td width="50%" align="left" height="20" class="oce-first">Fecha</td>
+                </tr>
+                 <% conveniospersona.persona.resolucionespersonas.each do |resolucionespersona| %>
+                <tr>
+                    <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.nro_resolucion  rescue nil%></td>
+                    <td align="left" class="camposDesc"><%=resolucionespersona.resolucion.fecha rescue nil%></td>
+                </tr>
+                 <% end %>
+              </table>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :convenio, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniospersona] %>
+<div id="conveniospersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:conveniospersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniospersona');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,94 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INMUEBLES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@reparto, @repartosinmueble] do |form| %>
+  <% if !@repartosinmueble.id %>
+    <% if @reparto.estado.to_s == 'PENDIENTE' or @reparto.estado.to_s == 'RECHAZADO' %>
+        <%= render :partial => "/repartosinmuebles/repartosinmuebles_form" %>
+    <% end %>
+  <% end %>
+<% if @reparto.repartosinmuebles.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="35%" height="30" align="left" class="oce-first">Persona Asociada</td>
+    <td width="42%" class="oce-first">Matricula / Direccion</td>
+    <td width="8%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for repartosinmueble in @reparto.repartosinmuebles.find(:all, :order => 'created_at DESC') %>
+   <% if repartosinmueble.id != @repartosinmueble.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="repartosinmueble_<%=repartosinmueble.id%>">
+          <td align="left" class="camposDesc"><%=repartosinmueble.created_at.strftime("%Y-%m-%d %X")%><br/>
+            <a title="<%=repartosinmueble.user.nombre rescue nil%>"><%=repartosinmueble.user.username rescue nil%></a></td>
+          <td class="camposDesc" align="left"><%=repartosinmueble.persona.autobuscar rescue nil%>            
+              <% if repartosinmueble.persona.beneviviendas.exists? %>
+                  <br/><strong>Beneficiarios:</strong><br/>
+                  <% repartosinmueble.persona.beneviviendas.each do |benevivienda| %>
+                       <%=benevivienda.autobuscar rescue nil%><br/>
+                  <% end %>
+              <% end %>
+          </td>
+          <td class="camposDesc" align="left">
+          <% if repartosinmueble.vivienda_id %>
+            <strong>Matricula: </strong><%=repartosinmueble.vivienda.nro_matricula rescue nil%><br/>
+            <strong>Dirección: </strong> <%=repartosinmueble.vivienda.direccionproyecto rescue nil%><br/>
+            <strong>Zona Registral: </strong><%=repartosinmueble.vivienda.esc_registrada_of rescue nil%>
+          <% elsif repartosinmueble.corvide_id %>
+            <strong>Matricula: </strong><%=repartosinmueble.corvide.matricula rescue nil%><br/>
+            <strong>Dirección: </strong> <%=repartosinmueble.corvide.direccion rescue nil%><br/>
+            <strong>Zona Registral: </strong><%=repartosinmueble.corvide.esc_registrada_of rescue nil%>
+          <% else %>
+            <strong>Matricula: </strong><%=repartosinmueble.matricula rescue nil%><br/>
+            <strong>Dirección: </strong> <%=repartosinmueble.direccion rescue nil%>
+          <% end %></td>
+          </td>
+          <td class="camposDesc"><div align="center">
+          <% if @reparto.estado.to_s == 'PENDIENTE' or @reparto.estado.to_s == 'RECHAZADO' %>
+              <%= link_to_remote('Borrar',{:url => reparto_repartosinmueble_path(@reparto, repartosinmueble),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+          </div></td>
+      </tr>
+<% else %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table><br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"><tr><td height="30"><div class="col_enc">EDITAR</div></td></tr></table>
+       <%= render :partial => "repartosinmuebles_form" %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+      </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :reparto, :id %>
+<% end %>
+<br/>
+<% if flash[:repartosinmueble] %>
+<div id="repartosinmueble">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:repartosinmueble] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('repartosinmueble');", 5000)
+</script>
+<% end %>
+</div>

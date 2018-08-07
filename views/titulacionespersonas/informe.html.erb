@@ -1,0 +1,79 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<%
+  last_id = Cruce.maximum('id',:conditions=>["persona_id = #{@titulacionespersona.persona_id}"])
+  if Crucesdato.exists?(["cruce_id = #{last_id.to_i} and tipo_entidad = '6' and ratifica = 'SI'"]) == true
+%>
+    <br/><br/>
+    <div align="center">
+    <table width="700" height="100%" border="0" cellpadding="1" cellspacing="1">
+      <tr>
+        <td valign="top">
+         <div style="font-size: 14px; font-family: Verdana, Geneva, sans-serif;">
+            <br/><br/>
+            <div align="center" style="font-size: 14px; font-family: Verdana, Geneva, sans-serif;">
+            <strong>CERTIFICACIÓN REQUISITOS PARA LA CESIÓN A TITULO<br/>GRATUITO DE BIEN FISCAL</strong><br/>
+            </div>
+            <br/><br/><br/>
+            <div align="justify" style="font-size: 14px; font-family: Verdana, Geneva, sans-serif;">
+            Certifico que según los documentos aportados y la información proporcionada por el ministerio de Vivienda,
+            el (la) señor(a) <strong><%=@titulacionespersona.persona.nombres rescue nil%></strong> identificado(a) con cédula de ciudadania
+            número <strong><%=@titulacionespersona.persona.identificacion rescue nil%></strong> ocupante del barrio <strong><%=@titulacionespersona.titulacion.comuna.descripcion2 rescue nil%></strong>,
+            <strong>SI</strong> es propietario de otro inmueble en el territorio Nacional y ha sido beneficiado de Subsidio
+            de vivienda Nacional o Municipal.
+            <br/><br/><br/>
+            </div>
+            <%last_id = Cruce.maximum('id',:conditions=>["persona_id = #{@titulacionespersona.persona_id}"])
+              @cruce = Cruce.find(last_id)
+              @crucesdatos = Crucesdato.find(:all, :conditions=>["cruce_id = #{@cruce.id} and tipo_entidad = '6' and ratifica = 'SI'"]) %>
+              <table width="100%" border="1" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="10%" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;"><div align="center"><strong>CEDULA</strong></div></td>
+                  <td width="25%" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;"><div align="center"><strong>NOMBRES</strong></div></td>
+                  <td width="20%" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;"><div align="center"><strong>CRUCE OTROS</strong></div></td>
+                  <td width="25%" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;"><div align="center"><strong>CRUCE CATASTRO<BR/>MEDELLIN</strong></div></td>
+                  <td width="20%" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;"><div align="center"><strong>CRUCE SUBSIDIOS</strong></div></td>
+                </tr>
+                <tr>
+                  <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=@titulacionespersona.persona.identificacion rescue nil%></div></td>
+                  <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><%=@titulacionespersona.persona.nombres rescue nil%></div></td>
+                  <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"></div></td>
+                  <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"><% @crucesdatos.each do |crucesdato| %> <%=crucesdato.direccion_inmueble%><br/><% end %></div></td>
+                  <td style="font-size: 10px; font-family: Verdana, Geneva, sans-serif;"><div align="left"></div></td>
+                </tr>
+              </table>
+            <br/><br/><br/><br/>
+            <div align="left" style="font-size: 11px; font-family: Verdana, Geneva, sans-serif;">
+              Elaborado por: ____________________________________________________________<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong><%=User.find(is_admin).nombre rescue nil%> - <%=Time.now.strftime("%Y-%m-%d %X")%></strong>
+            </div>
+            <br/><br/><br/><br/>
+            <div align="left" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif;">
+              <strong>OBSERVACIONES :<br/></strong>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+              _______________________________________________________________________________________<br/>
+            </div>
+            <br/><br/>
+            <div align="left" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif;">
+              <strong>FIRMA:  ________________________________________ &nbsp;&nbsp; FECHA: __________________</strong>
+            </div>
+
+
+         </div>
+        </td>
+      </tr>
+    </table>
+    </div>
+    <br/>
+<% else %>
+<div align="left" style="font-size: 15px; font-family: Verdana, Geneva, sans-serif;">
+   <strong>NO HAY INFORMACION RATIFICADA</strong>
+</div>
+<% end %>
+

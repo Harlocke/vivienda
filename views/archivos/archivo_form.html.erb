@@ -1,0 +1,275 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/archivomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION ARCHIVO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),archivos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% unless @archivo.new_record? %>
+    <%= link_to image_tag("archivo1.png", :title => "Información Registro", :style=>"#{@archivo.d_etapa('1')} padding:4px;"),edit_archivo_path(:id=>@archivo.id,:etapa=>"1")%>
+    <%= link_to image_tag("beneficiarios.png", :title => "Personas Asociadas", :style=>"#{@archivo.d_etapa('4')} padding:4px;"),edit_archivo_path(:id=>@archivo.id,:etapa=>"4")%>
+    <%= link_to image_tag("prestamo.png", :title => "Prestamo", :style=>"#{@archivo.d_etapa('2')} padding:4px;"),edit_archivo_path(:id=>@archivo.id,:etapa=>"2")%>
+    <%= link_to image_tag("empleado.png", :title => "Contratistas", :style=>"#{@archivo.d_etapa('5')} padding:4px;"),edit_archivo_path(:id=>@archivo.id,:etapa=>"5")%>
+    <%= link_to image_tag("imagenes.png", :title => "Informacion Digitalizada", :style=>"#{@archivo.d_etapa('3')} padding:4px;"),edit_archivo_path(:id=>@archivo.id,:etapa=>"3")%>
+<% end %>
+<% if @archivo.etapa.to_s == '1' %>
+ <fieldset>
+<% form_for(@archivo) do |f| %>
+<div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN REGISTRO<%#= link_to "",{:controller =>"archivos", :action=>"stiker", :id =>@archivo.id}, :title => "Crear Persona", :popup => ['new_window','height=530,width=900,scrollbars=yes'], :class=>"nuevoplink"%>
+      </div></td>
+  </tr>
+</table>
+<table width="98%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="10%" align="left" class="campos">Caja </td>
+          <td width="10%" align="left" class="campos">Carpeta </td>
+          <td width="30%" align="left" class="campos">Barrio</td>
+          <td width="30%" align="left" class="campos">Convenio - Contrato - Tutela</td>
+          <td width="10%" align="left" class="campos">Manzana</td>
+          <td width="10%" align="left" class="campos">Lote</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :caja,{ :class => "campo", :size => 5,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :archivo, :caja, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :carpeta,{ :class => "campo", :size => 5,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :archivo, :carpeta, :css_class =>"cerror"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :barrio,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :convenio,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :manzana,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :lote,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="28%" align="left" class="campos">Nro de Resoluciones</td>
+          <td width="28%" align="left" class="campos">Consecutivos de Correspondencia</td>
+          <td width="15%" align="left" class="campos">Fecha Inicial</td>
+          <td width="15%" align="left" class="campos">Fecha Final</td>
+          <td width="19%" align="left" class="campos">Cobama</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+            Inicial <%= f.text_field :resol_inicial,{ :class => "campo", :size => 8,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+            Final <%= f.text_field :resol_final,{ :class => "campo", :size => 8,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            Inicial <%= f.text_field :conse_inicial,{ :class => "campo", :size => 8,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+            Final <%= f.text_field :conse_final,{ :class => "campo", :size => 8,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= calendar_date_select "archivo", "fecha_inicial", :year_range => 70.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= calendar_date_select "archivo", "fecha_final", :year_range => 70.years.ago..0.years.ago, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :cobama,{ :class => "campo", :size => 15,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" align="left" class="campos">Unidad Conservacion</td>
+          <td width="10%" align="left" class="campos">Nro Folios</td>
+          <td width="17%" align="left" class="campos">Soporte</td>
+          <td width="18%" align="left" class="campos">Frecuencia Consulta</td>
+          <td width="35%" align="left" class="campos">Ubicacion Registro *</td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+            <%= f.select(:unidad_conservacion, select_unidad_conservacion,
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.text_field :nro_folios,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.select(:soporte, {"PAPEL" => "PAPEL",
+                           "ELECTRONICO" => "ELECTRONICO",
+                           "DIGITAL" => "DIGITAL"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= f.select(:frecuencia_consulta, {"MEDIA" => "MEDIA",
+                           "BAJA" => "BAJA",
+                           "ALTA" => "ALTA"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+          <td align="left" class="camposDesc">
+            <% if permiso("archivoscentral","C").to_s == "S" %>
+              <%= f.select(:tipo, select_tipo,
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <% else %>
+              <% unless @archivo.new_record? %>
+                <%=@archivo.dtipo rescue nil%>
+              <% else
+                  if permiso("archivostitulacion","C").to_s == "S" %>
+                <%= f.select(:tipo, select_tipo1,{ :include_blank => true },{ :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+              <%  end
+                end %>
+            <% end %>
+          <%= error_message_on :archivo, :tipo, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="65%" align="left" class="campos">Serie - Subserie Documental *</td>
+          <td width="35%" align="left" class="campos">Observaciones</td>
+        </tr>
+       <tr valign="top">
+          <td align="left" class="camposDesc">
+            <%=f.select("archivosserie_id", select_archivosserie.collect {|p| [ p.codigo_final+'-'+p.subserie, p.id ] }, { :include_blank => true },
+      { :style=>"width:580px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :archivo, :archivosserie_id, :css_class =>"cerror"%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%=text_area(:archivo, :observaciones, :cols => 45, :rows => 4, :class => 'campo',:maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          </td>
+        </tr>
+      </table>
+<% unless @archivo.new_record? %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="10%" align="left" class="campos">Id Archivo</td>
+          <td width="45%" align="left" class="campos">Creación</td>
+          <td width="45%" align="left" class="campos">Ult. Actualización</td>
+        </tr>
+        <tr>
+         <td align="left" class="camposDesc"><%=@archivo.id%></td>
+          <td align="left" class="camposDesc">
+            <%= @archivo.created_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@archivo.usercrea).nombre rescue nil%>
+          </td>
+          <td align="left" class="camposDesc">
+            <%= @archivo.updated_at.strftime("%Y-%m-%d %X")%> - <%=@archivo.user.nombre rescue nil%>
+          </td>
+        </tr>
+      </table>
+  <% end %>
+
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<% unless @archivo.new_record? %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <% if @archivo.tipo.to_s != 'S' %>
+            <% if @archivo.tipo.to_s == 'T' or @archivo.tipo.to_s == 'M'
+                 if permiso("archivostitulacion","C").to_s == "S" %>
+                  <% if permiso("archivo","A").to_s == "S" %>
+                    <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                  <% end %>
+              <% end %>
+            <% elsif permiso("archivoscentral","C").to_s == "S" %>
+                  <% if permiso("archivo","A").to_s == "S" %>
+                    <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                  <% end  %>
+            <% end  %>
+            <% unless @archivo.new_record? %>
+                <% if @archivo.tipo.to_s != 'S' %>
+                  <% if permiso("archivostitulacion","E").to_s == "S" and @archivo.tipo.to_s == 'T' or @archivo.tipo.to_s == 'M' %>
+                     &nbsp;&nbsp;<%= link_to 'Eliminar', @archivo, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+                  <% elsif permiso("archivo","E").to_s == "S" %>
+                      &nbsp;&nbsp;<%= link_to 'Eliminar', @archivo, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+                  <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+  </div></td>
+    </tr>
+  </table>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <% if permiso("archivo","C").to_s == "S" %>
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+          <% end %>
+        </div></td>
+    </tr>
+  </table>
+<% end %>
+   </td>
+</tr>
+</table>
+<%= render "cruceinterno" %> 
+  </div>
+<% end %>
+</fieldset>
+<% elsif @archivo.etapa.to_s == '2' %>
+  <fieldset><div id="archivosprestamos_form"><%= render :partial => "/archivosprestamos/archivosprestamos" %></div></fieldset>
+<% elsif @archivo.etapa.to_s == '3' %>
+  <fieldset><div id="archivosimagenes_form"><%= render :partial => "/archivosimagenes/archivosimagenes" %></div></fieldset>
+<% elsif @archivo.etapa.to_s == '4' %>
+  <fieldset><div id="archivospersonas_form"><%= render :partial => "/archivospersonas/archivospersonas" %></div></fieldset>
+<% elsif @archivo.etapa.to_s == '5' %>
+  <fieldset><div id="archivosempleados_form"><%= render :partial => "/archivosempleados/archivosempleados" %></div></fieldset>
+<% end %>
+<br/><br/>

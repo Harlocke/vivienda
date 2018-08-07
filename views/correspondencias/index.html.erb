@@ -1,0 +1,36 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION CORRESPONDENCIA</div></td>
+              <td width="3%"><div align="right">
+                  <%= link_to image_tag('atras.png',
+	                                           { :border=>0, :title => "Busca Personas"}),menus_path %>
+                </div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+<table width="0%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('correspondenciarecibida.png', { :border => 0, :title => "Correspondencias Recibida" }),
+                              correspondenciasrecibidas_path %></div>
+    </td>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('correspondenciaenviada.png', { :border => 0, :title => "Correspondencias Enviada" }),
+                              correspondenciasenviadas_path %></div>
+    </td>
+    <% if permiso("correspondenciasenviada","C").to_s == "S" %>
+    <td width="0%" align="left"><div align="center"><%= link_to image_tag('correspondenciaremitente.png', { :border => 0, :title => "Entradas de Productos" }),
+                              correspondenciasremitentes_path %></div>
+    </td>
+    <% end %>
+  </tr>
+</table>
+</div>
+<br/>

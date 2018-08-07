@@ -1,0 +1,44 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/boletinesmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">BOLETINES DE COMUNICACIONES</div></td>
+          <% if permiso("comunicacion","C").to_s == "S" %>
+            <td width="3%"><div align="right">
+                 <%= link_to image_tag('nuevo.png',
+                                { :border=>0, :title => "Nuevo"}),new_comunicacion_path %>
+            </div></td>
+          <% end %>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first"><div align="center">Fecha</div></td>
+    <td width="75%" height="30" class="oce-first">URL</td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @comunicaciones.each do |comunicacion| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc" height="25"><div align="center"><%=h comunicacion.fecha.strftime("%d-%m-%Y") rescue nil%></div></td>
+    <td class="camposDesc"><%=h comunicacion.url %></td>    
+    <td class="camposDesc"><div align="center">
+    <% if permiso("comunicacion","A").to_s == "S" %>
+       <%= link_to 'Editar', edit_comunicacion_path(comunicacion), :class=>"editarlink"%> -
+    <% end %>
+    <%= link_to 'Ver', {:controller => 'comunicaciones', :action => 'ver', :id=>comunicacion.id} ,  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+    </div>
+    </td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" class="camposDesc"><div align="center">Total Registros: <%= @comunicaciones.count %></div></td>
+   </tr>
+</table>

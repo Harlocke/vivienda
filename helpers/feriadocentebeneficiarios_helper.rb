@@ -1,0 +1,2 @@
+module FeriadocentebeneficiariosHelper
+end

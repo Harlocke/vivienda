@@ -1,0 +1,20 @@
+<h1>Editing viviendastipostramite</h1>
+
+<% form_for(@viviendastipostramite) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :tiempo %><br />
+    <%= f.text_field :tiempo %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @viviendastipostramite %> |
+<%= link_to 'Back', viviendastipostramites_path %>

@@ -1,0 +1,30 @@
+<br/>
+<% form_for(@persona) do |f| %>
+    <table width="750" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="0" class="oce-first" align="center">INFORMACIÓN PERSONA NATURAL</td>
+  </tr>
+  <tr>
+    <td>
+      <BR/>
+           <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="20%" class="camposDescN" align="left">&nbsp;Numero de Identificacion</td>
+          <td width="37%" class="camposDescN" align="left">&nbsp;Nombre(s)</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left">&nbsp;<%=@persona.identificacion%></td>
+          <td class="camposDesc" align="left">&nbsp;<%=@persona.primer_nombre%> <%=@persona.segundo_nombre%> <%=@persona.primer_apellido%> <%=@persona.segundo_apellido%></td>
+        </tr>
+      </table>
+      </td>
+        </tr>
+</table>
+<% end %>
+<br/>
+<br/>

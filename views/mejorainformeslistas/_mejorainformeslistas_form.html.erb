@@ -1,0 +1,70 @@
+<% if @mejorainforme.masivo.to_s == "" %>
+  <table width="837" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos" align="left">Beneficiario</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc" align="left">
+                <%=select("mejorainformeslista", "mejoramiento_id",
+                  Mejoramiento.find_by_sql("select m.*
+                  from   mejoramientos m, personas p
+                  where  m.mejoramientosestado_id in (5,6,7,8,9)
+                  and    m.persona_id = p.id
+                  and m.resolucion_id = #{@mejorainforme.resolucion_id}
+                  and m.id not in (select mejoramiento_id
+                                 from mejorainformeslistas
+                                 where mejorainforme_id =#{@mejorainforme.id})
+                  order by p.primer_nombre").collect {|p| [ Persona.find(p.persona_id).autobuscar.to_s, p.id ] },
+                  {  },{ :multiple => true, :style=>"width:800px", :size => 15, :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>            
+          <%= error_message_on :mejorainformeslista, :mejoramiento_id, :css_class =>"cerror"%></td>
+          </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= hidden_field :mejorainformeslista, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+<% elsif @mejorainforme.masivo.to_s == "SI" %>
+  <table width="837" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos" align="left">Beneficiario</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc" align="left">
+                <%=select("mejorainformeslista", "mejoramiento_id",
+                  Mejoramiento.find_by_sql("select m.*
+                  from   mejoramientos m, personas p
+                  where  m.persona_id = p.id
+                  and m.resolucion_id = #{@mejorainforme.resolucion_id}
+                  and m.id not in (select mejoramiento_id
+                                 from mejorainformeslistas
+                                 where mejorainforme_id =#{@mejorainforme.id})
+                  order by p.primer_nombre").collect {|p| [ Persona.find(p.persona_id).autobuscar.to_s, p.id ] },
+                  {  },{ :multiple => true, :style=>"width:800px", :size => 15, :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>            
+          <%= error_message_on :mejorainformeslista, :mejoramiento_id, :css_class =>"cerror"%></td>
+          </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= hidden_field :mejorainformeslista, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td></tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+<% end %>

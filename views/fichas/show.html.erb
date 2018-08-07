@@ -1,0 +1,33 @@
+<p>
+  <b>Proyecto:</b>
+  <%=h @ficha.proyecto_id %>
+</p>
+
+<p>
+  <b>Fichaselemento:</b>
+  <%=h @ficha.fichaselemento_id %>
+</p>
+
+<p>
+  <b>Valor:</b>
+  <%=h @ficha.valor %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%=h @ficha.observaciones %>
+</p>
+
+<p>
+  <b>Fuente1:</b>
+  <%=h @ficha.fuente1 %>
+</p>
+
+<p>
+  <b>Fuente2:</b>
+  <%=h @ficha.fuente2 %>
+</p>
+
+
+<%= link_to 'Edit', edit_ficha_path(@ficha) %> |
+<%= link_to 'Back', fichas_path %>

@@ -1,0 +1,39 @@
+<div align="center">
+<table width="50%" border="0" align="center" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="25%" class="campos" align="left">Mes</td>
+        <td width="25%" class="campos" align="left">Año</td>
+        <td width="50%" class="campos" align="left">Archivo a Cargar</td>
+      </tr>
+      <tr>
+        <td><%= select(:fiduciasdocumento, :mes, select_mes,{ :include_blank => true },
+         { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :fiduciasdocumento, :mes, :css_class =>"cerror"%></td>
+        <td><%= select(:fiduciasdocumento, :anno, select_annos,{ :include_blank => true },
+         { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :fiduciasdocumento, :anno, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= f.file_field :fiducia,
+            { :class => "campo",
+              :size => 46,
+              :maxlength => 1000,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="100%" class="campos" align="left">Descripción del Fondo</td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left"><%=select("fiduciasdocumento", "fiduciascontrato_id", Fiduciascontrato.find(:all, :order=>"nro_fondo").collect {|p| [ p.nro_fondo, p.id ] }, { :include_blank => true },
+              { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :elementosuser, :user_id, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+  
+    </td>
+  </tr>
+</table>
+</div>

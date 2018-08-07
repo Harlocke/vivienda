@@ -1,0 +1,66 @@
+</form>
+<div align="left">
+<% remote_form_for [@titulacion, @titulacionespoligono] do |form| %>
+   <% if !@titulacionespoligono.id %>
+	<%= render :partial => "/titulacionespoligonos/titulacionespoligonos_form" %>
+   <% end %>
+  <% if @titulacion.titulacionespoligonos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="25%" class="oce-first">Creacion</td>
+    <td width="65%" align="left" class="oce-first">Datos Asociado</td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+    <% @titulacion.titulacionespoligonos.each do |titulacionespoligono| %>
+     <% if titulacionespoligono.id != @titulacionespoligono.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionespoligono_<%= titulacionespoligono.id%>">
+     <td class="camposDesc"><%=titulacionespoligono.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+     <%=titulacionespoligono.user.username rescue nil%></td>
+     <td class="camposDesc"><strong>Categoria:</strong> <%=titulacionespoligono.pot_categoria rescue nil%><br/>
+     <strong>Poligono: </strong><%=titulacionespoligono.potdato.descripcion rescue nil%><br/>
+     <strong>Tratamiento:</strong> <%=titulacionespoligono.pot_tratamiento rescue nil%><br/>
+     <strong>Uso del Suelo:</strong> <%=titulacionespoligono.usosuelo rescue nil%>
+     <% if titulacionespoligono.mensajedealerta.to_s != "" %>
+        <br/><div class="camposNotas"><strong>NORMA PARA RECONOCIMIENTO:<br/>* <%=titulacionespoligono.mensajedealerta rescue nil%></strong></div>
+     <% end %>
+     </td>
+     <td class="camposDesc"><div align="center">
+       <%= link_to_remote('Editar',{:url => edit_titulacion_titulacionespoligono_path(@titulacion, titulacionespoligono),
+		:method => :get}, :class=>"editarlink")%>
+       <%= link_to_remote('Borrar',{:url => titulacion_titulacionespoligono_path(@titulacion, titulacionespoligono),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%></div>
+     </td>
+   </tr>
+<% else %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "titulacionespoligonos_form" %>
+     <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+</table>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionespoligono] %>
+<div id="titulacionespoligono">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionespoligono] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionespoligono');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,24 @@
+<h1>Listing mejoramientosactualizaciones</h1>
+
+<table>
+  <tr>
+    <th>Mejoramiento</th>
+    <th>Bloque</th>
+    <th>User</th>
+  </tr>
+
+<% @mejoramientosactualizaciones.each do |mejoramientosactualizacion| %>
+  <tr>
+    <td><%=h mejoramientosactualizacion.mejoramiento_id %></td>
+    <td><%=h mejoramientosactualizacion.bloque %></td>
+    <td><%=h mejoramientosactualizacion.user_id %></td>
+    <td><%= link_to 'Show', mejoramientosactualizacion %></td>
+    <td><%= link_to 'Edit', edit_mejoramientosactualizacion_path(mejoramientosactualizacion) %></td>
+    <td><%= link_to 'Destroy', mejoramientosactualizacion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New mejoramientosactualizacion', new_mejoramientosactualizacion_path %>

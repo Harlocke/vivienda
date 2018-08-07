@@ -1,0 +1,67 @@
+#encoding: utf-8
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+
+    <ss:Styles>
+      <ss:Style ss:ID='header'><ss:Font ss:Bold='1' ss:Color='white'/><ss:Interior ss:Color="#00C4C4" ss:Pattern="Solid"/>
+      <ss:Alignment ss:Horizontal='Center'/></ss:Style>
+      <ss:Style ss:ID='row'><ss:Alignment ss:Horizontal='Left' ss:Vertical='Center'/></ss:Style> 
+    </ss:Styles>
+
+  <ss:Worksheet ss:Name="Informe">
+    <ss:Table>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="300"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="100"/>
+        <ss:Column ss:Width="300"/>
+      <ss:Row ss:StyleID='header'>
+        <Cell><Data ss:Type='String'>Identificacion</Data></Cell>
+        <Cell><Data ss:Type='String'>Primer Nombre</Data></Cell>
+        <Cell><Data ss:Type='String'>Segundo Nombre</Data></Cell>
+        <Cell><Data ss:Type='String'>Primer Apellido</Data></Cell>
+        <Cell><Data ss:Type='String'>Segundo Apellido</Data></Cell>
+        <Cell><Data ss:Type='String'>Fecha Nacimiento</Data></Cell>
+        <Cell><Data ss:Type='String'>Edad</Data></Cell>
+        <Cell><Data ss:Type='String'>Proyecto</Data></Cell>
+        <Cell><Data ss:Type='String'>Condicion Especial</Data></Cell>
+        <Cell><Data ss:Type='String'>Telefono 1</Data></Cell>
+        <Cell><Data ss:Type='String'>Telefono 2</Data></Cell>
+        <Cell><Data ss:Type='String'>Celular</Data></Cell>
+        <Cell><Data ss:Type='String'>Identificacion Jefe</Data></Cell>
+        <Cell><Data ss:Type='String'>Nombre Jefe de Hogar</Data></Cell>
+      </ss:Row>
+      <% for p in @informes %>
+          <ss:Row ss:StyleID='row'>
+            <Cell><Data ss:Type="String"><%=p.identificacion rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.primer_nombre rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.segundo_nombre rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.primer_apellido rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.segundo_apellido rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.fecha_nacimiento rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.edad rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.descripcion rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.condicionespecial rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.telefonos1 rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.telefonos2 rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.celular rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.identificacion_jefe rescue nil%></Data></Cell>
+            <Cell><Data ss:Type="String"><%=p.nombre_jefe rescue nil%></Data></Cell>
+          </ss:Row>
+      <% end %>
+    </ss:Table>
+  </ss:Worksheet>
+</Workbook>

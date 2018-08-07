@@ -1,0 +1,166 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">RELACION DE PAGOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@iguana, @iguanaspago] do |form| %>
+<% if permiso("iguanaspago","C").to_s == "S" %>
+       <% if !@iguanaspago.id %>
+            <%= render :partial => "/iguanaspagos/iguanaspagos_form" %>
+       <% end %>
+<% end %>
+<% valortotal = 0
+   saldototal = 0
+   saldoeconomica = 0
+   saldotraslado = 0
+   saldotramites = 0
+   saldoavaluo = 0
+   saldoarrendatario = 0
+   valortramitevivrep = 0
+   valorimpacto = 0
+   valorgastosesco = 0
+   valorexpensas = 0
+   valortrasladoesp = 0
+   if @iguana.iguanaspagos.exists?
+     valortotal     = @iguana.valor_compensacion.to_i + @iguana.valor_traslado.to_i + @iguana.valor_tramites.to_i + @iguana.valor_avaluo.to_i + @iguana.valor_arrendatario.to_i + @iguana.valor_tramitevivrep.to_i + @iguana.valor_impacto.to_i + @iguana.valor_gastosesco.to_i + @iguana.valor_expensas.to_i + @iguana.valor_trasladoesp.to_i
+     saldoeconomica = @iguana.valor_compensacion.to_i - @iguanaspago.valorcompensacion(@iguana.id,'E')
+     saldotraslado  = @iguana.valor_traslado.to_i - @iguanaspago.valorcompensacion(@iguana.id,'T')
+     saldotramites  = @iguana.valor_tramites.to_i - @iguanaspago.valorcompensacion(@iguana.id,'L')
+     saldoavaluo    = @iguana.valor_avaluo.to_i - @iguanaspago.valorcompensacion(@iguana.id,'A')
+     saldoarrendatario = @iguana.valor_arrendatario.to_i - @iguanaspago.valorcompensacion(@iguana.id,'R')
+     valortramitevivrep = @iguana.valor_tramitevivrep.to_i - @iguanaspago.valorcompensacion(@iguana.id,'V')
+     valorimpacto = @iguana.valor_impacto.to_i - @iguanaspago.valorcompensacion(@iguana.id,'I')
+     valorgastosesco = @iguana.valor_gastosesco.to_i - @iguanaspago.valorcompensacion(@iguana.id,'G')
+     valorexpensas = @iguana.valor_expensas.to_i - @iguanaspago.valorcompensacion(@iguana.id,'P')
+     valortrasladoesp = @iguana.valor_trasladoesp.to_i - @iguanaspago.valorcompensacion(@iguana.id,'S')
+     saldototal     = saldoeconomica + saldotraslado + saldotramites + saldoavaluo + saldoarrendatario + valortramitevivrep + valorimpacto + valorgastosesco + valorexpensas + valortrasladoesp
+%>
+<!-- <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Valor Total</td>
+    <td width="10%" height="30" align="left" class="oce-first">Saldo Total</td>
+    <td width="15%" height="30" align="left" class="oce-first">Saldo Compensacion Economica</td>
+    <td width="15%" height="30" align="left" class="oce-first">Saldo Compensacion Traslado</td>
+    <td width="15%" height="30" align="left" class="oce-first">Saldo Compensacion Tramites Legales</td>
+    <td width="15%" height="30" align="left" class="oce-first">Saldo Avaluo</td>
+    <td width="15%" height="30" align="left" class="oce-first">Saldo Compensacion Arrendatario</td>
+  </tr>
+<tr valign="middle">
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(valortotal,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="10%" align="left" class="campos">$ <%=number_to_currency(saldototal,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(saldoeconomica,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(saldotraslado,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(saldotramites,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(saldoavaluo,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(saldoarrendatario,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" align="left" class="oce-first">Saldo por trámites legales por vivienda reposición</td>
+    <td width="20%" height="30" align="left" class="oce-first">Saldo impacto económico</td>
+    <td width="20%" height="30" align="left" class="oce-first">Saldo gastos escolarización</td>
+    <td width="20%" height="30" align="left" class="oce-first">Saldo expensas curaduría intervenciones parciales</td>
+    <td width="20%" height="30" align="left" class="oce-first">Saldo traslado especial</td>
+  </tr>
+  <tr valign="middle">
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(valortramitevivrep,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="10%" align="left" class="campos">$ <%=number_to_currency(valorimpacto,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(valorgastosesco,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(valorexpensas,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td width="15%" align="left" class="campos">$ <%=number_to_currency(valortrasladoesp,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+  </tr>
+</table> -->
+<br/>
+
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="12%" height="30" align="left" class="oce-first">Fecha Solicitud</td>
+    <td width="12%" height="30" align="left" class="oce-first">Fecha Desembolso</td>
+    <td width="8%" height="30" align="left" class="oce-first">Rubro</td>
+    <td width="23%" height="30" align="left" class="oce-first">Convenio</td>
+    <td width="10%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="16%"  height="30" align="center" class="oce-first"></td>
+  </tr>
+</table>
+<% @iguana.iguanaspagos.each do |iguanaspago| %>
+   <% if iguanaspago.id != @iguanaspago.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="iguanaspago_<%= iguanaspago.id%>">
+          <td height="30" align="left" class="camposDesc"><%=iguanaspago.tipopago%></td>
+         <td height="30" align="left" class="camposDesc"><%=iguanaspago.fecha_solicitud%></td>
+         <!-- <td width="10%" height="30" align="left" class="camposDesc">$ <%=number_to_currency(iguanaspago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td> -->
+         <td height="30" align="left" class="camposDesc"><%=iguanaspago.fecha_desembolso%></td>
+         <td height="30" align="left" class="camposDesc"><%=iguanaspago.rubro%></td>
+         <td height="30" align="left" class="camposDesc"><%=iguanaspago.convenio%></td>
+         <td height="30" align="left" class="camposDesc"><%=iguanaspago.estado%></td>
+         <td height="30" align="right" class="camposDesc">
+           <% if permiso("iguanaspago","A").to_s == "S" %>
+                    <%= link_to_remote('Editar',{:url => edit_iguana_iguanaspago_path(@iguana, iguanaspago),
+        :method => :get}, :class=>"editarlink")%>
+            <% end %>
+            <% if  iguanaspago.iguana.clasereasentamiento.to_s == 'CABLEPICACHO'  %>
+                    <%= link_to "Ver", {:controller => "iguanaspagos", :action => "ver", :id=>iguanaspago.id}, :class=>"verlink"%>
+            <% end -%>
+            <% if permiso("iguanaspago","E").to_s == "S" %>
+                    <%= link_to_remote('Borrar',{:url => iguana_iguanaspago_path(@iguana, iguanaspago),
+                            :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+           <% if  iguanaspago.rubro.to_s =="IDEA" %>
+              <%= link_to 'Pago', {:controller=>"iguanaspagos", :action =>"idea", :id => iguanaspago.id.to_s},
+               :popup => ['new_window','height=500,width=950,scrollbars=yes'],:class=>"verlink"%>
+           <% else %>
+            <% if  iguanaspago.iguana.clasereasentamiento.to_s == 'CABLEPICACHO'  %>
+              <%= link_to 'Pago', {:controller=>"iguanaspagos", :action =>"isvimed", :id => iguanaspago.id.to_s},
+               :popup => ['new_window2','height=500,width=950,scrollbars=yes'],:class=>"verlink"%>
+            <%else%>
+              <%= link_to 'Pago', {:controller=>"iguanaspagos", :action =>"isvimed2", :id => iguanaspago.id.to_s},
+               :popup => ['new_window2','height=500,width=950,scrollbars=yes'],:class=>"verlink"%>
+            <% end -%>
+           <% end %>
+           </td>
+        </tr>
+      </table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR PAGOS</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="iguanaspago_<%=@iguanaspago.id%>">
+     <%= render :partial => "iguanaspagos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :iguana, :id %>
+<% end %>
+<br/>
+<% if flash[:iguanaspago] %>
+<div id="iguanaspago">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:iguanaspago] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('iguanaspago');", 5000)
+</script>
+<% end %>
+</div>

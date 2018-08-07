@@ -1,0 +1,16 @@
+<h1>Editing tiposcaracteristica</h1>
+
+<% form_for(@tiposcaracteristica) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tiposcaracteristica %> |
+<%= link_to 'Back', tiposcaracteristicas_path %>

@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/iguanamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;OBSERVACIONES DEL ESTADO - <%=@iguanasestado.descripcion%></div></td>
+              <td width="3%"><div align="right">
+                <%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar Estados"}),iguanasestados_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_for(@iguanasestado) do |f| %>
+
+<%end%>
+<% unless @iguanasestado.new_record? %>
+   <div id="iguanasestadosnotas_form">
+      <%= render :partial => "/iguanasestadosnotas/iguanasestadosnotas" %>
+   </div>
+<% end %>

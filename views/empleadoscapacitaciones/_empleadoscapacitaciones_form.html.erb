@@ -1,0 +1,166 @@
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="39%" align="left" class="campos">Fuente DNC </td>
+          <td width="21%" align="left" class="campos">Priorizacion Institucional</td>
+          <td width="40%" align="left" class="campos">Necesidad Institucional</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :fuente_dnc, :cols => 60, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion, :priorizacion, { "ALTA" => "1","MEDIA" => "2","BAJA" => "3"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :necesidad, :cols => 60, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="11%" align="left" class="campos">Dependencia, areas de trabajo u oficina </td>
+          <td width="11%" align="left" class="campos">Conocimiento (SABER) </td>
+          <td width="11%" align="left" class="campos">Habilidades (HACER)</td>
+        </tr>
+        <tr>
+          <td align="left" lass="camposDesc"><%=select("user", "dependencia_id", Dependencia.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :aspecto_conocimiento, :cols => 40, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :aspecto_habilidades, :cols => 40, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="35%" align="left" class="campos">Actitudes, Motivacion (SER) </td>
+          <td width="30%" align="left" class="campos">Poblacion Objeto por Nivel Jerarquico</td>
+          <td width="25%" align="left" class="campos">Presupuesto</td>
+          <td width="10%" align="left" class="campos">Se dicto? </td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :aspecto_actitudes, :cols => 40, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion,
+                :poblacion_objeto , { "DIRECTIVO" => "1",
+                           "ASESOR" => "2",
+                           "PROFESIONAL" => "3",
+						   "TECNICO" => "4",
+						   "ASISTENCIAL" => "5",
+						   "TODOS" => "6"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :presupuesto,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion,
+                :se_dicto , { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="31%" align="left" class="campos">Evento de capacitacion aprobado </td>
+          <td width="21%" align="left" class="campos">Nombre Capacitacion </td>
+          <td width="19%" align="left" class="campos">Valor Pagado </td>
+          <td width="18%" align="left" class="campos">Metodo o Estrategias </td>
+          <td width="11%" align="left" class="campos">Recursos</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :evento_aprobado, :cols => 40, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :nombre_capacitacion,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :valor_pagado,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion,
+                :metodos , { "INTERNO" => "I",
+                           "EXTERNO" => "E"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion,
+                :recursos , { "DE EQUIPO" => "E",
+                           "DE PERSONAL" => "P"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="50%" align="left" class="campos">Objetivo de la Capacitaci&oacute;n </td>
+          <td width="50%" align="left" class="campos">Contenido (TEMAS) </td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :objetivo, :cols => 70, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+          <td align="left" class="camposDesc"><%= text_area(:empleadoscapacitacion, :contenido, :cols => 70, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="25%" align="left" class="campos">Metodologia</td>
+          <td width="30%" align="left" class="campos">Institucion Evaluada </td>
+          <td width="15%" align="left" class="campos">Duracion</td>
+          <td width="15%" align="left" class="campos">Fecha Inicio</td>
+          <td width="15%" align="left" class="campos">Fecha Finalizacion </td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :metodologia,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :institucion_evaluada,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :duracion,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= calendar_date_select "empleadoscapacitacion", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+          <td align="left" class="camposDesc"><%= calendar_date_select "empleadoscapacitacion", "fecha_finalizacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="28%" align="left" class="campos">Calificacion del Proveedor </td>
+          <td width="72%" align="left" class="campos">Evaluacion del Aprendizaje Eficaz</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_field :empleadoscapacitacion, :calificacion_proveedor,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td align="left" class="camposDesc"><%= select(:empleadoscapacitacion,
+                :evaluacion_eficacia , { "SI" => "S",
+                           "NO" => "N"},
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+      </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :empleado, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>

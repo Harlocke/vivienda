@@ -1,0 +1,51 @@
+<div align="center"><table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">HABILITACION DE PROYECTOS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@user, @usersproyecto] do |form| %>
+<% if !@usersproyecto.id %>
+	<%= render :partial => "/usersproyectos/usersproyectos_form" %>
+<% end %>
+      <div align="center">
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Id</td>
+    <td width="70%" height="30" class="oce-first">Proyecto</td>
+    <td width="20%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% for usersproyecto in @user.usersproyectos.find(:all, :order => 'proyecto_id') %>
+   <% if usersproyecto.id != @usersproyecto.id %>
+  <table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" id="usersproyecto_<%=usersproyecto.id%>">
+     <td width="10%" height="20" class="camposDesc"><%=usersproyecto.proyecto_id%></td>
+     <td width="70%" height="20" class="camposDesc"><%=usersproyecto.proyecto.descripcion%></td>
+     <td width="20%" height="20" class="camposDesc">
+<%= link_to_remote('Editar',{:url => edit_user_usersproyecto_path(@user, usersproyecto),
+		:method => :get}, :class=>"editarlink")%>
+<%= link_to_remote('Borrar',{:url =>user_usersproyecto_path(@user, usersproyecto),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+</td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR proyectos</div></td>
+  </tr>
+  </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="usersproyecto_<%=@usersproyecto.id%>">
+      <%= render :partial => "usersproyectos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+<% end %>
+        </div>
+            <%= hidden_field :user, :id %>
+<% end %>

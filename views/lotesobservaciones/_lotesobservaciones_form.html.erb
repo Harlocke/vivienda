@@ -1,0 +1,34 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr >
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" align="left" class="campos">Tipo *</td>
+        <td width="50%" align="left" class="campos">Observaci&oacute;n *</td>
+      </tr>
+      <tr valign="top">
+<td ><%= select(:lotesobservacion,
+                :tipo, { "OBSERVACION" => "1",
+                           "ACTUACION" => "2"},
+                        { :include_blank => true },
+                      { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+<%= error_message_on :lotesobservacion, :tipo, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left" ><%= text_area(:lotesobservacion, :observacion, :cols => 110, :rows => 4, :class => 'campo', :maxlength => 4000,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :lotesobservacion, :observacion, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :lotesobservacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>

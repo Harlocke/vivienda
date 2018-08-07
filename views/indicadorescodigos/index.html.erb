@@ -1,0 +1,26 @@
+<h1>Listing indicadorescodigos</h1>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Descripcion</th>
+    <th>Estado</th>
+    <th>Formula</th>
+  </tr>
+
+<% @indicadorescodigos.each do |indicadorescodigo| %>
+  <tr>
+    <td><%=h indicadorescodigo.codigo %></td>
+    <td><%=h indicadorescodigo.descripcion %></td>
+    <td><%=h indicadorescodigo.estado %></td>
+    <td><%=h indicadorescodigo.formula %></td>
+    <td><%= link_to 'Show', indicadorescodigo %></td>
+    <td><%= link_to 'Edit', edit_indicadorescodigo_path(indicadorescodigo) %></td>
+    <td><%= link_to 'Destroy', indicadorescodigo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New indicadorescodigo', new_indicadorescodigo_path %>

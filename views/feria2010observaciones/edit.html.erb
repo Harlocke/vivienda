@@ -1,0 +1,24 @@
+<h1>Editing feria2010observacion</h1>
+
+<% form_for(@feria2010observacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :feria2010jefe_id %><br />
+    <%= f.text_field :feria2010jefe_id %>
+  </p>
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label :observacion %><br />
+    <%= f.text_field :observacion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feria2010observacion %> |
+<%= link_to 'Back', feria2010observaciones_path %>

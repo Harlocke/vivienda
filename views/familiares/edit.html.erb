@@ -1,0 +1,16 @@
+<h1>Editing familiar</h1>
+
+<% form_for(@familiar) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @familiar %> |
+<%= link_to 'Back', familiares_path %>

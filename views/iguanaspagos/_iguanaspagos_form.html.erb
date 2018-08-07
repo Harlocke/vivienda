@@ -1,0 +1,155 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="55%" class="campos" align="left">Tipo *</td>
+        <td width="15%" class="campos" align="left">Fecha Solicitud *</td>
+        <td width="15%" class="campos" align="left">Fecha Desembolso *</td>
+        <td width="15%" class="campos" align="left">Nro Fondo *</td>
+        </tr>
+      <tr>
+        <td class="camposDesc" align="left">
+             <%= select(:iguanaspago,
+                :tipo, [["ARRENDAMIENTO TEMPORAL","ART"],
+                        ["ARRENDATARIO","R"],
+                        ["AVALUO","A"],
+                        ["ECONOMIA FORMAL","EF"],
+                        ["ECONOMIA INFORMAL","EI"],
+                        ["ECONOMICA","E"],
+                        ["EXPENSAS CURADURÍA INTER. PARCIAL","ECI"],
+                        ["EXPENSAS CURADURIA INTERVENCIONES PARCIALES","P"],
+                        ["GASTOS DE PUBLICIDAD","GP"],
+                        ["GASTOS ESCOLARIZACION","G"],
+                        ["IMPACTO ECONOMICO","I"],
+                        ["PAGO DESCONEXION SERVICIOS PUB","PDSP"],
+                        ["POR TRAMITES LEGALES POR VIVIENDA REPOSICION","V"],
+                        ["TRAMITES LEGALES","L"],
+                        ["TRAMITES LEGALES COMPRA PARCIAL","TLCP"],
+                        ["TRÁMITES LEGALES POR VIVIENDA REPOSICIÓN","TLVR"],
+                        ["TRASLADO","T"],
+                        ["TRASLADO ESPECIAL","S"]],
+                        { :include_blank => true },
+                      { :style=>"width:410px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+         <%= error_message_on :iguanaspago, :tipo, :css_class =>"cerror"%>
+        </td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "iguanaspago", "fecha_solicitud", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :iguanaspago, :fecha_solicitud, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= calendar_date_select "iguanaspago", "fecha_desembolso", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :iguanaspago, :fecha_desembolso, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :nro_fondo,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :nro_fondo, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" class="campos" align="left">Rubro Presupuestal *</td>
+        <td width="60%" class="campos" align="left">Convenio *</td>
+        <td width="20%" class="campos" align="left">Estado *</td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left"><%= select(:iguanaspago,
+                :rubro, { "IDEA" => "IDEA",
+                          "ISVIMED" => "ISVIMED"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :iguanaspago, :rubro, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :convenio,{ :class => "campo", :size => 70,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :iguanaspago, :convenio, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left"><%= select(:iguanaspago,
+                :estado, { "PENDIENTE" => "PENDIENTE",
+                          "PAGADO" => "PAGADO"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :iguanaspago, :estado, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <br/>
+    <div align="center">
+    <table width="80%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="30%" class="campos" align="left">Concepto</td>
+        <td width="20%" class="campos" align="center">Valor</td>
+        <td width="50%" class="campos" align="center">Observación</td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left">Valor inicial oferta de compra</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :avaluo,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :avaluo, :css_class =>"cerror"%></td>
+        <td class="camposDesc" align="left" rowspan="8"><%= text_area(:iguanaspago, :observacion, :cols => 50, :rows => 10, :class => 'campo', :maxlength => 3999,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %></td>
+      <tr>
+      </tr>
+        <td class="camposDesc" align="left">Pago Nro 1.</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :pago1,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :pago1, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td class="camposDesc" align="left">Pago Nro 2.</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :pago2,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :pago2, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" align="left">Saldo por indemnización</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :saldo_indemnizacion,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :saldo_indemnizacion, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" align="left">Descuento por fisco</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :descuento_fisco,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :descuento_fisco, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" align="left">Valor Certifado</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :valor,{ :class => "campo", :size => 15,
+                                                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                :onFocus => "this.style.border='1px solid #f00'",
+                                                :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                        <%= error_message_on :iguanaspago, :valor, :css_class =>"cerror"%></td>
+        </tr>
+        <tr>
+        <td class="camposDesc" align="left">Saldo por ejecutar</td>
+        <td class="camposDesc" align="left"><%= text_field :iguanaspago, :saldo_ejecutar,{ :class => "campo", :size => 15,
+                                                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                                                           :onFocus => "this.style.border='1px solid #f00'",
+                                                           :onBlur => "this.style.border='1px solid #bbb'" }%>
+                                            <%= error_message_on :iguanaspago, :saldo_ejecutar, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+  </div>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :iguanaspersona, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

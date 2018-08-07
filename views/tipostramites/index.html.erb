@@ -1,0 +1,24 @@
+<h1>Listing tipostramites</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Tiempo</th>
+    <th>Responsable</th>
+  </tr>
+
+<% @tipostramites.each do |tipostramite| %>
+  <tr>
+    <td><%=h tipostramite.descripcion %></td>
+    <td><%=h tipostramite.tiempo %></td>
+    <td><%=h tipostramite.responsable %></td>
+    <td><%= link_to 'Show', tipostramite %></td>
+    <td><%= link_to 'Edit', edit_tipostramite_path(tipostramite) %></td>
+    <td><%= link_to 'Destroy', tipostramite, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tipostramite', new_tipostramite_path %>

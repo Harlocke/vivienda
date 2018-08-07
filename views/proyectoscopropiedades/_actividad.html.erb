@@ -1,0 +1,55 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">ACTIVIDADES DE ACOMPAÑAMIENTO SOCIAL</div></td>
+  </tr>
+</table>
+<div align="center">
+  <% @proyectostipos = Proyectostipo.find(:all, :conditions=>["clase = 'ACTIVIDADES'"])
+     @proyectostipos.each do |proyectostipo|%>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr  >
+      <td width="39%" valign="middle" align="left" class="camposDesc odd1"><%= link_to image_tag('link_adjuntar.gif'),{:controller=>"proyectoscopdocumentos", :action=>"new", :proyectoscopropiedad_id=>@proyectoscopropiedad.id, :proyectostipo_id=>proyectostipo.id}%>
+      <strong><%=proyectostipo.documento rescue nil%></strong></td>
+      <td>
+    <% if @proyectoscopropiedad.proyectoscopdocumentos.exists?(["proyectostipo_id = #{proyectostipo.id}"])  %>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1" >    
+            <td width="13%" class="oce-first">Fecha Documento</td>
+            <td width="39%" class="oce-first">Documento</td>
+            <td width="9%" class="oce-first">&nbsp;</td>
+          </tr>
+          <% for proyectoscopdocumento in @proyectoscopropiedad.proyectoscopdocumentos.find(:all,:conditions=>["proyectostipo_id = #{proyectostipo.id}"], :order => 'created_at DESC') %>
+          <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> proyectoscopdocumento_<%=proyectoscopdocumento.id%>">
+            <td align="left" class="camposDesc"><%=proyectoscopdocumento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=proyectoscopdocumento.user.username rescue nil%></td>
+            <td align="left" class="camposDesc"><em>&nbsp;<%=proyectoscopdocumento.copropiedad_file_name.capitalize%></em></td>
+            <td align="left" class="camposDesc"><div align="center"><%= link_to image_tag('download2.png', :border=>0,
+                                      :title => "Descargar: #{proyectoscopdocumento.copropiedad_file_name}"),
+                                      proyectoscopdocumento.copropiedad.url(:original, false),
+                                     { :title=>"#{proyectoscopdocumento.copropiedad_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                          &nbsp;
+                          <% if proyectoscopdocumento.user_id == is_admin %>
+                          <%= link_to_remote('Borrar',{:url => proyectoscopropiedad_proyectoscopdocumento_path(@proyectoscopropiedad, proyectoscopdocumento),
+                              :method => :delete, :confirm => "¿Seguro?",
+                              :before => "$(this).up('.proyectoscopdocumento_#{proyectoscopdocumento.id}').remove()"},
+                              :class=>"borrarlink")%>
+                                <% end %>
+                              </div>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+        <% else %>
+          <div align="center" class="camposDesc">NO hay documentos cargados .........</div>
+        <% end %>
+        </td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>      
+
+  <% end %>
+</div>

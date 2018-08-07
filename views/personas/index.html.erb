@@ -1,0 +1,79 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%"><img src="/images/personasmin.png" width="64" height="64"/></td>
+    <td width="94%"><div class="col_enc">CONSULTA DE PERSONAS</div></td>
+    <td width="3%"><div align="right">
+        <% if permiso("persona","C").to_s == "S" %>
+           <%= link_to image_tag('nuevo.png',
+                    { :border=>0, :title => "Nuevo"}),new_persona_path %>
+       <% end %>
+      </div></td>
+  </tr>
+</table>
+<!-- <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr>
+  <td height="30" class="camposNotas camposDesc13"><div align="center"><br/><strong>
+    Van <%#=Persona.count(:conditions=>["trunc(updated_at) >= to_date('18-11-2017','dd-mm-yyyy') and habilitado_feria = 'RESOLUCION 2010'"]) rescue 0%> actualiaciones!
+        </strong></div><br/>
+  </td>
+  </tr>
+</table>  -->
+<br/>
+<div align="center">
+  <% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+      <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+        <tr valign="middle">
+          <td width="50%" height="30" class="camposDesc"><div align="right"><strong>Identificacion del jefe de hogar o beneficiario:&nbsp;&nbsp;</strong></div></td>
+          <td width="50%" height="30" class="camposDesc"> <%= text_field_tag :buscarident, params[:buscarident],{ :class => "campo", :size => 40,
+                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr valign="middle">
+          <td height="30" class="camposDesc"><div align="right"><strong>Nombre del jefe de hogar:&nbsp;&nbsp;</strong></div></td>
+          <td height="30" class="camposDesc"> <%= text_field_tag :buscarnombre, params[:buscarnombre],{ :class => "campo", :size => 40,
+                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr valign="middle">
+          <td height="30" class="camposDesc"><div align="right"><strong>Nombre de alguno de los Beneficiarios:&nbsp;&nbsp;</strong></div></td>
+          <td height="30" class="camposDesc"> <%= text_field_tag :buscargrupo, params[:buscargrupo],{ :class => "campo", :size => 40,
+                      :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr valign="middle">
+          <td height="30" class="camposDesc"></td>
+          <td height="30" class="camposDesc">
+      <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Buscar", :name => nil, :disable_with => "Buscando..." %></span></div></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<% if @personas.count.to_i > 0 %>
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="15%" height="20" class="oce-first"><div align="center">Identificacion</div></td>
+        <td width="50%" class="oce-first">Nombre</td>
+        <td width="25%" class="oce-first">Telefonos</td>
+        <td width="10%" class="oce-first">&nbsp;</td>
+      </tr>
+      <% @personas.each do |persona| %>
+        <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc" height="20"><div align="center"><%=h persona.identificacion rescue nil%></div></td>
+          <td class="camposDesc"><%=h persona.nombres rescue nil%>
+              <% if persona.beneviviendas.exists? %>
+              <% persona.beneviviendas.each do |benevivienda| %>
+                  <br/><small><%=h benevivienda.identificacion %> - <%=h benevivienda.nombres rescue nil%></small>
+              <% end %><% end %></td>        
+          <td class="camposDesc"><%=h persona.telefonos rescue nil%></td>
+          <td class="camposDesc"><div align="center"><%= link_to 'Ver', edit_persona_path(:id=>persona.id, :etapa=>"1"),:class=>"editarlink"%></div></td>
+        </tr>
+      <% end %>
+    </table>
+    <br/>
+    <table width="90%" border="0" cellpadding="0" cellspacing="0">
+      <tr><td width="100%" class="camposDesc"><div align="center"><%= will_paginate @personas, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td></tr>
+      <tr><td width="100%" class="camposDesc"><div align="center">Total Registros: <%= @personas.total_entries %></div></td></tr>
+    </table>
+    <br/>
+<% end %>

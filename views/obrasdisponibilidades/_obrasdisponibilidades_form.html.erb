@@ -1,0 +1,49 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="33%" class="campos">Nro Resolucion *</td>
+    <td width="33%" class="campos">Nro Disponibilidad</td>
+    <td width="33%" class="campos">Nro Compromiso</td>
+  </tr>
+  <tr>
+    <td><%= text_field :obrasdisponibilidad, :nro_resolucion, { :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :obrasdisponibilidad, :nro_resolucion, :css_class =>"cerror"%> -
+    <%= calendar_date_select "obrasdisponibilidad", "fecha_resolucion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :obrasdisponibilidad, :fecha_resolucion, :css_class =>"cerror"%></td>
+    <td><%= text_field :obrasdisponibilidad, :nro_disponibilidad, { :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :obrasdisponibilidad, :nro_disponibilidad, :css_class =>"cerror"%> -
+    <%= calendar_date_select "obrasdisponibilidad", "fecha_disponibilidad", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :obrasdisponibilidad, :fecha_disponibilidad, :css_class =>"cerror"%></td>
+    <td><%= text_field :obrasdisponibilidad, :nro_compromiso, { :class => "campo", :size => 15,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+        <%= error_message_on :obrasdisponibilidad, :nro_compromiso, :css_class =>"cerror"%> -
+    <%= calendar_date_select "obrasdisponibilidad", "fecha_compromiso", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :obrasdisponibilidad, :fecha_compromiso, :css_class =>"cerror"%></td>
+  </tr>
+</table>
+
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :obrasdisponibilidad, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

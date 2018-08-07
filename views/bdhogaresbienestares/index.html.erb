@@ -1,0 +1,52 @@
+<h1>Listing bdhogaresbienestares</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Persona</th>
+    <th>Codigounidadserviciouds</th>
+    <th>Nombreunidadserviciouds</th>
+    <th>Nombremunicipiouds</th>
+    <th>Nombrezonarestouds</th>
+    <th>Nombrecentropobladouds</th>
+    <th>Nombrecomunauds</th>
+    <th>Nombrebarriouds</th>
+    <th>Direccionuds</th>
+    <th>Telefonouds</th>
+    <th>Identificacion</th>
+    <th>Primernombre</th>
+    <th>Segundonombre</th>
+    <th>Primerapellido</th>
+    <th>Segundoapellido</th>
+    <th>Nombreservicio</th>
+  </tr>
+
+<% @bdhogaresbienestares.each do |bdhogaresbienestar| %>
+  <tr>
+    <td><%=h bdhogaresbienestar.user %></td>
+    <td><%=h bdhogaresbienestar.persona %></td>
+    <td><%=h bdhogaresbienestar.codigounidadserviciouds %></td>
+    <td><%=h bdhogaresbienestar.nombreunidadserviciouds %></td>
+    <td><%=h bdhogaresbienestar.nombremunicipiouds %></td>
+    <td><%=h bdhogaresbienestar.nombrezonarestouds %></td>
+    <td><%=h bdhogaresbienestar.nombrecentropobladouds %></td>
+    <td><%=h bdhogaresbienestar.nombrecomunauds %></td>
+    <td><%=h bdhogaresbienestar.nombrebarriouds %></td>
+    <td><%=h bdhogaresbienestar.direccionuds %></td>
+    <td><%=h bdhogaresbienestar.telefonouds %></td>
+    <td><%=h bdhogaresbienestar.identificacion %></td>
+    <td><%=h bdhogaresbienestar.primernombre %></td>
+    <td><%=h bdhogaresbienestar.segundonombre %></td>
+    <td><%=h bdhogaresbienestar.primerapellido %></td>
+    <td><%=h bdhogaresbienestar.segundoapellido %></td>
+    <td><%=h bdhogaresbienestar.nombreservicio %></td>
+    <td><%= link_to 'Show', bdhogaresbienestar %></td>
+    <td><%= link_to 'Edit', edit_bdhogaresbienestar_path(bdhogaresbienestar) %></td>
+    <td><%= link_to 'Destroy', bdhogaresbienestar, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bdhogaresbienestar', new_bdhogaresbienestar_path %>

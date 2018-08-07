@@ -1,0 +1,50 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/indicadoresmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;SMO - SISTEMA DE MEDICIÓN ORGANIZACIONAL -INFORMACION DETALLADA</div></td>
+                <td width="3%"><div align="right">
+          </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="70%" height="30" class="oce-first">Indicador</td>
+    <td width="20%" class="oce-first"><div align="center">Variable Detallada</div></td>
+    <td width="10%" class="oce-first"><div align="center">Total</div></td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@nombreindicador%></td>
+    <td class="camposDesc"><div align="center"><%=@variable rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=@totalvariable rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" height="30" class="oce-first">Nombre</td>
+    <td width="12%" class="oce-first">Fecha nacimiento</td>
+    <td width="12%" class="oce-first">Genero</td>
+    <td width="15%" class="oce-first">Grupo etnico</td>
+    <td width="15%" class="oce-first">Especial</td>
+    <td width="11%" class="oce-first">Comuna</td>
+    <td width="11%" class="oce-first">Monto Subsidio</td>
+  </tr>
+<% @indicadoresdatos.each do |indicadoresdato| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h indicadoresdato.nombre %></td>
+    <td class="camposDesc"><%=h indicadoresdato.fecha_nacimiento %></td>
+    <td class="camposDesc"><%=h indicadoresdato.genero %></td>
+    <td class="camposDesc"><%=h indicadoresdato.grupo_etnico %></td>
+    <td class="camposDesc"><%=h indicadoresdato.especial %></td>
+    <td class="camposDesc"><%=h indicadoresdato.comuna %></td>
+    <td class="camposDesc"><%=camponumerico(indicadoresdato.valor_subsidio) rescue 0 %></td>
+  </tr>
+<% end %>
+</table><br/>
+

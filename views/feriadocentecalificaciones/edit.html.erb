@@ -1,0 +1,28 @@
+<h1>Editing feriadocentecalificacion</h1>
+
+<% form_for(@feriadocentecalificacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :feriadocentejefe_id %><br />
+    <%= f.text_field :feriadocentejefe_id %>
+  </p>
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label :calificacion %><br />
+    <%= f.text_field :calificacion %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feriadocentecalificacion %> |
+<%= link_to 'Back', feriadocentecalificaciones_path %>

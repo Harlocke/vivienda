@@ -1,0 +1,51 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+        <tr>
+          <td width="3%"><img src="/images/iguanamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION <%=@iguana.clasereasentamiento.upcase.to_s rescue nil%></div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar Predios"}),iguanas_path %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% unless @iguana.new_record? %>
+  <%= link_to image_tag("iguanas.png", :title => "Información Predio", :style=>"#{@iguana.d_etapa('1')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"1")%>
+  <%= link_to image_tag("beneficiarios.png", :title => "Propietarios", :style=>"#{@iguana.d_etapa('2')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"2")%>
+  <%= link_to image_tag("rentistas.png", :title => "Arrendatarios", :style=>"#{@iguana.d_etapa('7')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"7")%>
+  <%= link_to image_tag("subsidio.png", :title => "Pagos", :style=>"#{@iguana.d_etapa('3')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"3")%>
+  <% if @iguana.clasereasentamiento.to_s != 'SANLUIS' %>  
+    <%= link_to image_tag("traslado.png", :title => "Mejoras", :style=>"#{@iguana.d_etapa('6')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"6")%>
+  <% end %>
+  <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@iguana.d_etapa('4')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"4")%>
+  <%= link_to image_tag("imagenes.png", :title => "Informacion Digitalizada", :style=>"#{@iguana.d_etapa('5')} padding:4px;"),edit_iguana_path(:id=>@iguana.id,:etapa=>"5")%>        
+<% end %>
+<% if @iguana.etapa.to_s == '1' %>
+    <fieldset>
+       <% if @iguana.clasereasentamiento.to_s == 'OBRAPUBLICA'%> 
+        <%= render "obrapublica" %> 
+      <% elsif @iguana.clasereasentamiento.to_s == 'ADQUISICION' %>  
+        <%= render "adquisicion" %> 
+      <% elsif @iguana.clasereasentamiento.to_s == 'SANLUIS' %>  
+        <%= render "sanluis" %> 
+      <% elsif @iguana.clasereasentamiento.to_s == 'CABLEPICACHO' %>  
+        <%= render "cablepicacho" %> 
+      <% end %>
+    </fieldset>
+<% elsif @iguana.etapa.to_s == '2' %>
+    <fieldset><div id="iguanaspersonas_form"><%= render :partial => "/iguanaspersonas/iguanaspersonas" %></div></fieldset>
+<% elsif @iguana.etapa.to_s == '7' %>
+    <fieldset><div id="iguanasrentistas_form"><%= render :partial => "/iguanasrentistas/iguanasrentistas" %></div></fieldset>
+<% elsif @iguana.etapa.to_s == '3' %>
+    <fieldset><div id="iguanaspagos_form"><%= render :partial => "/iguanaspagos/iguanaspagos" %></div></fieldset>
+<% elsif @iguana.etapa.to_s == '4' %>
+    <fieldset><div id="iguanasobservaciones_form"><%= render :partial => "/iguanasobservaciones/iguanasobservaciones" %></div></fieldset>
+<% elsif @iguana.etapa.to_s == '5' %>
+    <fieldset><div id="iguanasimagenes_form"><%= render :partial => "/iguanasimagenes/iguanasimagenes" %></div></fieldset>
+<% elsif @iguana.etapa.to_s == '6' %>
+    <fieldset><div id="iguanasmejoras_form"><%= render :partial => "/iguanasmejoras/iguanasmejoras" %></div></fieldset>
+<% end %>
+<br/><br/>

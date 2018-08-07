@@ -1,0 +1,106 @@
+<style type="text/css">
+<!--
+ .campos {font-size: 12px;
+	font-weight: bold;
+	font-family: Tahoma;}
+ .campos1 {font-size: 14px;
+	font-weight: bold;
+	font-family: Tahoma;}
+ .camposdes {font-size: 12px;
+	font-family: Tahoma;}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align ="center">
+<table width="432" height="300" border ="1"  cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+<%
+     i = 0
+     cant = 0
+     @archivos.each do |archivo|
+       i = i + 1
+        if cant == 2
+        cant = 0
+        end
+        cant = cant + 1
+%>
+    <%  if cant == 1 %>
+  <tr>
+    <td valign="top">
+      <% elsif cant == 2 %>
+        <td valign="top">
+      <% end %>
+      <table width="430"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td colspan="4"><div align="center"><img src="/images/toparchivo2.png" width="410" height="70"/></div></td>
+      </tr>
+      <tr>
+        <td width="26%" class="campos">&nbsp;&nbsp;&nbsp;&nbsp;SECCION : </td>
+        <td colspan="3" class="camposdes"><%=archivo.archivosserie.codigo_seccion rescue nil%> <%=archivo.archivosserie.seccion rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">&nbsp;&nbsp;&nbsp;&nbsp;SUBSECCION : </td>
+        <td colspan="3" class="camposdes">&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="campos">&nbsp;&nbsp;&nbsp;&nbsp;SERIE : </td>
+        <td colspan="3" class="camposdes"><%=archivo.archivosserie.codigo_seccion rescue nil%>-<%=archivo.archivosserie.codigo_serie rescue nil%> <%=archivo.archivosserie.serie rescue nil%></td>
+      </tr>
+      <tr  valign="top">
+        <td height="42" class="campos">&nbsp;&nbsp;&nbsp;&nbsp;SUBSERIE : </td>
+        <td height="42" colspan="3" class="camposdes"><%=archivo.archivosserie.codigo_final rescue nil%> <%=archivo.archivosserie.subserie rescue nil%> (<%=archivo.barrio%>)</td>
+      </tr>
+      <tr>
+        <td colspan="4"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+      <tr>
+        <td height="20" colspan="4"><table width="100%" height="30"  border="0" cellpadding="0" cellspacing="0">
+            <% if archivo.archivosserie_id == '10010'  %>
+              <tr>
+                <td width="100%" colspan="2" class="campos1"><div align="center">MANZANA: <%=archivo.manzana rescue nil%> - LOTE: Manzana: <%=archivo.lote rescue nil%></div></td>
+              </tr>
+            <% else %>
+              <tr>
+                <td width="70%" class="campos1" colspan="2"><div align="center"><%=archivo.prestadoanombres rescue nil%><br/>
+                CC: <%=archivo.prestadoaident rescue nil%></div></td>
+              </tr>
+            <% end  %>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="4"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+      <tr>
+        <td class="campos">&nbsp;&nbsp;&nbsp;&nbsp;FOLIOS : </td>
+        <td class="camposdes">&nbsp;</td>
+        <td >&nbsp;</td>
+        <td >&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="campos" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;FECHA INICIAL : </td>
+        <td class="campos" colspan="2">&nbsp;&nbsp;FECHA FINAL : </td>
+      </tr>
+      <tr>
+        <td class="campos">&nbsp;&nbsp;&nbsp;&nbsp;CAJA : </td>
+        <td width="24%" class="campos1">&nbsp;&nbsp;<%=archivo.caja%></td>
+        <td width="25%" class="campos">&nbsp;&nbsp;CARPETA : </td>
+        <td width="25%" class="campos1">&nbsp;&nbsp;<%=archivo.carpeta%></td>
+      </tr>
+      <tr>
+        <td colspan="4">&nbsp;</td>
+      </tr>
+    </table>
+<%  if cant == 1 %>
+        </td>
+      <% elsif cant == 2 %>
+       </td>
+      </tr>
+    <% end %>
+      <% if i == 4
+         i = 0 %>
+      </table>
+      <H1 class=SaltoDePagina></H1>
+      <table width="432" height="300" border ="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+      <% end  %>
+<% end %>
+</table>
+</div>

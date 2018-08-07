@@ -1,0 +1,107 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INFORME DETALLADO CORVIDE (TOTAL : <%=@corvides.count rescue 0%>)</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="21"><strong>Información inmueble</strong></td>
+    <td colspan="10"><strong>Proceso de escrituracion</strong></td>
+    <td colspan="4"><strong>Adjudicatarios</strong></td>
+    <td rowspan="2"><strong>Observaciones</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>ID</strong></td>
+    <td><strong>Nro. Expediente</strong></td>
+    <td><strong>Matrícula Inmobiliaria</strong></td>
+    <td><strong>Dirección</strong></td>
+    <td><strong>Comuna - Barrio</strong></td>
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Nit - Propietario</strong></td>
+    <td><strong>Certificado datos de propiedad</strong></td>
+    <td><strong>Consecutivo datos de propiedad</strong></td>
+    <td><strong>Fecha datos de propiedad</strong></td>
+    <td><strong>Valor Avalúo Catastral</strong></td>
+    <td><strong>Inmueble vendido por adjudicatario</strong></td>
+    <td><strong>Inmueble arrendado</strong></td>
+    <td><strong>Uso que se le da a la residencia</strong></td>
+    <td><strong>Inmueble habitado por poseedor no adjudicatario</strong></td>
+    <td><strong>Nombre Poseedor</strong></td>
+    <td><strong>Plan terraza</strong></td>
+    <td><strong>Terraza construida</strong></td>
+    <td><strong>Se realizó visita a inmueble</strong></td>
+    <td><strong>Tiene encuesta</strong></td>
+    <td><strong>Caso especial</strong></td>
+    <td><strong>Estado</strong></td>
+    <td><strong>Notaría reparto</strong></td>
+    <td><strong>Nro. escritura pública</strong></td>
+    <td><strong>Fecha escritura pública</strong></td>
+    <td><strong>Resolución subsidio gastos escrituración</strong></td>
+    <td><strong>Nro. resolución subsidio</strong></td>
+    <td><strong>Fecha resolución subsidio</strong></td>
+    <td><strong>Solicitud descargue inventario</strong></td>
+    <td><strong>Fecha solicitud descargue</strong></td>
+    <td><strong>Tiene paz y salvo CISA</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Nombre</strong></td>
+    <td><strong>Credito CISA</strong></td>
+    <td><strong>Valor credito CISA</strong></td>
+  </tr>
+<% @corvides.each do |corvide|%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=corvide.id rescue nil%></div></td>
+     <td><div align="left"><%=corvide.nro_expediente rescue nil%></div></td>
+     <td><div align="left"><%=corvide.matricula rescue nil%></div></td>
+     <td><div align="left"><%=corvide.direccion rescue nil%></div></td>
+     <td><div align="left"><%=corvide.comuna.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=corvide.transferencia rescue nil%></div></td>
+     <td><div align="left"><%=corvide.propietario rescue nil%></div></td>
+     <td><div align="left"><%=corvide.certificado_datos rescue nil%></div></td>
+     <td><div align="left"><%=corvide.consecutivo_datos rescue nil%></div></td>
+     <td><div align="left"><%=corvide.fecha_datos rescue nil%></div></td>
+     <td><div align="left"><%=corvide.valor rescue nil%></div></td>
+     <td><div align="left"><%=corvide.vendido rescue nil%></div></td>
+     <td><div align="left"><%=corvide.arrendado rescue nil%></div></td>
+     <td><div align="left"><%=corvide.uso rescue nil%></div></td>
+     <td><div align="left"><%=corvide.adjudicatario rescue nil%></div></td>
+     <td><div align="left"><%=corvide.persona.autobuscar rescue nil%></div></td>
+     <td><div align="left"><%=corvide.terraza rescue nil%></div></td>
+     <td><div align="left"><%=corvide.terrazaconst rescue nil%></div></td>
+     <td><div align="left"><%=corvide.visita_inmueble rescue nil%></div></td>
+     <td><div align="left"><%=corvide.tiene_encuesta rescue nil%></div></td>
+     <td><div align="left"><%=corvide.caso_especial rescue nil%></div></td>
+     <td><div align="left"><%=corvide.estado rescue nil%></div></td>
+     <td><div align="left"><%=corvide.notaria_reparto rescue nil%></div></td>
+     <td><div align="left"><%=corvide.escritura_publica rescue nil%></div></td>
+     <td><div align="left"><%=corvide.fecha_escritura rescue nil%></div></td>
+     <td><div align="left"><%=corvide.resol_subsidio rescue nil%></div></td>
+     <td><div align="left"><%=corvide.nro_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=corvide.fecha_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=corvide.solicitud_inv rescue nil%></div></td>
+     <td><div align="left"><%=corvide.fecha_descargue rescue nil%></div></td>
+     <td><div align="left"><%=corvide.pazysalvo_cisa rescue nil%></div></td>
+     <td colspan="4">
+         <% if corvide.corvidespersonas.exists? %>
+           <table border="1">
+          <% corvide.corvidespersonas.each do |corvidespersona| %>
+             <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+               <td><div align="left"><%=corvidespersona.persona.identificacion rescue nil%></div></td>
+               <td><div align="left"><%=corvidespersona.persona.nombres rescue nil%></div></td>
+               <td><div align="left"><%=corvidespersona.cisa rescue nil%></div></td>
+               <td><div align="left"><%=corvidespersona.valor_cisa rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+     <td>
+       <% if corvide.corvidesobservaciones.exists? %>
+           <table border="1">
+          <% for corvidesobservacion in corvide.corvidesobservaciones.find(:all, :order => 'created_at DESC')  %>
+             <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+               <td><div align="left"><%=corvidesobservacion.created_at.strftime("%Y-%m-%d %X") rescue nil%> - (<%=corvidesobservacion.user.username rescue nil%>) : <%=corvidesobservacion.dtipoatencion.to_s rescue nil%>: <%=corvidesobservacion.observacion.to_s rescue nil%></div></td>
+             </tr>
+           <% end %>
+           </table>
+         <% end %>
+     </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,18 @@
+<p>
+  <b>Producto:</b>
+  <%=h @almacenessolicitud.producto_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @almacenessolicitud.user_id %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%=h @almacenessolicitud.cantidad %>
+</p>
+
+
+<%= link_to 'Edit', edit_almacenessolicitud_path(@almacenessolicitud) %> |
+<%= link_to 'Back', almacenessolicitudes_path %>

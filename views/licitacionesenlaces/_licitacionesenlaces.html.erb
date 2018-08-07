@@ -1,0 +1,95 @@
+<div align="center"><table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ENLACES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+  </div>
+<% remote_form_for [@licitacion, @licitacionesenlace] do |form| %>
+  <% if !@licitacionesenlace.id %>
+    <%= render :partial => "/licitacionesenlaces/licitacionesenlaces_form" %>
+  <% end %>
+<% if @licitacion.licitacionesenlaces.exists? %>
+<div align="center">
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+  <tr valign="middle">
+    <th colspan="4" height="30" class="oce-first">APU</th>
+    <th colspan="2" class="oce-first">Ejecución</th>
+    <th width="5%" class="oce-first">.</th>
+  </tr>
+  <tr valign="middle">
+    <th width="50%" class="oce-first">Descripcion APU</th>
+    <th width="5%" class="oce-first"><div align="center">Cantidad</div></th>
+    <th width="10%" class="oce-first"><div align="center">Vlr Unitario</div></th>
+    <th width="10%" class="oce-first"><div align="center">Vlr Total</div></th>
+    <th width="5%" class="oce-first"><div align="center">Cant</div></th>
+    <th width="12%" class="oce-first"><div align="center">Subtotal</div></th>
+    <th width="7%" class="oce-first">.</th>
+  </tr>
+<% for licitacionesenlace in @licitacion.licitacionesenlaces.find(:all, :order=>"created_at") %>
+   <% if licitacionesenlace.id != @licitacionesenlace.id%>
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="licitacionesenlace_<%=licitacionesenlace.id%>">
+    <td class="camposDesc"><div align="left"><%=Gruposactividad.find(licitacionesenlace.analisisprecio.gruposactividad_id).codigo rescue nil %> - <%=licitacionesenlace.analisisprecio.descripcion rescue nil %>
+      <%  @grupo = Grupo.find(licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+     <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+     <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%></div>
+    </td>
+    <td class="camposDesc"><div align="center"><%=licitacionesenlace.cantidad rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(licitacionesenlace.valorunitario) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(licitacionesenlace.valortotal) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(Licitacionesinformesdetalle.sum("cantidad", :conditions=>["licitacionesenlace_id = #{licitacionesenlace.id}"])) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacionesenlace_id = #{licitacionesenlace.id}"])) rescue nil %></div></td>
+    <td class="camposDesc"><div align="center">
+        <% if Licitacionesinformesdetalle.exists?(["licitacionesenlace_id = #{licitacionesenlace.id}"]) == false %>
+        <%= link_to_remote('',{:url => edit_licitacion_licitacionesenlace_path(@licitacion, licitacionesenlace),:method => :get},:title=>"Editar", :class=>"editarlink")%>
+        <%= link_to_remote('',{:url => licitacion_licitacionesenlace_path(@licitacion, licitacionesenlace),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+        <%= link_to '', new_licitacionesenlace_licenlacesimagen_path(licitacionesenlace.id),:title=>"Imagenes", :class=>"imagenlink" %>
+      </div>
+      </td>
+   </tr>
+    <% else %>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+        <%= render :partial => "licitacionesenlaces_form" %>
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+  <% end %>
+  <tr valign="middle">
+    <th colspan="3" class="campos"><div align="right">Subtotal</div></th>
+    <td class="camposDesc"><div align="right"><strong><%=camponumerico(@licitacion.licitacionesenlaces.sum("valortotal"))%></strong></div></td>
+    <td class="camposDesc" colspan="2"><div align="right"><strong></strong><%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{licitacionesenlace.licitacion_id}"])) rescue nil %></div></td>
+    <td><div align="right"><strong>-</strong></div></td>
+  </tr>
+  <tr valign="middle">
+    <th colspan="3" class="campos"><div align="right">AIU <%=@licitacion.aiu.to_i%> % </div></th>
+    <td class="camposDesc"><div align="right"><strong><%=camponumerico((@licitacion.licitacionesenlaces.sum("valortotal") * @licitacion.aiu.to_i)/100)%></strong></div></td>
+    <td colspan="2"><div align="right"><strong>-</strong></div></td>
+    <td><div align="right"><strong>-</strong></div></td>
+  </tr>
+  <tr valign="middle">
+    <th colspan="3" class="campos"><div align="right">TOTAL</div></th>
+    <td class="camposDesc"><div align="right"><strong><%=camponumerico(((@licitacion.licitacionesenlaces.sum("valortotal") * @licitacion.aiu.to_i)/100) + @licitacion.licitacionesenlaces.sum("valortotal"))%></strong></div></td>
+    <td class="camposDesc" colspan="2"><div align="right"><strong></strong><%=camponumerico(Licitacionesinformesdetalle.sum("valor_total", :conditions=>["licitacion_id = #{licitacionesenlace.licitacion_id}"])) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><strong>.</strong></div></td>
+  </tr>
+  <tr valign="middle">
+    <th colspan="3" class="campos"><div align="right">PORCENTAJE DE AVANCE CONTRA EL SUBSIDIO ($ <%=camponumerico(@licitacion.valor_resolucion) rescue nil%>)</div></th>
+    <td colspan="4" class="camposDesc"><div align="center"><strong><%=number_to_currency(@licitacion.porcentajeavance,{:precision => 2, :unit=>"", :delimiter =>"."}) %> %</strong></div></td>
+  </tr>
+<% else %>
+   <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay informacion para esta clasificacion.</td>
+     </tr>
+</table>
+<% end %>
+</table>
+            <%= hidden_field :licitacion, :id %>
+<% end %>
+  </div>
+<br/>

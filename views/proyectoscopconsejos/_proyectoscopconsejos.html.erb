@@ -1,0 +1,55 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">INTEGRANTES CONSEJO DE ADMINISTRACIÓN</div></td>
+  </tr>
+</table><br/>
+</form>
+<% remote_form_for [@proyectoscopropiedad, @proyectoscopconsejo] do |form| %>
+<% if !@proyectoscopconsejo.id %>
+    <%= render :partial => "/proyectoscopconsejos/proyectoscopconsejos_form" %>
+<% end %>
+<% if @proyectoscopropiedad.proyectoscopconsejos.exists? %>
+<table width="100%" align="center">
+  <tr valign="middle">
+    <td width="40%" height="30" align="left" class="oce-first">Nombres</td>
+    <td width="20%" height="30" align="left" class="oce-first">Apto</td>
+    <td width="20%" height="30" align="left" class="oce-first">Teléfono</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% i = 0
+    for proyectoscopconsejo in @proyectoscopropiedad.proyectoscopconsejos.find(:all, :order => 'id ASC')
+    i = i +1%>
+   <% if proyectoscopconsejo.id != @proyectoscopconsejo.id %>
+     <tr valign="middle" id="proyectoscopconsejo_<%=proyectoscopconsejo.id%>">
+       <td><div align="justify"><%=proyectoscopconsejo.nombres rescue nil%></div></td>
+       <td><div align="justify"><%=proyectoscopconsejo.apto rescue nil%></div></td>
+       <td><div align="justify"><%=proyectoscopconsejo.telefono rescue nil%></div></td>
+       <td width="12%" align="right" class="camposDesc">
+           <%= link_to_remote('Editar',{:url=>edit_proyectoscopropiedad_proyectoscopconsejo_path(@proyectoscopropiedad,proyectoscopconsejo),:method => :get},:class=>"editarlink")%>
+           |&nbsp;<%= link_to_remote('Borrar',{:url => proyectoscopropiedad_proyectoscopconsejo_path(@proyectoscopropiedad, proyectoscopconsejo),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+     </td>
+   </tr>
+  <% else %>
+       <table width="64%" align="center"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+       <%= render :partial => "proyectoscopconsejos_form" %>
+        <table width="64%" align="center">
+  <% end %>
+<% end %>
+</table>
+<% else %>
+
+<% end %>
+<%= hidden_field :proyectoscopropiedad, :id %>
+<% end %>
+<br/>
+<% if flash[:proyectoscopconsejo] %>
+<div id="proyectoscopconsejo">
+    <div class="alert alert-success">
+      <%= flash[:proyectoscopconsejo] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('proyectoscopconsejo');", 5000)
+</script>
+<% end %>

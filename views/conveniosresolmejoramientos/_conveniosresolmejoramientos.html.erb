@@ -1,0 +1,107 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ITEMS DE MEJORAMIENTOS </div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@conveniosresolintencion, @conveniosresolmejoramiento] do |form| %>
+       <% if !@conveniosresolmejoramiento.id %>
+          <% if @conveniosresolintencion.generada.to_s == "" %>
+            <%= render :partial => "/conveniosresolmejoramientos/conveniosresolmejoramientos_form" %>
+          <% end %>
+       <% end %>
+  <% if @conveniosresolintencion.conveniosresolmejoramientos.exists? %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" height="30" class="oce-first">Beneficiario</td>
+    <td width="10%" class="oce-first">Cedula</td>
+    <td width="10%" class="oce-first"><div align="center">Vlr Subsidio</div></td>
+    <td width="10%" class="oce-first"><div align="center">Vlr Pagado</div></td>
+    <td width="10%" class="oce-first"><div align="center">% Ejecucion</div></td>
+    <td width="10%" class="oce-first"><div align="center">Vlr Aprobado</div></td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+<%  @conveniosresolintencion.conveniosresolmejoramientos.each do |conveniosresolmejoramiento| %>
+  <%  if conveniosresolmejoramiento.id != @conveniosresolmejoramiento.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosresolmejoramiento_<%= conveniosresolmejoramiento.id%>">
+     <td height="30" class="camposDesc"><%=conveniosresolmejoramiento.mejoramiento.persona.nombres rescue nil%>
+     <% if conveniosresolmejoramiento.observacion %>
+       <br/><strong>NO OK : <%=conveniosresolmejoramiento.observacion rescue nil%></strong>
+     <% end %></td>
+     <td class="camposDesc"><%=conveniosresolmejoramiento.mejoramiento.persona.identificacion rescue nil%></td>
+     <td class="camposDesc"><div align="right">$ <%=camponumerico(conveniosresolmejoramiento.mejoramiento.valor_resolucion) rescue 0%></div></td>
+     <td class="camposDesc"><div align="right">$ <%=camponumerico(conveniosresolmejoramiento.mejoramiento.mejoramientospagos.sum("valor")) rescue 0%></div></td>
+     <td class="camposDesc"><div align="right"><%=conveniosresolmejoramiento.mejoramiento.porcentajeeje rescue 0%>%</div></td>
+     <td class="camposDesc"><div align="right">$ <%=camponumerico(conveniosresolmejoramiento.valor) rescue 0%></div></td>
+     <td class="camposDesc"><div align="center">
+          <% if conveniosresolmejoramiento.mejoramiento.porcentajeeje.to_i >= @conveniosresolintencion.conveniosforma.porc_avance.to_i %>
+            <% if conveniosresolmejoramiento.estado.to_s == 'SI' %>
+                <img src="/images/connect.png"/>
+            <% elsif conveniosresolmejoramiento.estado.to_s == 'NO' %>
+                <img src="/images/delete.png"/>
+            <% else %>
+                <% if @conveniosresolintencion.generada.to_s == "" %>
+                    <%= link_to_remote('OK',{:url => si_conveniosresolintencion_conveniosresolmejoramiento_path(@conveniosresolintencion, conveniosresolmejoramiento),:method => :get}, :class=>"modlink")%>
+                    <br/>
+                    <%= link_to_remote('NO OK',{:url => edit_conveniosresolintencion_conveniosresolmejoramiento_path(@conveniosresolintencion, conveniosresolmejoramiento),
+                      :method => :get}, :class=>"modlink")%>
+                <% end %>
+            <% end %>
+          <% else %>
+              NO CUMPLE
+          <% end %>
+          <% if permiso("conveniosresolmejoramiento","E").to_s == "S" %><br/>
+              <% if conveniosresolmejoramiento.estado.to_s == 'NO' %>
+              <%= link_to_remote('Editar',{:url => edit_conveniosresolintencion_conveniosresolmejoramiento_path(@conveniosresolintencion, conveniosresolmejoramiento),
+                  :method => :get}, :class=>"editarlink")%><br/>
+              <% end %>
+              <% if @conveniosresolintencion.generada.to_s == "" %>
+                   <%= link_to_remote('Borrar',{:url => conveniosresolintencion_conveniosresolmejoramiento_path(@conveniosresolintencion, conveniosresolmejoramiento),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+              <% end %>
+          <% end %>
+        </div>
+     </td>
+ </tr>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="conveniosresolmejoramiento_<%=@conveniosresolmejoramiento.id%>">
+            <%= render :partial => "conveniosresolmejoramientos_form" %>
+          </tr>
+      </fieldset>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <% end %>
+   <% end %>
+</table>
+  <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :conveniosresolintencion, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosresolmejoramiento] %>
+<div id="conveniosresolmejoramiento">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:conveniosresolmejoramiento] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosresolmejoramiento');", 5000)
+</script>
+<% end %>
+</div>
+

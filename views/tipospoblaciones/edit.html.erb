@@ -1,0 +1,16 @@
+<h1>Editing tipospoblacion</h1>
+
+<% form_for(@tipospoblacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @tipospoblacion %> |
+<%= link_to 'Back', tipospoblaciones_path %>

@@ -1,0 +1,71 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Actualizaciones Titulaciones</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Usuario</div></strong></td>
+    <td colspan="2"><strong><div align="center">Titulacion</div></strong></td>
+    <td colspan="2"><strong><div align="center">Asignacion</div></strong></td>
+    <td colspan="2"><strong><div align="center">Demandas</div></strong></td>
+    <td colspan="2"><strong><div align="center">Fallidos</div></strong></td>
+    <td colspan="2"><strong><div align="center">Imagenes</div></strong></td>
+    <td colspan="2"><strong><div align="center">Observaciones</div></strong></td>
+    <td colspan="2"><strong><div align="center">Personas</div></strong></td>
+    <td colspan="2"><strong><div align="center">Notas</div></strong></td>
+    <td colspan="2"><strong><div align="center">Prestamos</div></strong></td>
+    <td colspan="2"><strong><div align="center">Seguimientos Demandas</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="5%"><strong>Fecha Inicio</strong></td>
+    <td width="15%"><strong>Fecha Final</strong></td>
+    <td width="40%"><strong>Usuario</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+    <td width="5%"><strong>Creacion</strong></td>
+    <td width="5%"><strong>Actualizacion</strong></td>
+  </tr>
+<% @titulacionesactualizaciones.each do |titulacion| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=titulacion.fecha_inicio rescue nil%></td>
+    <td><%=titulacion.fecha_fin rescue nil%></td>
+    <td><%=User.find(titulacion.user_id).nombre rescue nil%></td>
+    <td><%=titulacion.i_titulacion rescue 0%></td>
+    <td><%=titulacion.a_titulacion rescue 0%></td>
+    <td><%=titulacion.i_titulacionesasignacion rescue 0%></td>
+    <td><%=titulacion.a_titulacionesasignacion rescue 0%></td>
+    <td><%=titulacion.i_titulacionesdemanda rescue 0%></td>
+    <td><%=titulacion.a_titulacionesdemanda rescue 0%></td>
+    <td><%=titulacion.i_titulacionesfallido rescue 0%></td>
+    <td><%=titulacion.a_titulacionesfallido rescue 0%></td>
+    <td><%=titulacion.i_titulacionesimagen rescue 0%></td>
+    <td><%=titulacion.a_titulacionesimagen rescue 0%></td>
+    <td><%=titulacion.i_titulacionesobservacion rescue 0%></td>
+    <td><%=titulacion.a_titulacionesobservacion rescue 0%></td>
+    <td><%=titulacion.i_titulacionespersona rescue 0%></td>
+    <td><%=titulacion.a_titulacionespersona rescue 0%></td>
+    <td><%=titulacion.i_titulacionesnota rescue 0%></td>
+    <td><%=titulacion.a_titulacionesnota rescue 0%></td>
+    <td><%=titulacion.i_titulacionesprestamo rescue 0%></td>
+    <td><%=titulacion.a_titulacionesprestamo rescue 0%></td>
+    <td><%=titulacion.i_titulacionesseguimiento rescue 0%></td>
+    <td><%=titulacion.a_titulacionesseguimiento rescue 0%></td>
+  </tr>
+<% end %>
+</table>

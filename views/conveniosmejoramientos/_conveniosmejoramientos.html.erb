@@ -1,0 +1,99 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ITEMS DE MEJORAMIENTOS - <%= link_to "Acta Aprobacion", {:controller => "convenios", :action => "actaaprobacionobra", :id=>@convenio.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%></div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@convenio, @conveniosmejoramiento] do |form| %>
+<% if permiso("conveniosmejoramiento","C").to_s == "S" %>
+       <% if !@conveniosmejoramiento.id %>
+            <%= render :partial => "/conveniosmejoramientos/conveniosmejoramientos_form" %>
+       <% end %>
+<% end %>
+  <% if @convenio.conveniosmejoramientos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="55%" height="30" class="oce-first">Item</td>
+    <td width="5%" height="30" class="oce-first"><div align="center">Unidad</div></td>
+    <td width="10%" height="30" class="oce-first"><div align="center">Valor</div></td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% a = 0
+   @convenio.conveniosmejoramientos.each do |conveniosmejoramiento| %>
+<%  if conveniosmejoramiento.id != @conveniosmejoramiento.id %>
+  <% if a <= 0 %>
+      <div align="center" class="camposDesc"><br/>
+      <% a = 1%>
+      <% if permiso("conveniosmejoramiento","C").to_s == "S" %>
+        <%=link_to_remote('Incluir Todos',{:url => nuevo1_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar", :class=>"verlink")%> -
+        <%=link_to_remote('Incluir Nuevos',{:url => nuevo2_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar Nuevos", :class=>"verlink")%> -
+        <%=link_to_remote('Incluir solo 2015',{:url => nuevo3_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar Nuevos", :class=>"verlink")%> -
+        <%=link_to_remote('Incluir solo 2016',{:url => nuevo4_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar Nuevos", :class=>"verlink")%> -
+        <%=link_to_remote('Incluir solo 2017',{:url => nuevo5_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar Nuevos", :class=>"verlink")%> -
+        <%=link_to_remote('Incluir solo 2018',{:url => nuevo6_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Adicionar Nuevos", :class=>"verlink")%> -
+        <%=link_to 'Actualiza Mejoramientos',{:controller=>"conveniosmejoramientos", :action=>"actualizamejora", :convenio_id=>conveniosmejoramiento.convenio_id}, :title =>"Actualizar Mejoramientos", :class=>"verlink", :confirm=>"Esta seguro que desea ejecutar el proceso?"%> -
+      <% end %>
+      <% if permiso("conveniosmejoramiento","E").to_s == "S" %>
+        <%=link_to_remote('Borrar Todos',{:url => borrar1_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :title =>"Eliminar", :class=>"borrarlink")%>
+      <% end %>
+        <br/><br/>
+      </div>
+   <% end %>
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="conveniosmejoramiento_<%= conveniosmejoramiento.id%>">
+     <td width="15%" height="30" class="camposDesc"><%=conveniosmejoramiento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=conveniosmejoramiento.user.username rescue nil%></td>
+     <td width="55%" height="30" class="camposDesc"><div align="justify"><%=conveniosmejoramiento.mejoramientositem.descripcion rescue nil%></div></td>
+     <td width="5%" height="30" class="camposDesc"><div align="center"><%=conveniosmejoramiento.mejoramientositem.unidad rescue nil%></div></td>
+     <td width="10%" height="30" class="camposDesc"><div align="right">$ <%=number_to_currency(conveniosmejoramiento.valor_unitario,{:precision => 2, :unit=>"", :delimiter =>"."})%></div></td>
+     <td width="15%" class="camposDesc"><div align="center">
+        <% if permiso("conveniosmejoramiento","A").to_s == "S" %>
+          <%= link_to_remote('Editar',{:url => edit_convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("conveniosmejoramiento","E").to_s == "S" %>
+          <%= link_to_remote('Borrar',{:url => convenio_conveniosmejoramiento_path(@convenio, conveniosmejoramiento),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %></div>
+        </td>
+ </tr>
+</table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">Observación por NO OK</div></td></tr>
+        </table>
+          <tr id="conveniosmejoramiento_<%=@conveniosmejoramiento.id%>">
+            <%= render :partial => "conveniosmejoramientos_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :convenio, :id %>
+<% end %>
+<br/>
+<% if flash[:conveniosmejoramiento] %>
+<div id="conveniosmejoramiento">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:conveniosmejoramiento] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('conveniosmejoramiento');", 5000)
+</script>
+<% end %>
+</div>
+

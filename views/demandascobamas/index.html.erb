@@ -1,0 +1,26 @@
+<h1>Listing demandascobamas</h1>
+
+<table>
+  <tr>
+    <th>Demanda</th>
+    <th>Cobama</th>
+    <th>User</th>
+    <th>User actualiza</th>
+  </tr>
+
+<% @demandascobamas.each do |demandascobama| %>
+  <tr>
+    <td><%=h demandascobama.demanda_id %></td>
+    <td><%=h demandascobama.cobama %></td>
+    <td><%=h demandascobama.user_id %></td>
+    <td><%=h demandascobama.user_actualiza %></td>
+    <td><%= link_to 'Show', demandascobama %></td>
+    <td><%= link_to 'Edit', edit_demandascobama_path(demandascobama) %></td>
+    <td><%= link_to 'Destroy', demandascobama, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New demandascobama', new_demandascobama_path %>

@@ -1,0 +1,119 @@
+<strong>INFORME DE CALIFICACION </strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td colspan="37"><strong>Informacion Formulario</strong></td>
+    <td colspan="11"><strong>Calificacion</strong></td>
+    <td colspan="6"><strong>Cruces Ministerio</strong></td>
+  </tr>
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td><strong>Tipo de Documento</strong></td>
+    <td><strong>Identificacion</strong></td>
+    <td><strong>Primer Nombre</strong></td>
+    <td><strong>Segundo Nombre</strong></td>
+    <td><strong>Primer Apellido</strong></td>
+    <td><strong>Segundo Apellido</strong></td>
+    <td><strong>Genero</strong></td>
+    <td><strong>Fecha de Nacimiento</strong></td>
+    <td><strong>Lugar de Nacimiento</strong></td>
+    <td><strong>Estado Civil</strong></td>
+    <td><strong>Ocupacion</strong></td>
+    <td><strong>Condicion Especial</strong></td>
+    <td><strong>Familiar</strong></td>
+    <td><strong>Ingresos</strong></td>
+    <td><strong>Caja de Compensacion</strong></td>
+    <td><strong>Direccion</strong></td>
+    <td><strong>Estrato</strong></td>
+    <td><strong>Telefono 1</strong></td>
+    <td><strong>Telefono 2</strong></td>
+    <td><strong>Celular</strong></td>
+    <td><strong>Email</strong></td>
+    <td><strong>Zona</strong></td>
+    <td><strong>Tenencia</strong></td>
+    <td><strong>Grupo Etnico</strong></td>
+    <td><strong>Ciudad</strong></td>
+    <td><strong>Comuna</strong></td>
+    <td><strong>Vinculacion OPV</strong></td>
+    <td><strong>Nombre OPV</strong></td>
+    <td><strong>Miembro JAL</strong></td>
+    <td><strong>Carta Ahorro Programado</strong></td>
+    <td><strong>Valor Ahorro Programado</strong></td>
+    <td><strong>Carta Credito</strong></td>
+    <td><strong>Valor Credito</strong></td>
+    <td><strong>Tiempo Permanencia Medellin</strong></td>
+    <td><strong>Proyecto VIPA</strong></td>
+    <td><strong>Consecutivo VIPA</strong></td>
+    <td><strong>Actualización</strong></td>
+    <td><strong>1 - AHORRO PROGRAMADO</strong></td>
+    <td><strong>2 - PERSONA CABEZA DE FAMILIA</strong></td>
+    <td><strong>3 - DISCAPACIDAD DE UNO O MAS INTEGRANTES DEL HOGAR</strong></td>
+    <td><strong>4 - MENORES DE 14 ANOS</strong></td>
+    <td><strong>5 - MAYORES DE 65 ANOS</strong></td>
+    <td><strong>6 - TIEMPO DE RESIDENCIA EN EL MUNICIPIO SUPERIOR AL MINIMO (6 ANOS)</strong></td>
+    <td><strong>7 - ANTIGUEDAD EN LA INSCRIPCION</strong></td>
+    <td><strong>8 - PERSONAS QUE SE ENCUENTREN VINCULADAS A NIVEL NACIONAL O MUNICIPAL EN PROGRAMAS SOCIALES QUE TENGAN POR OBJETO LA SUPERACION DE LA POBREZA EXTREMA O QUE SE ENCUENTREN DENTRO DEL RANGO DE POBREZA EXTREMA</strong></td>
+    <td><strong>9 - MIEMBROS DE UNA JUNTA DE ACCION COMUNAL, JUNTA ADMINISTRADORA LOCAL O UNA OPV</strong></td>
+    <td><strong>10 - PERSONAS INSCRITAS EN LA FERIA VIPA 16, 17 Y 18 DE MAYO</strong></td>
+    <td><strong>Puntaje TOTAL</strong></td>
+    <td><strong>Beneficiario</strong></td>    
+    <td><strong>CatAnt</strong></td>    
+    <td><strong>CatBog</strong></td>    
+    <td><strong>CatMed</strong></td>
+    <td><strong>CatCali</strong></td>
+    <td><strong>IGAC</strong></td>    
+    <td><strong>Nuevo Hogar</strong></td>
+  </tr>
+<% for feria2014jefe in @feria2014jefes %>
+  <tr valign="middle">
+    <td><%=feria2014jefe.desc_documento rescue nil%></td>
+    <td><%=feria2014jefe.identificacion rescue nil%></td>
+    <td><%=feria2014jefe.primer_nombre rescue nil%></td>
+    <td><%=feria2014jefe.segundo_nombre rescue nil%></td>
+    <td><%=feria2014jefe.primer_apellido rescue nil%></td>
+    <td><%=feria2014jefe.segundo_apellido rescue nil%></td>
+    <td><%=feria2014jefe.genero rescue nil%></td>
+    <td><%=feria2014jefe.fecha_nacimiento rescue nil%></td>
+    <td><%=feria2014jefe.lugar_nacimiento rescue nil%></td>
+    <td><%=feria2014jefe.desc_estadocivil rescue nil%></td>
+    <td><%=feria2014jefe.desc_ocupacion rescue nil%></td>
+    <td><%=feria2014jefe.desc_especial rescue nil%></td>
+    <td><%=feria2014jefe.desc_familiar rescue nil%></td>
+    <td><%=feria2014jefe.ingresos rescue nil%></td>
+    <td><%=feria2014jefe.desc_caja rescue nil%></td>
+    <td><%=feria2014jefe.direccion rescue nil%></td>
+    <td><%=feria2014jefe.estrato rescue nil%></td>
+    <td><%=feria2014jefe.telefonos1 rescue nil%></td>
+    <td><%=feria2014jefe.telefonos2 rescue nil%></td>
+    <td><%=feria2014jefe.celular rescue nil%></td>
+    <td><%=feria2014jefe.e_mail rescue nil%></td>
+    <td><%=feria2014jefe.zona rescue nil%></td>
+    <td><%=feria2014jefe.tenencia rescue nil%></td>
+    <td><%=feria2014jefe.grupo_etnico rescue nil%></td>
+    <td><%=feria2014jefe.ciudad rescue nil%></td>
+    <td><%=feria2014jefe.desc_comuna rescue nil%></td>
+    <td><%=feria2014jefe.vinculacion_opv rescue nil%></td>
+    <td><%=feria2014jefe.nombre_opv rescue nil%></td>
+    <td><%=feria2014jefe.miembro_jal rescue nil%></td>
+    <td><%=feria2014jefe.carta_ahorro rescue nil%></td>
+    <td><%=feria2014jefe.valor_ahorro rescue nil%></td>
+    <td><%=feria2014jefe.carta_credito rescue nil%></td>
+    <td><%=feria2014jefe.valor_credito rescue nil%></td>
+    <td><%=feria2014jefe.info_permamedellin2 rescue nil%></td>
+    <td><%=feria2014jefe.proyecto_vipa rescue nil%></td>
+    <td><%=feria2014jefe.consecutivo_vipa rescue nil%></td>
+    <td><%=feria2014jefe.updated_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+      <% @feria2014puntajes = Feria2014puntaje.find(:all, :conditions=>["persona_id = #{feria2014jefe.persona_id}"], :order=>"codigo")
+         @feria2014puntajes.each do |feria2014puntaje|%>
+           <td><%=feria2014puntaje.puntaje rescue nil%></td>
+      <% end %>
+    <td><%=Feria2014puntaje.sum("puntaje", :conditions=>["persona_id = #{feria2014jefe.persona_id}"])%></td>
+    <td><%=feria2014jefe.cruce_beneficiario rescue nil%></td>
+    <td><%=feria2014jefe.cruce_catant rescue nil%></td>
+    <td><%=feria2014jefe.cruce_catbog rescue nil%></td>
+    <td><%=feria2014jefe.cruce_catmed rescue nil%></td>
+    <td><%=feria2014jefe.cruce_catcali rescue nil%></td>
+    <td><%=feria2014jefe.cruce_igac rescue nil%></td>
+    <td><%=feria2014jefe.cruce_nuevohogar rescue nil%></td>
+  </tr>
+<%   end %>
+</table>

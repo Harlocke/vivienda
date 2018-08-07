@@ -1,0 +1,2 @@
+module ViviendasrenunciasHelper
+end

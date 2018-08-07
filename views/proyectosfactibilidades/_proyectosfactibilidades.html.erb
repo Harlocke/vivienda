@@ -1,0 +1,110 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">PREFACTIBILIDAD DE PROYECTOS</div></td>
+  </tr>
+</table>
+<% remote_form_for [@proyecto, @proyectosfactibilidad] do |form| %>
+    <% if !@proyectosfactibilidad.id %>
+  <%= render :partial => "/proyectosfactibilidades/proyectosfactibilidades_form" %>
+    <% end %>
+<% @tiposfactibilidades = Tiposfactibilidad.find(:all,:select=>["distinct fase, descripcion_fase"], :group=>"fase,descripcion_fase", :order=>"fase")
+   @tiposfactibilidades.each do |tiposfactibilidad|%>
+      <% if @proyecto.proyectosfactibilidades.exists?(["tiposfactibilidad_id in (select id from tiposfactibilidades where fase = '#{tiposfactibilidad.fase}')"]) %>
+      <div class="col_enc"><%=tiposfactibilidad.descripcionfase rescue nil%> (<%=@proyecto.proyectosfactibilidades.count(:conditions=>["tiposfactibilidad_id in (select id from tiposfactibilidades where fase = '#{tiposfactibilidad.fase}')"]) rescue 0 %>)</div>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="20%" height="30" class="oce-first">Fecha</td>
+          <td width="68%" class="oce-first">Actividad</td>
+          <td width="12%" class="oce-first"></td>
+        </tr>
+      </table>
+      <% for proyectosfactibilidad in @proyecto.proyectosfactibilidades.find(:all, :conditions=>["tiposfactibilidad_id in (select id from tiposfactibilidades where fase = '#{tiposfactibilidad.fase}')"], :order => 'fecha desc') %>
+         <% if proyectosfactibilidad.id != @proyectosfactibilidad.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>" id="one-column-emphasis">
+         <tr valign="middle" id="proyectosfactibilidad_<%=proyectosfactibilidad.id%>">
+            <td width="20%" height="35" class="camposDesc">
+              <a title="Creacion"><%=proyectosfactibilidad.fecha.strftime("%Y-%m-%d") rescue nil%>&nbsp; - <%=User.find(proyectosfactibilidad.user_id).username rescue nil%></a>
+            </td>
+            <td width="68%" class="camposDesc"><%=proyectosfactibilidad.tiposfactibilidad.actividad rescue nil%><br/>
+              <% if proyectosfactibilidad.proyfactnotas.exists? %>
+                  <div align="center">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="90%" align="left" height="20" class="oce-first">Observación</td>
+                        <td width="10%" align="left" height="20" class="oce-first"></td>
+                      </tr>
+                       <% proyectosfactibilidad.proyfactnotas.each do |proyfactnota| %>
+                      <tr>
+                        <td align="left" class="camposDesc"><%=proyfactnota.created_at.strftime("%Y-%m-%d %X")%> - 
+                          <a title="<%=proyfactnota.user.nombre rescue nil%>"><%=proyfactnota.user.username rescue nil%></a> - <%=proyfactnota.observaciones rescue nil%>              
+                          <% if proyfactnota.proyfactnotasimagenes.exists? %><br/>
+                             <% proyfactnota.proyfactnotasimagenes.each do |proyfactnotasimagen| %>
+                               <div align="left"><strong><%=proyfactnotasimagen.created_at.strftime("%Y-%m-%d %X")%> </strong> - <em><%=proyfactnotasimagen.factibilidad_file_name%></em> <%= link_to image_tag('download2.png', :border=>0,
+                                      :title => "Descargar: #{proyfactnotasimagen.factibilidad_file_name}"),
+                                      proyfactnotasimagen.factibilidad.url(:original, false),
+                                       { :title=>"#{proyfactnotasimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                                       <% if permiso("proyectosfactibilidad","E").to_s == "S" %> 
+                                          <%= link_to 'Borrar', ima_proyfactnotasimagen_path(proyfactnota, proyfactnotasimagen),:confirm => 'Esta Seguro de Eliminar?', :method => :delete, :class=>"borrarlink"%>
+                                       <% end %></div>
+                             <% end %>
+                          <% end %>   
+                        </td>
+                        <td class="camposDesc"><div align="center">
+                          <%= link_to 'Archivos',{:controller=>"proyfactnotasimagenes", :action=>"new", :proyfactnota_id=>proyfactnota.id},:class=>"imagenlink"%>
+                          </div>
+                        </td>
+                      </tr>
+                       <% end %>
+                    </table>
+                </div>
+              <% end %> 
+            </td>
+            <td width="7%" class="camposDesc"><div align="center">
+            <% if permiso("proyectosfactibilidad","E").to_s == "S" %>      
+              <%= link_to_remote('Borrar',{:url => proyecto_proyectosfactibilidad_path(@proyecto, proyectosfactibilidad),
+                        :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>      
+              <%= link_to 'Notas', new_nota_proyfactnota_path(proyectosfactibilidad.id), :class=>"imagennotas"%>
+              </div>
+            </td>
+         </tr>
+          <% if proyectosfactibilidad.proyfactnotas.exists? %>
+              <tr>
+                <td colspan="5">
+                  
+                </td>
+              </tr>
+          <% end %>
+
+      </table>
+      <% else %>
+            <fieldset>
+            <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div class="col_enc">EDITAR</div></td>
+        </tr>
+      </table>
+           <%= render :partial => "proyectosfactibilidades_form" %>
+          </fieldset>
+      <% end %>
+      <% end %>
+      <br/>
+      <% end #End existe%>
+<% end #end documentos%>
+
+<%= hidden_field :proyecto, :id %>
+<% end %>
+<br/>
+<% if flash[:proyectosfactibilidad] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:proyectosfactibilidad] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('credito');", 5000)
+</script>
+<% end %>

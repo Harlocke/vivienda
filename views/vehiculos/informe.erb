@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Vehiculos</h3>
+</div>
+<table>
+  <tr valign="middle">
+    <td>
+        <table border="1">
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+            <td><strong><div align="center">Fecha</div></strong></td>
+            <td><strong><div align="center">Placa</div></strong></td>
+            <td><strong><div align="center">Horas Disponible</div></strong></td>
+            <td><strong><div align="center">Horas usadas</div></strong></td>
+          </tr>
+        <% @veh1s.each do |dato| %>
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+            <td><%=dato.fecha rescue nil%></td>
+            <td><%=dato.placa rescue nil%></td>
+            <td><div align="center"><%=dato.disponibles rescue nil%></div></td>
+            <td><div align="center"><%=dato.usadas rescue nil%></div></td>
+          </tr>
+        <% end %>
+        </table>
+    </td>
+    <td></td>
+    <td></td>
+    <td>
+        <table border="1">
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+            <td><strong><div align="center">Placa</div></strong></td>
+            <td><strong><div align="center">Nro Dias Trabajados</div></strong></td>
+            <td><strong><div align="center">Nro total de horas habilitadas</div></strong></td>
+            <td><strong><div align="center">Nro de horas totales Usadas</div></strong></td>
+            <td><strong><div align="center">Porcentaje de Usabilidad</div></strong></td>
+            <td><strong><div align="center">Nro de horas totales NO Usadas</div></strong></td>
+            <td><strong><div align="center">Porcentaje de NO Usabilidad</div></strong></td>
+            <td><strong><div align="center">Valor total de las horas no Usadas </div></strong></td>
+          </tr>
+        <% @veh2s.each do |dato| %>
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+            <td><%=dato.placa rescue nil%></td>
+            <td><div align="center"><%=dato.cantdias rescue nil%></div></td>
+            <td><div align="center"><%=dato.horastotales rescue nil%></div></td>
+            <td><div align="center"><%=dato.totalusadas rescue nil%></div></td>
+            <td><div align="center"><%=dato.porc_uso rescue nil%>%</div></td>
+            <td><div align="center"><%=dato.horas_nouso rescue nil%></div></td>
+            <td><div align="center"><%=dato.porc_nouso rescue nil%>%</div></td>
+            <td><div align="center"><%=dato.valor_nouso rescue nil%></div></td>
+          </tr>
+        <% end %>
+        </table>
+    </td>
+  </tr>
+</table>
+

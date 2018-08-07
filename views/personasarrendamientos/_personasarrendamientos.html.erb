@@ -1,0 +1,81 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">ARRENDAMIENTO TEMPORAL</div></td>
+  </tr>
+</table>
+  <div align="center">
+<% remote_form_for [@persona, @personasarrendamiento] do |form| %>
+  <%# if permiso("personasarrendamiento","C").to_s == "S" %>
+        <% if !@personasarrendamiento.id %>
+          <%= render :partial => "/personasarrendamientos/personasarrendamientos_form" %>
+        <% end %>
+ <%# end %>
+<% if @persona.personasarrendamientos.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" height="30" class="oce-first">Fecha</td>
+    <td width="18%" class="oce-first">Inicia proceso de arrendamiento temporal</td>
+    <td width="17%" class="oce-first">Se ofrece vivienda del banco inmobiliario</td>
+    <td width="10%" class="oce-first">Fecha</td>
+    <td width="30%" class="oce-first">Observación</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @persona.personasarrendamientos.each do |personasarrendamiento| %>
+   <% if personasarrendamiento.id != @personasarrendamiento.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="personasarrendamiento_<%=personasarrendamiento.id%>">
+    <td class="camposDesc" align="left" >
+        <%=personasarrendamiento.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=personasarrendamiento.user.nombre rescue nil%>"><%=personasarrendamiento.user.username rescue nil%></a><br/>
+        <%=personasarrendamiento.updated_at.strftime("%Y-%m-%d %X")%> - <a title="<%=User.find(personasarrendamiento.user_actualiza).nombre rescue nil%>"><%=User.find(personasarrendamiento.user_actualiza).username rescue nil%></a>
+    </td>
+    <td class="camposDesc" align="left"><%=personasarrendamiento.iniciaproceso%></td>
+    <td class="camposDesc" align="left"><%=personasarrendamiento.ofrecebanco%></td>
+    <td class="camposDesc" align="left"><%=personasarrendamiento.fecha.strftime("%Y-%m-%d")%></td>
+    <td class="camposDesc" align="left"><%=personasarrendamiento.observaciones%></td>
+    <td class="camposDesc">
+              <%= link_to_remote('Editar',{:url => edit_persona_personasarrendamiento_path(@persona, personasarrendamiento),
+		:method => :get}, :class=>"editarlink")%>
+               <%= link_to_remote('Borrar',{:url => persona_personasarrendamiento_path(@persona, personasarrendamiento),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+               <%= link_to 'datos', {:controller=>"personasarrendamientos",:action=>"datos", :id=>personasarrendamiento.id}, :class=>"notaslink"%>
+    </td>
+ </tr>
+<% else %>
+      <fieldset>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr><td  height="30"><div class="col_enc">EDITAR personasarrendamientoS</div></td></tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr class="<%=cycle('even1', 'odd1')%>" id="personasarrendamiento_<%=@personasarrendamiento.id%>">
+     <%= render :partial => "personasarrendamientos_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+</table>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:personasarrendamiento] %>
+<div id="personasarrendamiento">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:personasarrendamiento] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personasarrendamiento');", 5000)
+</script>
+<% end %>
+</div>
+</fieldset>

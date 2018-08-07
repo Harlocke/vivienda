@@ -1,0 +1,16 @@
+<h1>Editing potdato</h1>
+
+<% form_for(@potdato) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @potdato %> |
+<%= link_to 'Back', potdatos_path %>

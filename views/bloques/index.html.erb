@@ -1,0 +1,36 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="97%"><div class="col_enc"><div align="left">BLOQUES ( PROYECTO <%=@proyecto.descripcion %> )</div></div></td>
+              <td width="3%"><div align="right"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Regresar',  proyectos_path %></span></div></div>            </td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width=70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">Descripcion</td>
+    <td width="20%" height="30" class="oce-first">Direccion</td>
+    <td width="15%" height="30" class="oce-first">Nro Escritura</td>
+    <td width="15%" height="30" class="oce-first">Fecha Expedicion</td>
+    <td width="30%" height="30" class="oce-first">Notaria Origen</td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% @bloques.each do |bloque| %>
+  <tr valign="middle">
+    <td width="10%" height="30" class="camposDesc"><%=h bloque.descripcion %></td>
+    <td width="20%" height="30" class="camposDesc"><%=h bloque.direccion %></td>
+    <td width="15%" height="30" class="camposDesc"><%=h bloque.nro_escritura %></td>
+    <td width="15%" height="30" class="camposDesc"><%=h bloque.fecha_expedicion %></td>
+    <td width="30%" height="30" class="camposDesc"><%=h bloque.notaria_origen %></td>
+    <td width="10%"><div align="right">
+       <%= link_to 'Editar', edit_proyecto_bloque_path(@proyecto, bloque), :class=>"editarlink"%>
+  </div></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,1 @@
+page.replace_html :mejorainformeslistas_form, :partial => "mejorainformeslistas", :object => @mejorainformeslista

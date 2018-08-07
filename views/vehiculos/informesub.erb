@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Vehiculos por Subdireccion</h3>
+</div>
+<table>
+  <tr valign="middle">
+    <td>
+        <table border="1">
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+            <td><strong><div align="center">Fecha</div></strong></td>
+            <td><strong><div align="left">Dependencia</div></strong></td>
+            <td><strong><div align="center">Horas Utilizadas</div></strong></td>
+          </tr>
+        <% @veh1s.each do |dato| %>
+          <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+            <td><%=dato.fecha rescue nil%></td>
+            <td><div align="left"><%=dato.dependencia rescue nil%></div></td>
+            <td><div align="center"><%=dato.cantidad_horas rescue nil%></div></td>
+          </tr>
+        <% end %>
+        </table>
+    </td>
+  </tr>
+</table>
+

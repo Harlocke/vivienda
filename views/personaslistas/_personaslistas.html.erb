@@ -1,0 +1,92 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">LISTA DE VERIFICACION -
+        <%= link_to "Informe", {:controller => "personaslistas", :action => "informe", :id=>@persona.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+      <% if Mejoramiento.exists?(["persona_id = #{@persona.id}"]) == false %><% if !@persona.personaslistas.exists? %><%=link_to 'Crea lista de Chequeo',{:controller=>"personas", :action=>"personaslistas", :id=>@persona.id}, :title =>"Crear Diagnostico", :class=>"verlink", :confirm=>"Esta seguro que desea Crear el Diagnostico?"%><% end %>
+       <% if permiso("mejoramientoslista","C").to_s == "S" %>
+          <% if Personaslista.exists?(["persona_id = #{@persona.id} and bloqueo = 'NO'"]) %>
+            <%=link_to 'Bloquear Diagnostico',{:controller=>"personas", :action=>"personaslistascerrar", :id=>@persona.id}, :title =>"Cerrar Diagnostico", :class=>"verlink", :confirm=>"Esta seguro que desea Cerrar el Diagnostico?"%>
+          <% end %>
+       <% end %>
+     <% end %></div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@persona, @personaslista] do |form| %>
+       <% if !@personaslista.id %>
+       <% end %>
+  <% if @persona.personaslistas.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="45%" height="30" align="left" class="oce-first">Proceso - Documentacion</td>
+    <td width="5%" height="30" align="left" class="oce-first">Estado</td>
+    <td width="5%" height="30" align="left" class="oce-first">Folio</td>
+    <td width="40%" height="30" align="left" class="oce-first">Observacion</td>
+    <td width="5%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% @persona.personaslistas.each do |personaslista| %>
+<%  if personaslista.id != @personaslista.id %>
+  <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="personaslista_<%= personaslista.id%>">
+     <td width="45%" height="30" class="camposDesc"><div align="justify"><strong><%=personaslista.listasverificacion.proceso rescue nil%></strong><br/>
+                 <%=personaslista.listasverificacion.codigo rescue nil%> - <%=personaslista.listasverificacion.documento rescue nil%></div></td>
+     <td width="5%" height="30" align="left" class="camposDesc"><div align="center"><strong><%=personaslista.estado rescue nil%></strong></div></td>
+     <td width="5%" height="30" align="left" class="camposDesc"><div align="center"><strong><%=personaslista.folios rescue nil%></strong></div></td>
+     <td width="40%" height="30" align="left" class="camposDesc">
+        <% if personaslista.user_actualiza %>
+        <%=personaslista.created_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=User.find(personaslista.user_actualiza).username rescue nil%><br/>
+        <% end %>
+        <%=personaslista.observacion rescue nil%></td>
+     <td width="5%" align="right" class="camposDesc"><div align="center">
+         <% if personaslista.bloqueo.to_s == 'NO' %>
+           <% if Mejoramiento.exists?(["persona_id = #{@persona.id}"]) == false %>
+            <%= link_to_remote('Editar',{:url => edit_persona_personaslista_path(@persona, personaslista),:method => :get}, :class=>"editarlink")%>
+            <% if permiso("mejoramientosespecial","E").to_s == "S" %>
+               <%= link_to_remote('Borrar',{:url => persona_personaslista_path(@persona, personaslista),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+            <% end %>
+           <% end %>
+         <% end %></div>
+        </td>
+ </tr>
+</table>
+    <% else %>
+      <fieldset>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr><td  height="30"><div class="col_enc">EDITAR</div></td></tr>
+        </table>
+          <tr id="personaslista_<%=@personaslista.id%>">
+            <%= render :partial => "personaslistas_form" %>
+          </tr>
+      </fieldset>
+    <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :persona, :id %>
+<% end %>
+<br/>
+<% if flash[:personaslista] %>
+<div id="personaslista">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:personaslista] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('personaslista');", 5000)
+</script>
+<% end %>
+</div>
+

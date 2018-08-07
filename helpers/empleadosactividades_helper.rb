@@ -1,0 +1,2 @@
+module EmpleadosactividadesHelper
+end

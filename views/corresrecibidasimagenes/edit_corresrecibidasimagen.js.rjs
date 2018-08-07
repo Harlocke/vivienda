@@ -1,0 +1,1 @@
+page.replace_html :corresrecibidasimagenes_form, :partial => "/corresrecibidasimagenes/corresrecibidasimagenes"

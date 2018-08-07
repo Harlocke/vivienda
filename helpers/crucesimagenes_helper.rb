@@ -1,0 +1,2 @@
+module CrucesimagenesHelper
+end

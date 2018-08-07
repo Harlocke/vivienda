@@ -1,0 +1,2 @@
+page.replace_html :viviendasposventas_form, :partial => "/viviendasposventas/viviendasposventas"
+

@@ -1,0 +1,20 @@
+<h1>Listing tiposcaracteristicas</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @tiposcaracteristicas.each do |tiposcaracteristica| %>
+  <tr>
+    <td><%=h tiposcaracteristica.descripcion %></td>
+    <td><%= link_to 'Show', tiposcaracteristica %></td>
+    <td><%= link_to 'Edit', edit_tiposcaracteristica_path(tiposcaracteristica) %></td>
+    <td><%= link_to 'Destroy', tiposcaracteristica, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New tiposcaracteristica', new_tiposcaracteristica_path %>

@@ -1,0 +1,77 @@
+<%=  javascript_include_tag :defaults %>
+<%=  stylesheet_link_tag 'chain_selects' %>
+<div align="center">
+<table width="85%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/buscadormin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">RESULTADOS CONSULTA</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+                          { :border=>0, :title => "Buscar"}),busqueda_viviendas_path %></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table></div>
+<br/>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="5%" height="30" class="oce-first">ID</td>
+    <td width="20%" height="30" class="oce-first">Proyecto</td>
+    <td width="15%" height="30" class="oce-first">Bloque</td>
+    <td width="5%" height="30" class="oce-first">Piso</td>
+    <td width="5%" height="30" class="oce-first">Apto</td>
+    <td width="10%" height="30" class="oce-first">Estado</td>
+    <td width="30%" height="30" class="oce-first">Persona Vinculada</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+<% @viviendas.each do |vivienda|
+     persona = ""
+     ingreso = ""
+     idviviendaspersona = ""
+     vivienda.viviendaspersonas.each do |viviendaspersona|
+       persona = Persona.find(viviendaspersona.persona_id)
+       ingreso = "S"
+       idviviendaspersona = viviendaspersona.id
+     end
+ %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h vivienda.id rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.proyecto.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.bloque.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.piso.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.apto.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.estadovivienda %></td>
+    <td class="camposDesc"><%=persona.autobuscar rescue nil%></td>
+    <td class="camposDesc">
+      <div align="center">
+        <% if ingreso == "S" %>
+          <%= link_to 'Ver', edit_persona_path(persona.id), :class=>"verlink" %>&nbsp;
+          <% if permiso("viviendasdesvincula","C").to_s == "S" %>
+            <% if vivienda.entregado.to_s == "N"
+                 if Resolucionespersona.exists?(["persona_id = ? and resolucion_id in (select id from resoluciones where resolucionesclase_id in (10020,10004,10021))", persona.id])%>
+                   <%= link_to 'Desvincular', {:controller=>"viviendas", :action=>"desvinculacion", :id=>idviviendaspersona}, :confirm=>"Esta Seguro de realizar la desvinculación?", :class=>"borrarlink" %>
+            <%   end
+               end %>
+          <% end
+             if permiso("viviendasdesvinculaespecial","C").to_s == "S" %>
+             <%= link_to 'Desv. FF', {:controller=>"viviendas", :action=>"desvinculacion", :id=>idviviendaspersona}, :confirm=>"Esta Seguro de realizar la desvinculación?", :class=>"borrarlink" %>
+          <% end %>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @viviendas, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @viviendas.total_entries %> - Nro Total de Registro : <%=@viviendas.count%></div></td>
+  </tr>
+</table>
+<br/>
+

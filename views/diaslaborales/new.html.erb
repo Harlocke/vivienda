@@ -1,0 +1,15 @@
+<h1>New diaslaboral</h1>
+
+<% form_for(@diaslaboral) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', diaslaborales_path %>

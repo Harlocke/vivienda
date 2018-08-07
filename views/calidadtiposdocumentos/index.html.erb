@@ -1,0 +1,20 @@
+<h1>Listing calidadtiposdocumentos</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @calidadtiposdocumentos.each do |calidadtiposdocumento| %>
+  <tr>
+    <td><%=h calidadtiposdocumento.descripcion %></td>
+    <td><%= link_to 'Show', calidadtiposdocumento %></td>
+    <td><%= link_to 'Edit', edit_calidadtiposdocumento_path(calidadtiposdocumento) %></td>
+    <td><%= link_to 'Destroy', calidadtiposdocumento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New calidadtiposdocumento', new_calidadtiposdocumento_path %>

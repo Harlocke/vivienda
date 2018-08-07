@@ -1,0 +1,104 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciaremitentemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">ACTIVIDADES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),capitulos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<div align="center">
+  <% form_for(@capitulo) do |f| %>
+    <table width="70%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td height="20" class="campos" align="left">Capitulo </td>
+        <td class="camposDesc" align="left"><%= f.text_field :capitulo,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :capitulo, :capitulo, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="30%" height="20" class="campos" align="left">Descripcion Capitulo</td>
+        <td width="70%" class="camposDesc" align="left">
+          <%=text_area(:capitulo, :desccapitulo, :cols => 90, :rows => 5, :class => 'campo',:maxlength => 4000,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :capitulo, :desccapitulo, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Sub Capitulo </td>
+        <td class="camposDesc" align="left"><%= f.text_field :subcapitulo,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :capitulo, :subcapitulo, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="30%" height="20" class="campos" align="left">Descripcion Sub-Capitulo</td>
+        <td width="70%" class="camposDesc" align="left">
+          <%=text_area(:capitulo, :descsubcapitulo, :cols => 90, :rows => 5, :class => 'campo',:maxlength => 4000,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :capitulo, :descsubcapitulo, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Actividad </td>
+        <td class="camposDesc" align="left"><%= f.text_field :actividad,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :capitulo, :actividad, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td width="30%" height="20" class="campos" align="left">Descripcion Actividad</td>
+        <td width="70%" class="camposDesc" align="left">
+          <%=text_area(:capitulo, :descactividad, :cols => 90, :rows => 5, :class => 'campo',:maxlength => 4000,
+          :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :capitulo, :descactividad, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Unidad </td>
+        <td class="camposDesc" align="left"><%= f.text_field :unidad,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :capitulo, :unidad, :css_class =>"cerror"%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos" align="left">Norma </td>
+        <td class="camposDesc" align="left"><%= f.text_field :norma,{ :class => "campo", :size => 50,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :capitulo, :norma, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="70%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+           </div></td>
+      </tr>
+    </table>
+  <% end %>
+      <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10">
+          <div id="capituloscriterios_form">
+              <%= render :partial => "/capituloscriterios/capituloscriterios" %>
+           </div>
+        </td>
+      </tr>
+    </table>
+</div>
+<br/>
+

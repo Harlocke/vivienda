@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Resoluciones SIFI</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Identificacion Cruzada</strong></td>
+    <td width="20%"><strong>Identificacion Jefe de Hogar</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+    <td width="20%"><strong>Identificacion Beneficiario</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="50%"><strong>Nro Resolucion</strong></td>
+    <td width="50%"><strong>Fecha</strong></td>
+  </tr>
+<% @viviendasreportes.each do |viviendasreporte| %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=viviendasreporte.identificacion rescue nil%></div></td>
+     <% if viviendasreporte.persona_id.to_i > 0 %>
+     <td><div align="left"><%=viviendasreporte.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.persona.telefonos rescue nil%></div></td>
+     <% if viviendasreporte.benevivienda_id.to_i > 0 %>
+       <td><div align="left"><%=viviendasreporte.benevivienda.identificacion rescue nil%></div></td>
+       <td><div align="left"><%=viviendasreporte.benevivienda.nombres rescue nil%></div></td>
+     <% else %>
+       <td><div align="left"></div></td>
+       <td><div align="left"></div></td>
+     <% end %>
+     <td><div align="left"><%=viviendasreporte.nro_resolucion rescue nil%></div></td>
+     <td><div align="left"><%=viviendasreporte.fecha_resolucion rescue nil%></div></td>
+    <% else %>
+     <td><div align="left"><%=viviendasreporte.identificacion rescue nil%></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+     <td><div align="left"></div></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

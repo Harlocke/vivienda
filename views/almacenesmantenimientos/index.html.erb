@@ -1,0 +1,64 @@
+<h1>Listing almacenesmantenimientos</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Req adecuaciones</th>
+    <th>Req plomeria</th>
+    <th>Req pintura</th>
+    <th>Req arreglo</th>
+    <th>Req instalacion</th>
+    <th>Req arreglochapas</th>
+    <th>Req organizar</th>
+    <th>Req trabajos</th>
+    <th>Req otros</th>
+    <th>Descripcion</th>
+    <th>Clasificacion</th>
+    <th>User clasifica</th>
+    <th>Fecha clasifica</th>
+    <th>Materiales necesarios</th>
+    <th>Sustentacion</th>
+    <th>Materiales utilizados</th>
+    <th>Fecha ejecucion</th>
+    <th>User recibe</th>
+    <th>User responsable</th>
+    <th>Fecha registro</th>
+    <th>Cumple</th>
+    <th>Observaciones</th>
+  </tr>
+
+<% @almacenesmantenimientos.each do |almacenesmantenimiento| %>
+  <tr>
+    <td><%=h almacenesmantenimiento.user_id %></td>
+    <td><%=h almacenesmantenimiento.req_adecuaciones %></td>
+    <td><%=h almacenesmantenimiento.req_plomeria %></td>
+    <td><%=h almacenesmantenimiento.req_pintura %></td>
+    <td><%=h almacenesmantenimiento.req_arreglo %></td>
+    <td><%=h almacenesmantenimiento.req_instalacion %></td>
+    <td><%=h almacenesmantenimiento.req_arreglochapas %></td>
+    <td><%=h almacenesmantenimiento.req_organizar %></td>
+    <td><%=h almacenesmantenimiento.req_trabajos %></td>
+    <td><%=h almacenesmantenimiento.req_otros %></td>
+    <td><%=h almacenesmantenimiento.descripcion %></td>
+    <td><%=h almacenesmantenimiento.clasificacion %></td>
+    <td><%=h almacenesmantenimiento.user_clasifica %></td>
+    <td><%=h almacenesmantenimiento.fecha_clasifica %></td>
+    <td><%=h almacenesmantenimiento.materiales_necesarios %></td>
+    <td><%=h almacenesmantenimiento.sustentacion %></td>
+    <td><%=h almacenesmantenimiento.materiales_utilizados %></td>
+    <td><%=h almacenesmantenimiento.fecha_ejecucion %></td>
+    <td><%=h almacenesmantenimiento.user_recibe %></td>
+    <td><%=h almacenesmantenimiento.user_responsable %></td>
+    <td><%=h almacenesmantenimiento.fecha_registro %></td>
+    <td><%=h almacenesmantenimiento.cumple %></td>
+    <td><%=h almacenesmantenimiento.observaciones %></td>
+    <td><%= link_to 'Show', almacenesmantenimiento %></td>
+    <td><%= link_to 'Edit', edit_almacenesmantenimiento_path(almacenesmantenimiento) %></td>
+    <td><%= link_to 'Destroy', almacenesmantenimiento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New almacenesmantenimiento', new_almacenesmantenimiento_path %>

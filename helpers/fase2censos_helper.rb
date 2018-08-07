@@ -1,0 +1,2 @@
+module Fase2censosHelper
+end

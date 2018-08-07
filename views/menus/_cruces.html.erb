@@ -1,0 +1,24 @@
+<% if @cruceslistos.count > 0 %>
+	<div style="font-size:12px; font-family: Tahoma; display:table;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=is_admin.to_s%>')"><img src="/images/cruzado.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo1<%=is_admin.to_s%>')"><div style="display:table-cell; vertical-align:middle;"><p>VER SOLICITUDES DE CRUCES (<%=@cruceslistos.count rescue 0%>) </p></div></a> </strong>        
+	</div>         
+	<div id="demo1<%=is_admin.to_s%>" style="display:none;">
+	  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+	     <tr valign="middle">
+	        <td width="10%" height="20" class="oce-first"><div align="center">Clase</div></td>
+	        <td width="15%" height="20" class="oce-first"><div align="center">Fecha Cruce</div></td>
+	        <td width="55%" class="oce-first">Jefe de Hogar</td>
+	        <td width="15%" class="oce-first"><div align="center">Estado</div></td>
+	        <td width="5%" class="oce-first"><div align="center"></div></td>
+	     </tr>
+	    <%  @cruceslistos.each do |p| %>
+	     <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+	        <td class="camposDesc"><div align="center"><%=p.clase rescue nil%></div></td>
+	        <td class="camposDesc"><div align="center"><%=p.created_at.strftime("%Y-%m-%d %X")%></div></td>
+	        <td class="camposDesc"><%=p.persona.autobuscar rescue nil%></td>
+	        <td class="camposDesc"><div align="center"><%=p.estado rescue nil%></div></td>
+	        <td class="camposDesc"><div align="center"><% if p.estado.to_s == 'TERMINADO' %><%= link_to 'Ver', edit_persona_path(:id=>p.persona_id, :etapa=>"35"),:class=>"editarlink"%><%end%></div></td>
+	      </tr>
+	      <% end %>
+	  </table>
+	</div>
+<% end %>

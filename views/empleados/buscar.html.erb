@@ -1,0 +1,63 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/empleadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION TALENTO HUMANO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),busqueda_empleados_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Identificacion</div></td>
+    <td width="30%" class="oce-first"><div align="center">Nombre</div></td>
+    <td width="45%" class="oce-first"><div align="center">Contrato</div></td>
+    <td width="15%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @empleados.each do |empleado| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td width="10%" height="30" class="camposDesc"><div align="left"><%=h empleado.identificacion%></div></td>
+    <td width="30%" class="camposDesc"><div align="left"><%=h empleado.nombres rescue nil%></div></td>
+    <td width="45%" class="camposDesc"><div align="left">
+        <% if empleado.contratos.exists? %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="30%" class="oce-first">Nro Contrato</td>
+          <td width="35%" class="oce-first">Fecha Inicio</td>
+          <td width="35%" class="oce-first">Fecha Final</td>
+        </tr>
+        <% empleado.contratos.each do |contrato| %>
+        <tr valign="middle">
+           <td width="12%" class="camposDesc" align="left"><%=contrato.nro_contrato%></td>
+           <td width="14%" class="camposDesc" align="left"><%=contrato.fecha_inicio%></td>
+           <td width="14%" class="camposDesc" align="left"><%=contrato.fecha_final%></td>
+        </tr>
+        <% end %>
+      </table>
+        <% end %>
+      </div></td>
+    <td width="15%" class="camposDesc"><div align="center">
+        <%= link_to 'Editar', edit_empleado_path(:id=>empleado.id, :etapa=>"1"), :class=>"editarlink"%>
+        <% if permiso("empleado","E").to_s == "S" %>
+             &nbsp;|<%= link_to 'Borrar', empleado_path(empleado),
+             :confirm => 'Esta Seguro de Eliminar?',:method => :delete, :class=>"borrarlink"%>
+        <% end %>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@empleados.count%></div></td>
+  </tr>
+</table>

@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Pendientes</h3>
+</div>
+<table border="1">
+  <tr valign="middle">
+    <td width="10%"><strong><div align="center">Tipo Reunion</div></strong></td>
+<% if permiso("comision","C").to_s == "S"  %>
+    <td width="20%"><strong>Nro Comision</strong></td>
+    <td width="40%"><strong>Concejal Coordinador </strong></td>
+<% end %>
+    <td width="40%"><strong>Fecha Asignacion</strong></td>
+    <td width="40%"><strong>Dependencia </strong></td>
+    <td width="50%"><strong>Tarea / Actividad</strong></td>
+    <td width="15%"><strong>Fecha Vence </strong></td>
+    <td width="15%"><strong>Estado</strong></td>
+    <td width="55%"><strong>Observaciones</strong></td>
+    <td width="15%"><strong>Fecha Solucion</strong></td>
+  </tr>
+<% @comitesactividades.each do |comitesactividad|
+     if comitesactividad.fecha_limite
+       if comitesactividad.estado.to_s != "FINALIZADO"
+         if comitesactividad.fecha_limite.to_s <= Time.now.strftime("%Y-%m-%d").to_s
+           color = "#FF0000"
+         else
+           color = "#FFFF00"
+         end
+       else
+         color = "#00FF00"
+       end
+     end
+%>
+   <tr valign="middle" bgcolor="<%=color%>">
+     <td><div align="left"><%=comitesactividad.comite.comitestipo.descripcion rescue nil%></div></td>
+<% if permiso("comision","C").to_s == "S"  %>
+     <td><div align="left"><%=comitesactividad.comite.nro_comision rescue nil%></div></td>
+     <td><div align="left"><%=comitesactividad.comite.concejal rescue nil%></div></td>
+<% end %>
+     <td><div align="left"><%=comitesactividad.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+     <td><div align="left"><%=comitesactividad.dependencia.descripcion rescue nil%></div></td>
+     <td><div align="left"><%=comitesactividad.tarea%></div></td>
+     <td><div align="center"><%=comitesactividad.fecha_limite.strftime("%Y-%m-%d") rescue nil%></div></td>
+     <td><div align="left"><%=comitesactividad.estado%></div></td>
+     <td><div align="left"><%=comitesactividad.observaciones%></div></td>
+     <td><div align="center"><%=comitesactividad.fecha_solucion.strftime("%Y-%m-%d") rescue nil%></div></td>
+ </tr>
+<% end %>
+</table>
+

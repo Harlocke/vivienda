@@ -1,0 +1,91 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">DESCRIPCIÓN ADICIONAL</div></td>
+  </tr>
+</table>
+<% remote_form_for [@ayuda, @ayudasadicional] do |form| %>
+  <%# if permiso("ayudasadicional","C").to_s == "S" %>
+        <% if !@ayudasadicional.id %>
+	<%= render :partial => "/ayudasadicionales/ayudasadicionales_form" %>
+    <%# end %>
+ <% end %>
+<% if @ayuda.ayudasadicionales.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="16%" height="30" align="left" class="oce-first"></td>
+    <td width="15%" height="30" align="left" class="oce-first">Visita de verificación</td>
+    <td width="15%" height="30" align="left" class="oce-first">Fecha visita de verificación</td>
+    <td width="15%" height="30" align="left" class="oce-first">Vivienda habitada?</td>
+    <td width="15%" height="30" align="left" class="oce-first">Vivienda demolida?</td>
+    <td width="12%" height="30" align="left" class="oce-first">Activos enero 2016</td>
+    <td width="12%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for ayudasadicional in @ayuda.ayudasadicionales.find(:all, :order => 'created_at DESC') %>
+   <% if ayudasadicional.id != @ayudasadicional.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+   <tr  valign="middle" id="ayudasadicional_<%=ayudasadicional.id%>">
+     <td width="16%" height="30" align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=ayudasadicional.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=ayudasadicional.user.nombre rescue nil%>"><%=ayudasadicional.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+     </td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasadicional.visita_verif rescue nil%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasadicional.fecha_visita rescue nil%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasadicional.vivienda_habita rescue nil%></td>
+     <td width="15%" height="30" align="left" class="camposDesc"><%=ayudasadicional.vivienda_demolida rescue nil%></td>
+     <td width="12%" height="30" align="left" class="camposDesc"><%=ayudasadicional.activos rescue nil%></td>
+    <td width="12%" class="camposDesc">
+    <%# if permiso("ayudasadicional","A").to_s == "S" %>
+      <%= link_to_remote('Editar',{:url => edit_ayuda_ayudasadicional_path(@ayuda, ayudasadicional),
+		:method => :get}, :class=>"editarlink")%>
+    <%#  end %>
+    <%# if permiso("ayudasadicional","E").to_s == "S" %>
+      |&nbsp;<%= link_to_remote('Borrar',{:url => ayuda_ayudasadicional_path(@ayuda, ayudasadicional),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+    <%#  end %>
+    </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR AYUDAS NOVEDADES</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="ayudasadicional_<%=@ayudasadicional.id%>">
+     <%= render :partial => "ayudasadicionales_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :ayuda, :id %>
+<% end %>
+<br/>
+<% if flash[:ayudasadicional] %>
+<div id="ayudasadicional">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:ayudasadicional] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('ayudasadicional');", 5000)
+</script>
+<% end %>

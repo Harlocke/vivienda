@@ -1,0 +1,26 @@
+<h1>Listing feria2010rechazados</h1>
+
+<table>
+  <tr>
+    <th>Feria2010jefe</th>
+    <th>Nroformulario</th>
+    <th>Causarechazo</th>
+    <th>Formula</th>
+  </tr>
+
+<% @feria2010rechazados.each do |feria2010rechazado| %>
+  <tr>
+    <td><%=h feria2010rechazado.feria2010jefe_id %></td>
+    <td><%=h feria2010rechazado.nroformulario %></td>
+    <td><%=h feria2010rechazado.causarechazo %></td>
+    <td><%=h feria2010rechazado.formula %></td>
+    <td><%= link_to 'Show', feria2010rechazado %></td>
+    <td><%= link_to 'Edit', edit_feria2010rechazado_path(feria2010rechazado) %></td>
+    <td><%= link_to 'Destroy', feria2010rechazado, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New feria2010rechazado', new_feria2010rechazado_path %>

@@ -1,0 +1,1 @@
+page.replace_html :resolucionesimagenes_form, :partial => "resolucionesimagenes", :object => @resolucionesimagen

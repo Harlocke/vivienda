@@ -1,0 +1,41 @@
+<div align="center">
+<% if @interactividad.interventoria.acceso.to_s == 'S' %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td><div align="left"><div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_interactividad_interactimagen_path(@interactividad.id), :confirm=>"Atención:\n\nAntes de adjuntar el soporte digital no olvide guardar la información registrada de lo contrario se perdera"%></span></div></div></td>
+    </tr>
+  </table>
+<% end %>
+  <% if @interactividad.interactimagenes.exists? %>
+    <table width="100%" border="0" align="center" cellspacing="1" cellpadding="1">
+        <tr>
+          <td class="oce-first" width="35%">Descripcion</td>
+          <td class="oce-first" width="50%">Nombre Archivo</td>
+          <td class="oce-first" width="15%">&nbsp;</td>
+        </tr>
+      <% @interactividad.interactimagenes.each do |interactimagen| %>
+        <tr class="<%=cycle('even1', 'odd1')%> interactimagen_<%=interactimagen.id%>">
+            <td class="camposDesc"><%=interactimagen.descripcion %></td>
+            <td class="camposDesc"><%=interactimagen.interactividad_file_name %></td>
+            <td class="camposDesc"><div align="center">
+               <%= link_to "Ver", interactimagen.interactividad.url(:original, false),
+                     { :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+               <% if @interactividad.interventoria.acceso.to_s == 'S' %>
+                 <%= link_to_remote('Borrar',{:url => interactividad_interactimagen_path(@interactividad, interactimagen),
+                          :method => :delete, :confirm => "¿Seguro?",
+                          :before => "$(this).up('.interactimagen_#{interactimagen.id}').remove()"},
+                          :class=>"borrarlink")%>
+                 <% end %>
+              </div></td>
+          </tr>
+  <% end %>
+    </table>
+  <% else %> 
+      <table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+          <tr>
+            <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+            <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+         </tr>
+      </table>
+  <% end %>
+</div>

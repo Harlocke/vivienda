@@ -1,0 +1,247 @@
+<div align="center">
+<table width="750" height="80" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle"><td width="10%"><img src="../../images/feriaisvimed.png"/></td>
+      <td width="80%"><div align="center" style="font-size:13px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">
+          INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLÍN - ISVIMED -<br/>
+          FORMULARIO DE PREINSCRIPCIÓN DEL PROGRAMA DE VIVIENDAS <br/>PARA AHORRADORES - VIPA - <br/>NRO FORMULARIO:
+        </div></td>
+      <td width="10%"><img src="../../images/feriacorazon.png"/></td></tr>
+</table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <%  form_for(@persona) do |f| %>
+      <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>DATOS BASICOS JEFE DE HOGAR</strong>
+        ------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="15%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Identificaci&oacute;n </div></td>
+            <td width="37%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Nombre Completo </div></td>
+            <td width="25%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Nacimiento</div></td>
+            <td width="23%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Estado Civil</div></td>
+          </tr>
+          <tr valign="middle">
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.nombres rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.fecha_nacimiento rescue nil%> -<%=@persona.lugar_nacimiento rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=EstadosCivil.find(@persona.estado_civil_id).descripcion rescue nil%></div></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="17%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ocupación</div></td>
+            <td width="25%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Condición Especial</div></td>
+            <td width="18%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ingresos Mensuales</div></td>
+            <td width="40%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Proyecto VIPA</div></td>
+          </tr>
+          <tr valign="top">
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.ocupacion.descripcion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.especial.descripcion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">$ <%=camponumerico(@persona.ingresos) rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.proyecto rescue nil%></div></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>BENEFICIARIOS</strong>
+        ---------------------------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" height="130" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td>
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+                <tr>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Identificación</div></td>
+                  <td width="30%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Nombre Completo</div></td>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Fecha Nac.</div></td>
+                  <td width="12%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Parentesco</div></td>
+                  <td width="12%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Ocupación</div></td>
+                  <td width="16%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Condición Especial</div></td>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Ing.Mensuales</div></td>
+                </tr>
+                <% @persona.beneviviendas.each do |benevivienda| %>
+                <tr>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.identificacion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.nombres rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.fecha_nacimiento rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.parentesco.descripcion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.ocupacion.descripcion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.especial.descripcion rescue nil%></div></td>
+                  <td><div align="right" style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">$ <%=camponumerico(benevivienda.ingresos) rescue nil%></div></td>
+                </tr>
+                <% end%>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>UBICACIÓN GRUPO FAMILIAR</strong>
+        ----------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Direccion</div></td>
+            <td width="35%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Barrio </div></td>
+            <td width="25%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Telefonos </div></td>
+            <td width="10%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ant. Medellín </div></td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.direccion rescue nil%></td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.comuna.descripcion rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.telefonos rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.info_permamedellin2 rescue nil%> Años </td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%"><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif;">Vinculado a una Organización <br/>Popular de Vivienda ?</div></td>
+            <td width="35%"><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">NO</div></td>
+            <td width="25%"><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif;">Telefonos </div></td>
+            <td width="10%"><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif;">Ant. Medellín </div></td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:8px;font-family: Tahoma;">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr >
+            <td width="20%"><div align="center" style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">
+                <%=is_usuario%><br/><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%><br/>DIGITADOR
+              </div></td>
+            <td width="47%"><div align="justify" style="font-size:7px; font-family: Tahoma;">
+                CON MI FIRMA MANIFIESTO QUE TODA LA INFORMACIÓN AQUÍ CONSIGNADA ES CIERTA Y AUTORIZO PARA QUE POR
+                CUALQUIER MEDIO SE VERIFIQUEN LOS DATOS AQUÍ CONTENIDOS, ASÍ MISMO GARANTIZO QUE NINGUNO DE LOS MIEMBROS
+                DEL GRUPO FAMILIAR HA PRESENTADO OTRO FORMULARIO NI SE HA POSTULADO PARA ESTE SUBSIDIO
+              </div></td>
+            <td width="38%"><div align="center" style="font-size:9px; height: 10px; font-family: Verdana, Geneva, sans-serif;">
+             ______________________________________<br/>
+             <%=@persona.nombres rescue nil%><br/>
+             <%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%>
+              </div></td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:10px; height: 10px; font-family: Tahoma;"><strong>- I S V I M E D - </strong></div>
+      <div align="center" style="font-size:8px; height: 25px; font-family: Tahoma;">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+    <% end %>
+  </td>
+  </tr>
+</table>
+<table width="750" height="80" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle"><td width="10%"><img src="../../images/feriaisvimed.png"/></td>
+      <td width="80%"><div align="center" style="font-size:13px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">
+          INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLÍN - ISVIMED -<br/>
+          FORMULARIO DE PREINSCRIPCIÓN DEL PROGRAMA DE VIVIENDAS <br/>PARA AHORRADORES - VIPA - <br/>NRO FORMULARIO:
+        </div></td>
+      <td width="10%"><img src="../../images/feriacorazon.png"/></td></tr>
+</table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <%  form_for(@persona) do |f| %>
+      <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>DATOS BASICOS JEFE DE HOGAR</strong>
+        ------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="15%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Identificaci&oacute;n </div></td>
+            <td width="37%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Nombre Completo </div></td>
+            <td width="25%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Nacimiento</div></td>
+            <td width="23%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Estado Civil</div></td>
+          </tr>
+          <tr valign="middle">
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.nombres rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.fecha_nacimiento rescue nil%> -<%=@persona.lugar_nacimiento rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=EstadosCivil.find(@persona.estado_civil_id).descripcion rescue nil%></div></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="17%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ocupación</div></td>
+            <td width="25%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Condición Especial</div></td>
+            <td width="18%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ingresos Mensuales</div></td>
+            <td width="40%"><div style="font-size:11px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Proyecto VIPA</div></td>
+          </tr>
+          <tr valign="top">
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.ocupacion.descripcion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.especial.descripcion rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">$ <%=camponumerico(@persona.ingresos) rescue nil%></div></td>
+            <td><div style="font-size:10px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.proyecto rescue nil%></div></td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>BENEFICIARIOS</strong>
+        ---------------------------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" height="130" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td>
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+                <tr>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Identificación</div></td>
+                  <td width="30%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Nombre Completo</div></td>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Fecha Nac.</div></td>
+                  <td width="12%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Parentesco</div></td>
+                  <td width="12%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Ocupación</div></td>
+                  <td width="16%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Condición Especial</div></td>
+                  <td width="10%"><div style="font-size:9px; font-family: Verdana, Geneva, sans-serif;">Ing.Mensuales</div></td>
+                </tr>
+                <% @persona.beneviviendas.each do |benevivienda| %>
+                <tr>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.identificacion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.nombres rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.fecha_nacimiento rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.parentesco.descripcion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.ocupacion.descripcion rescue nil%></div></td>
+                  <td><div style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=benevivienda.especial.descripcion rescue nil%></div></td>
+                  <td><div align="right" style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">$ <%=camponumerico(benevivienda.ingresos) rescue nil%></div></td>
+                </tr>
+                <% end%>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div align="left" style="font-size:13px; font-family: Tahoma;"><strong>UBICACIÓN GRUPO FAMILIAR</strong>
+        ----------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Direccion</div></td>
+            <td width="35%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Barrio </div></td>
+            <td width="25%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Telefonos </div></td>
+            <td width="10%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ant. Medellín </div></td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.direccion rescue nil%></td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.comuna.descripcion rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.telefonos rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.info_permamedellin2 rescue nil%> Años </td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr valign="top">
+            <td width="30%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Direccion</div></td>
+            <td width="35%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Barrio </div></td>
+            <td width="25%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Telefonos </div></td>
+            <td width="10%"><div style="font-size:10px; height: 10px; font-family: Verdana, Geneva, sans-serif;">Ant. Medellín </div></td>
+          </tr>
+          <tr valign="top">
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.direccion rescue nil%></td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.comuna.descripcion rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.telefonos rescue nil%> </td>
+            <td style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;"><%=@persona.info_permamedellin2 rescue nil%> Años </td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:8px; height: 10px; font-family: Tahoma;">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr >
+            <td width="20%"><div align="center" style="font-size:8px; font-family: Verdana, Geneva, sans-serif; font-weight: bold;">
+                <%=is_usuario%><br/><%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%><br/>DIGITADOR
+              </div></td>
+            <td width="47%"><div align="justify" style="font-size:7px; font-family: Tahoma;">
+                CON MI FIRMA MANIFIESTO QUE TODA LA INFORMACIÓN AQUÍ CONSIGNADA ES CIERTA Y AUTORIZO PARA QUE POR
+                CUALQUIER MEDIO SE VERIFIQUEN LOS DATOS AQUÍ CONTENIDOS, ASÍ MISMO GARANTIZO QUE NINGUNO DE LOS MIEMBROS
+                DEL GRUPO FAMILIAR HA PRESENTADO OTRO FORMULARIO NI SE HA POSTULADO PARA ESTE SUBSIDIO
+              </div></td>
+            <td width="38%"><div align="center" style="font-size:9px; height: 10px; font-family: Verdana, Geneva, sans-serif;">
+             ______________________________________<br/>
+             <%=@persona.nombres rescue nil%><br/>
+             <%=@persona.documento.descripcion rescue nil%> <%=@persona.identificacion rescue nil%>
+              </div></td>
+          </tr>
+        </table>
+      <div align="center" style="font-size:10px; height: 10px; font-family: Tahoma;"><strong>- U S U A R I O - </strong></div>
+    <% end %>
+  </td>
+  </tr>
+</table>
+</div>

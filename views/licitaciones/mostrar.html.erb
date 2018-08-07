@@ -1,0 +1,64 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<%=image_tag("frame.png")%>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">ANALISIS DE PRECIOS UNITARIOS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="sample">
+<% @licitacion.licitacionesenlaces.each do |licitacionesenlace| %>
+  <tr class="odd1">
+    <td colspan="2" class="campos"><div align="left"><strong><%=licitacionesenlace.analisisprecio.gruposactividad.codigo rescue nil%> - <%=licitacionesenlace.analisisprecio.gruposactividad.descripcion rescue nil%></strong>
+      <%  @grupo = Grupo.find(licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+     <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+     <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%>
+      </div></td>
+    <td height="10" class="campos"><div align="center"><strong><%=licitacionesenlace.analisisprecio.gruposactividad.unidad rescue nil%></strong></div></td>
+    <td height="10" class="campos"><div align="center"><strong><%=licitacionesenlace.cantidad rescue nil%></strong></div></td>
+    <td colspan="2" class="campos"><div align="center"><strong><%=camponumerico(licitacionesenlace.valortotal) rescue nil%></strong></div></td>
+  </tr>
+  <tr class="odd1">
+    <th colspan="2" width="70%" class="campos">Elemento</th>
+    <th width="5%" class="campos">Unidad</th>
+    <th width="5%" class="campos"><div align="center">Cant</div></th>
+    <th width="10%" class="campos"><div align="right">Vlr. Unitario</div></th>
+    <th width="10%" class="campos"><div align="right">Vlr. Total</div></th>
+  </tr>
+  <% licitacionesenlace.analisisprecio.analisisprecioselementos.each do |analisisprecioselemento| %>
+     <tr  valign="middle" id="analisisprecioselemento_<%=analisisprecioselemento.id%>">
+      <td class="camposDesc"><%=h analisisprecioselemento.precioselemento.codigo rescue nil %></td>
+      <td class="camposDesc"><%=h analisisprecioselemento.precioselemento.descripcion rescue nil %></td>
+      <td class="camposDesc"><div align="center"><%=h analisisprecioselemento.precioselemento.unidadmedida rescue nil %></div></td>
+      <td class="camposDesc"><div align="center"><%=h analisisprecioselemento.cantidad rescue nil%></div></td>
+      <td class="camposDesc"><div align="right"><%=h camponumerico(analisisprecioselemento.valorunitario) rescue nil %></div></td>
+      <td class="camposDesc"><div align="right"><%=h camponumerico(analisisprecioselemento.valortotal) rescue nil %></div></td>
+     </tr>
+  <% end %>
+  <tr valign="middle">
+    <td colspan="6" class="camposDesc">.</td>
+  </tr>
+<% end %>
+<tr valign="middle">
+    <td colspan="2" class="campos"><div align="left"><strong>SUBTOTAL</strong></div></td>
+    <td colspan="4" height="10" class="camposDesc"><div align="center"><strong><%=camponumerico(@licitacion.licitacionesenlaces.sum("valortotal")) rescue nil%></strong></div></td>
+  </tr>
+<tr valign="middle">
+    <td colspan="2" class="campos"><div align="left"><strong>AIU <%=@licitacion.aiu.to_i%>%</strong></div></td>
+    <td colspan="4" height="10" class="camposDesc"><div align="center"><strong><%=camponumerico((@licitacion.licitacionesenlaces.sum("valortotal") * @licitacion.aiu.to_i)/100)%></strong></div></td>
+  </tr>
+<tr valign="middle">
+    <td colspan="2" class="campos"><div align="left"><strong>TOTAL</strong></div></td>
+    <td colspan="4" height="10" class="camposDesc"><div align="center"><strong><%=camponumerico(((@licitacion.licitacionesenlaces.sum("valortotal") * @licitacion.aiu.to_i)/100) + @licitacion.licitacionesenlaces.sum("valortotal"))%></strong></div></td>
+  </tr>
+</table>
+<br/>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+</table>
+</td>
+</tr>
+</table>
+</div>

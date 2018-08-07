@@ -1,0 +1,40 @@
+<h1>Editing almacenesinmueble</h1>
+
+<% form_for(@almacenesinmueble) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :matricula %><br />
+    <%= f.text_field :matricula %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :direccion_certificado %><br />
+    <%= f.text_field :direccion_certificado %>
+  </p>
+  <p>
+    <%= f.label :lugar %><br />
+    <%= f.text_field :lugar %>
+  </p>
+  <p>
+    <%= f.label :estado %><br />
+    <%= f.text_field :estado %>
+  </p>
+  <p>
+    <%= f.label :direccion_catastro %><br />
+    <%= f.text_field :direccion_catastro %>
+  </p>
+  <p>
+    <%= f.label :avaluo %><br />
+    <%= f.text_field :avaluo %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @almacenesinmueble %> |
+<%= link_to 'Back', almacenesinmuebles_path %>

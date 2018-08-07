@@ -1,0 +1,123 @@
+<strong>INFORMACION RESOLUCIONES</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Tipo de Poblaci&oacute;n </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Sector </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Proyecto</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Barrio</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Recepcion Doc.</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Direccion EEPP </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Direccion Catastro </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Operador </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Barrio Reposicion </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Direccion Vivienda Reposici&oacute;n </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Matricula Vivienda Reposicion </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Resultado Concepto </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Concepto</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Resultado Visita </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Visita</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Valor Vivienda</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Avaluo</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Resultado Estudio de Titulos</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Estudio de Titulos</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Vendedor</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Modo adquisici&oacute;n </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Valor Subsidios</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Aporte Familiar</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Gastos Escrituracion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Cierre Financiero</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Nro Compromiso</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Compromiso </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Nro Escritura</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Elaboracion Escritura </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Recibido Escritura </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Registrada Escritura </strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Envio Resolucion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Estado</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Desiste por?</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Vivienda Entregada?</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Entrega</strong></td>
+    <td width="20%" colspan="2" style="font-size: 11px; font-family: Tahoma;"><strong>Beneficiario(s)</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Identificacion</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Nombre</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Nro Resol.</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Objeto</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Valor Sub.<br/>Dinero</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Valor Sub.<br/>Especie</strong></td>
+    <td width="20%"  style="font-size: 11px; font-family: Tahoma;"><strong>Valor Rec.<br/>Mejoras</strong></td>
+  </tr>
+<%  @viviendasusadas.each do |viviendasusada| %>
+  <tr>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.familiar.descripcion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.tipospoblacion.descripcion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.proyecto rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.comuna.descripcion2 rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_recibido_doc rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.direccion_eepp  rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.direccion_catastro rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.operador rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=Comuna.find(viviendasusada.comunadestino_id).descripcion2 rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.direccion_vivreposicion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.matricula_vivreposicion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.resultado_concepto rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_concepto rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.resultado_visita rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_visita_tecnica rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.valor_vivienda rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_avaluo rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.resultado_estudio rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_estudio rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.nombre_vendedor rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.modo_adquisicion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.valsubsidios rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.aporte_familiar rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.gastos_escritura rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.vlrcierre rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.nro_compromiso rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_compromiso rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.escritura_nro rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.escritura_elaboracion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.escritura_recibido rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.escritura_registrada rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_envio_resol rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.viviendasusadasestado.descripcion rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.desiste rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.entregada rescue nil%></div></td>
+     <td valign="top" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusada.fecha_entrega rescue nil%></div></td>
+     <td valign="top" colspan="2" width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left">
+<%    if viviendasusada.viviendasusadaspersonas.exists? == true %>
+       <table border="1">
+<%      viviendasusada.viviendasusadaspersonas.each do |viviendasusadaspersona| %>
+           <tr>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusadaspersona.persona.identificacion rescue nil%></div></td>
+            <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=viviendasusadaspersona.persona.nombres rescue nil%></div></td>
+           </tr>
+<%      end %>
+       </table>
+<%    end %>
+    </div></td>
+   <td valign="top" colspan="6" width="5%" style="font-size: 11px; font-family: Tahoma;">
+<% viviendasusada.viviendasusadaspersonas.each do |viviendasusadaspersona|
+     if Resolucionespersona.exists?(["persona_id = #{viviendasusadaspersona.persona_id}"])
+       @resolucionespersonas = Resolucionespersona.find_all_by_persona_id(viviendasusadaspersona.persona_id)%>
+       <table border="1">
+       <%@resolucionespersonas.each do |resolucionespersona| %>
+         <tr>
+             <td  style="font-size: 11px; font-family: Tahoma;"><%=resolucionespersona.persona.identificacion rescue nil%></td>
+             <td  style="font-size: 11px; font-family: Tahoma;"><%=resolucionespersona.persona.nombres rescue nil%></td>
+             <td  style="font-size: 11px; font-family: Tahoma;"><%=resolucionespersona.resolucion.nro_resolucion rescue nil%></td>
+             <td  style="font-size: 11px; font-family: Tahoma;"><div align="justify"><%=resolucionespersona.resolucion.resuelve rescue nil%></div></td>
+             <td  style="font-size: 11px; font-family: Tahoma;"><div align="center"><%=number_to_currency(resolucionespersona.subsidio_dinero,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+             <td  style="font-size: 11px; font-family: Tahoma;"><div align="center"><%=number_to_currency(resolucionespersona.subsidio_especie,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+         </tr>
+<%       end %>
+       </table>
+<%    end
+   end
+ %>
+    </td>
+ </tr>
+<% end %>
+</table>
+

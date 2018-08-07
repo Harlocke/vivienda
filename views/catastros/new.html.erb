@@ -1,0 +1,71 @@
+<h1>New catastro</h1>
+
+<% form_for(@catastro) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :codcomuna %><br />
+    <%= f.text_field :codcomuna %>
+  </p>
+  <p>
+    <%= f.label :codbarrio %><br />
+    <%= f.text_field :codbarrio %>
+  </p>
+  <p>
+    <%= f.label :manzana %><br />
+    <%= f.text_field :manzana %>
+  </p>
+  <p>
+    <%= f.label :usopredial %><br />
+    <%= f.text_field :usopredial %>
+  </p>
+  <p>
+    <%= f.label :estrato %><br />
+    <%= f.text_field :estrato %>
+  </p>
+  <p>
+    <%= f.label :cedcat %><br />
+    <%= f.text_field :cedcat %>
+  </p>
+  <p>
+    <%= f.label :cbml %><br />
+    <%= f.text_field :cbml %>
+  </p>
+  <p>
+    <%= f.label :matricula %><br />
+    <%= f.text_field :matricula %>
+  </p>
+  <p>
+    <%= f.label :direccion %><br />
+    <%= f.text_field :direccion %>
+  </p>
+  <p>
+    <%= f.label :arealote %><br />
+    <%= f.text_field :arealote %>
+  </p>
+  <p>
+    <%= f.label :codigopropietario %><br />
+    <%= f.text_field :codigopropietario %>
+  </p>
+  <p>
+    <%= f.label :documento %><br />
+    <%= f.text_field :documento %>
+  </p>
+  <p>
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </p>
+  <p>
+    <%= f.label :apellidos %><br />
+    <%= f.text_field :apellidos %>
+  </p>
+  <p>
+    <%= f.label :telefonoprop %><br />
+    <%= f.text_field :telefonoprop %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', catastros_path %>

@@ -1,0 +1,89 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  colspan="11"><strong>INFORMACION PROYECTO</strong></td>
+    <td  colspan="2"><strong>USUARIO</strong></td>
+    <td  colspan="10"><strong>CREDITOS Y SUBSIDIOS</strong></td>
+    <td  colspan="5"><strong>ETAPA ACTIVA ACTUAL</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Direccion</strong></td>
+    <td ><strong>Bloque</strong></td>
+    <td ><strong>Piso</strong></td>
+    <td ><strong>Apto</strong></td>
+    <td ><strong>Entregado</strong></td>
+    <td ><strong>Fecha Entrega</strong></td>
+    <td ><strong>Nro Matrícula</strong></td>
+    <td ><strong>Nro Escritura</strong></td>
+    <td ><strong>Fecha Escritura</strong></td>
+    <td ><strong>Notaria</strong></td>
+    <td ><strong>Usuario Identificacion</strong></td>
+    <td ><strong>Usuario Nombre</strong></td>
+    <td ><strong>Credito Entidad</strong></td>
+    <td ><strong>Credito Valor</strong></td>
+    <td ><strong>Credito Estado</strong></td>
+    <td ><strong>Subsidio Nacional </strong></td>
+    <td ><strong>Subsidio Viva </strong></td>
+    <td ><strong>Subsidio Mpal Dinero </strong></td>
+    <td ><strong>Subsidio Mpal Especie </strong></td>
+    <td ><strong>Subsidio Mejoras </strong></td>
+    <td ><strong>Subsidio Ajustado </strong></td>
+    <td ><strong>Subsidio Caja </strong></td>
+    <td ><strong>Etapa</strong></td>
+    <td ><strong>Actividad</strong></td>
+    <td ><strong>Devolucion ?</strong></td>
+    <td ><strong>Fecha Inicio</strong></td>
+    <td ><strong>Observaciones</strong></td>
+  </tr>
+<% for viviendastramite in @viviendastramites %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=viviendastramite.proyecto%></div></td>
+    <td ><div align="left"><%=viviendastramite.direccion%></div></td>
+    <td ><div align="left"><%=viviendastramite.bloque%></div></td>
+    <td ><div align="left"><%=viviendastramite.piso%></div></td>
+    <td ><div align="left"><%=viviendastramite.apto%></div></td>
+    <td ><div align="left"><%=viviendastramite.entregado%></div></td>
+    <td ><div align="left"><%=viviendastramite.fecha_entrega rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.nro_matricula rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.esc_nro_escritura rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.esc_expedicion rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.esc_notaria_origen rescue nil%></div></td>
+    <td ><div align="left"><%=viviendastramite.identificacion%></div></td>
+    <td ><div align="left"><%=viviendastramite.nombre%></div></td>
+    <td ><div align="left"><%=viviendastramite.entidad%></div></td>
+    <td ><div align="left"><%=viviendastramite.valor%></div></td>
+    <td ><div align="left"><%=viviendastramite.estado%></div></td>
+    <td ><div align="left"><%=viviendastramite.nacional%></div></td>
+    <td ><div align="left"><%=viviendastramite.viva%></div></td>
+    <td ><div align="left"><%=viviendastramite.dinero%></div></td>
+    <td ><div align="left"><%=viviendastramite.especie%></div></td>
+    <td ><div align="left"><%=viviendastramite.mejoras%></div></td>
+    <td ><div align="left"><%=viviendastramite.ajustado%></div></td>
+    <td ><div align="left"><%=viviendastramite.caja%></div></td>
+    <td ><div align="left"><%=viviendastramite.etapa%></div></td>
+    <td ><div align="left"><%=viviendastramite.tramite%></div></td>
+    <td ><div align="left"><%=viviendastramite.devolucion%></div></td>
+    <td ><div align="left"><%=viviendastramite.fecha%></div></td>
+    <td ><div align="left"><%=viviendastramite.observaciones%></div></td>
+  </tr>
+<%   end %>
+</table>  
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Etapa</strong></td>
+    <td ><strong>Actividad</strong></td>
+    <td ><strong>Cantidad</strong></td>
+  </tr>
+<% for objeto in @objetos %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=objeto.proyecto%></div></td>
+    <td ><div align="left"><%=objeto.etapa%></div></td>
+    <td ><div align="left"><%=objeto.tramite%></div></td>
+    <td ><div align="left"><%=objeto.cant%></div></td>
+  </tr>
+<%   end %>
+</table>

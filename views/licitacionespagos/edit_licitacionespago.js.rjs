@@ -1,0 +1,2 @@
+page.replace_html :licitacionespagos_form, :partial => "/licitacionespagos/licitacionespagos"
+

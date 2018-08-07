@@ -1,0 +1,429 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/conveniomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION CONVENIOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),convenios_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% unless @convenio.new_record? %>
+  <%= link_to image_tag("convenios.png", :title => "Información Convenio", :style=>"#{@convenio.d_etapa('1')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"1")%>
+  <% if permiso("conveniosotro","C").to_s == "S" %>
+      <%= link_to image_tag("beneficiarios.png", :title => "Personas Asociadas", :style=>"#{@convenio.d_etapa('2')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"2")%>
+      <%= link_to image_tag("tramites.png", :title => "Etapas", :style=>"#{@convenio.d_etapa('4')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"4")%>
+      <%= link_to image_tag("subsidio.png", :title => "Pagos", :style=>"#{@convenio.d_etapa('3')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"3")%>
+      <%= link_to image_tag("contratos.png", :title => "Contratos", :style=>"#{@convenio.d_etapa('7')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"7")%>
+      <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@convenio.d_etapa('5')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"5")%>
+      <%= link_to image_tag("imagenes.png", :title => "Informacion Digitalizada", :style=>"#{@convenio.d_etapa('6')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"6")%>
+  <% end %>
+  <% if permiso("conveniosmejoramiento","C").to_s == "S" %>
+      <%= link_to image_tag("feriadocente.png", :title => "Elementos", :style=>"#{@convenio.d_etapa('8')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"8")%>
+      <%= link_to image_tag("resol.png", :title => "Resoluciones", :style=>"#{@convenio.d_etapa('9')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"9")%>
+      <%= link_to image_tag("subsidio.png", :title => "Resoluciones", :style=>"#{@convenio.d_etapa('10')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"10")%>
+  <% end %>
+  <% if @convenio.id == 116 %>
+      <%= link_to image_tag("resol.png", :title => "Resoluciones", :style=>"#{@convenio.d_etapa('11')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"11")%>
+  <% end %>
+  <% if permiso("conveniossocial","C").to_s == "S" %>
+      <%= link_to image_tag("observaciones.png", :title => "Observaciones", :style=>"#{@convenio.d_etapa('5')} padding:4px;"),edit_convenio_path(:id=>@convenio.id,:etapa=>"5")%>
+  <% end %>
+<% end %>
+<% if @convenio.etapa.to_s == '1' %>
+  <fieldset>
+    <% form_for(@convenio) do |f| %>
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Nro Convenio</td>
+          <td width="15%" class="campos">Vigencia</td>
+          <td width="15%" class="campos">Nro Soluciones</td>
+          <td width="20%" class="campos">Tipo Solucion</td>
+          <td width="35%" class="campos">Ubicacion</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :nro_convenio,{ :class => "campo", :size => 20,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= error_message_on :convenio, :nro_convenio, :css_class =>"cerror"%></td>
+           <td><%= select(:convenio,:vigencia, select_annos,{ :include_blank => true },
+                  { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= f.text_field :nro_viviendas,{ :class => "campo", :size => 10,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= error_message_on :convenio, :nro_viviendas, :css_class =>"cerror"%></td>
+           <td><%= select(:convenio,
+                  :tipo_solucion, { "MEJORAMIENTO" => "MEJORAMIENTO",
+                               "REPOSICION" => "REPOSICION",
+                               "MEJORAMIENTO PLAN RETORNO" => "MEJORAMIENTO PLAN RETORNO",
+                               "REPOSICION PLAN RETORNO" => "REPOSICION PLAN RETORNO",
+                               "LEGALIZACION PLAN RETORNO" => "LEGALIZACION PLAN RETORNO",
+                               "VIVIENDA NUEVA SITIO PROPIO PLAN RETORNO" => "VIVIENDA NUEVA SITIO PROPIO PLAN RETORNO",
+                               "LEGALIZACION" => "LEGALIZACION",
+                               "VIVIENDA NUEVA SITIO PROPIO" => "VIVIENDA NUEVA SITIO PROPIO"},
+                          { :include_blank => true },
+                        { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+      <td><%=select("convenio", "comuna_id", Comuna.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+        { :style=>"width:320px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="42%" class="campos">Responsable Diagnostico</td>
+          <td width="18%" class="campos">Valor Diagnostico</td>
+          <td width="40%" class="campos">Ejecutor / Asociado</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :responsable_diagnostico,{ :class => "campo", :size => 50,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= error_message_on :convenio, :responsable_diagnostico, :css_class =>"cerror"%></td>
+      <td><%= f.text_field :valor_diagnostico,{ :class => "campo", :size => 20,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= error_message_on :convenio, :valor_diagnostico, :css_class =>"cerror"%></td>
+      <td><%= f.text_field :ejecutor,{ :class => "campo", :size => 50,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+      <%= error_message_on :convenio, :ejecutor, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="18%" class="campos">Vlr convenio ISVIMED</td>
+          <td width="18%" class="campos">Representante Legal Convenio / Operador</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :vlr_convenio,{ :class => "campo", :size => 20,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= error_message_on :convenio, :vlr_convenio, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :representante_legal,{ :class => "campo", :size => 100,
+                    :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= error_message_on :convenio, :representante_legal, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <% unless @convenio.new_record?
+           if Contrato.exists?(["nro_contrato = '#{@convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@convenio.vigencia}'"]) == true
+             @contrato = Contrato.find(:first, :conditions => ["nro_contrato = '#{@convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@convenio.vigencia}'"])
+      %>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr valign="middle">
+              <td width="10%" height="30" align="left" class="oce-first">Fecha firma</td>
+              <td width="10%" height="30" align="left" class="oce-first">Fecha inicio</td>
+              <td width="10%" height="30" align="left" class="oce-first">Fecha fin</td>
+              <td width="20%" height="30" align="left" class="oce-first">Contratista</td>
+              <td width="50%" height="30" align="left" class="oce-first">Objeto</td>
+            </tr>
+             <tr valign="top">
+               <td class="camposDesc"><%=@contrato.fecha_firma.strftime("%Y-%m-%d") rescue nil%></td>
+               <td class="camposDesc"><%=@contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%></td>
+               <td class="camposDesc"><%=@contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%></td>
+               <td class="camposDesc"><%=@contrato.empleado.nombre rescue nil %></td>
+               <td class="camposDesc"><%=@contrato.objeto rescue nil %></td>
+           </tr>
+          </table>
+              <br/>
+      <%   end
+         end %>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td align="left" height="30"><div class="col_enc">EJECUCION DEL PROYECTO</div></td>
+        </tr>
+      </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="20%" class="campos">Empleos calificados</td>
+              <td width="20%" class="campos">Empleos NO calificados</td>
+              <td width="30%" class="campos">Adiciones Convenio</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :empleos_calificados,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :empleos_calificados, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :empleos_nocalificados,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :empleos_nocalificados, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :adicion_convenio,{ :class => "campo", :size => 40,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :adicion_convenio, :css_class =>"cerror"%></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="60%" class="campos">Información de Polizas en Isvimed</td>
+            </tr>
+            <tr valign="middle">
+              <td><%= text_area :convenio, :polizas, { :class => "campoMultiLinea", :cols=>"85", :rows=>"5",
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :polizas, :css_class =>"cerror"%></td>
+
+            </tr>
+          </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td align="left" height="30"><div class="col_enc">ASIGNACION DE SUBSIDIOS</div></td>
+        </tr>
+      </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="33%" class="campos">Nro Subsidios nacionales asignados</td>
+              <td width="33%" class="campos">Asignacion subsidios municipales</td>
+              <td width="33%" class="campos">Otros aportes</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :subsidios_nacionales,{ :class => "campo", :size => 30,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :subsidios_nacionales, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :subsidios_municipales,{ :class => "campo", :size => 30,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :subsidios_municipales, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :otros_aportes,{ :class => "campo", :size => 30,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :otros_aportes, :css_class =>"cerror"%></td>
+            </tr>
+          </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td align="left" height="30"><div class="col_enc">TERMINACION Y LIQUIDACION DEL CONVENIO</div></td>
+        </tr>
+      </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="20%" class="campos">Acta recibo de obra</td>
+              <td width="20%" class="campos">Acta final interventoria</td>
+              <td width="22%" class="campos">Acta ejecucion de obras civiles</td>
+              <td width="19%" class="campos">Acta Liq. Obra</td>
+              <td width="19%" class="campos">Acta Liq. Interventoria</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :acta_recibo_obra,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :acta_recibo_obra, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :acta_final_interventoria,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :acta_final_interventoria, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :acta_ejecucion,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :acta_ejecucion, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :acta_liqobra,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :acta_liqobra, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :acta_liqinter,{ :class => "campo", :size => 20,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :acta_liqinter, :css_class =>"cerror"%></td>
+            </tr>
+          </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td align="left" height="30"><div class="col_enc">ACTIVIDADES DE ADAPTACION FAMILIAR Y COMUNITARIA AL HABITAT</div></td>
+        </tr>
+      </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="25%" class="campos">Socialización proyecto</td>
+              <td width="25%" class="campos">Alcance subsidio municipal y normativo</td>
+              <td width="25%" class="campos">Vivienda saludable</td>
+              <td width="25%" class="campos">Implementación y manejo de pozos sépticos</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :socializa_convenio,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :socializa_convenio, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :taller_subsidio,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :taller_subsidio, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :vivienda_saludable,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :vivienda_saludable, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :pozos_septicos,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :pozos_septicos, :css_class =>"cerror"%></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td width="25%" class="campos">Seguridad industrial y salud ocupacional</td>
+              <td width="20%" class="campos">Vecinos y amigos</td>
+              <td width="55%" class="campos">Reintegración local conexion con otros servicios</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :salud_ocup,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :salud_ocup, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :vecinos_amigos,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :vecinos_amigos, :css_class =>"cerror"%></td>
+              <td><%= f.text_field :redes_local,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :redes_local, :css_class =>"cerror"%></td>
+            </tr>
+          </table>
+
+
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="49%" align="right" class="campos">VALOR TOTAL ESTIMADO DEL CONVENIO </td>
+                <td width="2%">&nbsp;</td>
+                <td width="49%"><%= f.text_field :valor_proyecto,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :valor_proyecto, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">TERMINACI&Oacute;N </td>
+                <td>&nbsp;</td>
+                <td><%= calendar_date_select "convenio", "fecha_fin_estudios", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :convenio, :nro_viviendas, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">FECHA DE ENTREGA A LAS FAMILIAS </td>
+                <td>&nbsp;</td>
+                <td><%= calendar_date_select "convenio", "fecha_entrega", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :convenio, :fecha_entrega, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">FECHA DE INAUGURACION </td>
+                <td>&nbsp;</td>
+                <td><%= calendar_date_select "convenio", "fecha_inauguracion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :convenio, :fecha_inauguracion, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">PORCENTAJE DE EMPLEOS GENERADOS EN LA ZONA </td>
+                <td>&nbsp;</td>
+                <td><%= f.text_field :porcentaje_empleos,{ :class => "campo", :size => 25,
+                        :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :porcentaje_empleos, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">OBSERVACIONES PENDIENTES TEMAS CRITICOS </td>
+                <td>&nbsp;</td>
+                <td> <%= text_area :convenio, :observaciones_general, { :class => "campoMultiLinea", :cols=>"80", :rows=>"5",
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td colspan="3" class="campos">
+                <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td align="left" height="30"><div class="col_enc">INFORMACIÓN JURIDICA</div></td>
+        </tr>
+      </table>
+            </td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">FECHA DE ADJUDICACI&Oacute;N </td>
+                <td>&nbsp;</td>
+                <td> <%= calendar_date_select "convenio", "fecha_adjudicacion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :convenio, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+              </tr>
+              <tr valign="middle">
+                <td align="right" class="campos">OBSERVACIONES PENDIENTES TEMAS CRITICOS </td>
+                <td>&nbsp;</td>
+                <td> <%= text_area :convenio, :observaciones, { :class => "campoMultiLinea", :cols=>"80", :rows=>"5",
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :convenio, :fecha_adjudicacion, :css_class =>"cerror"%></td>
+              </tr>
+            </table>
+      <table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+            <tr>
+              <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+            </tr>
+          </table>
+      <table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">
+            <% unless @convenio.new_record? %>
+            Ultima Actualización: <%=User.find(@convenio.user_id).username rescue nil%> - <%=@convenio.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+          <% end %></td>
+          <td  height="30"><div align="right">
+      <% if permiso("convenio","A").to_s == "S" %>
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+      <% end %>
+              </div></td>
+        </tr>
+      </table>
+    <% end %>
+  </fieldset>
+<% elsif @convenio.etapa.to_s == '2' %>
+  <fieldset><div id="conveniospersonas_form"><%= render :partial => "/conveniospersonas/conveniospersonas" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '3' %>
+  <fieldset><div id="conveniospagos_form"><%= render :partial => "/conveniospagos/conveniospagos" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '4' %>
+  <fieldset><div id="conveniosetapas_form"><%= render :partial => "/conveniosetapas/conveniosetapas" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '5' %>
+  <fieldset><div id="conveniosobservaciones_form"><%= render :partial => "/conveniosobservaciones/conveniosobservaciones" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '6' %>
+  <fieldset><div id="conveniosimagenes_form"><%= render :partial => "/conveniosimagenes/conveniosimagenes" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '7' %>
+  <fieldset><div id="convenioscontratos_form"><%= render :partial => "/convenioscontratos/convenioscontratos" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '8' %>
+  <fieldset><div id="conveniosmejoramientos_form"><%= render :partial => "/conveniosmejoramientos/conveniosmejoramientos" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '9' %>
+  <fieldset><div id="conveniosresoluciones_form"><%= render :partial => "/conveniosresoluciones/conveniosresoluciones" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '10' %>
+  <fieldset><div id="conveniosformas_form"><%= render :partial => "/conveniosformas/conveniosformas" %></div></fieldset>
+<% elsif @convenio.etapa.to_s == '11' %>
+  <fieldset><div id="conveniosresoluciones_form"><%= render :partial => "/conveniosresoluciones/conveniosresoluciones" %></div></fieldset>
+<% end %>
+<br/><br/>

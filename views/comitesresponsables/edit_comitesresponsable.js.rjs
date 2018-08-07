@@ -1,0 +1,2 @@
+page.replace_html :comitesresponsables_form, :partial => "/comitesresponsables/comitesresponsables"
+

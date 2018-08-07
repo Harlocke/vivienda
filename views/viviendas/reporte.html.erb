@@ -1,0 +1,151 @@
+<%=  javascript_include_tag :defaults %>
+<%=  stylesheet_link_tag 'chain_selects' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="100%"><div class="col_enc">REPORTE IDEA</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% @viviendas.each do |vivienda| %>
+<%
+   cantviviendas    = Vivienda.count(:conditions => [' proyecto_id = ? ', "#{vivienda.proyecto_id}"])
+   cantentregadas   = Vivienda.count(:conditions => [' proyecto_id = ? and entregado = ?' , "#{vivienda.proyecto_id}", "S"])
+   cant1 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "1"])
+   cant2 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "2"])
+   cant3 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "3"])
+   cant4 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "4"])
+   cant5 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "5"])
+   cant6 = Vivienda.count(:conditions => [' proyecto_id = ? and estado_padre = ?' , "#{vivienda.proyecto_id}", "6"])
+   valcapital = vivienda.proyecto.capital
+   valinteres = vivienda.proyecto.interes
+   valtotal = valcapital + valinteres
+%>
+<br/>
+<br/>
+<table width="775" align="center"  border="1" cellpadding="0" cellspacing="0" id="tablareportes">
+  <tr>
+    <td height="30" colspan="3" class="oce-firstTitulos">&nbsp;&nbsp;<%=h vivienda.proyecto.descripcion rescue nil%></td>
+  </tr>
+  <tr>
+    <td class="oce-first" rowspan="8">INFORMACION VIVIENDAS </td>
+    <td class="oce-first">Numero Total de Viviendas</td>
+    <td class="camposDescN"><div align="right"><%=cantviviendas%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos Entregados </td>
+    <td class="camposDescN"><div align="right"><%=cantentregadas%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos Asignados sin Entregar</td>
+    <td class="camposDescN"><div align="right"><%= link_to "#{cant1}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 1),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos Asignados sin Entregar en Cierre </td>
+    <td class="camposDescN"><div align="right"><%= link_to "#{cant2}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 2),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos Disponibles </td>
+    <td class="camposDescN"><div align="right"><%= link_to "#{cant3}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 3),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos en cierre </td>
+    <td class="camposDescN"><div align="right"><%= link_to "#{cant4}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 4),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos en Proceso de Escrituracion</td>
+    <td class="camposDescN"><div align="right"><%= link_to "#{cant5}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 5),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Apartamentos Escriturados</td>
+      <td class="camposDescN"><div align="right"><%= link_to "#{cant6}",
+          reportedatos_viviendas_path(:proyecto => vivienda.proyecto_id, :estado_padre => 6),
+          { :title => "Informacion Proyecto - #{vivienda.proyecto.descripcion rescue nil}",
+           :popup => ['new_window', 'height=500,width=850,scrollbars=YES,dependent=YES']}%></div></td>
+  </tr>
+  <tr>
+    <td  class="oce-first" rowspan="3">DEUDA IDEA </td>
+    <td class="oce-first">Capital</td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(vivienda.proyecto.capital,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Interes</td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(vivienda.proyecto.interes,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Total Capital mas interes</td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(valtotal,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first" rowspan="3">RECAUDO CARTERA (ISVIMED)</td>
+    <td class="oce-first">Banco Agrario </td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(vivienda.proyecto.banco_agrario,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Fovimed</td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(vivienda.proyecto.fovimed,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Isvimed</td>
+    <td class="camposDescN"><div align="right"><%= number_to_currency(vivienda.proyecto.isvimed,{:precision => 0, :unit=>"", :delimiter =>"."}) %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first" rowspan="4">RECAUDO CREDITOS EXTERNOS </td>
+    <td class="oce-first">Confiar</td>
+    <td class="camposDescN"><div align="right"></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Microempresas</td>
+    <td class="camposDescN"><div align="right"></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Fovimed</td>
+    <td class="camposDescN"><div align="right"></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Otras / Contado </td>
+    <td class="camposDescN"><div align="right"></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first" colspan="2">PAGO DE MEJORAS </td>
+    <td class="camposDescN"><div align="right"></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first" rowspan="3">COBROS DE SUBSIDIOS </td>
+    <td class="oce-first">Subsidios Legalizados </td>
+    <td class="camposDescN"><div align="right"><%= vivienda.proyecto.subsidios_legalizados rescue nil %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">En proceso de Legalizacion</td>
+    <td class="camposDescN"><div align="right"><%= vivienda.proyecto.subsidios_enproceso rescue nil %></div></td>
+  </tr>
+  <tr>
+    <td class="oce-first">Con problemas para la legalizacion</td>
+    <td class="camposDescN"><div align="right"><%= vivienda.proyecto.subsidios_problemas rescue nil %></div></td>
+  </tr>
+  <tr>
+    <td width="235">&nbsp;</td>
+    <td width="372">&nbsp;</td>
+    <td width="150">&nbsp;</td>
+  </tr>
+</table>
+<% end %>

@@ -1,0 +1,46 @@
+<table width="100%" height="40">
+  <tr>
+    <td class="camposDesc">
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/seguridadmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">CALIDAD VERSIONES</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('database_add.png',
+	                            { :border=>0, :title => "Nuevo"}),new_calidadversion_path %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<br/>
+<div align="center">
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="5%" height="30" class="oce-first">id</td>
+    <td width="50%" height="30" class="oce-first">Descripcion</td>
+    <td width="10%" class="oce-first">Codigo</td>
+    <td width="10%" class="oce-first">Version</td>
+    <td width="10%" class="oce-first">Fecha</td>
+    <td width="10%" class="oce-first">Pagina</td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+<% @calidadversiones.each do |calidadversion| %>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h calidadversion.id %></td>
+    <td class="camposDesc"><%=h calidadversion.descripcion %></td>
+    <td class="camposDesc"><%=h calidadversion.codigo %></td>
+    <td class="camposDesc"><%=h calidadversion.version %></td>
+    <td class="camposDesc"><%=h calidadversion.fecha rescue nil %></td>
+    <td class="camposDesc"><%=h calidadversion.pagina %></td>
+    <td class="camposDesc"><%= link_to 'Editar', edit_calidadversion_path(calidadversion), :class=>"editarlink" %></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center">Total Registros: <%= @calidadversiones.count %></div></td>
+   </tr>
+</table>
+<br/>
+</div>

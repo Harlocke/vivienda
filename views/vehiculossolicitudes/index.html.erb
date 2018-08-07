@@ -1,0 +1,181 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/solicitudesmin.png" width="64" height="64"/></td>
+          <td width="97%"><div class="col_enc">SOLICITUDES DE TRANSPORTE</div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/blanco1.png" border="0" title="Solicitudes Pendientes"/>&nbsp;Pendientes (<%=@vehiculossolicitudes.count%>)</a></li>
+        <li><a href="#tab2"><img src="/images/verde1.png" border="0" title="Solicitudes Atendidas"/>&nbsp;Atendidas (<%=@vehiculossolicitudesa.count%>)</a></li>
+        <li><a href="#tab3"><img src="/images/rojo1.png" border="0" title="Solicitudes Rechazadas"/>&nbsp;Rechazadas (<%=@vehiculossolicitudesr.count%>)</a></li>
+        <li><a href="#tab4"><img src="/images/amarillo1.png" border="0" title="Solicitudes Canceladas"/>&nbsp;Canceladas (<%=@vehiculossolicitudesc.count%>)</a></li>
+      </ul>
+    </div>
+      <div class="panel" id="tab1">
+        <fieldset><div align="center">
+            <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr><td></td></tr>
+              <tr>
+                <td height="30"><div class="col_enc">SOLICITUDES PENDIENTES</div></td>
+              </tr>
+            </table><br/>
+            <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="15%" height="30" class="oce-first">Creacion</td>
+                <td width="50%" align="left" class="oce-first">Información Solicitante</td>
+                <td width="10%" align="left" class="oce-first">Fecha</td>
+                <td width="10%" align="left" class="oce-first">Hora Inicio</td>
+                <td width="10%" align="left" class="oce-first">Hora Final</td>
+                <td width="5%" height="30" align="left" class="oce-first"></td>
+              </tr>
+            <% @vehiculossolicitudes.each do |vehiculossolicitud| %>
+              <tr  class="<%=cycle('even1', 'odd1')%> post1SP_<%=vehiculossolicitud.id%>">
+                <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %><br/>
+                  <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %><br/>
+                  <strong>Destino: </strong><%=h vehiculossolicitud.destino %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+                <td class="camposDesc"><div align="center">
+                  <%= link_to_remote image_tag('verde1.png', { :border => 0, :title => "ACEPTADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 2), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SP_#{vehiculossolicitud.id}').remove()" %>
+                  <%= link_to_remote image_tag('rojo1.png', { :border => 0, :title => "RECHAZADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 3), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SP_#{vehiculossolicitud.id}').remove()" %></div>
+                </td>
+              </tr>
+            <% end %>
+            </table></div>
+          </fieldset>
+        </div>
+    <div class="panel" id="tab2">
+        <fieldset><div align="center">
+            <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr><td></td></tr>
+              <tr>
+                <td height="30"><div class="col_enc">SOLICITUDES ATENDIDAS</div></td>
+              </tr>
+            </table><br/>
+            <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="15%" height="30" class="oce-first">Creacion</td>
+                <td width="50%" align="left" class="oce-first">Información Solicitante</td>
+                <td width="10%" align="left" class="oce-first">Fecha</td>
+                <td width="10%" align="left" class="oce-first">Hora Inicio</td>
+                <td width="10%" align="left" class="oce-first">Hora Final</td>
+                <td width="5%" height="30" align="left" class="oce-first"></td>
+              </tr>
+            <% @vehiculossolicitudesa.each do |vehiculossolicitud| %>
+              <tr  class="<%=cycle('even1', 'odd1')%> post1SA_<%=vehiculossolicitud.id%>">
+                <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %><br/>
+                  <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %><br/>
+                  <strong>Destino: </strong><%=h vehiculossolicitud.destino %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+                <td class="camposDesc"><div align="center">
+                  <%= link_to_remote image_tag('rojo1.png', { :border => 0, :title => "RECHAZADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 3), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SA_#{vehiculossolicitud.id}').remove()" %>
+                  <%= link_to_remote image_tag('amarillo1.png', { :border => 0, :title => "CANCELADA"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 4), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SA_#{vehiculossolicitud.id}').remove()" %></div>
+                </td>
+              </tr>
+            <% end %>
+            </table></div>
+          </fieldset>
+    </div>
+    <div class="panel" id="tab3">
+        <fieldset><div align="center">
+            <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr><td></td></tr>
+              <tr>
+                <td height="30"><div class="col_enc">SOLICITUDES RECHAZADAS</div></td>
+              </tr>
+            </table><br/>
+            <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="15%" height="30" class="oce-first">Creacion</td>
+                <td width="50%" align="left" class="oce-first">Información Solicitante</td>
+                <td width="10%" align="left" class="oce-first">Fecha</td>
+                <td width="10%" align="left" class="oce-first">Hora Inicio</td>
+                <td width="10%" align="left" class="oce-first">Hora Final</td>
+                <td width="5%" height="30" align="left" class="oce-first"></td>
+              </tr>
+            <% @vehiculossolicitudesr.each do |vehiculossolicitud| %>
+              <tr  class="<%=cycle('even1', 'odd1')%> post1SR_<%=vehiculossolicitud.id%>">
+                <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %><br/>
+                  <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %><br/>
+                  <strong>Destino: </strong><%=h vehiculossolicitud.destino %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+                <td class="camposDesc"><div align="center">
+                  <%= link_to_remote image_tag('verde1.png', { :border => 0, :title => "ACEPTADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 2), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SR_#{vehiculossolicitud.id}').remove()" %>
+
+                  <%= link_to_remote image_tag('rojo1.png', { :border => 0, :title => "RECHAZADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 3), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SR_#{vehiculossolicitud.id}').remove()" %>
+
+
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+            </table></div>
+          </fieldset>
+    </div>
+    <div class="panel" id="tab4">
+        <fieldset><div align="center">
+            <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+              <tr><td></td></tr>
+              <tr>
+                <td height="30"><div class="col_enc">SOLICITUDES CANCELADAS</div></td>
+              </tr>
+            </table><br/>
+            <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr valign="middle">
+                <td width="15%" height="30" class="oce-first">Creacion</td>
+                <td width="50%" align="left" class="oce-first">Información Solicitante</td>
+                <td width="10%" align="left" class="oce-first">Fecha</td>
+                <td width="10%" align="left" class="oce-first">Hora Inicio</td>
+                <td width="10%" align="left" class="oce-first">Hora Final</td>
+                <td width="5%" height="30" align="left" class="oce-first"></td>
+              </tr>
+            <% @vehiculossolicitudesc.each do |vehiculossolicitud| %>
+              <tr  class="<%=cycle('even1', 'odd1')%> post1SC_<%=vehiculossolicitud.id%>">
+                <td class="camposDesc"><%=h vehiculossolicitud.created_at.strftime("%Y-%m-%d %X") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.user.nombre %><br/>
+                  <strong>Nro pasajeros: </strong><%=h vehiculossolicitud.nro_pasajeros %><br/>
+                  <strong>Destino: </strong><%=h vehiculossolicitud.destino %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil%></td>
+                <td class="camposDesc"><%=h vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+                <td class="camposDesc"><div align="center">
+                  <%= link_to_remote image_tag('verde1.png', { :border => 0, :title => "ACEPTADO"}),
+                                               :url => vehiculossolicitud_url(:id => vehiculossolicitud, :id2 => 2), :method => :delete,
+                                               :confirm => "¿Seguro?", :before => "$(this).up('.post1SC_#{vehiculossolicitud.id}').remove()" %></div>
+                </td>
+              </tr>
+            <% end %>
+            </table></div>
+          </fieldset>
+    </div>
+</div>

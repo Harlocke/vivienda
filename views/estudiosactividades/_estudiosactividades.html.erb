@@ -1,0 +1,45 @@
+</form>
+<%= stylesheet_link_tag 'scaffold'%>
+<% remote_form_for [@estudiosprevio, @estudiosactividad] do |form| %>
+   <% if !@estudiosactividad.id %>
+      <% if @estudiosprevio.estado.to_s == 'PENDIENTE' or permiso("estudiosespecial","C").to_s == "S"%>
+ 	<%= render :partial => "/estudiosactividades/estudiosactividades_form" %>
+      <% end%>
+   <% end %>
+<% if @estudiosprevio.estudiosactividades.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="90%" class="oce-first">Actividad</td>
+    <td width="10%" class="oce-first">&nbsp;</td>
+  </tr>
+<% for estudiosactividad in @estudiosprevio.estudiosactividades.find(:all, :order => 'id asc') %>
+   <% if estudiosactividad.id != @estudiosactividad.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="estudiosactividad_<%=estudiosactividad.id%>">
+    <td class="camposDesc"><div align="justify"><%=estudiosactividad.observaciones rescue nil%></div></td>
+    <td class="camposDesc"><div align="center">
+       <% if @estudiosprevio.estado.to_s == 'PENDIENTE' or permiso("estudiosespecial","C").to_s == "S"%>
+     <%= link_to_remote('Editar',{:url => edit_estudiosprevio_estudiosactividad_path(@estudiosprevio, estudiosactividad),
+		:method => :get}, :class=>"editarlink")%><br/>
+     <%= link_to_remote('Borrar',{:url => estudiosprevio_estudiosactividad_path(@estudiosprevio, estudiosactividad),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+       <% end %></div>
+    </td>
+ </tr>
+  <% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "estudiosactividades_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :estudiosprevio, :id %>
+<% end %>
+

@@ -1,0 +1,206 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 5}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">INFORME DE SEGUIMIENTO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="17%" class="campos">Cobama</td>
+          <td width="33%" class="campos">Barrio </td>
+          <td width="50%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.cobama%></td>
+          <td class="camposDesc"><%=@titulacion.comuna.descripcion2 rescue nil%></td>
+          <td class="camposDesc"><%=User.find(@titulacion.user_juridico).nombre rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="18%" class="campos">Tipo de Proceso </td>
+          <td width="10%" class="campos">Manzana </td>
+          <td width="10%" class="campos">Lote </td>
+          <td width="50%" class="campos">Direccion </td>
+          <td width="12%" class="campos">Unidades Habit.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.tipoproceso%></td>
+          <td class="camposDesc"><%=@titulacion.manzana%></td>
+          <td class="camposDesc"><%=@titulacion.lote%></td>
+          <td class="camposDesc"><%=@titulacion.direccion%></td>
+          <td class="camposDesc"><%=@titulacion.unidades%></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="15%" class="campos">Acta Entrega</td>
+          <td width="15%" class="campos">Area </td>
+          <td width="55%" class="campos">Expediente </td>
+          <td width="15%" class="campos">Fecha Expediente </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=@titulacion.acta_entrega%></td>
+          <td class="camposDesc"><%=@titulacion.area%></td>
+          <td class="camposDesc"><%=@titulacion.expediente%></td>
+          <td class="camposDesc"><%=@titulacion.fecha_expediente%></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1"><td class="campos">Escritura de Loteo</td></tr>
+        <tr valign="top"><td class="camposDesc"><%=@titulacion.escritura_lote%>&nbsp;</td></tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="40%" class="campos">Estado del Proceso</td>
+          <td width="20%" class="campos">Certificado Uso Suelo </td>
+          <td width="30%" class="campos">Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.estado%></td>
+          <td class="camposDesc"><%=@titulacion.certificado_uso_suelo%></td>
+          <td class="camposDesc"><%=@titulacion.operador%>&nbsp;</td>
+        </tr>
+      </table>
+    <br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">PLAN DE ORDENAMIENTO TERRITORIAL - POT</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr>
+        <td width="20%" height="50" class="campos">Poligonos Santa Elena</td>
+        <td width="80%" class="camposDesc">
+          <% if @titulacion.titulacionespoligonos.exists? %>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                  <tr valign="middle" class="odd1">
+                  <td width="25%" class="campos">Creacion</td>
+                  <td width="75%" align="left" class="campos">Datos Asociado</td>
+                </tr>
+                  <% @titulacion.titulacionespoligonos.each do |titulacionespoligono| %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionespoligono_<%= titulacionespoligono.id%>">
+                   <td class="camposDesc"><%=titulacionespoligono.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+                   <%=titulacionespoligono.user.username rescue nil%></td>
+                   <td class="camposDesc"><strong>Categoria:</strong> <%=titulacionespoligono.pot_categoria rescue nil%><br/>
+                   <strong>Poligono: </strong><%=titulacionespoligono.potdato.descripcion rescue nil%><br/>
+                   <strong>Tratamiento:</strong> <%=titulacionespoligono.pot_tratamiento rescue nil%><br/>
+                   <strong>Uso del Suelo:</strong> <%=titulacionespoligono.usosuelo rescue nil%>
+                   <% if titulacionespoligono.mensajedealerta.to_s != "" %>
+                      <br/><div class="camposNotas"><strong>NORMA PARA RECONOCIMIENTO:<br/>* <%=titulacionespoligono.mensajedealerta rescue nil%></strong></div>
+                   <% end %>
+                   </td>
+                 </tr>
+                 <%end%>
+              </table>
+           <% else %>
+              NO hay Poligonos Santa Elena registrados a la fecha de hoy <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos" height="50" >Tipo de riesgo</td>
+        <td class="camposDesc">
+          <% if @titulacion.titulacionesriesgos.exists? %>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                  <tr valign="middle" class="odd1">
+                  <td width="25%" class="campos">Creacion</td>
+                  <td width="75%" align="left" class="campos">Datos Asociado</td>
+                </tr>
+                  <% @titulacion.titulacionesriesgos.each do |titulacionesriesgo| %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesriesgo_<%= titulacionesriesgo.id%>">
+                   <td class="camposDesc"><%=titulacionesriesgo.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+                   <%=titulacionesriesgo.user.username rescue nil%></td>
+                   <td class="camposDesc"><%=titulacionesriesgo.potdato.descripcion rescue nil%><br/>
+                     <strong>Grado de Afectación: </strong><%=titulacionesriesgo.tipo rescue nil%></td>
+                 </tr>
+                 <%end%>
+              </table>
+           <% else %>
+              NO hay Tipo de riesgos registrados a la fecha de hoy <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos" height="50" >Afectacion por espacio publico o equipamento</td>
+        <td class="camposDesc">
+          <% if @titulacion.titulacionesespacios.exists? %>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                  <tr valign="middle" class="odd1">
+                  <td width="25%" class="campos">Creacion</td>
+                  <td width="75%" align="left" class="campos">Tipo y Nombre Afectación</td>
+                </tr>
+                  <% @titulacion.titulacionesespacios.each do |titulacionesespacio| %>
+                 <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesespacio_<%= titulacionesespacio.id%>">
+                   <td class="camposDesc"><%=titulacionesespacio.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+                   <%=titulacionesespacio.user.username rescue nil%></td>
+                   <td class="camposDesc"><div align="justify"><%=titulacionesespacio.potdato.descripcion rescue nil%><br/>
+                     <strong>Grado de Afectación: </strong><%=titulacionesespacio.tipo rescue nil%><br/>
+                     <strong>Observacion: </strong> <%=titulacionesespacio.observacion rescue nil%></div></td>
+                 </tr>
+                 <%end%>
+              </table>
+           <% else %>
+              NO hay Afectacion por espacio publico o equipamento registrados a la fecha de hoy <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos" height="50">Afectacion por patrimonio</td>
+        <td class="camposDesc">
+          <% if @titulacion.titulacionesafectas.exists? %>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                  <tr valign="middle" class="odd1">
+                  <td width="25%" class="campos">Creacion</td>
+                  <td width="75%" align="left" class="campos">Tipo y Nombre Afectación</td>
+                </tr>
+                <% @titulacion.titulacionesafectas.each do |titulacionesafecta| %>
+                   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesafecta_<%= titulacionesafecta.id%>">
+                     <td class="camposDesc"><%=titulacionesafecta.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/>
+                     <%=titulacionesafecta.user.username rescue nil%></td>
+                     <td class="camposDesc"><div align="justify"><%=titulacionesafecta.potdato.descripcion rescue nil%><br/>
+                       <strong>Grado de Afectación: </strong><%=titulacionesafecta.tipo rescue nil%><br/>
+                       <strong>Observacion: </strong> <%=titulacionesafecta.observacion rescue nil%></div></td>
+                   </tr>
+                 <%end%>
+              </table>
+           <% else %>
+              NO hay Afectacion por espacio publico o equipamento registrados a la fecha de hoy <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%>
+           <% end %>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="25%" class="campos">Afectación por retiro a fuentes hidricas</td>
+          <td width="25%" class="campos">Numero de contrucciones sobre retiro a fuentes hidricas</td>
+          <td width="25%" class="campos">Afectación por retiro a vias</td>
+          <td width="25%" class="campos">Numero de contrucciones sobre retiro de vias</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.pot_afectretiro rescue nil%></td>
+          <td class="camposDesc"><%=@titulacion.pot_nrocontruc rescue nil%></td>
+          <td class="camposDesc"><%=@titulacion.pot_afectvias rescue nil%></td>
+          <td class="camposDesc"><%=@titulacion.pot_nrovias rescue nil%>&nbsp;</td>
+        </tr>
+    </table>
+    <br/>
+      <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>

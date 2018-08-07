@@ -1,0 +1,28 @@
+<h1>Editing demandascobama</h1>
+
+<% form_for(@demandascobama) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :demanda_id %><br />
+    <%= f.text_field :demanda_id %>
+  </p>
+  <p>
+    <%= f.label :cobama %><br />
+    <%= f.text_field :cobama %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :user_actualiza %><br />
+    <%= f.text_field :user_actualiza %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @demandascobama %> |
+<%= link_to 'Back', demandascobamas_path %>

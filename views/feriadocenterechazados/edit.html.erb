@@ -1,0 +1,28 @@
+<h1>Editing feriadocenterechazado</h1>
+
+<% form_for(@feriadocenterechazado) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :feriadocentejefe_id %><br />
+    <%= f.text_field :feriadocentejefe_id %>
+  </p>
+  <p>
+    <%= f.label :nroformulario %><br />
+    <%= f.text_field :nroformulario %>
+  </p>
+  <p>
+    <%= f.label :causarechazo %><br />
+    <%= f.text_field :causarechazo %>
+  </p>
+  <p>
+    <%= f.label :formula %><br />
+    <%= f.text_field :formula %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feriadocenterechazado %> |
+<%= link_to 'Back', feriadocenterechazados_path %>

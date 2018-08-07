@@ -1,0 +1,31 @@
+<div align="center">
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="65%" class="oce-first">Producto</td>
+    <td width="10%" class="oce-first"><div align="center">Cantidad</div></td>
+    <td width="10%" class="oce-first"></td>
+  </tr>
+<% i = 0
+   @almacenessolicitudes = Almacenessolicitud.find(:all, :conditions=>['user_id =? and fecha_envio is null and consecutivo is null', is_admin],:order => 'created_at DESC')
+   for almacenessolicitud in @almacenessolicitudes 
+    i = i + 1
+    if i == 1 %>
+    <%= link_to 'Enviar Solicitud al Almacen', envio_almacenessolicitudes_path, :class=>"verlink", :confirm=>"Esta Seguro que desea solicitar estos elementos al Almacen?" %>
+   <% end%>
+  <tr class="<%=cycle('even1', 'odd1')%> postS_<%=almacenessolicitud.id%>">
+    <td width="15%" class="camposDesc"><div align="center"><%=h almacenessolicitud.created_at.strftime("%Y-%m-%d %X") %></div></td>
+    <td width="65%" class="camposDesc"><%=h almacenessolicitud.producto.descripcion rescue nil %></td>
+    <td width="10%" class="camposDesc"><div align="center"><%=h almacenessolicitud.cantidad %></div></td>
+    <td width="10%" class="camposDesc">
+      <%=link_to_remote('Borrar', {
+                :url => almacenessolicitud_path(almacenessolicitud),
+                :method => :delete,
+                :confirm => "Seguro?",
+                :before => "$(this).up('.postS_#{almacenessolicitud.id}').remove()" },
+                :class=>"borrarlink")%>
+  </td>
+  </tr>
+<% end %>
+</table>
+</div>

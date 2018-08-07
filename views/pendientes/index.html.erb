@@ -1,0 +1,77 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/seguimientomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SEGUIMIENTO COMPROMISOS</div></td>
+          <% if permiso("pendiente","C").to_s == "S" %>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('nuevo.png',
+                              { :border=>0, :title => "Nuevo"}),new_pendiente_path %>
+                </div></td>
+          <% end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% if permiso("pendiente","C").to_s == "S" %>
+<% form_tag buscar_pendientes_path, :method => 'get' do %>
+    <div align="center">
+    <table width="70%" border="0" cellspacing="2" cellpadding="0">
+        <tr >
+          <td width="33%" height="20" class="campos" align="left">Estado</td>
+          <td class="camposDesc" align="left">
+            <%= select("ubicacion","estado",select_pendientesestado, { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+         </td>
+      </tr>
+      <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Fecha de Asignación</td>
+          <td class="camposDesc" align="left">
+            Entre <%= calendar_date_select "ubicacion", "inicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "final", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        </td>
+    </tr>
+     <tr >
+          <td width="33%" height="20" class="campos" align="left">Fecha de Solución</td>
+          <td class="camposDesc" align="left">
+            Entre <%= calendar_date_select "ubicacion", "finicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "ffinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        </td>
+    </tr>
+    <tr class="odd1">
+        <td width="33%" height="20" class="campos" align="left">Subdirección Asignada</td>
+          <td class="camposDesc" align="left">
+            <%= check_box "ubicacion","control_int",{},'SI','NO'%> CONTROL INTERNO<br/>
+            <%= check_box "ubicacion","planeacion",{},'SI','NO'%> SUBDIRECCION DE PLANEACION<br/>
+            <%= check_box "ubicacion","administrativa",{},'SI','NO'%> SUBDIRECCION ADMINISTRATIVA Y FINANCIERA<br/>
+            <%= check_box "ubicacion","poblacional",{},'SI','NO'%> SUBDIRECCION POBLACIONAL<br/>
+            <%= check_box "ubicacion","juridica",{},'SI','NO'%> SUBDIRECCION JURIDICA<br/>
+            <%= check_box "ubicacion","dotacion",{},'SI','NO'%> SUBDIRECCION DE DOTACION DE VIVIENDA Y HABITAT<br/>
+            <%= check_box "ubicacion","comunicaciones",{},'SI','NO'%> COMUNICACIONES<br/>
+            <%= check_box "ubicacion","direccion",{},'SI','NO'%> DIRECCION GENERAL
+        </td>
+    </tr>
+    </table>
+    <table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+          </tr>
+    </table>
+    <table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+              </span></div>
+          </div></td>
+      </tr>
+    </table>
+    </div>
+<% end %>
+<%#= render 'vencidos'%>   
+<br/>
+<% end %>
+<%= render 'informacion'%>
+   
+ 

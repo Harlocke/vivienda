@@ -1,0 +1,100 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/titulacionmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;PROCESO DE REGISTRO DE PERSONAS</div></td>
+              <td width="3%"><div align="right">
+                <%= link_to image_tag('atras.png',{ :border=>0, :title => "Regresar a Titulacion"}),edit_titulacion_path(@titulacionescargue.titulacion_id) %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% form_for(@titulacionescargue) do |f| %>
+<%=  f.hidden_field :titulacion_id%>
+<%=  f.hidden_field :matricula%>
+<%=  f.hidden_field :identificacion%>
+<%=  f.hidden_field :catastrosdato_id%>
+<div align="center">
+<table width="70%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos">Titulacion Id</td>
+          <td class="camposDesc"><%=@titulacionescargue.titulacion_id rescue nil%></td>
+        </tr>
+        <tr>
+          <td class="campos">Cobama</td>
+          <td class="camposDesc"><%=@titulacionescargue.titulacion.cobama rescue nil%></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Identificacion</td>
+          <td class="camposDesc"><%=@titulacionescargue.identificacion rescue nil%></td>
+        </tr>
+        <tr>
+          <td class="campos">Primer nombre</td>
+          <td class="camposDesc"><%= f.text_field :primer_nombre,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :primer_nombre, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Segundo nombre</td>
+          <td class="camposDesc"><%= f.text_field :segundo_nombre,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :segundo_nombre, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr>
+          <td class="campos">Primer apellido</td>
+          <td class="camposDesc"><%= f.text_field :primer_apellido, { :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :primer_apellido, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Segundo apellido</td>
+          <td class="camposDesc"><%= f.text_field :segundo_apellido,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :segundo_apellido, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr>
+          <td class="campos">Dirección</td>
+          <td class="camposDesc"><%= f.text_field :direccion, { :class => "campo", :size => 50,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :direccion, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Telefono 1</td>
+          <td class="camposDesc"><%= f.text_field :telefono1,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :telefono1, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr>
+          <td class="campos">Telefono 2</td>
+          <td class="camposDesc"><%= f.text_field :telefono2,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :telefono2, :css_class =>"cerror"%>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Celular</td>
+          <td class="camposDesc"><%= f.text_field :celular,{ :class => "campo", :size => 27,:onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= f.error_message_on :celular, :css_class =>"cerror"%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+          <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Crear", :confirm=>"Esta seguro que desea Crear y Asociar esta persona?"%></span></div></div></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/><br/>
+

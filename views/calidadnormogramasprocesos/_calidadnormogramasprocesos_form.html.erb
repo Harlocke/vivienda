@@ -1,0 +1,18 @@
+<div align="center">
+<table width="90%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+         <td width="100%"><strong>Proceso</strong></td>
+        </tr>
+        <tr valign="top">
+          <td><%=select(:calidadnormogramasproceso, :calidadproceso_id, Calidadproceso.find(:all, :order => 'tipoproceso, descripcion').collect {|p| [ p.tipoproceso+ " - "+p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:650px", :class => "campo"}) %>
+    <%= error_message_on :calidadnormogramasproceso, :calidadproceso_id, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+        <table width="90%" class="table">
+                <tr valign="top">
+                  <td ><div align="right">
+                      <%= hidden_field :calidadnormograma, :id %><%= submit_tag "Guardar", :disable_with => "Guardando...", :class=>"btn btn-primary"%></div></td>
+                </tr>
+              </table>
+  </div>

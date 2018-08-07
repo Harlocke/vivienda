@@ -1,0 +1,50 @@
+<% remote_form_for [@persona, @moravia] do |form| %>
+  <fieldset>
+    <legend>Moravias: </legend>
+    <% if !@moravia.id %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+	<%= render :partial => "/moravias/moravias_form" %>
+      </tr>
+    <% end %>
+    <table>
+      <thead>
+        <tr>
+	  <th class="quantity">Descripcion</th>
+	  <th class="concept">Valor_venta</th>
+	  <th class="option"></th>
+	</tr>
+      </thead>
+      <tbody>
+	<% @persona.moravias.each do |moravia| %>
+	<% if moravia.id != @moravia.id %>
+	<tr class="<%=cycle('even1', 'odd1')%>" id="moravia_<%=moravia.id%>">
+	  <td>
+	    <%= link_to_remote moravia.recuento,
+	        :url => edit_persona_moravia_path(@persona, moravia),
+		:method => :get%>
+    	  </td>
+          <td>
+            <%= link_to_remote moravia.poligono,
+	        :url => edit_persona_moravia_path(@persona, moravia),
+		:method => :get%>
+          </td>
+
+
+	  <td class="center">
+	    <%= link_to_remote "Borrar",
+	        :url => persona_moravia_path(@persona, moravia),
+		:method => :delete,
+		:confirm => "¿Seguro?"%>
+	  </td>
+	</tr>
+	<% else %>
+	<tr class="<%=cycle('even1', 'odd1')%>" id="moravia_<%=@moravia.id%>">
+	  <%= render :partial => "moravias_form" %>
+	</tr>
+	<% end %>
+        <% end %>
+      </tbody>
+     </table>
+     <%= hidden_field :persona, :id %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,114 @@
+
+ <% form_for(@vivienda) do |f| %>
+      <%= f.error_messages %>
+    <fieldset>
+    <table width="100%" border="0" cellpadding="2" align="center"  cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">INFORMACION JURIDICA</div></td>
+      </tr>
+    </table>
+            <div align="center">
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="20%" align="left"><span class="campos">Nro Escritura Publica </span></td>
+              <td width="20%" align="left"><span class="campos">Fecha Expedicion </span></td>
+              <td width="20%" align="left"><span class="campos">Fecha Vencimiento </span></td>
+              <td width="22%" align="left"><span class="campos">Notaria Origen</span></td>
+              <td width="12%" align="left"><span class="campos">Registrada</span></td>
+              <td width="22%" align="left"><span class="campos">Oficina Registro </span></td>
+            </tr>
+            <tr>
+              <td align="left"><span class="camposDesc"><%= f.text_field :esc_nro_escritura,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc">
+                  <%= calendar_date_select "vivienda", "esc_expedicion", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+              <td align="left"><span class="camposDesc"><%=@vivienda.fecha_vencimiento.strftime("%Y-%m-%d") rescue nil%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :esc_notaria_origen,{ :class => "campo", :size => 35,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc">Si <%= f.radio_button("esc_registrada", "S") %> No <%= f.radio_button("esc_registrada", "N") %></span></td>
+              <td align="left"><span class="camposDesc">
+              <%= f.select(:esc_registrada_of, select_zona,{ :include_blank => true },
+                          { :style=>"width:110px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></span></td>
+            </tr>
+          </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+            <tr class="odd1">
+              <td width="15%" align="left"><span class="campos">Fecha Registro </span></td>
+              <td width="20%" align="left" class="campos">Nro Matricula</td>
+              <td width="20%" align="left" class="campos">Valor Venta</td>
+            </tr>
+            <tr valign="top">
+              <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "esc_registro", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :nro_matricula,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+              <td align="left"><span class="camposDesc"><%= f.text_field :valor_venta,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+            </tr>
+          </table>
+            </div>
+    <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+      <tr>
+        <td height="30" align="left"><div class="col_enc">GASTOS ESCRITURACION</div></td>
+      </tr>
+    </table>
+            <div align="center">
+
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" align="left"><span class="campos">Valor Rentas </span></td>
+        <td width="20%" align="left"><span class="campos">Fecha Pago Rentas </span></td>
+        <td width="20%" align="left"><span class="campos">Nro Liquidacion Rentas</span></td>
+        <td width="20%" align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_valor_rentas,{ :class => "campo", :size => 20,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "liq_rentas_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_rentas_nro,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+        <td align="left">&nbsp;</td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+      <tr class="odd1">
+        <td width="20%" align="left"><span class="campos">Valor Registro </span></td>
+        <td width="20%" align="left"><span class="campos">Fecha Pago Registro </span></td>
+        <td width="20%" align="left"><span class="campos">Nro Radicado Registro </span></td>
+        <td width="20%" align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" class="camposDesc"><%= f.text_field :lic_registro,{ :class => "campo", :size => 20,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+        <td align="left"><span class="camposDesc"><%= calendar_date_select "vivienda", "liq_registro_fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%></span></td>
+        <td align="left"><span class="camposDesc"><%= f.text_field :liq_registro_nro,{ :class => "campo", :size => 30,
+                    :onFocus => "this.style.border='1px solid #f00'",
+                    :onBlur => "this.style.border='1px solid #bbb'" }%></span></td>
+      </tr>
+    </table>
+ </fieldset>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td class="camposNotas" align="left">
+          Ultima Actualización: <%=User.find(@vivienda.user_actualiza).username rescue nil%> - <%=@vivienda.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+        </td>
+        <td  height="30"><div align="right">
+            <% if permiso("vivienda","A").to_s == "S" %>
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% end %>
+            <%= link_to "Acta de Entrega", {:controller => "viviendas", :action => "atencion", :id=>@vivienda.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <%= link_to "Cierre Financiero", {:controller => "viviendas", :action => "cierre", :id=>@vivienda.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+    </div></td>
+      </tr>
+    </table>
+    <% end %>

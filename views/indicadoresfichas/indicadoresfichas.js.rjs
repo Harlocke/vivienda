@@ -1,0 +1,1 @@
+page.replace_html :indicadoresfichas_form, :partial => "indicadoresfichas", :object => @indicadoresficha

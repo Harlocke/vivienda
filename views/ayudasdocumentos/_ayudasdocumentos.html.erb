@@ -1,0 +1,91 @@
+<table width="85%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">DOCUMENTACIÓN REGISTRADA</div></td>
+  </tr>
+</table>
+<% remote_form_for [@ayuda, @ayudasdocumento] do |form| %>
+  <%# if permiso("ayudasdocumento","C").to_s == "S" %>
+    <% if !@ayudasdocumento.id %>
+      <%= render :partial => "/ayudasdocumentos/ayudasdocumentos_form" %>
+    <% end %>
+  <%# end %>
+<% if @ayuda.ayudasdocumentos.exists? %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Fecha</td>
+    <td width="30%" align="left" class="oce-first">Tipo de Documento</td>
+    <td width="40%" align="left" class="oce-first">Soporte Digital</td>
+    <td width="15%" align="left" class="oce-first"></td>
+  </tr>
+<% for ayudasdocumento in @ayuda.ayudasdocumentos.find(:all, :order => 'created_at  DESC') %>
+   <% if ayudasdocumento.id != @ayudasdocumento.id %>
+      <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="ayudasdocumento_<%=ayudasdocumento.id%>">
+        <td height="30" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr><td class="camposDesc" align="left"><%=ayudasdocumento.created_at.strftime("%Y-%m-%d %X")%></td></tr>
+              <tr><td class="camposDesc" align="left"><a title="<%=ayudasdocumento.user.nombre rescue nil%>"><%=ayudasdocumento.user.username rescue nil%></a></td></tr>
+            </table>
+        </td>
+        <td class="camposDesc"><%=ayudasdocumento.tiposdocumemto%></td>
+        <td class="camposDesc">
+          <% if ayudasdocumento.ayudasdocimagenes.exists? %>
+            <div align="center">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="85%" align="left" height="20" class="oce-first">Documento </td>
+                    <td width="15%" align="left" height="20" class="oce-first"></td>
+                  </tr>
+                   <% ayudasdocumento.ayudasdocimagenes.each do |ayudasdocimagen| %>
+                  <tr class="<%=cycle('even1', 'odd1')%> ayudasdocimagen_<%=ayudasdocimagen.id%>">
+                    <td align="left" class="camposDesc"><%=ayudasdocimagen.descripcion.upcase rescue nil%></td>
+                    <td align="left" class="camposDesc">
+                            <%= link_to image_tag('download2.png', :border=>0,:title => "Descargar: #{ayudasdocimagen.ayudasimagen_file_name}"),
+                               ayudasdocimagen.ayudasimagen.url(:original, false),{ :title=>"#{ayudasdocimagen.descripcion}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                           <%= link_to_remote('',{:url => ayudasdocumento_ayudasdocimagen_path(ayudasdocumento, ayudasdocimagen),
+                                    :method => :delete, :confirm => "¿Seguro?",
+                                    :before => "$(this).up('.ayudasdocimagen_#{ayudasdocimagen.id}').remove()"},
+                                    :class=>"borrarlink")%></td>
+                  </tr>
+                   <% end %>
+                </table>
+            </div>
+          <% else %>
+              <table width="100%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+                <tr>
+                  <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+                  <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+               </tr>
+              </table>          
+          <% end %>
+        </td>
+        <td  class="camposDesc">
+          <div align="center">
+                <%# if permiso("ayudasdocumento","A").to_s == "S" %>
+                  <%= link_to_remote('Editar',{:url => edit_ayuda_ayudasdocumento_path(@ayuda, ayudasdocumento),
+                            :method => :get}, :class=>"editarlink")%>
+                <%# end %>
+                <%# if permiso("ayudasdocumento","E").to_s == "S" %>
+                   &nbsp;<%= link_to_remote('Borrar',{:url => ayuda_ayudasdocumento_path(@ayuda, ayudasdocumento),
+                            :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+                <%# end %>
+                <%= link_to 'Imagenes', new_ayudasdocumento_ayudasdocimagen_path(ayudasdocumento.id),:title=>"Imagenes", :class=>"imagenlink" %>
+          </div></td>
+     </tr>
+  <% else %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "ayudasdocumentos_form" %>
+     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <% end %>
+<% end %>
+ </table>      
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+    <%= hidden_field :ayuda, :id %>
+<% end %>
+<br/>

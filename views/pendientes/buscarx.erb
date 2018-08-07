@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Seguimiento</h3>
+</div>
+<table border="1">
+  <tr valign="middle">
+    <td width="10%"><strong><div align="center">Responsable</div></strong></td>
+    <td width="40%"><strong>Fecha Asignacion</strong></td>
+    <td width="15%"><strong>Fecha Vence </strong></td>
+    <td width="50%"><strong>Tarea / Actividad</strong></td>
+    <td width="15%"><strong>Estado</strong></td>
+    <td width="15%"><strong>Fecha Solucion</strong></td>
+    <td width="55%"><strong>Observaciones</strong></td>
+  </tr>
+<% @pendientes.each do |pendiente|
+     if pendiente.fecha_vence
+       if pendiente.estado.to_s != "FINALIZADO"
+         if pendiente.fecha_vence.to_s <= Time.now.strftime("%Y-%m-%d").to_s
+           color = "#FF0000"
+         else
+           color = "#FFFF00"
+         end
+       else
+         color = "#00FF00"
+       end
+     end
+%>
+   <tr valign="middle" bgcolor="<%=color%>">
+     <td><div align="left"><%=@pendiente.asignadoa %></div></td>
+     <td><div align="left"><%=pendiente.fecha_asignacion rescue nil%></div></td>
+     <td><div align="left"><%=pendiente.fecha_vence rescue nil%></div></td>
+     <td><div align="left"><%=pendiente.tarea %></div></td>
+     <td><div align="left"><%=pendiente.estado %></div></td>
+     <td><div align="left"><%=pendiente.fecha_solucion %></div></td>
+     <td><div align="left"><%=pendiente.observaciones %></div></td> 
+    </tr>
+<% end %>
+</table>
+

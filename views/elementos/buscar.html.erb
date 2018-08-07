@@ -1,0 +1,58 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                    <img src="/images/inventariotecnologiamin.png" width="64" height="64"/>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;
+                    INFORMACION INVENTARIO
+                  </div></td>
+              <td width="3%"><div align="right">
+                    <%= link_to image_tag('atras.png',{ :border=>0, :title => "Busca Contratistas"}),elementos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+<% if @iduser.to_s != "" %>
+<%=link_to 'Acta Entrega Vinculados', {:controller=>"elementos", :action=>"buscarsistemas", :id =>@iduser}, :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"%>
+<%=link_to 'Acta Descargue Bienes', {:controller=>"elementos", :action=>"descargue", :id =>@iduser}, :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"%>
+<% end %>
+<% if @idfunuser.to_s != "" %>
+<%=link_to 'Generar Inventario', {:controller=>"elementos", :action=>"descarguefun", :id =>@idfunuser}, :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"%>
+<% end %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first"><div align="left">Tipo Elemento</div></td>
+    <td width="20%" class="oce-first"><div align="left">Marca</div></td>
+    <td width="40%" class="oce-first"><div align="left">Referencia</div></td>
+    <td width="10%" class="oce-first"><div align="center">Placa</div></td>
+    <td width="10%" class="oce-first"><div align="center">Serial</div></td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @elementos.each do |elemento| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="left"><%=h elemento.tiposelemento.descripcion rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=h elemento.marca%></div></td>
+    <td class="camposDesc"><div align="left"><%=h elemento.referencia%></div></td>
+    <td class="camposDesc"><div align="center"><%=h elemento.placa%></div></td>
+    <td class="camposDesc"><div align="center"><%=h elemento.serial%></div></td>
+    <td class="camposDesc"><div align="center">
+        <%= link_to 'Editar', edit_elemento_path(:id=>elemento, :etapa=>'1'), :class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="90%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@elementos.count%></div></td>
+  </tr>
+</table>

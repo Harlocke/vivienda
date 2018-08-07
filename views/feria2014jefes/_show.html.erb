@@ -1,0 +1,223 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION FERIA 2014</div></td>
+  </tr>
+</table>
+<% @persona.feria2014jefes.each do |feria2014jefe| %>
+<div align="center">
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="camposDesc">
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="157" class="campos">Documento </td>
+        <td width="203" class="campos">Identificaci&oacute;n  </td>
+        <td width="250" class="campos">Primer Nombre  </td>
+        <td width="220" class="campos">Segundo Nombre </td>
+        <td width="228" class="campos">Primer Apellido  </td>
+        <td width="173" class="campos">Segundo Apellido </td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=feria2014jefe.documento.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=feria2014jefe.identificacion%></td>
+        <td class="camposDesc"><%=feria2014jefe.primer_nombre%></td>
+        <td class="camposDesc"><%=feria2014jefe.segundo_nombre%></td>
+        <td class="camposDesc"><%=feria2014jefe.primer_apellido%></td>
+        <td class="camposDesc"><%=feria2014jefe.segundo_apellido%></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="23%" class="campos">Genero </td>
+          <td width="15%" class="campos">Fecha Nacimiento </td>
+          <td width="22%" class="campos">Lugar Nacimiento </td>
+          <td width="20%" class="campos">Estado Civil </td>
+          <td width="20%" class="campos">Ocupacion </td>
+        </tr>
+        <tr>
+          <td class="camposDesc" class="campos">.<%=feria2014jefe.generos rescue nil%> </td>
+          <td class="camposDesc"><%=feria2014jefe.fecha_nacimiento%></td>
+          <td class="camposDesc"><%=feria2014jefe.lugar_nacimiento%></td>
+          <td class="camposDesc"><%=EstadosCivil.find(feria2014jefe.estado_civil_id).descripcion rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.ocupacion.descripcion rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="30%" class="campos">Grupo Etnico  </td>
+          <td width="45%" class="campos">Condicion Especial  </td>
+          <td width="25%" class="campos">Tipo de Poblacion  </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2014jefe.grupo_etnico%></td>
+          <td class="camposDesc"><%=feria2014jefe.especial.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.familiar.descripcion rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="30%" class="campos">Zona Poblacion (Barrio) </td>
+          <td width="15%" class="campos">Ingresos</td>
+          <td width="15%" class="campos">Nivel Sisben</td>
+          <td width="30%" class="campos">Caja de Compensacion</td>
+          <td width="10%" class="campos">Estrato</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2014jefe.zona%></td>
+          <td class="camposDesc">$ <%=camponumerico(feria2014jefe.ingresos) rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.sisben.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.caja.descripcion rescue nil%></td>
+           <td class="camposDesc"><%=feria2014jefe.estrato%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="60%" class="campos">Comuna - Barrio  </td>
+          <td width="40%" class="campos">Direccion  </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2014jefe.comuna.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.direccion%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="24%" class="campos">Ciudad</td>
+          <td width="21%" class="campos">Telefono 1  </td>
+          <td width="21%" class="campos">Telefono 2  </td>
+          <td width="18%" class="campos">Celular  </td>
+          <td width="22%" class="campos">Tenencia</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2014jefe.ciudad%></td>
+          <td class="camposDesc"><%=feria2014jefe.telefonos1%></td>
+          <td class="camposDesc"><%=feria2014jefe.telefonos2%></td>
+          <td class="camposDesc"><%=feria2014jefe.celular%></td>
+          <td align="left" class="campos"><%=feria2014jefe.tenencia%></td>
+        </tr>
+      </table>
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Correo Electronico</td>
+          <td width="25%" class="campos">Antiguedad en Medellín (Años)  </td>
+          <td width="15%" class="campos">Vinculado a OPV?  </td>
+          <td width="15%" class="campos">Nombre de la OPV  </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=feria2014jefe.e_mail%></td>
+          <td class="camposDesc"><%=feria2014jefe.info_permamedellin2%></td>
+          <td class="camposDesc"><%=feria2014jefe.vinculacion_opv%></td>
+          <td class="camposDesc"><%=feria2014jefe.nombre_opv%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Miembro de una JAL?  </td>
+          <td width="40%" class="campos">Carta Ahorro Programado ó Cesantias Inmovilizadas?  </td>
+          <td width="20%" class="campos">Valor Ahorro / Cesantias  </td>
+          <td width="20%" class="campos">Carta de Credito?  </td>          
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%= feria2014jefe.miembro_jal%></td>
+          <td class="camposDesc"><%= feria2014jefe.carta_ahorro%></td>
+          <td class="camposDesc">$ <%=camponumerico(feria2014jefe.valor_ahorro) rescue nil%></td>
+          <td class="camposDesc"><%= feria2014jefe.carta_credito%></td>
+        </tr>
+      </table>
+       <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Valor Credito</td>
+          <td width="30%" class="campos">Proyecto VIPA  </td>
+          <td width="10%" class="campos">Feria VIPA</td>
+          <td width="60%" class="campos">Nro Formulario VIPA</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">$ <%=camponumerico(feria2014jefe.valor_credito) rescue nil%></td>
+          <td class="camposDesc"><%= feria2014jefe.proyecto_vipa%></td>
+          <td class="camposDesc"><%=feria2014jefe.feriavipa rescue nil%></td>
+          <td class="camposDesc"><%=feria2014jefe.consecutivo_vipa rescue nil%></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>
+<% end %>
+<%  if @persona.feria2014beneficiarios.exists? %>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">BENEFICIARIOS</div></td>
+  </tr>
+</table>
+<div align="center">
+  <% varconta = 0 %>
+<% @persona.feria2014beneficiarios.each do |feria2014beneficiario| %>
+  <%   varconta = varconta + 1;   %>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30" class="campos"><div align="center"><%= varconta %></div></td>
+    <td class="camposDesc">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="11%" class="campos">Documento</td>
+          <td width="13%" class="campos">Identificacion</td>
+          <td width="39%" class="campos">Nombre</td>
+          <td width="16%" class="campos">Fecha Nacimiento </td>
+          <td width="21%" class="campos">Parentesco</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feria2014beneficiario.documento.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.identificacion rescue nil%></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.nombres rescue nil %></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.fecha_nacimiento rescue nil%></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.parentesco.descripcion rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%" class="campos">Estado Civil </td>
+          <td width="23%" class="campos">Ocupacion</td>
+          <td width="31%" class="campos">Condici&oacute;n Especial </td>
+          <td width="21%" class="campos">Ingresos Mensuales</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=EstadosCivil.find(feria2014beneficiario.estado_civil_id).descripcion rescue nil%></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.ocupacion.descripcion  rescue nil%></td>
+          <td class="camposDesc"><%=h feria2014beneficiario.especial.descripcion  rescue nil%></td>
+          <td class="camposDesc">$ <%=camponumerico(feria2014beneficiario.ingresos) rescue nil%></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<% end %>
+</div>
+<% end %>
+<br/>
+<%  if @persona.feria2014puntajes.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CALIFICACIÓN</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+          <td class="oce-first"><div align="center">Puntaje</div></td>
+        </tr>
+<% @persona.feria2014puntajes.each do |feria2014puntaje| %>
+        <tr  class="<%=cycle('even1', 'odd1')%>">
+          <td width="90%" class="camposDesc"><%=h feria2014puntaje.variable %></td>
+          <td width="10%" class="camposDesc"><div align="center"><%=h feria2014puntaje.puntaje %></div></td>
+        </tr>
+<% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>

@@ -1,0 +1,3 @@
+page.replace_html :correspondenciasdependencias_form, :partial => "correspondenciasdependencias", :object => @correspondenciasdependencia
+#page.replace_html :benevivienda, flash[:benevivienda]
+#flash.discard

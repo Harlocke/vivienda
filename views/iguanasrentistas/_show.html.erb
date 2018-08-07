@@ -1,0 +1,91 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION PREDIOS IGUANA - ARRENDATARIOS</div></td>
+  </tr>
+</table>
+<% @persona.iguanasrentistas.each do |iguanasrentista| %>
+    <% if iguanasrentista.id != @iguanasrentista.id %>
+  <div align="center">
+
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="19%" class="campos">Identificacion Plano </td>
+          <td width="32%" class="campos">Tecnico Asociado </td>
+          <td width="24%" class="campos">Social Asignado </td>
+          <td width="25%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=iguanasrentista.iguana.nro_registro%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.grupo_asignado%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.social_asignado%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.juridico_asignado%></td>
+        </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="19%" class="campos">Sector </td>
+          <td width="32%" class="campos">Encuesta </td>
+          <td width="24%" class="campos">Cobama </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=iguanasrentista.iguana.sector%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.encuesta%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.cobama%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="131" class="campos">Comuna</td>
+          <td width="131" class="campos">Barrio</td>
+          <td width="131" class="campos">Manzana</td>
+          <td width="132" class="campos">Lote</td>
+          <td width="132" class="campos">Interior</td>
+          <td width="166" class="campos">Disponibilidad</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=iguanasrentista.iguana.comuna%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.barrio%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.manzana%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.lote%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.interior%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.disponibilidad%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="17%" class="campos">Matricula </td>
+          <td width="35%" class="campos">Direccion </td>
+          <td width="20%" class="campos">Valor total compensaci&oacute;n</td>
+          <td width="28%" class="campos">Caso</td>
+        </tr>
+        <tr>
+          <td height="19" class="camposDesc"><%=iguanasrentista.iguana.matricula%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.direccion%></td>
+          <td height="19" class="camposDesc"><%=iguanasrentista.iguana.valor_compensacion%></td>
+          <td class="camposDesc"><%=iguanasrentista.iguana.caso%></td>
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/ver3.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Ver Informacion', edit_iguana_path(iguanasrentista.iguana_id) %></span></div>
+</div></td>
+  </tr>
+</table>
+      <br/>
+</td>
+  </tr>
+</table>
+  </div>
+
+     <% end %>
+<% end %>
+</fieldset>

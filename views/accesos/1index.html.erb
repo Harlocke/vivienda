@@ -1,0 +1,32 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/ipmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;ACCESOS IP</div></td>
+              <td width="3%"><div align="right"> </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<BR/>
+
+<table>
+  <tr>
+    <th>Ip</th>
+  </tr>
+
+<% @accesos.each do |acceso| %>
+  <tr>
+    <td><%=h acceso.ip %></td>
+    <td><%= link_to 'Show', acceso %></td>
+    <td><%= link_to 'Edit', edit_acceso_path(acceso) %></td>
+    <td><%= link_to 'Destroy', acceso, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New acceso', new_acceso_path %>

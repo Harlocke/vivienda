@@ -1,0 +1,58 @@
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/balancemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION PROCESOS JURIDICOS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" align="left" class="oce-first">&nbsp;Fecha</td>
+    <td width="80%" align="left" class="camposDesc">&nbsp;<%=@procesosetapa.created_at%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Etapa</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.etapasproceso.descripcion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Fecha Limite</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.fecha_limite%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Fecha Actuacion</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.fecha_actuacion%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Observaciones</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.observaciones%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Resultado</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.destado%></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left" class="oce-first">&nbsp;Estado</td>
+    <td align="left" class="camposDesc">&nbsp;<%=@procesosetapa.dfirmeza%></td>
+  </tr>
+<% form_for :procesosetapa, :url => { :action => "adicionar", :id => @procesosetapa.id } do |f| %>
+  <tr valign="top">
+    <td align="left" class="oce-first">&nbsp;Cumplimiento Fallo</td>
+    <td align="left" class="camposDesc">
+  <%= f.text_area :cumplimiento_fallo,{ :class => "campoMultiLinea", :cols=>"80", :rows=>"10",:value=>@procesosetapa.cumplimiento_fallo,
+      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <tr valign="middle">
+    <td align="left">&nbsp;</td>
+    <td align="left" class="camposDesc">&nbsp;
+    <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+    </td>
+  </tr>
+<% end %>
+</table>

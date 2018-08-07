@@ -1,0 +1,1 @@
+page.replace_html :proyectoscopnotas_form, :partial => "proyectoscopnotas", :object => @proyectoscopnota

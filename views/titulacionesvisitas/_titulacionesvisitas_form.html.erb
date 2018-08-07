@@ -1,0 +1,87 @@
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="30%" align="left" class="campos">Tipo Visita *</td>
+        <td ><%= select(:titulacionesvisita,:clase, select_tipo_visita,{ :include_blank => true },
+                        { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesvisita, :clase, :css_class =>"cerror"%></td>
+        <td width="30%" align="left" class="campos">Tipo Atención *</td>
+        <td ><%= select(:titulacionesvisita,:tipo_atencion, select_tipo_atencion,{ :include_blank => true },
+                              { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesobservacion, :tipo_atencion, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <br/><div class="col_enc">SOCIALIZACION</div>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="20%" align="left" class="campos odd1">Estado de la visita :</td>
+        <td width="20%" align="left" class="campos odd1">Fecha Agendada :</td>
+        <td width="40%" align="left" class="campos odd1">Motivo</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%= select(:titulacionesvisita,:soc_estado, select_estado_visita,{ :include_blank => true },
+                              { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesvisita, :soc_estado, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%= calendar_date_select "titulacionesvisita", "soc_fecha_agenda", :year_range => [2015, 2019], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :titulacionesvisita, :soc_fecha_agenda, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%= select(:titulacionesvisita,:soc_motivo, select_motivo_no_agenda,{ :include_blank => true },
+                              { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesvisita, :soc_motivo, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="70%" align="left" class="campos">Observaci&oacute;n *</td>
+        <td width="30%" align="left" class="campos">Unidades *</td>
+      </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left" ><%= text_area(:titulacionesvisita, :soc_observaciones, :cols => 110, :rows => 5, :class => 'campo', :maxlength => 4000,
+                                                  :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :titulacionesvisita, :soc_observaciones, :css_class =>"cerror"%></td>
+        <td ><%= text_field :titulacionesvisita, :unidades,{ :class => "campo", :size => "10",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :titulacionesvisita, :unidades, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <br/><div class="col_enc">LEVANTAMIENTO</div>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr>
+        <td width="20%" align="left" class="campos odd1">Situacion del levantamiento</td>
+        <td width="20%" align="left" class="campos odd1">Fecha levantamiento</td>        
+        <td width="40%" align="left" class="campos odd1">Motivo visita fallida</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%= select(:titulacionesvisita,:lev_situacion, select_situacion_levantamiento,{ :include_blank => true },
+                              { :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesvisita, :lev_situacion, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%= calendar_date_select "titulacionesvisita", "lev_fecha", :year_range => [2015, 2017], :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :titulacionesvisita, :lev_fecha, :css_class =>"cerror"%></td>
+        <td class="camposDesc"><%= select(:titulacionesvisita,:lev_motivo, select_motivo_fallida,{ :include_blank => true },
+                              { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :titulacionesvisita, :lev_motivo, :css_class =>"cerror"%></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="70%" align="left" class="campos">Observaci&oacute;n *</td>
+      </tr>
+      <tr valign="top">
+        <td class="camposDesc" align="left" ><%= text_area(:titulacionesvisita, :lev_observaciones, :cols => 110, :rows => 5, :class => 'campo', :maxlength => 4000,
+                                                  :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :titulacionesvisita, :lev_observaciones, :css_class =>"cerror"%></td>
+        </tr>
+    </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :titulacionesvisita, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div></div></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>

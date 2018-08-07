@@ -1,0 +1,193 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td class="camposDesc">
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/repartomin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">REPARTO NOTARIAL</div></td>
+          <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar"}),repartos_path %>
+          </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/interno.png" border="0" title="Reparto"/></a></li>
+<% unless @reparto.new_record? %>
+        <li><a href="#tab2"><img src="/images/menunormas.png" border="0" title="Actos"/></a></li>
+        <li><a href="#tab3"><img src="/images/house.png" border="0" title="Inmuebles"/></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<% form_for (@reparto) do |f| %>
+  <%= f.hidden_field :entidad1_nit %>
+  <%= f.hidden_field :entidad1_nombre %>
+  <%= f.hidden_field :entidad1_naturaleza %>
+  <%= f.hidden_field :estado %>
+<div align="center">
+<table width="837"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td height="30" align="left"><div class="col_enc">DATOS</div></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+    <tr class="odd1">
+      <td class="campos" colspan="3">Entidad(es) Obligada(s) a Reparto</td>
+    </tr>
+    <tr class="odd1">
+      <td width="25%" class="campos">Nit</td>
+      <td width="60%" class="campos">Nombre</td>
+      <td width="15%" class="campos">Naturaleza</td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%=@reparto.entidad1_nit rescue nil%></td>
+      <td class="camposDesc"><%=@reparto.entidad1_nombre rescue nil%></td>
+      <td class="camposDesc"><%=@reparto.entidad1_naturaleza rescue nil%></td>
+    </tr>
+    <tr>
+      <td class="camposDesc"><%= f.text_field :entidad2_nit,{ :class => "campo", :size =>20,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :entidad2_nit, :css_class =>"cerror"%></td>
+      <td class="camposDesc"><%= f.text_field :entidad2_nombre,{ :class => "campo", :size => 75,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+          :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= f.error_message_on :entidad2_nombre, :css_class =>"cerror"%></td>
+      <td class="camposDesc"><%=select(:reparto,:entidad2_naturaleza, select_naturaleza,{ :include_blank => true },{ :style=>"width:140px", :class => "campo" })%>
+          <%= f.error_message_on :entidad2_naturaleza, :css_class =>"cerror"%></td>
+    </tr>  
+    <% unless @reparto.new_record? %> 
+     <tr class="odd1">
+      <td class="campos" colspan="3">Usuario Solicitante : <strong><%=User.find(@reparto.user_solicita).nombre rescue nil%></strong></td>
+     </tr>    
+    <% end %> 
+  </table>
+  <br/>
+<% unless @reparto.new_record? %> 
+  <% if @reparto.estado.to_s == 'PENDIENTE' or  @reparto.estado.to_s == 'RECHAZADO'%>
+      <% if @reparto.estadopareenvio == true %>
+          <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN12"><br/>
+               El proceso esta listo, si desea solicitar la generación del reparto pulse <%=link_to 'Aqui', {:controller=>"repartos", :action=>"solicitar", :id=>@reparto.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+          </div>   
+      <% else %>
+          <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN12"><br/>
+               El proceso aun no esta completado si quiere que el sistema verifique nuevamente pulsa <%=link_to 'Aqui', edit_reparto_path(@reparto.id)%><br/><br/>
+          </div>
+      <% end %>
+  <% elsif permiso("repartoautorizacion","C").to_s == "S" %>  
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr>
+          <td height="30" align="left"><div class="col_enc">ETAPA 2 DEL PROCESO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Tipo Reparto</td>
+          <td width="40%" class="campos">Categoria</td>
+        </tr>
+        <tr>
+          <td><%= f.select(:tipo_reparto, select_tiporeparto,{ :include_blank => true },
+                          { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+          <td><%= f.select(:actoscategoria, select_categoria,{ :include_blank => true },
+                          { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+        </tr>
+      </table> 
+      <% if @reparto.tipo_reparto.to_s != "" and @reparto.actoscategoria.to_s != ""%>
+        <% if  !@reparto.nro_acta %>
+            <br/>
+            <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN12"><br/>
+                 El proceso esta listo, si desea generar el reparto pulse <%=link_to 'Aqui', {:controller=>"repartos", :action=>"asignacion", :id=>@reparto.id}, :confirm=>"Esta seguro??? "%>, si desea rechazarlo pulse <%=link_to 'Aqui', {:controller=>"repartos", :action=>"rechazo", :id=>@reparto.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+            </div>
+        <% else %>
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
+            <tr class="odd1">
+              <td class="campos" colspan="6">Registros Notariales</td>
+            </tr>
+            <tr class="odd1">
+              <td width="10%" class="campos">N° Acta</td>
+              <td width="10%" class="campos">N° Reparto</td>
+              <td width="15%" class="campos">Fecha Reparto</td>
+              <td width="10%" class="campos">Año Reparto</td>
+              <td width="40%" class="campos">Notaria</td>
+            </tr>
+            <tr>
+              <td><%= f.text_field :nro_acta,{ :class => "campo", :size => 10,:onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+               <td><%= @reparto.nro_acta rescue nil %></td>
+               
+              <td><%= calendar_date_select "reparto", "fecha_reparto", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+              <td> <%= f.text_field :anno,{ :class => "campo", :size => 8,
+                          :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                        :onFocus => "this.style.border='1px solid #f00'",
+                        :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+              <td><%=select("reparto", "notaria_id", Notaria.all.collect {|p| [ p.descripcion + " ( " + p.zona + " ) ", p.id ] }, { :include_blank => true },
+                       { :style=>"width:320px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+            </tr>
+          </table>  
+        <% end %>
+      <% end %>
+    <% end %>  
+<% end %>
+  <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+      <td class="camposNotas" align="left">
+        <% unless @reparto.new_record? %>
+          Ultima Actualización: <%=User.find(@reparto.user_actualiza).username rescue nil%> - <%=@reparto.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+        <% end %></td>
+          <td  height="30"><div align="right">
+            <% if @reparto.estado.to_s == 'PENDIENTE' or @reparto.estado.to_s == 'RECHAZADO' %>
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% elsif permiso("repartoautorizacion","C").to_s == "S" %>
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                <% if @reparto.nro_acta %>
+                <%= link_to "Constancia", {:controller => "repartos", :action => "constancia", :id=>@reparto.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+                <% end %>
+            <% end %>
+            <% if @reparto.estado.to_s != 'PENDIENTE' and @reparto.estado.to_s != 'RECHAZADO'%>
+               <%= link_to "Solicitud", {:controller => "repartos", :action => "solicitud", :id=>@reparto.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <% end %>
+        </div></td>
+    </tr>
+  </table>
+   </td>
+  </tr>
+</table>
+
+  </div>
+<% end %>
+</fieldset>
+</div>
+<% unless @reparto.new_record? %>
+<div class="panel" id="tab2">
+  <fieldset>
+    <div id="repartosactos_form">
+       <%= render :partial => "/repartosactos/repartosactos"%>
+    </div>
+  </fieldset>
+</div>
+<div class="panel" id="tab3">
+  <fieldset>
+    <div id="repartosinmuebles_form">
+       <%= render :partial => "/repartosinmuebles/repartosinmuebles"%>
+    </div>
+  </fieldset>
+</div>
+  
+<% end %>
+</div>
+
+

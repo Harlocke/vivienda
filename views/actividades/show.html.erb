@@ -1,0 +1,23 @@
+<p>
+  <b>Requerimiento:</b>
+  <%=h @actividad.requerimiento_id %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%=h @actividad.descripcion %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%=h @actividad.estado %>
+</p>
+
+<p>
+  <b>Usuario:</b>
+  <%=h @actividad.usuario_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_actividad_path(@actividad) %> |
+<%= link_to 'Back', actividades_path %>

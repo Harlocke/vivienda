@@ -1,0 +1,10 @@
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr valign="top">
+    <td class="camposDesc" align="left">
+      <%=select("mejorainformescriterio", "capituloscriterio_id", Capituloscriterio.find(:all, :conditions => ["capitulo_id = (select capitulo_id from mejoramientositems where id = #{@mejorainformeselemento.mejoramientoselemento.mejoramientositem_id}) and id not in (select capituloscriterio_id from mejorainformescriterios where mejorainformeselemento_id = #{@mejorainformeselemento.id})"], :order => "descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+     { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+   <%= error_message_on :mejorainformescriterio, :cantidad, :css_class =>"cerror"%>
+    <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :mejorainformescriterio, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+    </td>
+  </tr>
+</table>

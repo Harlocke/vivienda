@@ -1,0 +1,56 @@
+<%=  javascript_include_tag :defaults %>
+<%= stylesheet_link_tag 'scaffold'%>
+<%=image_tag("frame.png")%>
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="0" class="campos"><div align="center">INSTITUTO SOCIAL DE VIVIENDA Y HABITAT DE MEDELLIN - ISVIMED -- NIT: 900.080.526-9</div></td>
+        </tr>
+        <tr  bgcolor="#FF0000">
+          <td height="0" class="campos"><div align="center">INFORME ELEMENTOS ENTREGADOS DEPENDENCIA (<%=@dependencia%>) - MES (<%=@mes%>) - AÑO (<%=@anno%>)</div></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<BR/>
+<table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="70%" height="18" class="oce-first"><div align="center">Descripcion</div></td>
+        <td width="15%" class="oce-first"><div align="center">Fecha Entrega</div></td>
+        <td width="15%" class="oce-first"><div align="center">Cantidad</div></td>
+      </tr>
+<% @almacenessalidas.each do |almacenessalida| %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td class="camposDesc" height="20" ><%=almacenessalida.producto.descripcion rescue nil%></td>
+        <td class="camposDesc"><div align="center"><%=almacenessalida.created_at%></div></td>
+        <td class="camposDesc"><div align="center"><%=almacenessalida.cantidad%></div></td>
+      </tr>
+<% end %>
+    </table>
+    </td>
+  </tr>
+</table>
+<br/><br/><br/>
+<div align="center">
+<table width="800"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="40%">_______________________________________</td>
+    <td width="20%">&nbsp;</td>
+    <td width="40%">_______________________________________</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">FIRMA RESPONSABLE ALMACEN </td>
+    <td>&nbsp;</td>
+    <td class="camposDesc">FIRMA <%=@dependencia%></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+  </div>
+<br/>

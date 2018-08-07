@@ -1,0 +1,84 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">DIRIGIDO A </div></td>
+  </tr>
+</table>
+<% remote_form_for [@correspondenciasinterna, @corresinternasdirigido] do |form| %>
+  <% if permiso("corresinternasdirigido","C").to_s == "S" %>
+        <% if !@corresinternasdirigido.id %>
+        <%  if @correspondenciasinterna.fecha_radicado %>
+  <br/>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+           <tr>
+                <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+                <td width="95%" class="campos">Este documento ya fue radicado.</td>
+           </tr>
+          </table>
+  <br/>
+        <% else %>
+  <%= render :partial => "/corresinternasdirigidos/corresinternasdirigidos_form" %>
+        <% end %>
+    <% end %>
+  <% end %>
+<% if @correspondenciasinterna.corresinternasdirigidos.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha Creación</td>
+    <td width="40%" class="oce-first">Usuario</td>
+    <td width="40%" class="oce-first">Dependencia</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% for corresinternasdirigido in @correspondenciasinterna.corresinternasdirigidos.find(:all, :order => 'created_at DESC') %>
+   <% if corresinternasdirigido.id != @corresinternasdirigido.id %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="corresinternasdirigido_<%=corresinternasdirigido.id%>">
+      <td height="30" class="camposDesc"><%=corresinternasdirigido.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+      <td class="camposDesc"><%=corresinternasdirigido.user.nombre rescue nil%><br/>
+      <%=corresinternasdirigido.user.email rescue nil%></td>
+      <td class="camposDesc"><%=corresinternasdirigido.user.dependencia.descripcion rescue nil%></td>
+      <td class="camposDesc">
+       <% if permiso("corresinternasdirigido","E").to_s == "S" %>
+          <%  if !@correspondenciasinterna.fecha_radicado %>
+             <%= link_to_remote('Borrar',{:url => correspondenciasinterna_corresinternasdirigido_path(@correspondenciasinterna, corresinternasdirigido),
+                  :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+      <% end %></td>
+   </tr>
+  <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+         <tr><td  height="30"><div class="col_enc">EDITAR DEPENDENCIAS</div></td></tr>
+      </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="corresinternasdirigido_<%=@corresinternasdirigido.id%>">
+     <%= render :partial => "corresinternasdirigidos_form" %>
+    </tr>
+    </fieldset>
+  <% end %>
+<% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :correspondenciasinterna, :id %>
+<% end %>
+<br/>
+<% if flash[:corresinternasdirigido] %>
+<div id="corresinternasdirigido">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:corresinternasdirigido] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('corresinternasdirigido');", 5000)
+</script>
+<% end %>
+</fieldset>

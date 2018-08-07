@@ -1,0 +1,2 @@
+page.replace_html :capituloscriterios_form, :partial => "/capituloscriterios/capituloscriterios"
+

@@ -1,0 +1,59 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/archivomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PRESTAMOS PARA ENTREGA MASIVA</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="40%" height="30" class="oce-first">Identificacion Usuario</td>
+    <td width="5%" height="30" class="oce-first">Caja</td>
+    <td width="10%" class="oce-first">Carpeta</td>
+    <td width="30%" class="oce-first">Serie-Subserie</td>
+    <td width="10%" class="oce-first">Prestado A</td>
+    <td width="5%" class="oce-first"></td>
+  </tr>
+<%
+   #@archivos.each do |archivo|
+     #archivosprestamos = Archivosprestamo.find(:all, :conditions =>["archivo_id =#{archivo.id} and fecha_devolucion is null"])
+     @archivosprestamos.each do |archivosprestamo|
+       user = User.find(archivosprestamo.userprestamo)
+       cadena = ""
+       @archivospersonas = Archivospersona.find_all_by_archivo_id(archivosprestamo.archivo_id);
+       for archivospersona in @archivospersonas
+         persona  = Persona.find(archivospersona.persona_id);
+         if cadena != ""
+           cadena = cadena + ' - ' + persona.autobuscar
+         else
+           cadena = persona.autobuscar
+         end
+       end
+%>
+  <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h cadena%></td>
+    <td class="camposDesc"><%=h archivosprestamo.archivo.caja rescue nil%></td>
+    <td class="camposDesc"><%=h archivosprestamo.archivo.carpeta rescue nil%></td>
+    <td class="camposDesc"><%=h archivosprestamo.archivo.archivosserie.subserie rescue nil%></td>
+    <td class="camposDesc"><%=user.username rescue nil%></td>
+    <td class="camposDesc"><%= link_to '',{:controller => "archivosprestamos", :action =>"entregavigentemasivo",:id=> archivosprestamo.id}, :class=>"recibidolink", :title =>"Marcar Devolucion"%></td>
+  </tr>
+<%    end %>
+</table>
+<table width="95%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@archivosprestamos.count%></div></td>
+  </tr>
+</table>

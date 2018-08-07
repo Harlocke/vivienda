@@ -1,0 +1,46 @@
+<h1>Listing ayudashumanitarias</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Estado atencion</th>
+    <th>Nro carpeta</th>
+    <th>Tipo evacuacion</th>
+    <th>Fecha remision</th>
+    <th>Nro ficha simpad</th>
+    <th>Evento</th>
+    <th>Direccion evento</th>
+    <th>Telefono evento</th>
+    <th>Barrio evento</th>
+    <th>Direccion nueva viv</th>
+    <th>Telefono nueva viv</th>
+    <th>Barrio nueva viv</th>
+    <th>Fecha contrato</th>
+  </tr>
+
+<% @ayudashumanitarias.each do |ayudashumanitaria| %>
+  <tr>
+    <td><%=h ayudashumanitaria.persona_id %></td>
+    <td><%=h ayudashumanitaria.estado_atencion %></td>
+    <td><%=h ayudashumanitaria.nro_carpeta %></td>
+    <td><%=h ayudashumanitaria.tipo_evacuacion %></td>
+    <td><%=h ayudashumanitaria.fecha_remision %></td>
+    <td><%=h ayudashumanitaria.nro_ficha_simpad %></td>
+    <td><%=h ayudashumanitaria.evento %></td>
+    <td><%=h ayudashumanitaria.direccion_evento %></td>
+    <td><%=h ayudashumanitaria.telefono_evento %></td>
+    <td><%=h ayudashumanitaria.barrio_evento %></td>
+    <td><%=h ayudashumanitaria.direccion_nueva_viv %></td>
+    <td><%=h ayudashumanitaria.telefono_nueva_viv %></td>
+    <td><%=h ayudashumanitaria.barrio_nueva_viv %></td>
+    <td><%=h ayudashumanitaria.fecha_contrato %></td>
+    <td><%= link_to 'Show', ayudashumanitaria %></td>
+    <td><%= link_to 'Edit', edit_ayudashumanitaria_path(ayudashumanitaria) %></td>
+    <td><%= link_to 'Destroy', ayudashumanitaria, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ayudashumanitaria', new_ayudashumanitaria_path %>

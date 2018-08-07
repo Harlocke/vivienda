@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h3>Procesos Relacionados</h3>
+</div>
+<% remote_form_for [@calidadnormograma, @calidadnormogramasproceso] do |form| %>
+    <% if !@calidadnormogramasproceso.id %>
+	<%= render :partial => "/calidadnormogramasprocesos/calidadnormogramasprocesos_form" %>
+    <% end %>
+<% if @calidadnormograma.calidadnormogramasprocesos.exists? %>
+<table class="table table-bordered table-striped">
+  <tr valign="middle">
+    <td width="85%"><strong>Proceso</strong></td>
+    <td width="15%"></td>
+  </tr>
+<% for calidadnormogramasproceso in @calidadnormograma.calidadnormogramasprocesos.find(:all, :order => 'created_at DESC') %>
+   <% if calidadnormogramasproceso.id != @calidadnormogramasproceso.id %>
+   <tr valign="middle" id="calidadnormogramasproceso_<%=calidadnormogramasproceso.id%>">
+     <td valign="middle"><%=calidadnormogramasproceso.calidadproceso.tipoproceso rescue nil%> - <%=calidadnormogramasproceso.calidadproceso.descripcion rescue nil%></td>
+     <td><div align="center">
+    <% if permiso("calidadnormogramasproceso","E").to_s == "S" %>
+      &nbsp;<%= link_to_remote('Borrar',{:url => calidadnormograma_calidadnormogramasproceso_path(@calidadnormograma, calidadnormogramasproceso),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"btn btn-mini btn-danger")%>
+    <%  end %>
+      </div>
+    </td>
+ </tr>
+<% else %>
+     <table class="table table-bordered table-striped"><tr valign="top"><td><h3>Editar</h3></td></tr></table>
+     <%= render :partial => "calidadnormogramasprocesos_form" %>
+      <table class="table table-bordered table-striped">
+<% end %>
+        <% end %>
+</table>
+
+<% else %>
+<div id="calidadnormogramasproceso">
+    <div class="alert alert-success">No hay datos asociados</div>
+</div>
+<% end %>
+            <%= hidden_field :calidadnormograma, :id %>
+<% end %>
+<br/>
+<% if flash[:calidadnormogramasproceso] %>
+<div id="calidadnormogramasproceso">
+    <div class="alert alert-success">
+      <%= flash[:calidadnormogramasproceso] %>
+    </div>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('calidadnormogramasproceso');", 5000)
+</script>
+<% end %>

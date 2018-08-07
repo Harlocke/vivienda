@@ -1,0 +1,68 @@
+<strong>INFORME CONSOLIDADO PROYECTOSáéñ,,,ÁÉÍ</strong>
+<br/>
+<table  border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Proyecto</strong></td>
+    <td><strong>Etapa Proyecto</strong></td>
+    <td><strong>Total Viviendas</strong></td>
+    <td><strong>Total Bloques</strong></td>
+    <td><strong>Entregadas</strong></td>
+    <td><strong>No Entregadas</strong></td>
+    <td><strong>Asignados</strong></td>
+    <td><strong>Disponibles</strong></td>
+    <td><strong>Escriturado</strong></td>
+    <td><strong>Pendientes Entrega Escritura</strong></td>
+  </tr>
+<%
+    sumviviendas     = 0
+    sumbloques       = 0
+    sumentregadas    = 0
+    sumpendientes    = 0
+    sumocupadas      = 0
+    sumdisponibles   = 0
+    sumescr          = 0
+    sumescpendiente  = 0
+    @proyectos.each do |data|
+      cantviviendas    = Vivienda.count(:conditions => [' proyecto_id = ? ', "#{data.id}"])
+      sumviviendas     = sumviviendas + cantviviendas.to_i
+      cantentregadas   = Vivienda.count(:conditions => [' proyecto_id = ? and entregado = ?' , "#{data.id}", "S"])
+      sumentregadas    = sumentregadas + cantentregadas.to_i
+      cantnoentregadas = cantviviendas - cantentregadas
+      sumpendientes    = sumpendientes + cantnoentregadas.to_i
+      cantocupadas     = Vivienda.count(:conditions => [' proyecto_id = ? and estado = ?' , "#{data.id}", "O"])
+      sumocupadas      = sumocupadas + cantocupadas.to_i
+      cantdisponibles  = Vivienda.count(:conditions => [' proyecto_id = ? and estado = ?' , "#{data.id}", "D"])
+      sumdisponibles   = sumdisponibles + cantdisponibles.to_i
+      cantescr          = Vivienda.count(:conditions => [' proyecto_id = ? and id in (select distinct vivienda_id from viviendastramites where viviendastipostramite_id in (10086,10075,10106,10076))' , "#{data.id}"])
+      #cantescr         = Viviendastramite.count(:conditions => [' viviendastipostramite_id in (10086,10075,10106,10076) and vivienda_id in (select id from viviendas where proyecto_id = ?)' , "#{data.id}"])
+      sumescr          = sumescr + cantescr.to_i
+      cantbloques      = Bloque.count(:conditions => [' proyecto_id = ?' , "#{data.id}"])
+      sumbloques       = sumbloques + cantbloques.to_i
+      cantpendescentrega = Vivienda.count(:conditions => [" proyecto_id = #{data.id} and inv_consecutivo > 0 and inv_esc_entrega != 'SI'"])
+      sumescpendiente  = sumescpendiente + cantpendescentrega
+%>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=data.descripcion rescue nil%></td>
+    <td><%=data.etapa_proyecto rescue nil%></td>
+    <td><%=cantviviendas%></td>
+    <td><%=cantbloques%></td>
+    <td><%=cantentregadas%></td>
+    <td><%=cantnoentregadas%></td>
+    <td><%=cantocupadas%></td>
+    <td><%=cantdisponibles%></td>
+    <td><%=cantescr%></td>
+    <td><%=cantpendescentrega%></td>
+  </tr>
+<%   end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="2"><strong>TOTAL</strong></td>
+    <td><strong><%=number_to_currency(sumviviendas,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumbloques,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumentregadas,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumpendientes,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumocupadas,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumdisponibles,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumescr,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+    <td><strong><%=number_to_currency(sumescpendiente,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+  </tr>
+</table>

@@ -1,0 +1,23 @@
+<div align="center">
+<table width="60%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="40%" height="20" class="campos"><div align="left">Indique el codigo del presupuesto</div></td>
+    <td width="60%" ><%= text_field "seguimientoslicitacion", :licitacion_id,{ :class => "campo"}%>
+      <%= error_message_on :seguimientoslicitacion, :licitacion_id, :css_class =>"cerror"%>
+    </td>
+  </tr>
+</table>
+    <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+  <tr valign="middle">
+    <td width="60%"><div align="right">
+      &nbsp;&nbsp;<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :seguimientoslicitacion, :id %><%= submit_tag "Asociar", :disable_with => "Guardando..."%></span></div>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>

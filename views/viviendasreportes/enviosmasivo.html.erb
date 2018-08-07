@@ -1,0 +1,121 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td width="24%" align="left" class="camposDesc13">Medellin,</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc13"><p>Doctor:<br>
+            <strong>LUIS ARTURO CEBALLOS SANCHEZ<br>
+            </strong>Notario &Uacute;nico de la Estrella<br>
+            Tel&eacute;fono: 279 00 21 </p>            </td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc13"><p><strong>ASUNTO </strong>: Remisi&oacute;n N&deg;_____ <strong>ESCRITURAS </strong><strong>PARA PROTOCOLO –URBANIZACION LIMONAR ETAPA 4. </strong><strong></strong></p></td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc13"><p>Conforme al proceso de escrituraci&oacute;n de los inmuebles ubicados en la urbanizaci&oacute;n en menci&oacute;n y que se est&aacute; llevando a cabo ante su despacho, le remitimos <strong><%=@cantidad.to_words.upcase%> (<%=@cantidad%>)</strong> minutas de transferencia con patrimonio de familia e hipoteca, las cuales ya se encuentran suscritas por los beneficiarios del proyecto en menci&oacute;n y por la Doctora Claudia Cecilia Cadavid, en su calidad de Directora General del ISVIMED. </p>
+            <p>Muy comedidamente le solicitamos continuar con el tr&aacute;mite correspondiente a la protocolizaci&oacute;n de las minutas y adicionalmente corregir algunos errores los cuales relacionamos. </p>
+            <p>Agradecemos de antemano, la diligencia y prontitud en el tr&aacute;mite. </p>            </td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="campos"><p align="center"><strong>RELACION DE (<%=@cantidad%>) BENEFICIARIOS–LIMONAR ETAPA 4- <br>
+          </strong><strong>MINUTAS PARA ENUMERAR Y PROTOCOLIZAR </strong></p>            </td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<%
+   i = 0
+   for viviendasreporte in @viviendasreportes
+     @viviendaspersona = Viviendaspersona.exists?(["persona_id = ?", viviendasreporte.persona_id])
+     if  @viviendaspersona
+       i = i + 1
+       viviendaspersona = Viviendaspersona.find_by_persona_id(viviendasreporte.persona_id)
+       viviendaspersona1 = Viviendaspersona.find_by_vivienda_id(viviendaspersona.vivienda_id)
+       @viviendastramite = Viviendastramite.find_by_vivienda_id_and_viviendastipostramite_id(viviendaspersona.vivienda_id, '10067')
+       @vivienda = Vivienda.find(viviendaspersona.vivienda_id)
+%>
+            <tr>
+              <td width="20%" class="campos">Identificacion</td>
+              <td width="40%" class="campos">Nombre</td>
+              <td width="20%" class="campos">Bloque</td>
+              <td width="20%" class="campos">Apto</td>
+            </tr>
+            <tr>
+              <td class="camposDesc"><%=viviendaspersona1.persona.identificacion rescue nil%></td>
+              <td class="camposDesc"><%=viviendaspersona1.persona.primer_nombre rescue nil%> <%=viviendaspersona.persona.segundo_nombre rescue nil%> <%=viviendaspersona.persona.primer_apellido rescue nil%> <%=viviendaspersona.persona.segundo_apellido rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.bloque.descripcion rescue nil%></td>
+              <td class="camposDesc"><%=@vivienda.apto.descripcion rescue nil%></td>
+            </tr>
+            <tr>
+              <td class="campos">Observacion:</td>
+              <td colspan="3" class="camposDesc"><%=@viviendastramite.observaciones rescue nil%></td>
+            </tr>
+<tr>
+          <td colspan="4"  class="campos">
+                <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+          </td>
+        </tr>
+
+<%
+      end
+    end
+%>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc13">Cordial Saludo, </td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="camposDesc">&nbsp;</td>
+          </tr>
+        <tr>
+          <td align="left" class="campos13">CATALINA MARTINEZ</td>
+        </tr>
+        <tr>
+          <td align="left" class="campos13">Subdirectora Juridica</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+
+<table width="90%" height="0" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td height="0"class="camposDesc">&nbsp;</td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+  <tr><td height="0"class="camposDesc">&nbsp;&nbsp;&nbsp;<%=User.find(is_admin).nombre%></td></tr>
+  </table>
+</div>

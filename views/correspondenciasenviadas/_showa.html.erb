@@ -1,0 +1,100 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CORRESPONDENCIAS ENVIADA</div></td>
+  </tr>
+</table>
+<% for correspondenciasenviada in @ayuda.persona.correspondenciasenviadas.find(:all, :order => 'created_at DESC') %>  
+<br/>
+<div align="center">
+<table width="90%" border="0"  id="one-column-emphasis">
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Nro Radicado y Fecha &nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.nro_radicado%> - <%=correspondenciasenviada.fecha_elaboracion%></div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="left">Lugar destino&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.lugar_destino%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Remitente Empresa &nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.correspondenciasremitente.nombre rescue nil%>
+          </div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="left">Asunto &nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.asunto%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Dependencia - Usuario&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.dependencia.descripcion rescue nil%> - <%=User.find(correspondenciasenviada.userdependencia_id).nombre rescue nil%></div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="left">Anexos&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.anexos%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Devolucion&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.devolucion%></div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="left">Reenvio&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.reenvio%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Guia Correo&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.guiacorreo%></div></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos"><div align="left">Observaciones&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.observacion%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td width="33%" height="20" class="campos"><div align="left">Fecha Registro en el Sistema&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="left"><%=correspondenciasenviada.created_at.strftime("%Y-%m-%d %X") rescue nil%></div></td>
+        </tr>
+</table>
+<% if correspondenciasenviada.corresenviadasimagenes.exists? %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION DIGITALIZADA</div></td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="45%" class="oce-first" align="left">Descripcion</td>
+    <td width="50%" class="oce-first" align="left">Nombre del Archivo</td>
+    <td width="5%" class="oce-first" align="left">&nbsp;</td>
+  </tr>
+  <% correspondenciasenviada.corresenviadasimagenes.each do |corresenviadasimagen| %>
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+     <td class="camposDesc" align="left"><%=corresenviadasimagen.descripcion%></td>
+     <td class="camposDesc" align="left"><%=corresenviadasimagen.enviada_file_name%></td>
+     <td class="camposDesc" align="right">
+      <% if correspondenciasenviada.confidencial.to_s != 'SI' %>
+        <%= link_to "Ver", corresenviadasimagen.enviada.url(:original, false),
+                     { :popup => ['imagenes','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%>
+      <% end %>
+     </td>
+   </tr>
+  <% end %>
+</table>
+<% else %>
+<br/>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay archivos digitales asociados.</td>
+     </tr>
+</table>
+  <% end %>
+</div>
+   <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>
+  <% end %>  
+<br/>
+</fieldset>

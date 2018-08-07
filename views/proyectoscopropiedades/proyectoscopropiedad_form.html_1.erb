@@ -1,0 +1,389 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACIÓN COPROPIEDADES (Proyecto: <%=@proyectoscopropiedad.proyecto.descripcion rescue nil%>)</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Regresar"}),edit_proyecto_path(@proyectoscopropiedad.proyecto_id) %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/copro_gral.png" border="0" title="Información General"/></a></li>
+        <% unless @proyectoscopropiedad.new_record? %>
+          <li><a href="#tab6"><img src="/images/copro_bloques.png" border="0" title="Bloques"/></a></li>
+          <li><a href="#tab5"><img src="/images/beneficiarios.png" border="0" title="Órgano de Administración"/></a></li>
+          <li><a href="#tab3"><img src="/images/feria2009.png" border="0" title="Propiedades Horizontales"/></a></li>
+          <li><a href="#tab4"><img src="/images/feria2010.png" border="0" title="Acompañamiento Social"/></a></li>
+          <li><a href="#tab7"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <% end %>        
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+      <% form_for @proyectoscopropiedad do |f| %>
+      <%= f.hidden_field :proyecto_id %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">INFORMACIÓN GENERAL</div></td>
+        </tr>
+      </table>
+      <table width="100%" align="center">
+        <tr class="odd1">
+          <td width="45%" class="campos">Nombre de la Copropiedad</td>
+          <td width="10%" class="campos">Total Bloques</td>
+          <td width="20%" class="campos">Total aptos Copropiedad</td>
+          <td width="25%" class="campos">N° Escritura RPH - Fecha</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= text_field :proyectoscopropiedad, :nombre,{ :class => "campo", :size => 65,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc"><strong><%=@proyectoscopropiedad.proyectoscopbloques.count rescue nil%></strong></td>
+          <td class="camposDesc"><strong><%=Apto.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}))"]) rescue nil%></strong></td>
+          <td class="camposDesc"><strong><%=@proyectoscopropiedad.inforph%></strong></td>
+        </tr>
+      </table>
+      <table width="100%" align="center">
+        <tr> </tr>
+        <tr>
+          <td colspan="2" class="camposDesc">N° certificado de personería jurídica y fecha:</td>
+          <td width="110"><%= text_field :proyectoscopropiedad, :certif_personeria,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                      :onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %> <%= calendar_date_select "proyectoscopropiedad", "certif_personfecha", :year_range =>[2012,2020], :size=>"5", :time => false, :onfocus=>"this.blur()"%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° apartamentos entregados: </td>
+          <td><strong><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and entregado = 'S')"]) rescue nil%></strong></td>
+          <td class="camposDesc" colspan="2">N° aptos. sin entregar:</td>
+          <td><strong><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and entregado != 'S')"]) rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° escrituras registradas:</td>
+          <td><strong><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and esc_registrada = 'S')"]) rescue nil%></strong></td>
+          <td class="camposDesc" colspan="2">N° escrituras entregadas:</td>
+          <td><strong><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and inv_esc_entrega = 'SI')"]) rescue nil%></strong></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° escrituras por entregar: </td>
+          <td><strong><%=Vivienda.count(:conditions=>["piso_id in (select id from pisos where bloque_id in (select bloque_id from proyectoscopbloques where proyectoscopropiedad_id = #{@proyectoscopropiedad.id}) and (inv_esc_entrega = 'NO' or inv_esc_entrega is null))"]) rescue nil%></strong></td>
+          <td class="camposDesc" colspan="2">N° locales de la copropiedad:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_copropiedad,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° locales el ISVIMED es titular de dominio:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_isvimed,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc" colspan="2">N° de locales municipio titular de dominio:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_municipio,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° de locales donde el dominio es de un encargo:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_dominio,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc" colspan="2">N° de locales a nombre de la copropiedad</td>
+          <td><%= text_field :proyectoscopropiedad, :local_nombre,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° de locales no entregados:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_noentrega,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc" colspan="2">N° de locales por entregar a la copropiedad:</td>
+          <td><%= text_field :proyectoscopropiedad, :local_porentrega,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° unidades productivas en la copropiedad:</td>
+          <td><%= text_field :proyectoscopropiedad, :unidad_productiva,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc" colspan="2">N° de aptos. dedicados exclusivamente para unidad productivas: </td>
+          <td><%= text_field :proyectoscopropiedad, :aptos_dedicados,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="5">N° de aptos.ocupados de manera irregular: <%= text_field :proyectoscopropiedad, :aptos_ocupados,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %>Cuáles: <%= text_field :proyectoscopropiedad, :aptos_cuales,{ :class => "campo", :size => 70,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="5">Profesional social que acompaña: <%=select("proyectoscopropiedad", "user_profesional", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+            { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+       </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">OBSERVACION FUNCIONAMIENTO DE ORGANO DE ADMINISTRACION Y DIRECCIÓN</div></td>
+        </tr>
+      </table>
+        <table width="100%" align="center">
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Activo, reuniones periódicas, comunicación, toma de decisiones, reconocimiento copropietarias/os, nivel de autonomía:</strong> 
+          <%= text_area(:proyectoscopropiedad, :obs_organo, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">INFORMACIÓN ADMINISTRATIVA</div></td>
+        </tr>
+      </table>
+      <table width="100%" align="center">
+        <tr>
+          <td class="camposDesc" width="50%">Valor cuota de administración <%= text_field :proyectoscopropiedad, :cuota_admon,{ :class => "campo", :size => 25,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %> Porcentaje mensual de pago de cuota de administración: <%= text_field :proyectoscopropiedad, :porcentaje_admon,{ :class => "campo", :size => 15,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="2">Maneja libros contables: Si<%= f.radio_button("libro_contable", "SI") %> No<%= f.radio_button("libro_contable", "NO") %> Observación: <%= text_field :proyectoscopropiedad, :libro_contableobs,{ :class => "campo", :size => 70,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="2">Manejo de libro de actas: Si <%= f.radio_button("libro_actas", "SI") %> No <%= f.radio_button("libro_actas", "NO") %> Observación: <%= text_field :proyectoscopropiedad, :libro_actasobs,{ :class => "campo", :size => 70,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">ACOMPAÑAMIENTO REALIZADO <%=@proyectoscopropiedad.updated_at rescue nil%></div></td>
+        </tr>
+      </table>
+      <table width="100%" align="center">
+        <tr>
+          <td width="335" class="camposDesc">N° de reuniones con órganos de admón. y dirección</td>
+          <td width="76"><%= text_field :proyectoscopropiedad, :reunion_organo,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td width="403" class="camposDesc">Tiene manual de convivencia</td>
+          <td width="100">Si<%= f.radio_button("manual_convivencia", "SI") %> No<%= f.radio_button("manual_convivencia", "NO") %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° reuniones con consejo de admón.</td>
+          <td><%= text_field :proyectoscopropiedad, :reunion_consejo,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">N° talleres de convivencia:</td>
+          <td><%= text_field :proyectoscopropiedad, :taller_convivencia,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° reuniones con administrador/a: </td>
+          <td><%= text_field :proyectoscopropiedad, :reunion_admon,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">Fecha realización 1ª asamblea ordinaria do conformación:  </td>
+          <td><%= calendar_date_select "proyectoscopropiedad", "fecha_asamblea", :year_range =>[2013,2020], :size=>"5", :time => false, :onfocus=>"this.blur()"%></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° reuniones comité de convivencia:</td>
+          <td><%= text_field :proyectoscopropiedad, :reunion_comite,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">Acompañamiento en asambleas ordinarias 201_</td>
+          <td>Si<%= f.radio_button("acompanamiento", "SI") %> No<%= f.radio_button("acompanamiento", "NO") %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° visitas domiciliarias realizadas:</td>
+          <td><%= text_field :proyectoscopropiedad, :nro_visitas,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">N° de asambleas extraordinarias realizadas:</td>
+          <td><%= text_field :proyectoscopropiedad, :nro_asambleas,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc">N° asesorías jurídicas realizadas:</td>
+          <td><%= text_field :proyectoscopropiedad, :asesoria_juridica,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td class="camposDesc">N° asesorías contables realizadas: </td>
+          <td><%= text_field :proyectoscopropiedad, :asesoria_contable,{ :class => "campo", :size => 12,
+                      :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                      :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Cuentan con planeación y/o plan de trabajo en la copropiedad Si<%= f.radio_button("plan_trabajo", "SI") %> No<%= f.radio_button("plan_trabajo", "NO") %>.
+            Observación:</strong> 
+          <%= text_area(:proyectoscopropiedad, :plan_trabajoobs, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>N° de acciones de gestión interinstitucional realizadas en la copropiedad (nombre con que entidades):</strong>
+          <%= text_area(:proyectoscopropiedad, :nro_acciones, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Otras actividades realizadas a resaltar:</strong> 
+          <%= text_area(:proyectoscopropiedad, :otras_actividades, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>La copropiedad participa de reuniones de red de urbanización:Si<%= f.radio_button("reunion_red", "SI") %> No<%= f.radio_button("reunion_red", "NO") %>.
+            Observación:</strong>
+          <%= text_area(:proyectoscopropiedad, :reunion_redobs, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>La copropiedad participa de encuentros de la red de ciudad: Si<%= f.radio_button("encuentro_red", "SI") %> No<%= f.radio_button("encuentro_red", "NO") %>.
+            Observación:</strong>
+          <%= text_area(:proyectoscopropiedad, :encuentro_redobs, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>N° de habitantes de la copropiedad integrantes de la JAC. o JAL.</strong>
+          <%= text_area(:proyectoscopropiedad, :nro_habitantes, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Grupos comunitarios existentes en la copropiedad o urbanización:</strong>
+          <%= text_area(:proyectoscopropiedad, :grupo_comunitario, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Estrategias de gestión de la copropiedad:</strong>
+          <%= text_area(:proyectoscopropiedad, :estrategias, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Tres principales problemáticas de la copropiedad:</strong>
+          <%= text_area(:proyectoscopropiedad, :problematicas, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Asuntos pendientes del ISVIMED en la copropiedad: (social, jurídico, administrativo, contable, técnico)</strong>
+          <%= text_area(:proyectoscopropiedad, :pendiente_isvimed, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Perspectivas del acompañamiento en la copropiedad:</strong>
+          <%= text_area(:proyectoscopropiedad, :perspectiva, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" colspan="4"><strong>Comentarios generales:</strong><br/>
+          <%= text_area(:proyectoscopropiedad, :comentarios, :cols => 60, :rows => 4, :class => 'campo',
+            :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" ) %></td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposDescNotas" align="left">
+            <% unless @proyectoscopropiedad.new_record? %>
+            <div style="font-size: 13px; font-family: Tahoma; color:red" align="left"><strong>Última Actualización: <%=@proyectoscopropiedad.user.username rescue nil%> - <%=@proyectoscopropiedad.updated_at.strftime("%Y-%m-%d %X")%></strong></div>
+          <% end %></td>
+          <td  height="30"><div align="right">
+              <%# if permiso("persona","A").to_s == "S" %>
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+              <%# end %>
+           </div></td>
+        </tr>
+      </table>
+<% end %>
+</fieldset>
+</div>
+<div class="panel" id="tab3">
+  <fieldset>
+    <% unless @proyectoscopropiedad.new_record? %>
+      <%= render 'proyectoscopropiedades/horizontal'%>
+    <% end %>
+  </fieldset>
+</div>
+    </div>
+<div class="panel" id="tab4">
+  <fieldset>
+    <% unless @proyectoscopropiedad.new_record? %>
+      <%= render 'proyectoscopropiedades/actividad'%>
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab7">
+  <fieldset>
+    <% unless @proyectoscopropiedad.new_record? %>
+       <div id="proyectoscopnotas_form">
+          <%= render :partial => "/proyectoscopnotas/proyectoscopnotas" %>
+       </div>
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab5">
+  <fieldset>
+    <% unless @proyectoscopropiedad.new_record? %>
+      <div id="proyectoscopcomites_form">
+          <%= render :partial => "/proyectoscopcomites/proyectoscopcomites" %>
+      </div>      
+    <% end %>
+  </fieldset>
+</div>
+<div class="panel" id="tab6">
+  <fieldset>
+    <% unless @proyectoscopropiedad.new_record? %>
+       <div id="proyectoscopbloques_form">
+          <%= render :partial => "/proyectoscopbloques/proyectoscopbloques" %>
+       </div>
+    <% end %>
+  </fieldset>
+</div>

@@ -1,0 +1,36 @@
+<h1>Listing temporales</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Resolucion</th>
+    <th>Nro resolucion</th>
+    <th>Identificacion</th>
+    <th>Primer nombre</th>
+    <th>Segundo nombre</th>
+    <th>Primer apellido</th>
+    <th>Segundo apellido</th>
+  </tr>
+
+<% @temporales.each do |temporal| %>
+  <tr>
+    <td><%=h temporal.id %></td>
+    <td><%=h temporal.persona_id %></td>
+    <td><%=h temporal.resolucion_id %></td>
+    <td><%=h temporal.nro_resolucion %></td>
+    <td><%=h temporal.identificacion.to_i.to_words.upcase %></td>
+    <td><%=h temporal.primer_nombre %></td>
+    <td><%=h temporal.segundo_nombre %></td>
+    <td><%=h temporal.primer_apellido %></td>
+    <td><%=h temporal.segundo_apellido %></td>
+    <td><%= link_to 'Show', temporal %></td>
+    <td><%= link_to 'Edit', edit_temporal_path(temporal) %></td>
+    <td><%= link_to 'Destroy', temporal, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<br />
+
+<%= link_to 'New temporal', new_temporal_path %>

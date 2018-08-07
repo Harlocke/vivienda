@@ -1,0 +1,51 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<h3>INVENTARIO CONSOLIDADO DE INMUEBLES</h3>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Clasificación del proceso</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% sum = 0 
+  @saneamientos.each do |saneamiento|
+	if saneamiento.encargo_tramite.to_s != 'TRAMITE DE DESCARGUE' and saneamiento.encargo_tramite.to_s != 'PROCESO DE TRANSFERENCIA TERMINADO'
+		sum = sum + saneamiento.cant.to_i %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=saneamiento.encargo_tramite rescue nil%></div></td>
+     <td><div align="center"><%=saneamiento.cant rescue nil%></div></td>
+  </tr>
+  <% end %>
+<% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">Subtotal</div></td>
+     <td><div align="center"><%=sum rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td><strong>Clasificación del proceso</strong></td>
+    <td><strong>Cantidad</strong></td>
+  </tr>
+<% sum1 = 0 
+  @saneamientos.each do |saneamiento|
+	if saneamiento.encargo_tramite.to_s == 'TRAMITE DE DESCARGUE' or saneamiento.encargo_tramite.to_s == 'PROCESO DE TRANSFERENCIA TERMINADO'
+		sum1 = sum1 + saneamiento.cant.to_i %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+     <td><div align="left"><%=saneamiento.encargo_tramite rescue nil%></div></td>
+     <td><div align="center"><%=saneamiento.cant rescue nil%></div></td>
+  </tr>
+  <% end %>
+<% end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">Subtotal</div></td>
+     <td><div align="center"><%=sum1 rescue nil%></div></td>
+  </tr>
+</table>
+<br/>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+     <td><div align="left">TOTAL</div></td>
+     <td><div align="center"><%=sum1+sum rescue nil%></div></td>
+  </tr>
+</table>
+

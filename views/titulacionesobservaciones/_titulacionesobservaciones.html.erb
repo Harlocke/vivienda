@@ -1,0 +1,76 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">OBSERVACIONES DEL PREDIO</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@titulacion, @titulacionesobservacion] do |form| %>
+   <% if !@titulacionesobservacion.id %>
+	<%= render :partial => "/titulacionesobservaciones/titulacionesobservaciones_form" %>
+<% end %>
+<% if @titulacion.titulacionesobservaciones.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="12%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="65%" class="oce-first">Observaciones</td>
+    <td width="8%" height="30" align="left" class="oce-first"></td>
+  </tr>
+<% for titulacionesobservacion in @titulacion.titulacionesobservaciones.find(:all, :order => 'created_at DESC') %>
+   <% if titulacionesobservacion.id != @titulacionesobservacion.id %>
+        <tr valign="middle"  class="<%=cycle('even1', 'odd1')%>" id="titulacionesobservacion_<%=titulacionesobservacion.id%>">
+          <td align="left" class="camposDesc"><%=titulacionesobservacion.created_at.strftime("%Y-%m-%d %X")%><br/>
+            <a title="<%=titulacionesobservacion.user.nombre rescue nil%>"><%=titulacionesobservacion.user.username rescue nil%></a></td>
+          <td class="camposDesc" align="left"><%=titulacionesobservacion.dtipoatencion%></td>
+          <td class="camposDesc"><div align="justify"><%=titulacionesobservacion.observacion%>
+            <% if titulacionesobservacion.fecha_asignacion.to_s != "" %>
+              <br/><em><strong>Fecha Asignación: </strong> <%=titulacionesobservacion.fecha_asignacion.strftime("%Y-%m-%d") rescue nil%></em>
+            <% end  %>
+            <% if titulacionesobservacion.fecha_socializacion.to_s != ""  %>
+              <br/><em><strong>Fecha Socialización: </strong> <%=titulacionesobservacion.fecha_socializacion.strftime("%Y-%m-%d") rescue nil%></em>
+            <% end  %>
+            <% if titulacionesobservacion.no_agenda.to_s != ""  %>
+              <br/><em><strong>No se agenda por? </strong> <%=titulacionesobservacion.no_agenda rescue nil%></em>
+            <% end  %>
+            <% if titulacionesobservacion.situacion.to_s != ""  %>
+              <br/><em><strong>Situación del proceso: </strong> <%=titulacionesobservacion.situacion rescue nil%></em>
+            <% end  %>
+            </div>
+          </td>
+          <td class="camposDesc"><div align="center"><%= link_to "Acta", {:controller => "titulacionesobservaciones", :action => "atencion", :id=>titulacionesobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+          <% if is_admin == titulacionesobservacion.user_id %>
+          <br/><%= link_to "Traslado", {:controller => "titulacionesobservaciones", :action => "prepara", :id=>titulacionesobservacion.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+          <% end %></div></td>
+        </tr>
+
+<% end %>
+        <% end %>
+      </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :titulacion, :id %>
+<% end %>
+<br/>
+<% if flash[:titulacionesobservacion] %>
+<div id="titulacionesobservacion">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:titulacionesobservacion] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('titulacionesobservacion');", 5000)
+</script>
+<% end %>
+</div>

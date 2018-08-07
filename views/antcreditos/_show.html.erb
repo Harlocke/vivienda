@@ -1,0 +1,27 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CREDITOS ANTERIORES</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="25%" height="20" class="oce-first">Elimina Usuario - Fecha</td>
+    <td width="25%" height="20" class="oce-first">Entidad</td>
+    <td width="10%" class="oce-first">Valor</td>
+    <td width="10%" class="oce-first">Fecha Credito</td>
+    <td width="10%" class="oce-first">Fecha Vencimiento</td>
+    <td width="5%" class="oce-first">Resolucion</td>
+    <td width="15%" class="oce-first">Estado</td>
+  </tr>
+<% @persona.antcreditos.each do |antcredito| %>
+   <tr  valign="middle" id="benevivienda_<%=antcredito.id%>">
+     <td class="camposDesc"><%=antcredito.user.username rescue nil%> - <%=antcredito.created_at.strftime("%Y-%m-%d %X")%></td>
+    <td height="20" class="camposDesc"><%=antcredito.entidad.descripcion rescue nil%></td>
+    <td class="camposDesc">$ <%=number_to_currency(antcredito.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+    <td class="camposDesc"><%=antcredito.fecha_credito%></td>
+    <td class="camposDesc"><%=antcredito.fecha_vencimiento%></td>
+    <td class="camposDesc"><%=antcredito.resolucion%></td>
+    <td class="camposDesc"><%=antcredito.estado%></td>
+ </tr>
+<% end %>
+</table>

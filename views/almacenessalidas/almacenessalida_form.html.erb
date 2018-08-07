@@ -1,0 +1,65 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/salidasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SALIDA DE PRODUCTOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_almacenessalidas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_for(@almacenessalida) do |f| %>
+<br/>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="33%" height="20" class="campos">Producto</td>
+          <td class="camposDesc"><%=select("almacenessalida","producto_id", Producto.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos">Usuario</td>
+          <td class="camposDesc"><%=select("almacenessalida","user_id", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos">Cantidad</td>
+          <td class="camposDesc"><%= f.text_field :cantidad,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos">Observaciones</td>
+          <td class="camposDesc"><%= f.text_field :observaciones,{ :class => "campo", :size => 110,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr>
+          <td width="33%" height="20" class="campos">Fecha Salida</td>
+          <td class="camposDesc"><%=@almacenessalida.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+        </tr>
+      </table>
+<br/>
+    <table width="70%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="70%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+  </div>
+<% end %>

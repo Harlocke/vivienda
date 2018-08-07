@@ -1,0 +1,34 @@
+<h1>Listing catastrosintersecciones</h1>
+
+<table>
+  <tr>
+    <th>Catastro</th>
+    <th>Cbml</th>
+    <th>Componente</th>
+    <th>Afectacion</th>
+    <th>Categorias</th>
+    <th>Shape</th>
+    <th>Superficie afec</th>
+    <th>Porc afectacion</th>
+  </tr>
+
+<% @catastrosintersecciones.each do |catastrosinterseccion| %>
+  <tr>
+    <td><%=h catastrosinterseccion.catastro %></td>
+    <td><%=h catastrosinterseccion.cbml %></td>
+    <td><%=h catastrosinterseccion.componente %></td>
+    <td><%=h catastrosinterseccion.afectacion %></td>
+    <td><%=h catastrosinterseccion.categorias %></td>
+    <td><%=h catastrosinterseccion.shape %></td>
+    <td><%=h catastrosinterseccion.superficie_afec %></td>
+    <td><%=h catastrosinterseccion.porc_afectacion %></td>
+    <td><%= link_to 'Show', catastrosinterseccion %></td>
+    <td><%= link_to 'Edit', edit_catastrosinterseccion_path(catastrosinterseccion) %></td>
+    <td><%= link_to 'Destroy', catastrosinterseccion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New catastrosinterseccion', new_catastrosinterseccion_path %>

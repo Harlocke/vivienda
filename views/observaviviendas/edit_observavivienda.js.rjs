@@ -1,0 +1,1 @@
+page.replace_html :observaviviendas_form, :partial => "/observaviviendas/observaviviendas"

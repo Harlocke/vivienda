@@ -1,0 +1,606 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 5}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">INFORME DE SEGUIMIENTO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="17%" class="campos">Cobama</td>
+          <td width="33%" class="campos">Barrio </td>
+          <td width="50%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.cobama%></td>
+          <td class="camposDesc"><%=@titulacion.comuna.descripcion2 rescue nil%></td>
+          <td class="camposDesc"><%=User.find(@titulacion.user_juridico).nombre rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="18%" class="campos">Tipo de Proceso </td>
+          <td width="10%" class="campos">Manzana </td>
+          <td width="10%" class="campos">Lote </td>
+          <td width="50%" class="campos">Direccion </td>
+          <td width="12%" class="campos">Unidades Habit.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.tipoproceso%></td>
+          <td class="camposDesc"><%=@titulacion.manzana%></td>
+          <td class="camposDesc"><%=@titulacion.lote%></td>
+          <td class="camposDesc"><%=@titulacion.direccion%></td>
+          <td class="camposDesc">.</td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="15%" class="campos">Acta Entrega</td>
+          <td width="15%" class="campos">Area </td>
+          <td width="55%" class="campos">Expediente </td>
+          <td width="15%" class="campos">Fecha Expediente </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=@titulacion.acta_entrega%></td>
+          <td class="camposDesc"><%=@titulacion.area%></td>
+          <td class="camposDesc"><%=@titulacion.expediente%></td>
+          <td class="camposDesc"><%=@titulacion.fecha_expediente%></td>
+        </tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1"><td class="campos">Escritura de Loteo</td></tr>
+        <tr valign="top"><td class="camposDesc"><%=@titulacion.escritura_lote%>&nbsp;</td></tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td width="40%" class="campos">Estado del Proceso</td>
+          <td width="20%" class="campos">Certificado Uso Suelo </td>
+          <td width="30%" class="campos">Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@titulacion.estado%></td>
+          <td class="camposDesc"><%=@titulacion.certificado_uso_suelo%></td>
+          <td class="camposDesc"><%=@titulacion.operador%>&nbsp;</td>
+        </tr>
+      </table>
+    <br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr>
+        <td  height="30"><div class="col_enc">INFORMACIÓN PREDIAGNOSTICO</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr>
+          <td width="15%" class="odd1 campos">Selecciones los elementos que apliquen</td>
+          <td width="15%" class="campos">
+            - Reconocimiento de Edificaciones (<%=@titulacion.prediag_reconocimiento%>)<br/>
+            - RPH (<%=@titulacion.prediag_rph%>)<br/>
+            - Pertenencia (<%=@titulacion.prediag_pertenencia%>)<br/>
+            - Sucesión (<%=@titulacion.prediag_sucesion%>)
+          </td>
+          <td  valign="top" width="15%" class="campos">
+            - Conformación de Comunidad (<%=@titulacion.prediag_conformacion%>)<br/>
+            - Divisorio (<%=@titulacion.prediag_divisorio%>)<br/>
+            - Partición Material (<%=@titulacion.prediag_particion%>)
+          </td>
+        </tr>
+     </table><br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">DOCUMENTOS SOPORTE DEL PROCESO DE SANTA ELENA</div></td>
+      </tr>
+    </table>
+      <% if is_asigsantaelena(@titulacion.id).to_s == "S" %>
+          <% @titulacionesdoctipos = Titulacionesdoctipo.find_by_sql(["select * from titulacionesdoctipos where comunes = 'SI' #{@titulacion.variablesimagenes.to_s}"])
+             @titulacionesdoctipos.each do |titulacionesdoctipo|%>
+              <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                <tr valign="middle" class="odd1">
+                  <td width="85%" colspan="2" class="camposDesc"><%=titulacionesdoctipo.documento rescue nil%></td>
+                </tr>
+            <% for titulacionesdocumento in @titulacion.titulacionesdocumentos.find(:all,:conditions=>["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"], :order => 'created_at DESC') %>
+                <tr valign="middle">
+                  <td width="25%" height="30" class="camposDesc">
+                    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+                      <tr>
+                        <td rowspan="2"><% if titulacionesdocumento.estado.to_s == 'APROBADO' %>
+                                            <img src="/images/verde.png"/>
+                                        <% elsif  titulacionesdocumento.estado.to_s == 'RECHAZADO' %>
+                                            <img src="/images/rojo.png"/>
+                                        <% else %>
+                                            <img src="/images/amarillo.png"/>
+                                        <% end %></td>
+                         <td class="camposDesc" align="left"><%=titulacionesdocumento.created_at.strftime("%Y-%m-%d %X")%></td>
+                      </tr>
+                      <tr>
+                         <td class="camposDesc" align="left"><a title="<%=titulacionesdocumento.user.nombre rescue nil%>"><%=titulacionesdocumento.user.username rescue nil%></a></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="60%" class="camposDesc"><%=titulacionesdocumento.titudocumento_file_name rescue nil%>
+                  <% if titulacionesdocumento.estado.to_s == "RECHAZADO" %>
+                    <div class="camposNotas">Observación: <%=titulacionesdocumento.observaciones rescue nil%> (Registrada por: <%=User.find(titulacionesdocumento.user_estado).username rescue nil%>)</div>
+                  <% end %>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+          <% end %>
+      <% end %>
+      <br/>
+      <% if @titulacion.catastro_id.to_i > 0 and @existecatastrodatos %>
+          <H1 class=SaltoDePagina>. </H1>
+          <H1 class=SaltoDePagina>. </H1>
+          <% @catastrosdatos.each do |catastro| %>
+          <H1 class=SaltoDePagina> </H1>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+            <tr>
+              <td height="30"><div class="col_enc">BENEFICIARIOS PARA VALIDAR</div></td>
+            </tr>
+          </table>
+          <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+              <tr valign="middle" class="odd1">
+                <td width="10%" align="left" class="campos">Matricula</td>
+                <td width="25%" align="left" class="campos">Direccion</td>
+                <td width="15%" align="left" class="campos">Area Lote</td>
+                <td width="10%" align="left" class="campos">Documento</td>
+                <td width="40%" align="left" class="campos">Nombre</td>
+              </tr>
+             <tr  valign="middle">
+               <td align="left" class="camposDesc"><%=catastro.matricula rescue nil%></td>
+               <td align="left" class="camposDesc"><%=catastro.direccion rescue nil%></td>
+               <td align="left" class="camposDesc"><%=catastro.arealote rescue nil%></td>
+               <td align="left" class="camposDesc"><%=catastro.documento rescue nil%></td>
+               <td align="left" class="camposDesc"><%=catastro.nombre rescue nil%> <%=catastro.apellidos rescue nil%></td>
+             </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+            <tr class="odd1">
+              <td width="12%" class="campos">Genero</td>
+              <td width="20%" class="campos">Nacimiento</td>
+              <td width="12%" class="campos">Estado Civil</td>
+              <td width="50%" class="campos">Ocupacion</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">&nbsp;</td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="sample">
+            <tr class="odd1">
+              <td width="30%" class="campos">Grupo Etnico</td>
+              <td width="35%" class="campos">Condicion Especial</td>
+              <td width="35%" class="campos">Tipo de Poblacion</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">&nbsp;</td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+            <tr class="odd1">
+              <td width="15%" class="campos">Zona Poblacion </td>
+              <td width="10%" class="campos">Ingresos </td>
+              <td width="10%" class="campos">Nivel Sisben </td>
+              <td width="20%" class="campos">Caja de Compensacion </td>
+              <td width="5%" class="campos">Estrato </td>
+              <td width="40%" class="campos">Comuna - Barrio </td>
+            </tr>
+            <tr>
+              <td class="camposDesc">&nbsp;</td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc"></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+            <tr class="odd1">
+              <td width="30%" class="campos">Direccion</td>
+              <td width="10%" class="campos">Ciudad</td>
+              <td width="25%" class="campos">Telefonos - Celular</td>
+              <td width="5%" class="campos">Tenencia</td>
+              <td width="30%" class="campos">Correo Electronico</td>
+            </tr>
+            <tr>
+               <td class="camposDesc">&nbsp;</td>
+               <td class="camposDesc"></td>
+               <td class="camposDesc"></td>
+               <td class="camposDesc"></td>
+               <td class="camposDesc"></td>
+            </tr>
+          </table>
+          <br/>
+          <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+            <tr>
+              <td height="30"><div class="col_enc">CARACTERISTICAS DE LA VIVIENDA</div></td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tr class="odd1">
+              <td width="45%" class="campos">Materiales Techos</td>
+              <td width="55%" class="campos">Materiales Pisos</td>
+            </tr>
+            <tr valign="top">
+              <td class="camposDesc">
+                <input type="checkbox" name="checkbox" value="checkbox" /> Teja Barro &nbsp;-&nbsp;
+                <input type="checkbox" name="checkbox" value="checkbox" /> Eternit &nbsp;-&nbsp;
+                <input type="checkbox" name="checkbox" value="checkbox" /> Zinc &nbsp;-&nbsp;
+                Otro Cual &nbsp; <input type="text" name="textfield" size="50"  />
+              </td>
+              <td class="camposDesc">
+                <input type="checkbox" name="checkbox" value="checkbox" /> Tierra &nbsp;-&nbsp;
+                <input type="checkbox" name="checkbox" value="checkbox" /> Cemento &nbsp;-&nbsp;
+                <input type="checkbox" name="checkbox" value="checkbox" /> Madera &nbsp;-&nbsp;
+                <input type="checkbox" name="checkbox" value="checkbox" /> Baldosa &nbsp;-&nbsp;
+                Otro Cual &nbsp; <input type="text" name="textfield" size="50"  />
+              </td>
+            </tr>
+          </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+       <tr class="odd1">
+          <td width="45%" class="campos">Materiales Muros</td>
+          <td width="14%" class="campos">Estado Techos</td>
+          <td width="14%" class="campos">Estado Pisos</td>
+          <td width="14%" class="campos">Estado Muros</td>
+          <td width="13%" class="campos">La vivienda es?</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" /> Tapia &nbsp;-&nbsp;
+            <input type="checkbox" name="checkbox" value="checkbox" /> Madera &nbsp;-&nbsp;
+            <input type="checkbox" name="checkbox" value="checkbox" /> Adobe &nbsp;-&nbsp;
+            Otro Cual &nbsp; <input type="text" name="textfield" size="50"  />
+          </td>
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" /> BUENO<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> REGULAR<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> MALO
+          </td>
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" /> BUENO<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> REGULAR<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> MALO
+          </td>
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" /> BUENO<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> REGULAR<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> MALO
+          </td>
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" /> GRANDE<br/>
+            <input type="checkbox" name="checkbox" value="checkbox" /> PEQUEÑA
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr valign="top">
+          <td width="20%" class="campos odd1">Servicios Publicos</td>
+          <td width="80%" class="camposDesc">
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Energia &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Acueducto &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Agua Potable &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Telefono &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Gas &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Alcantarillado &nbsp;-&nbsp;<br/>
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Pozo Septico / Tanque
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr valign="top">
+          <td width="20%" class="campos odd1">Distribucion de la Vivienda</td>
+          <td width="80%" class="camposDesc">
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Cocina &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Sala &nbsp;-&nbsp;
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Comedor &nbsp;-&nbsp;
+            Nro de Baños <input name="textfield" type="text" size="5" />&nbsp;-&nbsp;
+            Nro de Habitaciones  <input name="textfield" type="text" size="5" />&nbsp;-&nbsp;<br/>
+            Nro Personas por Habitacion&nbsp<input name="textfield" type="text" size="5" />
+          </td>
+        </tr>
+      </table>
+          <br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td height="30"><div class="col_enc">INFORMACION GRUPO FAMILIAR</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="53%" class="campos">Tiempo Permanencia (Años)</td>
+          <td width="17%" class="campos">Lugar de Procedencia</td>
+          <td width="30%" class="campos">Desplazado Reconocido SIPOD</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+            En Sector <input name="textfield" type="text" size="2" />&nbsp;
+            En Medellin <input name="textfield" type="text" size="2" />&nbsp;
+            Nro Familias en la Vivienda <input name="textfield" type="text" size="2" />
+          </td>
+          <td class="camposDesc"><input name="textfield" type="text" size="12" /></td>
+          <td class="camposDesc">
+            <input type="checkbox" name="checkbox" value="checkbox" />SI
+            <input type="checkbox" name="checkbox" value="checkbox" />NO - Registro&nbsp;<input name="textfield" type="text" size="10" />
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos odd1">Usos de la Vivienda</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Residencia &nbsp;-
+            &nbsp<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;Residencias con Negocio &nbsp;-
+            Tipo de Negocio &nbsp; <input name="textfield" type="text" size="25" />&nbsp;
+            Años &nbsp; <input name="textfield" type="text" size="4" />
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td height="30"><div class="col_enc">SITUACION ECONOMICA DEL HOGAR</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" rowspan="3" class="campos odd1">Ingresos Mensuales</td>
+          <td width="85%" class="camposDesc">
+            Salario (Empleados) <input name="textfield" type="text" size="10" />&nbsp;
+            Ingresos (Independientes) <input name="textfield" type="text" size="10" />&nbsp;
+            Subsidio en Dinero <input name="textfield" type="text" size="10" />
+          </td>
+        </tr>
+        <tr>
+          <td width="85%" class="camposDesc">
+            Ayuda Familiar <input name="textfield" type="text" size="10" />&nbsp;
+            Pension <input name="textfield" type="text" size="10" />&nbsp;
+            Otro <input name="textfield" type="text" size="10" />
+          </td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" rowspan="3" class="campos odd1">Gastos Mensuales</td>
+          <td width="85%" class="camposDesc">
+            Arriendo <input name="textfield" type="text" size="10" />&nbsp;
+            Servicios <input name="textfield" type="text" size="10" />&nbsp;
+            Transporte <input name="textfield" type="text" size="10" />&nbsp;
+            Alimentacion <input name="textfield" type="text" size="10" />&nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td width="85%" class="camposDesc">
+            Salud <input name="textfield" type="text" size="10" />&nbsp;
+            Educacion <input name="textfield" type="text" size="10" />&nbsp;
+            Vestido <input name="textfield" type="text" size="10" />&nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos odd1">Deudas Pendientes</td>
+          <td width="85%" class="camposDesc">
+            Prestamos <input name="textfield" type="text" size="8" />&nbsp;
+            Servicios Publicos <input name="textfield" type="text" size="8" />&nbsp;
+            Otros <input name="textfield" type="text" size="8" />&nbsp;
+            Especificar <input name="textfield" type="text" size="8" />&nbsp;
+          </td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos odd1">Tiene Ahorro / Cesantias</td>
+          <td width="85%" class="camposDesc">
+            &nbsp;<input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;SI
+            <input type="checkbox" name="checkbox" value="checkbox" /> &nbsp;NO&nbsp;
+            Donde <input name="textfield" type="text" size="40" />&nbsp;
+            Valor <input name="textfield" type="text" size="15" />&nbsp;
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top">
+          <td width="50%" class="camposDesc"><strong>_______________________________________________</strong></td>
+          <td width="50%" class="camposDesc"><strong>_______________________________________________</strong></td>
+        </tr>
+        <tr valign="top">
+          <td width="50%" class="camposDesc"><strong>Firma ISVIMED</strong></td>
+          <td width="50%" class="camposDesc"><strong>Firma <%=catastro.nombre rescue nil%> <%=catastro.apellidos rescue nil%></strong></td>
+        </tr>
+      </table>
+      <H1 class=SaltoDePagina> </H1>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td height="30"><div class="col_enc">LEVANTAMIENTO ARQUITECTONICO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr><td style="border:1px solid #000000;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+            <% i = 1
+              while i < 45
+                i = i + 1%>
+              <tr>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+              </tr>
+            <% end %>
+            </table>
+      </td></tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr valign="middle" class="odd1">
+          <td width="10%" align="left" class="campos">Matricula</td>
+          <td width="25%" align="left" class="campos">Direccion</td>
+          <td width="15%" align="left" class="campos">Area Lote</td>
+          <td width="10%" align="left" class="campos">Documento</td>
+          <td width="40%" align="left" class="campos">Nombre</td>
+        </tr>
+        <tr  valign="middle">
+         <td align="left" class="camposDesc"><%=catastro.matricula rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.direccion rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.arealote rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.documento rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.nombre rescue nil%> <%=catastro.apellidos rescue nil%></td>
+        </tr>
+        <tr  valign="middle">
+          <td align="left" class="campos" colspan="5">PLANTA</td>
+        </tr>
+      </table>
+      <H1 class=SaltoDePagina> </H1>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td height="30"><div class="col_enc">LEVANTAMIENTO ARQUITECTONICO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr><td style="border:1px solid #000000;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+            <% i = 1
+              while i < 45
+                i = i + 1%>
+              <tr>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+              </tr>
+            <% end %>
+            </table>
+      </td></tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr valign="middle" class="odd1">
+          <td width="10%" align="left" class="campos">Matricula</td>
+          <td width="25%" align="left" class="campos">Direccion</td>
+          <td width="15%" align="left" class="campos">Area Lote</td>
+          <td width="10%" align="left" class="campos">Documento</td>
+          <td width="40%" align="left" class="campos">Nombre</td>
+        </tr>
+        <tr  valign="middle">
+         <td align="left" class="camposDesc"><%=catastro.matricula rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.direccion rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.arealote rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.documento rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.nombre rescue nil%> <%=catastro.apellidos rescue nil%></td>
+        </tr>
+        <tr  valign="middle">
+          <td align="left" class="campos" colspan="5">FACHADAS</td>
+        </tr>
+      </table>
+      <H1 class=SaltoDePagina> </H1>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr>
+          <td height="30"><div class="col_enc">LEVANTAMIENTO ARQUITECTONICO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr><td style="border:1px solid #000000;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+            <% i = 1
+              while i < 45
+                i = i + 1%>
+              <tr>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td><td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+                <td width="3%" style="border:1px dashed #CCCCCC;">&nbsp;</td>
+              </tr>
+            <% end %>
+            </table>
+      </td></tr>
+      </table>
+      <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+        <tr valign="middle" class="odd1">
+          <td width="10%" align="left" class="campos">Matricula</td>
+          <td width="25%" align="left" class="campos">Direccion</td>
+          <td width="15%" align="left" class="campos">Area Lote</td>
+          <td width="10%" align="left" class="campos">Documento</td>
+          <td width="40%" align="left" class="campos">Nombre</td>
+        </tr>
+        <tr  valign="middle">
+         <td align="left" class="camposDesc"><%=catastro.matricula rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.direccion rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.arealote rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.documento rescue nil%></td>
+         <td align="left" class="camposDesc"><%=catastro.nombre rescue nil%> <%=catastro.apellidos rescue nil%></td>
+        </tr>
+        <tr  valign="middle">
+          <td align="left" class="campos" colspan="5">TECHOS</td>
+        </tr>
+      </table>
+          <% end%>
+     <% end %>
+      <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>

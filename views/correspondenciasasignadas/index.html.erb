@@ -1,0 +1,26 @@
+<h1>Listing correspondenciasasignadas</h1>
+
+<table>
+  <tr>
+    <th>Correspondenciasrecibida</th>
+    <th>User</th>
+    <th>Tipo asignacion</th>
+    <th>Fecha limite</th>
+  </tr>
+
+<% @correspondenciasasignadas.each do |correspondenciasasignada| %>
+  <tr>
+    <td><%=h correspondenciasasignada.correspondenciasrecibida_id %></td>
+    <td><%=h correspondenciasasignada.user_id %></td>
+    <td><%=h correspondenciasasignada.tipo_asignacion %></td>
+    <td><%=h correspondenciasasignada.fecha_limite %></td>
+    <td><%= link_to 'Show', correspondenciasasignada %></td>
+    <td><%= link_to 'Edit', edit_correspondenciasasignada_path(correspondenciasasignada) %></td>
+    <td><%= link_to 'Destroy', correspondenciasasignada, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New correspondenciasasignada', new_correspondenciasasignada_path %>

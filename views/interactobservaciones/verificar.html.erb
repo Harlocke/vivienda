@@ -1,0 +1,22 @@
+
+<div align="center">
+  <table width="95%" border="0" cellpadding="2" cellspacing="2" align="center">
+    <tr>
+      <td height="30"><div class="col_enc">OBSERVACIONES ANTERIORES</div></td>
+    </tr>
+  </table>
+  <table width="90%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="10%" height="20" class="oce-first">Año</td>
+      <td width="10%" height="20" class="oce-first">Mes</td>
+      <td width="80%" height="20" class="oce-first">Observaciones registradas</td>
+    </tr>
+    <% @interactobservaciones.each do |interactobservacion| %>
+    <tr valign="middle" class="interactobservacion_<%=interactobservacion.id%>">
+      <td class="camposDesc"><div align="center"><%=interactobservacion.interactividad.interventoria.anno rescue nil%></div></td>
+      <td class="camposDesc"><div align="center"><%=descmesmin(interactobservacion.interactividad.interventoria.mes) rescue nil%></div></td>
+      <td class="camposDesc"><div align="justify"><%=interactobservacion.obs rescue nil%></div></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<div class="page-header">
+  <h2>Imagenes</h2>
+</div>
+<% form_for(:calidadnormogramasimagen, @calidadnormogramasimagen, :url => calidadnormograma_calidadnormogramasimagenes_path(@calidadnormograma), :html => { :multipart => true }) do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<table class="table">
+  <tr width="40%" valign="top">
+    <td><div align="right">
+         <%= f.submit "Guardar",:disable_with => "Guardando...", :class=>"btn btn-success"%>
+        <%= link_to 'Regresar',edit_calidadnormograma_path(@calidadnormograma), :class=>"btn btn-success" %></div>
+      </td>
+  </tr>
+</table>
+<% end %>

@@ -1,0 +1,50 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciarecibidamin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BUSCADOR CORRESPONDENCIA RECIBIDA</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_correspondenciasrecibidas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first"><div align="center">Nro Radicado</div></td>
+    <td width="30%" height="30" class="oce-first">Remitente</td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Elaboracion</div></td>
+    <td width="10%" class="oce-first"><div align="center">Fecha <br/>Recibido</div></td>
+    <td width="35%" class="oce-first">Asunto</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @correspondenciasrecibidas.each do |correspondenciasrecibida| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasrecibida.nro_radicado%></div></td>
+    <td height="30" class="camposDesc">Persona: <%=h correspondenciasrecibida.persona.autobuscar rescue nil%><br/>
+    Empresa: <%=h correspondenciasrecibida.correspondenciasremitente.nombre rescue nil%> - <%=h correspondenciasrecibida.correspondenciasremitente.cargo rescue nil%></td>
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasrecibida.fecha_elaboracion%></div></td>
+    <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasrecibida.fecha_recibido%></div></td>
+    <td class="camposDesc"><div align="justify"><%=h correspondenciasrecibida.asunto%></div></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_correspondenciasrecibida_path(correspondenciasrecibida),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="95%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@correspondenciasrecibidas.count%></div></td>
+  </tr>
+</table>

@@ -1,0 +1,70 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Censo</h3>
+</div>
+<table border="1">
+   <tr valign="middle" bgcolor="#00FF00">
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+    <td width="60%"><strong>Correo Electronico</strong></td>
+    <td width="20%"><strong>Fecha Nacimiento</strong></td>
+    <td width="50%"><strong><div align="right">Tipo de tenencia</div></strong></td>
+    <td width="50%"><strong><div align="right">Habita la vivienda</div></strong></td>
+    <td width="50%"><strong><div align="right">Unipersonal</div></strong></td>
+    <td width="50%"><strong><div align="right">Arrendatarios y/o ocupantes</div></strong></td>
+    <td width="50%"><strong><div align="right">Cobama</div></strong></td>
+    <td width="50%"><strong><div align="right">Matricula edu</div></strong></td>
+    <td width="50%"><strong><div align="right">Ficha Socieconomia</div></strong></td>
+    <td width="50%"><strong><div align="right">Nro de hogares</div></strong></td>
+    <td width="50%"><strong><div align="right">Faltantes</div></strong></td>
+    <td width="50%"><strong><div align="right">Sub / avaluo</div></strong></td>
+    <td width="50%"><strong><div align="right">Avaluo</div></strong></td>
+    <td width="50%"><strong><div align="right">Ptl</div></strong></td>
+    <td width="50%"><strong><div align="right">Pt</div></strong></td>
+    <td width="50%"><strong><div align="right">Pae</div></strong></td>
+    <td width="50%"><strong><div align="right">Total</div></strong></td>
+    <td width="50%"><strong><div align="right">Aceptacion de oferta de compra</div></strong></td>
+    <td width="50%"><strong><div align="right">Opcion isvimed</div></strong></td>
+    <td width="50%"><strong><div align="right">Social edu</div></strong></td>
+    <td width="50%"><strong><div align="right">Notificacion de oferta de compra</div></strong></td>
+    <td width="50%"><strong><div align="right">Predio</div></strong></td>
+    <td width="50%"><strong><div align="right">Aceptacion de oferta de compra</div></strong></td>
+    <td width="50%"><strong><div align="right">Caso especiales</div></strong></td>
+  </tr>
+<% @personascensos.each do |personascenso| %>
+   <tr valign="middle">
+     <td><div align="left"><%=personascenso.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=personascenso.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=personascenso.persona.telefonos rescue nil%></div></td>
+     <td><div align="left"><%=personascenso.persona.email rescue nil%></div></td>
+     <td><div align="left"><%=personascenso.persona.fecha_nacimiento rescue nil%></div></td>
+    <td><div align="left"><%=personascenso.tipotenencia%></div></td>
+    <td><div align="left"><%=personascenso.habita_vivienda%></div></td>
+    <td><div align="left"><%=personascenso.unipersonal%></div></td>
+    <td><div align="left"><%=personascenso.arrendatarios%></div></td>
+    <td><div align="left"><%=personascenso.cobama%></div></td>
+    <td><div align="left"><%=personascenso.matricula_edu%></div></td>
+    <td><div align="left"><%=personascenso.ficha%></div></td>
+    <td><div align="left"><%=personascenso.nro_hogares%></div></td>
+    <td><div align="left"><%=personascenso.faltantes%></div></td>
+    <td><div align="left"><%=personascenso.sub_avaluo%></div></td>
+    <td><div align="left"><%=personascenso.avaluo%></div></td>
+    <td><div align="left"><%=personascenso.ptl%></div></td>
+    <td><div align="left"><%=personascenso.pt%></div></td>
+    <td><div align="left"><%=personascenso.pae%></div></td>
+    <td><div align="left"><%=personascenso.total%></div></td>
+    <td><div align="left"><%=personascenso.aceptacion_ofec%></div></td>
+    <td><div align="left"><%=personascenso.opcion_isvimed%></div></td>
+    <td><div align="left"><%=personascenso.social_edu%></div></td>
+    <td><div align="left"><%=personascenso.notificacion_ofec%></div></td>
+    <td><div align="left"><%=personascenso.predio%></div></td>
+    <td><div align="left"><%=personascenso.acepta_ofe%></div></td>
+    <td><div align="left"><%=personascenso.caso_especial%></div></td>
+   </tr>
+<% end %>
+</table>
+
+
+
+

@@ -1,0 +1,68 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/salidasmin.png" width="64" height="64"/></td>
+              <td width="85%"><div class="col_enc">ENTRADA DE PRODUCTOS</div></td>
+              <td width="12%"><div align="right">
+                  <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_almacenesentrada_path %>
+                  <%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),almacenes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag buscar_almacenesentradas_path, :method => 'get' do %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="20%"><span class="campos">Producto</span></td>
+    <td width="80%" class="camposDesc"><%=select("ubicacion", "producto_id", Producto.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+  <tr>
+    <td><span class="campos">Empresa</span></td>
+    <td class="camposDesc"><%=select("ubicacion", "empresa", Empleado.find(:all,:conditions=>['tipo = ?', 'C'],:order=>'primer_nombre,segundo_nombre').collect {|p| [ p.nombres, p.id ] }, { :include_blank => true },
+      { :style=>"width:600px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+   <tr>
+    <td><span class="campos">Nro Factura</span></td>
+      <td class="camposDesc"><%= text_field_tag :nro_factura, params[:nro_factura],{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+  </tr>
+  <tr>
+    <td><span class="campos">Nro Remision</span></td>
+    <td class="camposDesc"><%= text_field_tag :nro_remision, params[:nro_remision],{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+</td>
+  </tr>
+  <tr>
+    <td><span class="campos">Fecha Salida</span></td>
+    <td class="camposDesc">
+       Entre <%= calendar_date_select "ubicacion", "inicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "final", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+    </td>
+  </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>

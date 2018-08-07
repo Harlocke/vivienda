@@ -1,0 +1,87 @@
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORME DE PAGO</div></td>
+    <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Busca Personas"}),edit_iguana_path(@iguanaspago.iguana.id, :etapa=>"3") %></div></td>
+  </tr>
+</table><br/>
+ <div align="center">
+ <table width="100%" border="1" cellspacing="2" cellpadding="0">
+ 	 <tr>
+ 	 	<td width="45%">
+	 	 		<table width="100%" border="0" cellspacing="2" cellpadding="0">
+	 	 			<tr>
+	        <td width="100%" class="odd1 campos" align="center" colspan="2">Resumen</td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Tipo</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.tipopago rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Fecha Solicitud.</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.fecha_solicitud rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Fecha Desembolso.</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.fecha_desembolso rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Nro Fondo.</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.nro_fondo rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Rubro Presupuestal.</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.rubro rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Convenio .</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.convenio rescue nil %></td>
+	      </tr>
+	      <tr>
+	        <td width="25%" class="odd1 campos" align="left">Estado.</td>
+	        <td width="75%" class="camposDesc" align="left"><%= @iguanaspago.estado rescue nil  %></td>
+	      </tr>
+	    </table>
+ 	 	</td>
+ 	 	<td width="45%">
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+      <tr class="odd1">
+        <td width="35%" class="campos" align="left">Concepto</td>
+        <td width="20%" class="campos" align="center">Valor</td>
+        <td width="45%" class="campos" align="center">Observación</td>
+      </tr>
+      <tr>
+        <td class="odd1 campos" align="left">Valor inicial oferta de compra</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.avaluo) rescue 0 %></td>
+        <td class="camposDesc" align="justify" rowspan="8"><%= @iguanaspago.observacion rescue nil %></td>
+      <tr>
+      </tr>
+        <td class="odd1 campos" align="left">Pago Nro 1.</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.pago1) rescue 0 %></td>
+      </tr>
+      <tr>
+        <td class="odd1 campos" align="left">Pago Nro 2.</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.pago2) rescue 0 %></td>
+        </tr>
+        <tr>
+        <td class="odd1 campos" align="left">Saldo por indemnización</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.saldo_indemnizacion) rescue 0 %></td>
+        </tr>
+        <tr>
+        <td class="odd1 campos" align="left">Descuento por fisco</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.descuento_fisco) rescue 0 %></td>
+        </tr>
+        <tr>
+        <td class="odd1 campos" align="left">Valor Certifado</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.valor) rescue 0 %></td>
+        </tr>
+        <tr>
+        <td class="odd1 campos" align="left">Saldo por ejecutar</td>
+        <td class="camposDesc" align="right"><%= camponumerico(@iguanaspago.saldo_ejecutar) rescue 0 %></td>
+        </tr>
+    </table>
+    </td>
+    </tr>
+ </table>
+</div>
+ <br/>

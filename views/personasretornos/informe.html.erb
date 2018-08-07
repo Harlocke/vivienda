@@ -1,0 +1,126 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Plan Retorno</h3>
+</div>
+<table border="1">
+   <tr valign="middle" bgcolor="#00FF00">
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="50%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Telefonos</strong></td>
+    <td width="60%"><strong>Correo Electronico</strong></td>
+    <td width="20%"><strong>Fecha Nacimiento</strong></td>
+    <td width="50%"><strong><div align="right">SIPOD</div></strong></td>
+    <td width="50%"><strong><div align="right">Codigo SIPOD</div></strong></td>
+    <td width="50%"><strong><div align="right">Paso por medellin</div></strong></td>
+    <td width="50%"><strong><div align="right">Principio de Voluntariedad</div></strong></td>
+    <td width="50%"><strong><div align="right">Concepto de seguridad</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificado inclusión Registro</div></strong></td>
+    <td width="50%"><strong><div align="right">Atenciones DPS</div></strong></td>
+    <td width="50%"><strong><div align="right">Catastro Departamental</div></strong></td>
+    <td width="50%"><strong><div align="right">Catastro Municipal</div></strong></td>
+    <td width="50%"><strong><div align="right">Cumplimiento de requisitos</div></strong></td>
+    <td width="50%"><strong><div align="right">Formato verificación de requisitos</div></strong></td>
+    <td width="50%"><strong><div align="right">Lugar de expulsión</div></strong></td>
+    <td width="50%"><strong><div align="right">Direccion / Vereda</div></strong></td>
+    <td width="50%"><strong><div align="right">Fecha de expulsión</div></strong></td>
+    <td width="50%"><strong><div align="right">Lugar de llegada</div></strong></td>
+    <td width="50%"><strong><div align="right">Lugar R&R</div></strong></td>
+    <td width="50%"><strong><div align="right">Fecha R&R</div></strong></td>
+    <td width="50%"><strong><div align="right">Lugar llegada</div></strong></td>
+    <td width="50%"><strong><div align="right">Extra juicio</div></strong></td>
+    <td width="50%"><strong><div align="right">Ficha social</div></strong></td>
+    <td width="50%"><strong><div align="right">Ficha tecnica</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificado de desplazado (personeria)</div></strong></td>
+    <td width="50%"><strong><div align="right">Fotocopias grupo familiar</div></strong></td>
+    <td width="50%"><strong><div align="right">Fotocopias registro civil</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificacion SISBEN</div></strong></td>
+    <td width="50%"><strong><div align="right">Copia del predial</div></strong></td>
+    <td width="50%"><strong><div align="right">Fotocopia cuenta servicios públicos</div></strong></td>
+    <td width="50%"><strong><div align="right">Cuadro del cierre financiero</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificado cruces (ISVIMED)</div></strong></td>
+    <td width="50%"><strong><div align="right">Carpeta individualizacion</div></strong></td>
+    <td width="50%"><strong><div align="right">Carpeta accion social</div></strong></td>
+    <td width="50%"><strong><div align="right">Carpeta social</div></strong></td>
+    <td width="50%"><strong><div align="right">Modalidad de intervencion</div></strong></td>
+    <td width="50%"><strong><div align="right">Ejecutor/proyecto</div></strong></td>
+    <td width="50%"><strong><div align="right">Estado</div></strong></td>
+    <td width="50%"><strong><div align="right">% de Avance</div></strong></td>
+    <td width="50%"><strong><div align="right">Alineamiento</div></strong></td>
+    <td width="50%"><strong><div align="right">Solicitud de Licencia</div></strong></td>
+    <td width="50%"><strong><div align="right">Documento de Propiedad</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificado de Libertad</div></strong></td>
+    <td width="50%"><strong><div align="right">Certificado ZONAR</div></strong></td>
+    <td width="50%"><strong><div align="right">Disponibilidad Servicios</div></strong></td>
+    <td width="50%"><strong><div align="right">Propuesta Interventoria</div></strong></td>
+    <td width="50%"><strong><div align="right">Licencia Construccion</div></strong></td>
+    <td width="50%"><strong><div align="right">Isvimed</div></strong></td>
+    <td width="50%"><strong><div align="right">Accion Social</div></strong></td>
+    <td width="50%"><strong><div align="right">EPM</div></strong></td>
+    <td width="50%"><strong><div align="right">Operadores</div></strong></td>
+    <td width="50%"><strong><div align="right">Otros</div></strong></td>
+    <td width="50%"><strong><div align="right">TOTAL</div></strong></td>
+  </tr>
+<% @personasretornos.each do |personasretorno| %>
+   <tr valign="middle">
+     <td><div align="left"><%=personasretorno.persona.identificacion rescue nil%></div></td>
+     <td><div align="left"><%=personasretorno.persona.nombres rescue nil%></div></td>
+     <td><div align="left"><%=personasretorno.persona.telefonos rescue nil%></div></td>
+     <td><div align="left"><%=personasretorno.persona.email rescue nil%></div></td>
+     <td><div align="left"><%=personasretorno.persona.fecha_nacimiento rescue nil%></div></td>
+    <td><div align="left"><%=personasretorno.sipod%></div></td>
+    <td><div align="left"><%=personasretorno.codigo_sipod%></div></td>
+    <td><div align="left"><%=personasretorno.paso_medellin%></div></td>
+    <td><div align="left"><%=personasretorno.principio_volun%></div></td>
+    <td><div align="left"><%=personasretorno.concepto_seguridad%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_inclusion%></div></td>
+    <td><div align="left"><%=personasretorno.atencion_accsocial%></div></td>
+    <td><div align="left"><%=personasretorno.cruce_catdptal%></div></td>
+    <td><div align="left"><%=personasretorno.cruce_catmpal%></div></td>
+    <td><div align="left"><%=personasretorno.cumple_requisitos%></div></td>
+    <td><div align="left"><%=personasretorno.formato_verificacion%></div></td>
+    <td><div align="left"><%=personasretorno.lugar_expulsion%></div></td>
+    <td><div align="left"><%=personasretorno.direccion_expulsion%></div></td>
+    <td><div align="left"><%=personasretorno.fecha_expulsion%></div></td>
+    <td><div align="left"><%=personasretorno.lugar_llegada%></div></td>
+    <td><div align="left"><%=personasretorno.lugar_rr%></div></td>
+    <td><div align="left"><%=personasretorno.fecha_rr%></div></td>
+    <td><div align="left"><%=personasretorno.lugar_rllegada%></div></td>
+    <td><div align="left"><%=personasretorno.extrajuicio%></div></td>
+    <td><div align="left"><%=personasretorno.ficha_social%></div></td>
+    <td><div align="left"><%=personasretorno.ficha_tecnica%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_desplazado%></div></td>
+    <td><div align="left"><%=personasretorno.documentos_identidad%></div></td>
+    <td><div align="left"><%=personasretorno.registro_civil%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_sisben%></div></td>
+    <td><div align="left"><%=personasretorno.predial%></div></td>
+    <td><div align="left"><%=personasretorno.cuenta_servicios%></div></td>
+    <td><div align="left"><%=personasretorno.cierre_financiero%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_cruces%></div></td>
+    <td><div align="left"><%=personasretorno.carpeta_individual%></div></td>
+    <td><div align="left"><%=personasretorno.carpeta_accion%></div></td>
+    <td><div align="left"><%=personasretorno.carpeta_social%></div></td>
+    <td><div align="left"><%=personasretorno.modalidad_intervencion%></div></td>
+    <td><div align="left"><%=personasretorno.ejecutor%></div></td>
+    <td><div align="left"><%=personasretorno.estado%></div></td>
+    <td><div align="left"><%=personasretorno.porc_avance%></div></td>
+    <td><div align="left"><%=personasretorno.alineamiento%></div></td>
+    <td><div align="left"><%=personasretorno.solicitud_licencia%></div></td>
+    <td><div align="left"><%=personasretorno.documento_propiedad%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_libertad%></div></td>
+    <td><div align="left"><%=personasretorno.certificado_zonar%></div></td>
+    <td><div align="left"><%=personasretorno.disponibilidad_servicios%></div></td>
+    <td><div align="left"><%=personasretorno.propuesta_interventoria%></div></td>
+    <td><div align="left"><%=personasretorno.licencia_construccion%></div></td>
+    <td><div align="left"><%=personasretorno.valor_isvimed%></div></td>
+    <td><div align="left"><%=personasretorno.valor_accion%></div></td>
+    <td><div align="left"><%=personasretorno.valor_epm%></div></td>
+    <td><div align="left"><%=personasretorno.valor_operadores%></div></td>
+    <td><div align="left"><%=personasretorno.valor_otros%></div></td>
+    <td><div align="left"><%=personasretorno.valor_total%></div></td>
+ </tr>
+<% end %>
+</table>
+
+
+
+

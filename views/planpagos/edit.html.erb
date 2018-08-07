@@ -1,0 +1,56 @@
+<h1>Editing planpago</h1>
+
+<% form_for(@planpago) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :nro_cuota %><br />
+    <%= f.text_field :nro_cuota %>
+  </p>
+  <p>
+    <%= f.label :saldo_inicial %><br />
+    <%= f.text_field :saldo_inicial %>
+  </p>
+  <p>
+    <%= f.label :cuota_plan_amort %><br />
+    <%= f.text_field :cuota_plan_amort %>
+  </p>
+  <p>
+    <%= f.label :amortizacion %><br />
+    <%= f.text_field :amortizacion %>
+  </p>
+  <p>
+    <%= f.label :intereses %><br />
+    <%= f.text_field :intereses %>
+  </p>
+  <p>
+    <%= f.label :saldo_final %><br />
+    <%= f.text_field :saldo_final %>
+  </p>
+  <p>
+    <%= f.label :valor_seguro %><br />
+    <%= f.text_field :valor_seguro %>
+  </p>
+  <p>
+    <%= f.label :cuota_seg %><br />
+    <%= f.text_field :cuota_seg %>
+  </p>
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :fecha %>
+  </p>
+  <p>
+    <%= f.label :interes_nominal_ano %><br />
+    <%= f.text_field :interes_nominal_ano %>
+  </p>
+  <p>
+    <%= f.label :crecimiento_cuota %><br />
+    <%= f.text_field :crecimiento_cuota %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @planpago %> |
+<%= link_to 'Back', planpagos_path %>

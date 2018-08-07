@@ -1,0 +1,29 @@
+<table width="100%" border="0" cellspacing="2" align="center" cellpadding="0">
+        <tr>
+          <td width="40%"><span class="campos">Clasificacion *</span></td>
+          <td width="20%"><span class="campos">Descripcion breve complemento de la Clasificación *</span></td>
+        </tr>
+        <tr valign="top">
+          <td><%=select("personasclasificacion", "clasificacion_id", Clasificacion.find(:all, :conditions=>['id not in (select clasificacion_id from personasclasificaciones where persona_id = ?)', @persona.id]).collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :personasclasificacion, :clasificacion_id, :css_class =>"cerror"%></td>
+          <td>
+            <%=text_area(:personasclasificacion, :descripcion, :cols => 60, :rows => 3, :class => 'campo', :maxlength => 3900,
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= error_message_on :personasclasificacion, :descripcion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+
+<table width="100%" height="0" border="0" cellpadding="0" align="left" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<table width="100%" border="0" cellpadding="2" align="left" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :personasclasificacion, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>

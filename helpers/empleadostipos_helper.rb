@@ -1,0 +1,2 @@
+module EmpleadostiposHelper
+end

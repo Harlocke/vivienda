@@ -1,0 +1,1 @@
+page.replace_html :titulacionessuenos_form, :partial => "titulacionessuenos", :object => @titulacionessueno

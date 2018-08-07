@@ -1,0 +1,158 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PERSONAS VINCULADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@iguana, @iguanaspersona] do |form| %>
+<% if permiso("iguanaspersona","C").to_s == "S" %>
+    <% if @iguana.proyecto = "IGUANA" and permiso("reasentamientosiguana","C").to_s == "S" %>
+       <% if !@iguanaspersona.id %>
+            <%= render :partial => "/iguanaspersonas/iguanaspersonas_form" %>
+       <% end %>
+    <% elsif @iguana.proyecto = "MORAVIA" and permiso("reasentamientosmoravia","C").to_s == "S" %>
+       <% if !@iguanaspersona.id %>
+            <%= render :partial => "/iguanaspersonas/iguanaspersonas_form" %>
+       <% end %>
+    <% else %>
+       <% if !@iguanaspersona.id %>
+            <%= render :partial => "/iguanaspersonas/iguanaspersonas_form" %>
+       <% end %>
+    <% end %>
+<% end %>
+  <% if @iguana.iguanaspersonas.exists? %>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+    <% @iguana.iguanaspersonas.each do |iguanaspersona| %>
+     <% if iguanaspersona.id != @iguanaspersona.id %>
+  <tr valign="middle">
+    <td width="50%" height="20" align="left" class="oce-first">Persona Vinculada</td>
+    <td width="10%" align="left" class="oce-first">Tenencia</td>
+    <td width="15%" align="left" class="oce-first">Vinculación / Mejora</td>
+    <td width="5%" class="oce-first"></td>
+  </tr>     
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="iguanaspersona_<%= iguanaspersona.id%>">
+     <td height="30" align="left" class="camposDesc">
+     <% if cruzadoper(iguanaspersona.persona_id).to_s == 'S' %>
+         <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Jefe de Hogar presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                              {:controller=>"cruces", :action=>"mostrar", :persona_id =>iguanaspersona.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+     <% end %>
+     <%= link_to iguanaspersona.persona.autobuscar, {:controller => "personas", :action => "visualizar", :id=>iguanaspersona.persona_id}, :popup => ['new_window','height=520,width=860,scrollbars=yes'] %>
+     </td>
+     <td align="left" class="camposDesc"><%=iguanaspersona.persona.tenencia rescue nil%></td>
+     <td align="left" class="camposDesc">
+       <%  if iguanaspersona.iguanasmejora_id == 0 %> VINCULACION INICIAL
+       <% else %>MEJORA # <%=iguanaspersona.iguanasmejora_id rescue nil%> 
+       <% end %>
+        </td>
+      <td align="right" class="camposDesc">
+        <% if permiso("iguanaspersona","E").to_s == "S" %>
+          <% if @iguana.proyecto = "IGUANA" and permiso("reasentamientosiguana","C").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => iguana_iguanaspersona_path(@iguana, iguanaspersona),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% elsif @iguana.proyecto = "MORAVIA" and permiso("reasentamientosmoravia","C").to_s == "S" %>
+            <%= link_to_remote('Borrar',{:url => iguana_iguanaspersona_path(@iguana, iguanaspersona),
+                    :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+          <% end %>
+        <% end %>
+        </td>
+      </tr>
+
+      <% if iguanaspersona.persona.beneviviendas.exists? %>
+         <tr>
+           <td colspan="4">
+              <div style="font-size:12px; font-family: Tahoma; display:table;"><strong><a href="javascript:void(0);" onclick="SINO('demo1<%=iguanaspersona.id.to_s%>')">
+              <div style="display:table-cell; vertical-align:middle;"><p>Beneficiarios de <%=iguanaspersona.persona.autobuscar%></p></div></a></strong></div>         
+              <div id="demo1<%=iguanaspersona.id.to_s%>" style="display:none;">   <br/>            
+                <div align="center">
+                  <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="90%" align="left" height="20" class="oce-first">Beneficiario </td>
+                    </tr>
+                    <% iguanaspersona.persona.beneviviendas.each do |benevivienda| %>
+                    <tr  class="<%=cycle('even1', 'odd1')%>">
+                       <td align="left" class="camposDesc">
+                        <% if cruzadoben(benevivienda.id).to_s == 'S' %>
+                           <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Beneficiario presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                                    {:controller=>"cruces", :action=>"mostrar", :persona_id =>benevivienda.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+                        <% end %><%=benevivienda.identificacion rescue nil%> - <%=benevivienda.primer_nombre rescue nil%> <%=benevivienda.segundo_nombre rescue nil%> <%=benevivienda.primer_apellido rescue nil%> <%=benevivienda.segundo_apellido rescue nil%></td>
+                    </tr>
+                    <% end %>
+                  </table>
+                  <br/>
+                </div>
+              </div>
+           </td>
+         </tr>
+      <% end %>
+
+      <% if iguanaspersona.persona.personasobservaciones.exists? %>
+         <tr>
+           <td colspan="4" class="camposDesc">
+              <div style="font-size:12px; font-family: Tahoma; display:table;" class="camposDesc"><strong><a href="javascript:void(0);" onclick="SINO('demo2<%=iguanaspersona.id.to_s%>')">
+              <div style="display:table-cell; vertical-align:middle;"><p>Observaciones de <%=iguanaspersona.persona.autobuscar%></p></div></a></strong></div>         
+              <div id="demo2<%=iguanaspersona.id.to_s%>" style="display:none;">  <br/>    
+                <div align="center">
+                  <table width="90%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="15%" class="oce-first">Fecha</td>
+                      <td width="15%" align="left" class="oce-first">Atencion</td>
+                      <td width="70%" class="oce-first">Observaciones</td>
+                    </tr>
+                    <% for personasobservacion in iguanaspersona.persona.personasobservaciones.find(:all, :order => 'created_at DESC') %>
+                    <tr  class="<%=cycle('even1', 'odd1')%>">
+                      <td class="camposDesc" align="left">
+                        <%=personasobservacion.created_at.strftime("%Y-%m-%d %X")%><br/><a title="<%=personasobservacion.user.nombre rescue nil%>"><%=personasobservacion.user.username rescue nil%></a></td>
+                      <td class="camposDesc" align="left"><%=personasobservacion.dtipoatencion%></td>
+                      <td class="camposDesc" align="left"><div align="justify"><%=personasobservacion.observacion%></div></td>
+                    </tr>
+                    <% end %>
+                  </table>
+                  <br/>
+                </div>
+              </div>         
+           </td>
+         </tr>
+      <% end %>
+<% else %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table><br/>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"><tr><td height="30"><div class="col_enc">EDITAR</div></td></tr></table>
+       <%= render :partial => "iguanaspersonas_form" %>
+      <table width="100%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><div class="col_enc"></div></td></tr>
+      </table>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+<% end %>
+        <% end %>
+      </table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"/></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :iguana, :id %>
+<% end %>
+<br/>
+<% if flash[:iguanaspersona] %>
+<div id="iguanaspersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:iguanaspersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('iguanaspersona');", 5000)
+</script>
+<% end %>
+</div>
+

@@ -1,0 +1,1 @@
+page.replace_html :titulacionesvecinos_form, :partial => "titulacionesvecinos", :object => @titulacionesvecino

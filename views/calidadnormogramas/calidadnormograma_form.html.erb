@@ -1,0 +1,113 @@
+<%= javascript_include_tag 'bootstrap-tab'%>
+<div class="page-header">
+  <h2>Normograma - <%= link_to 'Buscar Normas', calidadnormogramas_path, :class=>"btn btn-success"%></h2>
+</div>
+<div class="tabbable" style="margin-bottom: 18px;">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Documento</a></li>
+<% unless @calidadnormograma.new_record? %>
+    <li><a href="#tab2" data-toggle="tab">Procesos</a></li>
+    <li><a href="#tab3" data-toggle="tab">Digital</a></li>
+<% end %>
+  </ul>
+  <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+    <div class="tab-pane active" id="tab1">
+     <% form_for @calidadnormograma do |f| %>
+        <div align="center">
+           <table width="90%" >
+              <tr>
+                 <td width="20%"><strong>Tema</strong></td>
+                 <td><%= f.text_field :tema,{ :class => "span6"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :tema, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Tipo de Documento</strong></td>
+                 <td><%= f.text_field :tipo_documento,{ :class => "span6"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :tipo_documento, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Nro</strong></td>
+                 <td><%= f.text_field :anno,{ :class => "span2"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :anno, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Entidad Genera</strong></td>
+                 <td><%= f.text_field :entidad_genera,{ :class => "span6"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :entidad_genera, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Fecha Expedicion</strong></td>
+                 <td><%= calendar_date_select "calidadnormograma", "fecha_expedicion", :year_range =>[1990,2017], :class=> "span2_1", :time => false, :onfocus=>"this.blur()"%>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :fecha_expedicion, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Verificacion Vigencia</strong></td>
+                 <td><%= f.text_field :verificacion_vigencia,{ :class => "span6"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :verificacion_vigencia, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <tr>
+                 <td><strong>Obligaciones Derivadas</strong></td>
+                 <td><%= f.text_field :obligaciones_derivadas,{ :class => "span6"}  %>
+                     <fieldset class="control-group error">
+                       <%= error_message_on :calidadnormograma, :obligaciones_derivadas, :css_class=>""%>
+                     </fieldset></td>
+              </tr>
+              <% unless @calidadnormograma.new_record? %>
+              <tr>
+                 <td><strong>Ultima Actualizacion</strong></td>
+                 <td><%=User.find(@calidadnormograma.user_actualiza).username rescue nil%> - <%=@calidadnormograma.updated_at.strftime("%Y-%m-%d %X")%>
+                 </td>
+              </tr>
+              <tr>
+                 <td><strong>Creacion</strong></td>
+                 <td><%=User.find(@calidadnormograma.user_id).username rescue nil%> - <%=@calidadnormograma.created_at.strftime("%Y-%m-%d %X")%>
+                 </td>
+              </tr>
+              <% end %>
+           </table>
+<table width="90%" class="table">
+                <tr valign="top">
+                  <td ><div align="right">
+                      <%= submit_tag "Guardar", :disable_with => "Guardando...", :class=>"btn btn-primary"%></div></td>
+                </tr>
+              </table>
+      </div>
+     <% end %>
+</div>
+    <div class="tab-pane" id="tab2">
+         <% unless @calidadnormograma.new_record? %>
+        <div id="calidadnormogramasprocesos_form">
+           <%= render :partial => "/calidadnormogramasprocesos/calidadnormogramasprocesos"%>
+        </div>
+        <% end %>
+    </div>
+    <div class="tab-pane" id="tab3">
+         <% unless @calidadnormograma.new_record? %>
+         <div id="calidadnormogramasimagenes_form">
+           <%= render :partial => "/calidadnormogramasimagenes/calidadnormogramasimagenes"%>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div> <!-- /tabbable -->
+
+
+       
+
+
+
+
+
+

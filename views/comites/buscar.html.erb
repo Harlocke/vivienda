@@ -1,0 +1,47 @@
+   <%= stylesheet_link_tag 'scaffold'%>
+   <%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/comitemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">COMITES</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_comites_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="15%" class="oce-first">Fecha</td>
+    <td width="20%" class="oce-first">Tipo</td>
+    <td width="10%" class="oce-first">Comision</td>
+    <td width="50%" class="oce-first">Temas</td>
+    <td width="5%" class="oce-first">&nbsp;</td>
+  </tr>
+<% @comites.each do |comite| %>
+<tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><%=h comite.fecha%></td>
+    <td class="camposDesc" align="left"><%=comite.comitestipo.descripcion rescue nil%></td>
+    <td class="camposDesc" align="left"><%=comite.nro_comision rescue nil%></td>
+    <td class="camposDesc" align="left"><%=comite.temas%></td>
+    <td class="camposDesc"><div align="center">
+    <%= link_to 'Editar', edit_comite_path(comite),:class=>"editarlink"%>
+      </div></td>
+  </tr>
+<% end %>
+</table>
+<table width="80%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+  </tr>
+</table>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=@comites.count%></div></td>
+  </tr>
+</table>

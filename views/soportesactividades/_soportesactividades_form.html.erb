@@ -1,0 +1,22 @@
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr>
+    <td width="10%" height="20" class="campos">Solucionado</td>
+    <td width="80%" class="campos">Observacion</td>
+    <td width="10%" class="campos">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top" class="camposDesc"><%= select(:soportesactividad,
+                :solucionado, { "SI" => 1,
+                           "NO" => 2},
+                        { :include_blank => true },
+                      { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+    <%= error_message_on :soportesactividad, :solucionado, :css_class =>"cerror"%></td>
+    <td class="camposDesc"><%= text_area(:soportesactividad, :observacion, :cols => 120, :rows => 3, :class => 'campo',
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+    <%= error_message_on :soportesactividad, :observacion, :css_class =>"cerror"%></td>
+    <td valign="top" class="camposDesc">
+	<div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :soportesactividad, :id %><%= submit_tag "Guardar" %></span></div></td>
+  </tr>
+</table>
+<br/>
+

@@ -1,0 +1,177 @@
+<div align="center">
+<table  width="300px" cellspacing="0" cellpadding="0">
+  <tr align="center">
+    <td><table border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td><%=image_tag("frame.png")%></td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td><table bgcolor="#4184F3" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+              <tr>
+                <td height="72px" colspan="3"></td>
+              </tr>
+              <tr valign="middle">
+                <td width="32px"></td>
+                <td style="vertical-align:middle; font-size: 25px; color: white; font-family: Verdana, Geneva, sans-serif;">COMPROBANTE DE PAGO</td>
+                <td width="32px"></td>
+              </tr>
+              <tr>
+                <td height="18px" colspan="3"></td>
+              </tr>
+            </tbody>
+          </table></td>
+        </tr>
+        <tr>
+          <td>
+            <br/>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+              <tr>
+                <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="10%"><strong>Documento</strong></td>
+                <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="15%"><strong>Identificaci&oacute;n</strong></td>
+                <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="40%"><strong>Nombre</strong></td>
+                <td  style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="35%"><strong>Correo Electronico</strong></td>
+              </tr>
+              <tr>
+                <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" ><%=@nomina.empleado.documento.descripcion rescue nil%></td>
+                <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" ><%=@nomina.empleado.identificacion%></td>
+                <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" ><%=@nomina.empleado.nombres%></td>
+                <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" ><%=@nomina.empleado.email%></td>
+              </tr>
+            </table>
+            <br/>
+            <table width="650" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                    <tr>
+                      <td colspan="4" height="20" style="color:red; font-size:1em; font-family: Verdana, Geneva, sans-serif;" ><strong>Comprobante de Nomina Periodo - <%=@nomina.periodosliquidacion.fecha_inicial%> al <%=@nomina.periodosliquidacion.fecha_final%></strong></td>
+                    </tr>
+                    <tr>
+                      <td width="59%" height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><strong> Concepto</strong></div></td>
+                      <td width="8%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><strong> Dias </strong></div></td>
+                      <td width="15%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><strong> Devengado</strong></div></td>
+                      <td width="18%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><strong> Deducciones</strong></div></td>
+                    </tr>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"  > Valor Catorcena </td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"align="center"><%=@nomina.dias%></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><%=number_to_currency(@nomina.subtotal,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+                    </tr>
+                <%  @dev = 0
+                    @nominasnovedades.each do |nominasnovedad|
+                    if nominasnovedad.tipo_novedad.to_s != '1' and  nominasnovedad.tipo_novedad.to_s != '2'
+                        @dev = @dev + nominasnovedad.valor
+                    %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="left">Devengado - <%=nominasnovedad.observaciones.capitalize rescue nil%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="right"><%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                    </tr>
+                <%   end
+                   end %>
+                <% if (@nomina.total_incapacidad > 0) %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="left">Valor Incapacidad</div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" ><div align="center"><%=14-@nomina.dias%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="right"><%=number_to_currency(@nomina.total_incapacidad,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                    </tr>
+                <% end %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">Salud (<%=@nomina.empleado.eps%>)</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;">&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><%=number_to_currency(@nomina.salud,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"> Pension (<%=@nomina.empleado.pension%>)</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><%=number_to_currency(@nomina.pension,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"   > Fondo de Solidaridad Pensional (<%=@nomina.empleado.pension%>)</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><%=number_to_currency(@nomina.solidaridad,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"   > Retencion en la Fuente </td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><%=number_to_currency(@nomina.retefuente,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+                    </tr>
+                <%  @nominasnovedades.each do |nominasnovedad|
+                    if nominasnovedad.tipo_novedad.to_s == '1' 
+                    %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="left">Deducción - <%=nominasnovedad.observaciones.capitalize rescue nil%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" >&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="right"><%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+                    </tr>
+                <%   end
+                   end %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong> SUBTOTAL</strong></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right">&nbsp;</td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><strong><%=number_to_currency(@nomina.subtotal + @dev.to_i,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" align="right"><strong><%=number_to_currency(@nomina.total_deducciones,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+                    </tr>
+                    <tr>
+                      <td height="20" colspan="3" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"  ><strong> TOTAL A PAGAR</strong> </td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"  align="center"><strong><%=number_to_currency(@nomina.total,{:precision => 0, :unit=>"", :delimiter =>"."})%></strong></td>
+                    </tr>
+                </table>
+            <%  if @nominasnovedades.count.to_i > 0 %>
+                  <br/>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                    <tr>
+                      <td colspan="5" style="color:red; font-size:1em; font-family: Verdana, Geneva, sans-serif;" ><strong>Novedades de Nomina Periodo - <%=@nomina.periodosliquidacion.fecha_inicial%> al <%=@nomina.periodosliquidacion.fecha_final%></strong></td>
+                    </tr>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="20%" height="0"><div align="center"><strong>Tipo Novedad</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="20%"><div align="center"><strong>Valor</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="5%"><div align="center"><strong>Dias</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="5%"><div align="center"><strong>Porcentaje</strong></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;" width="50%"><div align="center"><strong>Observacion</strong></div></td>
+                    </tr>
+                <% @nominasnovedades.each do |nominasnovedad| %>
+                    <tr>
+                      <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=nominasnovedad.dtiponovedad%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=number_to_currency(nominasnovedad.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=nominasnovedad.dias %></div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="center"><%=nominasnovedad.porcentaje%> %</div></td>
+                      <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><div align="left"><%=nominasnovedad.observaciones rescue nil%>
+                       <% if nominasnovedad.tipo_novedad == '4' or nominasnovedad.tipo_novedad == '5' or nominasnovedad.tipo_novedad == '6' %>
+                         <br/>Fecha Inicio: <%=nominasnovedad.fecha_inicial rescue nil%> - Fecha Final: <%=nominasnovedad.fecha_final rescue nil%>
+                       <% end %>
+                        </div></td>
+                    </tr>
+                    <% end %>
+                </table>
+              <% end %>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr height="16"></tr>
+        <tr>
+          <td>
+            <div align="justify" style="font-size: 10px; font-family: Tahoma;">
+                <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/>
+                CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+          </td>
+        </tr>
+      </tbody>
+    </table></td>
+    <td width="32px"></td>
+  </tr>
+</table>
+</div>
+

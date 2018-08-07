@@ -1,0 +1,15 @@
+<% if @existecontrato %>
+    <script type="text/javascript">
+        Event.observe(window, 'load', function() {
+          GB_showCenter('VENCIMIENTO CONTRATOS','/menus/alerta', 430,820);
+        });
+    </script>
+<% else %>
+    <% if @existecorrespondenciapendiente or @existecorrespondenciauser %>
+    <script type="text/javascript">
+        Event.observe(window, 'load', function() {
+          GB_showCenter('CORRESPONDENCIA PENDIENTE...','/menus/correspondencia', 430,820);
+        });
+    </script>
+    <% end %>
+<% end %>

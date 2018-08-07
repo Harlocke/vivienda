@@ -1,0 +1,39 @@
+<% form_tag update_individual_proyecto_fichas_path, :method => :put do %>
+  <% for ficha in @fichas %>
+  <% fields_for "fichas[]", ficha do |f| %>
+    <% if (ficha.fichaselemento_id == 1) %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INFORMACION FICHA DEL PROYECTO ---> <%= ficha.proyecto.descripcion %> <%= ficha.proyecto.sub_etapa %></div></td>
+              <td width="3%"><div align="rigth"><div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Atras ', proyectos_path %></span></div></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <% end %>
+    <%= render "fields", :f => f, :fi => ficha.fichaselemento.descripcion, :fo => ficha.fichaselemento_id %>
+  <% end %>
+  <% end %>
+  <p>
+<table width="90%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="90%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <div class="uiButton"><img class="img" src="/images/1atras.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Atras ', proyectos_path %></span></div>
+</div></td>
+  </tr>
+</table>
+<br/>
+
+
+  </p>
+<% end %>

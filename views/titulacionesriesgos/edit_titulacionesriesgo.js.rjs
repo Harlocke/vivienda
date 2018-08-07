@@ -1,0 +1,2 @@
+page.replace_html :titulacionesriesgos_form, :partial => "/titulacionesriesgos/titulacionesriesgos"
+

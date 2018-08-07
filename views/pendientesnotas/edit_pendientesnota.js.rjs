@@ -1,0 +1,1 @@
+page.replace_html :pendientesnotas_form, :partial => "/pendientesnotas/pendientesnotas"

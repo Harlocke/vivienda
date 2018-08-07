@@ -1,0 +1,24 @@
+<h1>Editing feria2014puntaje</h1>
+
+<% form_for(@feria2014puntaje) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :persona_id %><br />
+    <%= f.text_field :persona_id %>
+  </p>
+  <p>
+    <%= f.label :variable %><br />
+    <%= f.text_field :variable %>
+  </p>
+  <p>
+    <%= f.label :puntaje %><br />
+    <%= f.text_field :puntaje %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feria2014puntaje %> |
+<%= link_to 'Back', feria2014puntajes_path %>

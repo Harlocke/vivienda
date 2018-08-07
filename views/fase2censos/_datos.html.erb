@@ -1,0 +1,461 @@
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" class="acci_titcontenido2"><div align="center">Total Registros: <%= @fase2censos.total_entries %></div></td>
+   </tr>
+</table>
+<div align="center">
+<table width="25000px" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr>
+      <td height="30" class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Código Estado (id_estado)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Identificación de Estado (estado)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="80px">Número de Formulario (noform)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="80px">Fecha visita (p1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Dirección o instalación de energía de la vivienda (p2)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 01 (p3)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Comuna o corregimiento</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Barrio</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Teléfono fijo (p6)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Teléfono celular (p6_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Manzana (p7)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Lote (p8)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Área total del lote - en M2. Aproximadamente (p9)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Área construida - en M2 Aproximadamente (p10)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Número de Matricula Inmobiliaria (p11)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Matrícula Inmobiliaria (p11_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Número de Código catastral (p12)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Código catastral (p12_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estrato socioeconómico (p13)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tipo de Tenencia de la vivienda (p14)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tipología de la vivienda (p16)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° comedor independiente (p22)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: comedor independiente? (p23)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: comedor independiente? (p24)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° sala comedor (p25)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala comedor? (p26)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala comedor? (p27)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° sala independiente (p28)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala independiente? (p29)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala independiente? (p30)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° garajes (p31)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: garajes? (p32)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: garajes? (p33)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° cuartos compartidos para dormir (p34)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos compartidos para dormi? (p35)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos compartidos para dormi? (p36)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° cuartos Para dormir -independientemente del hogar- y otros usos (p37)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos Para dormir -independientemente del hogar- y otros usos? (p38)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos Para dormir -independientemente del hogar- y otros usos? (p39)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° Cuartos para otros usos (p40)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: N° Cuartos exclusivos para dormir (p40_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos para otros usos? (p41)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos exclusivos para dormir? (p41_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos para otros usos? (p42)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos exclusivos para dormir? (p42_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía02 de Comedor Independiente (p43)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía03 de Sala - Comedor (p44)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía04 de Sala Independiente (p45)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía05 de Garaje (p46)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía06 Cuartos compartir para dormir (p47)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía07 Para dormir y otros usos (p48)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía08 Cuartos otros usos (p49)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía08_1 Cuartos exclusivos para dormir (p49_1)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Hay en esta vivienda algún tipo de negocio? (p50)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 9 del negocio y vivienda (p51)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y el negocio es (p52)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Y cuál es la actividad económica de ese negocio? (p53)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Registro de Cámara de Comercio (p54)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: RUT (p55)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: NIT (p56)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Declaración de rentas de los 2 últimos años (p57)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Declaración industria y comercio (p58)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Libros de contabilidad (p59)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Estados financieros (p60)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Tiene el negocio alguno de los siguientes documentos: Ninguno (p61)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Qué área de la vivienda en M2-aproximadamente- ocupa el negocio? (p62)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Este hogar percibe alguna Renta o alquiler por ese negocio o por alquiler de parte de la vivienda? (p63)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Posee?: Columnas (p78)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y ¿Cuál es el estado de los siguientes elementos estructurales?: Columnas (p79)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Posee?: Vigas de Amarre (p80)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y ¿Cuál es el estado de los siguientes elementos estructurales?: Vigas de Amarre (p81)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Posee?: Losas en Concreto (p82)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y ¿Cuál es el estado de los siguientes elementos estructurales?: Losas en Concreto (p83)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 10: Columnas (p84)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 11: Vigas de Amarre (p85)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 12: Losas en Concreto (p86)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el Material predominante de las paredes exteriores? (p87)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado actual de fachada o paredes exteriores (p88)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requiere intervención: fachada o paredes exteriores? (p89)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 13: Fachada, enfatice en las que requiere Intervención (p90)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >En relación con su techo o losa: (p91)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el Material predominante de los techos o cubiertas? (p92)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Otros ¿Cuál? (p92_2)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Estado actual de los Techos? (p93)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Techos? (p94)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 14: Techos, enfatice en los que hay que intervenir (p95)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 15: Techos, enfatice en los que hay que intervenir (p96)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el Material predominante de los pisos? (p97)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado actual de los pisos? (p98)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: pisos? (p99)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 16: Pisos, enfatice en los que hay que intervenir (p100)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 17: Pisos, enfatice en los que hay que intervenir (p101)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿En dónde preparan los alimentos las personas de este hogar? (p102)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la cocina en: Mesón de la cocina (p103)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requiere intervención: Mesón de la cocina? (p104)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la cocina en: Enchapes de cocina (p105)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requiere intervención: Enchapes de cocina? (p106)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la cocina en: Estructura de cubierta-Muebles (p107)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requiere intervención: Estructura de cubierta-Muebles? (p108)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la cocina en: Fogón o parrilla (p109)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requiere intervención: Fogón o parrilla? (p110)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 18: de la cocina y demás partes, enfatice en las que hay que Intervenir: Mesón de la cocina (p111)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 19: de la cocina y demás partes, enfatice en las que hay que Intervenir: Enchapes de cocina (p112)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 20: de la cocina y demás partes, enfatice en las que hay que Intervenir: Estructura de cubierta-Muebles (p113)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 21: de la cocina y demás partes, enfatice en las que hay que Intervenir: Fogón o parrilla (p114)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la vivienda en: Enchapes de Baños (p115)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Enchapes de Baños? (p116)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la vivienda en: Revoque de los muros (p117)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Revoque de los muros? (p118)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la vivienda en: Estuco de los muros (p119)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Estuco de los muros? (p120)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la vivienda en: Pintura de los muros (p121)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Pintura de los muros? (p122)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado y funcionamiento de la vivienda en: Muros mampostería (p123)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Muros mampostería? (p124)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 22: de los implementos y demás áreas, enfatice en las que requieren intervención: Enchapes de Baños (p125)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 23: de los implementos y demás áreas, enfatice en las que requieren intervención: Revoque de los muros (p126)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 24: de los implementos y demás áreas, enfatice en las que requieren intervención: Estuco de los muros (p127)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 25: de los implementos y demás áreas, enfatice en las que requieren intervención: Pintura de los muros (p128)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 26: de los implementos y demás áreas, enfatice en las que requieren intervención: Muros mampostería (p129)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Qué tipo de instalaciones eléctricas tiene el hogar? (p130)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Requiere intervención: instalaciones eléctricas? (p131)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 27: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p132)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 28: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p133)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Energía (p134)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Energía (p135)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Energía (p136)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Acueducto (p137)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Acueducto (p138)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Acueducto (p139)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Alcantarillado (p140)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Alcantarillado (p141)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Alcantarillado (p142)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Teléfono (línea fija) (p143)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Teléfono (línea fija) (p144)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Teléfono (línea fija) (p145)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Gas natural (red) (p146)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Gas natural (red) (p147)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Gas natural (red) (p148)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Aseo (recolección) (p149)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Aseo (recolección) (p150)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Aseo (recolección) (p151)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Gas en pipeta (p152)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Gas en pipeta (p153)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Gas en pipeta (p154)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda cuenta con servicios públicos de: Conexión a internet (p155)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estado de servicios públicos en la vivienda de: Conexión a internet (p156)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >La unidad de vivienda requiere intervención en servicios públicos de: Conexión a internet (p157)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 29: del servicio, enfatice en los que requiere intervención: Energía (p158)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 30: del servicio, enfatice en los que requiere intervención: Acueducto (p159)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 31: del servicio, enfatice en los que requiere intervención: Alcantarillado (p160)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado de la vivienda en: Canoas y ruanas (p161)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Canoas y ruanas? (p162)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado de la vivienda en: Lagrimales (p163)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Lagrimales? (p164)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuál es el estado de la vivienda en: Impermeabilización de losas y cubiertas (p165)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Requieren Intervención: Impermeabilización de losas y cubiertas? (p166)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 32: de las áreas, enfatice en las que requieren intervención: Canoas y ruanas (p167)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 33: de las áreas, enfatice en las que requieren intervención: Impermeabilización de losas y cubiertas (p168)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Con qué tipo de servicio sanitario cuenta el hogar y cuál es su estado actual? (p169)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Y cuál es su estado actual: servicio sanitario? (p170)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Requieren Intervención: servicio sanitario? (p171)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 34: de los servicios sanitarios, enfatice en los que hay que intervenir (p172)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 35: de los servicios sanitarios, enfatice en los que hay que intervenir (p173)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavamanos (p174)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y cuál es su estado: Lavamanos? (p175)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿¿Requieren intervención: Lavamanos? (p176)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Duchas (p177)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y cuál es su estado: Duchas? (p178)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿¿Requieren intervención: Duchas? (p179)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavadero de Ropa (p180)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Y cuál es su estado: Lavadero de Ropa? (p181)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿¿Requieren intervención: Lavadero de Ropa? (p182)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 36: de los implementos o áreas, enfatice en los que requiere intervención: Lavamanos (p183)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 37: de los implementos o áreas, enfatice en los que requiere intervención: Duchas (p184)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Fotografía 38: de los implementos o áreas, enfatice en los que requiere intervención: Lavadero de Ropa (p185)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Inundaciones (p186)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Avalancha (p187)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Deslizamiento (p188)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Hundimiento del Terreno (p189)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Falla Geológica (p190)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Esta vivienda, en el último año, se ha visto afectada por: Afectaciones de lotes y/o viviendas vecinas (p191)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Esta vivienda a sido atendida a través del Programa municipal 'Medellín Solidaria'? (p192)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Esta vivienda ha sido visitada por el DAGRD? (p193)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >¿Qué tipo de ficha DAGRD tiene? (p194)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Visita atendida por: (p199)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Visita realizada por: (p200)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="300px">Observaciones (p201)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" >Estiquer (p202)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="150px">Quién realizó la Encuesta (empadronador)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="150px">Nombre del Supervisor (supervisor)</td>
+      <td class="oce-first" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;" width="150px">Nombre del Coordinador en trabajo de Campo (coordinador)</td>
+  </tr>
+<% @fase2censos.each do |fase2censo| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.id_estado rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.estado rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.noform rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p2 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p3.to_s.to(2).upcase == 'IMG' %>
+        <%= link_to fase2censo.p3.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio", :popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+        <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.sifi_comuna rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.sifi_desc rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p6 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p6_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p7 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p8 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p9 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p10 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p11 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p11_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p12 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p12_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p13 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p14 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p16 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p22 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p23 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p24 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p25 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p26 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p27 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p28 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p29 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p30 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p31 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p32 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p33 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p34 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p35 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p36 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p37 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p38 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p39 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p40 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p40_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p41 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p41_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p42 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p42_1 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p43 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p44.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p44.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p45 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p46 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p47 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p48 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p49 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p49_1.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p49.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p49.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p50 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p51 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p52 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p53 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p54 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p55 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p56 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p57 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p58 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p59 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p60 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p61 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p62 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p63 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p78 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p79 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p80 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p81 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p82 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p83 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p84 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p85 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p86 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p87 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p88 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p89 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p90.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p90.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p91 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p92 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p92_2 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p93 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p94 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p95.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p95.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p96.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p96.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p97 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p98 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p99 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p100.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p100.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p101.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p101.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p102 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p103 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p104 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p105 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p106 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p107 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p108 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p109 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p110 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p111.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p111.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p112.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p112.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p113 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p114.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p114.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p115 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p116 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p117 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p118 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p119 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p120 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p121 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p122 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p123 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p124 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p125.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p125.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p126.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p126.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p127 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p128.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p128.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p129.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p129.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p130 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p131 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p132.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p132.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p133.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p133.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p134 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p135 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p136 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p137 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p138 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p139 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p140 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p141 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p142 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p143 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p144 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p145 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p146 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p147 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p148 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p149 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p150 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p151 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p152 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p153 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p154 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p155 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p156 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p157 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p158.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p158.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p159.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p159.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p160.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p160.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p161 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p162 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p163 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p164 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p165 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p166 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p167.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p167.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p168 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p169 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p170 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p171 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p172.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p172.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p173.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p173.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p174 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p175 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p176 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p177 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p178 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p179 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p180 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p181 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p182 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p183.to_s.to(2).upcase == 'IMG' %>
+        <%= link_to fase2censo.p183.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p184.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p184.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><% if fase2censo.p185.to_s.to(2).upcase == 'IMG'%>
+        <%= link_to fase2censo.p185.to_s.upcase, {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:popup => ['new_window','height=400,width=400,scrollbars=yes']%>
+      <% end%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p186 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p187 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p188 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p189 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p190 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p191 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p192 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p193 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p194 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p199 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p200 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p201 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.p202 rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.empadronador rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.supervisor rescue nil%></td>
+      <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%= fase2censo.coordinador rescue nil%></td>
+  </tr>
+<% end %>
+</table>
+<br/>
+<table class="table">
+  <tr>
+     <td><div align="center"><strong>Total Registros: <%= @fase2censos.total_entries %></strong>
+       <% if @pagina.to_s == 'SI' %><br/>
+       <%= will_paginate @fase2censos, :previous_label => 'Anterior', :next_label => 'Siguiente' %>
+       <% end %></div></td>
+   </tr>
+</table>
+<br/>
+</div>

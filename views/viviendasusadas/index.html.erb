@@ -1,0 +1,152 @@
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/viviendasusadamin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION VIVIENDA USADA</div></td>
+          <td width="3%"><div align="right"><% if permiso("viviendasusada","C").to_s == "S" %>
+          <%= link_to image_tag('nuevo.png',{ :border=>0, :title => "Nuevo"}),new_viviendasusada_path %><% end %> </div></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<% form_tag buscar_viviendasusadas_path, :method => 'get' do %>
+<div align="center">
+  <table width="85%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="18%" align="left" height="20" class="campos">Identificacion</td>
+      <td width="26%" align="left" class="campos">Identificacion Predio</td>
+      <td width="56%" align="left" class="campos">Tipo Poblacion </td>
+      <td width="19%" align="left" class="campos">Sector</td>
+    </tr>
+    <tr>
+      <td align="left" valign="top" height="20" class="camposDesc"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      <td align="left" class="camposDesc"><%= text_field_tag :codigo, params[:codigo],{ :class => "campo", :size => 10,
+            :onFocus => "this.style.border='1px solid #f00'",
+            :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      <td align="left" class="camposDesc"><%=select("ubicacion", "familiar_id", Familiar.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+        { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      <td align="left" valign="top" class="camposDesc"><%=select("ubicacion", "tipospoblacion_id", Tipospoblacion.find(:all,:order=>'descripcion').collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true }, { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+  </table>
+  <table width="85%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="39%" align="left" height="20" class="campos">Barrio</td>
+      <td width="45%" align="left" class="campos">Estado</td>
+      <td width="16%" align="left" class="campos">Resultado Concepto </td>
+    </tr>
+    <tr>
+      <td align="left" height="20" valign="top" class="camposDesc"><%= text_field_tag :sector, params[:sector],{ :class => "campo", :size => 50,
+          :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+      <td align="left" valign="top" class="camposDesc"><%=select("ubicacion", "viviendasusadasestado_id", Viviendasusadasestado.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+           { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+      <td align="left" valign="top" class="camposDesc"><%= select("ubicacion", :resultado_concepto, select_indicadorsentido,{ :include_blank => true },
+                { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+  </table>
+  <table width="85%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="37%" align="left" height="20" class="campos">Fecha Visita Tecnica </td>
+      <td width="39%" align="left" class="campos">Elaboracion Escritura</td>
+      <td width="24%" align="left" class="campos">Resultado Estudio de Titulos </td>
+    </tr>
+    <tr valign="top">
+      <td align="left" height="20" class="camposDesc">Inicial : <%= calendar_date_select "ubicacion", "visitainicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>&nbsp;&nbsp;Final :<%= calendar_date_select "ubicacion", "visitafinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      <td align="left" class="camposDesc">Inicial : <%= calendar_date_select "ubicacion", "escriturainicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>&nbsp;&nbsp;Final :<%= calendar_date_select "ubicacion", "escriturafinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      <td align="left" class="camposDesc"><%= select("ubicacion", :resultado_estudio, select_indicadorsentido, { :include_blank => true },
+                { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+  </table>
+  <table width="85%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="35%" height="20" align="left" class="campos">Fecha Final (Corte) </td>
+      <td width="29%" align="left" class="campos">Modo de Adquisicion </td>
+      <td width="36%" align="left" class="campos">Valor Vivienda </td>
+    </tr>
+    <tr valign="top">
+      <td align="left" height="20" class="camposDesc">Inicial : <%= calendar_date_select "ubicacion", "fchinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>&nbsp;&nbsp;Final :<%= calendar_date_select "ubicacion", "fchfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+      <td align="left" class="camposDesc"><%= select("ubicacion", "modo_adquisicion", { "BANCO INMOBILIARIO ISVIMED" => "BANCO INMOBILIARIO ISVIMED",
+                     "TRAIDA BENEFICIARIO" => "TRAIDA BENEFICIARIO"},
+                  { :include_blank => true },
+                { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+      <td align="left" class="camposDesc"><%= text_field_tag :buscarprecioinicial, params[:buscarprecioinicial],{ :class => "campo", :size => 15,
+          :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %> &nbsp;-&nbsp; 
+          <%= text_field_tag :buscarpreciofinal, params[:buscarpreciofinal],{ :class => "campo", :size => 15,:onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+  </table>
+  <table width="85%" border="0" cellspacing="2" cellpadding="0">
+    <tr class="odd1">
+      <td width="30%" height="20" align="left" class="campos">Vivienda Entregada</td>
+      <td width="70%" align="left" class="campos"></td>
+    </tr>
+    <tr valign="top">
+      <td align="left" height="20" class="camposDesc"><%= select("ubicacion", "entregada", select_sino,{ :include_blank => true },
+                { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+      <td align="left" class="camposDesc"></td>
+    </tr>
+  </table>
+  <table width="85%" height="0" align="center" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>
+  <table width="85%" border="0" align="center" cellpadding="2" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/search.png">&nbsp;&nbsp;<span class="uiButtonText"> <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %> </span></div>
+          <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Buscar", :name => 'format', :value => 'xls' %>
+    </span></div>
+      </div></td>
+    </tr>
+  </table>
+</div>
+<% end %>
+<br/>
+<table width="85%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">INFORME DE ACTIVIDADES - VIVIENDA USADA</div></td>
+  </tr>
+</table>
+<% form_tag informe_viviendasusadas_path, :method => 'get' do %>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="58%" class="campos">Fecha Atencion </td>
+    <td width="42%" class="campos">Funcionario</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">&nbsp;&nbsp;Fecha Inicial &nbsp; <%= calendar_date_select "ubicacion", "fchinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;Fecha Final&nbsp; <%= calendar_date_select "ubicacion", "fchfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+    <td class="camposDesc"><%=select("ubicacion", "usuario", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:360px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+  </tr>
+</table>
+<table width="85%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="85%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+      <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Informe de Atencion" %>
+      </span></div>
+
+</div></td>
+  </tr>
+</table>
+<% end %>
+<% if permiso("viviendasusadavisita","C").to_s == "S" %>
+   <%= render 'visitatecnica' %>
+<% end %>
+<br/>
+<br/>
+
+
+
+

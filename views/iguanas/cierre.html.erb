@@ -1,0 +1,373 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td colspan="2" align="center" class="campos11"><strong>FICHA CIERRE FINANCIERO</strong></td>
+        </tr>
+        <tr>
+          <td align="left" class="campos11"><strong>JEFE DE HOGAR Y BENEFICIARIOS</strong></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="sample">
+            <tr class="odd1">
+              <td width="20%" class="camposDesc"><strong>IDENTIFICACION</strong></td>
+              <td width="60%" class="camposDesc"><strong>NOMBRE</strong></td>
+              <td width="20%" class="camposDesc"><strong>PARENTESCO</strong></td>
+            </tr>
+            <% @iguanaspersonas = Iguanaspersona.find_all_by_iguana_id(@iguana.id)
+               @iguanaspersonas.each do |iguanaspersona|
+            %>
+            <tr>
+              <td class="camposDesc"><%=iguanaspersona.persona.identificacion rescue nil%></td>
+              <td class="camposDesc"><%=iguanaspersona.persona.nombres rescue nil%></td>
+              <td class="camposDesc">JEFE DE HOGAR</td>
+            </tr>
+            <%end%>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="left" class="campos11"><strong>CIERRE FINANCIERO</strong></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" align="left" class="camposDesc">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="35%" class="campos">Elemento</td>
+              <td width="15%" class="campos"align="right">Valor</td>
+              <td width="35%" class="campos">&nbsp;&nbsp;Resolucion</td>
+              <td width="15%" class="campos">&nbsp;&nbsp;Fecha</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">VALOR AHORRO TRASLADADO</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">VALOR DONACIÓN</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">TOTAL SUBSIDIOS, CREDITOS Y APORTES</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">GASTOS ESCRITURACION CANCELADOS</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">VALOR VIVIENDA</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="camposDesc">&nbsp;</td>
+              <td class="camposDesc" align="right">-------------------</td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="campos" align="right">SALDO CIERRE FINANCIERO</td>
+              <td class="campos" align="right">$ </td>
+              <td class="camposDesc"></td>
+              <td class="camposDesc">&nbsp;&nbsp;</td>
+            </tr>
+          </table></td>
+        </tr>
+<tr>
+          <td align="left" class="campos11"><strong>LISTA DE CHEQUEO</strong></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+</table>
+<table width="800" border="0" cellpadding="0" cellspacing="0" class="sample">
+  <tr class="odd1">
+    <td colspan="5" class="camposDesc"><strong>PROCESO: RECEPCIÓN Y ASESORÍA - RESPONSABLE:  Subdirección Técnica</strong></td>
+  </tr>
+  <tr class="odd1">
+    <td colspan="4" class="camposDesc"><strong>DOCUMENTACIÓN</strong></td>
+    <td class="camposDesc"><strong>OBSERVACIÓN</strong></td>
+  </tr>
+  <tr>
+    <td width="5%" class="camposDesc">1</td>
+    <td width="65%" class="camposDesc">Ficha censal</td>
+    <td width="5%" class="camposDesc"><div align="center">SI</div></td>
+    <td width="5%" class="camposDesc"><div align="center">NO</div></td>
+    <td width="20%"></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">2</td>
+    <td class="camposDesc">Ficha social isvimed</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">3</td>
+    <td class="camposDesc">Documentos identificación grupo familiar (fotocopia de la cedula de ciudadanía actualizada de los mayores de edad y del registro    civil de los menores de edad con nuip o indicativo serial)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">4</td>
+    <td class="camposDesc">Copia del registro civil de matrimonio y/o declaración juramentada tratandose de compañeros permanentes (formato f-gs-09)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">5</td>
+    <td class="camposDesc">Ficha del sisben</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">6</td>
+    <td class="camposDesc">Tiempo de residencia en medellín y/o declaración juramentada (formato f-gs-09)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">7</td>
+    <td class="camposDesc">Certificado de ingresos mensuales menor a 2 smlv del grupo familiar y/o declaración juramentada (formato f-gs-09)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">8</td>
+    <td class="camposDesc">Certificado discapacidad de los integrantes del grupo familar  (los que tengan esta condición la deberán aportar adicional al formato f-gs-09)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">9</td>
+    <td class="camposDesc">Rentistas: soportes que acrediten el aporte familiar (valor de la mejora más ahorro programado y /o crédito hipotecario, etc)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">10</td>
+    <td class="camposDesc">Cruce</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td rowspan="7" class="camposDesc">11</td>
+    <td class="camposDesc">Soportes que acrediten la posesión: </td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Escritura pública con certificado de tradición y libertad</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Impuesto predial y/o ficha predial</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Compraventa</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Extrajuicio o certificados jac</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Certificado de suscripción de servicios públicos </td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">Otros</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">12</td>
+    <td class="camposDesc">Avalúo comercial de la vivienda inicial o reconocimiento de mejoras (si esta demolido el reconocimiento se hace desde la subdirección jurídica)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">13</td>
+    <td class="camposDesc">Oferta de compra vivienda inicial</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">14</td>
+    <td class="camposDesc">Notificación oferta de compra</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">15</td>
+    <td class="camposDesc">Aceptación oferta de compra</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">16</td>
+    <td class="camposDesc">Contrato de compraventa de inmueble o mejora</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">17</td>
+    <td class="camposDesc">Escritura y certificado de tradición y libertad a nombre del municipio</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<H1 class="SaltoDePagina"> </H1>
+<br/>
+<table width="800" border="0" cellpadding="0" cellspacing="0" class="sample">
+  <tr class="odd1">
+    <td colspan="5" class="camposDesc"><strong>PROCESO: PARA VIVIENDA USADA - RESPONSABLE:  Subdirección Técnica</strong></td>
+  </tr>
+  <tr class="odd1">
+    <td colspan="4" class="camposDesc"><strong>DOCUMENTACIÓN</strong></td>
+    <td class="camposDesc"><strong>OBSERVACIÓN</strong></td>
+  </tr>
+  <tr>
+    <td width="5%" class="camposDesc">18</td>
+    <td width="65%" class="camposDesc">Cedula del vendedor (es)</td>
+    <td width="5%" class="camposDesc"><div align="center">SI</div></td>
+    <td width="5%" class="camposDesc"><div align="center">NO</div></td>
+    <td width="20%"></td>
+  </tr>
+  <tr>
+    <td class="camposDesc">19</td>
+    <td class="camposDesc">Cuenta servicios públicos (energía, acueducto, saneamiento)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">20</td>
+    <td class="camposDesc">Impuesto predial</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"></td>
+    <td class="camposDesc">Ficha predial y/o catastral</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"></td>
+    <td class="camposDesc">Resolución de asignacion subsidio municipal</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">21</td>
+    <td class="camposDesc">Escritura de la vivienda a estudiar</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">22</td>
+    <td class="camposDesc">Certificado de tradición y libertad</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">23</td>
+    <td class="camposDesc">Concepto de riesgo emitido por el departamento de planeción municipal</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">24</td>
+    <td class="camposDesc">Estudio de titulos</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">25</td>
+    <td class="camposDesc">Carta de intención de venta</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">26</td>
+    <td class="camposDesc">Avaluo comercial </td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">27</td>
+    <td class="camposDesc">Visita técnica-condiciones de habitabilidad</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">28</td>
+    <td class="camposDesc">Comunicación del avaluo a las partes y oferta final del vendedor (formato)</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="camposDesc">29</td>
+    <td class="camposDesc">Cierre financiero</td>
+    <td class="camposDesc"><div align="center">SI</div></td>
+    <td class="camposDesc"><div align="center">NO</div></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0"  align="center">
+ <tr><td height="0" class="campos">&nbsp;&nbsp;&nbsp;S I F I - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <%=User.find(is_admin).nombre rescue nil%></td></tr>
+</table>
+</div>

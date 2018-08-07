@@ -1,0 +1,64 @@
+<h1>Listing fase2beneficiarios</h1>
+
+<table>
+  <tr>
+    <th>Persona</th>
+    <th>Noform</th>
+    <th>P15</th>
+    <th>P17</th>
+    <th>P18</th>
+    <th>P19</th>
+    <th>P20</th>
+    <th>P21</th>
+    <th>P64</th>
+    <th>P65</th>
+    <th>P66</th>
+    <th>P67</th>
+    <th>P68</th>
+    <th>P69</th>
+    <th>P70</th>
+    <th>P71</th>
+    <th>P72</th>
+    <th>P73</th>
+    <th>P74</th>
+    <th>P75</th>
+    <th>P76</th>
+    <th>P77</th>
+    <th>P198</th>
+  </tr>
+
+<% @fase2beneficiarios.each do |fase2beneficiario| %>
+  <tr>
+    <td><%=h fase2beneficiario.persona_id %></td>
+    <td><%=h fase2beneficiario.noform %></td>
+    <td><%=h fase2beneficiario.p15 %></td>
+    <td><%=h fase2beneficiario.p17 %></td>
+    <td><%=h fase2beneficiario.p18 %></td>
+    <td><%=h fase2beneficiario.p19 %></td>
+    <td><%=h fase2beneficiario.p20 %></td>
+    <td><%=h fase2beneficiario.p21 %></td>
+    <td><%=h fase2beneficiario.p64 %></td>
+    <td><%=h fase2beneficiario.p65 %></td>
+    <td><%=h fase2beneficiario.p66 %></td>
+    <td><%=h fase2beneficiario.p67 %></td>
+    <td><%=h fase2beneficiario.p68 %></td>
+    <td><%=h fase2beneficiario.p69 %></td>
+    <td><%=h fase2beneficiario.p70 %></td>
+    <td><%=h fase2beneficiario.p71 %></td>
+    <td><%=h fase2beneficiario.p72 %></td>
+    <td><%=h fase2beneficiario.p73 %></td>
+    <td><%=h fase2beneficiario.p74 %></td>
+    <td><%=h fase2beneficiario.p75 %></td>
+    <td><%=h fase2beneficiario.p76 %></td>
+    <td><%=h fase2beneficiario.p77 %></td>
+    <td><%=h fase2beneficiario.p198 %></td>
+    <td><%= link_to 'Show', fase2beneficiario %></td>
+    <td><%= link_to 'Edit', edit_fase2beneficiario_path(fase2beneficiario) %></td>
+    <td><%= link_to 'Destroy', fase2beneficiario, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New fase2beneficiario', new_fase2beneficiario_path %>

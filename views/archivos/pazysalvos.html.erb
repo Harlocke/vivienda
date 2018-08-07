@@ -1,0 +1,57 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                    <img src="/images/archivomin.png" width="64" height="64"/>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;
+                    INFORMACION PAZ Y SALVO
+                  </div></td>
+              <td width="3%"><div align="right">
+                    <%= link_to image_tag('atras.png',{ :border=>0, :title => "Atras"}),archivos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+<% if @archivosprestamos.count > 0 %>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="5%" class="oce-first"><div align="center">Caja</div></td>
+    <td width="5%" class="oce-first"><div align="center">Carpeta</div></td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Prestamo</div></td>
+    <td width="20%" class="oce-first"><div align="center">Usuario realiza el Prestamo</div></td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Vencimiento</td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Devolucion</td>
+    <td width="20%" class="oce-first"><div align="center">Usuario Registra Devolucion</td>
+  </tr>
+<% for archivosprestamo in @archivosprestamos %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.caja rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.carpeta rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.created_at  rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=User.find(archivosprestamo.userregistro).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.fecha_vence  rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.fecha_devolucion  rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=User.find(archivosprestamo.userdevolucion).nombre rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @archivosprestamos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @archivosprestamos.total_entries %> - Nro Total de Registro : <%=@archivosprestamos.count%></div></td>
+  </tr>
+</table>
+<% else -%>
+  <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+           El usuario <h4 style="color: #000;"><%= User.find(@prestamo).nombre rescue nil%></h4> actualmente no cuenta con documentos pendientes<br/> 
+           Si desea habilitar el paz y salvo pulse <%= link_to "Aqui..", {:controller => 'archivos', :action => 'confirmar', :userpazysalvo => @prestamo} %><br/><br/>
+  </div>
+<br/>
+<% end -%>
+

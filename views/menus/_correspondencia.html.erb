@@ -1,0 +1,42 @@
+<% if @existecorrespondencia %>
+  <div style="font-size:12px; font-family: Tahoma; display:table;"><strong><a href="javascript:void(0);" onclick="SINO('demo2<%=is_admin.to_s%>')"><img src="/images/recibida.png"/></a> &nbsp;<a href="javascript:void(0);" onclick="SINO('demo2<%=is_admin.to_s%>')"><div style="display:table-cell; vertical-align:middle;"><p>VER CORRESPONDENCIA PENDIENTE (<%=@correspondenciasasignadas.count rescue 0%>) </p></div></a> </strong>        
+  </div>         
+  <div id="demo2<%=is_admin.to_s%>" style="display:none;">
+      <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="20%" class="oce-first">Clase Oficio</td>
+          <td width="40%" class="oce-first">Asunto</td>
+          <td width="10%" class="oce-first"><div align="center">Nro Radicado</div></td>
+          <td width="10%" class="oce-first"><div align="center">Fecha Radicado</div></td>
+          <td width="10%" class="oce-first"><div align="center">Fecha limite</div></td>
+          <td width="5%" class="oce-first"><div align="center">Dias</div></td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+       <% @correspondenciasasignadas.each do |correspondenciasasignada| %>
+        <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=correspondenciasasignada.correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=correspondenciasasignada.correspondenciasrecibida.asunto rescue nil%></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.nro_radicado rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.fecha_elaboracion rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasasignada.correspondenciasrecibida.fecha_limite rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=diferenciadias(correspondenciasasignada.correspondenciasrecibida.fecha_limite) rescue nil%></div></td>
+          <td ><div align="right"><%= link_to 'Ver',{:controller=>"correspondenciasrecibidas", :action =>"verrecibido", :id =>correspondenciasasignada.correspondenciasrecibida_id},
+                         {:Onclick => "return GB_showCenter('Información Radicado', this.href, 700, 900)",:title => "Ver Radicado",:class=>"verlink"} %>
+            </div></td>
+        </tr>
+      <% end %>
+      <% @correspondenciasrecibidasusers.each do |correspondenciasrecibidasuser| %>
+       <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=correspondenciasrecibidasuser.correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=correspondenciasrecibidasuser.correspondenciasrecibida.asunto rescue nil%></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.nro_radicado rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.fecha_elaboracion rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=correspondenciasrecibidasuser.correspondenciasrecibida.fecha_limite rescue nil%></div></td>
+          <td class="camposDesc"><div align="center"><%=diferenciadias(correspondenciasrecibidasuser.correspondenciasrecibida.fecha_limite) rescue nil%></div></td>
+          <td ><div align="right"><%= link_to 'Ver', {:controller=>"correspondenciasrecibidas", :action =>"verrecibido", :id =>correspondenciasrecibidasuser.correspondenciasrecibida_id},
+                                   {:Onclick => "return GB_showCenter('Información Radicado', this.href, 700, 900)",:title => "Ver Radicado",:class=>"verlink"}%></div></td>
+        </tr>
+      <% end %>
+      </table>
+  </div>
+<%end%>

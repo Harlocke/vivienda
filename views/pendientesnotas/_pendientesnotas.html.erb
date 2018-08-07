@@ -1,0 +1,102 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">SEGUIMIENTO</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@pendiente, @pendientesnota] do |form| %>
+   <% if !@pendientesnota.id %>
+      <tr class="<%=cycle('even1', 'odd1')%>">
+  <%= render :partial => "/pendientesnotas/pendientesnotas_form" %>
+      </tr>
+<% end %>
+<% if @pendiente.pendientesnotas.exists? %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="55%" class="oce-first">Observaciones</td>
+    <td width="5%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for pendientesnota in @pendiente.pendientesnotas.find(:all, :order => 'created_at DESC') %>
+   <% if pendientesnota.id != @pendientesnota.id %>
+      <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="pendientesnota_<%=pendientesnota.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=pendientesnota.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=pendientesnota.user.nombre rescue nil%>"><%=pendientesnota.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="65%" class="camposDesc" align="left"><%=pendientesnota.observacion%></td>
+          <td width="15%" class="camposDesc">
+        <div align="center">
+        <%= link_to 'Imagen',  img_pendientesimagenes_path(pendientesnota.id), :class=>"imagenlink"%>
+      </div></td>
+        </tr>
+      </table>
+    <% if pendientesnota.pendientesimagenes.exists? %>
+    <div align="center">
+      <table width="80%" border="0" align="center" cellpadding="1" cellspacing="1">
+        <tr>
+          <td width="10%" valign="middle" class="oce-first"><div align="center">Imagenes</div></td>
+          <td width="90%">
+            <table width="100%" border="0" cellspacing="1" cellpadding="1">
+              <tr>
+                <td class="oce-first" width="10%" align="center">Fecha</td>
+                <td class="oce-first" width="45%" align="center">Descripcion</td>
+                <td class="oce-first" width="40%" align="center">Nombre Archivo</td>
+                <td class="oce-first" width="5%" align="center"></td>
+              </tr>
+            <% pendientesnota.pendientesimagenes.each do |pendientesimagen| %>
+              <tr class="<%=cycle('even1', 'odd1')%>">
+                <td class="camposDesc" align="left"><%=pendientesimagen.created_at.strftime("%Y-%m-%d") rescue nil%></td>
+                <td class="camposDesc" align="left"><%=pendientesimagen.descripcion%></td>
+                <td class="camposDesc" align="left"><%=pendientesimagen.pendiente_file_name%></td>
+                <td class="camposDesc" align="left"><%= link_to "Ver", pendientesimagen.pendiente.url(:original, false),{ :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"verlink"}%></td>
+              </tr>
+            <% end %>
+              </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <% end %>
+
+
+
+      
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :pendiente, :id %>
+<% end %>
+<br/>
+<% if flash[:pendientesnota] %>
+<div id="pendientesnota">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:pendientesnota] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('pendientesnota');", 5000)
+</script>
+<% end %>
+</div>

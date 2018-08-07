@@ -1,0 +1,220 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciaenviadamin.png" width="64" height="64"/></td>
+              <td width="85%"><div class="col_enc">CORRESPONDENCIA ENVIADA</div></td>
+              <% if permiso("correspondenciasenviada","C").to_s == "S" %>
+              <td width="12%"><div align="right">
+                     <%= link_to image_tag('nuevo.png', { :border=>0, :title => "Nuevo"}),new_correspondenciasenviada_path %>
+                  <%= link_to image_tag('atras.png', { :border=>0, :title => "Buscar"}),correspondencias_path %>
+                </div></td>
+              <% end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag request.path, :method => 'get' do %>
+  <% content_tag :label do  %>
+<div align="center">
+<table width="70%" border="0" cellspacing="0" cellpadding="0">
+    <tr class="odd1">
+          <td width="33%" height="20" class="campos" align="left">Nro Radicado </td>
+          <td class="camposDesc" align="left"><%= text_field_tag :nro_radicado, params[:nro_radicado],{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>&nbsp;&nbsp;<h class="cerror">* Ultimo Radicado ... <%=is_enviada%></h></td>
+        </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Destinatario Identificacion</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Destinatario Identificacion Bene</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :identificacionb, params[:identificacionb],{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Destinatario Empresa</td>
+      <td class="camposDesc" align="left">
+        <%=select("ubicacion", "correspondenciasremitente_id", Correspondenciasremitente.find(:all, :order => 'entidad,nombre').collect {|p| [ p.entidad.to_s + " - "+p.nombre.to_s, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Fecha Elaboracion</td>
+      <td class="camposDesc" align="left">
+        Entre <%= calendar_date_select "ubicacion", "fchelainicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "fchelafinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Dependencia</td>
+      <td class="camposDesc" align="left">
+        <%=select("ubicacion", "dependencia_id", select_dependencia.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Asunto</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :asunto, params[:asunto],{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Observaciones</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :observacion, params[:observacion],{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">** Nombre Entidad</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :empresa, params[:empresa],{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">** Nombre Resp Entidad</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :empresar, params[:empresar],{ :class => "campo", :size => 80,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Usuario firma</td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "userfirma", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Usuario elabora</td>
+      <td class="camposDesc" align="left"><%=select("ubicacion", "userelabora", select_user.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:450px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Devolucion?</td>
+      <td class="camposDesc" align="left">
+        <%= select("ubicacion","devolucion",[["SI","SI"],["NO","NO"]],{ :include_blank => true },{ :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Reenvio?</td>
+      <td class="camposDesc" align="left">
+        <%= select("ubicacion","reenvio",[["SI","SI"],["NO","NO"]],{ :include_blank => true },{ :style=>"width:100px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    </tr>
+    <tr class="odd1">
+      <td width="33%" height="20" class="campos" align="left">Anexos</td>
+      <td class="camposDesc" align="left">
+        <%= text_field_tag :anexo, params[:anexo],{ :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Causal devolución</td>
+      <td class="camposDesc" align="left">
+           <%= select("ubicacion","causal",select_causaldev, { :include_blank => true },
+                { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+      </td>
+    </tr>
+  </table>
+  <table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+  </table>
+  <table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr><td height="30"><div align="right"><div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+        <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %></span></div>
+        <% if permiso("correspondenciasenviada","C").to_s == "S" %>
+          <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Buscar", :name => 'format', :value => 'xls' %></span></div>
+        <% end %></div></td></tr>
+  </table>
+</div>
+<% end %>
+<% end %>
+<br/>
+<% if @correspondenciasenviadas.count.to_i > 0 %>
+  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="10%" height="30" class="oce-first"><div align="center">Nro Radicado</div></td>
+        <td width="30%" height="30" class="oce-first">Destinatario</td>
+        <td width="10%" class="oce-first"><div align="center">Fecha Elaboracion</div></td>
+        <td width="45%" class="oce-first">Asunto</td>
+        <td width="5%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @correspondenciasenviadas.each do |correspondenciasenviada| %>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasenviada.nro_radicado%></div></td>
+        <td height="30" class="camposDesc">Persona: <%=h correspondenciasenviada.persona.autobuscar rescue nil%><br/>
+        Empresa: <%=h correspondenciasenviada.correspondenciasremitente.nombre rescue nil%> - <%=h correspondenciasenviada.correspondenciasremitente.cargo rescue nil%></td>
+        <td height="30" class="camposDesc"><div align="center"><%=h correspondenciasenviada.fecha_elaboracion%></div></td>
+        <td class="camposDesc"><div align="justify"><%=h correspondenciasenviada.asunto%></div></td>
+        <td class="camposDesc"><div align="center">
+        <%= link_to 'Editar', edit_correspondenciasenviada_path(:id=>correspondenciasenviada, :etapa=>'1'),:class=>"editarlink"%>
+          </div></td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+  <table width="90%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td width="100%" class="camposDesc"><div align="center"><%= will_paginate @correspondenciasenviadas, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td></tr>
+    <tr><td width="100%" class="camposDesc"><div align="center"><strong>Total Registros:</strong> <%= @correspondenciasenviadas.total_entries %></div></td></tr>
+  </table>
+  <br/>
+<% end %>
+<% if permiso("correspondenciasenviada","C").to_s == "S" %>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">GENERACION DE STIKER</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+       <div class="uiButton"><img class="img" src="/images/excel.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+          <%= link_to 'Parametros Informe', stikerinforme_correspondenciasenviadas_path, :popup => ['new_window','height=350,width=700,scrollbars=yes']%>
+        </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<% if permiso("correspondenciasmasivo","C").to_s == "S" %>
+<br/>
+<table width="80%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td align="left" height="30"><div class="col_enc">CARGUE MASIVO DE DOCUMENTOS</div></td>
+  </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+       <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+           <%= link_to 'Cargue Masivo', {:controller => "correspondenciasenviadas", :action => "upload", :id=>1, :host => is_host}, :popup => ['new_window','height=350,width=700,scrollbars=yes'], :confirm=>"Esta seguro que desea ejecutar el proceso" %>
+        </span></div>
+       <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+           <%= link_to 'Cargue Guias', {:controller => "correspondenciasenviadas", :action => "uploadguia", :id=>1, :host => is_host}, :popup => ['new_window2','height=350,width=700,scrollbars=yes'], :confirm=>"Esta seguro que desea ejecutar el proceso de cargue de Guia?" %>
+        </span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<br/>

@@ -1,0 +1,86 @@
+<strong>INFORMACION EMPLEADOS</strong>
+<br/>
+<table width="100%" border="1" >
+  <tr bgcolor="#00CCFF" valign="middle">
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Documento</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Identificacion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Digito</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Primer Nombre / Razon Social</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Segundo Nombre</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Primer Apellido</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Segundo Apellido</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Genero</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>RH</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Nacimiento</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fecha Nacimiento MES</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Lugar Expedicion Documento</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Estado Civil</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Direccion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Barrio</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Telefono</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Celular</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Correo Electronico</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Dependencia</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Profesion u Ocupación</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Nivel Educativo</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>EPS</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fondo de Pensiones</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Arp</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Riesgo</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Caja de Compensacion</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Fondo de Cesantias</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Numero de Cuenta</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Entidad Bancaria</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Tipo de Cuenta</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Posee Vehiculo</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Placa</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Carnet</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Chaleco</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Gorra</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Cargo</strong></td>
+    <td width="20%" style="font-size: 11px; font-family: Tahoma;"><strong>Estado</strong></td>
+  </tr>
+<% for empleado in @empleados %>
+  <tr valign="middle">
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.documento.descripcion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.identificacion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.verificacion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.primer_nombre rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.segundo_nombre rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.primer_apellido rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.segundo_apellido rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.genero rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.rh rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.fecha_nacimiento rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.fecha_nacimiento.strftime("%m") rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.lugar_exp_cedula rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=EstadosCivil.find(empleado.estado_civil_id).descripcion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.direccion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.barrio rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.telefono rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.celular rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.email rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.dependencia.descripcion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.profesion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.nivel_educativo rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.eps rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.pension rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.arp rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.nivel_riesgo rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.caja_compensacion rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.fondo_cesantias rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.nro_cuenta rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.entidad rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.tipo_cuenta rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.vehiculo rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.placa rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.carnet rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.chaleco rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.gorra rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.cargo rescue nil%></div></td>
+     <td width="5%" style="font-size: 11px; font-family: Tahoma;"><div align="left"><%=empleado.estadoinf rescue nil%></div></td>
+ </tr>
+<% end %>
+</table>
+
+

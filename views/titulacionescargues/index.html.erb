@@ -1,0 +1,38 @@
+<h1>Listing titulacionescargues</h1>
+
+<table>
+  <tr>
+    <th>Titulacion</th>
+    <th>User</th>
+    <th>Identificacion</th>
+    <th>Primer nombre</th>
+    <th>Segundo nombre</th>
+    <th>Primer apellido</th>
+    <th>Segundo apellido</th>
+    <th>Direccion</th>
+    <th>Telefono1</th>
+    <th>Telefono2</th>
+  </tr>
+
+<% @titulacionescargues.each do |titulacionescargue| %>
+  <tr>
+    <td><%=h titulacionescargue.titulacion_id %></td>
+    <td><%=h titulacionescargue.user_id %></td>
+    <td><%=h titulacionescargue.identificacion %></td>
+    <td><%=h titulacionescargue.primer_nombre %></td>
+    <td><%=h titulacionescargue.segundo_nombre %></td>
+    <td><%=h titulacionescargue.primer_apellido %></td>
+    <td><%=h titulacionescargue.segundo_apellido %></td>
+    <td><%=h titulacionescargue.direccion %></td>
+    <td><%=h titulacionescargue.telefono1 %></td>
+    <td><%=h titulacionescargue.telefono2 %></td>
+    <td><%= link_to 'Show', titulacionescargue %></td>
+    <td><%= link_to 'Edit', edit_titulacionescargue_path(titulacionescargue) %></td>
+    <td><%= link_to 'Destroy', titulacionescargue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New titulacionescargue', new_titulacionescargue_path %>

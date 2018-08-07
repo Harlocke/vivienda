@@ -1,0 +1,124 @@
+<div align="center">
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+     <%=image_tag("frame.png")%>
+    <br/>
+    <div align="center" style="font-family: Tahoma; font-size: 14px;"><strong>ACTA DE APROBACION DE PRECIOS NO CONVENIDOS</strong></div><br/>
+    <div align="justify" style="font-family: Tahoma; font-size: 10px;">AUNAR ESFUERZOS TÉCNICOS, ADMINISTRATIVOS Y FINANCIEROS PARA REALIZAR LA SUPERVISIÓN TÉCNICA DE LAS EJECUCIONES DEL SUBSIDIO DE MEJORAMIENTO DE VIVIENDA EN LOS MUNICIPIOS DE MEDELLÍN, SAN RAFAEL, SAN FRANCISCO, SAN LUIS Y GRANADA ANTIOQUIA TANTO EN EL ÁREA URBANA COMO RURAL Y ACOMPAÑAMIENTO A LA EJECUCIÓN DE LOS CONVENIOS</div>
+    <br/><div align="center">
+<table width="80%" border="1" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <td colspan="4" class="campos"><strong>CONVENIO: </strong> <%=@convenio.nro_convenio rescue nil%></td>
+  </tr>
+  <tr class="odd1">
+    <td width="33%" class="campos"><strong>VALOR CONVENIO</strong></td>
+    <td width="33%"  class="campos" colspan="2"><strong>FECHA INICIO CONVENIO</strong></td>
+    <td width="33%" class="campos"><strong>FECHA DE TERMINACION CONVENIO</strong></td>
+  </tr>
+  <tr>
+    <% @contrato = Contrato.find(:first, :conditions => ["nro_contrato = '#{@convenio.nro_convenio}' and to_char(fecha_firma,'YYYY') = '#{@convenio.vigencia}'"]) %>
+    <td class="campos"><%=camponumerico(@convenio.valor_diagnostico) rescue nil%>&nbsp;</td>
+    <td class="campos" colspan="2"><%=@contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+    <td class="campos"><%=@contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>&nbsp;</td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" colspan="4"><div align="justify"><strong>OBJETO CONVENIO : </strong> <br/><%=@contrato.objeto rescue nil %>&nbsp;</div></td>
+  </tr>
+</table>
+<% if @convenio.conveniosresoluciones.exists? %>
+<table width="80%" border="1" cellspacing="0" cellpadding="0" class="sample">
+  <tr class="odd1">
+    <td width="8%" class="campos"><div align="center">Nro Resol.</div></td>
+    <td width="8%" class="campos"><div align="center">Fecha</div></td>
+    <td width="54%" class="campos">Resuelve</td>
+  </tr>
+<% for conveniosresolucion in @convenio.conveniosresoluciones.find(:all, :order => 'created_at DESC') %>
+   <tr  valign="middle">
+    <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.nro_resolucion rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=conveniosresolucion.resolucion.fecha rescue nil%></div></td>
+    <td class="camposDesc"><div align="justify"><%=conveniosresolucion.resolucion.resuelve rescue nil%></div></td>
+ </tr>
+<%end %>
+</table>
+<%end %>
+</div>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 14px;">
+  El día <%=namedate(Time.now)%>, se reunieron los señores: El <strong>Dr(a). <%=@convenio.representante_legal rescue nil%></strong>,
+  por parte del operador <strong><%=@convenio.ejecutor rescue nil%></strong>, el profesional <strong><%=@convenio.coordinador rescue nil%></strong>,
+  por parte de la Universidad de Medellín y el interventor del proyecto <strong>Arq. Gicela Londoño Londoño</strong>,
+por parte del <strong>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</strong>, para conciliar los precios de las actividades no convenidas (obras extras) que se ejecutarán en las obras objeto del convenio y que se deben realizar en los mejoramiento, como parte fundamental de las labores del proyecto.
+<br/><br/>
+Al respecto y con base en las visitas realizadas, se estimó la obra extra a ejecutar, se le solicitó al Contratista la elaboración de los Análisis de precios Unitarios respectivos y se valoró la obra para determinar que posible obra contractual no se ejecutará de manera que se cubran los costos de estas actividades extras sin que se afecte el valor del subsidio.
+<br/><br/>
+Al respecto se definieron como a continuación se indica los precios y las actividades no convenidas (obra extra) aprobados con su respectivo soporte y que establecen esta Acta.
+</div>
+<br/>
+<% if @convenio.conveniosmejoramientos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td colspan="4" class="campos"><div align="center">PRESUPUESTO</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="70%" height="20" class="campos">ITEM</td>
+        <td width="8%" class="campos"><div align="center">UNIDAD</div></td>
+        <td width="7%" class="campos"><div align="center">CANT</div></td>
+        <td width="15%" class="campos"><div align="center">VALOR UNITARIO</div></td>
+      </tr>
+    <% for conveniosmejoramiento in @convenio.conveniosmejoramientos.find(:all,:conditions=>["cantidad = 0"], :order =>"mejoramientositem_id asc") %>
+       <tr>
+         <td height="20" class="camposDesc"><div align="justify"><%=conveniosmejoramiento.mejoramientositem.consecutivo rescue nil%> -<%=conveniosmejoramiento.mejoramientositem.descripcion rescue nil%></div></td>
+         <td class="camposDesc"><div align="center"><%=conveniosmejoramiento.mejoramientositem.unidad rescue nil%></div></td>
+         <td class="camposDesc"><div align="center"><%=conveniosmejoramiento.cantidad rescue nil%></div></td>
+         <td class="camposDesc"><div align="right">$ <%=number_to_currency(conveniosmejoramiento.valor_unitario,{:precision => 0, :unit=>"", :delimiter =>"."})%></div></td>
+     </tr>
+    <% end %>
+    </table>
+    <br/>
+<% end %>
+
+<div align="justify" style="font-family: Tahoma; font-size: 14px;">
+  Para constancia se firma en la fecha señalada, por quienes en ella participan,</div>
+<br/><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="40" class="campos">&nbsp;</td>
+        <td width="50%" height="40" class="campos">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos"><%=@convenio.representante_legal rescue nil%></td>
+        <td height="0" class="campos"><%=@convenio.coordinador rescue nil%></td>
+      </tr>
+      <tr>
+        <td height="0" class="camposDesc">Representante Legal Operador<br/><%=@convenio.ejecutor rescue nil%></td>
+        <td height="0" class="camposDesc">Coordinador de Campo<br/>UNIVERSIDAD DE MEDELLIN</td>
+      </tr>      
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="50%" height="50" class="campos">&nbsp;</td>
+        <td width="50%" class="campos">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+        <td width="50%" height="0" class="campos">_______________________________________________</td>
+      </tr>
+      <tr>
+        <td height="0" class="campos"><%=@convenio.interventor rescue nil%></td>
+        <td height="0" class="campos">GISELA LONDOÑO</td>
+      </tr>
+      <tr>
+        <td height="0" class="camposDesc">Ingeniero Auxiliar<br/>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</td>
+        <td height="0" class="camposDesc">Interventora<br/>INSTITUTO SOCIAL DE VIVIENDA Y HÁBITAT DE MEDELLÍN - ISVIMED</td>
+      </tr>
+    </table>
+<br/>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+</td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,2 @@
+page.replace_html :proyectoscopnotas_form, :partial => "/proyectoscopnotas/proyectoscopnotas"
+

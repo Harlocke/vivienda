@@ -1,0 +1,101 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/seguridadmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;PRESUPUESTO Nro - <%=@licitacionesenlace.licitacion_id rescue nil%></div></td>
+          <td width="3%">
+            <%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),edit_licitacion_path(@licitacionesenlace.licitacion_id) %>
+          </td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<div align="center">
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <th width="10%" class="oce-first" height="30">Codigo</th>
+    <th width="60%" class="oce-first">Descripcion APU</th>
+    <th width="6%" class="oce-first"><div align="center">Cantidad</div></th>
+    <th width="12%" class="oce-first"><div align="center">Vlr Unitario</div></th>
+    <th width="12%" class="oce-first"><div align="center">Vlr Total</div></th>
+  </tr>
+   <tr class="odd1">
+    <td class="camposDesc"><div align="left"><%=Gruposactividad.find(@licitacionesenlace.analisisprecio.gruposactividad_id).codigo rescue nil %></div></td>
+    <td class="camposDesc"><div align="left"><%=@licitacionesenlace.analisisprecio.descripcion rescue nil %>
+      <%  @grupo = Grupo.find(@licitacionesenlace.analisisprecio.gruposactividad.grupo_id) %><br/>
+     <strong>Grupo : </strong><%=@grupo.codigogrupo rescue nil%> - <%=@grupo.grupo rescue nil%><br/>
+     <strong>Subgrupo : </strong><%=@grupo.codigosubgrupo rescue nil%> - <%=@grupo.subgrupo rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=@licitacionesenlace.cantidad rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@licitacionesenlace.valorunitario) rescue nil %></div></td>
+    <td class="camposDesc"><div align="right"><%=camponumerico(@licitacionesenlace.valortotal) rescue nil %></div></td>
+   </tr>
+</table>
+<br/>
+<% form_for(@licitacionesenlacespago) do |f|%>
+<%= f.hidden_field :licitacionesenlace_id %>
+<table width="70%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">REGISTRO DE PAGOS</div></td>
+  </tr>
+</table>
+<table width="70%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="25%" height="20" class="campos"><div align="left">Fecha Factura :</div></th>
+    <td width="75%"><div align="left">
+        <%= calendar_date_select "licitacionesenlacespago", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= f.error_message_on :nro_factura, :css_class =>"cerror"%>
+      </div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Nro Factura : *</div></th>
+    <td ><div align="left">
+      <%= f.text_field :nro_factura ,{ :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+      <%= f.error_message_on :nro_factura, :css_class =>"cerror"%>
+      </div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Valor : *</div></th>
+    <td ><div align="left">
+      <%= f.text_field :valor ,{ :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();"}%>
+      <%= f.error_message_on :valor, :css_class =>"cerror"%>
+      </div></td>
+  </tr>
+  <tr>
+    <th height="20" class="campos"><div align="left">Descripcion : *</div></th>
+    <td ><div align="left">
+<%= text_area(:licitacionesenlacespago, :descripcion, :cols => 100, :rows => 4, :class => 'campo',
+:onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+          <%= f.error_message_on :descripcion, :css_class =>"cerror"%></div></td>
+  </tr>
+<% unless @licitacionesenlacespago.new_record? %>
+    <tr>
+      <th height="20" align="left" class="campos">Ult. Actualización :</th>
+      <td align="left" class="camposdesc"><%= @licitacionesenlacespago.updated_at.strftime("%Y-%m-%d %X")%> - <%=User.find(@licitacionesenlacespago.user_actualiza).nombre rescue nil%></td>
+    </tr>
+    <tr>
+      <th height="20" align="left" class="campos">Creación :</th>
+      <td align="left" class="camposdesc"><%= @licitacionesenlacespago.created_at.strftime("%Y-%m-%d %X")%> - <%=  @licitacionesenlacespago.user.nombre rescue nil%></td>
+    </tr>
+<% end %>
+</table>
+<table width="70%" height="0" border="0" cellpadding="0" align="center" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+  <table width="70%" border="0" cellpadding="2" align="center" cellspacing="2">
+    <tr>
+      <td  height="30"><div align="right">
+          <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= f.submit "Guardar" %></span></div>
+  </div></td>
+    </tr>
+  </table>
+<br/>
+<% end %>
+</div>

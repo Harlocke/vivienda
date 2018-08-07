@@ -1,0 +1,78 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+          <td width="20%" class="campos">Nombre</td>
+          <td width="20%" class="campos">Fecha Inicio</td>
+          <td width="20%" class="campos">Fecha Fin</td>
+          <td width="20%" class="campos">Tipo</td>
+        </tr>
+          <tr>
+            <td width="359">
+              <% if @proyectoscopcomite.id %>
+              <%=select("proyectoscopcomite", "viviendaspersona_id", Viviendaspersona.find(:all, :conditions => ["vivienda_id in (select v.id from viviendas v, proyectoscopbloques p where v.bloque_id = p.bloque_id and p.proyectoscopropiedad_id = #{@proyectoscopropiedad.id})"]).collect {|p| [ p.persona.autobuscar, p.id ] }, { :include_blank => true },
+                  { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+              <% else %>
+              <%=select("proyectoscopcomite", "viviendaspersona_id", Viviendaspersona.find(:all, :conditions => ["id not in (select viviendaspersona_id from proyectoscopcomites where viviendaspersona_id is not null
+                      and proyectoscopropiedad_id = #{@proyectoscopropiedad.id})
+                      and vivienda_id in (select v.id from viviendas v, proyectoscopbloques p where v.bloque_id = p.bloque_id and p.proyectoscopropiedad_id = #{@proyectoscopropiedad.id})"]).collect {|p| [ p.persona.autobuscar, p.id ] }, { :include_blank => true },
+                  { :style=>"width:400px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+              <% end %>
+            <%= error_message_on :proyectoscopcomite, :viviendaspersona_id, :css_class =>"cerror"%></td>
+            <td width="359"><%= calendar_date_select "proyectoscopcomite", "fecha_inicio", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+                            <%= error_message_on :proyectoscopcomite, :fecha_inicio, :css_class =>"cerror"%></td>
+            <td width="359"><%= calendar_date_select "proyectoscopcomite", "fecha_fin", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%></td>
+            <td width="359"><%= select(:proyectoscopcomite, :tipo, { "CONSEJO DE ADMINISTRACIÓN" => "CONSEJO DE ADMINISTRACIÓN","COMITÉ DE CONVIVENCIA" => "COMITÉ DE CONVIVENCIA","ADMINISTRADOR" => "ADMINISTRADOR"},
+                        { :include_blank => true }, { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+                      <%= error_message_on :proyectoscopcomite, :tipo, :css_class =>"cerror"%></td>
+          </tr>
+        </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr class="odd1">
+          <td width="35%" class="campos">Otro</td>
+          <td width="20%" class="campos">Teléfono</td>
+          <td width="15%" class="campos">Bloque</td>
+          <td width="15%" class="campos">Piso</td>
+          <td width="15%" class="campos">Apto</td>
+        </tr>
+          <tr>
+            <td ><%= text_field :proyectoscopcomite, :otro,{ :class => "campo", :size => 40,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectoscopcomite, :otro, :css_class =>"cerror"%></td>
+            <td ><%= text_field :proyectoscopcomite, :otro_tel,{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectoscopcomite, :otro_tel, :css_class =>"cerror"%></td>
+            <td ><%= text_field :proyectoscopcomite, :otro_bloque,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectoscopcomite, :otro_bloque, :css_class =>"cerror"%></td>
+            <td ><%= text_field :proyectoscopcomite, :otro_proyecto,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectoscopcomite, :otro_proyecto, :css_class =>"cerror"%></td>
+            <td ><%= text_field :proyectoscopcomite, :otro_apto,{ :class => "campo", :size => 10,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectoscopcomite, :otro_apto, :css_class =>"cerror"%></td>
+          </tr>
+        </table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <% if permiso("proyectocopcomite","A").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :proyectoscopcomite, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+        <% end %>
+</div></td>
+  </tr>
+</table>
+      </td>
+  </tr>
+</table>

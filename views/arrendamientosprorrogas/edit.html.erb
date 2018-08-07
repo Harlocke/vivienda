@@ -1,0 +1,40 @@
+<h1>Editing arrendamientosprorroga</h1>
+
+<% form_for(@arrendamientosprorroga) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :arrendamientoscontrato_id %><br />
+    <%= f.text_field :arrendamientoscontrato_id %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :arrendamientosprorroga_file_name %><br />
+    <%= f.text_field :arrendamientosprorroga_file_name %>
+  </p>
+  <p>
+    <%= f.label :arrendamientosprorroga_content_type %><br />
+    <%= f.text_field :arrendamientosprorroga_content_type %>
+  </p>
+  <p>
+    <%= f.label :arrendamientosprorroga_file_size %><br />
+    <%= f.text_field :arrendamientosprorroga_file_size %>
+  </p>
+  <p>
+    <%= f.label :arrendamientosprorroga_updated_at %><br />
+    <%= f.date_select :arrendamientosprorroga_updated_at %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @arrendamientosprorroga %> |
+<%= link_to 'Back', arrendamientosprorrogas_path %>

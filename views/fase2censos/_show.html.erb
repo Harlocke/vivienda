@@ -1,0 +1,1023 @@
+<div align="center">
+  <fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION CENSO FASE 2</div></td>
+  </tr>
+</table>
+<% @persona.fase2censos.each do |fase2censo| %>
+    <%=link_to 'geo', {:controller=>"fase2censos", :action=>"ubicacion", :id=>fase2censo.id}, :popup => ['windownew','height=520,width=830,scrollbars=yes'] %>
+<table width="95%" align="center" id="one-column-emphasis">
+  <tr>
+    <td class="campos" height="30" align="left">Georeferenciacion</td>
+    <td align="left" class="camposDesc"><%=fase2censo.coordenada_x%> - <%=fase2censo.coordenada_y%></td>
+  </tr>
+  <tr class="odd1">
+    <td width="60%" class="campos" height="30" align="left">Código Estado (id_estado)</td>
+    <td width="40%" align="left" class="camposDesc"><%=fase2censo.id_estado%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Identificación de Estado (estado)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.estado%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Número de Formulario (noform)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.noform%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fecha visita (p1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p1%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Dirección o instalación de energía de la vivienda (p2)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p2%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 01 (p3)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p3.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p3.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p3.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p3.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+      <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Comuna o corregimiento (p4)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p4%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Barrio (p5)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p5%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Teléfono fijo (p6)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p6%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Teléfono celular (p6_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p6_1%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Manzana (p7)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p7%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Lote (p8)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p8%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Área total del lote - en M2. Aproximadamente (p9)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p9%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Área construida - en M2 Aproximadamente (p10)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p10%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Número de Matricula Inmobiliaria (p11)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p11%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Matrícula Inmobiliaria (p11_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p11_1%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Número de Código catastral (p12)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p12%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Código catastral (p12_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p12_1%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estrato socioeconómico (p13)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p13%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tipo de Tenencia de la vivienda (p14)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p14%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tipología de la vivienda (p16)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p16%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° comedor independiente (p22)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p22%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: comedor independiente? (p23)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p23%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: comedor independiente? (p24)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p24%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° sala comedor (p25)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p25%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala comedor? (p26)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p26%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala comedor? (p27)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p27%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° sala independiente (p28)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p28%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: sala independiente? (p29)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p29%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: sala independiente? (p30)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p30%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° garajes (p31)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p31%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: garajes? (p32)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p32%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: garajes? (p33)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p33%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° cuartos compartidos para dormir (p34)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p34%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos compartidos para dormi? (p35)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p35%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos compartidos para dormi? (p36)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p36%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° cuartos Para dormir -independientemente del hogar- y otros usos (p37)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p37%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: cuartos Para dormir -independientemente del hogar- y otros usos? (p38)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p38%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: cuartos Para dormir -independientemente del hogar- y otros usos? (p39)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p39%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° Cuartos para otros usos (p40)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p40%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: N° Cuartos exclusivos para dormir (p40_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p40_1%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos para otros usos? (p41)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p41%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Y cuál es su estado Actual: Cuartos exclusivos para dormir? (p41_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p41_1%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos para otros usos? (p42)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p42%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Cuántos cuartos tiene esta vivienda?: Requieren intervención: Cuartos exclusivos para dormir? (p42_1)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p42_1%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía02 de Comedor Independiente (p43)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p43%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía03 de Sala - Comedor (p44)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p44.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p44.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p44.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p44.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+      <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía04 de Sala Independiente (p45)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p45%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía05 de Garaje (p46)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p46%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía06 Cuartos compartir para dormir (p47)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p47%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía07 Para dormir y otros usos (p48)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p48%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía08 Cuartos otros usos (p49)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p49 %>
+      
+    </td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía08_1 Cuartos exclusivos para dormir (p49_1)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p49_1.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p49_1.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p49_1.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p49_1.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p49_1.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p49_1.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+      <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Hay en esta vivienda algún tipo de negocio? (p50)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p50%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 9 del negocio y vivienda (p51)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p51%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Y el negocio es (p52)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p52%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Y cuál es la actividad económica de ese negocio? (p53)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p53%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Registro de Cámara de Comercio (p54)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p54%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: RUT (p55)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p55%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: NIT (p56)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p56%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Declaración de rentas de los 2 últimos años (p57)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p57%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Declaración industria y comercio (p58)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p58%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Libros de contabilidad (p59)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p59%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Estados financieros (p60)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p60%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Tiene el negocio alguno de los siguientes documentos: Ninguno (p61)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p61%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Qué área de la vivienda en M2-aproximadamente- ocupa el negocio? (p62)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p62%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Este hogar percibe alguna Renta o alquiler por ese negocio o por alquiler de parte de la vivienda? (p63)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p63%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Posee?: Columnas (p78)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p78%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Y ¿Cuál es el estado de los siguientes elementos estructurales?: Columnas (p79)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p79%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Posee?: Vigas de Amarre (p80)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p80%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Y ¿Cuál es el estado de los siguientes elementos estructurales?: Vigas de Amarre (p81)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p81%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Posee?: Losas en Concreto (p82)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p82%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Y ¿Cuál es el estado de los siguientes elementos estructurales?: Losas en Concreto (p83)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p83%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 10: Columnas (p84)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p84%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 11: Vigas de Amarre (p85)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p85%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 12: Losas en Concreto (p86)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p86%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Cuál es el Material predominante de las paredes exteriores? (p87)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p87%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estado actual de fachada o paredes exteriores (p88)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p88%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requiere intervención: fachada o paredes exteriores? (p89)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p89%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 13: Fachada, enfatice en las que requiere Intervención (p90)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p90.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p90.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p90.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p90.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">En relación con su techo o losa: (p91)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p91%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el Material predominante de los techos o cubiertas? (p92)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p92%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Otros ¿Cuál? (p92_2)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p92_2%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Estado actual de los Techos? (p93)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p93%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Techos? (p94)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p94%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 14: Techos, enfatice en los que hay que intervenir (p95)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p95.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p95.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p95.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p95.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 15: Techos, enfatice en los que hay que intervenir (p96)</td>
+    <td align="left" class="camposDesc">
+   <% if fase2censo.p96.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p96.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p96.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p96.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el Material predominante de los pisos? (p97)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p97%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Cuál es el estado actual de los pisos? (p98)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p98%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Requieren Intervención: pisos? (p99)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p99%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 16: Pisos, enfatice en los que hay que intervenir (p100)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p100.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p100.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p100.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p100.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 17: Pisos, enfatice en los que hay que intervenir (p101)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p101.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p101.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p101.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p101.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% end
+    end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿En dónde preparan los alimentos las personas de este hogar? (p102)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p102%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la cocina en: Mesón de la cocina (p103)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p103%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requiere intervención: Mesón de la cocina? (p104)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p104%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la cocina en: Enchapes de cocina (p105)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p105%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requiere intervención: Enchapes de cocina? (p106)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p106%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la cocina en: Estructura de cubierta-Muebles (p107)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p107%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requiere intervención: Estructura de cubierta-Muebles? (p108)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p108%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la cocina en: Fogón o parrilla (p109)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p109%></td>
+  </tr>
+
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requiere intervención: Fogón o parrilla? (p110)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p110%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 18: de la cocina y demás partes, enfatice en las que hay que Intervenir: Mesón de la cocina (p111)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p111.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p111.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p111.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p111.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 19: de la cocina y demás partes, enfatice en las que hay que Intervenir: Enchapes de cocina (p112)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p112.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p112.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p112.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p112.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% end
+  end %></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 20: de la cocina y demás partes, enfatice en las que hay que Intervenir: Estructura de cubierta-Muebles (p113)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p113%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 21: de la cocina y demás partes, enfatice en las que hay que Intervenir: Fogón o parrilla (p114)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p114.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p114.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p114.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p114.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la vivienda en: Enchapes de Baños (p115)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p115%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Enchapes de Baños? (p116)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p116%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la vivienda en: Revoque de los muros (p117)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p117%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Revoque de los muros? (p118)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p118%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la vivienda en: Estuco de los muros (p119)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p119%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Estuco de los muros? (p120)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p120%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la vivienda en: Pintura de los muros (p121)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p121%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Pintura de los muros? (p122)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p122%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado y funcionamiento de la vivienda en: Muros mampostería (p123)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p123%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Muros mampostería? (p124)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p124%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 22: de los implementos y demás áreas, enfatice en las que requieren intervención: Enchapes de Baños (p125)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p125.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p125.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p125.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p125.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 23: de los implementos y demás áreas, enfatice en las que requieren intervención: Revoque de los muros (p126)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p126.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p126.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p126.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p126.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 24: de los implementos y demás áreas, enfatice en las que requieren intervención: Estuco de los muros (p127)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p127%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 25: de los implementos y demás áreas, enfatice en las que requieren intervención: Pintura de los muros (p128)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p128.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p128.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p128.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p128.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 26: de los implementos y demás áreas, enfatice en las que requieren intervención: Muros mampostería (p129)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p129.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p129.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p129.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p129.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Qué tipo de instalaciones eléctricas tiene el hogar? (p130)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p130%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Requiere intervención: instalaciones eléctricas? (p131)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p131%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 27: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p132)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p132.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p132.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p132.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p132.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 28: Instalaciones eléctricas, enfatice en las que hay que Intervenir (p133)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p133.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p133.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p133.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p133.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Energía (p134)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p134%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Energía (p135)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p135%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Energía (p136)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p136%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Acueducto (p137)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p137%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Acueducto (p138)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p138%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Acueducto (p139)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p139%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Alcantarillado (p140)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p140%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Alcantarillado (p141)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p141%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Alcantarillado (p142)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p142%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Teléfono (línea fija) (p143)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p143%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Teléfono (línea fija) (p144)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p144%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Teléfono (línea fija) (p145)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p145%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Gas natural (red) (p146)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p146%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Gas natural (red) (p147)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p147%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Gas natural (red) (p148)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p148%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Aseo (recolección) (p149)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p149%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Aseo (recolección) (p150)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p150%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Aseo (recolección) (p151)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p151%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Gas en pipeta (p152)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p152%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Gas en pipeta (p153)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p153%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Gas en pipeta (p154)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p154%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda cuenta con servicios públicos de: Conexión a internet (p155)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p155%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Estado de servicios públicos en la vivienda de: Conexión a internet (p156)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p156%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">La unidad de vivienda requiere intervención en servicios públicos de: Conexión a internet (p157)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p157%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 29: del servicio, enfatice en los que requiere intervención: Energía (p158)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p158.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p158.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p158.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p158.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 30: del servicio, enfatice en los que requiere intervención: Acueducto (p159)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p159.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p159.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p159.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p159.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 31: del servicio, enfatice en los que requiere intervención: Alcantarillado (p160)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p160.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p160.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p160.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p160.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado de la vivienda en: Canoas y ruanas (p161)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p161%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Canoas y ruanas? (p162)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p162%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado de la vivienda en: Lagrimales (p163)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p163%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Lagrimales? (p164)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p164%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuál es el estado de la vivienda en: Impermeabilización de losas y cubiertas (p165)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p165%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Requieren Intervención: Impermeabilización de losas y cubiertas? (p166)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p166%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 32: de las áreas, enfatice en las que requieren intervención: Canoas y ruanas (p167)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p167.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p167.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p167.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p167.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 33: de las áreas, enfatice en las que requieren intervención: Impermeabilización de losas y cubiertas (p168)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p168%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Con qué tipo de servicio sanitario cuenta el hogar y cuál es su estado actual? (p169)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p169%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Y cuál es su estado actual: servicio sanitario? (p170)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p170%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Requieren Intervención: servicio sanitario? (p171)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p171%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 34: de los servicios sanitarios, enfatice en los que hay que intervenir (p172)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p172.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p172.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p172.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p172.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 35: de los servicios sanitarios, enfatice en los que hay que intervenir (p173)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p173.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p173.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p173.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p173.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% end
+  end %></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavamanos (p174)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p174%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Y cuál es su estado: Lavamanos? (p175)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p175%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿¿Requieren intervención: Lavamanos? (p176)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p176%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Duchas (p177)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p177%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Y cuál es su estado: Duchas? (p178)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p178%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿¿Requieren intervención: Duchas? (p179)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p179%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Cuántos de estos implementos y áreas funcionales tiene esta vivienda: Lavadero de Ropa (p180)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p180%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Y cuál es su estado: Lavadero de Ropa? (p181)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p181%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿¿Requieren intervención: Lavadero de Ropa? (p182)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p182%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 36: de los implementos o áreas, enfatice en los que requiere intervención: Lavamanos (p183)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p183.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p183.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p183.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p183.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Fotografía 37: de los implementos o áreas, enfatice en los que requiere intervención: Duchas (p184)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p184.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p184.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p184.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p184.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Fotografía 38: de los implementos o áreas, enfatice en los que requiere intervención: Lavadero de Ropa (p185)</td>
+    <td align="left" class="camposDesc">
+    <% if fase2censo.p185.to_s.to(2).upcase == 'IMG'
+      if fase2censo.verifieddoc(fase2censo.p185.to_s.gsub(".jpg","")) == true %>
+      <div style="float:left;"><%= link_to fase2censo.p185.to_s.upcase, {:controller=>"fase2censos", :action=>"retrieve", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Pequeño", :popup => ['new_window','height=200,width=200,scrollbars=yes']%></div>
+      <div style="float:center; padding-left: 10em;"><br/>
+        <%= link_to image_tag('vermed.png'), {:controller=>"fase2censos", :action=>"dowloadmed", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Imagen Tamaño Medio",:Onclick => "return GB_showCenter('Imagenes', this.href, 400, 400)"%><br/><br/>
+        <%= link_to image_tag('verfull.png'), {:controller=>"fase2censos", :action=>"dowloadfull", :id=>fase2censo.p185.to_s.gsub(".jpg","")},:title=>"Ver Image Original", :target=>"_blanck"%>
+      </div>
+    <% else %><div style="float:center; padding-left: 10em;">NO Disponible</div><%end%>
+    <% end%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Inundaciones (p186)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p186%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Avalancha (p187)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p187%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Deslizamiento (p188)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p188%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Hundimiento del Terreno (p189)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p189%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Falla Geológica (p190)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p190%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Esta vivienda, en el último año, se ha visto afectada por: Afectaciones de lotes y/o viviendas vecinas (p191)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p191%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Esta vivienda a sido atendida a través del Programa municipal 'Medellín Solidaria'? (p192)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p192%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">¿Esta vivienda ha sido visitada por el DAGRD? (p193)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p193%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">¿Qué tipo de ficha DAGRD tiene? (p194)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p194%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Visita atendida por: (p199)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p199%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Visita realizada por: (p200)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p200%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Observaciones (p201)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p201%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Estiquer (p202)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.p202%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Quién realizó la Encuesta (empadronador)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.empadronador%></td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="30" align="left">Nombre del Supervisor (supervisor)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.supervisor%></td>
+  </tr>
+  <tr>
+    <td class="campos" height="30" align="left">Nombre del Coordinador en trabajo de Campo (coordinador)</td>
+    <td align="left" class="camposDesc"><%=fase2censo.coordinador%></td>
+  </tr>
+</table>
+<% end %>
+</fieldset>
+</div>

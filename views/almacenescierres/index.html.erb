@@ -1,0 +1,28 @@
+<h1>Listing almacenescierres</h1>
+
+<table>
+  <tr>
+    <th>Mes</th>
+    <th>Anno</th>
+    <th>Producto</th>
+    <th>Cantidad</th>
+    <th>Estado</th>
+  </tr>
+
+<% @almacenescierres.each do |almacenescierre| %>
+  <tr>
+    <td><%=h almacenescierre.mes %></td>
+    <td><%=h almacenescierre.anno %></td>
+    <td><%=h almacenescierre.producto_id %></td>
+    <td><%=h almacenescierre.cantidad %></td>
+    <td><%=h almacenescierre.estado %></td>
+    <td><%= link_to 'Show', almacenescierre %></td>
+    <td><%= link_to 'Edit', edit_almacenescierre_path(almacenescierre) %></td>
+    <td><%= link_to 'Destroy', almacenescierre, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New almacenescierre', new_almacenescierre_path %>

@@ -1,0 +1,104 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td  height="30"><div class="col_enc">QUEJAS Y RECLAMOS CLIENTES EXTERNOS</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+  <tr class="odd1">
+    <td width="157"><span class="campos">Tipo PQRS *</span></td>
+    <td width="203"><span class="campos">Identificaci&oacute;n *</span></td>
+    <td width="250"><span class="campos">Primer Nombre *</span></td>
+    <td width="220"><span class="campos">Segundo Nombre</span></td>
+    <td width="228"><span class="campos">Primer Apellido *</span></td>
+    <td width="173"><span class="campos">Segundo Apellido</span></td>
+  </tr>
+<tr>
+    <td class="camposDesc"><%=@queja.tipopqrs%></td>
+    <td class="camposDesc"><%=@queja.identificacion%></td>
+    <td class="camposDesc"><%=@queja.primer_nombre%></td>
+    <td class="camposDesc"><%=@queja.segundo_nombre%></td>
+    <td class="camposDesc"><%=@queja.primer_apellido%></td>
+    <td class="camposDesc"><%=@queja.segundo_apellido%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="40%" class="campos">Direccion *</td>
+    <td width="21%" class="campos">Telefono Fijo </td>
+    <td width="18%" class="campos">Celular *</td>
+    <td width="18%" class="campos">Correo Electronico</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@queja.direccion%></td>
+    <td class="camposDesc"><%=@queja.telefono%></td>
+    <td class="camposDesc"><%=@queja.celular%></td>
+    <td class="camposDesc"><%=@queja.email%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="30%" class="campos">Dependencia a la que se dirige</td>
+    <td width="70%" class="campos">Motivo de la pregunta, queja, reclamo o sugerencia</td>
+  </tr>
+  <tr>
+    <td class="camposDesc"><%=@queja.temadesc rescue nil%></td>
+    <td class="camposDesc"><%=@queja.descripcion%></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr class="odd1">
+    <td width="30%" class="campos">Estado del requerimiento</td>
+    <td width="30%" class="campos">Procedencia</td>
+    <td width="10%" class="campos">Radicado Nro</td>
+    <td width="30%" class="campos">Fecha Registro</td>
+  </tr>
+  <tr valign="top">
+    <td class="camposDesc"><%=@queja.estado%></td>
+    <td class="camposDesc"><%=@queja.procedencia%></td>
+    <td class="camposDesc"><%=@queja.id%></td>
+    <td class="camposDesc"><%=@queja.updated_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+</table>
+<% if @queja.quejasobservaciones.exists? %>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr>
+        <td  height="30"><div class="col_enc">OBSERVACIONES</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="15%" height="30" class="oce-first">Fecha</td>
+        <td width="15%" height="30" align="left" class="oce-first">Atencion</td>
+        <td width="70%" class="oce-first">Observaciones</td>
+      </tr>
+      <% for quejasobservacion in @queja.quejasobservaciones.find(:all, :order => 'created_at DESC') %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td align="left">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+               <td class="camposDesc" align="left"><%=quejasobservacion.created_at.strftime("%Y-%m-%d %X")%></td>
+            </tr>
+            <tr>
+               <td class="camposDesc" align="left"><a title="<%=quejasobservacion.user.nombre rescue nil%>"><%=quejasobservacion.user.username rescue nil%></a></td>
+            </tr>
+          </table>
+        </td>
+        <td class="camposDesc" align="left"><%=quejasobservacion.dtipoatencion%></td>
+        <td class="camposDesc" align="left"><%=quejasobservacion.observacion%></td>
+      </tr>
+      <% end %>
+    </table>
+<% end  %>
+<br/>
+<table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+<tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%>
+  CODIGO: FAC-02 VERSIÓN 01 FECHA DE CREACIÓN: </td></tr>
+</table>
+</td>
+  </tr>
+</table>

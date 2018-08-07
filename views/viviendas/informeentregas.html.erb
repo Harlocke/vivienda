@@ -1,0 +1,41 @@
+<strong>RESULTADOS CONSULTA </strong>
+<br/>
+<table border="1" >
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td  colspan="6"><strong>INFORMACION PROYECTO</strong></td>
+    <td  colspan="2"><strong>USUARIO</strong></td>
+    <td  colspan="5"><strong>ESCRITURACION</strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td ><strong>Proyecto</strong></td>
+    <td ><strong>Direccion</strong></td>
+    <td ><strong>Bloque</strong></td>
+    <td ><strong>Piso</strong></td>
+    <td ><strong>Apto</strong></td>
+    <td ><strong>Entregado</strong></td>
+    <td ><strong>Usuario Identificacion</strong></td>
+    <td ><strong>Usuario Nombre</strong></td>
+    <td ><strong>Consecutivo</strong></td>
+    <td ><strong>Caja</strong></td>
+    <td ><strong>Entregado</strong></td>
+    <td ><strong>Fecha Entrega</strong></td>
+    <td ><strong>Usuario Entrega</strong></td>
+  </tr>
+<% for vivienda in @viviendas %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td ><div align="left"><%=vivienda.proyectod rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.bloquedirecion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.bloqued rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.pisod rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.aptod rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.entregado rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.identificacion rescue nil%></div></td>
+    <td ><div align="left"><%=vivienda.nombre rescue nil%></div></td>
+    <td ><%=vivienda.inv_consecutivo%></td>
+    <td ><%=vivienda.inv_caja%></td>
+    <td ><%=vivienda.inv_esc_entrega%></td>
+    <td ><%=vivienda.inv_esc_fecha%></td>
+    <td ><%=vivienda.nombreuser rescue nil%></td>
+  </tr>
+<%   end %>
+</table>  

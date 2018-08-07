@@ -1,0 +1,1 @@
+page.replace_html :archivosempleados_form, :partial => "archivosempleados", :object => @archivosempleado

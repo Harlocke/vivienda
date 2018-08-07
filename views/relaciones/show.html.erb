@@ -1,0 +1,13 @@
+<p>
+  <b>Persona:</b>
+  <%=h @relacion.persona_id %>
+</p>
+
+<p>
+  <b>Identificacion:</b>
+  <%=h @relacion.identificacion %>
+</p>
+
+
+<%= link_to 'Edit', edit_relacion_path(@relacion) %> |
+<%= link_to 'Back', relaciones_path %>

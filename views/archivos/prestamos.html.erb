@@ -1,0 +1,73 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%">
+                    <img src="/images/archivomin.png" width="64" height="64"/>
+                </td>
+              <td width="94%"><div class="col_enc">&nbsp;
+                    INFORMACION PRESTAMOS (<%= User.find(@userprestamo).nombre rescue nil%>)
+                  </div></td>
+              <td width="3%"><div align="right">
+                    <%= link_to image_tag('atras.png',{ :border=>0, :title => "Atras"}),archivos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table><br/>
+<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="5%" class="oce-first"><div align="center">Caja</div></td>
+    <td width="5%" class="oce-first"><div align="center">Carpeta</div></td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Prestamo</div></td>
+    <td width="20%" class="oce-first"><div align="center">Usuario realiza el Prestamo</div></td>
+    <td width="20%" class="oce-first"><div align="center">Prestamo a</td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Vencimiento</td>
+    <td width="10%" class="oce-first"><div align="center">Fecha Devolucion</td>
+    <td width="20%" class="oce-first"><div align="center">Usuario Registra Devolucion</td>
+  </tr>
+<% for archivosprestamo in @archivosprestamos
+        cadena = ""
+        cadenae = ""
+        @archivospersonas = Archivospersona.find_all_by_archivo_id(archivosprestamo.archivo_id);
+        for archivospersona in @archivospersonas
+          persona  = Persona.find(archivospersona.persona_id);
+          if cadena != ""
+            cadena = cadena + ' - ' + persona.autobuscar
+          else
+            cadena = persona.autobuscar
+          end
+        end
+        @archivosempleados = Archivosempleado.find_all_by_archivo_id(archivosprestamo.archivo_id);
+        for archivosempleado in @archivosempleados
+          empleado  = Empleado.find(archivosempleado.empleado_id);
+          if cadenae != ""
+            cadenae = cadenae + ' - ' + empleado.autobuscar
+          else
+            cadenae = empleado.autobuscar
+          end
+        end
+%>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.caja rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.archivo.carpeta rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.created_at  rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=User.find(archivosprestamo.userregistro).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=User.find(archivosprestamo.userprestamo).nombre rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.fecha_vence  rescue nil%></div></td>
+    <td class="camposDesc"><div align="center"><%=archivosprestamo.fecha_devolucion  rescue nil%></div></td>
+    <td class="camposDesc"><div align="left"><%=User.find(archivosprestamo.userdevolucion).nombre rescue nil%></div></td>
+  </tr>
+<% end %>
+</table><br/>
+<br/>
+<table width="90%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="100%" height="20" class="camposDescN"><div align="center"><%= will_paginate @archivosprestamos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td>
+   </tr>
+  <tr valign="middle">
+    <td width="100%" height="20" class="camposDescN"><div align="center">Total Registros consulta: <%= @archivosprestamos.total_entries %> - Nro Total de Registro : <%=@archivosprestamos.count%></div></td>
+  </tr>
+</table>
+

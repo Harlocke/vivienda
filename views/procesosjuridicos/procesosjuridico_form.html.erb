@@ -1,0 +1,176 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40"  align="center">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0"  align="center">
+            <tr>
+              <td width="3%"><img src="/images/balancemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">&nbsp;&nbsp;INFORMACION PROCESOS JURIDICOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Listado"}),procesosjuridicos_path %>
+              </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/proceso.png" border="0" title="Información Proceso"/></a></li>
+<% unless @procesosjuridico.new_record? %>
+        <li><a href="#tab3"><img src="/images/beneficiarios.png" border="0" title="Demandantes"/></a></li>
+        <li><a href="#tab2"><img src="/images/tramites.png" border="0" title="Etapas"/></a></li>
+<% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<% form_for(@procesosjuridico) do |f| %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORMACIÓN PROCESO</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="33%" class="campos">Tipo Proceso *</td>
+          <td width="20%" class="campos">Nro Radicado </td>
+          <td width="13%" class="campos">A&ntilde;o</td>
+          <td width="18%" class="campos">Juzgado</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=select("procesosjuridico", "tiposproceso_id", Tiposproceso.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+          <%= error_message_on :procesosjuridico, :tiposproceso_id, :css_class =>"cerror"%></td>
+          <td class="camposDesc"><%= f.text_field :nro_radicado,{ :class => "campo", :size => 38,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          <td valign="top" class="camposDesc"><%= f.text_field :anno_radicado,{ :class => "campo", :size => 8,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'", :maxlength=>"4" } %></td>
+          <td valign="top" class="camposDesc"><%= f.text_field :juzgado,{ :class => "campo", :size => 50,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr>
+            <td class="campos">Demandante</td>
+            <td class="campos">Demandado</td>
+          </tr>
+          <tr valign="top">
+            <td class="camposDesc"><%=@procesosjuridico.demandante%></td>
+            <td class="camposDesc"><%= f.text_field :demandado,{ :class => "campo", :size => 100,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellpadding="0" cellspacing="2">
+          <tr>
+            <td class="campos">Tema</td>
+            <td class="campos">Subtema</td>
+          </tr>
+          <tr valign="top">
+            <td class="camposDesc"><%= f.text_area :etapa,{ :class => "campoMultiLinea", :cols=>"70", :rows=>"4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td class="camposDesc"><%= f.text_area :subetapa,{ :class => "campoMultiLinea", :cols=>"70", :rows=>"4",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="30%" class="campos">Poblacion Especial</td>
+            <td width="70%" class="campos">Observaciones Proceso </td>
+          </tr>
+          <tr valign="top">
+            <td class="camposDesc"><%=select("procesosjuridico", "poblacionesespecial_id", Poblacionesespecial.all.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:200px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %></td>
+            <td class="camposDesc"><%= f.text_area :observacion_proceso,{ :class => "campoMultiLinea", :cols=>"110", :rows=>"2",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+          </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr>
+            <td width="60%" class="campos">Pretencion</td>
+            <td width="22%" class="campos">Cuantia</td>
+            <td width="18%" class="campos"></td>
+          </tr>
+          <tr valign="top">
+            <td class="camposDesc"><%= f.text_area :pretension,{ :class => "campoMultiLinea", :cols=>"80", :rows=>"2",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+            <td class="camposDesc"><%= f.text_field :cuantia,{ :class => "campo", :size => 30,
+                  :onChange=> "javascript:this.value=formatCurrency(this.value)",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'", :maxlength=>"20"}
+          %></td>
+            <td class="camposDesc"></td>
+          </tr>
+        </table></td>
+  </tr>
+</table>
+  </div>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<% unless @procesosjuridico.new_record? %>
+<% if permiso("procesosjuridico","A").to_s == "S" %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<% else %>
+<% if permiso("procesosjuridico","C").to_s == "S" %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+<% end %>
+<% end %>
+<% end %>
+</fieldset>
+</div>
+<div class="panel" id="tab2">
+  <fieldset>
+<% unless @procesosjuridico.new_record? %>
+   <div id="procesosetapas_form">
+      <%= render :partial => "/procesosetapas/procesosetapas" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+<div class="panel" id="tab3">
+  <fieldset>
+<% unless @procesosjuridico.new_record? %>
+   <div id="procesospersonas_form">
+      <%= render :partial => "/procesospersonas/procesospersonas" %>
+   </div>
+<% end %>
+    </fieldset>
+</div>
+</div>

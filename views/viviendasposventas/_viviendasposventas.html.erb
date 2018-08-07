@@ -1,0 +1,75 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td width="90%" height="30"><div class="col_enc">POSVENTAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@vivienda, @viviendasposventa] do |form| %>
+    <% if permiso("viviendasposventa","C").to_s == "S" %>
+   <% if !@viviendasposventa.id %>
+	<%= render :partial => "/viviendasposventas/viviendasposventas_form" %>
+   <% end %>
+<% end %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="25%" height="30" class="oce-first">Tipo Posventa</td>
+    <td width="15%" height="30" class="oce-first">Fecha Recibida</td>
+    <td width="15%" height="30" class="oce-first">Fecha Atendida</td>
+    <td width="30%" height="30" class="oce-first">Observacion</td>
+    <td width="15%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+<% @vivienda.viviendasposventas.each do |viviendasposventa| %>
+   <% if viviendasposventa.id != @viviendasposventa.id %>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="viviendasposventa_<%= viviendasposventa.id%>">
+     <td width="25%" height="30" class="camposDesc"><%=viviendasposventa.tipo_posventa%></td>
+     <td width="15%" height="30" class="camposDesc"><%=viviendasposventa.fecha_recibida%></td>
+     <td width="15%" height="30" class="camposDesc"><%=viviendasposventa.fecha_atendida%></td>
+     <td width="30%" height="30" class="camposDesc"><%=viviendasposventa.observaciones%><BR/>Estado <%=viviendasposventa.estado rescue nil%></td>
+      <td width="15%" class="camposDesc">
+        <% if permiso("viviendasposventa","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_vivienda_viviendasposventa_path(@vivienda, viviendasposventa),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("viviendasposventa","E").to_s == "S" %>&nbsp;|
+        <%= link_to_remote('Borrar',{:url => vivienda_viviendasposventa_path(@vivienda, viviendasposventa),
+		:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+      </td>
+ </tr>
+</table>
+ <% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td  height="30"><div class="col_enc">EDITAR POSVENTAS</div></td>
+        </tr>
+      </table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="viviendasposventa_<%=@viviendasposventa.id%>">
+     <%= render :partial => "/viviendasposventas/viviendasposventas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+<% end %>
+    <%= hidden_field :vivienda, :id %>
+
+<% end %>
+<br/>
+<% if flash[:viviendasposventa] %>
+<div id="viviendasposventa">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos">&nbsp;&nbsp;<%= flash[:viviendasposventa] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('viviendasposventa');", 5000)
+</script>
+<% end %>
+</div>

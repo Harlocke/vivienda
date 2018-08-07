@@ -1,0 +1,2 @@
+module NominasnovedadesHelper
+end

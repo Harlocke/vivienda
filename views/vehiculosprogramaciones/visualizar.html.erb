@@ -1,0 +1,37 @@
+<div class="col_enc">PROGRAMACION DE VEHICULOS</div><br/><br/>
+<div align="center">
+    <table width="88%" border="0" cellpadding="0" cellspacing="2">
+      <tr class="odd1">
+        <td width="30%" height="20" class="campos">Fecha de Solicitud</td>
+        <td width="70%" class="camposDesc"><%=@vehiculosprogramacion.fecha.strftime("%Y-%m-%d") rescue nil %></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Vehiculo</td>
+        <td class="camposDesc"><% if permiso("vehiculosprogramacion","C").to_s == "S" %><%=@vehiculosprogramacion.vehiculo.placa rescue nil %><%end%></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Hora Inicial</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.vehiculoshorario.descripcion rescue nil %></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Hora Final</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.horafinvehiculo rescue nil %></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Usuario responsable servicio</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.responsable rescue nil%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Numero de personas</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.nro_pasajeros %></td>
+      </tr>
+      <tr class="odd1">
+        <td height="20" class="campos">Destino</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.destino%></td>
+      </tr>
+      <tr>
+        <td height="20" class="campos">Creación de la solicitud</td>
+        <td class="camposDesc"><%=@vehiculosprogramacion.updated_at.strftime("%Y-%m-%d %X") rescue nil%> - <%=@vehiculosprogramacion.solicitante rescue nil%></td>
+      </tr>
+    </table>
+</div>

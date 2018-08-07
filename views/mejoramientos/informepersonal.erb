@@ -1,0 +1,41 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Persona Laborando por Operador Convenio / Resolucion</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio</div></strong></td>
+    <td colspan="3"><strong><div align="center">Resolucion</div></strong></td>
+    <td colspan="5"><strong><div align="center">Informacion Personal</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Identificacion Mejoramiento</strong></td>
+    <td width="20%"><strong>Identificacion</strong></td>
+    <td width="20%"><strong>Nombre</strong></td>
+    <td width="20%"><strong>Salario</strong></td>
+    <td width="20%"><strong>Cargo</strong></td>
+    <td width="20%"><strong>Contrato Activo</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|
+   convenio = Convenio.find(mejoramiento.convenio_id)
+   resolucion = Resolucion.find(mejoramiento.resolucion_id) %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=convenio.nro_convenio rescue nil%></td>
+    <td><%=convenio.vigencia rescue nil%></td>
+    <td><%=convenio.ejecutor rescue nil%></td>
+    <td><%=resolucion.nro_resolucion rescue nil%> - <%=resolucion.anno rescue nil%></td>
+    <td><%=resolucion.fecha rescue nil%></td>
+    <td><%=mejoramiento.identificacion_mejo rescue nil%></td>
+    <td><%=mejoramiento.identificacion rescue nil%></td>
+    <td><%=mejoramiento.nombre rescue nil%></td>
+    <td><%=mejoramiento.salario rescue nil%></td>
+    <td><%=mejoramiento.cargo rescue nil%></td>
+    <td><%=mejoramiento.contrato_activo rescue nil%></td>
+  </tr>
+<% end %>
+</table>

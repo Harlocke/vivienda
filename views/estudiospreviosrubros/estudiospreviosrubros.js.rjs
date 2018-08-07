@@ -1,0 +1,3 @@
+page.replace_html :estudiospreviosrubros_form, :partial => "estudiospreviosrubros", :object => @estudiospreviosrubro
+page.replace_html :estudiospreviosrubro, flash[:estudiospreviosrubro]
+flash.discard

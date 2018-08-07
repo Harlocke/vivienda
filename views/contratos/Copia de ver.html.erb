@@ -1,0 +1,263 @@
+<br/>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">DATOS BASICOS CONTRATISTA</div></td>
+  </tr>
+</table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="10%" class="campos">Documento</td>
+        <td width="15%" class="campos">Identificaci&oacute;n</td>
+        <td width="40%" class="campos">Nombre</td>
+        <td width="35%" class="campos">Correo Electronico</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@contrato.empleado.documento.descripcion rescue nil%></td>
+        <td class="camposDesc"><%=@contrato.empleado.identificacion%></td>
+        <td class="camposDesc"><%=@contrato.empleado.nombre%></td>
+        <td class="camposDesc"><%=@contrato.empleado.email%></td>
+      </tr>
+</table>
+<table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">CONTRATO</div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="16%" class="campos">Nro Contrato </td>
+          <td width="14%" class="campos">Fecha Firma </td>
+          <td width="70%" class="campos">Objeto</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" valign="top"><%=@contrato.nro_contrato%></td>
+          <td class="camposDesc" valign="top"><%=@contrato.fecha_firma%></td>
+          <td class="camposDesc"><%=@contrato.objeto%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="15%" class="campos">Valor</td>
+          <td width="15%" class="campos">Plazo</td>
+          <td width="15%" class="campos">Fecha Inicio </td>
+          <td width="15%" class="campos">Fecha Final </td>
+          <td width="25%" class="campos">Estado del Contrato</td>
+          <td width="15%" class="campos">Fecha Liquidacion</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">$ <%=number_to_currency(@contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td class="camposDesc"><%=@contrato.plazo%></td>
+          <td class="camposDesc"><%=@contrato.fecha_inicio%></td>
+          <td class="camposDesc"><%=@contrato.fecha_final%></td>
+          <td class="camposDesc"><%=@contrato.destado%></td>
+          <td class="camposDesc"><%=@contrato.fecha_liquidacion%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+
+          <td width="50%" class="campos">Interventor Asignado </td>
+          <td width="15%" class="campos">Publicacion</td>
+          <td width="15%" class="campos">Garantia</td>
+          <td width="20%" class="campos">Descripcion Garantia</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=Empleado.find(@contrato.interventorempleado_id).nombre rescue nil%></td>
+          <td class="camposDesc"><%=@contrato.dpublicacion%></td>
+          <td class="camposDesc"><%=@contrato.dpoliza%> </td>
+          <td class="camposDesc"><%=@contrato.descgarantia%></td>
+
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="50%" class="campos">Modalidad</td>
+          <td width="50%" class="campos">Abogado Asignado</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=@contrato.modalidad.descripcion rescue nil%></td>
+          <td class="camposDesc"><%=Empleado.find(@contrato.abogadoempleado_id).nombre rescue nil %></td>
+        </tr>
+      </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">MODIFICACIONES</div></td>
+  </tr>
+</table>
+<% if @contrato.contratosmodificaciones.exists? %>
+    <table width="90%" border="0" align="center" cellspacing="1" cellpadding="1">
+      <tr>
+        <td class="oce-first" width="10%">Fecha</td>
+        <td class="oce-first" width="15%">Tipo Modificacion</td>
+        <td class="oce-first" width="10%">Valor</td>
+        <td class="oce-first" width="10%">Plazo</td>
+        <td class="oce-first" width="55%">Observaciones</td>
+      </tr>
+    </table>
+    <% @contrato.contratosmodificaciones.each do |contratosmodificacion| %>
+      <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" >
+        <tr class="<%=cycle('even1', 'odd1')%>">
+          <td width="10%" class="camposDesc"><%=contratosmodificacion.fecha%></td>
+          <td width="15%" class="camposDesc"><%=contratosmodificacion.dtipomodificacion %></td>
+          <td width="10%" class="camposDesc">$ <%=number_to_currency(contratosmodificacion.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td width="10%" class="camposDesc"><%=contratosmodificacion.plazo %></td>
+          <td width="55%" class="camposDesc"><%=contratosmodificacion.observaciones %></td>
+        </tr>
+      </table>
+    <% end %>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+  <td  height="30"class="campos">No hay modificaciones registradas</td>
+  </tr>
+  </table>
+<% end %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">RUBROS</div></td>
+  </tr>
+</table>
+<% if @contrato.contratosrubros.exists? %>
+    <table width="90%" border="0" align="center" cellspacing="1" cellpadding="1">
+      <tr>
+        <td class="oce-first" width="70%">Rubro</td>
+        <td class="oce-first" width="10%">Posicion</td>
+        <td class="oce-first" width="20%">Valor</td>
+      </tr>
+    </table>
+    <% @contrato.contratosrubros.each do |contratosrubro| %>
+      <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" >
+        <tr class="<%=cycle('even1', 'odd1')%>">
+          <td width="70%" class="camposDesc"><%=contratosrubro.rubro.descripcion rescue nil %></td>
+          <td width="10%" class="camposDesc"><%=contratosrubro.posicion %></td>
+          <td width="20%" class="camposDesc">$ <%=number_to_currency(contratosrubro.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+        </tr>
+      </table>
+    <% end %>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+  <td  height="30"class="campos">No hay rubros registradas</td>
+  </tr>
+  </table>
+<% end %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">EJECUCIONES</div></td>
+  </tr>
+</table>
+<% if @contrato.contratospagos.exists? %>
+    <table width="90%" border="0" align="center" cellspacing="1" cellpadding="1">
+      <tr>
+        <td class="oce-first" width="10%">Nro Cuenta</td>
+        <td class="oce-first" width="10%">Fecha Cuenta</td>
+        <td class="oce-first" width="10%">Fecha Aprobacion</td>
+        <td class="oce-first" width="15%">Valor</td>
+        <td class="oce-first" width="45%">Rubro</td>
+        <td class="oce-first" width="10%">Fecha Orden</td>
+      </tr>
+    </table>
+    <% @contrato.contratospagos.each do |contratospago| %>
+      <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" >
+        <tr class="<%=cycle('even1', 'odd1')%>">
+          <td width="10%" class="camposDesc"><%=h contratospago.nro_cuenta %></td>
+          <td width="10%" class="camposDesc"><%=h contratospago.fecha_cuenta %></td>
+          <td width="10%" class="camposDesc"><%=h contratospago.fecha_aprobacion %></td>
+          <td width="15%" class="camposDesc">$ <%=number_to_currency(contratospago.valor,{:precision => 0, :unit=>"", :delimiter =>"."})%></td>
+          <td width="45%" class="camposDesc"><%=h contratospago.rubro.descripcion rescue nil %></td>
+          <td width="10%" class="camposDesc"><%=h contratospago.fecha_orden %></td>
+        </tr>
+      </table>
+    <% end %>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+  <td  height="30"class="campos">No hay ejecuciones registradas</td>
+  </tr>
+  </table>
+<% end %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">IMAGENES</div></td>
+  </tr>
+</table>
+<% if @contrato.contratosimagenes.exists? %>
+  <table width="90%" border="0" align="center" cellspacing="1" cellpadding="1">
+    <tr>
+      <td class="oce-first" width="50%">Descripcion</td>
+      <td class="oce-first" width="50%">Nombre Archivo</td>
+    </tr>
+  </table>
+  <% @contrato.contratosimagenes.each do |contratosimagen| %>
+    <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center" >
+      <tr class="<%=cycle('even1', 'odd1')%>">
+        <td width="50%" class="camposDesc"><%=contratosimagen.descripcion %></td>
+        <td width="50%" class="camposDesc"><%=contratosimagen.contrato_file_name %></td>
+      </tr>
+    </table>
+  <% end %>
+<% else %>
+  <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+  <td  height="30"class="campos">No hay imagenes registradas</td>
+  </tr>
+  </table>
+<% end %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+  <td  height="30"class="campos"><%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td>
+  </tr>
+  </table>
+
+      </td>
+  </tr>
+</table>
+<br/>
+<br/>
+</div>

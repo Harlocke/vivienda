@@ -1,0 +1,24 @@
+<h1>Listing planespagos</h1>
+
+<table>
+  <tr>
+    <th>Plan</th>
+    <th>Fecha</th>
+    <th>Valor</th>
+  </tr>
+
+<% @planespagos.each do |planespago| %>
+  <tr>
+    <td><%=h planespago.plan_id %></td>
+    <td><%=h planespago.fecha %></td>
+    <td><%=h planespago.valor %></td>
+    <td><%= link_to 'Show', planespago %></td>
+    <td><%= link_to 'Edit', edit_planespago_path(planespago) %></td>
+    <td><%= link_to 'Destroy', planespago, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New planespago', new_planespago_path %>

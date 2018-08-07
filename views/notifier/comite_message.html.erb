@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>...:SIFI:...</title>
+    <style type="text/css" media="screen">
+      h3 { color: #7185B9; }
+      ul { list-style: none; }
+      #some-id { font-size:2em; }
+      .some-class { color:red; }
+    </style>
+</head>
+<body>
+  <table background="http://190.0.34.154:3013/images/frame.png" border="0" cellpadding="0" cellspacing="0" height="65" width="100%">
+            <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+ </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td width="20%" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;">Señor(a)</td>
+          <td width="80%">&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="color:red; font-size:1em; font-family: Verdana, Geneva, sans-serif;"><strong><%= @user.nombre %></strong></td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"> A continuación le envio información sobre los compromisos del dia <%=@comite.fecha.strftime("%Y-%m-%d")%> del tema <%=@comite.comitestipo.descripcion rescue nil%></td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+<tr valign="middle">
+          <td colspan="2">
+            <div style="font-size: 12px;">
+          <table width="100%" border="1" cellpadding="0" cellspacing="0">
+           <tr valign="middle">
+              <td width="20%" height="30"><strong>Responsable</strong></td>
+              <td width="60%"><strong>Actividad</strong></td>
+              <td width="10%"><strong>Fecha<br/>Limite</strong></td>
+              <td width="10%"><strong>Estado</strong></td>
+            </tr>
+     <% @comitesactividades.each do |comitesactividad| %>
+        <tr valign="middle">
+          <td style="color:red;"><%=comitesactividad.dependencia.descripcion rescue nil%></td>
+          <td style="color:red;"><%=comitesactividad.tarea%></td>
+          <td style="color:red;"><%=comitesactividad.fecha_limite.strftime("%Y-%m-%d") rescue nil%></td>
+          <td style="color:red;"><%=comitesactividad.estado%></td>
+        </tr>
+        <% end %>
+           </table>
+            </div>
+            </td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><strong>Desarrollo del Comite</strong></td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <% @comitesobservaciones.each do |comitesobservacion| %>
+          <tr valign="middle">
+            <td width="5%" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;">* </td>
+            <td width="95%" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><%=comitesobservacion.observaciones%></td>
+          </tr>
+        <% end %>
+           </table>
+            </td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><strong>S I F I - Sistema de Informacion ISVIMED</strong></td>
+        </tr>
+        <tr valign="middle">
+          <td colspan="2" ><strong style="font-size:1em; font-family: Verdana, Geneva, sans-serif;"><%=Time.now.strftime("%Y-%m-%d %X")%></strong></td>
+        </tr>
+      </table>
+<br/><div style="font-size: 11px;">
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

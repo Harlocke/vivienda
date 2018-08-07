@@ -1,0 +1,46 @@
+<%=  javascript_include_tag :defaults %>
+<%=  stylesheet_link_tag 'chain_selects' %>
+<div align="center">
+<table width="85%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/asociarmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">RESULTADOS CONSULTA DE ASOCIACION</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),asociacion_viviendas_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+</div>
+<br/>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="10%" height="30" class="oce-first">ID</td>
+    <td width="42%" class="oce-first">Proyecto</td>
+    <td width="12%" class="oce-first">Bloque</td>
+    <td width="12%" class="oce-first">Piso</td>
+    <td width="12%" class="oce-first">Apto</td>
+    <td width="12%" class="oce-first">Estado</td>
+  </tr>
+<% @viviendas.each do |vivienda| %>
+  <tr class="<%=cycle('even1', 'odd1')%>">
+    <td height="25" class="camposDesc"><%=h vivienda.id %></td>
+    <td class="camposDesc"><%=h vivienda.proyecto.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.bloque.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.piso.descripcion rescue nil%></td>
+    <td class="camposDesc"><%=h vivienda.apto.descripcion rescue nil%></td>
+    <td class="camposDesc">
+      <% if vivienda.estado =="D" %>
+          <%= link_to "Asociar", {:controller => "viviendaspersonas", :action => "new", :id=>vivienda.id}, :class=>"verlink"%>
+      <% else %>
+      <%=h vivienda.estadovivienda %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+

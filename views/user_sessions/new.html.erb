@@ -1,0 +1,45 @@
+<% form_for @user_session, :url => user_session_path do |f| %>
+<table width="688" align="center" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"></td>
+  </tr>
+</table>
+<table width="689" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table width="64%" align="center">
+      <tr>
+        <td width="158" height="0" class="campos"><div align="right">Usuario : &nbsp;&nbsp;</div></td>
+        <td width="271"><%= f.text_field :username,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb';", :placeholder=>"Usuario", :autofocus=>"true",
+                :autocomplete=>"off", :required=>"true" } %>                
+        <%= error_message_on :username, :css_class =>"cerror"%></td>
+        </tr>
+      <tr>
+        <td class="campos" height="0"><div align="right">Contrase&ntilde;a : &nbsp;&nbsp;</div></td>
+        <td><%= f.password_field :password,{ :class => "campo", :size => 20,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :autocomplete=>"off", :onBlur => "this.style.border='1px solid #bbb'", :placeholder=>"Contraseña",:required=>"true" }%>
+        <%= error_message_on :password, :css_class =>"cerror"%></td>
+        </tr>
+      <tr>
+        <td class="campos" height="0">&nbsp;</td>
+        <td><div align="left"><div class="uiButton"><img class="img" src="/images/connect.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Iniciar", :disable_with => "Iniciando Sesión..."%></span></div></div></td>
+      </tr>
+      <tr>
+        <td class="campos" height="0">&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+      <tr>
+        <td height="0" colspan="2" class="campos"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="688" align="center" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"></td>
+  </tr>
+</table>
+<% end %>
+

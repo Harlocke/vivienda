@@ -1,0 +1,29 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/gerenciadosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">CONSULTA DE PERSONAS ASOCIADAS A PROYECTOS</div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag buscar_viviendaspersonas_path, :method => 'get' do %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+  <tr valign="middle">
+    <td width="50%" height="30" class="camposDesc"><div align="right"><strong>Identificacion del jefe de hogar:&nbsp;&nbsp;</strong></div></td>
+    <td width="50%" height="30" class="camposDesc"> <%= text_field_tag :buscarident, params[:buscarident],{ :class => "campo", :size => 40,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" class="camposDesc"></td>
+    <td height="30" class="camposDesc">
+<div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Buscar", :name => nil, :disable_with => "Buscando..." %></span></div> 
+
+  </tr>
+</table>
+<% end %>

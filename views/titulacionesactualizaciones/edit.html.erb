@@ -1,0 +1,28 @@
+<h1>Editing titulacionesactualizacion</h1>
+
+<% form_for(@titulacionesactualizacion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :titulacion_id %><br />
+    <%= f.text_field :titulacion_id %>
+  </p>
+  <p>
+    <%= f.label :bloque %><br />
+    <%= f.text_field :bloque %>
+  </p>
+  <p>
+    <%= f.label :tipo_transaccion %><br />
+    <%= f.text_field :tipo_transaccion %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @titulacionesactualizacion %> |
+<%= link_to 'Back', titulacionesactualizaciones_path %>

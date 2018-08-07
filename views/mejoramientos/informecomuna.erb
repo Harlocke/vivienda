@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Barrio - Comuna por Operador Convenio / Resolucion</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio</div></strong></td>
+    <td colspan="2"><strong><div align="center">Resolucion</div></strong></td>
+    <td colspan="3"><strong><div align="center">Informacion Comuna</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Comuna</strong></td>
+    <td width="20%"><strong>Barrio</strong></td>
+    <td width="20%"><strong>Cantidad</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|
+   convenio = Convenio.find(mejoramiento.convenio_id)
+   resolucion = Resolucion.find(mejoramiento.resolucion_id)
+   if mejoramiento.comuna_id.to_i > 0
+   comuna  = Comuna.find(mejoramiento.comuna_id)
+   end %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=convenio.nro_convenio rescue nil%></td>
+    <td><%=convenio.vigencia rescue nil%></td>
+    <td><%=convenio.ejecutor rescue nil%></td>
+    <td><%=resolucion.nro_resolucion rescue nil%> - <%=resolucion.anno rescue nil%></td>
+    <td><%=resolucion.fecha rescue nil%></td>
+    <% if mejoramiento.comuna_id.to_i > 0 %>
+    <td><%=comuna.comuna rescue nil%></td>
+    <td><%=comuna.barrio rescue nil%></td>
+    <% else %>
+    <td></td>
+    <td></td>
+    <% end %>
+    <td><%=mejoramiento.cantidadcomuna rescue nil%></td>
+  </tr>
+<% end %>
+</table>

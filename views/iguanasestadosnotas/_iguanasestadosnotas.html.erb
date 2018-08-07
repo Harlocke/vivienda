@@ -1,0 +1,60 @@
+<div align="center">
+<% remote_form_for [@iguanasestado, @iguanasestadosnota] do |form| %>
+   <% if !@iguanasestadosnota.id %>
+      <tr>
+	<%= render :partial => "/iguanasestadosnotas/iguanasestadosnotas_form" %>
+      </tr>
+<% end %>
+<% if @iguanasestado.iguanasestadosnotas.exists? %>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" class="oce-first">Fecha</td>
+    <td width="10%" height="30" class="oce-first">Proyecto</td>
+    <td width="75%" class="oce-first">Observaciones</td>
+  </tr>
+</table>
+<% for iguanasestadosnota in @iguanasestado.iguanasestadosnotas.find(:all, :order => 'created_at DESC') %>
+   <% if iguanasestadosnota.id != @iguanasestadosnota.id %>
+      <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0" class="<%=cycle('even1', 'odd1')%>">
+        <tr valign="middle" id="iguanasestadosnota_<%=iguanasestadosnota.id%>">
+          <td align="left" width="15%" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                 <td class="camposDesc" align="left"><%=iguanasestadosnota.created_at.strftime("%Y-%m-%d %X")%></td>
+              </tr>
+              <tr>
+                 <td class="camposDesc" align="left"><a title="<%=iguanasestadosnota.user.nombre rescue nil%>"><%=iguanasestadosnota.user.username rescue nil%></a></td>
+              </tr>
+            </table>
+          </td>
+          <td width="10%" class="camposDesc" align="left"><%=iguanasestadosnota.proyecto%></td>
+          <td width="75%" class="camposDesc" align="left"><%=iguanasestadosnota.observaciones%></td>
+        </tr>
+      </table>
+<% end %>
+        <% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :iguanasestado, :id %>
+<% end %>
+<br/>
+<% if flash[:iguanasestadosnota] %>
+<div id="iguanasestadosnota">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:iguanasestadosnota] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('iguanasestadosnota');", 5000)
+</script>
+<% end %>
+</div>

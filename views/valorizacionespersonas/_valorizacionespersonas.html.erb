@@ -1,0 +1,91 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">PROPIETARIOS Y/O POSEEDORES</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@valorizacion, @valorizacionespersona] do |form| %>
+<% if permiso("valorizacionespersona","C").to_s == "S" %>
+       <% if !@valorizacionespersona.id %>
+            <%= render :partial => "/valorizacionespersonas/valorizacionespersonas_form" %>
+       <% end %>
+<% end %>
+  <% if @valorizacion.valorizacionespersonas.exists? %>
+<table width="75%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="70%" height="30" align="left" class="oce-first">Persona Vinculada</td>
+    <td width="20%" height="30" align="left" class="oce-first">Tipo</td>
+    <td width="10%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @valorizacion.valorizacionespersonas.each do |valorizacionespersona| %>
+     <% if valorizacionespersona.id != @valorizacionespersona.id %>
+  <table width="75%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="valorizacionespersona_<%= valorizacionespersona.id%>">
+     <td width="70%" height="30" align="left" class="camposDesc">
+     <% if cruzadoper(valorizacionespersona.persona_id).to_s == 'S' %>
+         <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Jefe de Hogar presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                              {:controller=>"cruces", :action=>"mostrar", :persona_id =>valorizacionespersona.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+     <% end %><%=valorizacionespersona.persona.autobuscar rescue nil%></td>
+     <td width="20%" height="30" align="left" class="camposDesc"><%=valorizacionespersona.tipo rescue nil%></td>
+     <td width="10%" align="right" class="camposDesc">
+        <% if permiso("valorizacionespersona","E").to_s == "S" %>
+          <%= link_to_remote('Borrar',{:url => valorizacion_valorizacionespersona_path(@valorizacion, valorizacionespersona),
+               :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+     </td>
+ </tr>
+<% if valorizacionespersona.persona.beneviviendas.exists? %>
+   <tr>
+     <td colspan="3">
+          <div align="center">
+            <table width="85%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="90%" align="left" height="20" class="oce-first">Beneficiario </td>
+              </tr>
+              <% valorizacionespersona.persona.beneviviendas.each do |benevivienda| %>
+              <tr>
+                 <td align="left" class="camposDesc">
+                  <% if cruzadoben(benevivienda.id).to_s == 'S' %>
+                     <%= link_to image_tag("/images/rojo1.png", :title => "*** Este Beneficiario presenta cruce con la base de datos de Minambiente, Pulse aqui para ver la información...."),
+                              {:controller=>"cruces", :action=>"mostrar", :persona_id =>benevivienda.persona_id, :id=>1},:Onclick => "return GB_showCenter('Informacion Cruces', this.href, 550, 1000)"%>
+                  <% end %><%=benevivienda.identificacion rescue nil%> - <%=benevivienda.primer_nombre rescue nil%> <%=benevivienda.segundo_nombre rescue nil%> <%=benevivienda.primer_apellido rescue nil%> <%=benevivienda.segundo_apellido rescue nil%></td>
+              </tr>
+              <% end %>
+            </table>
+          </div>
+     </td>
+   </tr>
+<% end %>
+</table>
+     <% end %>
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :valorizacion, :id %>
+<% end %>
+<br/>
+<% if flash[:valorizacionespersona] %>
+<div id="valorizacionespersona">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:valorizacionespersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('valorizacionespersona');", 5000)
+</script>
+<% end %>
+</div>
+

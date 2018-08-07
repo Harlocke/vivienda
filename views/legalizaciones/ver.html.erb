@@ -1,0 +1,192 @@
+<%=image_tag("frame.png")%>
+<br/>
+<div align="center" class="camposDescN16">INFORME LEGALIZACIONES PROYECTO - <%=@legalizacion.descripcion rescue nil%></div>
+<br/>
+<div align="center">
+<% if @legalizacion.legalizacionesproyectos.exists? %>
+  <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+    <tr class="odd1">
+      <td colspan="3" class="campos"><div align="left">PROYECTOS SIFI</div></td>
+    </tr>
+    <tr class="odd1">
+      <td width="30%" class="campos">Fecha</td>
+      <td width="40%" align="left" class="campos">Proyecto</td>
+      <td width="20%" align="left" class="campos">Bloque</td>
+    </tr>
+  <% @legalizacion.legalizacionesproyectos.each do |legalizacionesproyecto| %>
+         <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizacionesproyecto_<%= legalizacionesproyecto.id%>">
+           <td width="30%" class="camposDesc" ><%=legalizacionesproyecto.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizacionesproyecto.user.nombre rescue nil%>"><%=legalizacionesproyecto.user.username rescue nil%></a></td>
+           <td width="40%" class="camposDesc"><%=legalizacionesproyecto.proyectodesc rescue nil %></td>
+           <td width="20%" class="camposDesc"><%=legalizacionesproyecto.bloquedesc rescue nil%></td>
+          </tr>
+  <% end %>
+  </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">PROYECTOS SIFI</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay informacion</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<div align="center" class="camposDescN16">REGLAMENTO DE PROPIEDAD HORIZONTAL</div>
+<% if @legalizacion.legalizacionesreglamentos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="7" class="campos" ><div align="left">ESCRITURAS</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="20%" rowspan="2" class="campos">Fecha</td>
+        <td align="left" colspan="3" class="campos" ><div align="center">RPH</div></td>
+        <td align="left" colspan="3" class="campos" ><div align="center">RPH Aclaración</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="10%" align="left" class="campos" >RPH</td>
+        <td width="10%" align="left" class="campos" >Fecha</td>
+        <td width="20%" align="left" class="campos" >Notaria</td>
+        <td width="10%" align="left" class="campos" >RPH</td>
+        <td width="10%" align="left" class="campos" >Fecha</td>
+        <td width="20%" align="left" class="campos" >Notaria</td>
+      </tr>
+    <% @legalizacion.legalizacionesreglamentos.each do |legalizacionesreglamento| %>
+           <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>">
+             <td class="camposDesc" ><%=legalizacionesreglamento.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizacionesreglamento.user.nombre rescue nil%>"><%=legalizacionesreglamento.user.username rescue nil%></a></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.rph rescue nil %></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.fecharph rescue nil %></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.notariarph rescue nil %></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.escrituraaclara rescue nil %></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.fechaaclara rescue nil %></td>
+             <td class="camposDesc"><%=legalizacionesreglamento.notariaaclara rescue nil %></td>
+            </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">ESCRITURAS</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay informacion</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<% if @legalizacion.legalizacionesmatriculas.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="6" class="campos" ><div align="left">MATRICULAS INMOBILIARIAS</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="20%" class="campos">Fecha</td>
+        <td width="22%" align="left" class="campos">Proyecto - Bloque</td>
+        <td width="10%" align="left" class="campos">Matricula</td>
+        <td width="8%" align="left" class="campos">RPH</td>
+        <td width="10%" align="left" class="campos">Fecha</td>
+        <td width="20%" align="left" class="campos">Notaria</td>
+      </tr>
+    <% @legalizacion.legalizacionesmatriculas.each do |legalizacionesmatricula| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizacionesmatricula_<%= legalizacionesmatricula.id%>">
+         <td class="camposDesc" ><%=legalizacionesmatricula.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizacionesmatricula.user.nombre rescue nil%>"><%=legalizacionesmatricula.user.username rescue nil%></a></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesproyecto.completo rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.matricula rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.rph rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.fecharph rescue nil %></td>
+         <td class="camposDesc"><%=legalizacionesmatricula.legalizacionesreglamento.notariarph rescue nil %></td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">MATRICULAS INMOBILIARIAS</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay informacion</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<div align="center" class="camposDescN16">CESIÓN DE ZONAS DE USO PUBLICO</div>
+<% if @legalizacion.legalizazonasreglamentos.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="7" class="campos" ><div align="left">ESCRITURAS</div></td>
+      </tr>
+      <tr valign="middle">
+        <td width="20%" rowspan="2"  class="campos" >Fecha</td>
+        <td align="left" colspan="3" class="campos" ><div align="center">Cesión</div></td>
+        <td align="left" colspan="3" class="campos" ><div align="center">Cesión Aclaración</div></td>
+        <td width="10%" rowspan="2" align="left" class="campos"></td>
+      </tr>
+      <tr valign="middle">
+        <td width="10%" align="left" class="campos" >Cesión Urbanistica</td>
+        <td width="10%" align="left" class="campos" >Fecha</td>
+        <td width="20%" align="left" class="campos" >Notaria</td>
+        <td width="10%" align="left" class="campos" >Cesión Urbanistica</td>
+        <td width="10%" align="left" class="campos" >Fecha</td>
+        <td width="20%" align="left" class="campos" >Notaria</td>
+      </tr>
+    <% @legalizacion.legalizazonasreglamentos.each do |legalizazonasreglamento| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizazonasreglamento_<%= legalizazonasreglamento.id%>">
+         <td  class="camposDesc" ><%=legalizazonasreglamento.created_at.strftime("%Y-%m-%d %X")%> - <a title="<%=legalizazonasreglamento.user.nombre rescue nil%>"><%=legalizazonasreglamento.user.username rescue nil%></a></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.rph rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.fecharph rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.notariarph rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.escrituraaclara rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.fechaaclara rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasreglamento.notariaaclara rescue nil %></td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">ESCRITURAS</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay informacion</div></td>
+      </tr>
+    </table>
+<% end %>
+<br/>
+<% if @legalizacion.legalizazonasmatriculas.exists? %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" colspan="5" class="campos" ><div align="left">MATRICULAS INMOBILIARIAS</div></td>
+      </tr>
+      <tr class="odd1">
+        <td width="15%"  class="campos">Fecha</td>
+        <td width="20%" align="left" class="campos">Nombre Predio</td>
+        <td width="12%" align="left" class="campos">Matricula lote objeto de cesión</td>
+        <td width="25%" align="left" class="campos">Escritura de Cesión</td>
+        <td width="15%" align="left" class="campos">Nro Matricula mayor extensión</td>
+      </tr>
+    <% @legalizacion.legalizazonasmatriculas.each do |legalizazonasmatricula| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="legalizazonasmatricula_<%= legalizazonasmatricula.id%>">
+         <td  class="camposDesc" ><%=legalizazonasmatricula.created_at.strftime("%Y-%m-%d %X")%><br/><a title="<%=legalizazonasmatricula.user.nombre rescue nil%>"><%=legalizazonasmatricula.user.username rescue nil%></a></td>
+         <td class="camposDesc"><%=legalizazonasmatricula.nombre rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasmatricula.matricula rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasmatricula.legalizazonasreglamento.rph rescue nil %><br/>Fecha: <%=legalizazonasmatricula.legalizazonasreglamento.fecharph rescue nil %><br/>
+         Notaria: <%=legalizazonasmatricula.legalizazonasreglamento.notariarph rescue nil %></td>
+         <td class="camposDesc"><%=legalizazonasmatricula.matriculamayor rescue nil %></td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    <table width="100%" border="1" cellspacing="0" cellpadding="0" class="sample">
+      <tr class="odd1">
+        <td align="left" class="campos" ><div align="left">MATRICULAS INMOBILIARIAS</div></td>
+      </tr>
+      <tr>
+        <td align="left" class="campos" ><div align="left">No hay informacion</div></td>
+      </tr>
+    </table>
+<% end %>
+</div>
+<div align="justify" style="font-family: Tahoma; font-size: 10px;"> S I F I - Sistema de Informacion ISVIMED - <%=User.find(is_admin).nombre rescue nil%> - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a></div>
+
+
+

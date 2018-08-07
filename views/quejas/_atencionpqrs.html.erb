@@ -1,0 +1,825 @@
+<% if Sifi.find(65).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_vn1 = 'SI' and tema_vn1_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Vivienda Nueva (<%=@quejas.count%>)</div>    
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if Sifi.find(66).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_vn2 = 'SI' and tema_vn2_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Vivienda Nueva (Postulación - Asignación) (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(67).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_vu = 'SI' and tema_vu_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Vivienda Usada (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(68).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_m = 'SI' and tema_m_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Mejoramiento (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(69).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_msb = 'SI' and tema_msb_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Mejoramiento Sin Barreras (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(70).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_t = 'SI' and tema_t_env = 'SI'"], :order=>"created_at asc")
+%>
+      <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Titulación (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(71).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_l = 'SI' and tema_l_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes - Legalización (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(72).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_d = 'SI' and tema_d_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Desenglobe (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(73).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_at = 'SI' and tema_at_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Arrendamiento Temporal (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(74).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_po = 'SI' and tema_po_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Postventas (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(75).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_e = 'SI' and tema_e_env = 'SI'"], :order=>"created_at asc")
+%>
+     <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Escrituración (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(76).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_ga = 'SI' and tema_ga_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Gestión administrativa y financiera (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(77).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_gi = 'SI' and tema_gi_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Gestión de infraestructura interna (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(78).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_gd = 'SI' and tema_gd_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Gestión documental (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if Sifi.find(79).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_gt = 'SI' and tema_gt_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Gestión de las Tics (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(80).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_gh = 'SI' and tema_gh_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Gestión humana (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(81).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_ava = 'SI' and tema_ava_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Autorización para venta o arriendo (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(82).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_ch = 'SI' and tema_ch_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Cancelación de hipotecas (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(83).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_rs = 'SI' and tema_rs_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Renuncia de subsidios (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(84).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_te = 'SI' and tema_te_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Tramites de escrituración (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(89).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_opv = 'SI' and tema_opv_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - OPV (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(98).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_cop = 'SI' and tema_cop_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Copropiedades (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(99).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_pos = 'SI' and tema_pos_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Postulaciones (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(100).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_des = 'SI' and tema_des_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Desplazados (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end
+   if  Sifi.find(101).valor.to_i == is_admin
+      @quejas = Queja.find(:all, :conditions=>["estado IN ('PENDIENTE','TRASLADADO') and tema_rea = 'SI' and tema_rea_env = 'SI'"], :order=>"created_at asc")
+%>
+    <div align="left" style="height:40px; color:red; vertical-align:middle; display: table-cell;" class="camposDescN16">&nbsp;PQRS Pendientes PQRS - Reasentamiento (<%=@quejas.count%>)</div>
+    <% if @quejas.count > 0 %>
+      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="10%" class="oce-first">Fecha PQRS</td>
+          <td width="10%" class="oce-first">Tipo</td>
+          <td width="10%" class="oce-first">Identificacion</td>
+          <td width="35%" class="oce-first">Nombre</td>
+          <td width="15%" class="oce-first">Estado</td>
+          <td width="20%" class="oce-first">Dependencia</td>
+          <td width="5%" class="oce-first">&nbsp;</td>
+        </tr>
+      <% @quejas.each do |queja| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+          <td class="camposDesc"><%=h queja.created_at%></td>
+          <td class="camposDesc" align="left"><%=queja.tipopqrs%></td>
+          <td class="camposDesc" align="left"><%=queja.quejaidentificacion rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.quejanombre rescue nil%></td>  
+          <td class="camposDesc" align="left"><%=queja.estado rescue nil%></td>
+          <td class="camposDesc" align="left"><%=queja.temadesc rescue nil%></td>
+          <td class="camposDesc"><div align="center">
+          <%= link_to 'Editar', edit_queja_path(queja),:class=>"editarlink"%>
+          </div></td>
+        </tr>
+      <% end %>
+      </table>
+    <% else %>
+          <div align="center" class="camposDesc"><img src="/images/alerta.png"/><em>No hay datos asociados.</em></div>
+    <% end %>
+<% end %>

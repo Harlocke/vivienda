@@ -1,0 +1,24 @@
+<h1>Listing ayudasdocimagenes</h1>
+
+<table>
+  <tr>
+    <th>Ayudasdocumento</th>
+    <th>User</th>
+    <th>Descripcion</th>
+  </tr>
+
+<% @ayudasdocimagenes.each do |ayudasdocimagen| %>
+  <tr>
+    <td><%=h ayudasdocimagen.ayudasdocumento %></td>
+    <td><%=h ayudasdocimagen.user %></td>
+    <td><%=h ayudasdocimagen.descripcion %></td>
+    <td><%= link_to 'Show', ayudasdocimagen %></td>
+    <td><%= link_to 'Edit', edit_ayudasdocimagen_path(ayudasdocimagen) %></td>
+    <td><%= link_to 'Destroy', ayudasdocimagen, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ayudasdocimagen', new_ayudasdocimagen_path %>

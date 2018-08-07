@@ -1,0 +1,57 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/solicitudalmacenmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">SOLICITUDES AL ALMACEN</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                                           { :border=>0, :title => "Ver Solicitudes"}),solicitud_almacenessolicitudes_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+   <%= stylesheet_link_tag 'scaffold'%>
+<div align="center">
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="10%" height="30" class="oce-first">Fecha Solicitud</td>
+    <td width="20%" class="oce-first">Usuario</td>
+    <td width="5%" class="oce-first"><div align="center">Nro.</div></td>
+    <td width="30%" class="oce-first">Producto</td>
+    <td width="5%" class="oce-first"><div align="center">Cant</div></td>
+    <td width="5%" class="oce-first"><div align="center">Cant Real</div></td>
+    <td width="5%" class="oce-first"><div align="center">Cant Reint.</div></td>
+    <td width="15%" class="oce-first"></td>
+  </tr>
+<% for almacenessolicitud in @almacenessolicitudes
+   @id = almacenessolicitud.consecutivo %>
+  <tr class="<%=cycle('even1', 'odd1')%> postS_<%=almacenessolicitud.id%>">
+    <td class="camposDesc"><div align="center"><%=h almacenessolicitud.fecha_envio.strftime("%Y-%m-%d") %></div></td>
+    <td class="camposDesc"><%=h almacenessolicitud.user.nombre rescue nil %></td>
+    <td class="camposDesc"><div align="center"><%=h almacenessolicitud.consecutivo %></div></td>
+    <td class="camposDesc"><%=h almacenessolicitud.producto.descripcion rescue nil%></td>
+    <td class="camposDesc"><div align="center"><%=h almacenessolicitud.cantidad %></div></td>
+    <td class="camposDesc"><div align="center"><%=h almacenessolicitud.cantidad_real %></div></td>
+    <td class="camposDesc"><div align="center"><%=h almacenessolicitud.cantidad_reintegra %></div></td>
+    <td class="camposDesc"><div align="center">
+      <%  if  almacenessolicitud.revisado.to_s == "S"%>
+        <img src="/images/connect.png"/>
+        <% if almacenessolicitud.cantidad_reintegra.nil? %>
+          <%= link_to 'Reintegrar', edit_almacenessolicitud_path(almacenessolicitud.id), :class=>"editarlink"%>
+        <% end %>
+      <%  else%>
+         <%= link_to 'Editar', edit_almacenessolicitud_path(almacenessolicitud.id), :class=>"editarlink"%>
+         <%= link_to "Registrar", {:controller => "almacenessolicitudes", :action => "registrarsalida", :id=>almacenessolicitud.id}, :class=>"verlink"%>
+      <%  end%>
+        </div>
+      </td>
+  </tr>
+<% end %>
+</table>
+  <br/>
+ <%=link_to 'Generar Constancia de Entrega', {:controller=>"almacenessolicitudes", :action=>"versolicitudimp", :consecutivo=>@id},:title=>"Insumo con Subanalisis",:confirm=>"Seguro?", :class=>"imprimirlink"%>
+</div>
+<br/><br/><br/><br/>

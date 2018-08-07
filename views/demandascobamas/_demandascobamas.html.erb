@@ -1,0 +1,92 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">COBAMAS VINCULADAS</div></td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@demanda, @demandascobama] do |form| %>
+<% if permiso("demandascobama","C").to_s == "S" %>
+   <% if !@demandascobama.id %>
+	<%= render :partial => "/demandascobamas/demandascobamas_form" %>
+   <% end %>
+<% end %>
+  <% if @demanda.demandascobamas.exists? %>
+<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="15%" height="30" align="left" class="oce-first">Cobama</td>
+    <td width="70%" height="30" align="left" class="oce-first">Personas</td>
+    <td width="5%" height="30" class="oce-first"></td>
+  </tr>
+</table>
+    <% @demanda.demandascobamas.each do |demandascobama| %>
+     <% if demandascobama.id != @demandascobama.id %>
+  <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+   <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="demandascobama_<%= demandascobama.id%>">
+     <td width="15%" height="30" align="left" class="camposDesc"><%=demandascobama.cobama rescue nil%></td>
+     <td width="70%" height="30" align="left" class="camposDesc">
+       <% if Titulacion.exists?(["cobama = '#{demandascobama.cobama}'"]) == true
+            @titulacion = Titulacion.find(:first, :conditions=>["cobama = '#{demandascobama.cobama}'"]) %>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <% @titulacion.titulacionespersonas.each do |titulacionespersona| %>
+                <tr><td align="left" class="camposDesc"><%=titulacionespersona.persona.identificacion rescue nil%> - <%=titulacionespersona.persona.nombres rescue nil%></td></tr>
+              <% end %>
+            </table>
+       <% else %>
+       <div align="left" class="campos">El Cobama no se encuentra registrado en el modulo de Titulaciones</div>
+       <% end %>
+     </td>
+      <td width="5%" align="right" class="camposDesc">
+        <% if permiso("demandascobama","A").to_s == "S" %>
+        <%= link_to_remote('Editar',{:url => edit_demanda_demandascobama_path(@demanda, demandascobama),
+		:method => :get}, :class=>"editarlink")%>
+        <% end %>
+        <% if permiso("demandascobama","E").to_s == "S" %>
+          <%= link_to_remote('Borrar',{:url => demanda_demandascobama_path(@demanda, demandascobama),
+                  :method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+        <% end %>
+        </td>
+   </tr>
+   </table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR ASOCIADO</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="demandascobama_<%=@demandascobama.id%>">
+     <%= render :partial => "demandascobamas_form" %>
+    </tr>
+    </fieldset>
+  <% end %>
+  
+   <% end %>
+ <% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :demanda, :id %>
+<% end %>
+<br/>
+<% if flash[:demandascobama] %>
+<div id="demandascobama">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:demandascobama] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('demandascobama');", 5000)
+</script>
+<% end %>
+</div>
+

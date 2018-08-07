@@ -1,0 +1,104 @@
+<h1>Editing almacenesmantenimiento</h1>
+
+<% form_for(@almacenesmantenimiento) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :req_adecuaciones %><br />
+    <%= f.text_field :req_adecuaciones %>
+  </p>
+  <p>
+    <%= f.label :req_plomeria %><br />
+    <%= f.text_field :req_plomeria %>
+  </p>
+  <p>
+    <%= f.label :req_pintura %><br />
+    <%= f.text_field :req_pintura %>
+  </p>
+  <p>
+    <%= f.label :req_arreglo %><br />
+    <%= f.text_field :req_arreglo %>
+  </p>
+  <p>
+    <%= f.label :req_instalacion %><br />
+    <%= f.text_field :req_instalacion %>
+  </p>
+  <p>
+    <%= f.label :req_arreglochapas %><br />
+    <%= f.text_field :req_arreglochapas %>
+  </p>
+  <p>
+    <%= f.label :req_organizar %><br />
+    <%= f.text_field :req_organizar %>
+  </p>
+  <p>
+    <%= f.label :req_trabajos %><br />
+    <%= f.text_field :req_trabajos %>
+  </p>
+  <p>
+    <%= f.label :req_otros %><br />
+    <%= f.text_field :req_otros %>
+  </p>
+  <p>
+    <%= f.label :descripcion %><br />
+    <%= f.text_field :descripcion %>
+  </p>
+  <p>
+    <%= f.label :clasificacion %><br />
+    <%= f.text_field :clasificacion %>
+  </p>
+  <p>
+    <%= f.label :user_clasifica %><br />
+    <%= f.text_field :user_clasifica %>
+  </p>
+  <p>
+    <%= f.label :fecha_clasifica %><br />
+    <%= f.date_select :fecha_clasifica %>
+  </p>
+  <p>
+    <%= f.label :materiales_necesarios %><br />
+    <%= f.text_field :materiales_necesarios %>
+  </p>
+  <p>
+    <%= f.label :sustentacion %><br />
+    <%= f.text_field :sustentacion %>
+  </p>
+  <p>
+    <%= f.label :materiales_utilizados %><br />
+    <%= f.text_field :materiales_utilizados %>
+  </p>
+  <p>
+    <%= f.label :fecha_ejecucion %><br />
+    <%= f.date_select :fecha_ejecucion %>
+  </p>
+  <p>
+    <%= f.label :user_recibe %><br />
+    <%= f.text_field :user_recibe %>
+  </p>
+  <p>
+    <%= f.label :user_responsable %><br />
+    <%= f.text_field :user_responsable %>
+  </p>
+  <p>
+    <%= f.label :fecha_registro %><br />
+    <%= f.date_select :fecha_registro %>
+  </p>
+  <p>
+    <%= f.label :cumple %><br />
+    <%= f.text_field :cumple %>
+  </p>
+  <p>
+    <%= f.label :observaciones %><br />
+    <%= f.text_field :observaciones %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @almacenesmantenimiento %> |
+<%= link_to 'Back', almacenesmantenimientos_path %>

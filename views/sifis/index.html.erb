@@ -1,0 +1,22 @@
+<h1>Listing sifis</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+    <th>Valor</th>
+  </tr>
+
+<% @sifis.each do |sifi| %>
+  <tr>
+    <td><%=h sifi.descripcion %></td>
+    <td><%=h sifi.valor %></td>
+    <td><%= link_to 'Show', sifi %></td>
+    <td><%= link_to 'Edit', edit_sifi_path(sifi) %></td>
+    <td><%= link_to 'Destroy', sifi, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New sifi', new_sifi_path %>

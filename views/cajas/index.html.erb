@@ -1,0 +1,20 @@
+<h1>Listing cajas</h1>
+
+<table>
+  <tr>
+    <th>Descripcion</th>
+  </tr>
+
+<% @cajas.each do |caja| %>
+  <tr>
+    <td><%=h caja.descripcion %></td>
+    <td><%= link_to 'Show', caja %></td>
+    <td><%= link_to 'Edit', edit_caja_path(caja) %></td>
+    <td><%= link_to 'Destroy', caja, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New caja', new_caja_path %>

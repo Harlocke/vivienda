@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Prestamos</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;" bgcolor="#00FF00">
+    <td width="5%"><strong>ID</strong></td>
+    <td width="15%"><strong>Cobama</strong></td>
+    <td width="40%"><strong>Usuario Registro prestamos</strong></td>
+    <td width="5%"><strong>Fecha Registro</strong></td>
+    <td width="5%"><strong>Prestado A</strong></td>
+    <td width="5%"><strong>Fecha Vencimiento</strong></td>
+  </tr>
+<% @titulaciones.each do |titulacion| %>
+  <tr valign="middle" style="font-family: Tahoma; font-size: 10px;">
+    <td><%=titulacion.id rescue nil%></td>
+    <td><%=titulacion.cobama rescue nil%></td>
+    <td><%=titulacion.registro rescue nil%></td>
+    <td><%=titulacion.fechasolicitud.strftime("%Y-%m-%d %X") rescue 0%></td>
+    <td><%=titulacion.prestadoa rescue nil%></td>
+    <td><%=titulacion.fechavence.strftime("%Y-%m-%d %X") rescue 0%></td>
+  </tr>
+<% end %>
+</table>

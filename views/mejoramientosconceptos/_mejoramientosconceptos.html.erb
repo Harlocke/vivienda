@@ -1,0 +1,63 @@
+</form>
+<div align="center">
+<% remote_form_for [@mejoramiento, @mejoramientosconcepto] do |form| %>
+   <% if !@mejoramientosconcepto.id %>
+  <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+      	<%= render :partial => "/mejoramientosconceptos/mejoramientosconceptos_form" %>
+  <% end %>
+   <% end %>
+<% if @mejoramiento.mejoramientosconceptos.exists? %>
+<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="20%" class="oce-first">Fecha</td>
+    <td width="55%" class="oce-first">Concepto</td>
+    <td width="10%" class="oce-first">Realizado</td>
+    <td width="15%" align="left" class="oce-first"></td>
+  </tr>
+<% for mejoramientosconcepto in @mejoramiento.mejoramientosconceptos.find(:all, :order => 'created_at DESC') %>
+   <% if mejoramientosconcepto.id != @mejoramientosconcepto.id %>
+         <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="mejoramientosconcepto_<%=mejoramientosconcepto.id%>">
+          <td class="camposDesc"><%=mejoramientosconcepto.created_at.strftime("%Y-%m-%d %X")%></td>
+          <td class="camposDesc" align="left"><%=mejoramientosconcepto.descripcion rescue nil%></td>
+          <td class="camposDesc" align="left"><div align="center"><%=mejoramientosconcepto.tipo rescue nil%></div></td>
+          <td class="camposDesc" align="left"><div align="center">
+              <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+                <%= link_to_remote 'Editar',{:url => edit_mejoramiento_mejoramientosconcepto_path(@mejoramiento, mejoramientosconcepto),:method => :get},:title=>"Editar", :class=>"editarlink"%>
+              <% end %>
+              <% if permiso("mejoramientosconcepto","E").to_s == "S" %>
+                <%= link_to_remote('Borrar',{:url => mejoramiento_mejoramientosconcepto_path(@mejoramiento, mejoramientosconcepto),:method => :delete, :confirm => "¿Seguro?"}, :class=>"borrarlink")%>
+              <% end %>
+          </div></td>
+        </tr>
+<% else %>
+     <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0"><tr valign="top"><td><div class="col_enc">EDITAR</div></td></tr></table>
+     <%= render :partial => "mejoramientosconceptos_form" %>
+     <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <% end %>
+<% end %>
+</table>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+            <%= hidden_field :mejoramiento, :id %>
+<% end %>
+<br/>
+<% if flash[:mejoramientosconcepto] %>
+<div id="mejoramientosconcepto">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"/></div></td>
+        <td width="95%" align="left" class="campos">&nbsp;&nbsp;<%= flash[:mejoramientosconcepto] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('mejoramientosconcepto');", 5000)
+</script>
+<% end %>
+</div>

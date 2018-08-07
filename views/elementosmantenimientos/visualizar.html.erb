@@ -1,0 +1,86 @@
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td  height="30"><div class="col_enc">INFORME DE MANTENIMIENTO</div></td>
+  </tr>
+</table>
+      <div align="center">
+<table width="90%" border="0" cellspacing="1" cellpadding="1">
+      <tr>
+        <td width="30%" class="campos">Tipo de Elemento:</td>
+        <td width="70%" class="camposDesc"><%=@elementosmantenimientos.elemento.tiposelemento.descripcion rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Marca:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.elemento.marca%></td>
+      </tr>
+      <tr>
+        <td class="campos">Referencia:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.elemento.referencia rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Placa:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.elemento.placa rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Serial:</td>
+        <td class="camposDesc"><%= @elementosmantenimientos.elemento.serial rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Tipo de Mantenimiento:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.tipo%></td>
+      </tr>
+      <tr>
+        <td class="campos">Fecha de Mantenimiento:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.fecha_mantenimiento%></td>
+      </tr>
+      <tr>
+        <td class="campos">Realiza Mantenimiento:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.user.nombre rescue nil%></td>
+      </tr>
+      <tr valign="top">
+        <td class="campos">Observaciones:</td>
+        <td class="camposDesc"><%=@elementosmantenimientos.descripcion%><br/>
+      <% if @elementosmantenimientos.usb %> - Revisión puertos USB : <strong><%=@elementosmantenimientos.usb rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.cooler %> - Funcionamiento Cooler : <strong><%=@elementosmantenimientos.cooler rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.red %> - Tarjetas de Red : <strong><%=@elementosmantenimientos.red rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.disco %> - Almacenamiento Disco Duro : <strong><%=@elementosmantenimientos.disco rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.ram %> - Memoria RAM : <strong><%=@elementosmantenimientos.ram rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.dvd %> - Unidad DVD : <strong><%=@elementosmantenimientos.dvd rescue nil%></strong><%end%>
+      <% if @elementosmantenimientos.vga %> - Puertos VGA : <strong><%=@elementosmantenimientos.vga rescue nil%></strong><%end%>
+        </td>
+      </tr>
+      <tr>
+        <td class="campos">Equipo Asignado a:</td>
+        <td class="camposDesc">
+          <% @elementosusers = Elementosuser.find(:all, :conditions=>["elemento_id =? and fecha_fin is null",@elementosmantenimientos.elemento_id])
+             @elementosusers.each do |elementosuser|
+          %>
+             <%=elementosuser.user.nombre rescue nil%> 
+          <% end %>
+        </td>
+      </tr>
+</table>
+      </div>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+          <tr valign="bottom">
+            <td align="left" height="80" class="campos">___________________________________________</td>
+            <td align="left" class="campos"></td>
+          </tr>
+          <tr>
+            <td width="50%" align="left" class="campos">Firma Aceptacion </td>
+            <td width="50%" align="left" class="campos">Observaciones </td>
+          </tr>
+      </table>
+  <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+    <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+  </table>
+</td>
+  </tr>
+</table>
+</div>

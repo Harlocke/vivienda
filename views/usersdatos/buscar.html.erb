@@ -1,0 +1,71 @@
+<%=  javascript_include_tag :defaults %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/usersdatomin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">RESULTADOS CONSULTA USUARIOS SIFI (<%=@buscarnombre%>)</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	                            { :border=>0, :title => "Buscar"}),busqueda_usersdatos_path %></div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<div align="center">
+   <% i = 0 %>
+  <% @usersdatos.each do |usersdato| %>
+  <% i = i + 1 %>
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30%" valign="top"><table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="100%"><h2 class="uiHeaderTitle"><%= image_tag usersdato.userfoto.url(:thumb)%></h2></td>
+      </tr>
+    </table></td>
+    <td width="5%">&nbsp;</td>
+    <td width="65%"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="34%" class="campos">Nombre </td>
+        <td width="66%" class="camposDesc"><%=usersdato.user.nombre rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Dependencia </td>
+        <td class="camposDesc"><%=usersdato.user.dependencia.descripcion rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">E-mail</td>
+        <td  class="camposDesc"><%=usersdato.user.email rescue nil%></td>
+      </tr>
+      <tr>
+        <td class="campos">Telefono</td>
+        <td class="camposDesc"><%=usersdato.telefono%></td>
+      </tr>
+      <tr>
+        <td class="campos">Extension</td>
+        <td class="camposDesc"><%=usersdato.extension%></td>
+      </tr>
+      <% if permiso("usersdato","A").to_s == "S" %>
+      <tr>
+        <td class="campos">&nbsp;</td>
+        <td><%= link_to 'Editar Informacion', edit_usersdato_path(usersdato),:class=>"editarlink"%></td>
+      </tr>
+      <% end %>
+    </table></td>
+  </tr>
+</table>
+  <table width="600" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+<% end %>
+<table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="100%" height="30" class="camposDescN"><div align="center">Nro Total de Registro : <%=i%></div></td>
+  </tr>
+</table> 
+</div>
+
+

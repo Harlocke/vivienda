@@ -1,0 +1,52 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="39%" align="left" class="campos">Tipo Posventa *</td>
+          <td width="21%" align="left" class="campos">Fecha Recibida *</td>
+          <td width="40%" align="left" class="campos">Fecha Atencion </td>
+          <td width="40%" align="left" class="campos">Observaciones *</td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc"><%= text_field :viviendasposventa, :tipo_posventa,{ :class => "campo", :size => 35,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :viviendasposventa, :tipo_posventa, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= calendar_date_select "viviendasposventa", "fecha_recibida", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%>
+          <%= error_message_on :viviendasposventa, :fecha_recibida, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc"><%= calendar_date_select "viviendasposventa", "fecha_atendida", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false%>
+          <%= error_message_on :viviendasposventa, :fecha_atendida, :css_class =>"cerror"%></td>
+        <td align="left" class="camposDesc"><%= text_area(:viviendasposventa, :observaciones, :cols => 70, :rows => 2, :class => 'campo',
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'") %>
+        <%= error_message_on :viviendasposventa, :observaciones, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="30%" align="left" class="campos">Estado *</td>
+          <td width="70%" align="left" class="campos"></td>
+        </tr>
+        <tr valign="top">
+          <td align="left" class="camposDesc">
+            <%= select(:viviendasposventa,
+                :estado, { "SOLUCIONADO" => "SOLUCIONADO",
+                           "PENDIENTE" => "PENDIENTE",
+                           "NO POSVENTA" => "NO POSVENTA"},
+                        { :include_blank => true },
+                      { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :viviendasposventa, :estado, :css_class =>"cerror"%></td>
+          <td align="left" class="camposDesc">&nbsp;</td>
+        </tr>
+      </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :vivienda, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+    </td>
+  </tr>
+</table>

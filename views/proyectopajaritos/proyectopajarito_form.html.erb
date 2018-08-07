@@ -1,0 +1,136 @@
+
+
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/proyectosmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PLAN PARCIAL PAJARITO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),proyectos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+  <div id="container">
+      <fieldset>
+       <% form_for(@proyectopajarito) do |f| %>
+            <div align="center">
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td height="30"><div class="col_enc">REGISTRO DE FICHA</div></td>
+        </tr>
+      </table>
+    <br/>
+
+    <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="15%" class="campos">Unidad de Gestión</td>
+          <td width="15%" class="campos">Fecha Escritura</td>
+          <td width="15%" class="campos">Escritura Publica</td>
+          <td width="55%" class="campos">Proyecto</td>
+        </tr>
+        <tr valign="top">
+          <td><%= select(:proyectopajarito, :unidad_gestion, select_unidad_gestion,
+                                        { :include_blank => true },
+                                        { :style=>"width:80px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :proyectopajarito,:unidad_gestion, :css_class =>"cerror"%></td>      
+          <td><%= calendar_date_select "proyectopajarito", "fecha", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+              <%= error_message_on :proyectopajarito, :fecha, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :escritura,{ :class => "campo", :size => 13,
+                               :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                               :onFocus => "this.style.border='1px solid #f00'",
+                               :onBlur => "this.style.border='1px solid #bbb'" } %>
+            <%= error_message_on :proyectopajarito, :escritura, :css_class =>"cerror"%></td>
+           <td ><%= select(:proyectopajarito, :proyecto,select_proyectospajarito ,
+                                        { :include_blank => true },
+                                        { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          <%= error_message_on :proyectopajarito,:proyecto, :css_class =>"cerror"%></td>       
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="13%" class="campos">Notaria</td>
+          <td width="17%" class="campos">Matricula Inmobiliaria</td>
+          <td width="50%" class="campos">Nombre Predio</td>
+          <td width="20%" class="campos">NIT</td>
+        </tr>
+        <tr valign="top">
+          <td><%= f.text_field :notaria,{ :class => "campo", :size => 14,
+                               :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                               :onFocus => "this.style.border='1px solid #f00'",
+                               :onBlur => "this.style.border='1px solid #bbb'" } %>
+              <%= error_message_on :proyectopajarito, :notaria, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :matricula_inmob,{ :class => "campo", :size => 20,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectopajarito, :matricula_inmob, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :nombre_predio,{ :class => "campo", :size => 75,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectopajarito, :nombre_predio, :css_class =>"cerror"%></td>
+           <td><%= f.text_field :nit,{ :class => "campo", :size => 25,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :proyectopajarito, :nit, :css_class =>"cerror"%></td>
+         
+          </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="36%" class="campos">Propietario</td>
+          <td width="32%" class="campos">Matricula Mayor Extensión</td>
+          <td width="32%" class="campos">Matriculas Resultantes</td>
+          
+          
+        </tr>
+        <tr valign="top">
+          
+          <td><%= f.text_field :propietario,{ :class => "campo", :size => 52,
+                           :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                           :onFocus => "this.style.border='1px solid #f00'",
+                           :onBlur => "this.style.border='1px solid #bbb'" } %>
+                        <%= error_message_on :proyectopajarito, :propietario, :css_class =>"cerror"%></td>
+           <td><%= text_area(:proyectopajarito, :matricula_extension, :cols => 45, :rows => 4, :class => 'campo', :maxlength => 4000,
+                                      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                                      <%= error_message_on :proyectopajarito, :matricula_extension, :css_class =>"cerror"%></td>
+           <td><%= text_area(:proyectopajarito, :matricula_result, :cols => 45, :rows => 4, :class => 'campo', :maxlength => 4000,
+                                      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+                                      <%= error_message_on :proyectopajarito, :matricula_result, :css_class =>"cerror"%></td>
+          </tr>
+      </table>
+
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/>
+
+        </tr>
+      </table>
+      <% if permiso("proyectopajarito","A").to_s == "S" %>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>      
+          <td width="40%" height="30"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                          
+          </div></td>
+         
+        </tr>
+      </table>
+      <% end -%>
+  </div>
+<% end %>
+<br/>
+        </fieldset>
+</div>
+
+
+
+<br/>

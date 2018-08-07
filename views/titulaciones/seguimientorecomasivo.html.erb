@@ -1,0 +1,264 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 3}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<%= link_to 'Regresar', titulaciones_path %> - <a href="javascript:window.print()" class="imprimirlink">Imprimir</a>
+<% @titulaciones.each do |titulacion|%>
+<div align="center">
+<%=image_tag("frame.png")%>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td></td></tr>
+        <tr>
+          <td height="30"><div class="col_enc">INFORME DE SEGUIMIENTO</div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="17%" class="campos">Cobama</td>
+          <td width="33%" class="campos">Barrio </td>
+          <td width="50%" class="campos">Juridico Asignado </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=titulacion.cobama%></td>
+          <td class="camposDesc"><%=@titulacion.comuna.descripcion2 rescue nil%></td>
+          <td class="camposDesc"><%=User.find(titulacion.user_juridico).nombre rescue nil%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="18%" class="campos">Tipo de Proceso </td>
+          <td width="10%" class="campos">Manzana </td>
+          <td width="10%" class="campos">Lote </td>
+          <td width="50%" class="campos">Direccion </td>
+          <td width="12%" class="campos">Unidades Habit.</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=titulacion.tipoproceso%></td>
+          <td class="camposDesc"><%=titulacion.manzana%></td>
+          <td class="camposDesc"><%=titulacion.lote%></td>
+          <td class="camposDesc"><%=titulacion.direccion%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="15%" class="campos">Acta Entrega</td>
+          <td width="15%" class="campos">Area </td>
+          <td width="55%" class="campos">Expediente </td>
+          <td width="15%" class="campos">Fecha Expediente </td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc"><%=titulacion.acta_entrega%></td>
+          <td class="camposDesc"><%=titulacion.area%></td>
+          <td class="camposDesc"><%=titulacion.expediente%></td>
+          <td class="camposDesc"><%=titulacion.fecha_expediente%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1"><td class="campos">Escritura de Loteo</td></tr>
+        <tr valign="top"><td class="camposDesc"><%=titulacion.escritura_lote%>&nbsp;</td></tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Estado del Proceso</td>
+          <td width="20%" class="campos">Certificado Uso Suelo </td>
+          <td width="30%" class="campos">Operador</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=titulacion.estado%></td>
+          <td class="camposDesc"><%=titulacion.certificado_uso_suelo%></td>
+          <td class="camposDesc"><%=titulacion.operador%></td>
+        </tr>
+      </table>
+<br/>
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION VISITAS</div></td>
+  </tr>
+</table>
+<% if titulacion.titulacionesfallidos.exists? %>
+    <% titulacion.titulacionesfallidos.each do |titulacionesfallido| %>
+  <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="middle">
+      <td width="15%" align="left" class="oce-first">Estado Visita</td>
+      <td width="35%" align="left" class="oce-first">Nombre usuario con estado Fallido</td>
+      <td width="50%" align="left" class="oce-first">Observacion Estado Fallido</td>
+    </tr>
+    <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+      <td class="camposDesc"><%=titulacionesfallido.estado_visita rescue nil%></td>
+      <td class="camposDesc"><%=titulacionesfallido.nombre_fallido rescue nil%></td>
+      <td class="camposDesc"><%=replaceenter(titulacionesfallido.observacion_fallido) rescue nil%></td>
+    </tr>
+  </table>
+  <% end %>
+<% else %>
+    <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td height="0"class="campos">NO hay informacion relacionada</td></tr>
+    </table>
+<% end %>
+<br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td  height="30"><div class="col_enc">RECONOCIMIENTO DE EDIFICACIONES</div></td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Identificación Catastral</td>
+          <td width="15%" class="campos">Estrato </td>
+          <td width="35%" class="campos">Urbanizacion ó Vereda </td>
+          <td width="10%" class="campos">Nro de Pisos</td>
+        </tr>
+        <tr>
+           <td class="camposDesc"><%=titulacion.identificacion_catastral %></td>
+          <td class="camposDesc"><%=titulacion.estrato%></td>
+          <td class="camposDesc"><%=titulacion.clase_vivienda %></td>
+          <td class="camposDesc"><%=titulacion.nro_pisos %></td>
+        </tr>
+    </table><br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr>
+        <td  height="30"><div class="col_enc">LINDEROS DIMENSIONES Y AREAS</div></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="57%" class="campos">Norte</td>
+          <td width="13%" class="campos">Longitud (M2)</td>
+          <td width="30%" class="campos">Colinda con</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=titulacion.lindero_norte %></td>
+           <td class="camposDesc"><%=titulacion.lindero_norte_longitud%></td>
+           <td class="camposDesc"><%=titulacion.lindero_norte_colinda%></td>
+        </tr>
+        <tr class="odd1">
+          <td width="57%" class="campos">Sur</td>
+          <td width="13%" class="campos">Longitud (M2)</td>
+          <td width="30%" class="campos">Colinda con</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=titulacion.lindero_sur %></td>
+           <td class="camposDesc"><%=titulacion.lindero_sur_longitud %></td>
+           <td class="camposDesc"><%=titulacion.lindero_sur_colinda %></td>
+        </tr>
+        <tr class="odd1">
+          <td width="57%" class="campos">Oriente</td>
+          <td width="13%" class="campos">Longitud (M2)</td>
+          <td width="30%" class="campos">Colinda con</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=titulacion.lindero_oriente %></td>
+           <td class="camposDesc"><%=titulacion.lindero_oriente_longitud %></td>
+           <td class="camposDesc"><%=titulacion.lindero_oriente_colinda %></td>
+        </tr>
+        <tr class="odd1">
+          <td width="57%" class="campos">Occidente</td>
+          <td width="13%" class="campos">Longitud (M2)</td>
+          <td width="30%" class="campos">Colinda con</td>
+        </tr>
+        <tr valign="top">
+           <td class="camposDesc"><%=titulacion.lindero_occidente %></td>
+           <td class="camposDesc"><%=titulacion.lindero_occidente_longitud %></td>
+           <td class="camposDesc"><%=titulacion.lindero_occidente_colinda %></td>
+        </tr>
+    </table><br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div class="col_enc">VECINOS COLINDANTES</div></td>
+      </tr>
+    </table>
+    <% if titulacion.titulacionesvecinos.exists? %>
+    <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" id="one-column-emphasis">
+      <tr valign="middle">
+        <td width="20%" align="left" class="oce-first">Identificacion</td>
+        <td width="40%" align="left" class="oce-first">Nombre</td>
+        <td width="40%" align="left" class="oce-first">Direccion - Telefono</td>
+      </tr>
+        <% titulacion.titulacionesvecinos.each do |titulacionesvecino| %>
+       <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionesvecino_<%= titulacionesvecino.id%>">
+         <td class="camposDesc"><%=titulacionesvecino.identificacion rescue nil%></td>
+         <td class="camposDesc"><%=titulacionesvecino.nombre rescue nil%></td>
+         <td class="camposDesc"><%=titulacionesvecino.direccion rescue nil%> - <%=titulacionesvecino.telefono rescue nil%></td>
+       </tr>
+       <% end %>
+    </table>
+    <% else %>
+        <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+          <tr><td height="0"class="campos">NO hay informacion relacionada</td></tr>
+        </table>
+    <% end %><br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+        <td  height="30"><div class="col_enc">SOLICITANTES</div></td>
+      </tr>
+    </table>
+    <% if titulacion.titulacionespersonas.exists?(["reconocimiento='SI'"]) %>
+      <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="38%" height="30" align="left" class="oce-first">Persona Vinculada</td>
+          <td width="10%" height="30" align="left" class="oce-first">Nro Matricula</td>
+          <td width="20%" height="30" align="left" class="oce-first">Direccion</td>
+        </tr>
+      <% for titulacionespersona in titulacion.titulacionespersonas.find(:all,:conditions=>["reconocimiento='SI'"], :order => 'created_at DESC') %>
+         <tr  valign="middle" class="<%=cycle('even1', 'odd1')%>" id="titulacionespersona_<%= titulacionespersona.id%>">
+           <td width="38%" height="30" align="left" class="camposDesc"><%=titulacionespersona.persona.autobuscar rescue nil%></td>
+           <td width="10%" height="30" align="left" class="camposDesc"><%=titulacionespersona.matricula rescue nil%></td>
+           <td width="20%" height="30" align="left" class="camposDesc"><%=titulacionespersona.direccion rescue nil%></td>
+         </tr>
+      <% end%>
+      </table>
+    <% else %>
+        <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+          <tr><td height="0"class="campos">NO hay informacion relacionada</td></tr>
+        </table>
+    <% end %><br/>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+      <tr>
+        <td height="30"><div class="col_enc">DOCUMENTOS SOPORTE DEL RECONOCIMIENTO</div></td>
+      </tr>
+    </table>
+    <% titulacionesdoctipos = Titulacionesdoctipo.find(:all, :order=>"id")
+       titulacionesdoctipos.each do |titulacionesdoctipo|%>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr valign="middle">
+            <td width="85%" colspan="2" height="20" class="oce-first"><%=titulacionesdoctipo.documento rescue nil%></td>
+          </tr>
+     <% if titulacion.titulacionesdocumentos.exists?(["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"]) %>
+        <% for titulacionesdocumento in titulacion.titulacionesdocumentos.find(:all,:conditions=>["titulacionesdoctipo_id = #{titulacionesdoctipo.id}"], :order => 'created_at DESC') %>
+            <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> titulacionesdocumento_<%= titulacionesdocumento.id%>">
+              <td width="40%" height="30" class="camposDesc">
+                <% if titulacionesdocumento.estado.to_s == 'APROBADO' %>
+                    <img src="/images/verde.png"/>
+                <% elsif  titulacionesdocumento.estado.to_s == 'RECHAZADO' %>
+                    <img src="/images/rojo.png"/>
+                <% else %>
+                    <img src="/images/amarillo.png"/>
+                <% end %> - <%=titulacionesdocumento.created_at.strftime("%Y-%m-%d %X")%> <a title="<%=titulacionesdocumento.user.nombre rescue nil%>"><%=titulacionesdocumento.user.username rescue nil%></a></td>
+              <td width="60%" class="camposDesc"><%=titulacionesdocumento.titudocumento_file_name rescue nil%>
+              <% if titulacionesdocumento.estado.to_s == "RECHAZADO" %>
+                <div class="camposNotas">Observación: <%=titulacionesdocumento.observaciones rescue nil%> (Registrada por: <%=User.find(titulacionesdocumento.user_estado).username rescue nil%>)</div>
+              <% end %>
+              </td>
+            </tr>
+         <% end %>
+     <% else %>
+          <tr><td colspan="2" height="0"class="campos">NO hay informacion relacionada</td></tr>
+    <% end %>
+    </table>
+    <% end %>
+    <br/>
+      <table width="100%" height="0"border="0" cellpadding="2" cellspacing="2"  align="center">
+        <tr><td height="0"class="campos"> S I F I - Sistema de Informacion ISVIMED - <%=Time.now().strftime("%Y-%m-%d %H:%M:%S")%></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</div>
+<H1 class=SaltoDePagina>_</H1>
+<% end%>

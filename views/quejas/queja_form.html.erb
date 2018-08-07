@@ -1,0 +1,282 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/pqrsmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">QUEJAS Y RECLAMOS CLIENTES EXTERNOS</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),busqueda_quejas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/quejam.png" border="0" title="Información Registro"/></a></li>
+        <% unless @queja.new_record? %>
+        <li><a href="#tab2"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab3"><img src="/images/tramites.png" border="0" title="Bitacora"/></a></li>
+        <li><a href="#tab4"><img src="/images/imagenes.png" border="0" title="Imagenes"/></a></li>      
+        <%end%>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+      <% form_for(@queja) do |f| %>
+      <div align="center">
+      <table width="100%" border="0" cellpadding="0" cellspacing="2">
+        <tr class="odd1">
+          <td width="157"><span class="campos">Tipo PQRS *</span></td>
+          <td width="203"><span class="campos">Identificaci&oacute;n *</span></td>
+          <td width="250"><span class="campos">Primer Nombre *</span></td>
+          <td width="220"><span class="campos">Segundo Nombre</span></td>
+          <td width="228"><span class="campos">Primer Apellido *</span></td>
+          <td width="173"><span class="campos">Segundo Apellido</span></td>
+        </tr>
+      <% unless @queja.new_record? %>
+        <tr>
+          <td class="camposDesc"><%=@queja.tipopqrs%></td>
+          <td class="camposDesc"><%=@queja.identificacion%></td>
+          <td class="camposDesc"><%=@queja.primer_nombre%></td>
+          <td class="camposDesc"><%=@queja.segundo_nombre%></td>
+          <td class="camposDesc"><%=@queja.primer_apellido%></td>
+          <td class="camposDesc"><%=@queja.segundo_apellido%></td>
+        </tr>
+      <% else %>
+        <tr>
+          <td>
+            <%= select(:queja, :tipopqrs, select_queja,{ :include_blank => true },
+                        { :style=>"width:150px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+            <%= error_message_on :queja, :tipopqrs, :css_class =>"cerror"%>
+          </td>
+          <td><%= f.text_field :identificacion ,{ :class => "campo", :size => 20,
+                  :onFocus => "this.style.border='1px solid #f00'",
+                  :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= error_message_on :queja, :identificacion, :css_class =>"cerror"%>
+            </td>
+          <td><%= f.text_field :primer_nombre,{ :class => "campo",:size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= f.error_message_on :primer_nombre, :css_class =>"cerror"%>
+          </td>
+          <td><%= f.text_field :segundo_nombre,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>  </td>
+          <td><%= f.text_field :primer_apellido,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%>
+           <%= f.error_message_on :primer_apellido, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :segundo_apellido,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+        </tr>
+      <% end %>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="35%" class="campos">Proceso</td>
+          <td width="40%" class="campos">Direccion *</td>
+
+        </tr>
+        <tr>
+          <td><%= f.text_field :proceso,{ :class => "campo", :size => 70,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= f.error_message_on :proceso, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :direccion,{ :class => "campo", :size => 70,
+              :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :direccion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="21%" class="campos">Telefono Fijo </td>
+          <td width="18%" class="campos">Celular *</td>
+          <td width="35%" class="campos">Correo Electronico</td>
+        </tr>
+        <tr>
+          <td><%= f.text_field :telefono,{ :class => "campo", :size => 25,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :telefono, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :celular,{ :class => "campo", :size => 20,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+          <%= f.error_message_on :celular, :css_class =>"cerror"%></td>
+          <td><%= f.text_field :email,{ :class => "campo", :size => 70,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= f.error_message_on :email, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="65%" class="campos">Comuna</td>
+        </tr>
+        <tr>
+          <td><%=select("queja", "comuna_id", Comuna.find(:all,:order=>'descripcion2').collect {|p| [ p.descripcion2, p.id ] }, { :include_blank => true },
+                  { :style=>"width:570px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+            <%= f.error_message_on :comuna_id, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td class="campos" colspan="4">Tema</td>
+        </tr>
+        <tr valign="top">
+          <td width="30%" class="camposDesc">
+            <%= f.check_box :tema_vn1,{},'SI','NO'%> <a title="<%=@queja.desc_tema_vn1 rescue nil%>">Vivienda Nueva</a> &nbsp;<%=@queja.envio_tema_vn1 rescue nil%><br/>
+            <%= f.check_box :tema_vn2,{},'SI','NO'%> <a title="<%=@queja.desc_tema_vn2 rescue nil%>">Vivienda Nueva (Postulación - Asignación)</a>&nbsp;<%=@queja.envio_tema_vn2 rescue nil%><br/>
+            <%= f.check_box :tema_vu,{},'SI','NO'%> <a title="<%=@queja.desc_tema_vu rescue nil%>">Vivienda Usada</a>&nbsp;<%=@queja.envio_tema_vu rescue nil%><br/>
+            <%= f.check_box :tema_m,{},'SI','NO'%> <a title="<%=@queja.desc_tema_m rescue nil%>">Mejoramiento</a>&nbsp;<%=@queja.envio_tema_m rescue nil%><br/>
+            <%= f.check_box :tema_msb,{},'SI','NO'%> <a title="<%=@queja.desc_tema_msb rescue nil%>">Mejoramiento Sin Barreras</a>&nbsp;<%=@queja.envio_tema_msb rescue nil%><br/>
+            <%= f.check_box :tema_t,{},'SI','NO'%> <a title="<%=@queja.desc_tema_t rescue nil%>">Titulación</a>&nbsp;<%=@queja.envio_tema_t rescue nil%><br/>
+            <%= f.check_box :tema_l,{},'SI','NO'%> <a title="<%=@queja.desc_tema_l rescue nil%>">Legalización</a>&nbsp;<%=@queja.envio_tema_l rescue nil%><br/>
+            <strong><%= error_message_on :queja, :area, :css_class =>"cerror"%></strong>
+          </td>
+          <td width="25%" class="camposDesc">
+            <%= f.check_box :tema_d,{},'SI','NO'%> <a title="<%=@queja.desc_tema_d rescue nil%>">Desenglobe</a>&nbsp;<%=@queja.envio_tema_d rescue nil%><br/>
+            <%= f.check_box :tema_at,{},'SI','NO'%> <a title="<%=@queja.desc_tema_at rescue nil%>">Arrendamiento Temporal</a>&nbsp;<%=@queja.envio_tema_at rescue nil%><br/>
+            <%= f.check_box :tema_po,{},'SI','NO'%> <a title="<%=@queja.desc_tema_po rescue nil%>">Postventas</a>&nbsp;<%=@queja.envio_tema_po rescue nil%><br/>
+            <%= f.check_box :tema_e,{},'SI','NO'%> <a title="<%=@queja.desc_tema_e rescue nil%>">Escrituración</a>&nbsp;<%=@queja.envio_tema_e rescue nil%><br/>
+            <%= f.check_box :tema_ga,{},'SI','NO'%> <a title="<%=@queja.desc_tema_ga rescue nil%>">Gestión administrativa y financiera</a>&nbsp;<%=@queja.envio_tema_ga rescue nil%><br/>
+            <%= f.check_box :tema_gi,{},'SI','NO'%> <a title="<%=@queja.desc_tema_gi rescue nil%>">Gestión de infraestructura interna</a>&nbsp;<%=@queja.envio_tema_gi rescue nil%><br/>
+            <%= f.check_box :tema_gd,{},'SI','NO'%> <a title="<%=@queja.desc_tema_gd rescue nil%>">Gestión documental</a>&nbsp;<%=@queja.envio_tema_gd rescue nil%><br/>
+            <strong><%= error_message_on :queja, :area, :css_class =>"cerror"%></strong>
+          </td>
+          <td width="25%" class="camposDesc">
+            <%= f.check_box :tema_gt,{},'SI','NO'%> <a title="<%=@queja.desc_tema_gt rescue nil%>">Gestión de las Tics</a>&nbsp;<%=@queja.envio_tema_gt rescue nil%><br/>
+            <%= f.check_box :tema_gh,{},'SI','NO'%> <a title="<%=@queja.desc_tema_gh rescue nil%>">Gestión humana</a>&nbsp;<%=@queja.envio_tema_gh rescue nil%><br/>
+            <%= f.check_box :tema_ava,{},'SI','NO'%> <a title="<%=@queja.desc_tema_ava rescue nil%>">Autorización para venta o arriendo</a>&nbsp;<%=@queja.envio_tema_ava rescue nil%><br/>
+            <%= f.check_box :tema_ch,{},'SI','NO'%> <a title="<%=@queja.desc_tema_ch rescue nil%>">Cancelación de hipotecas</a>&nbsp;<%=@queja.envio_tema_ch rescue nil%><br/>
+            <%= f.check_box :tema_rs,{},'SI','NO'%> <a title="<%=@queja.desc_tema_rs rescue nil%>">Renuncia de subsidios</a>&nbsp;<%=@queja.envio_tema_rs rescue nil%><br/>
+            <%= f.check_box :tema_te,{},'SI','NO'%> <a title="<%=@queja.desc_tema_te rescue nil%>">Tramites de escrituración</a>&nbsp;<%=@queja.envio_tema_te rescue nil%><br/>
+            <%= f.check_box :tema_p,{},'SI','NO'%> <a title="<%=@queja.desc_tema_p rescue nil%>">PQRS</a> &nbsp;<br/>
+            <strong><%= error_message_on :queja, :area, :css_class =>"cerror"%></strong>
+          </td>
+          <td width="20%" class="camposDesc">
+            <%= f.check_box :tema_opv,{},'SI','NO'%> <a title="<%=@queja.desc_tema_opv rescue nil%>">OPV</a>&nbsp;<%=@queja.envio_tema_opv rescue nil%><br/>
+            <%= f.check_box :tema_cop,{},'SI','NO'%> <a title="<%=@queja.desc_tema_cop rescue nil%>">Copropiedades</a>&nbsp;<%=@queja.envio_tema_cop rescue nil%><br/>
+            <%= f.check_box :tema_pos,{},'SI','NO'%> <a title="<%=@queja.desc_tema_pos rescue nil%>">Postulaciones</a>&nbsp;<%=@queja.envio_tema_pos rescue nil%><br/>
+            <%= f.check_box :tema_des,{},'SI','NO'%> <a title="<%=@queja.desc_tema_des rescue nil%>">Desplazados</a>&nbsp;<%=@queja.envio_tema_des rescue nil%><br/>
+            <%= f.check_box :tema_rea,{},'SI','NO'%> <a title="<%=@queja.desc_tema_rea rescue nil%>">Reasentamiento</a>&nbsp;<%=@queja.envio_tema_rea rescue nil%><br/>
+            <%= f.check_box :tema_pla,{},'SI','NO'%> <a title="<%=@queja.desc_tema_pla rescue nil%>">Planeacion</a>&nbsp;<%=@queja.envio_tema_pla rescue nil%><br/>
+            <%= f.check_box :tema_entr,{},'SI','NO'%> <a title="<%=@queja.desc_tema_entr rescue nil%>">Entregas</a>&nbsp;<%=@queja.envio_tema_entr rescue nil%>
+            <strong><%= error_message_on :queja, :area, :css_class =>"cerror"%></strong>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="70%" class="campos">Motivo de la pregunta, queja, reclamo o sugerencia</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" align="left" >
+      <%=text_area(:queja, :descripcion, :cols => 115, :rows => 14, :class => 'campo', :maxlength => 3900,
+      :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+        <%= error_message_on :queja, :descripcion, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <% unless @queja.new_record? %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="25%" class="campos">Estado del requerimiento</td>
+          <td width="30%" class="campos">Procedencia</td>
+          <td width="25%" class="campos">Radicado Entrada</td>
+          <td width="20%" class="campos">Radicado Salida</td>
+        </tr>
+        <tr valign="top">
+          <td class="camposDesc">
+                           <%= select(:queja,:estado, { "PENDIENTE" => "PENDIENTE",
+                                 "CERRADO" => "CERRADO",
+                           "TRASLADADO" => "TRASLADADO"},
+                              { :include_blank => true },
+                            { :style=>"width:180px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+          <td class="camposDesc">
+                           <%= select(:queja,:procedencia, [["DIRECCION GENERAL","DIRECCION GENERAL"],
+                                                            ["COMUNICACIONES","COMUNICACIONES"],
+                                                            ["CONTROL INTERNO","CONTROL INTERNO"],
+                                                            ["SUBDIRECCION ADMINISTRATIVA","SUBDIRECCION ADMINISTRATIVA"],
+                                                            ["SUBDIRECCION TECNICA","SUBDIRECCION TECNICA"],
+                                                            ["SUBDIRECCION SOCIAL","SUBDIRECCION SOCIAL"],
+                                                            ["SUBDIRECCION JURIDICA","SUBDIRECCION JURIDICA"],
+                                                            ["SUBDIRECCION TITULACIONES","SUBDIRECCION TITULACIONES"],
+                                                            ["WEBSITE","WEBSITE"],
+                                                            ["EMAIL","EMAIL"],
+                                                            ["TELEFONO","TELEFONO"],
+                                                            ["OTRO","OTRO"]],
+                              { :include_blank => true },
+                            { :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+          <td class="camposDesc">Nro <%=@queja.correspondenciasrecibida.nro_radicado rescue nil%> - Fecha: <%=@queja.correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") rescue nil%>
+          </td>
+          <td class="camposDesc">Nro <%=@queja.radsalida rescue nil%> - Fecha: <%=@queja.fecharadsalida rescue nil%>
+          </td>
+        </tr>
+      </table>
+      <% end %>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>
+      </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td width="40%" align="left" class="camposDesc odd">
+            <% unless @queja.new_record? %>
+            <strong>Consecutivo Nro : </strong><%=@queja.id%> - <strong>Fecha Creación : </strong><%= @queja.updated_at.strftime("%Y-%m-%d %X")%>
+            <% end %></td>
+          <td width="60%" height="30"><div align="right">
+            <% if permiso("queja","C").to_s == "S" %>
+              <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+              <% unless @queja.new_record? %>
+                <%= link_to "Visualizar", {:controller => "quejas", :action => "visualizar", :id=>@queja.id},  :popup => ['new_window','height=520,width=830,scrollbars=yes'], :class=>"verlink"%>
+              <% end %>
+            <% end %>
+      </div></td>
+        </tr>
+      </table>
+        </div>
+      <% end %>
+        </fieldset>
+</div>
+
+<% unless @queja.new_record? %>
+    <div class="panel" id="tab2">
+      <fieldset>
+        <div id="quejasobservaciones_form">
+           <%= render :partial => "/quejasobservaciones/quejasobservaciones" %>
+        </div>
+      </fieldset>
+    </div>
+    <div class="panel" id="tab3">
+      <fieldset>
+        <div id="quejasbitacoras_form">
+           <%= render :partial => "/quejasbitacoras/quejasbitacoras" %>
+        </div>
+      </fieldset>
+    </div>
+  <div class="panel" id="tab4">
+    <fieldset>
+     <div id="quejasimagenes_form">
+        <%= render :partial => "/quejasimagenes/quejasimagenes" %>
+     </div>
+    </fieldset>
+  </div>    
+<% end %>
+
+<br/>
+

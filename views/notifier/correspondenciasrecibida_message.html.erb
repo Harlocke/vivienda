@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+   <title>..:: SIFI ::..</title>
+</head>
+<body>
+<img src="http://190.0.34.154:3013/images/frame.png"/><br/><br/><br/>
+<div style="font-size:12px; font-family: Tahoma;"><strong style="color:red; font-size:13px; font-family: Tahoma;"><%=@dependencianombre rescue nil%></strong> - el SIFI le informa sobre el Radicado que ha ingresado el dia de hoy y que requiere su atención.</div><br/><br/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+  <tr valign="middle">
+    <td width="25%" height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Nro Radicado </strong></td>
+    <td width="75%" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.nro_radicado rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Fecha Elaboracion Documento</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.fecha_elaboracion.strftime("%Y-%m-%d") rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Numero Externo</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.numero_externo rescue nil%></td>
+  </tr>
+  <% if @correspondenciasrecibida.persona_autobuscar.to_s != ""  %>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Remitente Identificacion </strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.persona_autobuscar rescue nil%></td>
+  </tr>
+  <% end
+     if @correspondenciasrecibida.benevivienda_autobuscar.to_s != ""  %>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Remitente Identificacion Bene </strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.benevivienda_autobuscar rescue nil%></td>
+  </tr>
+  <% end
+     if @correspondenciasrecibida.correspondenciasremitente_autobuscar.to_s != ""  %>
+  <tr valign="middle">
+     <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Remitente Empresa </strong></td>
+     <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.correspondenciasremitente_autobuscar rescue nil%></td>
+  </tr>
+  <% end %>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Asunto</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.asunto rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Clase</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.correspondenciasclase.descripcion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Anexos</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.anexos rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Observaciones</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.observacion rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Fecha Limite</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.fecha_limite.strftime("%Y-%m-%d") rescue nil%></td>
+  </tr>
+  <tr valign="middle">
+    <td height="30" style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><strong>Creación</strong></td>
+    <td style="border:1px solid #CCCCCC; font-size: 11px; font-family: Tahoma;"><%=@correspondenciasrecibida.user.nombre rescue nil%> - <%= @correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+  </tr>
+</table>
+<br/>
+<div style="font-size: 11px; font-family: Tahoma;"><strong>S I F I - Sistema de Informacion ISVIMED </strong><strong style="font-size: 11px; font-family: Tahoma;"><%=Time.now.strftime("%Y-%m-%d %X")%></strong></div>
+<br/>
+<div align="justify" style="font-size: 10px; font-family: Tahoma;">
+    <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+    CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%"><img src="/images/catastro2017min.png" width="64" height="64"/></td>
+    <td width="97%"><div class="col_enc">INFORMACIÓN CATASTRAL</div></td>
+  </tr>
+</table>
+<br/>
+<div align="center">
+  <% form_tag request.path, :method => 'get' do %>
+    <% content_tag :label do %>
+      <table width="75%" border="0" cellpadding="0" cellspacing="0">
+        <tr class="odd1">
+          <td height="20" class="campos"><div align="left">Matricula</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :matricula, params[:matricula],{ :class => "campo", :size => 20,
+                                                       :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                                                       :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr>
+          <td height="20" class="campos"><div align="left">Identificación</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+                                                       :onChange=> "javascript:this.value=this.value.toUpperCase();",:onFocus => "this.style.border='1px solid #f00'",
+                                                       :onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr class="odd1">
+          <td height="20" class="campos"><div align="left">Cobama</div></td>
+          <td class="camposDesc"><div align="left"><%= text_field_tag :cbml, params[:cbml],{ :class => "campo", :size => 20,
+                                                              :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" } %></div>
+          </td>
+        </tr>
+        <tr >
+          <td height="20" class="campos" colspan="2"><hr size="1" noshade class="hrlinea"/></td>
+        </tr>        
+        <tr >
+          <td height="20" class="campos"><div align="left"></div></td>
+          <td class="camposDesc"><div align="left">
+            <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+              <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %></span></div>        
+          </div>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+</div>
+<br/>
+<% if @catastros2017datos.count.to_i > 0 %>
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr valign="middle">
+        <td width="23%" height="25" class="oce-first">Información</div></td>
+        <td width="22%" class="oce-first"><div align="left">Dirección</div></td>
+        <td width="28%" class="oce-first"><div align="left">Nombre y Apellidos</div></td>
+        <td width="12%" class="oce-first"><div align="left">Tipo Propietario</div></td>
+        <td width="10%" class="oce-first"><div align="left">Relación</div></td>
+        <td width="5%" class="oce-first">&nbsp;</td>
+      </tr>
+    <% @catastros2017datos.each do |catastros2017dato| %>
+      <tr valign="middle" class="<%=cycle('even1', 'odd1')%>">
+        <td height="20" class="camposDesc"><div align="left">
+          <strong>Matricula: </strong><%= catastros2017dato.matricula rescue nil%>
+          <br/><strong>CBML: </strong><%= catastros2017dato.cbml rescue nil%>
+          <br/><strong>Cod Barrio: </strong><%=catastros2017dato.codbarrio rescue nil%> - <strong>Manzana: </strong><%=catastros2017dato.manzana rescue nil%>
+        </div></td>
+        <td class="camposDesc"><div align="left"><%= catastros2017dato.direccionencasillada rescue nil%></div></td>
+        <td class="camposDesc"><div align="left"><%= catastros2017dato.identificacion rescue nil%> <%= catastros2017dato.nombres_compl rescue nil%></div></td>
+        <td class="camposDesc"><div align="left"><%= catastros2017dato.tipopropietario.upcase rescue nil%></div></td>
+        <td class="camposDesc"><div align="left"><%= catastros2017dato.relacionprop rescue nil%></div></td>
+        <td class="camposDesc"><div align="center">
+        <% if permiso("catastral","A").to_s == "S" %>
+          <%= link_to 'Editar', {:controller => 'catastros2017datos', :action => 'edit', :id => catastros2017dato.id}, :class=>"editarlink" %>
+        <% end %>
+          <%= link_to 'Ver', {:controller => 'catastros2017datos', :action => 'show', :id => catastros2017dato.id}, :onclick=>"window.open(this.href, 'mywin','left=20,top=20,width=650,height=500,toolbar=1,resizable=0'); return false;" , :class=>"verlink"%></div></td>
+      </tr>
+    <% end %>
+    </table>
+    <br/>
+    <table width="90%" border="0" cellpadding="0" cellspacing="0">
+      <tr><td width="100%" class="camposDesc"><div align="center"><%= will_paginate @catastros2017datos, :previous_label => 'Anterior', :next_label => 'Siguiente' %></div></td></tr>
+      <tr><td width="100%" class="camposDesc"><div align="center"><strong>Total Registros:</strong> <%= @catastros2017datos.total_entries %></div></td></tr>
+    </table>
+    <br/>
+<% end %>

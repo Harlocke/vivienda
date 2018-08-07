@@ -1,0 +1,263 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/correspondenciasinternamin.png" width="64" height="64"/></td>
+              <td width="85%"><div class="col_enc">MEMORANDO</div></td>
+              <td width="12%"><div align="right"><%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_correspondenciasinterna_path %>
+                                  <%= link_to image_tag('atras.png',
+	            { :border=>0, :title => "Buscar"}),correspondenciasinternas_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+  <div id="container">
+    <div id="mainmenu">
+      <ul id="tabs">
+        <li><a href="#tab1"><img src="/images/interno.png" border="0" title="Informacion Recibida"/></a></li>
+   <% unless @correspondenciasinterna.new_record? %>
+        <li><a href="#tab2"><img src="/images/traslado.png" border="0" title="Dirigido a?"/></a></li>
+        <li><a href="#tab3"><img src="/images/observaciones.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab4"><img src="/images/imagenes.png" border="0" title="Observaciones"/></a></li>
+        <li><a href="#tab5"><img src="/images/tramites.png" border="0" title="Bitacora"/></a></li>
+   <% end %>
+      </ul>
+    </div>
+    <div class="panel" id="tab1">
+      <fieldset>
+<div align="center">
+<% form_for(@correspondenciasinterna) do |f| %>
+     <table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+      <tr><td></td></tr>
+      <tr>
+        <td height="30"><div class="col_enc">INFORMACIÓN REGISTRO &nbsp;
+          <% unless @correspondenciasinterna.new_record? %>
+            <% if @correspondenciasinterna.user_radicado.to_s != "" %>
+                <%= link_to "Imprimir Acta", {:controller => "correspondenciasinternas", :action => "visualizar", :id=>@correspondenciasinterna.id},  :popup => ['new_window','height=600,width=830,scrollbars=yes'], :class=>"verlink"%>
+            <% end %>
+          <% end %></div></td>
+      </tr>
+    </table>
+     <table width="95%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" height="20" class="campos" align="left">Nro Radicado *</td>
+          <td class="camposDesc" align="left"><%=@correspondenciasinterna.consecutivog rescue nil%>&nbsp;&nbsp;<h class="cerror">* Último Radicado  ... <%=is_help_lastint%></h></td>
+        </tr>
+        <tr >
+          <td class="campos" align="left">Fecha Documento *</td>
+          <td class="camposDesc" align="left">
+            <%= calendar_date_select "correspondenciasinterna", "fecha_documento", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+          <%= error_message_on :correspondenciasinterna, :fecha_documento, :css_class =>"cerror"%></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" align="left">Tipo de Documento *</td>
+          <td class="camposDesc" align="left">
+            <%= select("correspondenciasinterna", "tipo", select_memorandotipodocto, { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+          </td>
+        </tr>
+        <tr >
+          <td class="campos" align="left">De * </td>
+          <td class="camposDesc" align="left">
+              <%=select("correspondenciasinterna", "user_envia", select_uservinculadoactivo.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true }, { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>              
+            </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" align="left">Para * </td>
+          <td class="camposDesc" align="left">
+              <%=select("correspondenciasinterna", "user_para", select_uservinculadoactivo.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true }, { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>              
+            </td>
+        </tr>
+        <tr>
+          <td class="campos" align="left">Asunto *</td>
+          <td class="camposDesc" align="left">
+            <%= f.text_field :asunto,{ :class => "campo", :size =>80, :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" align="left">Contenido *</td>
+          <td class="camposDesc" align="left">
+                <%=text_area(:correspondenciasinterna, :desarrollo, :cols => 98, :rows => 20, :class => 'campo') %></td>
+        </tr>
+        <tr>
+          <td class="campos" align="left">Elaborado por</td>
+          <td class="camposDesc" align="left"><%=@correspondenciasinterna.nombreelabora.to_s rescue nil%>
+            </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" align="left">Requiere respuesta? *</td>
+          <td class="camposDesc" align="left">
+                <%= select(:correspondenciasinterna, :respuesta, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+            </td>
+        </tr>
+        <tr>
+          <td class="campos" align="left">Tiene Anexos? *</td>
+          <td class="camposDesc" align="left">
+                <%= select(:correspondenciasinterna, :anexo, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+            </td>
+        </tr>  
+        <tr class="odd1">
+          <td class="campos" align="left">Detalle de los anexos </td>
+          <td class="camposDesc" align="left"><%=text_area(:correspondenciasinterna, :anexo_detalle, :cols => 98, :rows => 3, :class => 'campo') %></td>
+        </tr>              
+        <tr>
+          <td class="campos" align="left">Requiere Veficacion de Anexos?</td>
+          <td class="camposDesc" align="left">
+                <%= select(:correspondenciasinterna, :anexo_verifica, select_sino,{ :include_blank => true },{ :style=>"width:50px", :class => "campo"})%>
+            </td>
+        </tr>
+        <tr >
+          <td class="campos" align="left">Revisión por * </td>
+          <td class="camposDesc" align="left">
+              <%=select("correspondenciasinterna", "user_revisa", select_uservinculadoactivo.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true }, { :style=>"width:380px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>              
+            </td>
+        </tr>      
+      <% unless @correspondenciasinterna.new_record? %>
+        <tr class="odd1">
+          <td class="campos" align="left">Registro en el Sistema</td>
+          <td class="camposDesc" align="left"><%= @correspondenciasinterna.created_at.strftime("%Y-%m-%d %X") rescue nil%> | <%=@correspondenciasinterna.user.nombre rescue nil%></td>
+        </tr>
+        <tr>
+          <td class="campos" align="left">Ultima Actualización</td>
+          <td class="camposDesc" align="left"><%= @correspondenciasinterna.updated_at.strftime("%Y-%m-%d %X") rescue nil%>
+           | <%=User.find(@correspondenciasinterna.user_actualiza).nombre rescue nil%></td>
+        </tr>
+      <% end %>
+      <% if @correspondenciasinterna.fecha_radicado %>
+        <tr class="odd1">
+          <td class="campos" align="left">Fecha Radicación</td>
+          <td class="camposDesc" align="left"><%=@correspondenciasinterna.fecha_radicado.strftime("%Y-%m-%d %X") rescue nil%></td>
+        </tr>
+        <tr>
+          <td class="campos" align="left">Usuario Radica</td>
+          <td class="camposDesc" align="left"><%=User.find(@correspondenciasinterna.user_radicado).nombre rescue nil%></td>
+        </tr>
+      <% else %>
+          <% if @correspondenciasinterna.user_envia == is_admin %>
+            <% if @correspondenciasinterna.corresinternasdirigidos.exists? %>
+              <tr>
+                 <td colspan="2" align="left">
+                      <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+                        Documento pendiente de radicar. Para radicar pulse <%= link_to "Aqui", {:controller => "correspondenciasinternas", :action => "radicar", :id=>@correspondenciasinterna.id}, :style=>"color:blue; background-color: #FFFFCC;",:confirm=>"Esta Seguro que desea radicar este documento?"%><br/><br/></div>             
+                 </td>
+              </tr>
+            <% else %>
+              <tr>
+                 <td colspan="2" align="left">
+                      <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+                        No hay usuarios asociados para el envio del Memorando. Verifique!!!<br/><br/></div>             
+                 </td>
+              </tr>            
+            <% end %>
+          <% end %>
+      <% end %>
+    </table>
+    <table width="95%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="95%" border="0" cellpadding="2" cellspacing="2">
+      <tr>
+         <% if permiso("correspondenciasinterna","A").to_s == "S" %>
+          <% if @correspondenciasinterna.fecha_radicado.to_s == "" %>
+         <td  height="30" align="right">            
+            <% unless @correspondenciasinterna.new_record? %>
+               
+            <% end -%>
+            <%# if @correspondenciasinterna.estado.to_s == "RECHAZADO" or @correspondenciasinterna.estado.to_s == ""%>
+          <!--   -->
+            <%# end -%>
+            <%# if @correspondenciasinterna.estado.to_s == "REVISION" and @correspondenciasinterna.user_envia == is_admin%>
+              <!-- <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                <%#=link_to 'Rechazar', {:controller=>"correspondenciasinternas", :action=>"rechazado", :id=>@correspondenciasinterna.id}, :confirm=>"Esta seguro??? "%></span>
+              </div> -->
+            <%# end -%>
+             <%# end -%>
+             <div class="uiButton">
+              <img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </div>
+         </td>
+          <% end %>
+         <% end %>
+      </tr>
+    </table>
+    <% if @correspondenciasinterna.estado.to_s == 'PENDIENTE'%>
+      <table width="95%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" align="center">
+             <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%=link_to 'Envio para Revisión', {:controller=>"correspondenciasinternas", :action=>"revision", :id=>@correspondenciasinterna.id}, :confirm=>"Esta seguro??? "%></span>
+              </div>
+           </td>
+        </tr>
+      </table>
+    <% end -%>
+    <% if @correspondenciasinterna.estado.to_s == 'RECHAZADO'%>
+      <table width="95%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" align="center">
+             <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%=link_to 'Envio para Revisión', {:controller=>"correspondenciasinternas", :action=>"revision", :id=>@correspondenciasinterna.id}, :confirm=>"Esta seguro??? "%></span>
+              </div>
+           </td>
+        </tr>
+      </table>
+    <% end -%>
+    <% if @correspondenciasinterna.estado.to_s == 'REVISION'%>
+      <table width="95%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" align="center">
+             <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%=link_to 'Rechazar', {:controller=>"correspondenciasinternas", :action=>"rechazado", :id=>@correspondenciasinterna.id}, :confirm=>"Esta seguro??? "%></span>
+              </div>
+           </td>
+           <td height="30" align="center">
+             <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+                  <%=link_to 'Aprobar', {:controller=>"correspondenciasinternas", :action=>"aprobadarevision", :id=>@correspondenciasinterna.id}, :confirm=>"Esta seguro??? "%></span>
+              </div>
+           </td>
+        </tr>
+      </table>
+    <% end -%>
+<% end %>
+  </div>
+  </fieldset>
+</div>
+<div class="panel" id="tab2">
+<% unless @correspondenciasinterna.new_record? %>
+   <div id="corresinternasdirigidos_form">
+      <%= render :partial => "/corresinternasdirigidos/corresinternasdirigidos" %>
+   </div>
+<% end %>
+</div>
+    <div class="panel" id="tab3">
+<% unless @correspondenciasinterna.new_record? %>
+   <div id="corresinternasobservaciones_form">
+      <%= render :partial => "/corresinternasobservaciones/corresinternasobservaciones" %>
+   </div>
+<% end %>
+</div>
+<div class="panel" id="tab4">
+<% unless @correspondenciasinterna.new_record? %>
+  <fieldset>
+   <div id="corresinternasimagenes_form">
+      <%= render :partial => "/corresinternasimagenes/corresinternasimagenes" %>
+   </div>
+    </fieldset>
+<% end %>
+</div>
+<div class="panel" id="tab5">
+  <% unless @correspondenciasinterna.new_record? %>
+  <fieldset>
+    <div id="corresinternasbitacoras_form">
+       <%= render :partial => "/corresinternasbitacoras/corresinternasbitacoras" %>
+    </div>
+    </fieldset>
+  <% end %>
+</div>

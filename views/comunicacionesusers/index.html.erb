@@ -1,0 +1,22 @@
+<h1>Listing comunicacionesusers</h1>
+
+<table>
+  <tr>
+    <th>Comunicacion</th>
+    <th>User</th>
+  </tr>
+
+<% @comunicacionesusers.each do |comunicacionesuser| %>
+  <tr>
+    <td><%=h comunicacionesuser.comunicacion_id %></td>
+    <td><%=h comunicacionesuser.user_id %></td>
+    <td><%= link_to 'Show', comunicacionesuser %></td>
+    <td><%= link_to 'Edit', edit_comunicacionesuser_path(comunicacionesuser) %></td>
+    <td><%= link_to 'Destroy', comunicacionesuser, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New comunicacionesuser', new_comunicacionesuser_path %>

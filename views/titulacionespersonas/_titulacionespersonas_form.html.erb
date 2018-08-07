@@ -1,0 +1,87 @@
+<table width="850" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="80%" class="campos">Ingrese la cedula del jefe de hogar :</td>
+          <td width="20%" class="campos">Nro Matricula</td>
+        </tr>
+        <tr>
+          <td class="campos"><%= text_field_with_auto_complete :titulacionespersona, :persona_autobuscar,
+	    { :class => "campo",
+                :size => 95,
+                :maxlength => 50,
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" },
+	    { :url => listar_personas_path(:js), :method => :get, :with => "'search=' + element.value" } %>
+          &nbsp;<%= link_to "",new2_personas_path, :title => "Crear Persona", :popup => ['new_window','height=600,width=950,scrollbars=yes'], :class=>"nuevoplink"%>
+          <% if permiso("titulacionesrapido","C").to_s == "S" %>
+          &nbsp;<%= link_to "",newrapido_personas_path, :title => "Crear Persona Rapido", :popup => ['new_window','height=450,width=600,scrollbars=yes'], :class=>"nuevop2link"%>
+          <% end %>
+          <%= error_message_on :titulacionespersona, :persona_autobuscar, :css_class =>"cerror"%>
+          </td>
+          <td class="camposDesc"><%= text_field  :titulacionespersona, :matricula, { :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+          <%= error_message_on :titulacionespersona, :matricula, :css_class =>"cerror"%></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="70%" class="campos">Direccion</td>
+          <td width="30%" class="campos">Certificado Cruce </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%= text_field  :titulacionespersona, :direccion, { :class => "campo", :size => 80,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+           <td class="camposDesc">
+                <%= select(:titulacionespersona,:certificado_cruce, [["POSITIVO","POSITIVO"],
+                                                           ["NEGATIVO","NEGATIVO"],
+                                                           ["N/A","N/A"],
+                                                           ["PENDIENTE","PENDIENTE"]],
+                        { :include_blank => true },
+                      { :style=>"width:200px", :class => "campo" })%>
+          </td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="33%" class="campos">Firma Poder?</td>
+          <td width="33%" class="campos">Firma Conciliación</td>
+          <td width="33%" class="campos">Firma Amparo de Pobreza</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">
+                <%= select(:titulacionespersona,:poder, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo" })%>
+          </td>
+          <td class="camposDesc">
+                <%= select(:titulacionespersona,:conciliacion, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo" })%>
+          </td>
+          <td class="camposDesc">
+                <%= select(:titulacionespersona,:amparo_pobreza, [["SI","SI"],["NO","NO"]],
+                        { :include_blank => true },
+                      { :style=>"width:100px", :class => "campo" })%>
+          </td>
+        </tr>
+      </table>
+    <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="2" cellspacing="2">
+    <tr>
+    <td  height="30"><div align="right">
+        <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= hidden_field :titulacionespersona, :id %><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+</div></td>
+  </tr>
+</table>
+            </td>
+      </tr>
+</table>

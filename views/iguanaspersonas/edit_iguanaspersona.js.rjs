@@ -1,0 +1,2 @@
+page.replace_html :iguanaspersonas_form, :partial => "/iguanaspersonas/iguanaspersonas"
+

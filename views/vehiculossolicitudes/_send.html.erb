@@ -1,0 +1,50 @@
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+      <img src="http://190.0.34.154:3013/images/frame.png"/>
+      <div align="justify" style="font-size: 12px; font-family: Verdana, Geneva, sans-serif;">
+        <br/><br/>
+        Medellin, <%=Time.now().strftime("%Y-%m-%d")%><br/><br/>
+        <strong>Solicitud de transporte</strong>
+      </div><br/>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+        <tr valign="middle">
+          <td width="30%" height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Creación de la solicitud</strong></td>
+          <td width="70%" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.created_at.strftime("%Y-%m-%d") rescue nil %></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Usuario solicitante</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.user.nombre rescue nil %></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Fecha solicitud transporte</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.fecha.strftime("%Y-%m-%d") rescue nil%></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Hora Inicial</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.vehiculoshorarioinicio_descripcion rescue nil %></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Hora Final</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.vehiculoshorariofin_descripcion rescue nil %></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Numero de personas</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.nro_pasajeros %></td>
+        </tr>
+        <tr>
+          <td height="20" style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><strong>Destino</strong></td>
+          <td style="border:1px solid #000000; font-size: 11px; font-family: Tahoma;"><%=@vehiculossolicitud.destino%></td>
+        </tr>
+      </table><br/>
+      <div style="font-size: 11px; font-family: Arial Narrow; line-height: 150%;"><strong>S I F I - Sistema de Informacion ISVIMED - <%=Time.now.strftime("%Y-%m-%d %X")%></strong>
+      <div style="font-size: 10px; font-family: Arial Narrow;">
+        <strong>***Por favor no conteste este mensaje, ha sido enviado desde un e-mail automático y no recibirá respuesta.***</strong><br/><br/>
+         CONFIDENCIAL. La información contenida en este e-mail es confidencial y sólo puede ser utilizada por el individuo o la compañía a la cual está dirigido. Si no es usted el destinatario autorizado, cualquier retención, difusión, distribución o copia de este mensaje está prohibida y es sancionada por la ley. Si por error recibe este mensaje, le ofrecemos disculpas y le agradecemos reenviar y borrar el mensaje recibido inmediatamente.</div>
+      </div>
+      <br/>
+    </td>
+  </tr>
+</table>
+</div>

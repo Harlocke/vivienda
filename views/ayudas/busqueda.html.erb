@@ -1,0 +1,90 @@
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/arrendamientotemporalmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">BUSCADOR DE ARRENDAMIENTO TEMPORAL</div></td>
+              <% if permiso("ayuda","C").to_s == "S" %>
+              <td width="3%"><div align="right">
+                     <%= link_to image_tag('nuevo.png',
+	                            { :border=>0, :title => "Nuevo"}),new_ayuda_path %>
+                </div></td>
+              <% end %>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<br/>
+<% form_tag buscar_ayudas_path, :method => 'get' do %>
+<div align="center">
+<table width="70%" border="0" cellspacing="2" cellpadding="0">
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Identificacion</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :identificacion, params[:identificacion],{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Tipo de Evacuacion</td>
+      <td class="camposDesc" align="left"><%= select("ubicacion","tipoevacuacion", { "TEMPORAL" => "TEMPORAL",
+"DEFINITIVA" => "DEFINITIVA"},
+                        { :include_blank => true },
+                      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Categoria ISVIMED</td>
+      <td class="camposDesc" align="left"><%= select("ubicacion","categoriaisvimed", { "SIN ASIGNAR" => "SIN ASIGNAR",
+"OTROS" => "OTROS",
+"OBRA PUBLICA" => "OBRA PUBLICA",
+"PREVENCION POR RIESGO" => "PREVENCION POR RIESGO",
+"TUTELAS" => "TUTELAS",
+"REASENTAMIENTO IGUANA" => "REASENTAMIENTO IGUANA",
+"PRINCIPALES EVENTOS" => "PRINCIPALES EVENTOS",
+"REASENTAMIENTO" => "REASENTAMIENTO",
+"MIB" => "MIB",
+"EVACUACIONES PREVENTIVAS" => "EVACUACIONES PREVENTIVAS",
+"REASENTAMIENTO MORAVIA" => "REASENTAMIENTO MORAVIA",
+"REMISIONES ESPECIALES" => "REMISIONES ESPECIALES"},
+                        { :include_blank => true },
+                      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Fecha Remision</td>
+      <td class="camposDesc" align="left">
+        Entre <%= calendar_date_select "ubicacion", "fchinicial", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%> &nbsp;&nbsp;y&nbsp;<%= calendar_date_select "ubicacion", "fchfinal", :year_range => select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+      </td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Nro Ficha Simpad</td>
+      <td class="camposDesc" align="left"><%= text_field_tag :nroficha, params[:nroficha],{ :class => "campo", :size => 20,
+                  :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %></td>
+    </tr>
+    <tr>
+      <td width="33%" height="20" class="campos" align="left">Evento Ficha</td>
+      <td class="camposDesc" align="left">
+        <%=select("ubicacion", "ayudastiposevento_id", Ayudastiposevento.find(:all, :order=>"descripcion").collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:250px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+      </td>
+    </tr>
+</table>
+<table width="80%" height="0" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+</table>
+<table width="80%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+    <div class="uiButton"><img class="img" src="/images/search.png"/>&nbsp;&nbsp;<span class="uiButtonText">
+      <%= submit_tag "Buscar", :name => 'nil', :value => 'Buscar', :disable_with => "Buscando..." %>
+          </span></div>
+</div></td>
+  </tr>
+</table>
+</div>
+<% end %>
+<br/>

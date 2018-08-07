@@ -1,0 +1,55 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr><td></td></tr>
+  <tr>
+    <td height="30"><div class="col_enc">PROYECTO HABITACIONAL</div></td>
+  </tr>
+</table>
+<div align="center">
+  <% @proyectostipos = Proyectostipo.find(:all, :conditions=>["clase = 'HABITACIONALES'"])
+     @proyectostipos.each do |proyectostipo|%>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr  >
+      <td width="30%" valign="middle" align="left" class="camposDesc odd1">
+      <%= link_to image_tag('link_adjuntar.gif'),{:controller=>"proyectosdocumentos", :action=>"new", :proyecto_id=>@proyecto.id, :proyectostipo_id=>proyectostipo.id}%>      
+      <strong><%=proyectostipo.documento rescue nil%></strong></td>
+    <td>
+   <% if @proyecto.proyectosdocumentos.exists?(["proyectostipo_id = #{proyectostipo.id}"])  %>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="odd1" >    
+          <td width="30%" class="oce-first">Fecha Documento</td>
+          <td width="60%" class="oce-first">Documento</td>
+          <td width="10%" class="oce-first">&nbsp;</td>
+        </tr>
+        <% for proyectosdocumento in @proyecto.proyectosdocumentos.find(:all,:conditions=>["proyectostipo_id = #{proyectostipo.id}"], :order => 'created_at DESC') %>
+        <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> proyectosdocumento_<%=proyectosdocumento.id%>">
+          <td align="left" class="camposDesc"><%=proyectosdocumento.created_at.strftime("%Y-%m-%d %X") rescue nil%><br/><%=proyectosdocumento.user.username rescue nil%></td>
+          <td align="left" class="camposDesc"><em>&nbsp;<%=proyectosdocumento.prodocumento_file_name.capitalize%></em></td>
+          <td align="left" class="camposDesc"><div align="center"><%= link_to image_tag('download2.png', :border=>0,
+                                    :title => "Descargar: #{proyectosdocumento.prodocumento_file_name}"),
+                                    proyectosdocumento.prodocumento.url(:original, false),
+                                   { :title=>"#{proyectosdocumento.prodocumento_file_name}", :popup => ['new_window','height=450,width=600,scrollbars=yes'] }%>
+                        &nbsp;
+                        <% if proyectosdocumento.user_id.to_i == is_admin %>
+                        <%= link_to_remote('Borrar',{:url => proyecto_proyectosdocumento_path(@proyecto, proyectosdocumento),
+                            :method => :delete, :confirm => "¿Seguro?",
+                            :before => "$(this).up('.proyectosdocumento_#{proyectosdocumento.id}').remove()"},
+                            :class=>"borrarlink")%>
+                              <% end %>
+                            </div>
+          </td>
+        </tr>
+      <% end %>
+      </table>
+      <% else %>
+        <div align="center" class="camposDesc">NO hay documentos cargados .........</div>
+      <% end %>
+    </td>
+    </tr>
+  </table>
+  <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+    </tr>
+  </table>      
+  <% end %>
+</div>

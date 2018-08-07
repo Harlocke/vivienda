@@ -1,0 +1,85 @@
+<img src="/images/falabella.jpg"/>
+<br/>
+<div id="productheader">
+  <h2><img src="/images/falabellasstatus.png"></h2>&nbsp;&nbsp;
+  <div align="right">
+   <%= link_to 'Regresar', falabellastipologias_path, :class=>"regresarlink" %>&nbsp;&nbsp;</div>
+</div>
+<div align="center">
+<% form_for(@falabellastipologia) do |f| %>
+<table width="60%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+    <td>
+<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">
+   <tr>
+     <td width="20%" height="30" class="campos">Id :</td>
+     <td width="80%"><%=@falabellastipologia.id%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Descripcion :</td>
+     <td ><%=@falabellastipologia.descripcion%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Nro Dias :</td>
+     <td><%= f.text_field :nro_dias,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Orden :</td>
+     <td><%= f.text_field :orden,{ :class => "campo", :size => 20,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" }%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Envia Email:</td>
+     <td><%= f.select(:enviamensaje, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Email Masivo:</td>
+     <td><%= f.select(:habilitado_email, { "SI" => "SI",
+                           "NO" => "NO"},
+                        { :include_blank => true },
+                      { :style=>"width:70px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+   </tr>
+   <tr>
+     <td height="30" class="campos">Codigo Falabella</td>
+     <td><%= f.select(:codigo_falabella, {
+                      "Contacto con titular promesa de pago" => "TP",
+                      "Contacto con titular  sin promesa de pago" => "TS",
+                      "Contacto con tercero-mensaje" => "CT",
+                      "Contacto con tercero-sin mensaje" => "CS",
+                      "Contacto tercero con promesa de pago" => "CP",
+                      "Contacto referencia no exitoso" => "FN",
+                      "Contacto referencia exitoso" => "FE",
+                      "Contacto Titular Renuente" => "TR",
+                      "No Contactado" => "NC",
+                      "IVR Contesto" => "IC",
+                      "IVR No Contesto" => "IN",
+                      "IVR Fallido" => "IF",
+                      "Email enviado y no devuelto" => "EE",
+                      "Email devuelto" => "ED",
+                      "Carta entregada" => "CE",
+                      "Carta no entregada" => "CN",
+                      "Dirección incorrecta" => "DI",
+                      "Visita efectiva" => "VE",
+                      "Visita no efectiva" => "VN",
+                      "Mensaje de Texto Enviado" => "ME"},
+                        { :include_blank => true },
+                      { :style=>"width:300px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%></td>
+   </tr>
+   <tr>
+     <td></td>
+      <td><%= f.submit "Guardar", :class=>"buttonAsLink"%></td>
+   </tr>
+</table>
+</td>
+  </tr>
+</table>
+<% end %>
+</div>

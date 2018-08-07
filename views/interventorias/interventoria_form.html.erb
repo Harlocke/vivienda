@@ -1,0 +1,454 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/informemin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">INTERVENTORIA - <%=@interventoria.contrato.empleado.autobuscar rescue nil%> 
+              <% if permiso("interventoriasrecalculo","C").to_s == "S" %>
+               <%= link_to 'Recalculo', validaresp_interventorias_path(:contrato_id=>@interventoria.contrato_id, :ano=>@interventoria.anno, :mes=>@interventoria.mes), :class=>"rubrolink"%>
+              <% end %>
+               </div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',{ :border=>0, :title => "Buscar"}),interventorias_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% unless @interventoria.new_record? %>
+  <%= link_to image_tag("calendarico.png", :title => "Informe", :style=>"#{@interventoria.d_etapa('1')} padding:4px;"),edit_interventoria_path(:id=>@interventoria.id,:etapa=>"1")%>
+  <%= link_to image_tag("ficha.png", :title => "Actividades", :style=>"#{@interventoria.d_etapa('2')} padding:4px;"),edit_interventoria_path(:id=>@interventoria.id,:etapa=>"2")%>
+  <% if permiso("interventoriaseguimiento","C").to_s == "S" %>
+  <%= link_to image_tag("tramites.png", :title => "Control y Seguimiento", :style=>"#{@interventoria.d_etapa('3')} padding:4px;"),edit_interventoria_path(:id=>@interventoria.id,:etapa=>"3")%>
+  <% end %>
+<% end %>
+<% if @interventoria.etapa.to_s == '1' %>
+      <fieldset>
+<% form_for(@interventoria) do |f| %>
+<div align="center">
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">CUENTA DE COBRO</div></td>
+  </tr>
+</table>
+<% if @interventoria.acceso.to_s == 'S' %>
+    <% if @interventoria.estado.to_s == 'PREPARAFINAL'
+          if Time.now.strftime("%Y-%m-%d %X") <= '2017-12-05 14:00:00'%>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+             Recuerde que para poder enviar este informe debe tener la cuenta de cobro diligenciada completamente, y debe tener cargada
+             la informacion relacionada con la seguridad social. <br/>
+             <% if @interventoria.habilitadofinal.to_s == 'S' %>
+                Si el informe esta listo pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"enviofinalint", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%>
+             <% else %>
+                NO has completado el diligenciamiento de la cuenta de cobro y el cargue de los soportes digitales de la seguridad social. Verifica!!
+             <% end %>
+                <br/><br/>
+        </div><br/>
+         <% else %>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+             El tiempo para enviar la cuenta de cobro ha finalizado....<br/><br/>
+        </div><br/>
+         <% end %>
+    <% elsif @interventoria.estado.to_s == 'RECHAZADOFINALINT'%>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+             Su informe presenta problemas, por favor corrigalos y vuelva a enviar el informe.<br/>
+             Si el informe esta listo pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"enviofinalint", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+        </div><br/>         
+    <% elsif @interventoria.estado.to_s == 'RECHAZADOFINALGH'%>
+        <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+             Su informe presenta problemas, por favor corrigalos y vuelva a enviar el informe.<br/>
+             Si el informe esta listo pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"enviofinalgh", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+        </div><br/>
+    <% else %>
+        <% if @interventoria.validainforme.to_s != "" %>
+           <div align="left" style="color:red; width:100%; background-color: #FFFFCC;" class="camposDescN12"><br/>
+               <div class="camposDescN16">&nbsp;&nbsp;ATENCIÓN, se han detectado las siguientes inconsistencias.</div><br/>
+               <%=@interventoria.validainforme.to_s%>
+               <br/>
+            </div>
+            <br/>
+        <% else %>
+        <%   if @interventoria.interactividades.count(:all, :conditions=>["desarrollo is null"]) == 0
+               if @interventoria.estado.to_s == 'RECHAZADO' %>
+              <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+                 El informe ha sido rechazado, por favor verifique y complemente las actividades.<br/>
+                 Si desea enviar el informe de interventoria para ser revisado nuevamente pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"envio", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+              </div><br/>
+           <% elsif @interventoria.estado.to_s == 'RECHAZADOGH' %>
+              <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+                 El informe ha sido rechazado por gestion humana, por favor verifique y complemente las actividades.<br/>
+                 Si desea enviar el informe de interventoria para ser revisado nuevamente pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"enviogh", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%><br/><br/>
+              </div><br/>
+           <% elsif @interventoria.estado.to_s == 'APROBADO' or @interventoria.estado.to_s == 'APROBADOGH' or @interventoria.estado.to_s == 'APROBADOCONT' %>
+           <% else %>
+              <div align="center" style="color:red; background-color: #FFFFCC;" class="camposDescN16"><br/>
+                 Usted tiene <%=@interventoria.interactividades.count%> obligaciones registradas y todas estan debidamente registradas.<br/>
+                 <% if @interventoria.vencido.to_s == 'N' and @interventoria.activo.to_s == 'S' %>
+                  <% if @interventoria.validainforme.to_s == "" %>
+                   Si desea enviar el informe de interventoria para ser revisado pulse <%=link_to 'Aqui', {:controller=>"interventorias", :action=>"envio", :id=>@interventoria.id}, :confirm=>"Esta seguro??? "%>
+                  <% end %>
+                 <% end %><br/><br/>
+              </div><br/>
+        <%     end
+             end
+           end%>
+        <% end %>
+    <% end %>
+<table width="820" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="20%" height="25" class="campos"><strong>Contrato número:</strong></td>
+            <td width="80%" class="camposDesc"><%=@interventoria.contratoactual rescue nil%></td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Tipo de Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify">CONTRATO DE <%=@interventoria.contrato.tiposcontrato.descripcion rescue nil%></div></td>
+          </tr>
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Objeto del Contrato:</strong></td>
+            <td class="camposDesc"><div align="justify"><%=@interventoria.contrato.objeto rescue nil%></div></td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Valor total del Contrato:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_contrato,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+              <% if @interventoria.contrato.valor_contrato.to_i >= 1000000000%>
+                <%=numero_a_palabras(@interventoria.contrato.valor_contrato.to_i) rescue nil%>
+              <% else %>
+                <%=@interventoria.contrato.valor_contrato.to_i.to_words.upcase rescue nil%>
+              <% end %> PESOS M/L)</td>
+          </tr>
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Valor mensual:</strong></td>
+            <td class="camposDesc">$ <%=number_to_currency(@interventoria.contrato.valor_mes,{:precision => 0, :unit=>"", :delimiter =>"."})%> (
+                 <%=@interventoria.contrato.valor_mes.to_i.to_words.upcase%> PESOS M/L)</td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Duración del Contrato:</strong></td>
+            <td class="camposDesc"><% if @interventoria.contrato.plazo_mes.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_mes%> meses -
+                <% end %>
+                <% if @interventoria.contrato.plazo_dias.to_i > 0 %>
+                   <%=@interventoria.contrato.plazo_dias%> dias
+                 <% end %> ** <strong>Fecha Inicio:</strong> <%=@interventoria.contrato.fecha_inicio.strftime("%Y-%m-%d") rescue nil%> <strong> - Fecha Fin:</strong> <%=@interventoria.contrato.fecha_final.strftime("%Y-%m-%d") rescue nil%>
+            </td>
+          </tr>
+
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Nro Compromiso:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_compromiso rescue nil%></td>
+          </tr>
+          <tr>
+            <td height="25" class="campos"><strong>Nro Disponibilidad:</strong></td>
+            <td class="camposDesc"><%=@interventoria.contrato.nro_disponibilidad rescue nil%></td>
+          </tr>
+          <tr class="odd1">
+            <td height="25" class="campos"><strong>Periodo</strong></td>
+            <td class="camposDesc"><%=@interventoria.periodoactual rescue nil%></td>
+          </tr>
+        </table>
+        <br/>
+<%#------------------------------------------------------------------------------------------------------------------%>        
+<%#------------------------------------------------------------------------------------------------------------------%>        
+      <% if @interventoria.version.to_s == '1'%>
+        <%= render 'version1' %>        
+      <% else %>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0" class="sample">
+        <tr class="odd1">
+          <td colspan="2" class="campos"><div align="left">HONORARIOS DEL PERIODO</div></td>
+          <td colspan="2" class="campos"><div align="center"><%=f.text_field :valor_mes,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos"><div align="left">Descripcion</div></td>
+          <td class="campos"><div align="center">Valor Esperado</div></td>
+          <td class="campos"><div align="center">Valor Real</div></td>
+          <td class="campos"><div align="center">Limites Deducciones</div></td>
+        </tr>
+        <tr>
+          <td width="50%" class="camposDesc"><div align="left">Aportes Salud</div></td>
+          <td width="15%" class="camposDesc"><div align="right"><%=camponumerico(@interventoria.salud_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+          <td width="5%" class="camposDesc"><div align="center"><%=f.text_field :salud,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_salud, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr1='+encodeURIComponent(value)
+                         +'&pvr0='+$F('interventoria_valor_mes')
+                         +'&pvr2='+$F('interventoria_arl')
+                         +'&pvr3='+$F('interventoria_interes_credito')
+                         +'&pvr4='+$F('interventoria_salud_prepagada')
+                         +'&pvr5='+$F('interventoria_dependientes')
+                         +'&pvr6='+$F('interventoria_pension')
+                         +'&pvr7='+$F('interventoria_afc')
+                         +'&pvr8='+$F('interventoria_voluntarias')"%>
+            </div></td>
+          <td width="20%" class="camposDesc"><div align="right">0</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Aportes Obligatorias Fondos de Pension</div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.pension_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :pension,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_pension, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr6='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr7='+$F('interventoria_afc')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%>
+            </div></td>
+          <td class="camposDesc"><div align="right"></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" height="20" >TOTAL INGRESO GRAVABLE (INCR) </td>
+          <td class="campos" >&nbsp;</td>
+          <td class="campos" ><%= f.text_field  :valor_incr,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          <td class="campos" >&nbsp;</td>
+        </tr>        
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Aportes Cuentas AFC</div></td>
+          <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :afc,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_afc, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr7='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%></div></td>
+          <td class="camposDesc" rowspan="2"><div align="right"><%=camponumerico((@interventoria.valor_mes.to_i * 0.3) - @interventoria.pension_auto) rescue nil%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Aportes Voluntarios Fondos de Pension</div></td>
+          <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :voluntarias,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_voluntarias, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr8='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr7='+$F('interventoria_afc')"%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos"  height="20" >TOTAL RENTAS EXENTAS </td>
+          <td class="campos">&nbsp;</td>
+          <td class="campos"><%= f.text_field  :subtotalr,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Aportes ARL</div></td>
+          <td class="camposDesc"><div align="right"><%=camponumerico(@interventoria.arl_auto) rescue 0%>&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field :arl,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_arl, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr2='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr7='+$F('interventoria_afc')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%></div></td>
+          <td class="camposDesc"><div align="right">0</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Intereses Creditos de Vivienda 100 UVT</div></td>
+          <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field :interes_credito,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_interes_credito, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr3='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr7='+$F('interventoria_afc')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%></div></td>
+          <td class="camposDesc"><div align="right"><%= camponumerico(@interventoria.limite_vivienda) rescue nil%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Salud Medicina Prepagada 16 UVT</div></td>
+          <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :salud_prepagada,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_salud_prepagada, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr4='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr5='+$F('interventoria_dependientes')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr7='+$F('interventoria_afc')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%></div></td>
+          <td class="camposDesc"><div align="right"><%= camponumerico(@interventoria.limite_prepagada) rescue nil%></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20" ><div align="left">Dependientes (10% honorarios del periodo) 32 UVT</div></td>
+          <td class="camposDesc"><div align="right">0&nbsp;&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :dependientes,{ :class => "campo", :size => 15, :maxlength => 10,:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%>
+            <%= observe_field :interventoria_dependientes, :url => { :action => :obs_calculofinal },
+                :frequency => 0.25,
+                :on => 'blur',
+                :with => "'pvr5='+encodeURIComponent(value)
+                           +'&pvr0='+$F('interventoria_valor_mes')
+                           +'&pvr1='+$F('interventoria_salud')
+                           +'&pvr2='+$F('interventoria_arl')
+                           +'&pvr3='+$F('interventoria_interes_credito')
+                           +'&pvr4='+$F('interventoria_salud_prepagada')
+                           +'&pvr6='+$F('interventoria_pension')
+                           +'&pvr7='+$F('interventoria_afc')
+                           +'&pvr8='+$F('interventoria_voluntarias')"%></div></td>
+          <td class="camposDesc"><div align="right"><%= camponumerico(@interventoria.limite_dependencia) rescue nil%></div></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" height="20" >TOTAL DEDUCCIONES </td>
+          <td class="campos" >&nbsp;</td>
+          <td class="campos" ><%= f.text_field  :subtotal,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></td>
+          <td class="campos" >&nbsp;</td>
+        </tr>
+
+        <tr class="odd1">
+          <td colspan="2" class="campos" height="20"><div align="left">SUBTOTAL</div></td>
+          <td class="campos"><div align="center"><%= f.text_field  :subtotalt,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><div align="left">Menos Renta Exenta (Art 2. Dcto 1070/2013)</div></td>
+          <td><div align="left">&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :renta,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td><div align="left">&nbsp;</div></td>
+        </tr>
+
+        <tr>
+          <td class="camposDesc"><div align="left">Límite del 40% sobre rentas exentas y deducciones</div></td>
+          <td><div align="left">&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :total_rentas,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td class="camposDesc"><div align="right"><%#=camponumerico(@interventoria.valor_mes.to_i * 0.4) rescue nil%></div></td>
+        </tr>
+
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Base Retencion en la Fuente</div></td>
+          <td><div align="left">&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :base_retefuente,{:class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td><div align="left">&nbsp;</div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Base Rte en la Fuente en UVT</div></td>
+          <td><div align="left">&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :base_uvt,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td><div align="left"></div></td>
+        </tr>
+        <tr>
+          <td class="camposDesc" height="20"><div align="left">Retencion en la Fuente&nbsp; (ART 383 E.T.)</div></td>
+          <td><div align="left">&nbsp;</div></td>
+          <td class="camposDesc"><div align="center"><%= f.text_field  :retefuente383,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td><div align="left"></div></td>
+        </tr>
+        <tr class="odd1">
+          <td colspan="2" class="campos" height="20"><div align="left">TOTAL A PAGAR</div></td>
+          <td class="campos"><div align="center"><%= f.text_field  :total,{ :class => "campodisabled", :size => 15, :readonly=>"yes",:style=>"text-align: right;",
+                      :onFocus => "this.style.border='1px solid #f00'",:onBlur => "this.style.border='1px solid #bbb'" }%></div></td>
+          <td class="campos">&nbsp;</td>
+        </tr>
+      </table>
+      <% end %>
+<%#------------------------------------------------------------------------------------------------------------------%>        
+<%#------------------------------------------------------------------------------------------------------------------%>        
+
+        <br/>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr class="odd1">
+            <td width="25%" height="25" class="campos"><strong>Observaciones y forma de pago:</strong></td>
+            <td width="75%" class="camposDesc">
+              <%= text_area :interventoria, :observaciones, { :class => "campoMultiLinea", :cols=>"100", :rows=>"6",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+                :onFocus => "this.style.border='1px solid #f00'",
+                :onBlur => "this.style.border='1px solid #bbb'" } %>
+            </td>
+          </tr>
+        </table>
+      <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td class="camposNotas" align="left">Ultima Actualización: <%=User.find(@interventoria.user_actualiza).username rescue nil%> - <%=@interventoria.updated_at.strftime("%Y-%m-%d %X")%></td>
+          <td height="30"><div align="right">
+            <% if @interventoria.acceso.to_s == 'S' 
+                if @interventoria.estado.to_s == 'APROBADO' or @interventoria.estado.to_s == 'APROBADOGH' or @interventoria.estado.to_s == 'APROBADOCONT' or @interventoria.estado.to_s == 'REVISIONFINALGH' or @interventoria.estado.to_s == 'REVISIONFINALINT' or @interventoria.bloqueado.to_s == 'S'%>
+                <% else %>
+                  <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+                <%end%>
+            <%end%>
+            <% if permiso("interventoriaespecial","C").to_s == "S" %>
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% end %>
+        </div></td>
+        </tr>
+      </table>
+   </td>
+  </tr>
+</table> 
+</div>
+  <% end %>
+</fieldset>
+<% elsif @interventoria.etapa.to_s == '2' %>
+    <fieldset>
+    <% if @interventoria.estado.to_s == "RECHAZADOGH"  %>
+        <%= render 'actividadesgh' %>
+    <% elsif @interventoria.estado.to_s == "APROBADOGH" %>
+        <%= render 'actividadescont' %>
+    <% elsif @interventoria.estado.to_s == 'PREPARAFINAL' or @interventoria.estado.to_s == 'RECHAZADOFINALGH' or  @interventoria.estado.to_s =='RECHAZADOFINALINT' %>
+       <%= render 'preparafinal' %>
+    <% elsif @interventoria.estado.to_s == 'REVISIONFINALGH' or @interventoria.estado.to_s == 'REVISIONFINALINT' %>
+    <% else %>
+        <%= render 'actividades' %>
+    <% end %>
+    </fieldset>
+<% elsif @interventoria.etapa.to_s == '3' %>
+    <fieldset>
+      <%= render 'bitacora' %>
+    </fieldset>
+<% end -%><br/><br/>

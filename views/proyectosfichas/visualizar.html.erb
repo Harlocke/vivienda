@@ -1,0 +1,337 @@
+<style type="text/css">
+<!--
+ .Estilo1 {font-size: 11}
+  H1.SaltoDePagina { PAGE-BREAK-AFTER: always  }
+-->
+</style>
+<div align="center">
+<table width="800" height="65" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td><img src="../../images/frame.png"/></td>
+      </tr>
+    </table>
+  <br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center">
+  <tr>
+    <td align="left" height="30"><div class="col_enc"><%=@proyectosficha.proyecto.descripcion rescue nil%></div></td>
+  </tr>
+</table>
+<table width="800" border="0" cellpadding="0" cellspacing="0"  align="center">
+  <tr>
+    <td align="left" align="middle" width="20%" ><%= image_tag @proyectosficha.proyecto.foto.url, :size => "180x180" %></td>
+    <td align="left" width="80%" >
+     <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="sample">
+      <tr class="odd1">
+        <td width="10%" class="campos">Vigencia</td>
+        <td width="15%" class="campos">Nro Soluciones</td>
+        <td width="40%" class="campos">Ubicacion</td>
+        <td width="35%" class="campos">Responsable Diseños</td>
+      </tr>
+      <tr>
+         <td class="camposDesc"><%=@proyectosficha.vigencia%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.nro_viviendas%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.comuna_id%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.responsable_disenos%>&nbsp;</td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellpadding="0" cellspacing="1"  class="sample">
+      <tr class="odd1">
+        <td width="45%" class="campos">Gerencia</td>
+        <td width="25%" class="campos">Vlr Contrato Gerencia</td>
+        <td width="30%" class="campos">Entidad Fiduciaria</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.gerente%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.vlr_gerencia%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.entidad_financiera%>&nbsp;</td>
+      </tr>
+    </table>
+     <table width="100%" border="0" cellpadding="0" cellspacing="1"  class="sample">
+      <tr class="odd1">
+        <td width="70%" class="campos">Constructor</td>
+        <td width="30%" class="campos">Vlr Cont. Constructor</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.constructor%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.vlr_constructor%>&nbsp;</td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="1"  class="sample">
+      <tr class="odd1">
+        <td width="70%" class="campos">Interventor</td>
+        <td width="30%" class="campos">Vlr Cont. Interventor</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.interventor%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.vlr_interventor%>&nbsp;</td>
+      </tr>
+    </table>
+      <table width="100%" border="0" cellpadding="0" cellspacing="1"  class="sample">
+      <tr class="odd1">
+        <td width="20%" class="campos">Presupuesto Inicial</td>
+        <td width="20%" class="campos">Costo Total</td>
+        <td width="60%" class="campos">Déficit sin cobertura</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.presupuesto_inicial%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.costo_total%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.deficit_cobertura%>&nbsp;</td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">EJECUCION DEL PROYECTO</td>
+  </tr>
+</table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1"  class="sample">
+      <tr class="odd1">
+        <td width="45%" class="campos">Etapa del Proyecto</td>
+        <td width="30%" class="campos">Acta vecindad Registro Fotográfico</td>
+        <td width="25%" class="campos">Acta inventario espacio público</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.etapa_proyecto%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.acta_vecindad%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.acta_espacio%>&nbsp;</td>
+      </tr>
+    </table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="20%" class="campos">Porcentaje Programacion</td>
+        <td width="20%" class="campos">Porcentaje Ejecucion</td>
+        <td width="20%" class="campos">Actas de Obras pagadas</td>
+        <td width="20%" class="campos">Empleos Calificados</td>
+        <td width="20%" class="campos">Empleos No Calificados</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.por_avance_pro%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.por_avance_eje%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.por_avance_eje%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.empleos_calificados%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.empleos_nocalificados%>&nbsp;</td>
+      </tr>
+    </table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="25%" class="campos">Culminacion Asquisicion Predios</td>
+        <td width="15%" class="campos">Fecha Inicio Obra</td>
+        <td width="30%" class="campos">Adiciones Contrato Construccion</td>
+        <td width="30%" class="campos">Adiciones Contrato Interventoria</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.fecha_fin_predio%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.fecha_inicio_obra%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.adicion_construccion%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.adicion_interventoria%>&nbsp;</td>
+      </tr>
+    </table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="50%" class="campos">Información de Polizas en Isvimed</td>
+        <td width="50%" class="campos">Fecha terminación Obra Contrato</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.polizas%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.fecha_fin_obra%>&nbsp;</td>
+      </tr>
+    </table>
+  <br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">SUBSIDIOS FAMILIARES DE VIVIENDA Y ASIGNACION DE VIVIENDA</td>
+  </tr>
+</table>
+  <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="23%" class="campos">Nro Subsidios Nacionales Asig</td>
+        <td width="27%" class="campos">Nro Subsidios Caja de Compensacion</td>
+        <td width="25%" class="campos">Asignacion Subsidios Municipales</td>
+        <td width="25%" class="campos">Sorteo Ubicacion de las Viviendas</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.subsidios_nacionales%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.subsidios_caja%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.subsidios_municipales%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.sorteo%>&nbsp;</td>
+      </tr>
+    </table>
+<br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">TERMINACION Y LIQUIDACION DEL PROYECTO</td>
+  </tr>
+</table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="20%" class="campos">Acta final interventoria</td>
+        <td width="20%" class="campos">Paz y salvo espacio publico</td>
+        <td width="22%" class="campos">Acta ejecucion de obras civiles</td>
+        <td width="20%" class="campos">Certificacion del Retie</td>
+        <td width="18%" class="campos">Recibo Redes Energia</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.acta_final_interventoria%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.paz_salvo%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.acta_ejecucion%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.certificacion_retie%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.recibo_energia%>&nbsp;</td>
+      </tr>
+    </table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="26%" class="campos">Recibo Acueducto y Alcantarillado</td>
+        <td width="12%" class="campos">Acta Liq. Obra</td>
+        <td width="10%" class="campos">Planos record</td>
+        <td width="18%" class="campos">Acta Liq. Interventoria</td>
+        <td width="18%" class="campos">VoBo Poligonal Amarre</td>
+        <td width="16%" class="campos">Fecha recibo DAP</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.recibo_acueducto%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.acta_liqobra%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.planos_record%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.acta_liqinter%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.vobo_poligonal%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.fecha_dap%>&nbsp;</td>
+      </tr>
+    </table>
+<br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">ACTIVIDADES DE ADAPTACION FAMILIAR Y COMUNITARIA AL HÁBITAT</td>
+  </tr>
+</table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="35%" class="campos">Sensibilización para la adaptación al hábitat</td>
+        <td width="35%" class="campos">Entrega de manuales de Mantenimiento</td>
+        <td width="30%" class="campos">Conformacion de Copropiedades</td>
+      </tr>
+      <tr>
+        <td class="camposDesc"><%=@proyectosficha.sensibilizacion%>&nbsp;</td>
+        <td class="camposDesc"><%=@proyectosficha.manuales%>&nbsp;</td>
+       <td class="camposDesc"><%=@proyectosficha.copropiedades%>&nbsp;</td>
+      </tr>
+    </table>
+<br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">RESUMEN DEL PROYECTO - <%=@proyectosficha.proyecto.descripcion rescue nil%></td>
+  </tr>
+</table>
+    <table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="13%" class="campos"><div align="center">Total Viviendas</div></td>
+        <td width="13%" class="campos"><div align="center">Total Bloques</div></td>
+        <td width="13%" class="campos"><div align="center">Entregadas</div></td>
+        <td width="13%" class="campos"><div align="center">No Entregadas</div></td>
+        <td width="13%" class="campos"><div align="center">Asignados</div></td>
+        <td width="13%" class="campos"><div align="center">Disponibles</div></td>
+        <td width="12%" class="campos"><div align="center">Escriturado</div></td>
+      </tr>
+      <tr>
+<%
+          cantviviendas    = Vivienda.count(:conditions => [' proyecto_id = ? ', "#{@proyectosficha.proyecto_id}"])
+          cantentregadas   = Vivienda.count(:conditions => [' proyecto_id = ? and entregado = ?' , "#{@proyectosficha.proyecto_id}", "S"])
+          cantnoentregadas = cantviviendas - cantentregadas
+          cantocupadas     = Vivienda.count(:conditions => [' proyecto_id = ? and estado = ?' , "#{@proyectosficha.proyecto_id}", "O"])
+          cantdisponibles  = Vivienda.count(:conditions => [' proyecto_id = ? and estado = ?' , "#{@proyectosficha.proyecto_id}", "D"])
+          cantescr         = Viviendastramite.count(:conditions => [' viviendastipostramite_id = 10086 and vivienda_id in (select id from viviendas where proyecto_id = ?)' , "#{@proyectosficha.proyecto_id}"])
+          cantbloques      = Bloque.count(:conditions => [' proyecto_id = ?' , "#{@proyectosficha.proyecto_id}"])
+%>
+        <td class="camposDesc"><div align="center"><%=cantviviendas%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantbloques%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantentregadas%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantnoentregadas%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantocupadas%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantdisponibles%></div></td>
+        <td class="camposDesc"><div align="center"><%=cantescr%></div></td>
+      </tr>
+    </table>
+  <H1 class=SaltoDePagina> </H1>
+<br/>
+<table width="800" border="0" cellpadding="2" cellspacing="2"  align="center" class="sample">
+  <tr  class="odd1">
+    <td align="left" class="campos">ETAPAS ACTUALES DEL PROYECTO - <%=@proyectosficha.proyecto.descripcion rescue nil%></td>
+  </tr>
+</table>
+<table width="800" border="0" cellpadding="0" cellspacing="1" class="sample">
+      <tr class="odd1">
+        <td width="45%" class="campos">ETAPA</td>
+        <td width="45%" class="campos">SUBETAPA</td>
+        <td width="10%" class="campos"><div align="center">CANTIDAD</div></td>
+      </tr>
+<%
+
+        objetos = Objeto.find_by_sql("select distinct tt.etapa, tt.descripcion, count(9) cant
+                                     from   viviendastramites t, viviendas v, viviendastipostramites tt
+                                     where  v.proyecto_id = 1
+                                     and    v.id = t.vivienda_id
+                                     and    t.VIVIENDASTIPOSTRAMITE_ID = tt.id
+                                     and    tt.estado = 'A'
+                                     and    t.fecha_esperada is null
+                                     group by tt.etapa,tt.descripcion
+                                     order by tt.etapa,tt.descripcion")
+        objetos.each do |objeto|
+%>
+      <tr>
+        <td class="camposDesc"><%=objeto.etapa%></td>
+        <td class="camposDesc"><%=objeto.descripcion%></td>
+        <td class="camposDesc"><div align="center"><%=objeto.cant%></div></td>
+      </tr>
+<%
+        end
+%>
+    </table>
+<br/>
+<table width="800" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+        <% i = 0 %>
+         <% for proyectosfichasimagen in @proyectosficha.proyectosfichasimagenes.find(:all, :conditions =>['proyectosficha_content_type like ?', '%image%'],:order => 'created_at DESC') %>
+            <% i = i + 1
+               if i <= 4
+            %>
+            <td width="0%">
+                    <table width="100%" height="150" border="0" cellpadding="2" cellspacing="6">
+                      <tr>
+                        <td height="100" align="center" valing="middle">
+                       <%= link_to image_tag (proyectosfichasimagen.proyectosficha.url, :size =>"180x120", :border=>0),
+                              proyectosfichasimagen.proyectosficha.url(:original, false) %>
+                        </td>
+                      </tr>
+                    </table>
+            </td>
+            <% else
+               i = 1
+            %>
+            </tr>
+        </table>
+          <br/>
+        <table width="750" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+            <td width="50%">
+                    <table width="100%" height="150" border="0" cellpadding="2" cellspacing="6">
+                      <tr>
+                        <td height="100%" align="center" valing="middle">
+                       <%= link_to image_tag (proyectosfichasimagen.proyectosficha.url, :size =>"180x120", :border=>0),
+                              proyectosfichasimagen.proyectosficha.url(:original, false) %>
+                        </td>
+                      </tr>
+                    </table>
+            </td>
+            <% end  %>
+          <% end %>
+          </tr>
+        </table>
+<br/>
+  <table width="800"  border="0" cellspacing="0" cellpadding="0" >
+      <tr>
+        <td width="60%" height="20" class="camposDesc"><div align="left"><%=Time.now.strftime("%Y-%m-%d %X")%> - <%=User.find(is_admin).nombre rescue nil%></div></td>
+        <td width="40%" height="20" class="camposDesc"><div align="right"><a href="javascript:window.print()" class="imprimirlink">Imprimir</a>&nbsp;&nbsp;</div></td>
+      </tr>
+  </table>
+</div>

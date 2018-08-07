@@ -1,0 +1,59 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div align="right">
+        <% if permisomejoramiento(@mejoramiento.id).to_s == "S" or permiso("mejoramientosimagen","C").to_s == "S" %>
+        <div class="uiButton"><img class="img" src="/images/images.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= link_to 'Cargar Información', new_mejoramiento_mejoramientosimagen_path(@mejoramiento.id) %></span></div>
+        <% end %>
+</div></td>
+  </tr>
+</table>
+<% remote_form_for [@mejoramiento, @mejoramientosimagen] do |form| %>
+<% if !@mejoramientosimagen.id %>
+<% end %>
+<% if @mejoramiento.mejoramientosimagenes.exists? %>
+<% @objetos = Objeto.find_by_sql("select distinct cuando from mejoramientosimagenes where mejoramiento_id = #{@mejoramiento.id} group by cuando")
+   @objetos.each do |objeto| %>
+      <div class="col_enc"><%=objeto.cuando rescue nil%></div>
+      <div align="center">
+<br/>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr valign="middle">
+          <td width="35%" height="20" class="oce-first" align="left">Descripcion</td>
+          <td width="50%" height="20" class="oce-first" align="left">Nombre del Archivo</td>
+          <td width="15%" height="20" class="oce-first" align="left">&nbsp;</td>
+        </tr>
+        <% for mejoramientosimagen in @mejoramiento.mejoramientosimagenes.find(:all, :conditions=>["cuando = '#{objeto.cuando}'"], :order => 'created_at DESC') %>
+         <tr  valign="middle" class="<%=cycle('even1', 'odd1')%> mejoramientosimagen_<%=mejoramientosimagen.id%>">
+           <td height="20" class="camposDesc"><%=mejoramientosimagen.descripcion%></td>
+           <td class="camposDesc"><%=mejoramientosimagen.mejoramiento_file_name%></td>
+           <td class="camposDesc">
+            <% if mejoramientosimagen.mejoramiento_content_type.include?("image")%>
+                <%= link_to 'Ver', mejoramientosimagen.mejoramiento.url(:original, false),
+                             { :rel=>"lightbox[roadtrip]", :title=>"#{mejoramientosimagen.mejoramiento_file_name}",:class=>"verlink"} %>
+            <% else %>
+               <%= link_to "Ver", mejoramientosimagen.mejoramiento.url(:original, false),
+                          { :popup => ['windowimg','height=450,width=600,scrollbars=yes'],:class=>"verlink"}%>
+            <% end %>
+            <% if permisomejoramiento(@mejoramiento.id).to_s == "S" %>
+              <%= link_to_remote('Borrar',{:url => mejoramiento_mejoramientosimagen_path(@mejoramiento, mejoramientosimagen),
+                              :method => :delete, :confirm => "¿Seguro?",
+                              :before => "$(this).up('.mejoramientosimagen_#{mejoramientosimagen.id}').remove()"},
+                              :class=>"borrarlink")%>
+            <% end %>
+           </td>
+         </tr>
+        <% end %>
+      </table>
+        </div>
+      <br/>
+<% end %>
+<% else %>
+<table width="40%" border="0" cellpadding="0" align="center" cellspacing="0" bgcolor="#E5E5E5">
+      <tr>
+        <td width="10%"><div align="right"><img src="/images/alerta.png"></div></td>
+        <td width="90%" align="left" class="campos">&nbsp;&nbsp;No hay datos asociados.</td>
+     </tr>
+</table>
+<% end %>
+   <%= hidden_field :mejoramiento, :id %>
+<% end %>

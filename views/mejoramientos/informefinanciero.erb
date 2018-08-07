@@ -1,0 +1,83 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe Financiero por Operador Convenio / Resolucion</h3>
+</div>
+<table border="1">
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td colspan="3"><strong><div align="center">Convenio</div></strong></td>
+    <td colspan="4"><strong><div align="center">Resolucion</div></strong></td>
+    <% @objetos.each do |objeto| %>
+    <td colspan="2"<strong>Informacion Pagos <%=objeto.porcentaje%>%</strong></td>
+    <% end %>
+    <td colspan="2"><strong><div align="center">Totales y Porcentaje</div></strong></td>
+  </tr>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px; color: white;" bgcolor="#00C4C4">
+    <td width="20%"><strong>Nro Convenio</strong></td>
+    <td width="15%"><strong>Vigencia</strong></td>
+    <td width="40%"><strong>Operador</strong></td>
+    <td width="20%"><strong>Nro Resolucion</strong></td>
+    <td width="20%"><strong>Fecha Resolucion</strong></td>
+    <td width="20%"><strong>Nro Total de Mejoramientos</strong></td>
+    <td width="20%"><strong>Valor Total Subsidios</strong></td>
+    <% @objetos.each do |objeto| %>
+      <td width="20%"><strong>Valor Pago del <%=objeto.porcentaje%>%</strong></td>
+      <td width="20%"><strong>Nro de Pagos del <%=objeto.porcentaje%>%</strong></td>
+    <% end %>
+    <td width="20%"><strong>Total Pagado</strong></td>
+    <td width="20%"><strong>Porcentaje de Avance</strong></td>
+  </tr>
+<% @mejoramientos.each do |mejoramiento|
+   convenio = Convenio.find(mejoramiento.convenio_id)
+   resolucion = Resolucion.find(mejoramiento.resolucion_id) %>
+  <tr valign="middle" style="vertical-align:middle; font-size: 10px;">
+    <td><%=convenio.nro_convenio rescue nil%></td>
+    <td><%=convenio.vigencia rescue nil%></td>
+    <td><%=convenio.ejecutor rescue nil%></td>
+    <td><%=resolucion.nro_resolucion rescue nil%> - <%=resolucion.anno rescue nil%></td>
+    <td><%=resolucion.fecha rescue nil%></td>
+    <td><div align="center"><%=mejoramiento.cantidad rescue nil%></div></td>
+    <td><%=camponumerico(mejoramiento.valortotal) rescue nil%></td>    
+    <% total = 0
+      @objetos.each do |objeto|
+      if objeto.porcentaje == '5'
+         total = total + mejoramiento.pagado_5.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_5) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_5 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '10'
+         total = total + mejoramiento.pagado_10.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_10) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_10 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '20'
+         total = total + mejoramiento.pagado_20.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_20) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_20 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '25'
+         total = total + mejoramiento.pagado_25.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_25) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_25 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '40'
+         total = total + mejoramiento.pagado_40.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_40) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_40 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '45'
+         total = total + mejoramiento.pagado_45.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_45) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_45 rescue nil%></div></td>
+      <% elsif objeto.porcentaje == '50'
+         total = total + mejoramiento.pagado_50.to_i
+        %>
+        <td><%=camponumerico(mejoramiento.pagado_50) rescue nil%></td>
+        <td><div align="center"><%=mejoramiento.cant_50 rescue nil%></div></td>
+      <% end %>
+    <% end %>
+     <td><strong><%=camponumerico(total.to_i) rescue nil%></strong></td>
+     <td><strong><%=number_to_currency((total.to_f/mejoramiento.valortotal.to_f)*100,{:precision => 1, :unit=>"", :delimiter =>","}) rescue nil%>%</strong></td>
+  </tr>
+<% end %>
+</table>

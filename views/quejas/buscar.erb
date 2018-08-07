@@ -1,0 +1,50 @@
+<%= stylesheet_link_tag 'scaffold'%>
+<div class="page-header">
+  <h3>Informe PQRS</h3>
+</div>
+<table border="1">
+  <tr valign="middle" bgcolor="#00C4C4">
+    <td width="10%"><strong>ID</strong></td>
+    <td width="10%"><strong>Fecha PQRS</strong></td>
+    <td width="10%"><strong>Tipo</strong></td>
+    <td width="10%"><strong>Identificacion</strong></td>
+    <td width="35%"><strong>Nombre</strong></td>
+    <td width="35%"><strong>Direccion</strong></td>
+    <td width="35%"><strong>Telefono</strong></td>
+    <td width="35%"><strong>Email</strong></td>
+    <td width="35%"><strong>Comuna</strong></td>
+    <td width="500"><strong>Requerimiento</strong></td>
+    <td width="15%"><strong>Fecha Cierre</strong></td>
+    <td width="20%"><strong>Dependencia</strong></td>
+    <td width="20%"><strong>Proyecto</strong></td>
+    <td width="20%"><strong>Radicado Entrada</strong></td>
+    <td width="20%"><strong>Fecha Radicado Entrada</strong></td>
+    <td width="20%"><strong>Radicado Salida</strong></td>
+    <td width="20%"><strong>Fecha Radicado Salida</strong></td>
+    <td width="20%"><strong>Nro dias Habiles</strong></td>
+    <td width="20%"><strong>Estado</strong></td>
+  </tr>
+<% @quejas.each do |queja| %>
+  <tr valign="middle">
+    <td><%=h queja.id%></td>
+    <td><%=h queja.created_at%></td>
+    <td align="left"><%=queja.tipopqrs%></td>
+    <td align="left"><%=queja.quejaidentificacion rescue nil%></td>
+    <td align="left"><%=queja.quejanombre rescue nil%></td>
+    <td align="left"><%=queja.direccion rescue nil%></td>
+    <td align="left"><%=queja.telefono rescue nil%> - <%=queja.celular rescue nil%></td>
+    <td align="left"><%=queja.email rescue nil%></td>
+    <td align="left"><%=Comuna.find(queja.comuna_id).descripcion rescue nil%></td>
+    <td align="left"><%=queja.descripcion rescue nil%></td>
+    <td><% if queja.estado.to_s == 'CERRADO' %><%=h queja.updated_at rescue nil%><% end %></td>
+    <td align="left"><%=queja.temadesc_informe%></td>
+    <td align="left"><%=Viviendaspersona.find_by_persona_id(queja.persona_id).vivienda.proyecto.descripcion rescue nil%></td>
+    <td align="left"><%=queja.correspondenciasrecibida.nro_radicado rescue nil%></td>
+    <td align="left"><%=queja.correspondenciasrecibida.created_at.strftime("%Y-%m-%d %X") rescue nil%></td>
+    <td align="left"><%=queja.radsalida rescue nil%></td>
+    <td align="left"><%=queja.fecharadsalida rescue nil%></td>
+    <td align="left"><%=queja.diasrespuesta rescue nil%></td>
+    <td align="left"><%=queja.estado rescue nil%></td>
+  </tr>
+<% end %>
+</table>

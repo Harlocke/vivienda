@@ -1,0 +1,436 @@
+<fieldset>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">INFORMACION FERIA 2009</div></td>
+  </tr>
+</table>
+<% @persona.feria2009jefes.each do |feria2009jefe| %>
+    <% if feria2009jefe.id != @feria2009jefe.id %>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+           <td height="30" class="col_enc"><div class="col_enc">1. CONFORMACION DEL GRUPO FAMILIAR </div></td>
+        </tr>
+        </table>
+      <div align="center">
+     <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="17%" class="campos">Nro Formulario</td>
+          <td width="13%" class="campos">Documento</td>
+          <td width="15%" class="campos">Identificacion</td>
+          <td width="36%" class="campos">Nombre</td>
+          <td width="19%" class="campos">Fecha Nacimiento </td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2009jefe.nroformulario %></td>
+          <td class="camposDesc"><%=feria2009jefe.documento %></td>
+          <td class="camposDesc"><%=feria2009jefe.identificacion %></td>
+          <td class="camposDesc"><%=feria2009jefe.primernombre %><%=feria2009jefe.segundonombre %><%=feria2009jefe.primerapellido %><%=feria2009jefe.segundoapellido %></td>
+          <td class="camposDesc"><%=feria2009jefe.fecha_nacimiento %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="20%" class="campos">Parentesco</td>
+          <td width="23%" class="campos">Estado Civil </td>
+          <td width="15%" class="campos">Ocupacion</td>
+          <td width="27%" class="campos">Condici&oacute;n Especial </td>
+          <td width="15%" class="campos">Ingresos Mensuales</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2009jefe.parentesco %></td>
+          <td class="camposDesc"><%=feria2009jefe.estadocivil %></td>
+          <td class="camposDesc"><%=feria2009jefe.ocupacion %></td>
+          <td class="camposDesc"><%=feria2009jefe.condicionespecial %></td>
+          <td class="camposDesc"><%=feria2009jefe.ingresos_mensuales %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc">2. UBICACION DEL GRUPO FAMILIAR </div></td>
+        </tr>
+      </table>	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="26%" class="campos">Direcci&oacute;n</td>
+          <td width="21%" class="campos">Barrio</td>
+          <td width="21%" class="campos">Ciudad</td>
+          <td width="7%" class="campos">Estrato</td>
+          <td width="15%" class="campos">Telefono 1 </td>
+        </tr>
+        <tr>
+          <td class="camposDesc">.<%=feria2009jefe.direccion %></td>
+          <td class="camposDesc"><%=feria2009jefe.barrio %></td>
+          <td class="camposDesc"><%=feria2009jefe.ciudad %></td>
+          <td class="camposDesc"><%=feria2009jefe.estrato %></td>
+          <td class="camposDesc"><%=feria2009jefe.telefonos1 %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+       <tr class="odd1">
+          <td width="15%" class="campos">Telefono 2 </td>
+          <td width="15%" class="campos">Celular</td>
+          <td width="26%" class="campos">Antiguedad Residencia Actual </td>
+          <td width="20%" class="campos">Antiguedad Municipio </td>
+        </tr>
+        <tr>
+          <td class="camposDesc">.<%=feria2009jefe.telefonos2 %></td>
+          <td class="camposDesc"><%=feria2009jefe.celular %></td>
+          <td class="camposDesc"><%=feria2009jefe.antiguedad_resactual %></td>
+          <td class="camposDesc"><%=feria2009jefe.antiguedad_mpo %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc2">PROPIEDADES</div></td>
+        </tr>
+      </table>	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="45%" rowspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="80%" class="campos">El jefe o alg&uacute;n miembro del grupo familiar es <br>
+due&ntilde;o o poseedor de un lote o vivienda ? </td>
+              <td class="camposDesc">
+                <div align="center"><%=feria2009jefe.poseedor %></div></td>
+            </tr>
+          </table></td>
+          <td width="22%" class="campos">Direccion</td>
+          <td width="17%" class="campos">Barrio</td>
+          <td width="16%" class="campos">Ciudad</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2009jefe.poseedor_direccion %></td>
+          <td class="camposDesc"><%=feria2009jefe.poseedor_barrio %></td>
+          <td class="camposDesc"><%=feria2009jefe.poseedor_ciudad %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="64%" rowspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="89%" class="campos">El jefe o alg&uacute;n miembro del hogar ha adquirido una vivienda a trav&eacute;s del instituto de
+                  cr&eacute;dito territorial ict, de la corporaci&oacute;n de vivienda y desarrollo social corvide u
+                otro organismo estatal promotor de vivienda.</td>
+                <td width="11%" class="camposDesc">
+                  <div align="center"><%=feria2009jefe.adquiere_vivienda %></div></td>
+              </tr>
+          </table></td>
+          <td width="25%" height="27" class="campos">De Quien? </td>
+          <td width="11%" class="campos">Fecha</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2009jefe.adquiere_quien %></td>
+          <td class="camposDesc"><%=feria2009jefe.adquiere_fecha %></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc2">SUBSIDIOS RECIBIDOS </div></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="51%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="71" class="campos">Alg&uacute;n miembro del hogar ha recibido subsidio familiar de vivienda
+                  otorgado por corvide, inurbe, caja agraria, banco agrario,
+                cajas de compensaci&oacute;n o por el forec.</td>
+                <td width="10%" class="camposDesc">
+                  <div align="center"><%=feria2009jefe.subsidio_familiar %></div></td>
+              </tr>
+          </table></td>
+          <td width="38%"><table width="100%" border="0" cellspacing="2" cellpadding="0">
+            <tr>
+              <td width="15%" class="campos">Subsidio Invertido </td>
+              <td width="15%" class="campos">En que </td>
+              </tr>
+            <tr>
+              <td class="camposDesc"><%=feria2009jefe.subsidio_invertido %></td>
+              <td class="camposDesc"><%=feria2009jefe.subsidio_invertido_en %></td>
+              </tr>
+          </table>
+            <table width="100%" border="0" cellspacing="2" cellpadding="0">
+              <tr>
+                <td width="15%" class="campos">Subsidio Restituido </td>
+                <td width="15%" class="campos">Fecha</td>
+              </tr>
+              <tr>
+                <td class="camposDesc"><%=feria2009jefe.subsidio_restituido %></td>
+                <td class="camposDesc"><%=feria2009jefe.subsidio_restituido_fecha %></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+	  <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc">3. SITUACI&Oacute;N DEL GRUPO FAMILIAR </div></td>
+        </tr>
+      </table>	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
+       <tr class="odd1">
+          <td width="21%" class="campos">Condicion Familiar </td>
+          <td width="25%" class="campos">Beneficiario Arriendo Temporal </td>
+          <td width="9%" class="campos">Sisben</td>
+          <td width="15%" class="campos">Vinculado a OPV </td>
+          <td width="30%" class="campos">Cual OPV</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=feria2009jefe.condicionfamiliar %></td>
+          <td class="camposDesc"><%=feria2009jefe.beneficiario_arrtemp %></td>
+          <td class="camposDesc"><%=feria2009jefe.sisben %></td>
+          <td class="camposDesc"><%=feria2009jefe.organizacion_vivienda %></td>
+          <td class="camposDesc"><%=feria2009jefe.organizacion_cual %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc">4. RECURSOS COMPLEMENTARIOS PARA LA VIVIENDA </div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="56%" class="campos">Posee recursos complementarios para la adquisici&oacute;n de su vivienda?</td>
+          <td width="44%" class="camposDesc"><%=feria2009jefe.recursos_complementarios %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="28%" class="campos">Cuenta de Ahorro Programado</td>
+          <td width="11%" class="camposDesc"><%=feria2009jefe.recursos_programado %></td>
+          <td width="11%" class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_programado_entidad %></td>
+        </tr>
+        <tr>
+          <td class="campos">Ahorro Cualquier Modalidad</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_ahorro %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_ahorro_entidad %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Credito Aprobado </td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_credito %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_credito_entidad %></td>
+        </tr>
+        <tr>
+          <td class="campos">Cesantias</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_cesantias %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_cesantias_entidad %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Donaciones</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_donaciones %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_donaciones_entidad %></td>
+        </tr>
+        <tr>
+          <td class="campos">Subsidio Nacional </td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_nacional %></td>
+          <td class="campos">Fecha</td>
+          <td width="17%" class="camposDesc"><%=feria2009jefe.recursos_nacional_fecha %></td>
+          <td width="14%" class="campos">Resoluci&oacute;n</td>
+          <td width="19%" class="camposDesc"><%=feria2009jefe.recursos_nacional_resol %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Subsidio Municipal</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_municipal %></td>
+          <td class="campos">Fecha</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_municipal_fecha %></td>
+          <td class="campos">Resoluci&oacute;n</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_municipal_resol %></td>
+        </tr>
+        <tr>
+          <td class="campos">Subsidio Otras Entidades </td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_otros %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_otros_entidad %></td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos">Subsidio en Especie - Descripcion </td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_especie_desc %></td>
+          <td class="campos">Cuantificaci&oacute;n</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_especie_cuan %></td>
+          <td class="campos">Entidad</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_especie_entidad %></td>
+        </tr>
+        <tr>
+          <td class="campos">Materiales de Construccion</td>
+          <td class="camposDesc"><%=feria2009jefe.recursos_materiales %></td>
+          <td class="campos">Entidad</td>
+          <td colspan="3" class="camposDesc"><%=feria2009jefe.recursos_materiales_entidad %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc">5. SELECCION DE PROYECTOS DE VIVIENDA DE INTERES PRIORITARIO -VIP- </div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="258" class="campos">Opci&oacute;n Proyecto 1 </td>
+          <td width="296" class="campos">Opci&oacute;n Proyecto 2 </td>
+          <td width="275" class="campos">Opci&oacute;n Proyecto 3 </td>
+        </tr>
+        <tr>
+          <td class="camposDesc">.<%=feria2009jefe.proyecto1 %></td>
+          <td class="camposDesc"><%=feria2009jefe.proyecto2 %></td>
+          <td class="camposDesc"><%=feria2009jefe.proyecto3 %></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+          <td height="30"><div class="col_enc">OTROS CRUCES </div></td>
+        </tr>
+      </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="258" class="campos">Caja Compensaci&oacute;n</td>
+          <td width="296" class="campos">Entidad Beneficio </td>
+          <td width="275" class="campos">Catastro</td>
+          <td width="275" class="campos">IGAC</td>
+        </tr>
+        <tr>
+          <td class="camposDesc">.<%=feria2009jefe.caja_compensacion %></td>
+          <td class="camposDesc"><%=feria2009jefe.entidad_beneficio %></td>
+          <td class="camposDesc"><%=feria2009jefe.catastro %></td>
+          <td class="camposDesc"><%=feria2009jefe.igac %></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<%  if feria2009jefe.feria2009beneficiarios.exists? %>
+ <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">BENEFICIARIOS</div></td>
+  </tr>
+</table>
+  <div align="center">
+<% varconta = 0 %>
+<%   feria2009jefe.feria2009beneficiarios.each do |feria2009beneficiario|   %>
+<%   varconta = varconta + 1;   %>
+<table width="837" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="30" class="campos"><div align="center"><%= varconta %></div></td>
+    <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="11%" class="campos">Documento</td>
+          <td width="13%" class="campos">Identificacion</td>
+          <td width="39%" class="campos">Nombre</td>
+          <td width="16%" class="campos">Fecha Nacimiento </td>
+          <td width="21%" class="campos">Parentesco</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feria2009beneficiario.documento %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.identificacion %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.primernombre %>&nbsp;<%=h feria2009beneficiario.segundonombre %>&nbsp; <%=h feria2009beneficiario.primerapellido %>&nbsp;<%=h feria2009beneficiario.segundoapellido %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.fecha_nacimiento %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.parentesco %></td>
+    </tr>
+    </table>
+      <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td width="18%" class="campos">Estado Civil </td>
+          <td width="15%" class="campos">Ocupacion</td>
+          <td width="25%" class="campos">Condici&oacute;n Especial </td>
+          <td width="27%" class="campos">Condici&oacute;n Familiar</td>
+          <td width="15%" class="campos">Ingresos Mensuales</td>
+        </tr>
+        <tr>
+          <td class="camposDesc"><%=h feria2009beneficiario.estadocivil %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.ocupacion %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.condicionespecial %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.condicionfamiliar %></td>
+          <td class="camposDesc"><%=h feria2009beneficiario.ingresos_mensuales %></td>
+        </tr>
+      </table>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<% end %>
+</div>
+<br/>
+<% end %>
+<%  if feria2009jefe.feria2009rechazados.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CAUSALES DE RECHAZO</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+        </tr>
+        <% feria2009jefe.feria2009rechazados.each do |feria2009rechazado| %>
+        <tr>
+          <td class="camposDesc">* <%=h feria2009rechazado.causarechazo %></td>
+        </tr>
+       <% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>
+<%  if feria2009jefe.feria2009calificaciones.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CALIFICACION</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="500" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+          <td class="oce-first"><div align="center">Puntaje</div></td>
+        </tr>
+ <% feria2009jefe.feria2009calificaciones.each do |feria2009calificacion| %>
+        <tr>
+          <td width="88%" class="camposDesc"><%=h feria2009calificacion.calificacion %></td>
+          <td width="12%" class="camposDesc"><div align="center"><%=h feria2009calificacion.puntaje %></div></td>
+        </tr>
+<% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>
+<%  if feria2009jefe.feria2009cruces.exists? %>
+<table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td height="30"><div class="col_enc">CRUCES CON BASES DE DATOS</div></td>
+  </tr>
+</table>
+<div align="center">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td class="oce-first">Variable</td>
+        </tr>
+        <% feria2009jefe.feria2009cruces.each do |feria2009cruce| %>
+        <tr>
+          <td class="camposDesc">* <%=h feria2009cruce.baseinformacion  %></td>
+        </tr>
+       <% end %>
+    </table></td>
+  </tr>
+</table>
+</div>
+<br/>
+<% end %>
+<% end %>
+<% end %>
+</fieldset>

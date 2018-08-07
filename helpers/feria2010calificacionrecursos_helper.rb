@@ -1,0 +1,2 @@
+module Feria2010calificacionrecursosHelper
+end

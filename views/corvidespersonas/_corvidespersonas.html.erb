@@ -1,0 +1,70 @@
+<table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+  <tr>
+    <td height="30"><div class="col_enc">DATOS IDENTIFICACIÓN ADJUDICATARIO</div></td>
+  </tr>
+</table>
+<div align="center">
+<% remote_form_for [@corvide, @corvidespersona] do |form| %>
+<%   if !@corvidespersona.id %>
+<% if permiso("corvidespersona","C").to_s == "S" %>
+           <%= render :partial => "/corvidespersonas/corvidespersonas_form" %>
+<%   end %>           
+<%   end %>
+<br/>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="30%" height="30" align="left" class="oce-first">Adjudicatario</td>
+    <td width="15%" height="30" align="center" class="oce-first">Crédito CISA</td>
+    <td width="15%" height="30" align="center" class="oce-first">Valor Crédito CISA</td>
+    <td width="30%" height="30" align="center" class="oce-first">Adjudicatario habita el inmueble</td>
+    <td width="10%" height="30" align="left" class="oce-first"></td>
+  </tr>
+</table>
+<% for corvidespersona in @corvide.corvidespersonas.find(:all, :order => 'created_at DESC') %>
+   <% if corvidespersona.id != @corvidespersona.id %>
+  <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+   <tr valign="middle" class="<%=cycle('even1', 'odd1')%>" id="corvidespersona_<%=corvidespersona.id%>">
+     <td width="30%" align="left" class="camposDesc"><%=corvidespersona.persona.autobuscar rescue nil%></td>
+     <td width="15%" align="center" class="camposDesc"><%=corvidespersona.cisa rescue nil%></td>
+     <td width="15%" align="center" class="camposDesc"><%=corvidespersona.valor_cisa rescue nil%></td>
+     <td width="30%" align="center" class="camposDesc"><%=corvidespersona.habita rescue nil%></td>
+     <td width="10%" align="center" class="camposDesc">
+       <% if permiso("corvidespersona","A").to_s == "S" %>
+           <%= link_to_remote('Editar',{:url=>edit_corvide_corvidespersona_path(@corvide,corvidespersona),:method => :get},:class=>"editarlink")%>
+        <% end %>
+       <% if permiso("corvidespersona","E").to_s == "S" %>
+           |&nbsp;<%= link_to_remote('Borrar',{:url => corvide_corvidespersona_path(@corvide, corvidespersona),:method =>:delete,:confirm =>"¿Seguro?"},:class=>"borrarlink")%>
+     <% end %>
+     </td>
+ </tr>
+</table>
+<% else %>
+      <fieldset>
+      <table width="100%" border="0" cellpadding="2" cellspacing="2">
+  <tr>
+    <td  height="30"><div class="col_enc">EDITAR ACTIVIDAD</div></td>
+  </tr>
+</table>
+    <tr class="<%=cycle('even1', 'odd1')%>" id="corvidespersona_<%=@corvidespersona.id%>">
+     <%= render :partial => "corvidespersonas_form" %>
+    </tr>
+    </fieldset>
+<% end %>
+        <% end %>
+            <%= hidden_field :corvide, :id %>
+<% end %>
+</div>
+<br/>
+<% if flash[:corvidespersona] %>
+<div id="credito">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#E5E5E5">
+   <tr>
+        <td width="5%"><div align="right"><img src="/images/connect.png"></div></td>
+        <td width="95%" class="campos" align="left" >&nbsp;&nbsp;<%= flash[:corvidespersona] %></td>
+   </tr>
+  </table>
+</div>
+<script type="text/javascript">
+  setTimeout("new Effect.Fade('corvidespersona');", 5000)
+</script>
+<% end %>

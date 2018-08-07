@@ -1,0 +1,77 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+      <tr>
+        <td>
+          <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="3%"><img src="/images/agendascitasmin.png" width="64" height="64"/></td>
+              <td width="94%"><div class="col_enc">PROCESO DE AGENDAMIENTO</div></td>
+              <td width="3%"><div align="right"><%= link_to image_tag('atras.png',
+              { :border=>0, :title => "Buscar"}),agendasprocesos_path %>
+                </div></td>
+            </tr>
+          </table></td>
+      </tr>
+</table>
+<% unless @agendasproceso.new_record? %>
+  <%= link_to image_tag("agenda.png", :title => "Información Basica del Propietario", :style=>"#{@agendasproceso.d_etapa('1')} padding:4px;"),edit_agendasproceso_path(:id=>@agendasproceso.id,:etapa=>"1")%>
+  <%= link_to image_tag("agendasparametros.png", :title => "Parametros Agenda", :style=>"#{@agendasproceso.d_etapa('2')} padding:4px;"),edit_agendasproceso_path(:id=>@agendasproceso.id,:etapa=>"2")%>
+  <%= link_to image_tag("fechasrango.png", :title => "Creacion de Fechas", :style=>"#{@agendasproceso.d_etapa('4')} padding:4px;"),edit_agendasproceso_path(:id=>@agendasproceso.id,:etapa=>"4")%>
+  <%= link_to image_tag("ficha.png", :title => "Programa de Fechas", :style=>"#{@agendasproceso.d_etapa('3')} padding:4px;"),edit_agendasproceso_path(:id=>@agendasproceso.id,:etapa=>"3")%>
+<% end %>
+<% if @agendasproceso.etapa.to_s == '1' %>
+  <fieldset>
+<% form_for(@agendasproceso) do |f| %>
+<div align="center">
+  <table width="800" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td> 
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr>
+          <td height="30"><div class="col_enc">PROCESO</div></td>
+        </tr>
+        </table>
+        <table width="100%" border="0" cellspacing="2" cellpadding="0">
+        <tr class="odd1">
+          <td width="40%" class="campos">Descripción</td>
+          <td width="40%" class="campos">Nota</td>
+          <td width="20%" class="campos">Estado</td>
+        </tr>
+        <tr valign="top">
+          <td ><%= text_area(:agendasproceso, :descripcion, :cols => 60, :rows => 3, :class => 'campo', :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+             <%= error_message_on :agendasproceso, :descripcion, :css_class =>"cerror"%></td>
+          <td "><%= text_area(:agendasproceso, :nota, :cols => 60, :rows => 3, :class => 'campo', :onChange=> "javascript:this.value=this.value.toUpperCase();") %>
+             <%= error_message_on :agendasproceso, :nota, :css_class =>"cerror"%></td>
+             <td><%= select(:agendasproceso, :estado, select_agendaestado,{ :include_blank => true },{ :style=>"width:110px", :class => "campo"})%>
+        <%= f.error_message_on :vigencia, :css_class =>"cerror"%></td>
+        </tr>
+        </table>
+        <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+        <tr><td height="10"><hr size="1" noshade class="hrlinea"/></td></tr>
+        </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+        <tr>
+         <td  height="10"><div align="right">
+            <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+<% end %>
+<% unless @agendasproceso.new_record? %>
+  <div align="center"><div id="agendasprocesosusers_form"><%= render :partial => "/agendasprocesosusers/agendasprocesosusers" %></div></div>
+<% end -%>
+</div>
+</fieldset>
+<% elsif @agendasproceso.etapa.to_s == '2' %>
+    <fieldset><div id="agendasparametros_form"><%= render :partial => "/agendasparametros/agendasparametros" %></div></fieldset>
+<% elsif @agendasproceso.etapa.to_s == '3' %>
+    <fieldset><div id="agendasfechas_form"><%= render :partial => "/agendasfechas/agendasfechas" %></div></fieldset>
+<% elsif @agendasproceso.etapa.to_s == '4' %>
+    <fieldset><div id="agendasrangos_form"><%= render :partial => "/agendasrangos/agendasrangos" %></div></fieldset>
+<% end %>
+<br/>

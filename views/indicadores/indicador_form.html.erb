@@ -1,0 +1,515 @@
+<%= stylesheet_link_tag 'tabs'%>
+<%= javascript_include_tag 'fabtabulous' %>
+<table width="100%" height="40">
+  <tr>
+    <td>
+      <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="3%"><img src="/images/indicadoresmin.png" width="64" height="64"/></td>
+          <td width="94%"><div class="col_enc">&nbsp;&nbsp;SMO - SISTEMA DE MEDICIÓN ORGANIZACIONAL - FICHA METODOLÓGICA INDICADOR</div></td>
+          <td width="3%"><div align="right">
+              <%= link_to image_tag('atras.png',{ :border=>0, :title => "Indicadores"}),indicadores_path %>
+            </div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+<% unless @indicador.new_record? %>
+  <%= link_to image_tag("menuindicador.png", :title => "Información Proceso", :style=>"#{@indicador.d_etapa('1')} padding:4px;"),edit_indicador_path(:id=>@indicador.id,:etapa=>"1")%>
+  <%= link_to image_tag("menunormas.png", :title => "Datos Indicador", :style=>"#{@indicador.d_etapa('2')} padding:4px;"),edit_indicador_path(:id=>@indicador.id,:etapa=>"2")%>
+  <%= link_to image_tag("observaciones.png", :title => "Control de actualizaciones del contenido de la ficha", :style=>"#{@indicador.d_etapa('3')} padding:4px;"),edit_indicador_path(:id=>@indicador.id,:etapa=>"3")%>
+<% end %>
+<% if @indicador.etapa.to_s == '1' %>
+    <fieldset>
+<% form_for @indicador do |f| %>
+<%= f.hidden_field :etapa%>
+<script type="text/javascript">
+    Event.observe(window, 'load', function() {
+    <%
+    @estado1 = ""
+    @estado2 = ""
+    @estado3 = ""
+    if @indicador.clase_indicador.to_s == 'COMPUESTO'
+      @estado1 = 'block'
+      @estado2 = 'none'
+      @estado3 = 'none'
+    elsif @indicador.clase_indicador.to_s == 'SIMPLE'
+      @estado1 = 'none'
+      @estado2 = 'block'
+      @estado3 = 'none'
+    elsif @indicador.clase_indicador.to_s == 'ESPECIFICO'
+      @estado1 = 'none'
+      @estado2 = 'none'      
+      @estado3 = 'block'
+    elsif @indicador.clase_indicador.to_s == ''
+      @estado1 = 'none'
+      @estado2 = 'none'
+      @estado3 = 'none'
+    end
+    %>
+     document.getElementById("mostrar1").style.display = '<%=@estado1%>'
+     document.getElementById("mostrar2").style.display = '<%=@estado2%>'
+     document.getElementById("mostrar3").style.display = '<%=@estado3%>'
+});
+</script>
+
+<div align="center">
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30" align="left"><div class="col_enc">INFORMACIÓN GENERAL DEL INDICADOR</div></td>
+    <td height="30" align="center">
+    <% if permiso("indicador","E").to_s == "S" %>
+      <% unless @indicador.new_record? %><%=link_to @indicador.estadoact, {:controller=>"indicadores", :action=>"estadoindicador", :id=>@indicador.id}%>  <% end %>
+    <% else %>
+      <% unless @indicador.new_record? %><%=@indicador.estadoact%><% end %>
+    <% end %> 
+    </td>  
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr class="odd1">
+    <td class="campos" height="25" >Proceso</td>
+    <td>
+    <%= select(:indicador,:proceso, select_indicadorproceso, { :include_blank => true },
+            { :style=>"width:420px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :proceso, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Código Indicador</td>
+    <td>
+    <%= f.text_field :consecutivo,{ :class => "campo", :size =>10,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :consecutivo, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Nombre indicador</td>
+    <td>
+    <%= f.text_field :nombreindicador,{ :class => "campo", :size =>110,
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+       <%= error_message_on :indicador, :nombreindicador, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Definición del indicador</td>
+    <td>
+    <%= f.text_area :definicion,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :definicion, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Objetivo del indicador</td>
+    <td>
+    <%= f.text_area :objetivo,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :objetivo, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Dimensión Plan de Desarrollo 2016-2019</td>
+    <td>
+    <%= f.text_area :dimension_plan,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :dimension_plan, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr class="odd1" >
+    <td class="campos" height="21" >Sector</td>
+    <td  width="39%" class="camposDesc" valign="top">
+        <%= f.check_box :sector_desarrollo,{},'SI','NO'%>&nbsp;a. Desarrollo Económico y Finanzas públicas<br/>
+        <%= f.check_box :sector_demografia,{},'SI','NO'%>&nbsp;b. Demografía y Dinámica Poblacionales<br/>
+        <%= f.check_box :sector_medio_amb,{},'SI','NO'%>&nbsp;c. Medio Ambiente<br/>
+        <%= f.check_box :sector_vivienda,{},'SI','NO'%>&nbsp;d. Vivienda<br/>
+        <%= f.check_box :sector_infraestructura,{},'SI','NO'%>&nbsp;e. Infraestructura Urbana no Vial<br/>
+        <%= f.check_box :sector_servicios,{},'SI','NO'%>&nbsp;f. Servicios públicos
+     </td>
+    <td  width="40%" class="camposDesc" valign="top">
+        <%= f.check_box :sector_transporte,{},'SI','NO'%>&nbsp;g. Transporte e Infraestructura Vial<br/>
+        <%= f.check_box :sector_salud,{},'SI','NO'%>&nbsp;h. Salud<br/>
+        <%= f.check_box :sector_educacion,{},'SI','NO'%>&nbsp;i. Educación<br/>
+        <%= f.check_box :sector_seguridad,{},'SI','NO'%>&nbsp;j. Seguridad<br/>
+        <%= f.check_box :sector_cultura,{},'SI','NO'%>&nbsp;k. Cultura Ciudadana
+     </td>
+  </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td class="campos" height="25" >Entidad o dependencia responsable del cálculo del indicador</td>
+    <td>
+      <%=select("indicador", "dependencia_id", select_dependencia.collect {|p| [ p.descripcion, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :indicador, :dependencia_id, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Persona responsable del dato</td>
+    <td>
+    <%=select("indicador", "useranalisis", User.find(:all, :order=>"nombre").collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :indicador, :useranalisis, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Persona responsable del reporte</td>
+    <td>
+    <%=select("indicador", "userreporte", User.find(:all, :order=>"nombre").collect {|p| [ p.nombre, p.id ] }, { :include_blank => true },
+      { :style=>"width:500px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" }) %>
+        <%= error_message_on :indicador, :userreporte, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Marco normativo en el cual se sustenta el indicador</td>
+    <td>
+    <%= f.text_area :marco_normativo,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :marco_normativo, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Palabras Clave</td>
+    <td>
+    <%= f.text_area :palabras_clave,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :palabras_clave, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Comportamiento deseado del indicador</td>
+    <td>
+       <%= select(:indicador,:cre_dec, select_indicadorcredev,{ :include_blank => true }, { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :cre_dec, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Sentido del indicador</td>
+    <td>
+      <%= select(:indicador,:sentido, select_indicadorsentido,{ :include_blank => true },
+                 { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :sentido, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Unidad de medida</td>
+    <td>
+      <%= select(:indicador,:unidad_medida, select_unidaddemedida,{ :include_blank => true },
+                 { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :unidad_medida, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Fórmula de Cálculo</td>
+    <td><%= f.text_area :ecuacion,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+         :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :ecuacion, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Seguridad y salud en el trabajo?</td>
+    <td><%= select(:indicador,:seguridadysalud, select_sino,{ :include_blank => true },
+                 { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :seguridadysalud, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Clase de indicador</td>
+    <td>    <%= select(:indicador,:clase_indicador, select_indicadorclase, { :include_blank => true },
+            { :onchange => "cambio_claseindicador(this.form);", :style=>"width:220px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :clase_indicador, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  </table>  
+  <div id="mostrar1" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr class="odd1">
+          <td class="campos" height="25" >Variables que componen la fórmula V1</td>
+          <td><%= f.text_area :numerador,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <% unless @indicador.new_record? %>
+                    <% if permiso("indicador","A").to_s == "S" %>
+                    <div class="camposNotas"><%= link_to "Complementar Información", {:controller => "indicadoresvariables", :action => "valida", :indicadorid => @indicador.id, :tipo => "NUMERADOR"}, :popup => ['new_window','height=660,width=890,scrollbars=yes'], :class=>"verlink" %></div>
+                    <%end %>
+                <% end %>
+                <%= error_message_on :indicador, :numerador, :css_class=>"cerror"%>
+           </td>
+        </tr>
+        <tr  class="odd1">
+          <td class="campos" height="25" >Variables que componen la fórmula V2</td>
+          <td><%= f.text_area :denominador,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <% unless @indicador.new_record? %>
+                <% if permiso("indicador","A").to_s == "S" %>
+                    <div class="camposNotas"><%= link_to "Complementar Información", {:controller => "indicadoresvariables", :action => "valida", :indicadorid => @indicador.id, :tipo => "DENOMINADOR"}, :popup => ['new_window','height=660,width=890,scrollbars=yes'], :class=>"verlink" %></div>
+                    <% end %>
+                <% end %>
+              <%= error_message_on :indicador, :denominador, :css_class=>"cerror"%>
+           </td>
+        </tr>
+      </table>
+  </div>
+  <div id="mostrar2" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr class="odd1">
+          <td class="campos" height="25" >Variables que componen la fórmula V1</td>
+          <td><%= f.text_area :numerador1,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <% unless @indicador.new_record? %>
+                    <% if permiso("indicador","A").to_s == "S" %>
+                    <div class="camposNotas"><%= link_to "Complementar Información", {:controller => "indicadoresvariables", :action => "valida", :indicadorid => @indicador.id, :tipo => "NUMERADOR"}, :popup => ['new_window','height=660,width=890,scrollbars=yes'], :class=>"verlink" %></div>
+                    <%end %>
+                <% end %>
+                <%= error_message_on :indicador, :numerador, :css_class=>"cerror"%>
+           </td>
+        </tr>
+      </table>  
+  </div>
+  <div id="mostrar3" style="display:none;">
+      <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+        <tr class="odd1">
+          <td class="campos" height="25" >Indique el valor de la constante </td>
+          <td><%= f.text_field :valor_constante,{ :class => "campo", :size =>20,
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <%= error_message_on :indicador, :valor_constante, :css_class=>"cerror"%>
+           </td>
+        </tr>      
+        <tr  class="odd1">
+          <td class="campos" height="25" >Variables que componen la fórmula V1</td>
+          <td><%= f.text_area :numerador2,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <% unless @indicador.new_record? %>
+                    <% if permiso("indicador","A").to_s == "S" %>
+                    <div class="camposNotas"><%= link_to "Complementar Información", {:controller => "indicadoresvariables", :action => "valida", :indicadorid => @indicador.id, :tipo => "NUMERADOR"}, :popup => ['new_window','height=660,width=890,scrollbars=yes'], :class=>"verlink" %></div>
+                    <%end %>
+                <% end %>
+                <%= error_message_on :indicador, :numerador, :css_class=>"cerror"%>
+           </td>
+        </tr>
+        <tr class="odd1">
+          <td class="campos" height="25" >Variables que componen la fórmula V2</td>
+          <td><%= f.text_area :denominador1,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+               :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+                <% unless @indicador.new_record? %>
+                <% if permiso("indicador","A").to_s == "S" %>
+                    <div class="camposNotas"><%= link_to "Complementar Información", {:controller => "indicadoresvariables", :action => "valida", :indicadorid => @indicador.id, :tipo => "DENOMINADOR"}, :popup => ['new_window','height=660,width=890,scrollbars=yes'], :class=>"verlink" %></div>
+                    <% end %>
+                <% end %>
+              <%= error_message_on :indicador, :denominador, :css_class=>"cerror"%>
+           </td>
+        </tr>
+      </table>
+  </div>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td class="campos" height="25" >Restricciones de los datos</td>
+    <td><%= f.text_area :restricciones,{ :cols => 110, :rows => 6, :class => "campo",:onChange=> "javascript:this.value=this.value.toUpperCase();",
+         :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :restricciones, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Referencias bibliográficas - Cibergráficas</td>
+    <td>
+    <%= f.text_area :referencias,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :referencias, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Interpretación</td>
+    <td>
+    <%= f.text_area :interpretacion,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :interpretacion, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Fecha de concertación del indicador</td>
+    <td><%= calendar_date_select "indicador", "fecha_concretacion", :year_range =>select_rangocalendar, :class=> "campo", :size => 10, :time => false, :onfocus=>"this.blur()"%>
+        <%= error_message_on :indicador, :fecha_concretacion, :css_class=>"cerror"%>
+     </td>
+  </tr>  
+  <tr>
+    <td class="campos" height="25" >Medición</td>
+    <td><%= select(:indicador,:medicion, select_indicadormedicion,{ :include_blank => true },
+          { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :medicion, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  
+  <tr class="odd1">
+    <td class="campos" height="25" >Límite de control</td>
+    <td><%= f.text_field :limite,{ :class => "campo", :size =>10, :onChange=> "javascript:this.value=this.value.toUpperCase();",
+            :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :limite, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Meta Anual</td>
+    <td><%= f.text_field :meta,{ :class => "campo", :size =>10, :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :meta, :css_class=>"cerror"%>
+    </td>
+  </tr>
+  <tr class="odd1">
+    <td class="campos" height="25" >Meta cuatrenio</td>
+    <td><%= f.text_field :meta_cuatrenio,{ :class => "campo", :size =>10, :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :meta_cuatrenio, :css_class=>"cerror"%>
+    </td>
+  </tr>  
+  <tr>
+    <td class="campos" height="25" >Meta periodica</td>
+    <td><%= f.text_field :meta_periodica,{ :class => "campo", :size =>10, :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :meta_periodica, :css_class=>"cerror"%>
+    </td>
+  </tr>  
+</table><br/>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td height="30" align="left"><div class="col_enc">METODOLOGÍA DEL INDICADOR</div></td>
+  </tr>
+</table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr class="odd1">
+    <td class="campos" height="25" width="21%">Tipo de Indicador</td>
+    <td>
+    <%= select(:indicador,:tipo_indicador, select_indicadortipo,{ :include_blank => true },
+           { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :tipo_indicador, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" width="21%">Categorías de desagragación del Indicador</td>
+    <td>  <%= f.text_area :categoria,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :categoria, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr class="odd1" >
+    <td class="campos" height="21" >Ámbito de desagregación territorial</td>
+    <td  width="39%" class="camposDesc" valign="top">
+        <%= f.check_box :terri_comunas_correg,{},'SI','NO'%>&nbsp;Comuna - Corregimiento<br/>
+        <%= f.check_box :terri_barrio,{},'SI','NO'%>&nbsp;Barrios<br/>
+        <%= f.check_box :terri_poligono,{},'SI','NO'%>&nbsp;Polígono de tratamiento<br/>
+        <%= f.check_box :terri_clasificacion,{},'SI','NO'%>&nbsp;Clasificaciones suelo POT<br/>
+        <%= f.check_box :terri_corregimiento,{},'SI','NO'%>&nbsp;Corregimiento<br/>
+        <%= f.check_box :terri_manzana,{},'SI','NO'%>&nbsp;Manzana<br/>
+        <%= f.check_box :terri_municipio,{},'SI','NO'%>&nbsp;Municipio de Medellín<br/>
+        <%= f.check_box :terri_vereda,{},'SI','NO'%>&nbsp;Veredas
+     </td>
+    <td  width="40%" class="camposDesc" valign="top">
+        <%= f.check_box :terri_area_rural,{},'SI','NO'%>&nbsp;Área rural<br/>
+        <%= f.check_box :terri_area_urbana,{},'SI','NO'%>&nbsp;Área urbana<br/>
+        <%= f.check_box :terri_comunas,{},'SI','NO'%>&nbsp;Comunas<br/>
+        <%= f.check_box :terri_intervenciones,{},'SI','NO'%>&nbsp;Intervenciones<br/>
+        <%= f.check_box :terri_medellin_valle,{},'SI','NO'%>&nbsp;Medellín - Valle de Aburrá<br/>
+        <%= f.check_box :terri_zonas,{},'SI','NO'%>&nbsp;Zonas<br/>
+        <%= f.check_box :terri_tratamientos,{},'SI','NO'%>&nbsp;Tratamientos<br/>
+        <%= f.check_box :terri_poligono_inter,{},'SI','NO'%>&nbsp;Polígonos de intervención
+     </td>
+  </tr>
+  </table>
+  <table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr>
+    <td class="campos" height="21" >Ámbito de desagregación poblacional</td>
+    <td  width="39%" class="camposDesc" valign="top">
+        <%= f.check_box :pobla_sexo,{},'SI','NO'%>&nbsp;Sexo<br/>
+        <%= f.check_box :pobla_primera_infancia,{},'SI','NO'%>&nbsp;Primera Infancia<br/>
+        <%= f.check_box :pobla_infancia,{},'SI','NO'%>&nbsp;Infancia<br/>
+        <%= f.check_box :pobla_adolescencia,{},'SI','NO'%>&nbsp;Adolescencia<br/>
+        <%= f.check_box :pobla_juventud,{},'SI','NO'%>&nbsp;Juventud<br/>
+        <%= f.check_box :pobla_mayores,{},'SI','NO'%>&nbsp;Personas Mayores<br/>
+        <%= f.check_box :pobla_lgbti,{},'SI','NO'%>&nbsp;Población LGBTI<br/>
+        <%= f.check_box :pobla_indigena,{},'SI','NO'%>&nbsp;Población Indígena
+     </td>
+    <td  width="40%" class="camposDesc" valign="top">                
+        <%= f.check_box :pobla_afro,{},'SI','NO'%>&nbsp;Población Afro<br/>
+        <%= f.check_box :pobla_victima,{},'SI','NO'%>&nbsp;Población Víctima<br/>
+        <%= f.check_box :pobla_discapacidad,{},'SI','NO'%>&nbsp;Población con Discapacidad<br/>
+        <%= f.check_box :pobla_habitante,{},'SI','NO'%>&nbsp;Población Habitante de calle<br/>
+        <%= f.check_box :pobla_edad,{},'SI','NO'%>&nbsp;Edad<br/>
+        <%= f.check_box :pobla_desp,{},'SI','NO'%>&nbsp;Población desplazada<br/>
+        <%= f.check_box :pobla_otra,{},'SI','NO'%>&nbsp;Otra población
+     </td>
+  </tr>
+  </table>
+<table width="100%" border="0" cellpadding="2" align="center" cellspacing="2">
+  <tr class="odd1">
+    <td class="campos" height="25" >Otras categorías de desagregación del indicador</td>
+    <td>
+    <%= f.text_area :otra_categoria,{ :cols => 110, :rows => 3, :class => "campo",
+                :onChange=> "javascript:this.value=this.value.toUpperCase();",
+              :onFocus => "this.style.border='1px solid #f00'",
+              :onBlur => "this.style.border='1px solid #bbb'" } %>
+        <%= error_message_on :indicador, :otra_categoria, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  <tr>
+    <td class="campos" height="25" >Periodicidad de generación del indicador</td>
+    <td>
+        <%= select(:indicador,
+                        :frecuenciaanalisis, select_indicadormedicion,
+                                { :include_blank => true },
+                              { :style=>"width:120px", :class => "campo", :onFocus => "this.style.border='1px solid #f00'", :onBlur => "this.style.border='1px solid #bbb'" })%>
+        <%= error_message_on :indicador, :frecuenciaanalisis, :css_class=>"cerror"%>
+     </td>
+  </tr>
+  
+   <table width="100%" height="0" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="10"><hr size="1" noshade class="hrlinea"/></td>
+      </tr>
+    </table>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <td class="camposNotas" align="left">
+              <% unless @indicador.new_record? %>
+              Ultima Actualización: <%=User.find(@indicador.user_actualiza).username rescue nil%> - <%=@indicador.updated_at.strftime("%Y-%m-%d %X")%>
+            <% end %></td>
+            <td  height="30"><div align="right">
+            <% if permiso("indicador","A").to_s == "S" %>
+                <div class="uiButton"><img class="img" src="/images/guardar.png"/>&nbsp;&nbsp;<span class="uiButtonText"><%= submit_tag "Guardar", :disable_with => "Guardando..."%></span></div>
+            <% end %>
+            <% if permiso("indicador","E").to_s == "S" %>
+                &nbsp;&nbsp;<%= link_to 'Eliminar', @indicador, :confirm => 'Esta seguro que desea eliminiar este registro con todos sus componentes?', :method => :delete,:class=>"borrarlink" %>
+            <% end %>
+        </div></td>
+          </tr>
+        </table>
+</table>
+  </div>
+<% end %>
+</fieldset>
+<% elsif @indicador.etapa.to_s == '2' %>
+    <fieldset><div id="indicadoresfichas_form"><%= render :partial => "/indicadoresfichas/indicadoresfichas" %></div></fieldset>
+<% elsif @indicador.etapa.to_s == '3' %>
+    <fieldset><div id="indicadoresactualizaciones_form"><%= render :partial => "/indicadoresactualizaciones/indicadoresactualizaciones" %></div></fieldset>
+<% end %>
+<br/><br/>
